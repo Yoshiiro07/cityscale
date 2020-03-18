@@ -125,7 +125,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 	private Sprite spr_teste3;
 	private Texture tex_teste;
 	
-	public ForestArea(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt){
+	public ForestArea(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt,String net){
 		this.game = gameAlt;
 		this.config = configAlt;
 		this.gameControl = controlAlt;
@@ -167,6 +167,8 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 		
 		//Online
 		lstInfoOnline = new ArrayList<Player>();
+		if(net.equals("On")){ onlineState = true; }
+		if(net.equals("Off")){ onlineState = false; }
 		
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
@@ -353,14 +355,8 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 			//Se for skill AoE  exibir aviso
 			spr_Interface = gameControl.InterfaceStreets305("ActionBtn", ""); spr_Interface.draw(game.batch);  //ATK
 			
-			//ExibeNPC
-			//ExibirNpcs();
-			
 			//Chats
 			ExibeChats();
-			
-			//Exibe Quests
-			//ExibeQuests();
 			
 			//Exibe Skills
 			ExibeSkills();
@@ -422,15 +418,6 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Objects
 		    //ScenarioObjects("textovershop");
-			
-			// Show Shops
-			if(shopState) {
-				spr_master = gameControl.InterfaceStreets305("SodaMachine", "");
-				spr_master.draw(game.batch);
-				font_master.getData().setScale(0.25f,0.28f);
-				font_master.setColor(Color.YELLOW);
-				font_master.draw(game.batch,activePlayer.Money_A,cameraCoordsX + 27,cameraCoordsY - 5); // playerAttackCooldown
-			}
 						
 			// Menu Section
 			if(menuState) {		
@@ -578,7 +565,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +85);
 					font_master.draw(game.batch,lstInfoOnline.get(i).HP_A,cameraCoordsX - 80,cameraCoordsY +79);
 					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 80,cameraCoordsY +73);
-					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 69,cameraCoordsY +80);
+					font_master.draw(game.batch,lstInfoOnline.get(i).Level_A,cameraCoordsX - 69,cameraCoordsY +80);
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +66);	
 				}
 				
@@ -592,7 +579,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +57);
 					font_master.draw(game.batch,lstInfoOnline.get(i).HP_A,cameraCoordsX - 80,cameraCoordsY +52);
 					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 80,cameraCoordsY +46);
-					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 69,cameraCoordsY +52);
+					font_master.draw(game.batch,lstInfoOnline.get(i).Level_A,cameraCoordsX - 69,cameraCoordsY +52);
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +38);
 				}
 				
@@ -606,7 +593,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +29);
 					font_master.draw(game.batch,lstInfoOnline.get(i).HP_A,cameraCoordsX - 80,cameraCoordsY +24);
 					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 80,cameraCoordsY +18);
-					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 69,cameraCoordsY +24);			
+					font_master.draw(game.batch,lstInfoOnline.get(i).Level_A,cameraCoordsX - 69,cameraCoordsY +24);			
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +10);
 				}
 				
@@ -614,14 +601,6 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 			}
 		}
 		
-	}
-	
-	public void ExibirNpcs(){
-		lstNpcs = gameControl.ExibeNPCs("Streets305");
-		for(int x = 0; x < lstNpcs.size(); x++){
-			spr_master = lstNpcs.get(x);
-			spr_master.draw(game.batch);
-		}
 	}
 	
 	private void ExibeChats() {	
@@ -744,15 +723,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 	// World Settings - BEGIN //
 	private void VerificaAction() {
 		
-		//if( (playerX >= 75 && playerX <= 102) && ( playerY >= -84 && playerY <= -70) ) {
-		//	shopState = true;
-		//	shopName = "SodaMachine";
-		//}
 		
-		//if( (playerX >= 44 && playerX <= 74) && (playerY >= -108 && playerY <= -80) ) {
-		//	questState = true;
-		//	questName = "Um pedido gentil";
-		//}
 	}
 	
 	private void ExibeQuests() {

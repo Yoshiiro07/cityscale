@@ -45,6 +45,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private boolean menuState = false;
 	private boolean deadState = false;
 	private boolean movement = false;
+	private boolean onlineState = false;
 	
 	//Camera
 	private OrthographicCamera camera;
@@ -84,13 +85,16 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private Sprite spr_Metro;
 	private Sprite spr_Metro2;
 	
+	//online
+	
+	
 	//teste
 	private Sprite spr_teste;
 	private Sprite spr_teste2;
 	private Sprite spr_teste3;
 	private Texture tex_teste;
 	
-	public MetroStation(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt){
+	public MetroStation(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt, String net){
 		this.game = gameAlt;
 		this.config = configAlt;
 		this.gameControl = controlAlt;
@@ -108,6 +112,9 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		
 		if(platform.equals("PC")) { entryType = "PC"; }
 		if(platform.equals("Mobile")) { entryType = "Mobile"; }
+		
+		if(net.equals("on")){ onlineState = true; }
+		if(net.equals("off")) { onlineState = false; }
 		
 		//Data Recover
 		charNumActive = gameControl.RecoverActiveChar();

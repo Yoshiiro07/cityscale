@@ -12,12 +12,14 @@ public class LoadingScreen implements Screen{
 	private String config[];
 	private GameControl control;
 	private String platform;
+	private String network;
 	
 	public LoadingScreen(MainGame game){
 		this.game = game;
 		screens = new ArrayList<Screen>();
 		control = new GameControl();
 		platform = "Mobile";
+		network = "off";
 	}
 	
 	public void screenSwitch(String tipo){
@@ -38,26 +40,27 @@ public class LoadingScreen implements Screen{
 		}
 		
 		if(tipo.equals("MetroStation")) {
-			MetroStation metrostationScreen = new MetroStation(game, config, control,platform);
+			MetroStation metrostationScreen = new MetroStation(game, config, control,platform, network);
 			game.setScreen(metrostationScreen);
 		}
 		
 		if(tipo.equals("Streets305")) {
-			Streets305 streets305Screen = new Streets305(game, config, control,platform);
+			Streets305 streets305Screen = new Streets305(game, config, control,platform, network);
 			game.setScreen(streets305Screen);
 		}
 		
 		if(tipo.equals("ForestArea")) {
-			ForestArea forestScreen = new ForestArea(game, config, control,platform);
+			ForestArea forestScreen = new ForestArea(game, config, control,platform,network);
 			game.setScreen(forestScreen);
 		}
 	}
 	
-	public void atualizaComponentes(MainGame maingameAlt, String[] configAlt, GameControl controlAlt, String platformAlt){
+	public void atualizaComponentes(MainGame maingameAlt, String[] configAlt, GameControl controlAlt, String platformAlt, String networkAlt){
 		this.game = maingameAlt;
 		this.config = configAlt;
 		this.control = controlAlt;
 		this.platform = platformAlt;
+		this.network = networkAlt;
 	}
 
 	@Override

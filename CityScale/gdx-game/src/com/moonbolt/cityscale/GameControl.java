@@ -2167,9 +2167,9 @@ public class GameControl {
 		public void CarregaMonstrosMapa(String mapa) {
 			lstMonsters.clear();
 			
-			//if(mapa.equals("Streets305")) {
-			//	lstMonsters.add(mobContainer.GetMonster("slimeA", "Streets305"));
-			//}
+			if(mapa.equals("Streets305")) {
+				lstMonsters.add(mobContainer.GetMonster("slimeA", "Streets305"));
+			}
 			
 			if(mapa.equals("ForestArea")) {
 				lstMonsters.add(mobContainer.GetMonster("slimeA", "ForestArea"));
@@ -2639,18 +2639,88 @@ public class GameControl {
 			if(expPlayer >= 699992 && levelPlayer == 39) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
 			if(expPlayer >= 739231 && levelPlayer == 40) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
 			if(expPlayer >= 892312 && levelPlayer == 41) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
-			if(expPlayer >= 1324230 && levelPlayer == 42) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
-			if(expPlayer >= 1923120 && levelPlayer == 43) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
-			if(expPlayer >= 3245235 && levelPlayer == 44) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
-			if(expPlayer >= 5522332 && levelPlayer == 45) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
-			if(expPlayer >= 8023422 && levelPlayer == 46) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
-			if(expPlayer >= 11203245 && levelPlayer == 47) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
-			if(expPlayer >= 19064345 && levelPlayer == 48) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
-			if(expPlayer >= 36543199 && levelPlayer == 49) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
+			if(expPlayer >= 1324230 && levelPlayer == 42) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+			if(expPlayer >= 1923120 && levelPlayer == 43) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+			if(expPlayer >= 3245235 && levelPlayer == 44) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+			if(expPlayer >= 5522332 && levelPlayer == 45) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+			if(expPlayer >= 8023422 && levelPlayer == 46) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+			if(expPlayer >= 11203245 && levelPlayer == 47) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+			if(expPlayer >= 19064345 && levelPlayer == 48) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+			if(expPlayer >= 36543199 && levelPlayer == 49) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
 			
 			Character_Data.Exp_A = String.valueOf(expPlayer);
 			Character_Data.Level_A = String.valueOf(levelPlayer);
 			Character_Data.StatusPoint_A = String.valueOf(pontosStatus);
+		}
+		
+		private void ResetaPontosStatus(){
+			
+			Character_Data.Strengh_A = "1";
+			Character_Data.Vitality_A = "1";
+			Character_Data.Agility_A = "1";
+			Character_Data.Dextery_A = "1";
+			Character_Data.Lucky_A = "1";
+			Character_Data.Mind_A = "1";
+			Character_Data.Resistence_A = "1";
+			Character_Data.HPMAX_A = "100";
+			Character_Data.MPMAX_A = "100";
+			Character_Data.Stamina_A = "100";
+			Character_Data.StatusPoint_A = "0";
+			
+			int levelPlayer = Integer.parseInt(Character_Data.Level_A);
+			int pontosStatus = 0;
+			
+			if(levelPlayer >= 2){ pontosStatus = pontosStatus + 3; }
+			if(levelPlayer >= 3){ pontosStatus = pontosStatus + 3; }
+			if(levelPlayer >= 4){ pontosStatus = pontosStatus + 4; }
+			if(levelPlayer >= 5){ pontosStatus = pontosStatus + 4;}
+			if(levelPlayer >= 6){ pontosStatus = pontosStatus + 4;}
+			if(levelPlayer >= 7){ pontosStatus = pontosStatus + 4;}
+			if(levelPlayer >= 8){ pontosStatus = pontosStatus + 4;}
+			if(levelPlayer >= 9){ pontosStatus = pontosStatus + 4;}
+			if(levelPlayer >= 10){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 11){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 12){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 13){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 14){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 15){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 16){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 17){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 18){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 19){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 20){ pontosStatus = pontosStatus + 5;}
+			if(levelPlayer >= 21){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 22){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 23){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 24){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 25){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 26){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 27){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 28){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 29){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 30){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 31){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 32){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 33){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 34){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 35){ pontosStatus = pontosStatus + 6;}
+			if(levelPlayer >= 36){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 37){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 38){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 39){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 40){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 41){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 42){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 43){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 44){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 45){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 46){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 47){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 48){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 49){ pontosStatus = pontosStatus + 7;}
+			if(levelPlayer >= 50){ pontosStatus = pontosStatus + 7;}
+			
+			
 		}
 		
 		public int DanoArma() {
@@ -3238,7 +3308,11 @@ public class GameControl {
 			int money = Integer.parseInt(Character_Data.Money_A);		
 			if(nomeloja.equals("SodaMachine")) {
 				if(numeroItem == 1) {
-					if(money >= 10) { AdicionaItemMochila("Refrigerante"); money = money;  Character_Data.Money_A = String.valueOf(money); }
+					if(money >= 10) { 
+					AdicionaItemMochila("Refrigerante"); 
+					money = money - 10;  
+					Character_Data.Money_A = String.valueOf(money); 
+					}
 				}
 			}
 		}
@@ -4184,7 +4258,7 @@ public class GameControl {
 			auxOnline = onlineData[2];
 			splitonlineData = auxOnline.split("=");		
 			text = text + ": " + splitonlineData[1];	
-			//Conclusão
+			//Conclusï¿½o
 			auxOnline = text;
 			
 			if(number == 1) { chat1 = auxOnline; }

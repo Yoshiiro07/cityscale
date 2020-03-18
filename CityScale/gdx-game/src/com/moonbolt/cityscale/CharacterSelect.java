@@ -13,6 +13,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private String[] config;
 	private GameControl gameControl;
 	private String platform;
+	private String networkState = "no";
 	
 	//Primitives
 	private boolean check = false;
@@ -392,7 +393,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		//Check option Select
 		if(check == true){		
-		    game.AtualizaElementos(game, config, gameControl, platform);	    		
+		    game.AtualizaElementos(game, config, gameControl, platform,networkState);	    		
 		}
 		
 		if(showAccount) {
@@ -947,7 +948,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			//Acessar
 			if((coordsTouch.x >= 87 && coordsTouch.x <= 98) && (coordsTouch.y >= 69 && coordsTouch.y <= 75)){
-				game.AtualizaElementos(game, config, gameControl, platform);	    
+				game.AtualizaElementos(game, config, gameControl, platform,networkState);	    
 				if(showNumberCharacter == 1) { gameControl.SetNumberChar(1); game.loadingmanager.screenSwitch(charData[23]); }
 				if(showNumberCharacter == 2) { gameControl.SetNumberChar(2); game.loadingmanager.screenSwitch(charData[33]); }
 				if(showNumberCharacter == 3) { gameControl.SetNumberChar(3); game.loadingmanager.screenSwitch(charData[43]); }

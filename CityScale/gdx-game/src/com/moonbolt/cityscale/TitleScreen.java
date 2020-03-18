@@ -22,6 +22,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	private String[] config;
 	private GameControl gameControl;
 	private String platform;
+	private String networkState = "no";
 	
 	//Primitives
 	private boolean check = false;
@@ -137,7 +138,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		
 		//Check option Select
 		if(check == true){		
-		    game.AtualizaElementos(game, config, gameControl, platform);
+		    game.AtualizaElementos(game, config, gameControl, platform, networkState);
 		    game.Switch("CharacterSelect");			
 		}
 		
@@ -168,7 +169,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		}
 		//Recuperar do Backup
 		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
-			Gdx.input.getTextInput(this,"Digite o código","",""); 
+			Gdx.input.getTextInput(this,"Digite o cï¿½digo","",""); 
 		}	
 			
 		
