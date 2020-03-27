@@ -534,7 +534,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	
 	private void TrataOnline() {
 		
-			//lstInfoOnline.clear();
+		try {
 			lstInfoOnline = gameControl.InfoPlayerOnline();
 			for(int i = 0; i < lstInfoOnline.size(); i ++) {
 				
@@ -550,10 +550,16 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				
 				font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,Float.parseFloat(lstInfoOnline.get(i).PX_A) + 3,Float.parseFloat(lstInfoOnline.get(i).PY_A) + 10);
 				}
-			}			
+			}
+		}
+		
+		catch(Exception ex) {
+			
+		}
 	}
 	
 	private void ExibeParty() {
+		try {
 		lstInfoOnline = gameControl.InfoPlayerOnline();
 		
 		countParty = 0;
@@ -571,9 +577,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					spr_master = gameControl.InterfaceStreets305("PartyTag1","");
 					spr_master.draw(game.batch);
 					
-					if(lstInfoOnline.get(i).Hair_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }
-					if(lstInfoOnline.get(i).Hair_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }																			
-					spr_master.draw(game.batch);
+					if(lstInfoOnline.get(i).Hair_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 90,cameraCoordsY); spr_master.draw(game.batch); }
+					if(lstInfoOnline.get(i).Hair_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 90,cameraCoordsY + 21); spr_master.draw(game.batch); }																			
+					
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +85);
 					font_master.draw(game.batch,lstInfoOnline.get(i).HP_A,cameraCoordsX - 80,cameraCoordsY +79);
@@ -616,6 +622,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				
 				font_master.getData().setScale(0.12f,0.14f);
 			}
+		}
+		
+		}
+		
+		catch(Exception ex) {
+			
 		}
 		
 	}
