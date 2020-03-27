@@ -3875,6 +3875,7 @@ public class GameControl {
 		        data += "&" + URLEncoder.encode("lmp", "UTF-8") + "=" + URLEncoder.encode(Character_Data.MP_A, "UTF-8");
 		        data += "&" + URLEncoder.encode("lposX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(posOnlineX), "UTF-8");
 		        data += "&" + URLEncoder.encode("lposY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(posOnlineY), "UTF-8");
+		        data += "&" + URLEncoder.encode("lsex", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(Character_Data.Sex_A), "UTF-8");
 		        data += "&" + URLEncoder.encode("lmap", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Map_A, "UTF-8");
 		        data += "&" + URLEncoder.encode("llevel", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Level_A, "UTF-8");
 		        data += "&" + URLEncoder.encode("lsetchar", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Set_A, "UTF-8");
@@ -4219,6 +4220,10 @@ public class GameControl {
 			splitonlineData = auxOnline.split("=");	
 			plOnline.Party_A = splitonlineData[1];	
 			
+			auxOnline = onlineData[18];
+			splitonlineData = auxOnline.split("=");
+			plOnline.Sex_A = splitonlineData[1];
+			
 			if(!plOnline.Name_A.equals(Character_Data.Name_A)) {
 				
 				findplayerlist = false;
@@ -4236,7 +4241,8 @@ public class GameControl {
 						lstOnlinePlayers.get(i).Weapon_A = plOnline.Weapon_A;
 						lstOnlinePlayers.get(i).Battle_A = plOnline.Battle_A;
 						lstOnlinePlayers.get(i).Side_A = plOnline.Side_A;
-						lstOnlinePlayers.get(i).Position_A = plOnline.Position_A;					
+						lstOnlinePlayers.get(i).Position_A = plOnline.Position_A;	
+						lstOnlinePlayers.get(i).Sex_A = plOnline.Sex_A;
 					}
 				}
 				

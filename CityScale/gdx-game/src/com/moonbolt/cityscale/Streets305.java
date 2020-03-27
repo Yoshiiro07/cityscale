@@ -19,7 +19,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import android.preference.*;
 
 public class Streets305 implements Screen, ApplicationListener, InputProcessor, TextInputListener  {
     
@@ -523,12 +522,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 
 		//Tests
-		spr_teste.setPosition(401, -79); 
-		spr_teste2.setPosition(410, -79);
-		spr_teste.draw(game.batch);
-		spr_teste2.draw(game.batch);
-		font_master.draw(game.batch,String.valueOf(playerX),cameraCoordsX,cameraCoordsY);
-		font_master.draw(game.batch,String.valueOf(playerY),cameraCoordsX + 30,cameraCoordsY);		
+		//spr_teste.setPosition(401, -79); 
+		//spr_teste2.setPosition(410, -79);
+		//spr_teste.draw(game.batch);
+		//spr_teste2.draw(game.batch);
+		//font_master.draw(game.batch,String.valueOf(playerX),cameraCoordsX,cameraCoordsY);
+		//font_master.draw(game.batch,String.valueOf(playerY),cameraCoordsX + 30,cameraCoordsY);		
 		
 		game.batch.end();
 	}
@@ -562,50 +561,56 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			String partylst =  lstInfoOnline.get(i).Party_A;
 			String characterParty = activePlayer.Party_A;
 			if(lstInfoOnline.get(i).Party_A.equals(activePlayer.Party_A)) {
-				countParty++;
+				//countParty++;
 				
 				font_master.getData().setScale(0.09f,0.11f);
 				if(countParty > 3) { return;}
 				
+				countParty = 1;
 				if(countParty == 1) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag1","");
 					spr_master.draw(game.batch);
 					
-					spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY + 26);																								
+					if(lstInfoOnline.get(i).Hair_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }
+					if(lstInfoOnline.get(i).Hair_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }																			
 					spr_master.draw(game.batch);
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +85);
 					font_master.draw(game.batch,lstInfoOnline.get(i).HP_A,cameraCoordsX - 80,cameraCoordsY +79);
 					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 80,cameraCoordsY +73);
-					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 69,cameraCoordsY +80);
+					font_master.draw(game.batch,lstInfoOnline.get(i).Level_A,cameraCoordsX - 69,cameraCoordsY +79);
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +66);	
 				}
 				
+				countParty = 2;
 				if(countParty == 2) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag2","");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY - 1);
+					if(lstInfoOnline.get(i).Hair_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }
+					if(lstInfoOnline.get(i).Hair_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }																			
 					spr_master.draw(game.batch);
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +57);
 					font_master.draw(game.batch,lstInfoOnline.get(i).HP_A,cameraCoordsX - 80,cameraCoordsY +52);
 					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 80,cameraCoordsY +46);
-					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 69,cameraCoordsY +52);
+					font_master.draw(game.batch,lstInfoOnline.get(i).Level_A,cameraCoordsX - 69,cameraCoordsY +52);
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +38);
 				}
 				
+				countParty = 3;
 				if(countParty == 3) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag3","");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY - 30);
+					if(lstInfoOnline.get(i).Hair_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }
+					if(lstInfoOnline.get(i).Hair_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }																			
 					spr_master.draw(game.batch);
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +29);
 					font_master.draw(game.batch,lstInfoOnline.get(i).HP_A,cameraCoordsX - 80,cameraCoordsY +24);
 					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 80,cameraCoordsY +18);
-					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 69,cameraCoordsY +24);			
+					font_master.draw(game.batch,lstInfoOnline.get(i).Level_A,cameraCoordsX - 69,cameraCoordsY +24);			
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +10);
 				}
 				
