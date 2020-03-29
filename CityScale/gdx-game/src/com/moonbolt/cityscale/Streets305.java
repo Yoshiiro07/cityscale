@@ -535,6 +535,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private void TrataOnline() {
 		
 		try {
+			font_master.getData().setScale(0.15f,0.18f);
+			font_master.setColor(Color.WHITE);
 			lstInfoOnline = gameControl.InfoPlayerOnline();
 			for(int i = 0; i < lstInfoOnline.size(); i ++) {
 				
@@ -577,8 +579,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					spr_master = gameControl.InterfaceStreets305("PartyTag1","");
 					spr_master.draw(game.batch);
 					
-					if(lstInfoOnline.get(i).Hair_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 90,cameraCoordsY); spr_master.draw(game.batch); }
-					if(lstInfoOnline.get(i).Hair_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 90,cameraCoordsY + 21); spr_master.draw(game.batch); }																			
+					if(lstInfoOnline.get(i).Sex_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 22); spr_master.draw(game.batch); }
+					if(lstInfoOnline.get(i).Sex_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY + 25); spr_master.draw(game.batch); }																			
 					
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +85);
@@ -593,8 +595,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					spr_master = gameControl.InterfaceStreets305("PartyTag2","");
 					spr_master.draw(game.batch);
 
-					if(lstInfoOnline.get(i).Hair_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }
-					if(lstInfoOnline.get(i).Hair_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }																			
+					if(lstInfoOnline.get(i).Sex_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY - 6); }
+					if(lstInfoOnline.get(i).Sex_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY -2); }																			
 					spr_master.draw(game.batch);
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +57);
@@ -609,8 +611,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					spr_master = gameControl.InterfaceStreets305("PartyTag3","");
 					spr_master.draw(game.batch);
 
-					if(lstInfoOnline.get(i).Hair_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }
-					if(lstInfoOnline.get(i).Hair_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 21); }																			
+					if(lstInfoOnline.get(i).Sex_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY - 34); }
+					if(lstInfoOnline.get(i).Sex_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY - 31); }																			
 					spr_master.draw(game.batch);
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +29);
