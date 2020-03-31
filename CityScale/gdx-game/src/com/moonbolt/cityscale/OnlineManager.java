@@ -53,6 +53,11 @@ public class OnlineManager
 		this.Character_Data = playerActive;
 	}
 	
+
+	public void InsereChat(String chatmsg) {
+		lstChats.add(Character_Data.Name_A + ":" + chatmsg);
+	}
+	
 	public void OperacaoOnline(String nomeOperacao, String subdado) {
 
 		try {

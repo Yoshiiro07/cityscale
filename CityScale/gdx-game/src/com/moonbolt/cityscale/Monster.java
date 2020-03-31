@@ -1,6 +1,11 @@
 package com.moonbolt.cityscale;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class Monster {
 	
@@ -72,8 +77,15 @@ public class Monster {
 	public String LOCKDEATH;
 	public String MAP;
 	
+	private TextureAtlas atlas_Mob;
+	private TextureAtlas atlas_Forest;
+	
 	public Monster() {
 		randnumber = new Random();
+		
+		atlas_Mob = new TextureAtlas(Gdx.files.internal("data/monsters/mobsForest.txt"));
+		atlas_Forest = new TextureAtlas(Gdx.files.internal("data/monsters/mobsForest.txt"));
+		
 	}
 	
 	public Monster GetMonster(String name, String map) {
@@ -600,6 +612,155 @@ public class Monster {
 	public Monster FrameAndMovementAgressive(Monster mobSelected, float pX, float pY) {
 		
 		return mobSelected;
+	}
+	
+	public void CarregaMonstrosMapa(String mapa) {
+		lstMonsters.clear();
+		
+		if(mapa.equals("Streets305")) {
+			lstMonsters.add(mobContainer.GetMonster("slimeA", "Streets305"));
+		}
+		
+		if(mapa.equals("ForestArea")) {
+			lstMonsters.add(mobContainer.GetMonster("slimeA", "ForestArea"));
+			lstMonsters.add(mobContainer.GetMonster("beeA", "ForestArea"));
+			lstMonsters.add(mobContainer.GetMonster("willowA", "ForestArea"));
+			lstMonsters.add(mobContainer.GetMonster("oikplantA", "ForestArea"));
+			lstMonsters.add(mobContainer.GetMonster("poroB", "ForestArea"));
+			lstMonsters.add(mobContainer.GetMonster("beeB", "ForestArea"));
+		}
+	}
+	
+	public ArrayList<Sprite> ExibeMonstros(float playerX, float playerY) {
+		
+		lstSprites.clear();
+		
+		for(countA = 0; countA < lstMonsters.size(); countA++){	
+			
+			if(lstMonsters.get(countA).AGRESSIVE.equals("no")) { mobContainer = mobContainer.FrameAndMovement(lstMonsters.get(countA), pX, pY);}
+			if(lstMonsters.get(countA).AGRESSIVE.equals("yes")) { mobContainer = mobContainer.FrameAndMovementAgressive(lstMonsters.get(countA), pX, pY);}
+			
+			mobX = Float.parseFloat(mobContainer.PX);
+			mobY = Float.parseFloat(mobContainer.PY);
+			
+			if(mobX <= -48) { mobX = -48; }
+			if(mobX >= 424) { mobX = 422; }
+			if(mobY > 50) { mobY = 50; }
+			if(mobY < -357) { mobY = -354; }
+			
+			
+				if(mobContainer.NAME.equals("slime")) { atlas_Mob = atlas_Forest; }
+				if(mobContainer.NAME.equals("bee")) { atlas_Mob = atlas_Forest; }
+			
+				if(lstMonsters.get(countA).SIDE.equals("right")) {
+					
+						if(mobContainer.FRAME.equals("1")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "1_right");   
+							spr_master.setPosition(mobX, mobY);
+						}
+						if(mobContainer.FRAME.equals("2")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "2_right");   
+							spr_master.setPosition(mobX, mobY);
+						}
+						if(mobContainer.FRAME.equals("3")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "3_right");   
+							spr_master.setPosition(mobX, mobY);
+						}
+						if(mobContainer.FRAME.equals("4")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "4_right");   
+							spr_master.setPosition(mobX, mobY);
+						}
+						if(mobContainer.FRAME.equals("5")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "1_damage_right");   
+							spr_master.setPosition(mobX, mobY);
+						}
+					}
+				
+			        if(lstMonsters.get(countA).SIDE.equals("left")) {
+						if(mobContainer.FRAME.equals("1")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "1_left");   
+							spr_master.setPosition(mobX, mobY);
+						}
+						if(mobContainer.FRAME.equals("2")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "2_left");   
+							spr_master.setPosition(mobX, mobY);
+						}
+						if(mobContainer.FRAME.equals("3")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "3_left");   
+							spr_master.setPosition(mobX, mobY);
+						}
+						if(mobContainer.FRAME.equals("4")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "4_left");   
+							spr_master.setPosition(mobX, mobY);
+						}
+						if(mobContainer.FRAME.equals("5")) { 
+							spr_master = atlas_Mob.createSprite(mobContainer.NAME + "1_damage_left");   
+							spr_master.setPosition(mobX, mobY);
+						}
+					}
+				
+				
+				
+				mobX = Float.parseFloat(mobContainer.WIDTH);
+				mobY = Float.parseFloat(mobContainer.HEIGHT);
+				
+				spr_master.setSize(mobX, mobY);
+				
+				lstSprites.add(spr_master);
+		}
+		
+		return lstSprites;
+	}
+	
+	public ArrayList<String> ExibeNomesMonstros(){
+		
+		lstNomes.clear();
+		
+		for(countA = 0; countA < lstMonsters.size(); countA++){		
+		
+			lstNomes.add(lstMonsters.get(countA).NAME + "/" + lstMonsters.get(countA).HP + "/" + lstMonsters.get(countA).HPMAX + "/" + lstMonsters.get(countA).PX + "/" + lstMonsters.get(countA).PY);
+		}
+		
+		return lstNomes;
+	}
+	
+	
+	
+	//Respawn Monstros
+	public void RespawnMonstros() {
+		int respawn = 0;
+		int respawnMax = 0;
+		int HPMob = 0;
+		int HPMAX = 0;
+		int pXRandom = 0;
+		int pYRandom = 0;
+		float pYmob = 0;
+		
+		for(countA = 0; countA < lstMonsters.size(); countA++){
+			HPMob = Integer.parseInt(lstMonsters.get(countA).HP);
+			if(lstMonsters.get(countA).LOCKDEATH.equals("yes")){					
+				lstMonsters.get(countA).PX = "-1200";
+				lstMonsters.get(countA).PY = "-1000";
+				respawn = Integer.parseInt(lstMonsters.get(countA).RESPAWN);
+				respawnMax = Integer.parseInt(lstMonsters.get(countA).RESPAWNMAX);					
+				respawn--;
+				lstMonsters.get(countA).RESPAWN = String.valueOf(respawn);
+				if(respawn < 0) {
+					pXRandom = randnumber.nextInt(422);
+					pYRandom = randnumber.nextInt(370);
+					pYmob = pYRandom;
+					pYmob = pYmob - (pYmob * 2);
+					
+					lstMonsters.get(countA).PX = String.valueOf(pXRandom);
+					lstMonsters.get(countA).PY = String.valueOf(pYmob);
+					lstMonsters.get(countA).RESPAWN = lstMonsters.get(countA).RESPAWNMAX;
+					lstMonsters.get(countA).HP = lstMonsters.get(countA).HPMAX;
+					lstMonsters.get(countA).MP = lstMonsters.get(countA).MPMAX;
+					lstMonsters.get(countA).LOCKDEATH = "no";
+					lstMonsters.get(countA).TARGET = "none";
+				}
+			}
+		}
 	}
 	
 	

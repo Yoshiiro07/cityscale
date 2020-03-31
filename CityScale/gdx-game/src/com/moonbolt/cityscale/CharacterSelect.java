@@ -12,8 +12,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private MainGame game;
 	private String[] config;
 	private GameControl gameControl;
-	private String platform;
-	private String networkState = "no";
 	
 	//Primitives
 	private boolean check = false;
@@ -121,11 +119,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private Texture tex_teste;
 	
 	
-	public CharacterSelect(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt){
+	public CharacterSelect(MainGame gameAlt, String[] configAlt, GameControl controlAlt){
 		this.game = gameAlt;
 		this.config = configAlt;
 		this.gameControl = controlAlt;
-		this.platform = platformAlt;
 		
 		charData = new String[50];
 		
@@ -393,7 +390,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		//Check option Select
 		if(check == true){		
-		    game.AtualizaElementos(game, config, gameControl, platform,networkState);	    		
+		    game.AtualizaElementos(game, config, gameControl);	    		
 		}
 		
 		if(showAccount) {
@@ -948,7 +945,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			//Acessar
 			if((coordsTouch.x >= 87 && coordsTouch.x <= 98) && (coordsTouch.y >= 69 && coordsTouch.y <= 75)){
-				game.AtualizaElementos(game, config, gameControl, platform,networkState);	    
+				game.AtualizaElementos(game, config, gameControl);	    
 				if(showNumberCharacter == 1) { gameControl.SetNumberChar(1); game.loadingmanager.screenSwitch(charData[23]); }
 				if(showNumberCharacter == 2) { gameControl.SetNumberChar(2); game.loadingmanager.screenSwitch(charData[33]); }
 				if(showNumberCharacter == 3) { gameControl.SetNumberChar(3); game.loadingmanager.screenSwitch(charData[43]); }

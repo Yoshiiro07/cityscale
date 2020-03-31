@@ -19,10 +19,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 ////MAINLY///
 	private MainGame game;
-	private String[] config;
+	private String[] config; //[0] Plataform, [1] InputType [2] Network
 	private GameControl gameControl;
-	private String platform;
-	private String networkState = "no";
 	
 	//Primitives
 	private boolean check = false;
@@ -62,11 +60,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	Sprite spr_teste3;
 	Texture tex_teste;
 	
-	public TitleScreen(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt){
+	public TitleScreen(MainGame gameAlt, String[] configAlt, GameControl controlAlt){
 		this.game = gameAlt;
 		this.config = configAlt;
 		this.gameControl = controlAlt;
-		this.platform = platformAlt;
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -138,7 +135,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		
 		//Check option Select
 		if(check == true){		
-		    game.AtualizaElementos(game, config, gameControl, platform, networkState);
+		    game.AtualizaElementos(game, config, gameControl);
 		    game.Switch("CharacterSelect");			
 		}
 		

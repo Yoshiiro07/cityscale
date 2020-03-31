@@ -1,14 +1,45 @@
 package com.moonbolt.cityscale;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 public class MovementManager
 {
 	
+	//Global Variables
+	private Sprite spr_master;
+	private Player Character_Data;
+	
+	//Textures
+	private TextureAtlas atlas_hairs;
+	private TextureAtlas atlas_basic_male_set;
+	private TextureAtlas atlas_basic_female_set;
+	private TextureAtlas atlas_nKnifes;
+	private TextureAtlas atlas_swords;
+	
+	
+	//Primitives Control
+	private String text;
+	private boolean isCasting;
+	private boolean inBattle;
+	private boolean attackFrame;
+	private int pos;
+	private int frameMove;
+	private float fUsable;
 	
 	
 	public MovementManager(){
-		
+		atlas_hairs = new TextureAtlas(Gdx.files.internal("data/characters/hair/hairs.txt"));
+		atlas_basic_male_set = new TextureAtlas(Gdx.files.internal("data/characters/basic_male/basic_set_male.txt"));
+		atlas_basic_female_set = new TextureAtlas(Gdx.files.internal("data/characters/basic_female/basic_female.txt"));	
+		atlas_nKnifes = new TextureAtlas(Gdx.files.internal("data/itens/weapons/nknifes.txt"));
+		atlas_swords = new TextureAtlas(Gdx.files.internal("data/itens/weapons/swords.txt"));
 	}
 	
+	public void LoadCharacterData(Player playerActive) {
+		this.Character_Data = playerActive;
+	}
 	
 	
 	public Sprite ReturnHairs(String hairName, String side, String walk, float posX, float posY) {			

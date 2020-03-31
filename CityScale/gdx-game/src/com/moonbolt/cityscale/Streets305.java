@@ -22,14 +22,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Streets305 implements Screen, ApplicationListener, InputProcessor, TextInputListener  {
     
-	////MAINLY///
+	////MAIN///
 	private MainGame game;
-	private String[] config;
-	private GameControl gameControl;
-	private String platform;
+	private String[] config;  //[0] Plataform, [1] InputType [2] Network
 	private String entryType = "";
 	private int charNumActive = 0;
-	private String networkState = "no";
+	private GameControl gameControl;
 	
 	//Primitives
 	private float playerX = 0;
@@ -37,32 +35,18 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private int menuBlock = 1;
 	private int intcount = 0;
 	private int menuItemTab = 1;
-	private int SaveTime = 100;
-	private int HPRegenTime = 0;
 	private int deathCount = 0;
-	private int questStep = 0;
-	private int objectNum = 0;
-	private int skillSelected = 0;
 	private int countParty = 0;
 	private String playerManualAttack = "no";
 	private String playerAutoAttack = "no";
 	private String state = "Front";
 	private String walk = "Stop";
-	private String shopName = "";
 	private String configMsg = "";
 	private String[] logItens;
-	 
-
-	//mob
-	private float mobX;
-	private float mobY;
 	
 	//Game States
 	private boolean mainState = true;
 	private boolean menuState = false;
-	private boolean questState = false;
-	private boolean areaSkillState = false;
-	private boolean selectAreaSkillState = false;
 	private boolean deadState = false;
 	private boolean chatState = false;
 	private boolean partyState =  false;
@@ -106,8 +90,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private ArrayList<Sprite> lstNpcs;
 	private ArrayList<Player> lstInfoOnline;
 	private String[] splitNomes;
-	private float nomeX;
-	private float nomeY;
 	
 	//fonts
 	private BitmapFont font_master;
@@ -124,12 +106,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private Sprite spr_teste3;
 	private Texture tex_teste;
 	
-	public Streets305(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt, String net){
+	public Streets305(MainGame gameAlt, String[] configAlt, GameControl controlAlt){
 		this.game = gameAlt;
 		this.config = configAlt;
+		this.cameraSettings = new String[3];
 		this.gameControl = controlAlt;
-		this.platform = platformAlt;
-		cameraSettings = new String[3];
 		
 		//mobs Sprites
 		lstMobs = new ArrayList<Sprite>();
@@ -149,10 +130,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		tex_background = new Texture(Gdx.files.internal("data/maps/streets305.jpg"));
 		spr_background = new Sprite(tex_background);
 		
-		//Controls
-		if(platform.equals("PC")) { entryType = "PC"; }
-		if(platform.equals("Mobile")) { entryType = "Mobile"; }
-		
 		//Itens
 		logItens = new String[120];
 		lstItens = new ArrayList<String>();
@@ -166,8 +143,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		//Online
 		lstInfoOnline = new ArrayList<Player>();
-		if(net.equals("On")){ onlineState = true; networkState = "yes"; }
-		if(net.equals("Off")){ onlineState = false; networkState = "no"; }
+		if(config[2].equals("On")){ onlineState = true; }
+		if(config[2].equals("Off")){ onlineState = false;}
 		
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);

@@ -1,13 +1,448 @@
 package com.moonbolt.cityscale;
 
+import java.util.Arrays;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 public class InterfaceManager
 {
+	//Main
+	
+	//Primitives
+	private float fX;
+	private float fY;
+	
+	//Textures
+	private TextureAtlas atlas_gameplay_interface;
+	private TextureAtlas atlas_objectsMetro;
+	private TextureAtlas atlas_shop;
+	private TextureAtlas atlas_btnskills;
+	private TextureAtlas atlas_Usable;
+	private TextureAtlas atlas_Loots;
+	private TextureAtlas atlas_sets;
 	
 	
 	public InterfaceManager(){
+		atlas_gameplay_interface = new TextureAtlas(Gdx.files.internal("data/interface/gameplay/gameplay.txt"));
+		atlas_objectsMetro = new TextureAtlas(Gdx.files.internal("data/assets/objects1.txt"));
+		atlas_shop = new TextureAtlas(Gdx.files.internal("data/interface/shops/shops.txt"));
+		atlas_btnskills = new TextureAtlas(Gdx.files.internal("data/interface/gameplay/skillicons.txt"));
+		atlas_Usable = new TextureAtlas(Gdx.files.internal("data/itens/Usables/Usables.txt"));		
+		atlas_Loots = new TextureAtlas(Gdx.files.internal("data/itens/Loots/Loots.txt"));
+		atlas_sets = new TextureAtlas(Gdx.files.internal("data/itens/Sets/sets.txt"));
 		
 	}
 	
+	public String ItemQuantidade() {	
+		return qtdItem;
+	}
+	
+	public void AtualizaCameraX(float cameraposX) {
+		fX = cameraposX;
+	}
+	public void AtualizaCameraY(float cameraposY) {
+		fY = cameraposY;
+	}
+	
+	private String VerificaTipo(String item) {
+		
+		if(item.equals("Refrigerante")){
+			return "usable";
+		}
+		
+		return "";
+	}
+	
+	public String ItemDescritivo(String item){
+		if(item.equals("Refrigerante")){ return "Restaura 20 de HP";}
+		if(item.equals("SucoHP")){ return "Restaura 90 de HP";}
+		if(item.equals("IoguteHP")){ return "Restaura 200 de HP";}
+		if(item.equals("RefrigeranteMP")){ return "Restaura 20 de MP";}
+		if(item.equals("SucoMP")){ return "Restaura 50 de MP";}
+		if(item.equals("IoguteMP")){ return "Restaura 100 de MP";}
+		return "";
+	}
+	
+
+	// Scenario Objects //
+	public Sprite LoadObject(String name) {
+		
+		if(name.equals("metrobackword1")) {
+			spr_master = atlas_objectsMetro.createSprite("metrobackword1");
+		}
+		if(name.equals("metrobackword2")) {
+			spr_master = atlas_objectsMetro.createSprite("metrobackword2");
+		}
+		if(name.equals("metrobackword3")) {
+			spr_master = atlas_objectsMetro.createSprite("metrobackword3");
+		}
+		
+		if(name.equals("metroTV1")) {
+			spr_master = atlas_objectsMetro.createSprite("metroTV1");
+		}
+		if(name.equals("metroTV2")) {
+			spr_master = atlas_objectsMetro.createSprite("metroTV2");
+		}
+		if(name.equals("metroTV3")) {
+			spr_master = atlas_objectsMetro.createSprite("metroTV3");
+		}
+		
+		return spr_master;
+	}
+	
+	public void VerificaItemSelecionado(int menuTab, int numItem) {
+		
+		//[SucoHP#3]-[SucoHP#3]
+		
+		String[] lstItem = Character_Data.Itens_A.split("-");
+		String[] splitItem;
+		String nomeItem = "";
+		String qtdString = "";
+		String tipoItem = "";
+		String backItens = "";
+		int itemSelecionado = numItem;
+		int qtd;
+		
+		
+		//Consolida o item
+		if(lstItem[itemSelecionado].equals("[None]")) { return; }
+		splitItem = lstItem[itemSelecionado].split("#");
+		nomeItem = splitItem[0].replace("[", "");
+		qtdString = splitItem[1].replace("]", "");
+		qtd = Integer.parseInt(qtdString);
+		tipoItem = VerificaTipo(nomeItem);
+		if(tipoItem.equals("usable")) { 
+			ItemEfeito(nomeItem);
+			qtd = qtd -1;
+			if(qtd == 0) { 
+				lstItem[itemSelecionado] = "[None]"; 
+				backItens = Arrays.toString(lstItem).replace(", ","-");
+				backItens = backItens.substring(1, backItens.length() -1);
+				Character_Data.Itens_A = backItens; 
+				return;
+			}
+			if(qtd > 0) { 
+				lstItem[itemSelecionado] = "[" + nomeItem + "#" + qtd + "]"; 
+				backItens = Arrays.toString(lstItem).replace(", ","-");
+				backItens = backItens.substring(1, backItens.length() -1);
+				Character_Data.Itens_A = backItens; 
+				return; 
+			}						
+		}
+	}
+	
+	public void GiveExp(Monster mob) {
+		
+		int exp = Integer.parseInt(mob.EXP);
+		int expPlayer = Integer.parseInt(Character_Data.Exp_A);
+		int levelPlayer = Integer.parseInt(Character_Data.Level_A);
+		int pontosStatus = Integer.parseInt(Character_Data.StatusPoint_A);
+		expPlayer = expPlayer + exp;
+		
+		
+		if(levelPlayer == 5) { return; }
+		
+		if(expPlayer >= 100 && levelPlayer == 1) { levelPlayer++; pontosStatus = pontosStatus + 3; expPlayer = 0;}
+		if(expPlayer >= 350 && levelPlayer == 2) { levelPlayer++; pontosStatus = pontosStatus + 3; expPlayer = 0;}
+		if(expPlayer >= 520 && levelPlayer == 3) { levelPlayer++; pontosStatus = pontosStatus + 3; expPlayer = 0;}
+		if(expPlayer >= 780 && levelPlayer == 4) { levelPlayer++; pontosStatus = pontosStatus + 4; expPlayer = 0;}
+		if(expPlayer >= 1220 && levelPlayer == 5) { levelPlayer++; pontosStatus = pontosStatus + 4; expPlayer = 0;}
+		if(expPlayer >= 2500 && levelPlayer == 6) { levelPlayer++; pontosStatus = pontosStatus + 4; expPlayer = 0;}
+		if(expPlayer >= 5600 && levelPlayer == 7) { levelPlayer++; pontosStatus = pontosStatus + 4; expPlayer = 0;}
+		if(expPlayer >= 9500 && levelPlayer == 8) { levelPlayer++; pontosStatus = pontosStatus + 4; expPlayer = 0;}
+		if(expPlayer >= 15200 && levelPlayer == 9) { levelPlayer++; pontosStatus = pontosStatus + 4; expPlayer = 0;}
+		if(expPlayer >= 23400 && levelPlayer == 10) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 26200 && levelPlayer == 11) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 32000 && levelPlayer == 12) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 35000 && levelPlayer == 13) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 39000 && levelPlayer == 14) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 43000 && levelPlayer == 15) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 46400 && levelPlayer == 16) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 52000 && levelPlayer == 17) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 57000 && levelPlayer == 18) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 59000 && levelPlayer == 19) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 65000 && levelPlayer == 20) { levelPlayer++; pontosStatus = pontosStatus + 5; expPlayer = 0;}
+		if(expPlayer >= 72000 && levelPlayer == 21) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 74000 && levelPlayer == 22) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 79000 && levelPlayer == 23) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 82000 && levelPlayer == 24) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 85000 && levelPlayer == 25) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 89000 && levelPlayer == 26) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 92340 && levelPlayer == 27) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 97420 && levelPlayer == 28) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 110342 && levelPlayer == 29) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 130020 && levelPlayer == 30) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 150000 && levelPlayer == 31) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 180900 && levelPlayer == 32) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 223100 && levelPlayer == 33) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 255221 && levelPlayer == 34) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 290111 && levelPlayer == 35) { levelPlayer++; pontosStatus = pontosStatus + 6; expPlayer = 0;}
+		if(expPlayer >= 339999 && levelPlayer == 36) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
+		if(expPlayer >= 496554 && levelPlayer == 37) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
+		if(expPlayer >= 532312 && levelPlayer == 38) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
+		if(expPlayer >= 699992 && levelPlayer == 39) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
+		if(expPlayer >= 739231 && levelPlayer == 40) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
+		if(expPlayer >= 892312 && levelPlayer == 41) { levelPlayer++; pontosStatus = pontosStatus + 7; expPlayer = 0;}
+		if(expPlayer >= 1324230 && levelPlayer == 42) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+		if(expPlayer >= 1923120 && levelPlayer == 43) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+		if(expPlayer >= 3245235 && levelPlayer == 44) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+		if(expPlayer >= 5522332 && levelPlayer == 45) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+		if(expPlayer >= 8023422 && levelPlayer == 46) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+		if(expPlayer >= 11203245 && levelPlayer == 47) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+		if(expPlayer >= 19064345 && levelPlayer == 48) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+		if(expPlayer >= 36543199 && levelPlayer == 49) { levelPlayer++; pontosStatus = pontosStatus + 8; expPlayer = 0;}
+		
+		Character_Data.Exp_A = String.valueOf(expPlayer);
+		Character_Data.Level_A = String.valueOf(levelPlayer);
+		Character_Data.StatusPoint_A = String.valueOf(pontosStatus);
+	}
+	
+	private void ResetaPontosStatus(){
+		
+		Character_Data.Strengh_A = "1";
+		Character_Data.Vitality_A = "1";
+		Character_Data.Agility_A = "1";
+		Character_Data.Dextery_A = "1";
+		Character_Data.Lucky_A = "1";
+		Character_Data.Mind_A = "1";
+		Character_Data.Resistence_A = "1";
+		Character_Data.HPMAX_A = "100";
+		Character_Data.MPMAX_A = "100";
+		Character_Data.Stamina_A = "100";
+		Character_Data.StatusPoint_A = "0";
+		
+		int levelPlayer = Integer.parseInt(Character_Data.Level_A);
+		int pontosStatus = 0;
+		
+		if(levelPlayer >= 2){ pontosStatus = pontosStatus + 3; }
+		if(levelPlayer >= 3){ pontosStatus = pontosStatus + 3; }
+		if(levelPlayer >= 4){ pontosStatus = pontosStatus + 4; }
+		if(levelPlayer >= 5){ pontosStatus = pontosStatus + 4;}
+		if(levelPlayer >= 6){ pontosStatus = pontosStatus + 4;}
+		if(levelPlayer >= 7){ pontosStatus = pontosStatus + 4;}
+		if(levelPlayer >= 8){ pontosStatus = pontosStatus + 4;}
+		if(levelPlayer >= 9){ pontosStatus = pontosStatus + 4;}
+		if(levelPlayer >= 10){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 11){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 12){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 13){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 14){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 15){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 16){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 17){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 18){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 19){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 20){ pontosStatus = pontosStatus + 5;}
+		if(levelPlayer >= 21){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 22){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 23){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 24){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 25){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 26){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 27){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 28){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 29){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 30){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 31){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 32){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 33){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 34){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 35){ pontosStatus = pontosStatus + 6;}
+		if(levelPlayer >= 36){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 37){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 38){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 39){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 40){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 41){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 42){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 43){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 44){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 45){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 46){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 47){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 48){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 49){ pontosStatus = pontosStatus + 7;}
+		if(levelPlayer >= 50){ pontosStatus = pontosStatus + 7;}			
+	}
+	
+	public Sprite ItemImage(String item, int pos, float ccX, float ccY){
+		
+		itemUsage = item.split("#");
+		item = itemUsage[0];
+		text = item.replace("[","");
+		
+		if(text.equals("None")) { return spr_master; }
+		
+		if(text.equals("Refrigerante")) {
+			spr_master = atlas_Usable.createSprite("Cola");
+		}
+		
+		qtdItem = itemUsage[1].replace("]","");
+		
+		if(pos == 0 || pos == 12 || pos == 24 || pos == 36 || pos == 48) { spr_master.setPosition(ccX - 59, ccY - 3); }
+		if(pos == 1 || pos == 13 || pos == 25 || pos == 37 || pos == 49) { spr_master.setPosition(ccX - 45, ccY - 3); }
+		if(pos == 2 || pos == 14 || pos == 26 || pos == 38 || pos == 50) { spr_master.setPosition(ccX - 31, ccY - 3); }
+		if(pos == 3 || pos == 15 || pos == 27 || pos == 39 || pos == 51) { spr_master.setPosition(ccX - 17, ccY - 3); }
+		if(pos == 4 || pos == 16 || pos == 28 || pos == 40 || pos == 52) { spr_master.setPosition(ccX - 59, ccY - 29); }
+		if(pos == 5 || pos == 17 || pos == 29 || pos == 41 || pos == 53) { spr_master.setPosition(ccX - 45, ccY - 29); }
+		if(pos == 6 || pos == 18 || pos == 30 || pos == 42 || pos == 54) { spr_master.setPosition(ccX - 31, ccY - 29); }
+		if(pos == 7 || pos == 19 || pos == 31 || pos == 43 || pos == 55) { spr_master.setPosition(ccX - 17, ccY - 29); }
+		if(pos == 8 || pos == 20 || pos == 32 || pos == 44 || pos == 56) { spr_master.setPosition(ccX - 59, ccY - 55); }
+		if(pos == 9 || pos == 21 || pos == 33 || pos == 45 || pos == 57) { spr_master.setPosition(ccX - 45, ccY - 55); }
+		if(pos == 10 || pos == 22 || pos == 34 || pos == 46 || pos == 58) { spr_master.setPosition(ccX - 31, ccY - 55); }
+		if(pos == 11 || pos == 23 || pos == 35 || pos == 47 || pos == 59) { spr_master.setPosition(ccX - 17, ccY - 55); }
+		spr_master.setSize(15, 30);
+		return spr_master;
+	}
+	
+	public Sprite ItemEquipped(String item, float ccX, float ccY) {
+		
+		String set = Character_Data.Set_A;
+		String weapon = Character_Data.Weapon_A;
+		String hat = Character_Data.Hat_A;
+		
+		if(item.equals("weapon")) { 
+			if(weapon.equals("basic_knife")) { spr_master = atlas_nKnifes.createSprite("basic_knife_right"); }			
+			spr_master.setPosition(ccX - 7, ccY + 26);
+			spr_master.setSize(25, 40);
+		}
+		
+		if(item.equals("set")) { 
+			if(set.equals("basic_set_male")) { spr_master = atlas_sets.createSprite("basicsetmale"); }
+			if(set.equals("basic_set_female")) { spr_master = atlas_sets.createSprite("basicsetfemale"); }
+			
+			spr_master.setPosition(ccX + 9, ccY + 27);
+			spr_master.setSize(20, 30);
+		}
+		
+		if(item.equals("hat")) { 
+			if(hat.equals("none")) { return spr_master = null; }
+			
+		}
+		
+		
+		return spr_master;
+	}
+	
+	private void EquipaItem() {
+		
+	}
+	
+	private void ItemEfeito(String item){
+		//Consumivel
+		if(item.equals("Refrigerante")){
+			countA = Integer.parseInt(Character_Data.HP_A);
+			countA = countA + 20;
+			playerHPMAX = Integer.parseInt(Character_Data.HPMAX_A);
+			if(countA >= playerHPMAX) { countA = playerHPMAX; } 
+			Character_Data.HP_A = String.valueOf(countA);
+			WriteDataCharacterActive();
+		}
+		if(item.equals("Soda")){
+			countA = Integer.parseInt(Character_Data.MP_A);
+			countA = countA + 50;
+			playerMPMAX = Integer.parseInt(Character_Data.MPMAX_A);
+			if(countA >= playerMPMAX) { countA = playerMPMAX; } 
+			Character_Data.MP_A = String.valueOf(countA);
+		}
+		if(item.equals("IoguteMP")){
+			countA = Integer.parseInt(Character_Data.MP_A);
+			countA = countA + 100;
+			Character_Data.MP_A = String.valueOf(countA);
+		}
+	}
+	
+	
+	
+	public boolean ExibirMsgItem() {
+		
+		if(showLootTime > 0) {
+			showLootTime--;
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public String itemDrop() {
+		if(showLootTime > 0) {
+			showLootTime--;
+			return nomeLoot;
+		}
+		else {
+			return nomeLoot;
+		}
+	}
+	
+	public Sprite ItemDropImage(String item) {
+		
+		if(showLootTime > 0) {
+			if(item.equals("Refrigerante")) {
+				spr_master = atlas_Usable.createSprite("Cola");
+				spr_master.setSize(15, 30);
+			}
+		}			
+		return spr_master;
+	}
+	
+	
+	public void VerificaItemCompra(String nomeloja, int numeroItem) {
+		
+		int money = Integer.parseInt(Character_Data.Money_A);		
+		if(nomeloja.equals("SodaMachine")) {
+			if(numeroItem == 1) {
+				if(money >= 10) { 
+				AdicionaItemMochila("Refrigerante"); 
+				money = money - 10;  
+				Character_Data.Money_A = String.valueOf(money); 
+				}
+			}
+		}
+	}
+	
+	public void AdicionaItemMochila(String nomeItem) {
+		String[] lstItem = Character_Data.Itens_A.split("-");
+		String[] itemSplit;
+		boolean exist = false;
+		int qtd = 0;
+		int posicaoItem = 0;
+		String listaItemFinal;
+		for(int i = 0; i < lstItem.length; i++) {
+			if(lstItem[i].contains(nomeItem) && !exist) {
+				posicaoItem = i;
+				exist = true;
+			}
+		}
+		
+		if(exist) {
+		itemSplit = lstItem[posicaoItem].split("#");
+		qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+		qtd++;
+		if(qtd >= 99) { return;}
+		lstItem[posicaoItem] = "[" + itemSplit[0].replace("[", "") + "#" + String.valueOf(qtd) + "]";
+		listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+		listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+		Character_Data.Itens_A = listaItemFinal;
+		}
+		else {
+			for(int i = 0; i < lstItem.length; i++) {
+				if(lstItem[i].contains("None") && !exist) {
+					posicaoItem = i;
+					exist = true;
+				}
+			}
+			
+			if(exist) {
+				lstItem[posicaoItem] = "[" + nomeItem + "#" + "1" + "]";
+				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+				Character_Data.Itens_A = listaItemFinal;
+			}
+		}
+	}
 	
 	public String[] CameraSettings(String map) {
 		String[] cameraSet = new String[3];

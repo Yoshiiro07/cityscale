@@ -287,7 +287,7 @@ public class SaveFileManager
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(Character_Data)),false);
 	}
 
-	public void AtualizaMapa(String NextMap) {
+	public void UpdateMap(String NextMap) {
 
 		if(NextMap.equals("Streets305")) {
 			Character_Data.Map_A = "Streets305";
