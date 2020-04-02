@@ -18,6 +18,7 @@ public class GameControl {
 		private OnlineManager onlineManager;
 		private BattleManager battleManager;
 		private QuestManager questManager;
+		private MonstersManager monstersManager;
 		//Online Variables
 		
 		//Constructor//

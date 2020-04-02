@@ -246,25 +246,6 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			spr_Metro2.draw(game.batch);
 			if(movFrameMetro2 < -300) { movFrameMetro2 = 600; }
 		}
-		if(item.equals("metrobackword")) {
-			metrobackword = metrobackword + 1;
-			if(metrobackword > 0 && metrobackword <= 30) { spr_master = gameControl.LoadObject("metrobackword1");  }
-			if(metrobackword > 30 && metrobackword <= 60) { spr_master = gameControl.LoadObject("metrobackword2");  }
-			if(metrobackword > 60 && metrobackword <= 90) { spr_master = gameControl.LoadObject("metrobackword3");  }
-			if(metrobackword > 90) { metrobackword = 0;}
-			
-			spr_master.setSize(35, 10);
-			spr_master.setPosition(12,90);
-			spr_master.draw(game.batch);
-			
-			spr_master.setSize(35, 10);
-			spr_master.setPosition(120,90);
-			spr_master.draw(game.batch);
-			
-			spr_master.setSize(35, 10);
-			spr_master.setPosition(220,90);
-			spr_master.draw(game.batch);			
-		}
 	}
 
 	private void CheckColision() {
