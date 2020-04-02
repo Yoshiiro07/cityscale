@@ -2,6 +2,7 @@ package com.moonbolt.cityscale;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import java.util.*;
 
 public class GameControl {
 		
@@ -103,13 +104,15 @@ public class GameControl {
 		}
 		
 		
+		
+		
 		//Battle Manager
 		public void RegenerateHPTiming() {
 			battleManager.RegenerateHPTiming();
 		}
 		
 		//Quest Manager
-		public Sprite ShowNPCS(String map) {
+		public ArrayList<Sprite> ShowNPCS(String map) {
 			return questManager.ShowNPCS(map);
 		}
 		

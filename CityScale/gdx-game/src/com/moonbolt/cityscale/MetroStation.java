@@ -265,34 +265,6 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			spr_master.setPosition(220,90);
 			spr_master.draw(game.batch);			
 		}
-		
-		if(item.equals("TVShow")) {
-			metroTVShow = metroTVShow + 1;
-			if(metroTVShow >= 0 && metroTVShow <= 60) {
-				spr_master = gameControl.LoadObject("metroTV1");
-			}
-			if(metroTVShow > 60 && metroTVShow <= 120) {
-				spr_master = gameControl.LoadObject("metroTV2");		
-			}
-			if(metroTVShow > 120 && metroTVShow <= 180) {
-				spr_master = gameControl.LoadObject("metroTV1");
-			}
-			if(metroTVShow > 180 && metroTVShow <= 240) {
-				spr_master = gameControl.LoadObject("metroTV2");
-			}
-			if(metroTVShow > 240 && metroTVShow <= 300) {
-				spr_master = gameControl.LoadObject("metroTV3");		
-			}
-			if(metroTVShow > 300) { metroTVShow = 1; spr_master = gameControl.LoadObject("metroTV1"); }
-			
-			spr_master.setSize(35, 30);
-			spr_master.setPosition(82.2f,38);
-			spr_master.draw(game.batch);
-			
-			spr_master.setSize(35, 30);
-			spr_master.setPosition(-45.5f,38);
-			spr_master.draw(game.batch);
-		}
 	}
 
 	private void CheckColision() {
