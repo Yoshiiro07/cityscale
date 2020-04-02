@@ -12,18 +12,29 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.*;
 
 public class SaveFileManager
 {
 	
+	//Main
 	private Json json;
 	private FileHandle file;
 	private Random randnumber;
+
+	//Objects
+	private Player Character_Data;
 	
+	//Primitives
+	String[] charData;
+	private int countA;
+	private int charNumActive;
 	
 	public SaveFileManager(){
 		charData = new String[50];
+		Character_Data = new Player();
 	}
 	
 	public void CreateNewData(){			

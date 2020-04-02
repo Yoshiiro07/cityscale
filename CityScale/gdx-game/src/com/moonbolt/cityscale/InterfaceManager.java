@@ -39,10 +39,10 @@ public class InterfaceManager
 		return qtdItem;
 	}
 	
-	public void AtualizaCameraX(float cameraposX) {
+	public void UpdateCameraX(float cameraposX) {
 		fX = cameraposX;
 	}
-	public void AtualizaCameraY(float cameraposY) {
+	public void UpdateCameraY(float cameraposY) {
 		fY = cameraposY;
 	}
 	
@@ -403,7 +403,7 @@ public class InterfaceManager
 		}
 	}
 	
-	public void AdicionaItemMochila(String nomeItem) {
+	public void AddItemMochila(String nomeItem) {
 		String[] lstItem = Character_Data.Itens_A.split("-");
 		String[] itemSplit;
 		boolean exist = false;
@@ -529,7 +529,7 @@ public class InterfaceManager
 		return spr_master;
 	}
 
-	public Sprite InterfaceStreets305(String item, String complement) {
+	public Sprite InterfaceBase(String item, String complement) {
 
 		if(item.equals("PlayerTag")) {
 			spr_master = atlas_gameplay_interface.createSprite("tagplayer");

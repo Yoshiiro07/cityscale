@@ -83,21 +83,33 @@ public class GameControl {
 			return movManager.MovChar(set, side, walk, type, posX, posY, posInterject);
 		}
 		
+		public int GetPosition() {
+			return movManager.GetPosition();
+		}
+		
+		public Sprite ShowWeapon(String side,String walk, String type, float posX, float posY) {
+			return movManager.ShowWeapon(side, walk, type, posX, posY);
+		}
+		
 		//InterfaceManager
 		public Sprite InterfaceMain(String item) {
 			return interfaceManager.InterfaceMain("IDbox");
+		}
+		
+		public Sprite InterfaceBase(String item, String complement) {
+			return interfaceManager.InterfaceBase(item, complement);
 		}
 		
 		public String[] CameraSettings(String location) {
 			return interfaceManager.CameraSettings(location);
 		}
 		
-		public void AtualizaCameraX(float cameraposX) {
-			interfaceManager.AtualizaCameraX(cameraposX);
+		public void UpdateCameraX(float cameraposX) {
+			interfaceManager.UpdateCameraX(cameraposX);
 		}
 		
-		public void AtualizaCameraY(float cameraposY) {
-			interfaceManager.AtualizaCameraX(cameraposY);
+		public void UpdateCameraY(float cameraposY) {
+			interfaceManager.UpdateCameraY(cameraposY);
 		}
 		
 		public Sprite InterfaceMetroStation(String type, String complement) {
@@ -106,10 +118,29 @@ public class GameControl {
 		
 		
 		
+		//Monsters Manager
+		public void LoadMonstersMap(String map) {
+			monstersManager.LoadMonstersMap(map);
+		}
+		
+		public ArrayList<Sprite> ShowMonsters(float playerX, float playerY) {
+			return ShowMonsters(playerX, playerY);
+		}
+		
+		public ArrayList<String> ShowMonstersName(){
+			return monstersManager.ShowMonstersName();
+		}
+		
 		
 		//Battle Manager
 		public void RegenerateHPTiming() {
 			battleManager.RegenerateHPTiming();
+		}	
+		public int GetCooldown() {
+			return battleManager.GetCooldown();
+		}
+		public void VerifyAttack(String AutoAttack, String ManualAttack) {
+			battleManager.VerifyAttack(AutoAttack, ManualAttack,interfaceManager, onlineManager);
 		}
 		
 		//Quest Manager

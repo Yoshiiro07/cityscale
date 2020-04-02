@@ -13,6 +13,12 @@ public class MonstersManager {
 	private Random randnumber;
 	
 	//Objects
+	private ArrayList<Monster> lstMonsters;
+	private ArrayList<Sprite> lstSprites;
+	private ArrayList<String> lstNomes;
+	private Monster mobContainer;
+	private Sprite spr_master;
+	
 	
 	//Primitives
 	private float mobX;
@@ -23,15 +29,17 @@ public class MonstersManager {
 	private int frame;
 	private int countDamaged;
 	private int count;
+	private int countA;
 	private int frequency;
 	private int countfq;
+	private boolean atkFrame;
 	private boolean arearangeplayer = false;
 	private String sidePath;
 	private float PXPlus; 
 	private float PXMinus;
 	private float PYPlus;
 	private float PYMinus;
-	private ArrayList<Monster> lstMonsters;
+	
 	
 	//Textures
 	private TextureAtlas atlas_Mob;
@@ -43,6 +51,7 @@ public class MonstersManager {
 		atlas_Forest = new TextureAtlas(Gdx.files.internal("data/monsters/mobsForest.txt"));
 		
 		lstMonsters = new ArrayList<Monster>();
+		mobContainer = new Monster();
 	}
 	
 	public Monster GetMonster(String name, String map) {
@@ -571,31 +580,33 @@ public class MonstersManager {
 		return mobSelected;
 	}
 	
-	public void CarregaMonstrosMapa(String mapa) {
+	public void LoadMonstersMap(String map) {
 		lstMonsters.clear();
 		
-		if(mapa.equals("Streets305")) {
-			lstMonsters.add(mobContainer.GetMonster("slimeA", "Streets305"));
+		if(map.equals("Streets305")) {
+			lstMonsters.add(GetMonster("slimeA", "Streets305"));
 		}
 		
-		if(mapa.equals("ForestArea")) {
-			lstMonsters.add(mobContainer.GetMonster("slimeA", "ForestArea"));
-			lstMonsters.add(mobContainer.GetMonster("beeA", "ForestArea"));
-			lstMonsters.add(mobContainer.GetMonster("willowA", "ForestArea"));
-			lstMonsters.add(mobContainer.GetMonster("oikplantA", "ForestArea"));
-			lstMonsters.add(mobContainer.GetMonster("poroB", "ForestArea"));
-			lstMonsters.add(mobContainer.GetMonster("beeB", "ForestArea"));
+		if(map.equals("ForestArea")) {
+			lstMonsters.add(GetMonster("slimeA", "ForestArea"));
+			lstMonsters.add(GetMonster("beeA", "ForestArea"));
+			lstMonsters.add(GetMonster("willowA", "ForestArea"));
+			lstMonsters.add(GetMonster("oikplantA", "ForestArea"));
+			lstMonsters.add(GetMonster("poroB", "ForestArea"));
+			lstMonsters.add(GetMonster("beeB", "ForestArea"));
 		}
 	}
 	
-	public ArrayList<Sprite> ExibeMonstros(float playerX, float playerY) {
+	public ArrayList<Sprite> ShowMonsters(float playerX, float playerY) {
 		
 		lstSprites.clear();
 		
 		for(countA = 0; countA < lstMonsters.size(); countA++){	
 			
-			if(lstMonsters.get(countA).AGRESSIVE.equals("no")) { mobContainer = mobContainer.FrameAndMovement(lstMonsters.get(countA), pX, pY);}
-			if(lstMonsters.get(countA).AGRESSIVE.equals("yes")) { mobContainer = mobContainer.FrameAndMovementAgressive(lstMonsters.get(countA), pX, pY);}
+			mobContainer = lstMonsters.get(countA);
+			
+			if(mobContainer.AGRESSIVE.equals("no")) { mobContainer = FrameAndMovement(mobContainer, Float.parseFloat(mobContainer.PX), Float.parseFloat(mobContainer.PY));}
+			if(mobContainer.AGRESSIVE.equals("yes")) { mobContainer = FrameAndMovementAgressive(mobContainer,  Float.parseFloat(mobContainer.PX), Float.parseFloat(mobContainer.PY));}
 			
 			mobX = Float.parseFloat(mobContainer.PX);
 			mobY = Float.parseFloat(mobContainer.PY);
@@ -655,9 +666,7 @@ public class MonstersManager {
 							spr_master.setPosition(mobX, mobY);
 						}
 					}
-				
-				
-				
+			        
 				mobX = Float.parseFloat(mobContainer.WIDTH);
 				mobY = Float.parseFloat(mobContainer.HEIGHT);
 				
@@ -669,7 +678,7 @@ public class MonstersManager {
 		return lstSprites;
 	}
 	
-	public ArrayList<String> ExibeNomesMonstros(){
+	public ArrayList<String> ShowMonstersName(){
 		
 		lstNomes.clear();
 		

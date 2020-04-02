@@ -458,7 +458,7 @@ public class MovementManager
 	}
 
 	//Recupera Position
-	public int RecuperaPosition() {
+	public int GetPosition() {
 		return playerbattleframe;
 	}
 

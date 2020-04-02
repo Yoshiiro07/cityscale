@@ -1,14 +1,20 @@
 package com.moonbolt.cityscale;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BattleManager
 {
 	//Main
 	private Player Character_Data;
+	private Random randnumber;
 	
 	//Objects
 	private ArrayList<Monster> lstMonsters;
+	private ArrayList<Damage> lstDamage;
+	private ArrayList<Skill> lstSkills;
+	private Skill skillUsed;
+	
 	
 	//Primitives
 	private float fX;
@@ -52,18 +58,32 @@ public class BattleManager
 	private int castTime = 0;
 	private int attackCooldown;
 	private int countA;
+	private int dmgWeapon;
+	private int showLootTime;
+	private String nomeLoot;
+	private String text;
+	private String skillOnline;
 	private boolean attackFrame;
 	private boolean onlineCheck;
+	private boolean isCasting;
+	private boolean inBattle;
+	private boolean castOver;
 	
 	public BattleManager(){
 		lstMonsters = new ArrayList<Monster>();
+		lstDamage = new ArrayList<Damage>();
+		lstSkills = new ArrayList<Skill>();
+		
+		randnumber = new Random();
+		skillUsed = new Skill();
+		skillOnline = "";
 	}
 	
 	public void LoadCharacterData(Player playerActive) {
 		this.Character_Data = playerActive;
 	}
 	
-	public int VerificaCooldown() {
+	public int GetCooldown() {
 		return playerAttackCooldown;
 	}
 	
@@ -115,7 +135,7 @@ public class BattleManager
 	}
 	
 	
-	public void VerificaAttack(String AutoAttack, String ManualAttack) {
+	public void VerifyAttack(String AutoAttack, String ManualAttack, InterfaceManager interfaceManager, OnlineManager onlineManager) {
 		
 		pX = Float.parseFloat(Character_Data.PX_A);
 		pY = Float.parseFloat(Character_Data.PY_A);
@@ -182,8 +202,8 @@ public class BattleManager
 						lstDamage.add(danoMob);
                             
 						if(mobHP <= 0 && lstMonsters.get(countA).LOCKDEATH.equals("no")) { 
-							GiveExp(lstMonsters.get(countA));
-							GiveLoot(lstMonsters.get(countA));
+							interfaceManager.GiveExp(lstMonsters.get(countA));
+							GiveLoot(lstMonsters.get(countA), interfaceManager);
 							GiveMoney(lstMonsters.get(countA));
 							lstMonsters.get(countA).LOCKDEATH = "yes"; 
 							Character_Data.Battle_A = "no";
@@ -193,7 +213,7 @@ public class BattleManager
 							lstMonsters.get(countA).BATTLE = "no";
 						}
 						lstMonsters.get(countA).HP = String.valueOf(mobHP);
-						if(onlineCheck) { OperacaoOnline("Atk", lstMonsters.get(countA).ID + ":" + lstMonsters.get(countA).HP); }
+						if(onlineCheck) { onlineManager.OperacaoOnline("Atk", lstMonsters.get(countA).ID + ":" + lstMonsters.get(countA).HP); }
 						playerManualAtkDelay = 50;
 						return;
 			        }
@@ -268,8 +288,8 @@ public class BattleManager
 									
 									
 									if(mobHP <= 0 && lstMonsters.get(countA).LOCKDEATH.equals("no")) { 
-										GiveExp(lstMonsters.get(countA));
-										GiveLoot(lstMonsters.get(countA));
+										interfaceManager.GiveExp(lstMonsters.get(countA));
+										GiveLoot(lstMonsters.get(countA), interfaceManager);
 										GiveMoney(lstMonsters.get(countA));
 										lstMonsters.get(countA).LOCKDEATH = "yes"; 
 										Character_Data.Battle_A = "no";
@@ -331,7 +351,7 @@ public class BattleManager
 									mobHP = mobHP - (playerAtk + dmgWeapon);
 								}
 								
-								if(onlineCheck) { OperacaoOnline("Atk", lstMonsters.get(countA).ID + ":" + lstMonsters.get(countA).HP); }
+								if(onlineCheck) { onlineManager.OperacaoOnline("Atk", lstMonsters.get(countA).ID + ":" + lstMonsters.get(countA).HP); }
 								
 							}
 						}						
@@ -565,28 +585,28 @@ public class BattleManager
 		}
 	}
 	
-	private void GiveLoot(Monster mobdeath) {		
+	private void GiveLoot(Monster mobdeath, InterfaceManager interfaceManager) {		
 		int sortie = 0;		
 		
 		sortie = randnumber.nextInt(100);
 		
 		if(sortie < 5) {
-			AdicionaItemMochila(mobdeath.ITEMA);
+			interfaceManager.AddItemMochila(mobdeath.ITEMA);
 			nomeLoot = mobdeath.ITEMA;
 		}
 		
 		if(sortie >=  5 && sortie <= 25) {
-			AdicionaItemMochila(mobdeath.ITEMB);
+			interfaceManager.AddItemMochila(mobdeath.ITEMB);
 			nomeLoot = mobdeath.ITEMB;
 		}
 		
 		if(sortie > 25 && sortie <= 50) {
-			AdicionaItemMochila(mobdeath.ITEMC);
+			interfaceManager.AddItemMochila(mobdeath.ITEMC);
 			nomeLoot = mobdeath.ITEMC;
 		}
 		
 		if(sortie > 50 && sortie <= 100) {
-			AdicionaItemMochila(mobdeath.ITEMD);
+			interfaceManager.AddItemMochila(mobdeath.ITEMD);
 			nomeLoot = mobdeath.ITEMD;
 		}
 		
@@ -620,8 +640,6 @@ public class BattleManager
 		if(delayTime > 0) { return; }
 
 		int mpPlayer = Integer.parseInt(Character_Data.MP_A);
-		skillUsed = new Skill();
-
 		if(Character_Data.Job_A.equals("Novice")) {			
 			//tripleattack
 			if(numSkill == 1) {

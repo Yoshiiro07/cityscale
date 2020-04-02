@@ -182,8 +182,8 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			ScenarioObjects("TVShow");
 			
 			
-			gameControl.AtualizaCameraX(cameraCoordsX);
-			gameControl.AtualizaCameraY(cameraCoordsY);
+			gameControl.UpdateCameraX(cameraCoordsX);
+			gameControl.UpdateCameraY(cameraCoordsY);
 			
 			//Set Player
 			if(activePlayer.Sex_A.equals("M")) {
