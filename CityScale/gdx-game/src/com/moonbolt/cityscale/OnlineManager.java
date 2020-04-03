@@ -49,7 +49,7 @@ public class OnlineManager
 	}
 	
 	// Online Management//		
-	public void AtualizaCharacterData(Player playerActive){
+	public void UpdateCharacterData(Player playerActive){
 		this.Character_Data = playerActive;
 	}
 	

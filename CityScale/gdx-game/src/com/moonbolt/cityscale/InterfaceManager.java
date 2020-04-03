@@ -13,6 +13,16 @@ public class InterfaceManager
 	//Primitives
 	private float fX;
 	private float fY;
+	private String qtdItem;
+	private String text;
+	private String[] itemUsage;
+	private int countA;
+	private int playerHPMAX;
+	private int playerMPMAX;
+	
+	//Objects
+	private Sprite spr_master;
+	private Player Character_Data;
 	
 	//Textures
 	private TextureAtlas atlas_gameplay_interface;
@@ -33,6 +43,10 @@ public class InterfaceManager
 		atlas_Loots = new TextureAtlas(Gdx.files.internal("data/itens/Loots/Loots.txt"));
 		atlas_sets = new TextureAtlas(Gdx.files.internal("data/itens/Sets/sets.txt"));
 		
+	}
+	
+	public void UpdateCharacterData(Player playerActive){
+		this.Character_Data = playerActive;
 	}
 	
 	public String ItemQuantidade() {	
