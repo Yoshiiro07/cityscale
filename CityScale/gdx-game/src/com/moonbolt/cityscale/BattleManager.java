@@ -120,7 +120,7 @@ public class BattleManager
 		if(delayTime <= 0) { delayTime = 0; }
 	}
 	
-	public ArrayList<Damage> ExibeDanos(){
+	public ArrayList<Damage> ShowDamage(){
 		for(countA = 0; countA < lstDamage.size(); countA++){ 
 			if(lstDamage.get(countA).time > 0){
 		     lstDamage.get(countA).areaY = lstDamage.get(countA).areaY + 0.5f;
@@ -407,7 +407,7 @@ public class BattleManager
 		}
 	}
 	
-	public boolean VerificaRangedSkill(int numSkill) {
+	public boolean VerifyRangedSkill(int numSkill) {
 		Skill skillUsed = new Skill();
 		
 		//Novice
@@ -467,7 +467,7 @@ public class BattleManager
 		return false;
 	}
 	
-	public void VerificaSkillDano(Skill sk, float areaselectedX, float areaselectedY) {
+	public void VerifySkillDamage(Skill sk, float areaselectedX, float areaselectedY) {
 		
 		pX = Float.parseFloat(Character_Data.PX_A);
 		pY = Float.parseFloat(Character_Data.PY_A);

@@ -143,6 +143,10 @@ public class GameControl {
 			battleManager.VerifyAttack(AutoAttack, ManualAttack,interfaceManager, onlineManager);
 		}
 		
+	    public ArrayList<Damage> ShowDamage(){
+		    return battleManager.ShowDamage();
+		}
+		
 		//Quest Manager
 		public ArrayList<Sprite> ShowNPCS(String map) {
 			return questManager.ShowNPCS(map);

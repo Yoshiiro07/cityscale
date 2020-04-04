@@ -15,10 +15,12 @@ public class InterfaceManager
 	private float fY;
 	private String qtdItem;
 	private String text;
+	private String nomeLoot;
 	private String[] itemUsage;
 	private int countA;
 	private int playerHPMAX;
 	private int playerMPMAX;
+	private int showLootTime;
 	
 	//Objects
 	private Sprite spr_master;
@@ -32,6 +34,8 @@ public class InterfaceManager
 	private TextureAtlas atlas_Usable;
 	private TextureAtlas atlas_Loots;
 	private TextureAtlas atlas_sets;
+	private TextureAtlas atlas_nKnifes;
+	private TextureAtlas atlas_swords;
 	
 	
 	public InterfaceManager(){
@@ -42,6 +46,9 @@ public class InterfaceManager
 		atlas_Usable = new TextureAtlas(Gdx.files.internal("data/itens/Usables/Usables.txt"));		
 		atlas_Loots = new TextureAtlas(Gdx.files.internal("data/itens/Loots/Loots.txt"));
 		atlas_sets = new TextureAtlas(Gdx.files.internal("data/itens/Sets/sets.txt"));
+		
+		atlas_nKnifes = new TextureAtlas(Gdx.files.internal("data/itens/weapons/nknifes.txt"));
+		atlas_swords = new TextureAtlas(Gdx.files.internal("data/itens/weapons/swords.txt"));
 		
 	}
 	
@@ -340,11 +347,11 @@ public class InterfaceManager
 		return spr_master;
 	}
 	
-	private void EquipaItem() {
+	private void AttachEquipament() {
 		
 	}
 	
-	private void ItemEfeito(String item){
+	private void ItemEfeito(SaveFileManager saveManager,String item){
 		//Consumivel
 		if(item.equals("Refrigerante")){
 			countA = Integer.parseInt(Character_Data.HP_A);
@@ -352,7 +359,7 @@ public class InterfaceManager
 			playerHPMAX = Integer.parseInt(Character_Data.HPMAX_A);
 			if(countA >= playerHPMAX) { countA = playerHPMAX; } 
 			Character_Data.HP_A = String.valueOf(countA);
-			WriteDataCharacterActive();
+			saveManager.WriteDataCharacterActive();
 		}
 		if(item.equals("Soda")){
 			countA = Integer.parseInt(Character_Data.MP_A);
@@ -409,7 +416,7 @@ public class InterfaceManager
 		if(nomeloja.equals("SodaMachine")) {
 			if(numeroItem == 1) {
 				if(money >= 10) { 
-				AdicionaItemMochila("Refrigerante"); 
+				AddItemInventory("Refrigerante"); 
 				money = money - 10;  
 				Character_Data.Money_A = String.valueOf(money); 
 				}
@@ -417,7 +424,7 @@ public class InterfaceManager
 		}
 	}
 	
-	public void AddItemMochila(String nomeItem) {
+	public void AddItemInventory(String nomeItem) {
 		String[] lstItem = Character_Data.Itens_A.split("-");
 		String[] itemSplit;
 		boolean exist = false;

@@ -32,6 +32,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	//Primitives
 	private float playerX = 0;
 	private float playerY = 0;
+	private float mobX = 0;
+	private float mobY = 0;
+	private float nomeX = 0;
+	private float nomeY = 0;
+	private int HPRegenTime;
 	private int menuBlock = 1;
 	private int intcount = 0;
 	private int menuItemTab = 1;
@@ -354,7 +359,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			//Check Damage
-			lstDamage = gameControl.ExibeDanos();
+			lstDamage = gameControl.ShowDamage();
 			for(intcount = 0; intcount < lstDamage.size(); intcount++){		
 			    if(lstDamage.get(intcount).Color.equals("Yellow")){font_master.setColor(Color.YELLOW);}
 				if(lstDamage.get(intcount).Color.equals("Red")){font_master.setColor(Color.RED);}
