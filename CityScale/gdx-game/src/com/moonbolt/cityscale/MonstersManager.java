@@ -693,7 +693,7 @@ public class MonstersManager {
 	
 	
 	//Respawn Monstros
-	public void RespawnMonstros() {
+	public void RespawnMonsters() {
 		int respawn = 0;
 		int respawnMax = 0;
 		int HPMob = 0;

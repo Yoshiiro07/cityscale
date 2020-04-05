@@ -55,6 +55,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private boolean deadState = false;
 	private boolean chatState = false;
 	private boolean partyState =  false;
+	private boolean questState = false;
 	private boolean shopState = false;
 	private boolean movement = false;
 	private boolean discartState = false;
@@ -368,7 +369,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			//Check Buffs
-			lstBuffs = gameControl.RetornaBuffs();
+			//lstBuffs = gameControl.RetornaBuffs();
 			
 			//HP Regeneration
 			HPRegenTime++;
@@ -381,10 +382,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//gameControl.VerificaBuffsDebuffs();
 			
 			// Monsters Respawn
-			gameControl.RespawnMonstros();
+			gameControl.RespawnMonsters();
 			
 			//Loots
-			if(gameControl.ExibirMsgItem()) {
+			if(gameControl.ShowMsgItem()) {
 				spr_master = gameControl.InterfaceBase("lootbox", "");
 				spr_master.draw(game.batch);
 				spr_master = gameControl.ItemDropImage("Refrigerante");

@@ -116,7 +116,13 @@ public class GameControl {
 			return interfaceManager.InterfaceMetroStation(type, complement);
 		}
 		
+		public Sprite ItensMenu(String item, String complement){
+			return interfaceManager.ItensMenu(item,complement);
+		}
 		
+	    public Sprite ItemDropImage(String item){
+			return interfaceManager.ItemDropImage(item);
+		}
 		
 		//Monsters Manager
 		public void LoadMonstersMap(String map) {
@@ -129,6 +135,10 @@ public class GameControl {
 		
 		public ArrayList<String> ShowMonstersName(){
 			return monstersManager.ShowMonstersName();
+		}
+		
+		public void RespawnMonsters(){
+			monstersManager.RespawnMonsters();
 		}
 		
 		
