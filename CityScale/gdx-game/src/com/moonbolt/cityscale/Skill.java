@@ -1006,8 +1006,6 @@ public class Skill
 		dmg = dmg + weapon;
 		return dmg;
 	}
-	
-	
 }
 
 

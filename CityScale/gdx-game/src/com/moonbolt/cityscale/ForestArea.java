@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Streets305 implements Screen, ApplicationListener, InputProcessor, TextInputListener  {
+public class ForestArea implements Screen, ApplicationListener, InputProcessor, TextInputListener  {
     
 	////MAINLY///
 	private MainGame game;
@@ -29,7 +29,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private String platform;
 	private String entryType = "";
 	private int charNumActive = 0;
-	private String networkState = "no";
 	
 	//Primitives
 	private float playerX = 0;
@@ -40,6 +39,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private int SaveTime = 100;
 	private int HPRegenTime = 0;
 	private int deathCount = 0;
+	private int baloonQuestNum = 0;
 	private int questStep = 0;
 	private int objectNum = 0;
 	private int skillSelected = 0;
@@ -49,6 +49,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private String state = "Front";
 	private String walk = "Stop";
 	private String shopName = "";
+	private String questName = "";
 	private String configMsg = "";
 	private String[] logItens;
 	 
@@ -68,8 +69,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private boolean partyState =  false;
 	private boolean shopState = false;
 	private boolean movement = false;
-	private boolean discartState = false;
-	private boolean descriptionState = false;
+	private boolean discart = false;
+	private boolean description = false;
 	private boolean onlineState = false;
 	
 	//Camera
@@ -124,7 +125,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private Sprite spr_teste3;
 	private Texture tex_teste;
 	
-	public Streets305(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt, String net){
+	public ForestArea(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt,String net){
 		this.game = gameAlt;
 		this.config = configAlt;
 		this.gameControl = controlAlt;
@@ -146,7 +147,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		Gdx.input.setInputProcessor(this);
 		
 		//background
-		tex_background = new Texture(Gdx.files.internal("data/maps/streets305.jpg"));
+		tex_background = new Texture(Gdx.files.internal("data/maps/forestArea.jpg"));
 		spr_background = new Sprite(tex_background);
 		
 		//Controls
@@ -166,8 +167,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		//Online
 		lstInfoOnline = new ArrayList<Player>();
-		if(net.equals("On")){ onlineState = true; networkState = "yes"; }
-		if(net.equals("Off")){ onlineState = false; networkState = "no"; }
+		if(net.equals("On")){ onlineState = true; }
+		if(net.equals("Off")){ onlineState = false; }
 		
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
@@ -176,7 +177,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		font_master.setUseIntegerPositions(false);
 		
 		//Load Mobs
-		gameControl.CarregaMonstrosMapa("Streets305");
+		gameControl.CarregaMonstrosMapa("ForestArea");
 		
 		//Teste dot
 		tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
@@ -241,6 +242,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			gameControl.AtualizaCameraX(cameraCoordsX);
 			gameControl.AtualizaCameraY(cameraCoordsY);
 			
+			
+			
+			
 			//Set Player
 			if(gameControl.RecuperaPosition() == 3 || gameControl.RecuperaPosition() == 4) {
 				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0);
@@ -267,7 +271,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Interface = gameControl.InterfaceStreets305("Portrait", activePlayer.Hair_A); spr_Interface.draw(game.batch);  //Portrair
 			spr_Interface = gameControl.InterfaceStreets305("Hotcrossbar", ""); spr_Interface.draw(game.batch);  //Hotbar
 			spr_Interface = gameControl.InterfaceStreets305("Backanalog", ""); spr_Interface.draw(game.batch);  //Analog
-			spr_Interface = gameControl.InterfaceStreets305("flagStreet305", ""); spr_Interface.draw(game.batch);  //Flag
+			spr_Interface = gameControl.InterfaceStreets305("flagFlorestaA", ""); spr_Interface.draw(game.batch);  //Flag
 			spr_Interface = gameControl.InterfaceStreets305("hotkey", ""); spr_Interface.draw(game.batch);  //Hotkey
 			if(walk.equals("Stop")) { spr_Interface = gameControl.InterfaceStreets305("Analog","Stop"); spr_Interface.draw(game.batch);  }
 			if(walk.equals("Walk") && state.equals("Right")) { spr_Interface = gameControl.InterfaceStreets305("Analog","Right"); spr_Interface.draw(game.batch);  }
@@ -351,14 +355,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//Se for skill AoE  exibir aviso
 			spr_Interface = gameControl.InterfaceStreets305("ActionBtn", ""); spr_Interface.draw(game.batch);  //ATK
 			
-			//ExibeNPC
-			ExibirNpcs();
-			
 			//Chats
 			ExibeChats();
-			
-			//Exibe Quests
-			ExibeQuests();
 			
 			//Exibe Skills
 			ExibeSkills();
@@ -420,15 +418,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Objects
 		    //ScenarioObjects("textovershop");
-			
-			// Show Shops
-			if(shopState) {
-				spr_master = gameControl.InterfaceStreets305("SodaMachine", "");
-				spr_master.draw(game.batch);
-				font_master.getData().setScale(0.25f,0.28f);
-				font_master.setColor(Color.YELLOW);
-				font_master.draw(game.batch,activePlayer.Money_A,cameraCoordsX + 27,cameraCoordsY - 5); // playerAttackCooldown
-			}
 						
 			// Menu Section
 			if(menuState) {		
@@ -499,8 +488,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			
 			//Death
-			intcount = Integer.parseInt(activePlayer.HP_A);
-			if(intcount <= 0){ deadState = true; }
+			if(activePlayer.HP_A.equals("0")){ deadState = true; }
 			if(deadState){
 				deathCount++;	
 				activePlayer.HP_A = "1";
@@ -522,10 +510,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 
 		//Tests
-		//spr_teste.setPosition(401, -79); 
-		//spr_teste2.setPosition(410, -79);
-		//spr_teste.draw(game.batch);
-		//spr_teste2.draw(game.batch);
+		spr_teste.setPosition(cameraCoordsX + 90, cameraCoordsY - 5); 
+		spr_teste2.setPosition(cameraCoordsX + 99, cameraCoordsY - 20);
+		spr_teste.draw(game.batch);
+		spr_teste2.draw(game.batch);
 		//font_master.draw(game.batch,String.valueOf(playerX),cameraCoordsX,cameraCoordsY);
 		//font_master.draw(game.batch,String.valueOf(playerY),cameraCoordsX + 30,cameraCoordsY);		
 		
@@ -534,13 +522,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	
 	private void TrataOnline() {
 		
-		try {
-			font_master.getData().setScale(0.15f,0.18f);
-			font_master.setColor(Color.WHITE);
+			//lstInfoOnline.clear();
 			lstInfoOnline = gameControl.InfoPlayerOnline();
 			for(int i = 0; i < lstInfoOnline.size(); i ++) {
 				
-				if(lstInfoOnline.get(i).Map_A.equals("Streets305")) {
+				if(lstInfoOnline.get(i).Map_A.equals("ForestArea")) {
+				
 				spr_master = gameControl.MovChar(lstInfoOnline.get(i).Set_A,lstInfoOnline.get(i).Side_A,"","",Float.parseFloat(lstInfoOnline.get(i).PX_A),
 																								  Float.parseFloat(lstInfoOnline.get(i).PY_A),
 																								  Integer.parseInt(lstInfoOnline.get(i).Position_A));
@@ -552,16 +539,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				
 				font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,Float.parseFloat(lstInfoOnline.get(i).PX_A) + 3,Float.parseFloat(lstInfoOnline.get(i).PY_A) + 10);
 				}
-			}
-		}
-		
-		catch(Exception ex) {
-			
-		}
+			}			
 	}
 	
 	private void ExibeParty() {
-		try {
 		lstInfoOnline = gameControl.InfoPlayerOnline();
 		
 		countParty = 0;
@@ -569,34 +550,30 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			String partylst =  lstInfoOnline.get(i).Party_A;
 			String characterParty = activePlayer.Party_A;
 			if(lstInfoOnline.get(i).Party_A.equals(activePlayer.Party_A)) {
-				//countParty++;
+				countParty++;
 				
 				font_master.getData().setScale(0.09f,0.11f);
 				if(countParty > 3) { return;}
 				
-				countParty = 1;
 				if(countParty == 1) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag1","");
 					spr_master.draw(game.batch);
 					
-					if(lstInfoOnline.get(i).Sex_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY + 22); spr_master.draw(game.batch); }
-					if(lstInfoOnline.get(i).Sex_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY + 25); spr_master.draw(game.batch); }																			
-					
+					spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY + 26);																								
+					spr_master.draw(game.batch);
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +85);
 					font_master.draw(game.batch,lstInfoOnline.get(i).HP_A,cameraCoordsX - 80,cameraCoordsY +79);
 					font_master.draw(game.batch,lstInfoOnline.get(i).MP_A,cameraCoordsX - 80,cameraCoordsY +73);
-					font_master.draw(game.batch,lstInfoOnline.get(i).Level_A,cameraCoordsX - 69,cameraCoordsY +79);
+					font_master.draw(game.batch,lstInfoOnline.get(i).Level_A,cameraCoordsX - 69,cameraCoordsY +80);
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +66);	
 				}
 				
-				countParty = 2;
 				if(countParty == 2) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag2","");
 					spr_master.draw(game.batch);
 
-					if(lstInfoOnline.get(i).Sex_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY - 6); }
-					if(lstInfoOnline.get(i).Sex_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY -2); }																			
+					spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY - 1);
 					spr_master.draw(game.batch);
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +57);
@@ -606,13 +583,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +38);
 				}
 				
-				countParty = 3;
 				if(countParty == 3) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag3","");
 					spr_master.draw(game.batch);
 
-					if(lstInfoOnline.get(i).Sex_A.equals("M")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 106,cameraCoordsY - 34); }
-					if(lstInfoOnline.get(i).Sex_A.equals("F")) { spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY - 31); }																			
+					spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,"Front","",cameraCoordsX - 101,cameraCoordsY - 30);
 					spr_master.draw(game.batch);
 					
 					font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,cameraCoordsX - 90,cameraCoordsY +29);
@@ -626,20 +601,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 		}
 		
-		}
-		
-		catch(Exception ex) {
-			
-		}
-		
-	}
-	
-	public void ExibirNpcs(){
-		lstNpcs = gameControl.ExibeNPCs("Streets305");
-		for(int x = 0; x < lstNpcs.size(); x++){
-			spr_master = lstNpcs.get(x);
-			spr_master.draw(game.batch);
-		}
 	}
 	
 	private void ExibeChats() {	
@@ -675,7 +636,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	}
 	
 	public void ExibeItensMochila() {
-		//Show Common Itens
+		//Para Itens Comuns
 		if(!activePlayer.Itens_A.equals("")) {
 			logItens = activePlayer.Itens_A.split("-");
 			intcount = 0;
@@ -715,13 +676,15 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 		}
-		//Show Equipped itens
+		//Para Itens Equipados
 		spr_item = gameControl.ItemEquipped("weapon", cameraCoordsX, cameraCoordsY);
 		spr_item.draw(game.batch);
 		spr_item = gameControl.ItemEquipped("set", cameraCoordsX, cameraCoordsY);
 		spr_item.draw(game.batch);
 		spr_item = gameControl.ItemEquipped("hat", cameraCoordsX, cameraCoordsY);
-		if(spr_item != null) { spr_item.draw(game.batch); }	
+		if(spr_item != null) { spr_item.draw(game.batch); }
+		
+		
 	}
 	
 	private void ExibeSkills() {
@@ -760,25 +723,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	// World Settings - BEGIN //
 	private void VerificaAction() {
 		
-		if( (playerX >= 75 && playerX <= 102) && ( playerY >= -84 && playerY <= -70) ) {
-			shopState = true;
-			shopName = "SodaMachine";
-		}
 		
-		
-		if( (playerX >= 44 && playerX <= 74) && (playerY >= -108 && playerY <= -80) ) {		
-			activePlayer.Job_A = "Swordman";
-			
-		}
-		
-		//if( (playerX >= 44 && playerX <= 74) && (playerY >= -108 && playerY <= -80) ) {
-		//	questState = true;
-		//	questName = "Um pedido gentil";
-		//}
 	}
 	
 	private void ExibeQuests() {
-		//Show Quest Text//
+		//Exibe Texto Quest//
 		if(questState) {
 			questStep = gameControl.IniciaQuest("Um pedido gentil");
 			
@@ -787,7 +736,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.draw(game.batch,String.valueOf(activePlayer.Job_A),cameraCoordsX - 44,cameraCoordsY + 50);
 			font_master.draw(game.batch,String.valueOf(activePlayer.Job_A),cameraCoordsX - 44,cameraCoordsY + 50);
 		}	
-		//Quest bubble
+		//Balao de Quest
 		spr_Interface = gameControl.InterfaceStreets305("avisoMissao", ""); spr_Interface.draw(game.batch);
 		
 	}
@@ -803,7 +752,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	public void input(String text) {
 		
 		if(chatState) {		
-			//In case of cancel Chat
+			//Para cancelamento
 			if(text.equals("")) { chatState = false; return; }
 			
 			if(onlineState) { try {
@@ -915,7 +864,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	}
 	
 	private void onMultipleKeysDown (int mostRecentKeycode){
-	    //For multiple key presses
+	    //Para casos de multiplas teclas, recupera a ultima tecla apertada e adiciona a anterior
 	    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
 	        	state = "Left-Front";
@@ -973,7 +922,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		movement = true;
 		
-		//Invalidated comands in case of dead
+		//Morte Invalida Comandos
 		if(deadState) { movement = false; return false; }
 		
 		if(selectAreaSkillState) {
@@ -1034,38 +983,38 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		if(menuState) {
 			if(menuBlock == 1) { // Main
-				//To Status
+				//Para Status
 				if((coordsTouch.x >= cameraCoordsX + 85 && coordsTouch.x <= cameraCoordsX + 99) && (coordsTouch.y >= cameraCoordsY + 70 && coordsTouch.y <= cameraCoordsY + 88)){
 					menuBlock = 2;
 					return false;
 				}
-				//To Itens
+				//Para Itens
 				if((coordsTouch.x >= cameraCoordsX + 85 && coordsTouch.x <= cameraCoordsX + 99) && (coordsTouch.y >= cameraCoordsY + 52 && coordsTouch.y <= cameraCoordsY + 70)){
 					menuBlock = 3;
 					return false;
 				}
-				//To Battle
+				//Para Batalha
 				if((coordsTouch.x >= cameraCoordsX + 85 && coordsTouch.x <= cameraCoordsX + 99) && (coordsTouch.y >= cameraCoordsY + 32 && coordsTouch.y <= cameraCoordsY + 51)){
 					menuBlock = 7;
 					return false;
 				}
-				//To Skills
+				//Para Habilidades
 				if((coordsTouch.x >= cameraCoordsX + 85 && coordsTouch.x <= cameraCoordsX + 99) && (coordsTouch.y >= cameraCoordsY + 14 && coordsTouch.y <= cameraCoordsY + 32)){
 					menuBlock = 4;
 					return false;
 				}
-				//To Social
+				//Para Social
 				if((coordsTouch.x >= cameraCoordsX + 85 && coordsTouch.x <= cameraCoordsX + 99) && (coordsTouch.y >= cameraCoordsY - 3 && coordsTouch.y <= cameraCoordsY + 13)){
 					menuBlock = 5;
 					return false;
 				}
 				
-				//To Config
+				//Para Config
 				if((coordsTouch.x >= cameraCoordsX + 85 && coordsTouch.x <= cameraCoordsX + 99) && (coordsTouch.y >= cameraCoordsY - 20 && coordsTouch.y <= cameraCoordsY - 4)){
 					menuBlock = 8;
 					return false;
 				}
-				//Back
+				//Para Sair
 				if((coordsTouch.x >= cameraCoordsX + 85 && coordsTouch.x <= cameraCoordsX + 99) && (coordsTouch.y >= cameraCoordsY - 30 && coordsTouch.y <= cameraCoordsY - 21)){
 					menuState = false;
 					return false;
@@ -1075,12 +1024,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			
 			if(menuBlock == 2) { //Status
-				//Back
+				//Voltar
 				if((coordsTouch.x >= cameraCoordsX + 56 && coordsTouch.x <= cameraCoordsX + 67) && (coordsTouch.y >= cameraCoordsY + 62 && coordsTouch.y <= cameraCoordsY + 88)){
 					menuBlock = 1;
 					return false;
 				}
-				//Increase Strenght
+				//Aumenta For�a
 				if((coordsTouch.x >= cameraCoordsX + 17 && coordsTouch.x <= cameraCoordsX + 24) && (coordsTouch.y >= cameraCoordsY + 48 && coordsTouch.y <= cameraCoordsY + 62)){
 					intcount = Integer.parseInt(activePlayer.StatusPoint_A);
 					if(intcount >= 1) { 
@@ -1092,7 +1041,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 						return false;
 					}
 				}
-				//Increase Vitality
+				//Aumenta Vitalidade
 				if((coordsTouch.x >= cameraCoordsX + 17 && coordsTouch.x <= cameraCoordsX + 24) && (coordsTouch.y >= cameraCoordsY + 33 && coordsTouch.y <= cameraCoordsY + 47)){
 					intcount = Integer.parseInt(activePlayer.StatusPoint_A);
 					if(intcount >= 1) { 
@@ -1101,13 +1050,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 						intcount = Integer.parseInt(activePlayer.Vitality_A);
 						intcount++; 
 						activePlayer.Vitality_A = String.valueOf(intcount); 
-						intcount = Integer.parseInt(activePlayer.HPMAX_A);
-						intcount = intcount + 15;
-						activePlayer.HPMAX_A = String.valueOf(intcount);
 						return false;
 					}
 				}
-				//Increase Wisdow
+				//Aumenta Sabedoria
 				if((coordsTouch.x >= cameraCoordsX + 17 && coordsTouch.x <= cameraCoordsX + 24) && (coordsTouch.y >= cameraCoordsY + 21 && coordsTouch.y <= cameraCoordsY + 32)){
 					intcount = Integer.parseInt(activePlayer.StatusPoint_A);
 					if(intcount >= 1) { 
@@ -1115,14 +1061,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 						activePlayer.StatusPoint_A = String.valueOf(intcount); 
 						intcount = Integer.parseInt(activePlayer.Mind_A);
 						intcount++; 
-						activePlayer.Mind_A = String.valueOf(intcount); 
-						intcount = Integer.parseInt(activePlayer.MPMAX_A);
-						intcount = intcount + 20;
-					activePlayer.HPMAX_A = String.valueOf(intcount);
+						activePlayer.Mind_A = String.valueOf(intcount);  
 						return false;
 					}
 				}
-				//Increase Dextery
+				//Aumenta Dextery
 				if((coordsTouch.x >= cameraCoordsX + 17 && coordsTouch.x <= cameraCoordsX + 24) && (coordsTouch.y >= cameraCoordsY + 15 && coordsTouch.y <= cameraCoordsY + 22)){
 					intcount = Integer.parseInt(activePlayer.StatusPoint_A);
 					if(intcount >= 1) { 
@@ -1134,7 +1077,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 						return false;
 					}
 				}
-				//Increase Lucky
+				//Aumenta Lucky
 				if((coordsTouch.x >= cameraCoordsX + 17 && coordsTouch.x <= cameraCoordsX + 24) && (coordsTouch.y >= cameraCoordsY - 9 && coordsTouch.y <= cameraCoordsY + 16)){
 					intcount = Integer.parseInt(activePlayer.StatusPoint_A);
 					if(intcount >= 1) { 
@@ -1146,7 +1089,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 						return false;
 					}
 				}			
-				//Increase Agility
+				//Aumenta Lucky
 				if((coordsTouch.x >= cameraCoordsX + 17 && coordsTouch.x <= cameraCoordsX + 24) && (coordsTouch.y >= cameraCoordsY - 24 && coordsTouch.y <= cameraCoordsY - 10)){
 					intcount = Integer.parseInt(activePlayer.StatusPoint_A);
 					if(intcount >= 1) { 
@@ -1158,7 +1101,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 						return false;
 					}
 				}
-				//Increase Resistence
+				//Aumenta Resistencia
 				if((coordsTouch.x >= cameraCoordsX + 17 && coordsTouch.x <= cameraCoordsX + 24) && (coordsTouch.y >= cameraCoordsY - 25 && coordsTouch.y <= cameraCoordsY - 38)){
 					intcount = Integer.parseInt(activePlayer.StatusPoint_A);
 					if(intcount >= 1) { 
@@ -1170,11 +1113,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 						return false;
 					}
 				}
-			}  //End Status Menu
+			}  //Fim menu Status
 			
 			
 			if(menuBlock == 3) {//Itens
-				//Back
+				//Voltar
 				if((coordsTouch.x >= cameraCoordsX + 56 && coordsTouch.x <= cameraCoordsX + 67) && (coordsTouch.y >= cameraCoordsY + 62 && coordsTouch.y <= cameraCoordsY + 88)){
 					menuBlock = 1;
 					return false;
@@ -1300,39 +1243,39 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}
 				
-				//Switch Tab 1
+				//Mudar Aba 1
 				if((coordsTouch.x >= cameraCoordsX - 59 && coordsTouch.x <= cameraCoordsX - 54) && (coordsTouch.y >= cameraCoordsY - 38 && coordsTouch.y <= cameraCoordsY - 25)){
 					menuItemTab = 1;
 					return false;
 				}
-				//Switch Tab 2
+				//Mudar Aba 2
 				if((coordsTouch.x >= cameraCoordsX - 53 && coordsTouch.x <= cameraCoordsX - 48) && (coordsTouch.y >= cameraCoordsY - 38 && coordsTouch.y <= cameraCoordsY - 25)){
 					menuItemTab = 2;
 					return false;
 				}
-				//Switch Tab 3
+				//Mudar Aba 3
 				if((coordsTouch.x >= cameraCoordsX - 47 && coordsTouch.x <= cameraCoordsX - 41) && (coordsTouch.y >= cameraCoordsY - 38 && coordsTouch.y <= cameraCoordsY - 25)){
 					menuItemTab = 3;
 					return false;
 				}
-				//Switch Tab 4
+				//Mudar Aba 4
 				if((coordsTouch.x >= cameraCoordsX - 40 && coordsTouch.x <= cameraCoordsX - 35) && (coordsTouch.y >= cameraCoordsY - 38 && coordsTouch.y <= cameraCoordsY - 25)){
 					menuItemTab = 4;
 					return false;
 				}
-				//Switch Tab 5
+				//Mudar Aba 5
 				if((coordsTouch.x >= cameraCoordsX - 34 && coordsTouch.x <= cameraCoordsX - 28) && (coordsTouch.y >= cameraCoordsY - 38 && coordsTouch.y <= cameraCoordsY - 25)){
 					menuItemTab = 5;
 					return false;
 				}
 				
-				//Discart
+				//Descartar
 				if((coordsTouch.x >= cameraCoordsX - 25 && coordsTouch.x <= cameraCoordsX) && (coordsTouch.y >= cameraCoordsY - 38 && coordsTouch.y <= cameraCoordsY - 25)){
 					
 					return false;
 				}
 				
-				//Description
+				//Descricao
 				if((coordsTouch.x >= cameraCoordsX + 4 && coordsTouch.x <= cameraCoordsX + 30) && (coordsTouch.y >= cameraCoordsY - 38 && coordsTouch.y <= cameraCoordsY - 25)){
 					
 					return false;
@@ -1340,7 +1283,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 							
 			}
 			
-			if(menuBlock == 4) {  // Skills
+			if(menuBlock == 4) {  // Habilidades
 				//Voltar
 				if((coordsTouch.x >= cameraCoordsX + 56 && coordsTouch.x <= cameraCoordsX + 67) && (coordsTouch.y >= cameraCoordsY + 62 && coordsTouch.y <= cameraCoordsY + 88)){
 					menuBlock = 1;
@@ -1370,7 +1313,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}
 				
-				//Button "back to city"
+				//Bot�o para Cidade
 				if((coordsTouch.x >= cameraCoordsX - 59 && coordsTouch.x <= cameraCoordsX - 20) && (coordsTouch.y >= cameraCoordsY + 32 && coordsTouch.y <= cameraCoordsY + 53)){
 					activePlayer.PX_A = "11";
 					activePlayer.PY_A = "12";
@@ -1378,7 +1321,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					game.loadingmanager.screenSwitch("MetroStation");
 					return false;
 				}
-				//Button "Go to Forest"
+				//Bot�o para Foresta
 				if((coordsTouch.x >= cameraCoordsX - 59 && coordsTouch.x <= cameraCoordsX - 20) && (coordsTouch.y >= cameraCoordsY + 6 && coordsTouch.y <= cameraCoordsY + 28)){
 					activePlayer.PX_A = "84";
 					activePlayer.PY_A = "73";
@@ -1389,18 +1332,18 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			if(menuBlock == 8) {
-				//Back
+				//Voltar
 				if((coordsTouch.x >= cameraCoordsX + 56 && coordsTouch.x <= cameraCoordsX + 67) && (coordsTouch.y >= cameraCoordsY + 62 && coordsTouch.y <= cameraCoordsY + 88)){
 					menuBlock = 1;
 					return false;
 				}
-				//Switch Character
+				//Trocar Personagem
 				if((coordsTouch.x >= cameraCoordsX + 18 && coordsTouch.x <= cameraCoordsX + 66) && (coordsTouch.y >= cameraCoordsY + 33 && coordsTouch.y <= cameraCoordsY + 45)){
 					gameControl.WriteDataCharacterActive();
 					game.loadingmanager.screenSwitch("CharacterSelect");
 					return false;
 				}
-				//Send Upload
+				//Fazer Upload
 				if((coordsTouch.x >= cameraCoordsX + 18 && coordsTouch.x <= cameraCoordsX + 66) && (coordsTouch.y >= cameraCoordsY + 15 && coordsTouch.y <= cameraCoordsY + 30)){
 					try {
 						gameControl.GerenciamentoOnline("Upload", activePlayer.Account);
@@ -1412,46 +1355,46 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}
 				
-				//Sound turn on
+				//Som Ligado
 				if((coordsTouch.x >= cameraCoordsX - 38 && coordsTouch.x <= cameraCoordsX - 13) && (coordsTouch.y >= cameraCoordsY + 36 && coordsTouch.y <= cameraCoordsY + 44)){
 					//TODO
 					return false;
 				}
-				//Sound turn Off
+				//Som Desligado
 				if((coordsTouch.x >= cameraCoordsX - 11 && coordsTouch.x <= cameraCoordsX + 13) && (coordsTouch.y >= cameraCoordsY + 36 && coordsTouch.y <= cameraCoordsY + 44)){
 					//TODO
 					return false;
 				}
-				//Online On
+				//Online Ligado
 				if((coordsTouch.x >= cameraCoordsX - 38 && coordsTouch.x <= cameraCoordsX - 13) && (coordsTouch.y >= cameraCoordsY + 22 && coordsTouch.y <= cameraCoordsY + 31)){
 					configMsg = "Online Ligado";
 					onlineState = true;
 					gameControl.OperacaoOnline("Sincronizar", "");
 					return false;
 				}
-				//Online Off
+				//Online Desligado
 				if((coordsTouch.x >= cameraCoordsX - 11 && coordsTouch.x <= cameraCoordsX + 13) && (coordsTouch.y >= cameraCoordsY + 22 && coordsTouch.y <= cameraCoordsY + 31)){
 					configMsg = "Online Desligado";
 					onlineState = false;
 					gameControl.OperacaoOnline("Desligar", "");
 					return false;
 				}
-				//Range on
+				//Alcance Ligado
 				if((coordsTouch.x >= cameraCoordsX - 38 && coordsTouch.x <= cameraCoordsX - 13) && (coordsTouch.y >= cameraCoordsY + 8 && coordsTouch.y <= cameraCoordsY + 19)){
 					//TODO
 					return false;
 				}
-				//Range off
+				//Alcance Desligado
 				if((coordsTouch.x >= cameraCoordsX - 11 && coordsTouch.x <= cameraCoordsX + 13) && (coordsTouch.y >= cameraCoordsY + 8 && coordsTouch.y <= cameraCoordsY + 19)){
 					//TODO
 					return false;
 				}
-				//Touch Control
+				//Controle por Toque
 				if((coordsTouch.x >= cameraCoordsX - 55 && coordsTouch.x <= cameraCoordsX - 31) && (coordsTouch.y >= cameraCoordsY - 30 && coordsTouch.y <= cameraCoordsY - 7)){
 					//TODO
 					return false;
 				}
-				//Analog Control
+				//Controle por Analogico
 				if((coordsTouch.x >= cameraCoordsX - 28 && coordsTouch.x <= cameraCoordsX - 2) && (coordsTouch.y >= cameraCoordsY - 7 && coordsTouch.y <= cameraCoordsY - 30)){
 					//
 					return false;
@@ -1461,7 +1404,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		if(shopState) {
-			//Back
+			//Fechar
 			if((coordsTouch.x >= cameraCoordsX + 78 && coordsTouch.x <= cameraCoordsX + 89) && (coordsTouch.y >= cameraCoordsY + 100 && coordsTouch.y <= cameraCoordsY + 115)) {
 				shopState = false;
 				shopName = "";

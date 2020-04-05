@@ -22,8 +22,10 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 
 	////MAINLY///
 	private MainGame game;
-	private String[] config; //[0] Plataform, [1] InputType [2] Network
+	private String[] config;
 	private GameControl gameControl;
+	private String platform;
+	private String entryType = "";
 	private int charNumActive = 0;
 	
 	//Primitives
@@ -36,12 +38,14 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private int movFrameMetro2 = 600;
 	private int metrobackword = 0;
 	private int metroTVShow = 0;
+	private int SaveTime = 100;
 	
 	//Game States
 	private boolean mainState = true;
 	private boolean menuState = false;
 	private boolean deadState = false;
 	private boolean movement = false;
+	private boolean onlineState = false;
 	
 	//Camera
 	private OrthographicCamera camera;
@@ -90,10 +94,11 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private Sprite spr_teste3;
 	private Texture tex_teste;
 	
-	public MetroStation(MainGame gameAlt, String[] configAlt, GameControl controlAlt){
+	public MetroStation(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt, String net){
 		this.game = gameAlt;
 		this.config = configAlt;
 		this.gameControl = controlAlt;
+		this.platform = platformAlt;
 		cameraSettings = new String[3];
 		
 		//Teste dot
@@ -105,9 +110,23 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		spr_teste3 = new Sprite(tex_teste);
 		spr_teste3.setSize(1,1);	
 		
+		if(platform.equals("PC")) { entryType = "PC"; }
+		if(platform.equals("Mobile")) { entryType = "Mobile"; }
+		
+		if(net.equals("on")){ onlineState = true; }
+		if(net.equals("off")) { onlineState = false; }
+		
 		//Data Recover
 		charNumActive = gameControl.RecoverActiveChar();
 		activePlayer = gameControl.SetActiveCharacter(charNumActive);
+		
+		//Automatic Save Data
+		SaveTime--;
+		if(SaveTime <= 0) { 
+			SaveTime = 100; 
+			gameControl.WriteDataCharacterActive();
+			gameControl.SaveData(); 
+		}
 		
 		//Camera and Inputs
 		cameraSettings = gameControl.CameraSettings("MetroStation");
@@ -182,8 +201,8 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			ScenarioObjects("TVShow");
 			
 			
-			gameControl.UpdateCameraX(cameraCoordsX);
-			gameControl.UpdateCameraY(cameraCoordsY);
+			gameControl.AtualizaCameraX(cameraCoordsX);
+			gameControl.AtualizaCameraY(cameraCoordsY);
 			
 			//Set Player
 			if(activePlayer.Sex_A.equals("M")) {
@@ -215,15 +234,25 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		
 		//Recupera��o de HP
 		gameControl.RegenerateHPTiming();
+		
 		ExibirNpcs();
 		
 		//Colision
 		CheckColision();
+		
+		//Automatic Save Data
+		SaveTime--;
+		if(SaveTime <= 0) { 
+			SaveTime = 100; 
+			gameControl.WriteDataCharacterActive();
+			gameControl.SaveData(); 
+		}
+		
 		game.batch.end();
 	}
 	
 	public void ExibirNpcs(){
-		lstNpcs = gameControl.ShowNPCS("MetroStation");
+		lstNpcs = gameControl.ExibeNPCs("MetroStation");
 		for(int x = 0; x < lstNpcs.size(); x++){
 			spr_master = lstNpcs.get(x);
 			spr_master.draw(game.batch);
@@ -245,6 +274,53 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			spr_Metro2.setPosition(movFrameMetro2, 50);
 			spr_Metro2.draw(game.batch);
 			if(movFrameMetro2 < -300) { movFrameMetro2 = 600; }
+		}
+		if(item.equals("metrobackword")) {
+			metrobackword = metrobackword + 1;
+			if(metrobackword > 0 && metrobackword <= 30) { spr_master = gameControl.LoadObject("metrobackword1");  }
+			if(metrobackword > 30 && metrobackword <= 60) { spr_master = gameControl.LoadObject("metrobackword2");  }
+			if(metrobackword > 60 && metrobackword <= 90) { spr_master = gameControl.LoadObject("metrobackword3");  }
+			if(metrobackword > 90) { metrobackword = 0;}
+			
+			spr_master.setSize(35, 10);
+			spr_master.setPosition(12,90);
+			spr_master.draw(game.batch);
+			
+			spr_master.setSize(35, 10);
+			spr_master.setPosition(120,90);
+			spr_master.draw(game.batch);
+			
+			spr_master.setSize(35, 10);
+			spr_master.setPosition(220,90);
+			spr_master.draw(game.batch);			
+		}
+		
+		if(item.equals("TVShow")) {
+			metroTVShow = metroTVShow + 1;
+			if(metroTVShow >= 0 && metroTVShow <= 60) {
+				spr_master = gameControl.LoadObject("metroTV1");
+			}
+			if(metroTVShow > 60 && metroTVShow <= 120) {
+				spr_master = gameControl.LoadObject("metroTV2");		
+			}
+			if(metroTVShow > 120 && metroTVShow <= 180) {
+				spr_master = gameControl.LoadObject("metroTV1");
+			}
+			if(metroTVShow > 180 && metroTVShow <= 240) {
+				spr_master = gameControl.LoadObject("metroTV2");
+			}
+			if(metroTVShow > 240 && metroTVShow <= 300) {
+				spr_master = gameControl.LoadObject("metroTV3");		
+			}
+			if(metroTVShow > 300) { metroTVShow = 1; spr_master = gameControl.LoadObject("metroTV1"); }
+			
+			spr_master.setSize(35, 30);
+			spr_master.setPosition(82.2f,38);
+			spr_master.draw(game.batch);
+			
+			spr_master.setSize(35, 30);
+			spr_master.setPosition(-45.5f,38);
+			spr_master.draw(game.batch);
 		}
 	}
 
@@ -282,7 +358,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		
 		//Change Screen
 		if(playerX >= 217 && playerY < -51) {
-			gameControl.UpdateMap("Streets305");
+			gameControl.AtualizaMapa("Streets305");
 			gameControl.WriteDataCharacterActive();
 			game.loadingmanager.screenSwitch("Streets305");
 		}
