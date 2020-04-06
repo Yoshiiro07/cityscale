@@ -12,49 +12,44 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
-////MAINLY///
+	////MAINLY///
 	private MainGame game;
 	private String[] config;
 	private GameControl gameControl;
-	private String platform;
-	private String networkState = "no";
+	private UIManager uiManager;
 	
 	//Primitives
 	private boolean check = false;
-	private String text = "";
 	private float posXmetro = -100;
+	
+	//Objects
+	private TextureAtlas atlas_Gameplay;
 	
 	//Camera
 	private OrthographicCamera camera;
     private Viewport viewport;
 
-	//Audio
-	private Music sound_select;
-	
 	//Sprites
-	private Sprite spr_master;
+	//private Sprite spr_master;
 	
 	//Background
 	private Texture tex_sky;
 	private Texture tex_background;
-	private Texture tex_metro;
 	
 	private Sprite spr_sky;
 	private Sprite spr_background;
-	private Sprite spr_metro;
 	
 	//fonts
 	private BitmapFont font_master;
 	
 	//Barra Acesso
-	private Texture tex_BarraAcesso;
-	
-	private Sprite spr_BarraAcesso;
+	private Sprite spr_ButtonAccess;
 	
 	//teste
 	Sprite spr_teste;
@@ -62,11 +57,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	Sprite spr_teste3;
 	Texture tex_teste;
 	
-	public TitleScreen(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt){
+	public TitleScreen(MainGame gameAlt, String[] configAlt, GameControl controlAlt){
 		this.game = gameAlt;
 		this.config = configAlt;
 		this.gameControl = controlAlt;
-		this.platform = platformAlt;
+		
+		//Objects
+		uiManager = new UIManager();
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -75,8 +72,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
 		
-		//Audio 
-		sound_select = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/sound/optionselected.mp3"));
+		//Atlas
+		atlas_Gameplay = new TextureAtlas(Gdx.files.internal("data/interface/gameplay/gameplay.txt"));
 			
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
@@ -90,19 +87,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		spr_sky.setPosition(0, 70);
 		spr_sky.setSize(100,30);
 		
-		tex_BarraAcesso = new Texture(Gdx.files.internal("data/interface/charactercreator/barralogin.png"));
-		spr_BarraAcesso = new Sprite(tex_BarraAcesso);
-		
 		tex_background = new Texture(Gdx.files.internal("data/assets/titlescreen.png"));
 		spr_background = new Sprite(tex_background);
 		spr_background.setPosition(0,0);
 		spr_background.setSize(100,100);
-		
-		tex_metro = new Texture(Gdx.files.internal("data/assets/metro.png"));
-		spr_metro = new Sprite(tex_metro);
-		spr_metro.setPosition(-100,76);
-		spr_metro.setSize(60,20);
-		
 		
 		//Teste dot
 		tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
@@ -122,28 +110,22 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    game.batch.setProjectionMatrix(camera.combined);
 		game.batch.begin();
 		
-		//Animate Metro
-		posXmetro = posXmetro + 0.8f;	
-		if(posXmetro > 200) { posXmetro = -100;}
-		spr_metro.setPosition(posXmetro, 76);
-		
 		//Render Graphics
 		spr_sky.draw(game.batch);
-		spr_metro.draw(game.batch);
 		spr_background.draw(game.batch);
 		
-		spr_BarraAcesso.setPosition(72, 2);
-		spr_BarraAcesso.setSize(30, 35);
-		spr_BarraAcesso.draw(game.batch);
+		
+		spr_ButtonAccess = uiManager.SetUIElement("MainMenu","btnAccess", 72, 2);
+		spr_ButtonAccess.draw(game.batch);
 		
 		//Check option Select
 		if(check == true){		
-		    game.AtualizaElementos(game, config, gameControl, platform, networkState);
+		    game.AtualizaElementos(game, config, gameControl);
 		    game.Switch("CharacterSelect");			
 		}
 		
-		spr_teste.setPosition(72, 14);
-		spr_teste2.setPosition(99, 2);
+		//spr_teste.setPosition(72, 14);
+		//spr_teste2.setPosition(99, 2);
 		//spr_teste.draw(game.batch);
 		//spr_teste2.draw(game.batch);	
 		game.batch.end();
@@ -163,14 +145,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 				
 		//Criar nova Conta
-		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 28 && coordsTouch.y <= 35)){
-			gameControl.CreateNewData();
-			check = true;
-		}
+		uiManager.UIManagerSelect("Acessar", gameControl, coordsTouch.x, coordsTouch.y, 0, 0);
+		
 		//Recuperar do Backup
-		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
-			Gdx.input.getTextInput(this,"Digite o c�digo","",""); 
-		}	
+		//if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
+		//	Gdx.input.getTextInput(this,"Digite o c�digo","",""); 
+		//}	
 			
 		
 		return false;
@@ -178,8 +158,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	
 	@Override
 	public void input(String input){
-		text = input;		
-		gameControl.OperacaoOnline("Download", text);
+		//text = input;		
+		//gameControl.OperacaoOnline("Download", text);
 	}
 	
 	@Override
@@ -225,7 +205,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	public void dispose()
 	{
 		gameControl = null;
-		sound_select.dispose();
 		camera = null;
 		viewport = null;
 		game.dispose();

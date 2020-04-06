@@ -1,5 +1,5 @@
 gameplay.png
-size: 999, 1440
+size: 1017, 1433
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -12,21 +12,21 @@ avisoMissao
   index: -1
 bar_descricao
   rotate: false
-  xy: 0, 128
+  xy: 0, 123
   size: 463, 50
   orig: 463, 50
   offset: 0, 0
   index: -1
 bar_text
   rotate: false
-  xy: 193, 196
+  xy: 265, 189
   size: 500, 100
   orig: 500, 100
   offset: 0, 0
   index: -1
 barareaaskill
   rotate: false
-  xy: 300, 78
+  xy: 770, 39
   size: 196, 39
   orig: 196, 39
   offset: 0, 0
@@ -40,119 +40,126 @@ baritem
   index: -1
 btnAcao
   rotate: false
-  xy: 173, 0
-  size: 38, 27
-  orig: 38, 27
-  offset: 0, 0
-  index: -1
-btnAutoAttackOff
-  rotate: false
   xy: 97, 0
   size: 38, 27
   orig: 38, 27
   offset: 0, 0
   index: -1
-btnAutoAttackOn
-  rotate: false
-  xy: 249, 0
-  size: 38, 27
-  orig: 38, 27
-  offset: 0, 0
-  index: -1
-btntripleattack
-  rotate: false
-  xy: 135, 0
-  size: 38, 27
-  orig: 38, 27
-  offset: 0, 0
-  index: -1
-controlerbackground
-  rotate: false
-  xy: 693, 196
-  size: 132, 125
-  orig: 132, 125
-  offset: 0, 0
-  index: -1
-controllertouch
-  rotate: false
-  xy: 867, 128
-  size: 72, 68
-  orig: 72, 68
-  offset: 0, 0
-  index: -1
-flagCavernaSubmersaA
-  rotate: false
-  xy: 570, 39
-  size: 190, 39
-  orig: 190, 39
-  offset: 0, 0
-  index: -1
-flagCavernaSubmersaB
-  rotate: false
-  xy: 496, 78
-  size: 190, 39
-  orig: 190, 39
-  offset: 0, 0
-  index: -1
-flagFlorestaA
-  rotate: false
-  xy: 380, 39
-  size: 190, 39
-  orig: 190, 39
-  offset: 0, 0
-  index: -1
-flagFlorestaB
-  rotate: false
-  xy: 477, 0
-  size: 190, 39
-  orig: 190, 39
-  offset: 0, 0
-  index: -1
-flagMetro
+btnAcessar
   rotate: false
   xy: 287, 0
-  size: 190, 39
-  orig: 190, 39
+  size: 136, 29
+  orig: 136, 29
   offset: 0, 0
   index: -1
-flagMinasAbandonadasA
-  rotate: false
-  xy: 0, 39
-  size: 190, 39
-  orig: 190, 39
-  offset: 0, 0
-  index: -1
-flagMinasAbandonadasB
-  rotate: false
-  xy: 190, 39
-  size: 190, 39
-  orig: 190, 39
-  offset: 0, 0
-  index: -1
-flagStreets305
-  rotate: false
-  xy: 667, 0
-  size: 190, 39
-  orig: 190, 39
-  offset: 0, 0
-  index: -1
-hand
-  rotate: false
-  xy: 778, 78
-  size: 45, 45
-  orig: 45, 45
-  offset: 0, 0
-  index: -1
-hotAtk
+btnAutoAttackOff
   rotate: false
   xy: 211, 0
   size: 38, 27
   orig: 38, 27
   offset: 0, 0
   index: -1
+btnAutoAttackOn
+  rotate: false
+  xy: 135, 0
+  size: 38, 27
+  orig: 38, 27
+  offset: 0, 0
+  index: -1
+btntripleattack
+  rotate: false
+  xy: 173, 0
+  size: 38, 27
+  orig: 38, 27
+  offset: 0, 0
+  index: -1
+controlerbackground
+  rotate: false
+  xy: 765, 189
+  size: 132, 125
+  orig: 132, 125
+  offset: 0, 0
+  index: -1
+controllertouch
+  rotate: false
+  xy: 0, 189
+  size: 72, 68
+  orig: 72, 68
+  offset: 0, 0
+  index: -1
+flagCavernaSubmersaA
+  rotate: false
+  xy: 490, 78
+  size: 190, 39
+  orig: 190, 39
+  offset: 0, 0
+  index: -1
+flagCavernaSubmersaB
+  rotate: false
+  xy: 300, 78
+  size: 190, 39
+  orig: 190, 39
+  offset: 0, 0
+  index: -1
+flagFlorestaA
+  rotate: false
+  xy: 200, 39
+  size: 190, 39
+  orig: 190, 39
+  offset: 0, 0
+  index: -1
+flagFlorestaB
+  rotate: false
+  xy: 613, 0
+  size: 190, 39
+  orig: 190, 39
+  offset: 0, 0
+  index: -1
+flagMetro
+  rotate: false
+  xy: 423, 0
+  size: 190, 39
+  orig: 190, 39
+  offset: 0, 0
+  index: -1
+flagMinasAbandonadasA
+  rotate: false
+  xy: 803, 0
+  size: 190, 39
+  orig: 190, 39
+  offset: 0, 0
+  index: -1
+flagMinasAbandonadasB
+  rotate: false
+  xy: 390, 39
+  size: 190, 39
+  orig: 190, 39
+  offset: 0, 0
+  index: -1
+flagStreets305
+  rotate: false
+  xy: 580, 39
+  size: 190, 39
+  orig: 190, 39
+  offset: 0, 0
+  index: -1
+hand
+  rotate: false
+  xy: 772, 78
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+hotAtk
+  rotate: false
+  xy: 249, 0
+  size: 38, 27
+  orig: 38, 27
+  offset: 0, 0
+  index: -1
 hotcrossbar
   rotate: false
-  xy: 463, 128
+  xy: 613, 123
   size: 257, 59
   orig: 257, 59
   offset: 0, 0
@@ -166,105 +173,105 @@ hotkey
   index: -1
 menu
   rotate: false
-  xy: 924, 1140
+  xy: 926, 1133
   size: 75, 300
   orig: 75, 300
   offset: 0, 0
   index: -1
 menubatalha
   rotate: false
-  xy: 0, 594
+  xy: 0, 314
   size: 462, 273
   orig: 462, 273
   offset: 0, 0
   index: -1
 menuitens
   rotate: false
-  xy: 462, 321
+  xy: 462, 314
   size: 464, 273
   orig: 464, 273
   offset: 0, 0
   index: -1
 menuopcoes
   rotate: false
-  xy: 0, 321
+  xy: 462, 587
   size: 462, 273
   orig: 462, 273
   offset: 0, 0
   index: -1
 menuopen
   rotate: false
-  xy: 462, 594
+  xy: 0, 860
   size: 464, 273
   orig: 464, 273
   offset: 0, 0
   index: -1
 menupet
   rotate: false
-  xy: 464, 867
+  xy: 0, 587
   size: 462, 273
   orig: 462, 273
   offset: 0, 0
   index: -1
 menuskills
   rotate: false
-  xy: 462, 1140
+  xy: 464, 860
   size: 462, 273
   orig: 462, 273
   offset: 0, 0
   index: -1
 menusocial
   rotate: false
-  xy: 0, 1140
+  xy: 464, 1133
   size: 462, 273
   orig: 462, 273
   offset: 0, 0
   index: -1
 menustatus
   rotate: false
-  xy: 0, 867
+  xy: 0, 1133
   size: 464, 273
   orig: 464, 273
   offset: 0, 0
   index: -1
 moon
   rotate: false
-  xy: 732, 78
+  xy: 680, 78
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 mortemsg
   rotate: false
-  xy: 823, 78
+  xy: 463, 123
   size: 150, 50
   orig: 150, 50
   offset: 0, 0
   index: -1
 sun
   rotate: false
-  xy: 686, 78
+  xy: 726, 78
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 tagmonster
   rotate: false
-  xy: 760, 39
+  xy: 0, 39
   size: 200, 39
   orig: 200, 39
   offset: 0, 0
   index: -1
 tagparty
   rotate: false
-  xy: 720, 128
+  xy: 870, 123
   size: 147, 66
   orig: 147, 66
   offset: 0, 0
   index: -1
 tagplayer
   rotate: false
-  xy: 0, 196
+  xy: 72, 189
   size: 193, 80
   orig: 193, 80
   offset: 0, 0
