@@ -26,7 +26,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	
 	//Primitives
 	private boolean check = false;
-	private float posXmetro = -100;
+	private String text;
 	
 	//Objects
 	private TextureAtlas atlas_Gameplay;
@@ -47,9 +47,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	
 	//fonts
 	private BitmapFont font_master;
-	
-	//Barra Acesso
-	private Sprite spr_ButtonAccess;
 	
 	//teste
 	Sprite spr_teste;
@@ -114,18 +111,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		spr_sky.draw(game.batch);
 		spr_background.draw(game.batch);
 		
-		
 		spr_master = uiManager.ShowUIElementOther("MainMenu","btnAccess");
 		spr_master.draw(game.batch);
 		
 		spr_master = uiManager.ShowUIElementOther("MainMenu","btnBackup");
 		spr_master.draw(game.batch);
-		
-		//Check option Select
-		if(check == true){		
-		    game.AtualizaElementos(game, config, gameControl);
-		    game.Switch("CharacterSelect");			
-		}
 		
 		//spr_teste.setPosition(72, 14);
 		//spr_teste2.setPosition(99, 2);
@@ -148,20 +138,24 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 				
 		//Criar nova Conta
-	    
+		check = uiManager.UIManagerSelectOther("MainMenu","Acessar",coordsTouch.x,coordsTouch.y);
+		if(check) {
+			gameControl.CreateNewData();
+			game.AtualizaElementos(game, config, gameControl);
+		    game.Switch("CharacterSelect");	
+		}
+				
 		//Recuperar do Backup
-		//if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
-		//	Gdx.input.getTextInput(this,"Digite o cï¿½digo","",""); 
-		//}	
-			
+		check = uiManager.UIManagerSelectOther("MainMenu","Backup",coordsTouch.x,coordsTouch.y);
+		if(check) { Gdx.input.getTextInput(this,"Digite o Código","","");  }
 		
 		return false;
 	}
 	
 	@Override
 	public void input(String input){
-		//text = input;		
-		//gameControl.OperacaoOnline("Download", text);
+		text = input;		
+		gameControl.OnlineOperations("Download", text);
 	}
 	
 	@Override
