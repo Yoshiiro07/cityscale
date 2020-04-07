@@ -148,12 +148,17 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 				
 		//Criar nova Conta
-	    
+	    check = uiManager.UIManagerSelectOther("MainMenu","Access",coordsTouch.x,coordsTouch.y);
+		if(check){
+			//gameControl
+		    game.AtualizaElementos(game, config, gameControl);
+		    game.Switch("CharacterSelect");		
+		}
 		//Recuperar do Backup
-		//if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
-		//	Gdx.input.getTextInput(this,"Digite o cï¿½digo","",""); 
-		//}	
-			
+	    check = uiManager.UIManagerSelectOther("MainMenu","Backup",coordsTouch.x,coordsTouch.y);
+	    if(check){
+         Gdx.input.getTextInput(this,"Digite o cï¿½digo","","");
+	    }
 		
 		return false;
 	}

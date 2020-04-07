@@ -54,28 +54,34 @@ public class UIManager {
 		return lstUITextMonsterElements;
 	}
 	
-	public boolean UIManagerSelectOther(String type, GameControl gameControl, float touchPosX, float touchPosY) {
+	public boolean UIManagerSelectOther(String type, String item, float touchPosX, float touchPosY) {
 		
 		//[Main Menu]//
 		if(type.equals("MainMenu")) {
 		
 		//Button Access
+		if(item.equals("Access")){
 		objectPositionCenter = 75; 
 		objectDivisibleWidth = 25/2; 
 		objectDivisibleHeight = 9/2;
 		if(touchPosX > (75 - objectDivisibleWidth) &&  touchPosX < (75 + objectDivisibleWidth) && 
 		   touchPosY > (16 - objectDivisibleHeight) &&  touchPosY < (16 + objectDivisibleHeight)) {
-		   
+		   return true;
+		}
 		}
 		
 		//Recover Online Data (Backup)
+		if(item.equals("Backup")){
 		objectPositionCenter = 75; 
 		objectDivisibleWidth = 25/2; 
 		objectDivisibleHeight = 9/2;
 		if(touchPosX > (75 - objectDivisibleWidth) &&  touchPosX < (75 + objectDivisibleWidth) && 
-		   touchPosY > (5) &&  touchPosY < (5 + objectDivisibleHeight)) {
-		   
+		   touchPosY > (5 - objectDivisibleHeight) &&  touchPosY < (5 + objectDivisibleHeight)) {
+		   return true;
 		}
+		}
+		
+		
 		}
 		
 		//[Character Select]//
