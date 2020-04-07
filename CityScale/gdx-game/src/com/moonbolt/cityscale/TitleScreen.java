@@ -36,7 +36,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
     private Viewport viewport;
 
 	//Sprites
-	//private Sprite spr_master;
+	private Sprite spr_master;
 	
 	//Background
 	private Texture tex_sky;
@@ -115,8 +115,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		spr_background.draw(game.batch);
 		
 		
-		spr_ButtonAccess = uiManager.SetUIElement("MainMenu","btnAccess", 72, 2);
-		spr_ButtonAccess.draw(game.batch);
+		spr_master = uiManager.ShowUIElementOther("MainMenu","btnAccess");
+		spr_master.draw(game.batch);
+		
+		spr_master = uiManager.ShowUIElementOther("MainMenu","btnBackup");
+		spr_master.draw(game.batch);
 		
 		//Check option Select
 		if(check == true){		
@@ -145,11 +148,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 				
 		//Criar nova Conta
-		uiManager.UIManagerSelect("Acessar", gameControl, coordsTouch.x, coordsTouch.y, 0, 0);
-		
+	    
 		//Recuperar do Backup
 		//if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
-		//	Gdx.input.getTextInput(this,"Digite o c�digo","",""); 
+		//	Gdx.input.getTextInput(this,"Digite o cï¿½digo","",""); 
 		//}	
 			
 		

@@ -56,17 +56,29 @@ public class UIManager {
 	
 	public boolean UIManagerSelectOther(String type, GameControl gameControl, float touchPosX, float touchPosY) {
 		
-		//Main Menu
+		//[Main Menu]//
 		if(type.equals("MainMenu")) {
 		
-			//Button Access
-			objectPositionCenter = 75;
-			objectDivisibleWidth = 25/2;
-			//if(touchPosX > (75 - (25/2))  )
-			
+		//Button Access
+		objectPositionCenter = 75; 
+		objectDivisibleWidth = 25/2; 
+		objectDivisibleHeight = 9/2;
+		if(touchPosX > (75 - objectDivisibleWidth) &&  touchPosX < (75 + objectDivisibleWidth) && 
+		   touchPosY > (16 - objectDivisibleHeight) &&  touchPosY < (16 + objectDivisibleHeight)) {
+		   
 		}
 		
-		//Character Select
+		//Recover Online Data (Backup)
+		objectPositionCenter = 75; 
+		objectDivisibleWidth = 25/2; 
+		objectDivisibleHeight = 9/2;
+		if(touchPosX > (75 - objectDivisibleWidth) &&  touchPosX < (75 + objectDivisibleWidth) && 
+		   touchPosY > (5) &&  touchPosY < (5 + objectDivisibleHeight)) {
+		   
+		}
+		}
+		
+		//[Character Select]//
 		if(type.equals("CharacterSelect")) {
 		
 		}
@@ -74,13 +86,14 @@ public class UIManager {
 		return false;
 	}
 	
-	public Sprite ShowUIElementOther(String type,String item, float ccX, float ccY) {
+	public Sprite ShowUIElementOther(String type,String item) {
 		
 		//Main Menu
 		if(type.equals("MainMenu")) {
 			
 			//Button Access
 			if(item.equals("btnAccess")) {spr_master = atlas_gameplay.createSprite("btnAcessar"); spr_master.setPosition(75, 16);spr_master.setSize(25, 9);}
+			if(item.equals("btnBackup")) {spr_master = atlas_gameplay.createSprite("btnBackup"); spr_master.setPosition(75, 5);spr_master.setSize(25, 9);}
 		}
 		
 		//Character Select
