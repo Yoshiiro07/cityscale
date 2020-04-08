@@ -11,6 +11,7 @@ public class SaveManager {
 	
 	//Primitives
 	private int count = 0;
+	private int charNumActive = 0;
 	
 	//Objects
 	private Random randnumber;
@@ -24,6 +25,173 @@ public class SaveManager {
 	
 	public void UpdateCharacterData(Player chardata) {
 		this.Character_Data = chardata;
+	}
+	
+	public void SaveData() {		
+		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
+		file.writeString(Base64Coder.encodeString(json.prettyPrint(Character_Data)),false);
+	}
+	
+	public void WriteDataCharacterActive() {
+		if(charNumActive == 1) {
+			Character_Data.Name_1 = Character_Data.Name_A;
+			Character_Data.Job_1 = Character_Data.Job_A;
+			Character_Data.Level_1 = Character_Data.Level_A;
+			Character_Data.Sex_1 = Character_Data.Sex_A;
+			Character_Data.Atk_1 = Character_Data.Atk_A;
+			Character_Data.Def_1 = Character_Data.Def_A;
+			Character_Data.HP_1 = Character_Data.HP_A;
+			Character_Data.MP_1 = Character_Data.MP_A;
+			Character_Data.HPMAX_1 = Character_Data.HPMAX_A;
+			Character_Data.MPMAX_1 = Character_Data.MPMAX_A;
+			Character_Data.StatusPoint_1 = Character_Data.StatusPoint_A;
+			Character_Data.SkillPoint_1 = Character_Data.SkillPoint_A;
+			Character_Data.Exp_1 = Character_Data.Exp_A;
+			Character_Data.PX_1 = Character_Data.PX_A;
+			Character_Data.PY_1 = Character_Data.PY_A;
+			Character_Data.Jump_1 = Character_Data.Jump_A;
+			Character_Data.Couch_1 = Character_Data.Couch_A;
+			Character_Data.Money_1 = Character_Data.Money_A;
+			Character_Data.Stamina_1 = Character_Data.Stamina_A;
+			Character_Data.Starve_1 = Character_Data.Starve_A;
+			Character_Data.Speed_1 = Character_Data.Speed_A;
+			Character_Data.State_1 = Character_Data.State_A;
+			Character_Data.Walk_1 = Character_Data.Walk_A;
+			Character_Data.Battle_1 = Character_Data.Battle_A;
+			Character_Data.Target_1 = Character_Data.Target_A;
+			Character_Data.Party_1 = Character_Data.Party_A;
+			Character_Data.Map_1 = Character_Data.Map_A;
+			
+			Character_Data.Weapon_1 = Character_Data.Weapon_A;
+			Character_Data.Hat_1 = Character_Data.Hat_A;
+			Character_Data.Hair_1 = Character_Data.Hair_A;
+			Character_Data.Set_1 = Character_Data.Set_A;
+			Character_Data.AcessoryA_1 = Character_Data.AcessoryA_A;
+			Character_Data.AcessoryB_1 = Character_Data.AcessoryB_A;
+			
+			Character_Data.Strengh_1 = Character_Data.Strengh_A;
+			Character_Data.Agility_1 = Character_Data.Agility_A;
+			Character_Data.Resistence_1 = Character_Data.Resistence_A;
+			Character_Data.Vitality_1 = Character_Data.Vitality_A;
+			Character_Data.Dextery_1 = Character_Data.Dextery_A;
+			Character_Data.Mind_1 = Character_Data.Mind_A;
+			Character_Data.Lucky_1 = Character_Data.Lucky_A;
+			
+			Character_Data.Status_1 = Character_Data.Status_A;
+			Character_Data.Skills_1 = Character_Data.Skills_A;
+			Character_Data.Itens_1 = Character_Data.Itens_A;
+			Character_Data.Crystals_1 = Character_Data.Crystals_A;
+			Character_Data.Quests_1 = Character_Data.Quests_A;
+			Character_Data.ActiveQuest_1 = Character_Data.ActiveQuest_A;
+			Character_Data.Pet_1 = Character_Data.Pet_A;
+			Character_Data.Online_1 = Character_Data.Online_A;
+		}
+		if(charNumActive == 2) {
+			Character_Data.Name_2 = Character_Data.Name_A;
+			Character_Data.Job_2 = Character_Data.Job_A;
+			Character_Data.Level_2 = Character_Data.Level_A;
+			Character_Data.Sex_2 = Character_Data.Sex_A;
+			Character_Data.Atk_2 = Character_Data.Atk_A;
+			Character_Data.Def_2 = Character_Data.Def_A;
+			Character_Data.HP_2 = Character_Data.HP_A;
+			Character_Data.MP_2 = Character_Data.MP_A;
+			Character_Data.HPMAX_2 = Character_Data.HPMAX_A;
+			Character_Data.MPMAX_2 = Character_Data.MPMAX_A;
+			Character_Data.StatusPoint_2 = Character_Data.StatusPoint_A;
+			Character_Data.SkillPoint_2 = Character_Data.SkillPoint_A;
+			Character_Data.Exp_2 = Character_Data.Exp_A;
+			Character_Data.PX_2 = Character_Data.PX_A;
+			Character_Data.PY_2 = Character_Data.PY_A;
+			Character_Data.Jump_2 = Character_Data.Jump_A;
+			Character_Data.Couch_2 = Character_Data.Couch_A;
+			Character_Data.Money_2 = Character_Data.Money_A;
+			Character_Data.Stamina_2 = Character_Data.Stamina_A;
+			Character_Data.Starve_2 = Character_Data.Starve_A;
+			Character_Data.Speed_2 = Character_Data.Speed_A;
+			Character_Data.State_2 = Character_Data.State_A;
+			Character_Data.Walk_2 = Character_Data.Walk_A;
+			Character_Data.Battle_2 = Character_Data.Battle_A;
+			Character_Data.Target_2 = Character_Data.Target_A;
+			Character_Data.Party_2 = Character_Data.Party_A;
+			Character_Data.Map_2 = Character_Data.Map_A;
+			
+			Character_Data.Weapon_2 = Character_Data.Weapon_A;
+			Character_Data.Hat_2 = Character_Data.Hat_A;
+			Character_Data.Hair_2 = Character_Data.Hair_A;
+			Character_Data.Set_2 = Character_Data.Set_A;
+			Character_Data.AcessoryA_2 = Character_Data.AcessoryA_A;
+			Character_Data.AcessoryB_2 = Character_Data.AcessoryB_A;
+			
+			Character_Data.Strengh_2 = Character_Data.Strengh_A;
+			Character_Data.Agility_2 = Character_Data.Agility_A;
+			Character_Data.Resistence_2 = Character_Data.Resistence_A;
+			Character_Data.Vitality_2 = Character_Data.Vitality_A;
+			Character_Data.Dextery_2 = Character_Data.Dextery_A;
+			Character_Data.Mind_2 = Character_Data.Mind_A;
+			Character_Data.Lucky_2 = Character_Data.Lucky_A;
+			
+			Character_Data.Status_2 = Character_Data.Status_A;
+			Character_Data.Skills_2 = Character_Data.Skills_A;
+			Character_Data.Itens_2 = Character_Data.Itens_A;
+			Character_Data.Crystals_2 = Character_Data.Crystals_A;
+			Character_Data.Quests_2 = Character_Data.Quests_A;
+			Character_Data.ActiveQuest_2 = Character_Data.ActiveQuest_A;
+			Character_Data.Pet_2 = Character_Data.Pet_A;
+			Character_Data.Online_2 = Character_Data.Online_A;
+		}
+		if(charNumActive == 3) {
+			Character_Data.Name_3 = Character_Data.Name_A;
+			Character_Data.Job_3 = Character_Data.Job_A;
+			Character_Data.Level_3 = Character_Data.Level_A;
+			Character_Data.Sex_3 = Character_Data.Sex_A;
+			Character_Data.Atk_3 = Character_Data.Atk_A;
+			Character_Data.Def_3 = Character_Data.Def_A;
+			Character_Data.HP_3 = Character_Data.HP_A;
+			Character_Data.MP_3 = Character_Data.MP_A;
+			Character_Data.HPMAX_3 = Character_Data.HPMAX_A;
+			Character_Data.MPMAX_3 = Character_Data.MPMAX_A;
+			Character_Data.StatusPoint_3 = Character_Data.StatusPoint_A;
+			Character_Data.SkillPoint_3 = Character_Data.SkillPoint_A;
+			Character_Data.Exp_3 = Character_Data.Exp_A;
+			Character_Data.PX_3 = Character_Data.PX_A;
+			Character_Data.PY_3 = Character_Data.PY_A;
+			Character_Data.Jump_3 = Character_Data.Jump_A;
+			Character_Data.Couch_3 = Character_Data.Couch_A;
+			Character_Data.Money_3 = Character_Data.Money_A;
+			Character_Data.Stamina_3 = Character_Data.Stamina_A;
+			Character_Data.Starve_3 = Character_Data.Starve_A;
+			Character_Data.Speed_3 = Character_Data.Speed_A;
+			Character_Data.State_3 = Character_Data.State_A;
+			Character_Data.Walk_3 = Character_Data.Walk_A;
+			Character_Data.Battle_3 = Character_Data.Battle_A;
+			Character_Data.Target_3 = Character_Data.Target_A;
+			Character_Data.Party_3 = Character_Data.Party_A;
+			Character_Data.Map_3 = Character_Data.Map_A;
+			
+			Character_Data.Weapon_3 = Character_Data.Weapon_A;
+			Character_Data.Hat_3 = Character_Data.Hat_A;
+			Character_Data.Hair_3 = Character_Data.Hair_A;
+			Character_Data.Set_3 = Character_Data.Set_A;
+			Character_Data.AcessoryA_3 = Character_Data.AcessoryA_A;
+			Character_Data.AcessoryB_3 = Character_Data.AcessoryB_A;
+			
+			Character_Data.Strengh_3 = Character_Data.Strengh_A;
+			Character_Data.Agility_3 = Character_Data.Agility_A;
+			Character_Data.Resistence_3 = Character_Data.Resistence_A;
+			Character_Data.Vitality_3 = Character_Data.Vitality_A;
+			Character_Data.Dextery_3 = Character_Data.Dextery_A;
+			Character_Data.Mind_3 = Character_Data.Mind_A;
+			Character_Data.Lucky_3 = Character_Data.Lucky_A;
+			
+			Character_Data.Status_3 = Character_Data.Status_A;
+			Character_Data.Skills_3 = Character_Data.Skills_A;
+			Character_Data.Itens_3 = Character_Data.Itens_A;
+			Character_Data.Crystals_3 = Character_Data.Crystals_A;
+			Character_Data.Quests_3 = Character_Data.Quests_A;
+			Character_Data.ActiveQuest_3 = Character_Data.ActiveQuest_A;
+			Character_Data.Pet_3 = Character_Data.Pet_A;
+			Character_Data.Online_3 = Character_Data.Online_A;
+		}
 	}
 	
 	public void CreateNewData(){			

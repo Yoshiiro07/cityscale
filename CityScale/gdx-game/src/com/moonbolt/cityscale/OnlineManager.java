@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class OnlineManager {
 	
@@ -15,6 +16,7 @@ public class OnlineManager {
 	private int threadCount = 0;
 	private int cleanPlayersOnline = 0;
 	private int chatNumber = 0;
+	private int pos;
 	private String textOnline;
 	private String line;
 	private String data;
@@ -22,6 +24,9 @@ public class OnlineManager {
 	private String chat1;
 	private String chat2;
 	private String chat3;
+	private String sidePlayer;
+	
+	
 	private String[] atkData = new String [3];
 	private String[] onlineData = new String[50];
 	private String[] splitonlineData = new String[3];
@@ -35,11 +40,13 @@ public class OnlineManager {
 	
 	//Objects
 	private Player plOnline;
+	private Player Character_Data;
 	private Monster mobOnline;
+	private SaveManager savManager;
 	private ArrayList<String> lstChats; 
 	private ArrayList<Player> lstOnlinePlayers;
 	private ArrayList<Monster> lstMonsters;
-	private Player Character_Data;
+	
 	
 
 	public OnlineManager() {
@@ -49,6 +56,10 @@ public class OnlineManager {
 	
 	public void UpdateCharacterData(Player chardata) {
 		this.Character_Data = chardata;
+	}
+	
+	public void UpdateOnlineSave(SaveManager saveManager){
+		this.savManager = saveManager;
 	}
 	
 	public void OnlineOperations(String nomeOperacao, String subdado) {
@@ -133,7 +144,7 @@ public class OnlineManager {
 	        data += "&" + URLEncoder.encode("lweapon", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Weapon_A, "UTF-8");
 	        data += "&" + URLEncoder.encode("lbattle", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Battle_A, "UTF-8");
 			data += "&" + URLEncoder.encode("lside", "UTF-8") + "=" + URLEncoder.encode(sidePlayer, "UTF-8");
-			data += "&" + URLEncoder.encode("lpos", "UTF-8") + "=" + URLEncoder.encode(pos, "UTF-8");
+			data += "&" + URLEncoder.encode("lpos", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(pos), "UTF-8");
 			data += "&" + URLEncoder.encode("lskillOnline", "UTF-8") + "=" + URLEncoder.encode("none", "UTF-8");
 			data += "&" + URLEncoder.encode("lparty", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Party_A, "UTF-8");
 			data += "&" + URLEncoder.encode("lchat", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
@@ -286,7 +297,7 @@ public class OnlineManager {
 	        	textOnline = line;   
 	        	//Resultado: - Logado -. <br>done
 		        if (!textOnline.contains("Inexistente")) {            	
-		        	LoadDownloadData(textOnline);       		
+		        	savManager.LoadDownloadData(textOnline);       		
 	            }		            
     		}	        
 	        wr.close();
@@ -295,9 +306,9 @@ public class OnlineManager {
 		
 		if(tipoRequisicao.equals("Upload")){
 			
-			WriteDataCharacterActive();
-			SaveData();
-			String accountData = LoadDataText();
+			savManager.WriteDataCharacterActive();
+			savManager.SaveData();
+			String accountData = savManager.LoadDataText();
 						
 			String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(accountData, "UTF-8");
 			data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Upload", "UTF-8");

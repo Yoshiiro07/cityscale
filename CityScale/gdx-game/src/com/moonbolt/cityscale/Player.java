@@ -29,6 +29,8 @@ public class Player {
 		public String Speed_1;
 		public String State_1;
 		public String Walk_1;
+		public String Pos_1;
+		public String Side_1;
 		public String Battle_1;
 		public String Target_1;
 		public String Party_1;
@@ -83,6 +85,8 @@ public class Player {
 		public String Speed_2;
 		public String State_2;
 		public String Walk_2;
+		public String Pos_2;
+		public String Side_2;
 		public String Battle_2;
 		public String Target_2;
 		public String Party_2;
@@ -137,6 +141,8 @@ public class Player {
 		public String Speed_3;
 		public String State_3;
 		public String Walk_3;
+		public String Pos_3;
+		public String Side_3;
 		public String Battle_3;
 		public String Target_3;
 		public String Party_3;
@@ -189,6 +195,9 @@ public class Player {
 		public String Speed_A;
 		public String State_A;
 		public String Walk_A;
+		public String Pos_A;
+		public String Side_A;
+		public String Position_A;
 		public String Battle_A;
 		public String Target_A;
 		public String Party_A;
@@ -219,11 +228,6 @@ public class Player {
 		public String ActiveQuest_A;
 		public String Pet_A;
 		public String Online_A;
-		
-		
-		public String Position_A;
-		public String Side_A;
-		
 		
 		public String getHousing_1() {
 			return Housing_1;
