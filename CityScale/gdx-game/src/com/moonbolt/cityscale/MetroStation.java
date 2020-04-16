@@ -206,14 +206,14 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 			//Set Player
 			if(activePlayer.Sex_A.equals("M")) {
-				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0);
+				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0,false);
 				spr_hair = gameControl.ReturnHairs(activePlayer.Hair_A, state,walk, playerX, playerY);
 				
 				spr_player.draw(game.batch);
 				spr_hair.draw(game.batch);
 			}
 			if(activePlayer.Sex_A.equals("F")) {
-				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0);
+				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0,false);
 				spr_hair = gameControl.ReturnHairs(activePlayer.Hair_A, state,walk, playerX, playerY);
 				
 				spr_player.draw(game.batch);

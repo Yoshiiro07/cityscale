@@ -247,7 +247,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Set Player
 			if(gameControl.RecuperaPosition() == 3 || gameControl.RecuperaPosition() == 4) {
-				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0);
+				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0,false);
 				spr_hair = gameControl.ReturnHairs(activePlayer.Hair_A, state,walk, playerX, playerY);
 				spr_weapon = gameControl.ShowWeapon(state, walk,  "", playerX, playerY);
 				
@@ -257,7 +257,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 				
 			}
 			else {
-				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0);
+				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0,false);
 				spr_hair = gameControl.ReturnHairs(activePlayer.Hair_A, state,walk, playerX, playerY);
 				spr_weapon = gameControl.ShowWeapon(state, walk,  "", playerX, playerY);
 				
@@ -442,7 +442,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch,String.valueOf(activePlayer.StatusPoint_A),cameraCoordsX - 25,cameraCoordsY - 32);
 					font_master.draw(game.batch,String.valueOf(activePlayer.Job_A),cameraCoordsX - 44,cameraCoordsY + 50);
 					
-					spr_player = gameControl.MovChar(activePlayer.Set_A, "Front","Stop", "Menu", cameraCoordsX - 43, cameraCoordsY - 10,1);
+					spr_player = gameControl.MovChar(activePlayer.Set_A, "Front","Stop", "Menu", cameraCoordsX - 43, cameraCoordsY - 10,1,false);
 					spr_hair = gameControl.ReturnHairs(activePlayer.Hair_A, "Menu","Stop", cameraCoordsX - 43, cameraCoordsY - 10);
 						
 					spr_player.draw(game.batch);
@@ -530,7 +530,7 @@ public class ForestArea implements Screen, ApplicationListener, InputProcessor, 
 				
 				spr_master = gameControl.MovChar(lstInfoOnline.get(i).Set_A,lstInfoOnline.get(i).Side_A,"","",Float.parseFloat(lstInfoOnline.get(i).PX_A),
 																								  Float.parseFloat(lstInfoOnline.get(i).PY_A),
-																								  Integer.parseInt(lstInfoOnline.get(i).Position_A));
+																								  Integer.parseInt(lstInfoOnline.get(i).Position_A),true);
 				spr_master.draw(game.batch);
 				
 				spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,lstInfoOnline.get(i).Side_A,"",Float.parseFloat(lstInfoOnline.get(i).PX_A),

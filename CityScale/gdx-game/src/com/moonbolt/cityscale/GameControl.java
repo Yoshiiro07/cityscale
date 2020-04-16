@@ -37,6 +37,7 @@ public class GameControl {
 		private Json json;
 		private FileHandle file;
 		private Random randnumber;
+		private DataManager dataManager;
 		
 		private String text;
 		private String weapon;
@@ -92,7 +93,8 @@ public class GameControl {
 		
 		private float fX;
 		private float fY;
-		private float fUsable;
+		private float fUsableX;
+		private float fUsableY;
 		private float mobX;
 		private float mobY;
 		private float mobAttackZoneXPlus;
@@ -143,8 +145,6 @@ public class GameControl {
 		private TextureAtlas atlas_nKnifes;
 		private TextureAtlas atlas_swords;
 		//Set atlas
-		private TextureAtlas atlas_basic_male_set;
-		private TextureAtlas atlas_basic_female_set;
 		private TextureAtlas atlas_sets;
 		
 		
@@ -183,6 +183,7 @@ public class GameControl {
 			onlineData = new String [255];
 			splitonlineData = new String [255];
 			json = new Json();
+			dataManager = new DataManager();
 			
 			tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
 			spr_master = new Sprite(tex_teste);
@@ -208,8 +209,6 @@ public class GameControl {
 			////////Atlas Section//////
 			//Character
 			atlas_hairs = new TextureAtlas(Gdx.files.internal("data/characters/hair/hairs.txt"));
-			atlas_basic_male_set = new TextureAtlas(Gdx.files.internal("data/characters/basic_male/basic_set_male.txt"));
-			atlas_basic_female_set = new TextureAtlas(Gdx.files.internal("data/characters/basic_female/basic_female.txt"));
 			
 			//Gameplay
 			atlas_gameplay_interface = new TextureAtlas(Gdx.files.internal("data/interface/gameplay/gameplay.txt"));
@@ -907,231 +906,85 @@ public class GameControl {
 			return spr_master;
 		}
 	
-		public Sprite MovChar(String set, String side,String walk, String type, float posX, float posY, int posInterject) {
+		public Sprite MovChar(String set, String side,String walk, String type, float posX, float posY, int posInterject, boolean netPlayer) {
 			
+			Character_Data.Walk_A = walk;	
 			if(isCasting) {
 				CastTime();
-				
-				if(set.equals("basic_set_male")) {
-					if(text.equals("yes_Right")) {
-						spr_master = atlas_basic_male_set.createSprite("basic_set_male_magician_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master;					
-					}
-					if(text.equals("yes_Left")) {
-						spr_master = atlas_basic_male_set.createSprite("basic_set_male_magician_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master;
-					}
-				}
-				
-				if(set.equals("basic_set_female")) {
-					if(text.equals("yes_Right")) {
-						spr_master = atlas_basic_female_set.createSprite("basic_set_female_magician_right2"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master;				
-					}
-					if(text.equals("yes_Left")) {
-						spr_master = atlas_basic_female_set.createSprite("basic_set_female_magician_left2"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master;
-					}
-				}
-				
+				spr_master = dataManager.CastingSpriteSet(posX,posY,set,text);
 				return spr_master;
 			}
 			
+			//Seta Posição
+			fUsableX = Float.parseFloat(Character_Data.PX_A);
+			fUsableY = Float.parseFloat(Character_Data.PY_A);
 			
-			if(walk.equals("Walk") && side.equals("Left")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-			}
-			if(walk.equals("Walk") && side.equals("Right")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-			}
-			if(walk.equals("Walk") && side.equals("Front")) {
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable - 1f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-			}
-			if(walk.equals("Walk") && side.equals("Back")) {
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable + 1f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-			}
+			if(walk.equals("Walk") && side.equals("Left")) { fUsableX = fUsableX - 0.8f;  }
+			if(walk.equals("Walk") && side.equals("Right")) { fUsableX = fUsableX + 0.8f; }
+			if(walk.equals("Walk") && side.equals("Back")) { fUsableY = fUsableY + 1f; }
+			if(walk.equals("Walk") && side.equals("Front")) { fUsableY = fUsableY - 1f; }
+			if(walk.equals("Walk") && side.equals("Left-Front")) { fUsableX = fUsableX - 0.8f; fUsableY = fUsableY - 0.8f; side = "Left"; }
+			if(walk.equals("Walk") && side.equals("Left-Back")) { fUsableX = fUsableX - 0.8f; fUsableY = fUsableY - 0.8f; side = "Left"; }
+			if(walk.equals("Walk") && side.equals("Back-Left")) { fUsableX = fUsableX - 0.8f; fUsableY = fUsableY + 0.8f; side = "Back"; }
+			if(walk.equals("Walk") && side.equals("Back-Right")) { fUsableX = fUsableX + 0.8f; fUsableY = fUsableY + 0.8f; side = "Back"; }
+			if(walk.equals("Walk") && side.equals("Right-Back")) { fUsableX = fUsableX + 0.8f; fUsableY = fUsableY + 0.8f; side = "Right"; }
+			if(walk.equals("Walk") && side.equals("Right-Front")) { fUsableX = fUsableX + 0.8f; fUsableY = fUsableY - 0.8f; side = "Right"; }
+			if(walk.equals("Walk") && side.equals("Front-Left")) { fUsableX = fUsableX - 0.8f; fUsableY = fUsableY - 0.8f; side = "Front"; }
+			if(walk.equals("Walk") && side.equals("Front-Right")) { fUsableX = fUsableX + 0.8f; fUsableY = fUsableY - 0.8f; side = "Front"; }
 			
-			if(walk.equals("Walk") && side.equals("Left-Front")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
+			Character_Data.PX_A = String.valueOf(fUsableX);
+			Character_Data.PY_A = String.valueOf(fUsableY);
 				
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-				side = "Left";
-			}
-			if(walk.equals("Walk") && side.equals("Left-Back")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-				
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-				side = "Left";
-			}
-			if(walk.equals("Walk") && side.equals("Back-Left")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-				
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-				side = "Back";
-			}
-			if(walk.equals("Walk") && side.equals("Back-Right")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-				
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-				side = "Back";
-			}
-			if(walk.equals("Walk") && side.equals("Right-Back")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-				
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-				side = "Right";
-			}
-			if(walk.equals("Walk") && side.equals("Right-Front")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-				
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-				side = "Right";
-			}
-			if(walk.equals("Walk") && side.equals("Front-Left")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-				
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-				side = "Front";
-			}
-			if(walk.equals("Walk") && side.equals("Front-Right")) {
-				fUsable = Float.parseFloat(Character_Data.PX_A);
-				fUsable = fUsable + 0.8f;
-				Character_Data.PX_A = String.valueOf(fUsable);
-				
-				fUsable = Float.parseFloat(Character_Data.PY_A);
-				fUsable = fUsable - 0.8f;
-				Character_Data.PY_A = String.valueOf(fUsable);
-				side = "Front";
-			}
-			
+			//Andando em batalha ou fora de batalha
 			if((walk.equals("Walk") && !inBattle) || (walk.equals("Walk")) && inBattle){
 				frameMove++;
-				if(frameMove >= 1 && frameMove <= 10) { 					
-					pos = 1; 
-				}
-				
-				if(frameMove >= 10 && frameMove <= 20) { 
-					pos = 2; 
-				}
-				
-				if(frameMove >= 20 && frameMove <= 30) { 
-					pos = 1; 
-				}
-				
-				if(frameMove >= 30 && frameMove <= 40) { 
-					pos = 3; 
-				}
-				
-				if(frameMove > 40) { 
-					frameMove = 1; 
-				}
+				if(frameMove >= 1 && frameMove <= 10) { pos = 1; } 
+				if(frameMove >= 10 && frameMove <= 20) { pos = 2; }
+				if(frameMove >= 20 && frameMove <= 30) { pos = 1; }
+				if(frameMove >= 30 && frameMove <= 40) { pos = 3; }
+				if(frameMove > 40) { frameMove = 1; }
 			}
 			
+			//Parado mais em batalha
 			if(!walk.equals("Walk") && inBattle){
 				frameMove++;
-				if(frameMove >= 1 && frameMove <= 10) { 					
-					pos = 1; 
-				}
-				
-				if(frameMove >= 10 && frameMove <= 20) { 
-					pos = 2; 
-				}
-				
-				if(frameMove >= 20 && frameMove <= 30) { 
-					pos = 3; 
-				}
-				
-				if(frameMove >= 30 && frameMove <= 40) { 
-					pos = 4; 
-				}
-				
-				if(frameMove >= 40 && frameMove <= 50) { 
-					pos = 5; 
-				}
-				
-				if(frameMove >= 50 && frameMove <= 60) { 
-					pos = 6; 
-				}
-				
-				if(frameMove > 60) { 
-					frameMove = 1; 
-				}
+				if(frameMove >= 1 && frameMove <= 10) { pos = 1; }			
+				if(frameMove >= 10 && frameMove <= 20) { pos = 2; }
+				if(frameMove >= 20 && frameMove <= 30) { pos = 3; }
+				if(frameMove >= 30 && frameMove <= 40) { pos = 4; }
+				if(frameMove >= 40 && frameMove <= 50) { pos = 5; }
+				if(frameMove >= 50 && frameMove <= 60) { pos = 6; }
+				if(frameMove > 60) { frameMove = 1; }
 			}
 			
+			//Parado e não estiver em luta
 			if(walk.equals("Stop") && !inBattle) {
 				pos = 1;
 			}
 			
-			if(walk.equals("Stop") && side.equals("Left-Front")) {
-				side = "Left";
-			}
-			if(walk.equals("Stop") && side.equals("Left-Back")) {
-				side = "Left";
-			}
-			if(walk.equals("Stop") && side.equals("Back-Left")) {
-				side = "Back";
-			}
-			if(walk.equals("Stop") && side.equals("Back-Right")) {
-				side = "Back";
-			}
-			if(walk.equals("Stop") && side.equals("Right-Back")) {
-				side = "Right";
-			}
-			if(walk.equals("Stop") && side.equals("Right-Front")) {
-				side = "Right";
-			}
-			if(walk.equals("Stop") && side.equals("Front-Left")) {
-				side = "Front";
-			}
-			if(walk.equals("Stop") && side.equals("Front-Right")) {
-				side = "Front";
-			}
+			//Parado mais em diagonal
+			if(walk.equals("Stop") && side.equals("Left-Front")) { side = "Left";}
+			if(walk.equals("Stop") && side.equals("Left-Back")) { side = "Left"; }
+			if(walk.equals("Stop") && side.equals("Back-Left")) { side = "Back"; }
+			if(walk.equals("Stop") && side.equals("Back-Right")) { side = "Back"; }
+			if(walk.equals("Stop") && side.equals("Right-Back")) { side = "Right"; }
+			if(walk.equals("Stop") && side.equals("Right-Front")) { side = "Right"; }
+			if(walk.equals("Stop") && side.equals("Front-Left")) { side = "Front"; }
+			if(walk.equals("Stop") && side.equals("Front-Right")) { side = "Front"; }
 			
-			if(posInterject > 0) { pos = posInterject; }
-			//pos = 3;
-			
-			//attackFrame = false;
+			//Para casos de injeção de frame/posição
+			if(posInterject > 0) { 
+				pos = posInterject; 
+			}
 			
 			//Para a arma
 			playerbattleframe = pos;
-			
 			sidePlayer = side;
 			
+			
+			
 			//MASC. /////////////////////////////////////////////////  
-			if(set.equals("basic_set_male")) {
-				
+			if(set.equals("basic_set_male")) {			
 				//SET
 				//BATTLE
 				if(inBattle && walk.equals("Stop") && !type.equals("Menu")) {
@@ -1274,6 +1127,12 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		public Sprite MovCharOnline(String set, String side,String walk, String type, float posX, float posY, int posInterject, boolean netPlayer) {
+			
+			
+			return spr_master;
+		}
+		
 		//Recupera Position
 		public int RecuperaPosition() {
 			return playerbattleframe;
@@ -1410,7 +1269,7 @@ public class GameControl {
 						}
 					}
 					
-					if(Character_Data.Job_A.equals("Novice")) { 
+					if(Character_Data.Job_A.equals("Swordman")) { 
 						
 					}
 				}
@@ -3885,6 +3744,7 @@ public class GameControl {
 		        data += "&" + URLEncoder.encode("lbattle", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Battle_A, "UTF-8");
 				data += "&" + URLEncoder.encode("lside", "UTF-8") + "=" + URLEncoder.encode(sidePlayer, "UTF-8");
 				data += "&" + URLEncoder.encode("lpos", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(pos), "UTF-8");
+				data += "&" + URLEncoder.encode("lwalk", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Walk_A, "UTF-8");
 				data += "&" + URLEncoder.encode("lskillOnline", "UTF-8") + "=" + URLEncoder.encode("none", "UTF-8");
 				data += "&" + URLEncoder.encode("lparty", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Party_A, "UTF-8");
 				data += "&" + URLEncoder.encode("lchat", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
@@ -4156,7 +4016,7 @@ public class GameControl {
 			
 			plOnline = new Player();
 			
-			auxOnline = onlineData[16];	
+			auxOnline = onlineData[17];	
 			splitonlineData = auxOnline.split("=");	
 			plOnline.Account = splitonlineData[1];
 			
@@ -4216,11 +4076,15 @@ public class GameControl {
 			splitonlineData = auxOnline.split("=");	
 			plOnline.Position_A = splitonlineData[1];	
 			
-			auxOnline = onlineData[17];	
+			auxOnline = onlineData[15];	
+			splitonlineData = auxOnline.split("=");	
+			plOnline.Walk_A = splitonlineData[1];
+			
+			auxOnline = onlineData[18];	
 			splitonlineData = auxOnline.split("=");	
 			plOnline.Party_A = splitonlineData[1];	
 			
-			auxOnline = onlineData[18];
+			auxOnline = onlineData[19];
 			splitonlineData = auxOnline.split("=");
 			plOnline.Sex_A = splitonlineData[1];
 			
