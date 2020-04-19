@@ -541,9 +541,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			for(int i = 0; i < lstInfoOnline.size(); i ++) {
 				
 				if(lstInfoOnline.get(i).Map_A.equals("Streets305")) {
-				spr_master = gameControl.MovChar(lstInfoOnline.get(i).Set_A,lstInfoOnline.get(i).Side_A,"","",Float.parseFloat(lstInfoOnline.get(i).PX_A),
-																								  Float.parseFloat(lstInfoOnline.get(i).PY_A),
-																								  Integer.parseInt(lstInfoOnline.get(i).Position_A), true);
+				spr_master = gameControl.MovCharOnline(lstInfoOnline.get(i).Set_A,lstInfoOnline.get(i).Side_A,lstInfoOnline.get(i).Walk_A,
+														Integer.parseInt(lstInfoOnline.get(i).Position_A),
+														Float.parseFloat(lstInfoOnline.get(i).PX_A), 
+														Float.parseFloat(lstInfoOnline.get(i).PY_A));
 				spr_master.draw(game.batch);
 				
 				spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,lstInfoOnline.get(i).Side_A,"",Float.parseFloat(lstInfoOnline.get(i).PX_A),

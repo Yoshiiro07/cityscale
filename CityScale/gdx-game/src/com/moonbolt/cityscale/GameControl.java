@@ -84,6 +84,7 @@ public class GameControl {
 		private int spAttackMob = 0;
 		private int delayTime = 0;
 		private int castTime = 0;
+		private int expShared = 0;
 		
 	    private float npcframe = 1;
 	    private float npcframe2 = 2;
@@ -909,13 +910,14 @@ public class GameControl {
 		public Sprite MovChar(String set, String side,String walk, String type, float posX, float posY, int posInterject, boolean netPlayer) {
 			
 			Character_Data.Walk_A = walk;	
+			
 			if(isCasting) {
 				CastTime();
 				spr_master = dataManager.CastingSpriteSet(posX,posY,set,text);
 				return spr_master;
 			}
 			
-			//Seta Posição
+			//Seta Posiï¿½ï¿½o
 			fUsableX = Float.parseFloat(Character_Data.PX_A);
 			fUsableY = Float.parseFloat(Character_Data.PY_A);
 			
@@ -957,7 +959,7 @@ public class GameControl {
 				if(frameMove > 60) { frameMove = 1; }
 			}
 			
-			//Parado e não estiver em luta
+			//Parado e nï¿½o estiver em luta
 			if(walk.equals("Stop") && !inBattle) {
 				pos = 1;
 			}
@@ -972,7 +974,7 @@ public class GameControl {
 			if(walk.equals("Stop") && side.equals("Front-Left")) { side = "Front"; }
 			if(walk.equals("Stop") && side.equals("Front-Right")) { side = "Front"; }
 			
-			//Para casos de injeção de frame/posição
+			//Para casos de injeï¿½ï¿½o de frame/posiï¿½ï¿½o
 			if(posInterject > 0) { 
 				pos = posInterject; 
 			}
@@ -980,156 +982,13 @@ public class GameControl {
 			//Para a arma
 			playerbattleframe = pos;
 			sidePlayer = side;
-			
-			
-			
-			//MASC. /////////////////////////////////////////////////  
-			if(set.equals("basic_set_male")) {			
-				//SET
-				//BATTLE
-				if(inBattle && walk.equals("Stop") && !type.equals("Menu")) {
-					text = Character_Data.Battle_A;
-					
-					if(Character_Data.Job_A.equals("Novice")) {
-						if(attackFrame && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_right"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(attackFrame && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_left"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 1 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 2 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 3 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
-						if(pos == 4 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 5 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 6 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
-						
-						if(pos == 1 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 2 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 3 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 4 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-					}
-					if(Character_Data.Job_A.equals("Swordman")) {
-						if(attackFrame && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_right"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(attackFrame && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_left"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 1 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 2 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 3 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
-						if(pos == 4 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 5 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 6 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
-						
-						if(pos == 1 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 2 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 3 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 4 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-						if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-					}
-				}
-				
-				//Menu
-				if(type.equals("Menu")) { 
-					spr_master = atlas_basic_male_set.createSprite("basic_set_male_front1"); spr_master.setPosition(posX - 7.5f, posY - 10.5f);  spr_master.setSize(25, 36);
-					return spr_master;
-				}
-				
-				//Front
-				if(side.equals("Front") && pos == 1) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-				if(side.equals("Front") && pos == 2) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front2"); spr_master.setPosition(posX - 0.1f, posY + 12.3f); spr_master.setSize(25, 36); return spr_master; }
-				if(side.equals("Front") && pos == 3) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front3"); spr_master.setPosition(posX - 0.1f, posY + 12.4f); spr_master.setSize(25, 36); return spr_master; }
-				
-				//back
-				if(side.equals("Back") && pos == 1) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_back1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-				if(side.equals("Back") && pos == 2) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_back2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-				if(side.equals("Back") && pos == 3) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_back3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
-				
-				//right
-				if(side.equals("Right") && pos == 1) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-				if(side.equals("Right") && pos == 2) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-				if(side.equals("Right") && pos == 3) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master;}
-				
-				//left
-				if(side.equals("Left") && pos == 1) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);   spr_master.setSize(25, 36); return spr_master; }
-				if(side.equals("Left") && pos == 2) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
-				if(side.equals("Left") && pos == 3) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36);  return spr_master; }
-				
-			}
-			
-			//FEM. /////////////////////////////////////////////////
-			if(set.equals("basic_set_female")) {
-				//Battle
-				if(inBattle && walk.equals("Stop") && !type.equals("Menu")) {
-					text = Character_Data.Battle_A;
-					if(Character_Data.Job_A.equals("Novice")) {
-						if(attackFrame && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_meleeAttack_right"); spr_master.setPosition(posX - 4f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(attackFrame && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_meleeAttack_left"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 1 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right1"); spr_master.setPosition(posX - 4f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 2 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right2"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 3 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right3"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }	
-						if(pos == 4 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right3"); spr_master.setPosition(posX - 4f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 5 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right2"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 6 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right1"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }	
-						
-						if(pos == 1 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 2 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 3 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 4 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-					}
-					
-					if(Character_Data.Job_A.equals("Swordman")) {
-						if(attackFrame && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_meleeAttack_right"); spr_master.setPosition(posX - 4f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(attackFrame && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_meleeAttack_left"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 1 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right1"); spr_master.setPosition(posX - 4f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 2 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right2"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 3 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right3"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }	
-						if(pos == 4 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right3"); spr_master.setPosition(posX - 4f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 5 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right2"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 6 && text.equals("yes_Right")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right1"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }	
-						
-						if(pos == 1 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 2 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 3 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 4 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-						if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
-					}
-				}
-				
-				//Menu
-				if(type.equals("Menu")) { 
-					spr_master = atlas_basic_female_set.createSprite("basic_set_female_front1"); spr_master.setPosition(posX - 7.5f, posY - 7);  spr_master.setSize(25, 33);
-					return spr_master;
-				}
-				
-				//Front
-				if(side.equals("Front") && pos == 1) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_front1"); spr_master.setPosition(posX - 5.5f, posY + 13.5f);  spr_master.setSize(25, 33); return spr_master; }
-				if(side.equals("Front") && pos == 2) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_front2"); spr_master.setPosition(posX - 5.5f, posY + 13.5f); spr_master.setSize(25, 33); return spr_master; }
-				if(side.equals("Front") && pos == 3) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_front3"); spr_master.setPosition(posX - 5.5f, posY + 13.5f); spr_master.setSize(25, 33); return spr_master; }
-				
-				//back
-				if(side.equals("Back") && pos == 1) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_back1"); spr_master.setPosition(posX - 4.5f, posY + 14f); spr_master.setSize(23, 33); return spr_master; }
-				if(side.equals("Back") && pos == 2) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_back2"); spr_master.setPosition(posX - 4.5f, posY + 15f); spr_master.setSize(23, 33); return spr_master; }
-				if(side.equals("Back") && pos == 3) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_back3"); spr_master.setPosition(posX - 4.5f, posY + 14f); spr_master.setSize(23, 33); return spr_master; }
-				
-				//right
-				if(side.equals("Right") && pos == 1) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_right1"); spr_master.setPosition(posX - 3.3f, posY + 13f);  spr_master.setSize(24, 34); return spr_master; }
-				if(side.equals("Right") && pos == 2) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_right2"); spr_master.setPosition(posX - 3.8f, posY + 13f);  spr_master.setSize(24, 34); return spr_master; }
-				if(side.equals("Right") && pos == 3) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_right3"); spr_master.setPosition(posX - 3.3f, posY + 13f);  spr_master.setSize(24, 34); return spr_master;}
-				
-				//left
-				if(side.equals("Left") && pos == 1) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_left1"); spr_master.setPosition(posX - 5.3f, posY + 12.5f);   spr_master.setSize(24, 34); return spr_master; }
-				if(side.equals("Left") && pos == 2) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_left2"); spr_master.setPosition(posX - 4.5f, posY + 12.5f);  spr_master.setSize(24, 34); return spr_master; }
-				if(side.equals("Left") && pos == 3) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_left3"); spr_master.setPosition(posX - 5.3f, posY + 12.5f);   spr_master.setSize(24, 34); return spr_master; }
-				
-			}
+			spr_master = dataManager.MovBase(Character_Data.Set_A, inBattle, walk, side, type, text, pos, posX, posY, attackFrame, Character_Data); 		
 			
 			return spr_master;
 		}
 		
-		public Sprite MovCharOnline(String set, String side,String walk, String type, float posX, float posY, int posInterject, boolean netPlayer) {
-			
-			
+		public Sprite MovCharOnline(String set, String side, String walk, int position, float posX, float posY) {		
+			spr_master = dataManager.MovBaseOnline(set,side,walk,position,posX,posY);		
 			return spr_master;
 		}
 		
@@ -1422,66 +1281,57 @@ public class GameControl {
 		
 		public Sprite InterfaceMetroStation(String item, String complement) {
 			
-			if(item.equals("PlayerTag")) {
-				spr_master = atlas_gameplay_interface.createSprite("tagplayer");
-				spr_master.setSize(45, 35);
-				spr_master.setPosition(fX - 98, fY + 68);
-				return spr_master; 
+			if(item.equals("PlayerTag")) { 
+				spr_master = atlas_gameplay_interface.createSprite("tagplayer"); 
+			    spr_master.setSize(45, 35); 
+			    spr_master.setPosition(fX - 98, fY + 68);
 			}
 			
 			if(item.equals("Portrait")) {
 				spr_master = atlas_hairs.createSprite(complement);
 				spr_master.setSize(14, 19);
 				spr_master.setPosition(fX - 99, fY + 78);
-				return spr_master; 
 			}
 			
 			if(item.equals("Hotcrossbar")) {
 				spr_master = atlas_gameplay_interface.createSprite("hotcrossbar");
 				spr_master.setSize(55, 40);
 				spr_master.setPosition(fX + 45, fY - 95);
-				return spr_master;
 			}
 			
 			if(item.equals("Backanalog")) {
 				spr_master = atlas_gameplay_interface.createSprite("controlerbackground");
 				spr_master.setSize(40, 50);
 				spr_master.setPosition(fX - 78, fY - 80);
-				return spr_master;
 			}
 			
 			if(item.equals("Analog") && complement.equals("Stop")) {
 				spr_master = atlas_gameplay_interface.createSprite("controllertouch");
 				spr_master.setSize(20, 25);
 				spr_master.setPosition(fX - 68, fY - 67);
-				return spr_master;
 			}
 			
 			if(item.equals("Analog") && complement.equals("Right")) {
 				spr_master = atlas_gameplay_interface.createSprite("controllertouch");
 				spr_master.setSize(20, 25);
 				spr_master.setPosition(fX - 58, fY - 67);
-				return spr_master;
 			}
 			
 			if(item.equals("Analog") && complement.equals("Left")) {
 				spr_master = atlas_gameplay_interface.createSprite("controllertouch");
 				spr_master.setSize(20, 25);
 				spr_master.setPosition(fX - 78, fY - 67);
-				return spr_master;
 			}
 			
 			if(item.equals("Analog") && complement.equals("Front")) {
 				spr_master = atlas_gameplay_interface.createSprite("controllertouch");
 				spr_master.setSize(20, 25);
 				spr_master.setPosition(fX - 68, fY - 81);
-				return spr_master;
 			}
 			if(item.equals("Analog") && complement.equals("Back")) {
 				spr_master = atlas_gameplay_interface.createSprite("controllertouch");
 				spr_master.setSize(20, 25);
 				spr_master.setPosition(fX - 68, fY - 55);
-				return spr_master;
 			}
 			
 			return spr_master;
@@ -3748,6 +3598,8 @@ public class GameControl {
 				data += "&" + URLEncoder.encode("lskillOnline", "UTF-8") + "=" + URLEncoder.encode("none", "UTF-8");
 				data += "&" + URLEncoder.encode("lparty", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Party_A, "UTF-8");
 				data += "&" + URLEncoder.encode("lchat", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
+				data += "&" + URLEncoder.encode("ljob", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Job_A, "UTF-8");
+				
 				
 					
 		        // Send data
@@ -3809,21 +3661,8 @@ public class GameControl {
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 		        wr.write(data);
 		        wr.flush();
-		        
-		        // Get the response
-		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        String line;
-		        line = subdado;
-		        retornoOnline = "retry";
-		        while ((line = rd.readLine()) != null) {
-		        	linhaLida = line;   
-		        	//Resultado: - Logado -. <br>done
-			        if (linhaLida.contains("Works")) {            	
-		        		retornoOnline = "Works";       		
-		            }		            
-	    		}	        
 		        wr.close();
-		        rd.close();
+		        
 			}
 			
 			if(tipoRequisicao.equals("Party")){
@@ -3881,21 +3720,8 @@ public class GameControl {
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 		        wr.write(data);
 		        wr.flush();
-		        
-		        // Get the response
-		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        String line;
-		        line = subdado;
-		        retornoOnline = "retry";
-		        while ((line = rd.readLine()) != null) {
-		        	linhaLida = line;   
-		        	//Resultado: - Logado -. <br>done
-			        if (linhaLida.contains("AtualizadoMOB")) {            	
-		        		retornoOnline = "Works";       		
-		            }		            
-	    		}	        
 		        wr.close();
-		        rd.close();
+		        
 			}
 			
 			if(tipoRequisicao.equals("Download")){
@@ -3914,21 +3740,7 @@ public class GameControl {
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 		        wr.write(data);
 		        wr.flush();
-		        
-		        // Get the response
-		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        String line;
-		        line = subdado;
-		        retornoOnline = "retry";
-		        while ((line = rd.readLine()) != null) {
-		        	linhaLida = line;   
-		        	//Resultado: - Logado -. <br>done
-			        if (!linhaLida.contains("Inexistente")) {            	
-			        	LoadDownloadData(linhaLida);       		
-		            }		            
-	    		}	        
 		        wr.close();
-		        rd.close();
 			}
 			
 			if(tipoRequisicao.equals("Upload")){
@@ -3951,22 +3763,9 @@ public class GameControl {
 		        conn.setDoOutput(true);
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 		        wr.write(data);
-		        wr.flush();
-		        
-		        // Get the response
-		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        String line;
-		        line = subdado;
-		        retornoOnline = "retry";
-		        while ((line = rd.readLine()) != null) {
-		        	linhaLida = line;   
-		        	//Resultado: - Logado -. <br>done
-			        if (linhaLida.contains("Works")) {            	
-		        		retornoOnline = "Works";       		
-		            }		            
-	    		}	        
+		        wr.flush();  
 		        wr.close();
-		        rd.close();
+		        
 			}
 					
 			return ;
@@ -4088,6 +3887,10 @@ public class GameControl {
 			splitonlineData = auxOnline.split("=");
 			plOnline.Sex_A = splitonlineData[1];
 			
+			auxOnline = onlineData[20];
+			splitonlineData = auxOnline.split("=");
+			plOnline.Job_A = splitonlineData[1];
+			
 			if(!plOnline.Name_A.equals(Character_Data.Name_A)) {
 				
 				findplayerlist = false;
@@ -4107,6 +3910,7 @@ public class GameControl {
 						lstOnlinePlayers.get(i).Side_A = plOnline.Side_A;
 						lstOnlinePlayers.get(i).Position_A = plOnline.Position_A;	
 						lstOnlinePlayers.get(i).Sex_A = plOnline.Sex_A;
+						lstOnlinePlayers.get(i).Walk_A = plOnline.Walk_A;
 					}
 				}
 				
