@@ -46,8 +46,7 @@ public class GameControl {
 	    private String qtdItem;
 	    private String textQuest = "";
 	    private String nomeLoot = "";
-	    
-		
+	   	
 		private boolean inBattle = false;
 		private boolean attackFrame = false;
 		private boolean isCasting = false;
@@ -84,7 +83,7 @@ public class GameControl {
 		private int spAttackMob = 0;
 		private int delayTime = 0;
 		private int castTime = 0;
-		private int expShared = 0;
+		private String expShared;
 		
 	    private float npcframe = 1;
 	    private float npcframe2 = 2;
@@ -173,6 +172,7 @@ public class GameControl {
 		private Monster mobOnline;
 		private boolean onlineCheck = false;
 		private boolean PartyON = false;
+		private int partycount = 0;
 		
 		
 		//Constructor//
@@ -926,7 +926,7 @@ public class GameControl {
 			if(walk.equals("Walk") && side.equals("Back")) { fUsableY = fUsableY + 1f; }
 			if(walk.equals("Walk") && side.equals("Front")) { fUsableY = fUsableY - 1f; }
 			if(walk.equals("Walk") && side.equals("Left-Front")) { fUsableX = fUsableX - 0.8f; fUsableY = fUsableY - 0.8f; side = "Left"; }
-			if(walk.equals("Walk") && side.equals("Left-Back")) { fUsableX = fUsableX - 0.8f; fUsableY = fUsableY - 0.8f; side = "Left"; }
+			if(walk.equals("Walk") && side.equals("Left-Back")) { fUsableX = fUsableX - 0.8f; fUsableY = fUsableY + 0.8f; side = "Left"; }
 			if(walk.equals("Walk") && side.equals("Back-Left")) { fUsableX = fUsableX - 0.8f; fUsableY = fUsableY + 0.8f; side = "Back"; }
 			if(walk.equals("Walk") && side.equals("Back-Right")) { fUsableX = fUsableX + 0.8f; fUsableY = fUsableY + 0.8f; side = "Back"; }
 			if(walk.equals("Walk") && side.equals("Right-Back")) { fUsableX = fUsableX + 0.8f; fUsableY = fUsableY + 0.8f; side = "Right"; }
@@ -1277,6 +1277,11 @@ public class GameControl {
 		}
 		public void AtualizaCameraY(float cameraposY) {
 			fY = cameraposY;
+		}
+		
+		public void RemoveParty() {
+			PartyON = false;
+			partycount = 0;
 		}
 		
 		public Sprite InterfaceMetroStation(String item, String complement) {
@@ -2302,7 +2307,12 @@ public class GameControl {
 			int expPlayer = Integer.parseInt(Character_Data.Exp_A);
 			int levelPlayer = Integer.parseInt(Character_Data.Level_A);
 			int pontosStatus = Integer.parseInt(Character_Data.StatusPoint_A);
-			expPlayer = expPlayer + exp;
+			
+			if(partycount == 0) { expPlayer = expPlayer + exp; }
+			if(partycount == 1) { expPlayer = expPlayer + exp; }
+			if(partycount == 2) { expPlayer = expPlayer + (exp / 2); Character_Data.ExpShared_A = String.valueOf((exp / 2)); }
+			if(partycount == 3) { expPlayer = expPlayer + (exp / 3); Character_Data.ExpShared_A = String.valueOf((exp / 3)); }
+			if(partycount >= 4) { expPlayer = expPlayer + exp; }
 			
 			
 			if(levelPlayer == 5) { return; }
@@ -3555,7 +3565,6 @@ public class GameControl {
 			
 			if(tipoRequisicao.equals("Sincronizar")){
 				
-				
 				cleanPlayersOnline++;
 				
 				if(cleanPlayersOnline > 100) {
@@ -3569,9 +3578,10 @@ public class GameControl {
 				posOnlineX = Math.round(posOnlineFX);
 				posOnlineY = Math.round(posOnlineFY);
 				
-				String account = Character_Data.Account;
+				expShared = String.valueOf(Character_Data.ExpShared_A);
+				if(expShared.equals("null")) { Character_Data.ExpShared_A = "0"; }
 				
-				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(account, "UTF-8");
+				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Account, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Sincronizar", "UTF-8");
 		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
 		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
@@ -3599,9 +3609,8 @@ public class GameControl {
 				data += "&" + URLEncoder.encode("lparty", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Party_A, "UTF-8");
 				data += "&" + URLEncoder.encode("lchat", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
 				data += "&" + URLEncoder.encode("ljob", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Job_A, "UTF-8");
-				
-				
-					
+				data += "&" + URLEncoder.encode("lexpshared", "UTF-8") + "=" + URLEncoder.encode(Character_Data.ExpShared_A, "UTF-8");
+								
 		        // Send data
 		        //URL url = new URL("http://moonbolt.online/Conector/Online.php");
 		        URL url = new URL("http://moonbolt.online/Conector/Online.php");
@@ -3633,7 +3642,7 @@ public class GameControl {
 			        if(linhaLida.contains("SYSTEMMOBS")) {
 			        	TrataMobs(linhaLida);
 			        }
-	    		}	
+	    		}
 		        
 		        wr.close();
 		        rd.close();
@@ -3891,6 +3900,12 @@ public class GameControl {
 			splitonlineData = auxOnline.split("=");
 			plOnline.Job_A = splitonlineData[1];
 			
+			auxOnline = onlineData[21];
+			splitonlineData = auxOnline.split("=");
+			plOnline.ExpShared_A = splitonlineData[1];
+			
+			
+			
 			if(!plOnline.Name_A.equals(Character_Data.Name_A)) {
 				
 				findplayerlist = false;
@@ -3911,6 +3926,11 @@ public class GameControl {
 						lstOnlinePlayers.get(i).Position_A = plOnline.Position_A;	
 						lstOnlinePlayers.get(i).Sex_A = plOnline.Sex_A;
 						lstOnlinePlayers.get(i).Walk_A = plOnline.Walk_A;
+						
+						if(lstOnlinePlayers.get(i).Party_A.equals(Character_Data.Party_A)) {
+							partycount++;
+							if(partycount > 3) { partycount = 3; }
+						}
 					}
 				}
 				

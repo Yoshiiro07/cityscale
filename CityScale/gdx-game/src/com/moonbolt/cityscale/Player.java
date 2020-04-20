@@ -222,6 +222,7 @@ public class Player {
 
 	public String Position_A;
 	public String Side_A;
+	public String ExpShared_A;
 	
 	public String getHousing_1() {
 		return Housing_1;

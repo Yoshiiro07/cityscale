@@ -591,7 +591,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +66);	
 				}
 				
-				countParty = 2;
+				//countParty = 2;
 				if(countParty == 2) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag2","");
 					spr_master.draw(game.batch);
@@ -607,7 +607,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch,lstInfoOnline.get(i).Map_A,cameraCoordsX - 80,cameraCoordsY +38);
 				}
 				
-				countParty = 3;
+				//countParty = 3;
 				if(countParty == 3) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag3","");
 					spr_master.draw(game.batch);
@@ -654,15 +654,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		font_master.draw(game.batch,"________Chat________",cameraCoordsX - 30,cameraCoordsY - 30);
 		
 		for(int i = 0; i < 3; i++) {
-			if(i == 0) {
-			font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 30,cameraCoordsY - 40);
-			}
-			if(i == 1) {
-			font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 30,cameraCoordsY - 50);
-			}
-			if(i == 2) {
-			font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 30,cameraCoordsY - 60);
-			}
+			if(i == 0) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 30,cameraCoordsY - 40);}
+			if(i == 1) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 30,cameraCoordsY - 50);}
+			if(i == 2) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 30,cameraCoordsY - 60);}
 		}
 		
 		font_master.setColor(Color.WHITE);
