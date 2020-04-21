@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
+import java.util.concurrent.*;
 
 public class GameControl {
 		
@@ -44,7 +45,6 @@ public class GameControl {
 		private String[] charData;
 		private String[] itemUsage;
 	    private String qtdItem;
-	    private String textQuest = "";
 	    private String nomeLoot = "";
 	   	
 		private boolean inBattle = false;
@@ -83,7 +83,7 @@ public class GameControl {
 		private int spAttackMob = 0;
 		private int delayTime = 0;
 		private int castTime = 0;
-		private String expShared;
+		
 		
 	    private float npcframe = 1;
 	    private float npcframe2 = 2;
@@ -126,7 +126,7 @@ public class GameControl {
 		private ArrayList<String> lstNomes;
 		private ArrayList<String> lstChats;
 		
-		private TextureAtlas atlas_hairs;
+		
 		private TextureAtlas atlas_gameplay_interface;
 		private TextureAtlas atlas_btnskills;
 		private TextureAtlas atlas_shop;
@@ -158,8 +158,10 @@ public class GameControl {
 		private String chat1 = "";
 		private String chat2 = "";
 		private String chat3 = "";		
+	    private String expShared;
 		private int chatNumber = 0;
 		private boolean findplayerlist = false;
+		private boolean expSharedSended = false;
 		private int posOnlineX;
 		private int posOnlineY;
 		private int posInjectorOnline;
@@ -209,7 +211,6 @@ public class GameControl {
 			
 			////////Atlas Section//////
 			//Character
-			atlas_hairs = new TextureAtlas(Gdx.files.internal("data/characters/hair/hairs.txt"));
 			
 			//Gameplay
 			atlas_gameplay_interface = new TextureAtlas(Gdx.files.internal("data/interface/gameplay/gameplay.txt"));
@@ -860,50 +861,7 @@ public class GameControl {
 		//Character Movement and Objects //
 		
 		public Sprite ReturnHairs(String hairName, String side, String walk, float posX, float posY) {			
-			if(!hairName.contains("_")) {
-				for(int i = 1; i <= 11; i++) {
-					
-					if(side.equals("Menu")) {
-						if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i); spr_master.setPosition(posX, posY + 20.7f); spr_master.setSize(10, 15); return spr_master; }
-					}
-					
-					if((inBattle && walk.equals("Stop")) || isCasting) {
-						text = Character_Data.Battle_A;
-						if(text.equals("yes_Right") && (pos == 1 || pos == 3 || pos == 5 || pos == 6)) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "battle2_right"); spr_master.setPosition(posX  + 6.5f, posY + 44f); spr_master.setSize(10, 15); return spr_master; } }
-						if(text.equals("yes_Right") && (pos == 2 || pos == 4)) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "battle2_right"); spr_master.setPosition(posX  + 6.5f, posY + 44.2f); spr_master.setSize(10, 15); return spr_master; } }
-						if(text.equals("yes_Left") && (pos == 1 || pos == 3 || pos == 5 || pos == 6)) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "battle2_left"); spr_master.setPosition(posX + 6.3f, posY + 44f); spr_master.setSize(10, 15); return spr_master; } }
-						if(text.equals("yes_Left") && (pos == 2 || pos == 4)) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "battle2_left"); spr_master.setPosition(posX + 6.3f, posY + 44.2f); spr_master.setSize(10, 15); return spr_master; } }
-					}
-								
-					if(side.equals("Front") || side.equals("Front-Left") || side.equals("Front-Right")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i); spr_master.setPosition(posX + 7f, posY + 43.5f); spr_master.setSize(10, 15); return spr_master; } }
-					if(side.equals("Right") || side.equals("Right-Front") || side.equals("Right-Back")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "right"); spr_master.setPosition(posX + 5.5f, posY + 45f); spr_master.setSize(12, 15); return spr_master; } }
-					if(side.equals("Left") || side.equals("Left-Front") || side.equals("Left-Back")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "left"); spr_master.setPosition(posX + 7f, posY + 45f); spr_master.setSize(12, 15); return spr_master; } }
-					if(side.equals("Back")|| side.equals("Left-Back") || side.equals("Left-Front") || side.equals("Back-Left") || side.equals("Back-Right")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "up"); spr_master.setPosition(posX + 7f, posY + 44f); spr_master.setSize(10, 14); return spr_master; } }	
-				
-				}
-			}
-			if(hairName.contains("_f")) {
-				for(int i = 1; i <= 11; i++) {
-					
-					if(side.equals("Menu")) {
-						if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "_f"); spr_master.setPosition(posX - 0.2f, posY + 19f); spr_master.setSize(10, 15); return spr_master; }
-					}
-					
-					if((inBattle && walk.equals("Stop")) || isCasting) {
-						text = Character_Data.Battle_A;
-						if(text.equals("yes_Right") && (pos == 1 || pos == 3 || pos == 5 || pos == 6)) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "battle" + "_f" + "_right"); spr_master.setPosition(posX  + 3.8f, posY + 38.3f); spr_master.setSize(10, 15); return spr_master; } }
-     					if(text.equals("yes_Right") && (pos == 2 || pos == 4)) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "battle" + "_f" + "_right"); spr_master.setPosition(posX  + 3.8f, posY + 38.1f); spr_master.setSize(10, 15); return spr_master; } }					
-						if(text.equals("yes_Left") && (pos == 1 || pos == 3 || pos == 5 || pos == 6)) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "battle" + "_f" + "_left"); spr_master.setPosition(posX + 5.9f, posY + 38.3f); spr_master.setSize(10, 15); return spr_master; } }
-						if(text.equals("yes_Left") && (pos == 2 || pos == 4)) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "battle" + "_f" + "_left"); spr_master.setPosition(posX + 5.9f, posY + 38.3f); spr_master.setSize(10, 15); return spr_master; } }
-					}
-					
-					if(side.equals("Front") || side.equals("Front-Left") || side.equals("Front-Right")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "_f"); spr_master.setPosition(posX + 1.7f, posY + 39.5f); spr_master.setSize(10, 15); return spr_master; } }
-					if(side.equals("Right") || side.equals("Right-Front") || side.equals("Right-Back")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "right" + "_f"); spr_master.setPosition(posX + 1.7f, posY + 39.6f); spr_master.setSize(12, 14); return spr_master; } }
-					if(side.equals("Left") || side.equals("Left-Front") || side.equals("Left-Back")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "left" + "_f"); spr_master.setPosition(posX + 0.9f, posY + 39.6f); spr_master.setSize(12, 14); return spr_master; } }
-					if(side.equals("Back")|| side.equals("Left-Back") || side.equals("Left-Front") || side.equals("Back-Left") || side.equals("Back-Right")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "up" + "_f"); spr_master.setPosition(posX + 1.3f, posY + 40f); spr_master.setSize(10, 14); return spr_master; } }	
-				}
-			}
-			
+			spr_master = dataManager.ReturnHairs(hairName,side,walk,text,inBattle,isCasting,Character_Data,posX,posY);
 			return spr_master;
 		}
 	
@@ -1293,7 +1251,7 @@ public class GameControl {
 			}
 			
 			if(item.equals("Portrait")) {
-				spr_master = atlas_hairs.createSprite(complement);
+				spr_master = dataManager.GetHair(complement);
 				spr_master.setSize(14, 19);
 				spr_master.setPosition(fX - 99, fY + 78);
 			}
@@ -1380,7 +1338,7 @@ public class GameControl {
 			}
 			
 			if(item.equals("Portrait")) {
-				spr_master = atlas_hairs.createSprite(complement);
+				spr_master = dataManager.GetHair(complement);
 				spr_master.setSize(14, 19);
 				spr_master.setPosition(fX - 101, fY + 106);
 				return spr_master; 
@@ -2096,7 +2054,7 @@ public class GameControl {
 							lstDamage.add(danoMob);
                                 
 							if(mobHP <= 0 && lstMonsters.get(countA).LOCKDEATH.equals("no")) { 
-								GiveExp(lstMonsters.get(countA));
+								GiveExp(lstMonsters.get(countA),"Main");
 								GiveLoot(lstMonsters.get(countA));
 								GiveMoney(lstMonsters.get(countA));
 								lstMonsters.get(countA).LOCKDEATH = "yes"; 
@@ -2182,7 +2140,7 @@ public class GameControl {
 										
 										
 										if(mobHP <= 0 && lstMonsters.get(countA).LOCKDEATH.equals("no")) { 
-											GiveExp(lstMonsters.get(countA));
+											GiveExp(lstMonsters.get(countA),"Main");
 											GiveLoot(lstMonsters.get(countA));
 											GiveMoney(lstMonsters.get(countA));
 											lstMonsters.get(countA).LOCKDEATH = "yes"; 
@@ -2212,7 +2170,7 @@ public class GameControl {
 										monsterEvade = Integer.parseInt(lstMonsters.get(countA).EVADE);							
 										mobHP = mobHP - (playerAtk + dmgWeapon);
 									}
-									
+								
 									if(Character_Data.Job_A.equals("Gunner")) {
 										playerAtk = playerAtk + (playerDextery * 3) + (playerLucky * 2) + (playerStrenght);
 										mobHP = Integer.parseInt(lstMonsters.get(countA).HP);
@@ -2301,19 +2259,32 @@ public class GameControl {
 			}
 		}
 		
-		public void GiveExp(Monster mob) {
+		public void GiveExp(Monster mob, String complement) {
+			int exp = 0;
+			int expPlayer = 0;
+			int levelPlayer = 0;
+			int pontosStatus = 0;
 			
-			int exp = Integer.parseInt(mob.EXP);
-			int expPlayer = Integer.parseInt(Character_Data.Exp_A);
-			int levelPlayer = Integer.parseInt(Character_Data.Level_A);
-			int pontosStatus = Integer.parseInt(Character_Data.StatusPoint_A);
+			if(complement.equals("Main")){
+			exp = Integer.parseInt(mob.EXP);
+			expPlayer = Integer.parseInt(Character_Data.Exp_A);
+			levelPlayer = Integer.parseInt(Character_Data.Level_A);
+			pontosStatus = Integer.parseInt(Character_Data.StatusPoint_A);
 			
 			if(partycount == 0) { expPlayer = expPlayer + exp; }
 			if(partycount == 1) { expPlayer = expPlayer + exp; }
 			if(partycount == 2) { expPlayer = expPlayer + (exp / 2); Character_Data.ExpShared_A = String.valueOf((exp / 2)); }
 			if(partycount == 3) { expPlayer = expPlayer + (exp / 3); Character_Data.ExpShared_A = String.valueOf((exp / 3)); }
 			if(partycount >= 4) { expPlayer = expPlayer + exp; }
+			}
 			
+			else
+			{
+			    exp = Integer.parseInt(complement);
+				expPlayer = Integer.parseInt(Character_Data.Exp_A);
+				levelPlayer = Integer.parseInt(Character_Data.Level_A);
+				pontosStatus = Integer.parseInt(Character_Data.StatusPoint_A);
+			}
 			
 			if(levelPlayer == 5) { return; }
 			
@@ -3556,8 +3527,7 @@ public class GameControl {
 		public void GerenciamentoOnline(String tipoRequisicao, String subdado) throws IOException {
 			
 			String linhaLida;
-			String resposta;
-			String skill;
+			String battleON;
 			String[] atkData = new String [3];
 					
 			
@@ -3578,8 +3548,15 @@ public class GameControl {
 				posOnlineX = Math.round(posOnlineFX);
 				posOnlineY = Math.round(posOnlineFY);
 				
+				//To Shared Exp
+				if(expSharedSended){ Character_Data.ExpShared_A = "null"; expSharedSended = false; }
 				expShared = String.valueOf(Character_Data.ExpShared_A);
 				if(expShared.equals("null")) { Character_Data.ExpShared_A = "0"; }
+				if(!expShared.equals("null")){ expSharedSended = true; }
+				
+				//To Show Battle mode
+				if(inBattle){ battleON = "Battle"; } else { battleON = "None"; }
+				
 				
 				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Account, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Sincronizar", "UTF-8");
@@ -3601,7 +3578,7 @@ public class GameControl {
 		        data += "&" + URLEncoder.encode("lhair", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Hair_A, "UTF-8");
 		        data += "&" + URLEncoder.encode("lhat", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Hat_A, "UTF-8");
 		        data += "&" + URLEncoder.encode("lweapon", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Weapon_A, "UTF-8");
-		        data += "&" + URLEncoder.encode("lbattle", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Battle_A, "UTF-8");
+		        data += "&" + URLEncoder.encode("lbattle", "UTF-8") + "=" + URLEncoder.encode(battleON, "UTF-8");
 				data += "&" + URLEncoder.encode("lside", "UTF-8") + "=" + URLEncoder.encode(sidePlayer, "UTF-8");
 				data += "&" + URLEncoder.encode("lpos", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(pos), "UTF-8");
 				data += "&" + URLEncoder.encode("lwalk", "UTF-8") + "=" + URLEncoder.encode(Character_Data.Walk_A, "UTF-8");
@@ -3904,8 +3881,6 @@ public class GameControl {
 			splitonlineData = auxOnline.split("=");
 			plOnline.ExpShared_A = splitonlineData[1];
 			
-			
-			
 			if(!plOnline.Name_A.equals(Character_Data.Name_A)) {
 				
 				findplayerlist = false;
@@ -3930,6 +3905,11 @@ public class GameControl {
 						if(lstOnlinePlayers.get(i).Party_A.equals(Character_Data.Party_A)) {
 							partycount++;
 							if(partycount > 3) { partycount = 3; }
+							
+							//Verify ExpShared
+							if(!plOnline.ExpShared_A.equals("0")){
+								GiveExp(null,plOnline.ExpShared_A);
+							}
 						}
 					}
 				}
