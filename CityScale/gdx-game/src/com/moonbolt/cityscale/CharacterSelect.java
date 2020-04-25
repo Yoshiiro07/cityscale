@@ -132,7 +132,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		gameControl.LoadData();
 		AccountID = gameControl.GetAccount();
 		
-		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
 	    viewport = new StretchViewport(100,100,camera);
@@ -427,7 +426,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(!charData[0].equals("none")){		
 			if(charData[45].equals("M")) {
-				spr_player = gameControl.MovChar(charData[3], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[3], "Stop", 1);
 				spr_hair = gameControl.ReturnHairs(charData[12], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -440,7 +439,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.draw(game.batch);
 			}
 			if(charData[45].equals("F")) {
-				spr_player = gameControl.MovChar(charData[3], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[3], "Stop", 1);
 				spr_hair = gameControl.ReturnHairs(charData[12], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -456,7 +455,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(!charData[1].equals("none")){
 			if(charData[46].equals("M")) {
-				spr_player = gameControl.MovChar(charData[6], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[6], "Stop", 1);
 				spr_hair = gameControl.ReturnHairs(charData[13], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -469,7 +468,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.draw(game.batch);
 			}
 			if(charData[46].equals("F")) {
-				spr_player = gameControl.MovChar(charData[6], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[6], "Stop", 1);
 				spr_hair = gameControl.ReturnHairs(charData[13], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -485,7 +484,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(!charData[2].equals("none")){
 			if(charData[47].equals("M")) {
-				spr_player = gameControl.MovChar(charData[9], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[9], "Stop", 1);
 				spr_hair = gameControl.ReturnHairs(charData[14], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -498,7 +497,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.draw(game.batch);
 			}
 			if(charData[47].equals("F")) {
-				spr_player = gameControl.MovChar(charData[9], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[9], "Stop", 1);
 				spr_hair = gameControl.ReturnHairs(charData[14], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -520,7 +519,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(showNumberCharacter == 1){
 			if(charData[45].equals("M")) {
-				spr_player = gameControl.MovChar(charData[3], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[3],"Stop",1);
 				spr_hair = gameControl.ReturnHairs(charData[12], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -533,7 +532,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.draw(game.batch);
 			}
 			if(charData[45].equals("F")) {
-				spr_player = gameControl.MovChar(charData[3], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[3],"Stop",1);
 				spr_hair = gameControl.ReturnHairs(charData[12], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -549,7 +548,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(showNumberCharacter == 2){
 			if(charData[46].equals("M")) {
-				spr_player = gameControl.MovChar(charData[6], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[6],"Stop",1);
 				spr_hair = gameControl.ReturnHairs(charData[13], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -562,7 +561,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.draw(game.batch);
 			}
 			if(charData[46].equals("F")) {
-				spr_player = gameControl.MovChar(charData[6], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[6],"Stop",1);
 				spr_hair = gameControl.ReturnHairs(charData[13], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -578,7 +577,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(showNumberCharacter == 3){
 			if(charData[47].equals("M")) {
-				spr_player = gameControl.MovChar(charData[9], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[9],"Stop",1);
 				spr_hair = gameControl.ReturnHairs(charData[14], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -591,7 +590,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.draw(game.batch);
 			}
 			if(charData[47].equals("F")) {
-				spr_player = gameControl.MovChar(charData[9], "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar(charData[9],"Stop",1);
 				spr_hair = gameControl.ReturnHairs(charData[14], "Front","Stop",0,0);
 				
 				spr_player.setSize(18, 26);
@@ -728,7 +727,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(sex.equals("M")) {			
 			if(flipCreate >= 0 && flipCreate <= 20) {				
-				spr_player = gameControl.MovChar("basic_set_male", "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar("basic_set_male","Walk", 1);
 				spr_hair = gameControl.ReturnHairs(hair, "Front","Stop", 0,0);
 				
 				spr_player.setSize(18, 26);
@@ -738,7 +737,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.setPosition(18, 53f);
 			}
 			if(flipCreate >= 20 && flipCreate <= 40) {
-				spr_player = gameControl.MovChar("basic_set_male", "Front","Stop", "", 0,0,2,false);
+				spr_player = gameControl.MovCreatingChar("basic_set_male","Walk", 2);
 				spr_hair = gameControl.ReturnHairs(hair, "Front","Stop", 0,0);
 				
 				spr_player.setSize(18, 26);
@@ -748,7 +747,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.setPosition(18, 52.9f);
 			}
 			if(flipCreate >= 40 && flipCreate <= 60) {
-				spr_player = gameControl.MovChar("basic_set_male", "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar("basic_set_male","Walk", 1);
 				spr_hair = gameControl.ReturnHairs(hair, "Front","Stop", 0,0);
 				
 				spr_player.setSize(18, 26);
@@ -758,7 +757,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.setPosition(18, 53f);
 			}
 			if(flipCreate >= 60 && flipCreate <= 80) {
-				spr_player = gameControl.MovChar("basic_set_male", "Front","Stop", "", 0,0,3,false);
+				spr_player = gameControl.MovCreatingChar("basic_set_male","Walk", 3);
 				spr_hair = gameControl.ReturnHairs(hair, "Front","Stop", 0,0);
 				
 				spr_player.setSize(18, 26);
@@ -779,7 +778,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		//flipCreate = 41;
 		if(sex.equals("F")) {			
 			if(flipCreate >= 0 && flipCreate <= 10) {
-				spr_player = gameControl.MovChar("basic_set_female", "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar("basic_set_female","Walk", 1);
 				spr_hair = gameControl.ReturnHairs(hair, "Front","Stop", 0,0);
 				
 				spr_player.setSize(19, 26);
@@ -789,7 +788,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.setPosition(18, 52.5f);
 			}
 			if(flipCreate >= 10 && flipCreate <= 20) {
-				spr_player = gameControl.MovChar("basic_set_female", "Front","Stop", "", 0,0,2,false);
+				spr_player = gameControl.MovCreatingChar("basic_set_female","Walk", 2);
 				spr_hair = gameControl.ReturnHairs(hair, "Front","Stop", 0,0);
 				
 				spr_player.setSize(19, 26);
@@ -799,7 +798,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.setPosition(18, 52.5f);
 			}
 			if(flipCreate >= 30 && flipCreate <= 40) {
-				spr_player = gameControl.MovChar("basic_set_female", "Front","Stop", "", 0,0,1,false);
+				spr_player = gameControl.MovCreatingChar("basic_set_female","Walk", 1);
 				spr_hair = gameControl.ReturnHairs(hair, "Front", "Stop", 0,0);
 				
 				spr_player.setSize(19, 26);
@@ -809,7 +808,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_hair.setPosition(18, 52.5f);
 			}
 			if(flipCreate >= 40 && flipCreate <= 50) {
-				spr_player = gameControl.MovChar("basic_set_female", "Front","Stop", "", 0,0,3,false);
+				spr_player = gameControl.MovCreatingChar("basic_set_female","Walk", 3);
 				spr_hair = gameControl.ReturnHairs(hair, "Front","Stop", 0,0);
 				
 				spr_player.setSize(19, 26);

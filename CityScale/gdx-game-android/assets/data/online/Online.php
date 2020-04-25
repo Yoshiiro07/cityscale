@@ -11,7 +11,10 @@
 	$lmp = $_POST['lmp'];
 	$lposX = $_POST['lposX'];
 	$lposY = $_POST['lposY'];
+	$lwalk = $_POST['lwalk'];
+	$lsex = $_POST['lsex'];
 	$lmap = $_POST['lmap'];
+	$ljob = $_POST['ljob'];
 	$llevel = $_POST['llevel'];
 	$lsetchar = $_POST['lsetchar'];
 	$lhair = $_POST['lhair'];
@@ -26,6 +29,7 @@
 	$lchat = $_POST['lchat'];
 	$lmobID = $_POST['lmobID'];
 	$ldmg = $_POST['ldmg'];
+	$lexpshared = $_POST['lexpshared'];
 	
 	#Variaveis de uso Global
 	$lAll = '';
@@ -51,25 +55,54 @@
 	
 	#Sincronizar
 	if ($lrequest == "Sincronizar"){
-		#if($lversion != "a1"){
-		#		echo nl2br($lversion);
-		#		echo nl2br("Resultado: Versao Invalida");
-		#		return;
-		#}
-	
-		//Recupera Chat
+		
+		///// Recupera Chat /////
+		$lAll = '';
 		$sql = "SELECT * FROM Chats ORDER BY ChatID DESC LIMIT 3";
 		$result = $conn->query($sql);
 		
-		$lAll = '';
 		if ($result->num_rows > 0) {
 			// output data of each row
 			while($row = $result->fetch_assoc()) {
 				$lAll = $lAll . ("SYSTEMCHAT - :Nome=" . $row["Nome"] . 
-								":Mensagem=" .  $row["Mensagem"]. ":\n");
+								":Mensagem=" .  $row["Mensagem"]. ":\n");			
 			}
-			echo nl2br($lAll);
+			echo($lAll);			
 		}
+		
+		/////Recupera Mobs /////
+		$lAll = '';
+		$sql = "SELECT * FROM Mobs where MAP = '$lmap' ";
+		$result = $conn->query($sql);			
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+									
+				$lAll = $lAll . ("SYSTEMMOBS - :MOBID=" . $row["MobsID"]. 
+							  ":GameMobID=" .  $row["GameMobID"]. 
+							  ":MOBHP=" . $row["HPMob"] . 
+							  ":MAP=" . $row["MAP"] .
+							  ": - \n");			
+			}		
+		}
+		echo($lAll);
+		
+		/////Recupera EXPSHARED /////
+		$lAll = '';
+		$sql = "SELECT * FROM PartyExp where Party = '$lparty' ORDER BY ExpSharedID DESC LIMIT 1";
+		$result = $conn->query($sql);			
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+									
+				$lAll = $lAll . ("SYSTEMPARTYEXP - :EXPSHAREDID=" . $row["ExpSharedID"]. 
+							  ":EXPSEND=" .  $row["ExpSend"]. 
+							  ":PARTY=" . $row["Party"] . 
+							  ":ACCOUNT=" . $row["Account"] . 
+							  ": - \n");			
+			}		
+		}
+		echo($lAll);
+		
+		//echo nl2br($lAll);
 		
 		//Verifica se já está ativo
 		$sql = "SELECT * FROM Processos where ACCOUNT = '$ldata' ";
@@ -89,9 +122,13 @@
 										 BATTLE = '$lbattle',
 										 SIDE = '$lside',
 										 POS = '$lpos',
+										 WALK = '$lwalk',
 										 SKILLONLINE = '$lskillOnline',
 										 ACCOUNT = '$ldata',
-										 PARTY = '$lparty' 
+										 PARTY = '$lparty',
+										 SEX = '$lsex',
+										 JOB = '$ljob',
+										 EXPSHARED = '$lexpshared'
 										 where ACCOUNT = '$ldata' ";			
 			$result = $conn->query($sql);
 			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado - \n"); } else { echo nl2br("\n - Falhou Update - \n") . $conn->error; }
@@ -101,15 +138,14 @@
 		{
 			$lAll = '';
 			$sql = 
-			"INSERT INTO Processos (NOME, HP, MP, POSX, POSY, MAP, LEVEL, SETCHAR, HAIR, HAT, WEAPON, BATTLE, SIDE, POS, SKILLONLINE, ACCOUNT, PARTY)  VALUES 
-			('$lnome', '$lhp', '$lmp', '$lposX', '$lposY', '$lmap', '$llevel', '$lsetchar','$lhair', '$lhat', '$lweapon', '$lbattle' ,'$lside', '$lpos', '$lskillOnline','$ldata', '$lparty') ";
+			"INSERT INTO Processos (NOME, HP, MP, POSX, POSY, MAP, LEVEL, SETCHAR, HAIR, HAT, WEAPON, BATTLE, SIDE, POS, WALK, SKILLONLINE, ACCOUNT, PARTY, SEX, JOB, EXPSHARED)  VALUES 
+			('$lnome', '$lhp', '$lmp', '$lposX', '$lposY', '$lmap', '$llevel', '$lsetchar','$lhair', '$lhat', '$lweapon', '$lbattle' ,'$lside', '$lpos', '$lwalk', '$lskillOnline','$ldata', '$lparty', '$lsex', '$ljob', '$lexpshared') ";
 			
 			if ($conn->query($sql) === TRUE) {
-				echo "SYSTEMINSERT";
+				echo "SYSTEMINSERT \n";
 			} else {
 				echo "Error: " . $sql . "<br>" . $conn->error;
-			}
-				
+			}			
 		}
 		
 		/////Retorna Players Online /////
@@ -133,32 +169,23 @@
 							  ":BATTLE=" . $row["BATTLE"] .
 							  ":SIDE=" . $row["SIDE"] .
 							  ":POS=" . $row["POS"] .
+							  ":WALK=" . $row["WALK"] .
 							  ":SKILLONLINE=" . $row["SKILLONLINE"] .
 							  ":ACCOUNT=" . $row["ACCOUNT"] .
 							  ":PARTY=" . $row["PARTY"] .
-							  ": - \n");				
+							  ":SEX=" . $row["SEX"] .
+							  ":JOB=" . $row["JOB"] .   
+							  ":EXPSHARED=" . $row["EXPSHARED"] .
+							  ": - \n");
+				echo($lAll);
 			}
-			echo nl2br($lAll);
 		}
-		/////Retorna Mobs Online /////
-		$lAll = '';
-		$sql = "SELECT * FROM Mobs where MAP = '$lmap' ";
-		$result = $conn->query($sql);			
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) {
-									
-				$lAll = $lAll . ("SYSTEMMOBS - :MOBID=" . $row["MobsID"]. 
-							  ":GameMobID=" .  $row["GameMobID"]. 
-							  ":MOBHP=" . $row["HPMob"] . 
-							  ":MAP=" . $row["MAP"] .
-							  ": - \n");				
-			}
-			echo nl2br($lAll);
-		}
+		
+		
 		$conn->close();
 	}
 	
-	#PARTY 
+	#CREATE PARTY 
 	if ($lrequest == "Party"){
 		
 		$lAll = '';
@@ -168,6 +195,23 @@
 			$sql = "UPDATE Processos set PARTY = '$lparty' where ACCOUNT = '$ldata' ";			
 			$result = $conn->query($sql);
 			if ($conn->query($sql) === TRUE) { echo nl2br("\n - AtualizadoParty - \n"); } else { echo nl2br("\n - Falhou Update - \n") . $conn->error; }
+		}
+		
+		$conn->close();
+	}
+	
+	#SEND EXP PARTY
+	if ($lrequest == "ExpSharedUpdate"){
+		
+		$lAll = '';
+		$sql = 
+		"INSERT INTO PartyExp (ExpSend,Party,Account)  VALUES 
+		('$lexpshared','$lparty','$ldata') ";
+
+		if ($conn->query($sql) === TRUE) {
+			echo "SYSTEMEXPUPDATE \n";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 		
 		$conn->close();

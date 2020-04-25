@@ -1,5 +1,5 @@
 shops.png
-size: 275, 541
+size: 275, 814
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -13,6 +13,13 @@ orbshow
 refrishop
   rotate: false
   xy: 0, 268
+  size: 275, 273
+  orig: 275, 273
+  offset: 0, 0
+  index: -1
+shop1
+  rotate: false
+  xy: 0, 541
   size: 275, 273
   orig: 275, 273
   offset: 0, 0

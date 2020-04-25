@@ -202,15 +202,26 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 			return spr_master;
 		}
 		
-	public Sprite MovBaseOnline(String set, String side, String walk, int position, float posX, float posY){
+	public Sprite MovBaseOnline(String set, String side, String walk, String battle, int position, float posX, float posY){
 		
 		try {
 			
 		posOnline = position;
 		
+		if(battle.equals("Battle")) {
+			posOnline++;
+			
+			if(posOnline > 3) { posOnline = 1; }
+		}
+		
 		//MASC. /////////////////////////////////////////////////  
 		if(set.equals("basic_set_male")) {			
 			//SET
+			
+			if(posOnline == 1 && battle.equals("Battle")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+			if(posOnline == 2 && battle.equals("Battle")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+			if(posOnline == 3 && battle.equals("Battle")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+			
 			//Front
 			if(side.equals("Front") && posOnline == 1) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
 			if(side.equals("Front") && posOnline == 2) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front2"); spr_master.setPosition(posX - 0.1f, posY + 12.3f); spr_master.setSize(25, 36); return spr_master; }
@@ -235,6 +246,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 		//FEM. /////////////////////////////////////////////////
 		if(set.equals("basic_set_female")) {
+			
+			if(posOnline == 1 && battle.equals("Battle")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right1"); spr_master.setPosition(posX - 4f, posY + 12.5f);  spr_master.setSize(24, 33); return spr_master; }
+			if(posOnline == 2 && battle.equals("Battle")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right2"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }
+			if(posOnline == 3 && battle.equals("Battle")) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_swordman_right3"); spr_master.setPosition(posX - 4f, posY + 12.5f); spr_master.setSize(24, 33); return spr_master; }	
+			
+			
 			//Front
 			if(side.equals("Front") && posOnline == 1) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_front1"); spr_master.setPosition(posX - 5.5f, posY + 13.5f); spr_master.setSize(25, 33); return spr_master; }
 			if(side.equals("Front") && posOnline == 2) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_front2"); spr_master.setPosition(posX - 5.5f, posY + 13.5f); spr_master.setSize(25, 33); return spr_master; }
@@ -264,6 +281,27 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 		catch(Exception ex) {
 			return null;
 		}
+	}
+	
+	public Sprite MovCreatingChar(String set,String walk, int pos) {
+		
+		if(walk.equals("Stop")) {
+			pos = 1;
+		}
+		
+		//Masc.
+		if(set.equals("basic_set_male")) {
+			if(pos == 1) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front1"); return spr_master; }
+			if(pos == 2) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front2"); return spr_master; }
+			if(pos == 3) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front3"); return spr_master; }
+		}
+		//Fem.
+		if(set.equals("basic_set_female")) {
+			if(pos == 1) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_front1"); return spr_master; }
+			if(pos == 2) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_front2"); return spr_master; }
+			if(pos == 3) { spr_master = atlas_basic_female_set.createSprite("basic_set_female_front3"); return spr_master; }
+		}
+		return spr_master;
 	}
 	
 	public Sprite ReturnHairs(String hairName, String side, String walk, String text, boolean inBattle, boolean isCasting, Player Character_Data, float posX, float posY){
@@ -312,6 +350,31 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 	    }
 		
 		return spr_master;
+		}
+	
+		public Sprite ReturnHairsOnline(String hairName, String side, String walk, String battle, float posX, float posY) {
+			
+			//Masculino
+			if(!hairName.contains("_")) {
+				for(int i = 1; i <= 11; i++) {		
+					if(battle.equals("Battle")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "battle2_right"); spr_master.setPosition(posX  + 6.5f, posY + 44f); spr_master.setSize(10, 15); return spr_master; } }
+					if(side.equals("Front") || side.equals("Front-Left") || side.equals("Front-Right")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i); spr_master.setPosition(posX + 7f, posY + 43.5f); spr_master.setSize(10, 15); return spr_master; } }
+					if(side.equals("Right") || side.equals("Right-Front") || side.equals("Right-Back")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "right"); spr_master.setPosition(posX + 5.5f, posY + 45f); spr_master.setSize(12, 15); return spr_master; } }
+					if(side.equals("Left") || side.equals("Left-Front") || side.equals("Left-Back")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "left"); spr_master.setPosition(posX + 7f, posY + 45f); spr_master.setSize(12, 15); return spr_master; } }
+					if(side.equals("Back")|| side.equals("Left-Back") || side.equals("Left-Front") || side.equals("Back-Left") || side.equals("Back-Right")) { if(hairName.equals("hair" + i)) { spr_master = atlas_hairs.createSprite("hair" + i + "up"); spr_master.setPosition(posX + 7f, posY + 44f); spr_master.setSize(10, 14); return spr_master; } }	
+				}
+			}
+			//Feminina
+			if(hairName.contains("_f")) {		
+			    for(int i = 1; i <= 11; i++) {
+					if(battle.equals("Battle")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "battle" + "_f" + "_right"); spr_master.setPosition(posX  + 3.8f, posY + 37.8f); spr_master.setSize(10, 15); return spr_master; } }	
+					if(side.equals("Front") || side.equals("Front-Left") || side.equals("Front-Right") || battle.equals("Battle")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "_f"); spr_master.setPosition(posX + 1.7f, posY + 39.5f); spr_master.setSize(10, 15); return spr_master; } }
+					if(side.equals("Right") || side.equals("Right-Front") || side.equals("Right-Back")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "right" + "_f"); spr_master.setPosition(posX + 1.7f, posY + 39.6f); spr_master.setSize(12, 14); return spr_master; } }
+					if(side.equals("Left") || side.equals("Left-Front") || side.equals("Left-Back")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "left" + "_f"); spr_master.setPosition(posX + 0.9f, posY + 39.6f); spr_master.setSize(12, 14); return spr_master; } }
+					if(side.equals("Back")|| side.equals("Left-Back") || side.equals("Left-Front") || side.equals("Back-Left") || side.equals("Back-Right")) { if(hairName.equals("hair" + i + "_f")) { spr_master = atlas_hairs.createSprite("hair" + i + "up" + "_f"); spr_master.setPosition(posX + 1.3f, posY + 40f); spr_master.setSize(10, 14); return spr_master; } }		
+				}
+			}
+			return spr_master;
 		}
 		
 		public Sprite GetHair(String hair){

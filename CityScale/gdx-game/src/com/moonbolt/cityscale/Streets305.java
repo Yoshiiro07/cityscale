@@ -44,6 +44,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	private int objectNum = 0;
 	private int skillSelected = 0;
 	private int countParty = 0;
+	private int skillPressTime = 0;
 	private String playerManualAttack = "no";
 	private String playerAutoAttack = "no";
 	private String state = "Front";
@@ -372,6 +373,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				lstMobs.get(intcount).draw(game.batch);
 				mobX = lstMobs.get(intcount).getX() + (lstMobs.get(intcount).getWidth() / 2);
 				mobY = lstMobs.get(intcount).getY() + (lstMobs.get(intcount).getHeight() / 2);
+				
 			}
 			lstNomes = gameControl.ExibeNomesMonstros();
 			for(intcount = 0; intcount < lstNomes.size(); intcount++){				
@@ -396,7 +398,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//HP Regeneration
 			HPRegenTime++;
-			if(HPRegenTime > 1000) {
+			if(HPRegenTime > 2000) {
 				gameControl.RegenerateHPTiming();
 				HPRegenTime = 0;
 			}
@@ -421,13 +423,32 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//Objects
 		    //ScenarioObjects("textovershop");
 			
+			//Show Msg to Area Skill
+			if(selectAreaSkillState){
+				spr_master = gameControl.InterfaceStreets305("barraAreaSkill", "");
+				spr_master.draw(game.batch);
+			}
+			
+			//Reset Skill count delay
+			if(skillPressTime > 0) { skillPressTime--; }	
+			
 			// Show Shops
 			if(shopState) {
-				spr_master = gameControl.InterfaceStreets305("SodaMachine", "");
-				spr_master.draw(game.batch);
-				font_master.getData().setScale(0.25f,0.28f);
-				font_master.setColor(Color.YELLOW);
-				font_master.draw(game.batch,activePlayer.Money_A,cameraCoordsX + 27,cameraCoordsY - 5); // playerAttackCooldown
+				if(shopName.equals("SodaMachine")) {
+					spr_master = gameControl.InterfaceStreets305("SodaMachine", "");
+					spr_master.draw(game.batch);
+					font_master.getData().setScale(0.25f,0.28f);
+					font_master.setColor(Color.YELLOW);
+					font_master.draw(game.batch,activePlayer.Money_A,cameraCoordsX + 27,cameraCoordsY - 5); // 
+				}
+				
+				if(shopName.equals("Shop1")) {
+					spr_master = gameControl.InterfaceStreets305("Shop1", "");
+					spr_master.draw(game.batch);
+					font_master.getData().setScale(0.25f,0.28f);
+					font_master.setColor(Color.YELLOW);
+					font_master.draw(game.batch,activePlayer.Money_A,cameraCoordsX + 27,cameraCoordsY - 5); // 
+				}
 			}
 						
 			// Menu Section
@@ -498,6 +519,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			
 			
+			
+			
 			//Death
 			intcount = Integer.parseInt(activePlayer.HP_A);
 			if(intcount <= 0){ deadState = true; }
@@ -522,10 +545,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 
 		//Tests
-		//spr_teste.setPosition(401, -79); 
-		//spr_teste2.setPosition(410, -79);
-		//spr_teste.draw(game.batch);
-		//spr_teste2.draw(game.batch);
+		spr_teste.setPosition(130, -52); 
+		spr_teste2.setPosition(150, -52);
+		spr_teste.draw(game.batch);
+		spr_teste2.draw(game.batch);
 		//font_master.draw(game.batch,String.valueOf(playerX),cameraCoordsX,cameraCoordsY);
 		//font_master.draw(game.batch,String.valueOf(playerY),cameraCoordsX + 30,cameraCoordsY);		
 		
@@ -541,16 +564,21 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			for(int i = 0; i < lstInfoOnline.size(); i ++) {
 				
 				if(lstInfoOnline.get(i).Map_A.equals("Streets305")) {
-				spr_master = gameControl.MovCharOnline(lstInfoOnline.get(i).Set_A,lstInfoOnline.get(i).Side_A,lstInfoOnline.get(i).Walk_A,
+				spr_master = gameControl.MovCharOnline(lstInfoOnline.get(i).Set_A,
+													    lstInfoOnline.get(i).Side_A,
+													    lstInfoOnline.get(i).Walk_A,
+													    lstInfoOnline.get(i).Battle_A,
 														Integer.parseInt(lstInfoOnline.get(i).Position_A),
 														Float.parseFloat(lstInfoOnline.get(i).PX_A), 
 														Float.parseFloat(lstInfoOnline.get(i).PY_A));
-				spr_master.draw(game.batch);
-				
-				spr_master = gameControl.ReturnHairs(lstInfoOnline.get(i).Hair_A,lstInfoOnline.get(i).Side_A,"",Float.parseFloat(lstInfoOnline.get(i).PX_A),
-																												Float.parseFloat(lstInfoOnline.get(i).PY_A));
-				spr_master.draw(game.batch);
-				
+				spr_master.draw(game.batch);	
+				spr_master = gameControl.ReturnHairsOnline(lstInfoOnline.get(i).Hair_A,
+														   lstInfoOnline.get(i).Side_A,
+														   "",
+														   lstInfoOnline.get(i).Battle_A,
+														   Float.parseFloat(lstInfoOnline.get(i).PX_A),
+														   Float.parseFloat(lstInfoOnline.get(i).PY_A));
+				spr_master.draw(game.batch);			
 				font_master.draw(game.batch,lstInfoOnline.get(i).Name_A,Float.parseFloat(lstInfoOnline.get(i).PX_A) + 3,Float.parseFloat(lstInfoOnline.get(i).PY_A) + 10);
 				}
 			}
@@ -569,13 +597,14 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		for(int i = 0; i < lstInfoOnline.size(); i++) {				
 			String partylst =  lstInfoOnline.get(i).Party_A;
 			String characterParty = activePlayer.Party_A;
+			//if(characterParty.equals("none")) { return; }
 			if(lstInfoOnline.get(i).Party_A.equals(activePlayer.Party_A)) {
-				//countParty++;
+				countParty++;
 				
 				font_master.getData().setScale(0.09f,0.11f);
 				if(countParty > 3) { return;}
 				
-				countParty = 1;
+				//countParty = 1;
 				if(countParty == 1) {
 					spr_master = gameControl.InterfaceStreets305("PartyTag1","");
 					spr_master.draw(game.batch);
@@ -755,16 +784,22 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	// World Settings - BEGIN //
 	private void VerificaAction() {
 		
+		//Shops
 		if( (playerX >= 75 && playerX <= 102) && ( playerY >= -84 && playerY <= -70) ) {
 			shopState = true;
 			shopName = "SodaMachine";
 		}
 		
+		if( (playerX >= 117 && playerX <= 141) && (playerY >= -71) ) {
+			shopState = true;
+			shopName = "Shop1";
+		}
 		
 		if( (playerX >= 44 && playerX <= 74) && (playerY >= -108 && playerY <= -80) ) {		
-			activePlayer.Job_A = "Swordman";
-			
+			activePlayer.Job_A = "Swordman";	
 		}
+		
+		
 		
 		//if( (playerX >= 44 && playerX <= 74) && (playerY >= -108 && playerY <= -80) ) {
 		//	questState = true;
@@ -1006,6 +1041,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				//Skill 1
 				if((coordsTouch.x >= cameraCoordsX + 55 && coordsTouch.x <= cameraCoordsX + 62) && (coordsTouch.y >= cameraCoordsY - 70 && coordsTouch.y <= cameraCoordsY - 53)){
+					if(skillPressTime > 0) { return false; }				
 					skillSelected = 1;
 					areaSkillState = gameControl.VerificaRangedSkill(skillSelected);
 					if(!areaSkillState){
@@ -1014,6 +1050,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				    else {
 						selectAreaSkillState = true;
 					}
+					skillPressTime = gameControl.delayinfo();
 					return false;
 				}
 				

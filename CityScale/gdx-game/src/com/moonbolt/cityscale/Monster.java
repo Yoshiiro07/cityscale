@@ -498,25 +498,25 @@ public class Monster {
 		//Direita
 		if(sidePath.equals("right")) {
 			mobX = mobX + mobSpeed;
-			mobSelected.PX = String.valueOf(mobX);
+			//mobSelected.PX = String.valueOf(mobX);
 			mobSelected.SIDE = "right";
 		}
 		//Esquerda
 		if(sidePath.equals("left")) {
 			mobX = mobX - mobSpeed;
-			mobSelected.PX = String.valueOf(mobX);
+			//mobSelected.PX = String.valueOf(mobX);
 			mobSelected.SIDE = "left";
 		}
 		//Cima
 		if(sidePath.equals("up")) {
 			mobY = mobY + mobSpeed;
-			mobSelected.PY = String.valueOf(mobY);
+			//mobSelected.PY = String.valueOf(mobY);
 			mobSelected.SIDE = "right";
 		}
 		//Baixo
 		if(sidePath.equals("front")) {
 			mobY = mobY - mobSpeed;
-			mobSelected.PY = String.valueOf(mobY);
+			//mobSelected.PY = String.valueOf(mobY);
 			mobSelected.SIDE = "left";
 		}
 		}
