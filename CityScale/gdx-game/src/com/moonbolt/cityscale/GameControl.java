@@ -129,7 +129,7 @@ public class GameControl {
 		private TextureAtlas atlas_shop;
 		private TextureAtlas atlas_objectsMetro;
 		private TextureAtlas atlas_Mob;
-		private TextureAtlas atlas_Usable;
+		private TextureAtlas atlas_Inventory;
 		private TextureAtlas atlas_Npcs;
 		private Sprite spr_master;
 		private Texture tex_teste;
@@ -137,11 +137,6 @@ public class GameControl {
 		//Map atlas
 		private TextureAtlas atlas_Forest;
 		
-		//Weapons atlas
-		private TextureAtlas atlas_nKnifes;
-		private TextureAtlas atlas_swords;
-		//Set atlas
-		private TextureAtlas atlas_sets;
 		
 		
 		//Online Variables
@@ -209,17 +204,11 @@ public class GameControl {
 			atlas_Forest = new TextureAtlas(Gdx.files.internal("data/monsters/mobsForest.txt"));
 			
 			//Itens
-			atlas_Usable = new TextureAtlas(Gdx.files.internal("data/itens/Usables/Usables.txt"));		
+			atlas_Inventory = new TextureAtlas(Gdx.files.internal("data/itens/inventory/inventory.txt"));		
 			
 			//NPCs
 			atlas_Npcs = new TextureAtlas(Gdx.files.internal("data/characters/npcs/npcs.txt"));
-			
-			//Armas
-			atlas_nKnifes = new TextureAtlas(Gdx.files.internal("data/itens/weapons/nknifes.txt"));
-			atlas_swords = new TextureAtlas(Gdx.files.internal("data/itens/weapons/swords.txt"));
-			
-			//Equips
-			atlas_sets = new TextureAtlas(Gdx.files.internal("data/itens/Sets/sets.txt"));
+		
 			////////Atlas Section//////
 		}
 		
@@ -952,143 +941,8 @@ public class GameControl {
 		}
 		
 		public Sprite ShowWeapon(String side,String walk, String type, float posX, float posY) {
-			if(inBattle && walk.equals("Stop") && !type.equals("Menu")) {
-				text = Character_Data.Battle_A;
-				weapon = Character_Data.Weapon_A;
-					if(Character_Data.Job_A.equals("Novice")) { 
-							if(weapon.equals("basic_knife")) {
-								
-							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
-								
-								if(attackFrame) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_attack_right");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX + 8.9f, posY + 17);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 1 || playerbattleframe == 6) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_right");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX - 11.9f, posY + 26);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 2 || playerbattleframe == 5) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_right");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX - 11f, posY + 30);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 3 || playerbattleframe == 4) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_side_right");
-									spr_master.setSize(25,39);
-									spr_master.setPosition(posX - 5f, posY + 30);
-									return spr_master;
-								}
-							}
-							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
-								
-								if(attackFrame) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_attack_left");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX - 15f, posY + 19);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 1 || playerbattleframe == 6) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_left");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX + 5f, posY + 26);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 2 || playerbattleframe == 5) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_left");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX + 5f, posY + 30);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 3 || playerbattleframe == 4) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_side_left");
-									spr_master.setSize(25,39);
-									spr_master.setPosition(posX + 2f, posY + 30);
-									return spr_master;
-								}							
-							}
-							
-							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
-								
-								if(attackFrame) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_attack_right");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX + 4f, posY + 15f);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 1 || playerbattleframe == 6) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_right");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX - 11.9f, posY + 26);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 2 || playerbattleframe == 5) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_right");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX - 12f, posY + 26);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 3 || playerbattleframe == 4) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_side_right");
-									spr_master.setSize(25,39);
-									spr_master.setPosition(posX - 7f, posY + 24);
-									return spr_master;
-								}
-							}
-							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
-								
-								if(attackFrame) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_attack_left");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX - 14f, posY + 17);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 1 || playerbattleframe == 6) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_left");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX + 2f, posY + 26);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 2 || playerbattleframe == 5) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_left");
-									spr_master.setSize(30,37);
-									spr_master.setPosition(posX + 2f, posY + 26.2f);
-									return spr_master;
-								}
-								
-								if(playerbattleframe == 3 || playerbattleframe == 4) {
-									spr_master = atlas_nKnifes.createSprite("basic_knife_side_left");
-									spr_master.setSize(25,39);
-									spr_master.setPosition(posX + 2f, posY + 24);
-									return spr_master;
-								}							
-							}
-						}
-					}
-					
-					if(Character_Data.Job_A.equals("Swordman")) { 
-						
-					}
-				}
-					
-			
-			return null;
+			dataManager.ShowWeapon(side, walk, type, posX, posY, Character_Data, inBattle, attackFrame, playerbattleframe);
+			return spr_master;
 		}
 		
 		
@@ -2803,7 +2657,7 @@ public class GameControl {
 			if(text.equals("None")) { return spr_master; }
 			
 			if(text.equals("Refrigerante")) {
-				spr_master = atlas_Usable.createSprite("Cola");
+				spr_master = atlas_Inventory.createSprite("hpcan");
 			}
 			
 			qtdItem = itemUsage[1].replace("]","");
@@ -2831,22 +2685,25 @@ public class GameControl {
 			String hat = Character_Data.Hat_A;
 			
 			if(item.equals("weapon")) { 
-				if(weapon.equals("basic_knife")) { spr_master = atlas_nKnifes.createSprite("basic_knife_right"); }			
+				if(weapon.equals("basic_knife")) { spr_master = atlas_Inventory.createSprite("basicknife"); }			
+				spr_master.setPosition(ccX - 7, ccY + 26);
+				spr_master.setSize(25, 40);
+				
+				if(weapon.equals("advanced_knife")) { spr_master = atlas_Inventory.createSprite("doubleedgeknife"); }			
 				spr_master.setPosition(ccX - 7, ccY + 26);
 				spr_master.setSize(25, 40);
 			}
 			
 			if(item.equals("set")) { 
-				if(set.equals("basic_set_male")) { spr_master = atlas_sets.createSprite("basicsetmale"); }
-				if(set.equals("basic_set_female")) { spr_master = atlas_sets.createSprite("basicsetfemale"); }
+				if(set.equals("basic_set_male")) { spr_master = atlas_Inventory.createSprite("basicmale"); } 
+				if(set.equals("basic_set_female")) { spr_master = atlas_Inventory.createSprite("basicfemale"); }
 				
-				spr_master.setPosition(ccX + 9, ccY + 27);
-				spr_master.setSize(20, 30);
+				spr_master.setPosition(ccX + 12.5f, ccY + 30);
+				spr_master.setSize(13, 24);
 			}
 			
 			if(item.equals("hat")) { 
-				if(hat.equals("none")) { return spr_master = null; }
-				
+				if(hat.equals("none")) { return spr_master = null; }		
 			}
 			
 			
@@ -3007,7 +2864,7 @@ public class GameControl {
 			
 			if(showLootTime > 0) {
 				if(item.equals("Refrigerante")) {
-					spr_master = atlas_Usable.createSprite("Cola");
+					spr_master = atlas_Inventory.createSprite("hpcan");
 					spr_master.setSize(15, 30);
 				}
 			}			

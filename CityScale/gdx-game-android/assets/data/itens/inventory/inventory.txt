@@ -1,0 +1,488 @@
+inventory.png
+size: 96, 1820
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+anchoraxe
+  rotate: false
+  xy: 0, 0
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicaxe
+  rotate: false
+  xy: 48, 0
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicdagger
+  rotate: false
+  xy: 0, 52
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicfemale
+  rotate: false
+  xy: 48, 52
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicknife
+  rotate: false
+  xy: 0, 104
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicmale
+  rotate: false
+  xy: 48, 104
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicpistol
+  rotate: false
+  xy: 0, 156
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+batfang
+  rotate: false
+  xy: 48, 156
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+blackdagger
+  rotate: false
+  xy: 0, 208
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+bloodteethaxe
+  rotate: false
+  xy: 48, 208
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+blueshard
+  rotate: false
+  xy: 0, 260
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+butterflyrod
+  rotate: false
+  xy: 48, 260
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+cannonpistol
+  rotate: false
+  xy: 0, 312
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+clerigrod
+  rotate: false
+  xy: 48, 312
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+coffe
+  rotate: false
+  xy: 0, 364
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+colisseumdagger
+  rotate: false
+  xy: 48, 364
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+cristalsword
+  rotate: false
+  xy: 0, 416
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+curvedsword
+  rotate: false
+  xy: 48, 416
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+deathrod
+  rotate: false
+  xy: 0, 468
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+doubleedgeknife
+  rotate: false
+  xy: 48, 468
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+edgedagger
+  rotate: false
+  xy: 0, 520
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+edgesword
+  rotate: false
+  xy: 48, 520
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+energyjar
+  rotate: false
+  xy: 0, 572
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flama
+  rotate: false
+  xy: 48, 572
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flamebergdagger
+  rotate: false
+  xy: 0, 624
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flamesword
+  rotate: false
+  xy: 48, 624
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+gemrod
+  rotate: false
+  xy: 0, 676
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+gloomrod
+  rotate: false
+  xy: 48, 676
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+goop
+  rotate: false
+  xy: 0, 728
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+greenmantle
+  rotate: false
+  xy: 48, 728
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+greenshard
+  rotate: false
+  xy: 0, 780
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+guitaraxe
+  rotate: false
+  xy: 48, 780
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+hammeraxe
+  rotate: false
+  xy: 0, 832
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+heavymachinepistol
+  rotate: false
+  xy: 48, 832
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+hpcan
+  rotate: false
+  xy: 0, 884
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+hpjar
+  rotate: false
+  xy: 48, 884
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+killeraxe
+  rotate: false
+  xy: 0, 936
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+knightsword
+  rotate: false
+  xy: 48, 936
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+lightpistol
+  rotate: false
+  xy: 0, 988
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+lightwieldrod
+  rotate: false
+  xy: 48, 988
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+machinepistol
+  rotate: false
+  xy: 0, 1040
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+marinedagger
+  rotate: false
+  xy: 48, 1040
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+mpcan
+  rotate: false
+  xy: 0, 1092
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+mpjar
+  rotate: false
+  xy: 48, 1092
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+petals
+  rotate: false
+  xy: 0, 1144
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+pickaxe
+  rotate: false
+  xy: 48, 1144
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+poisondagger
+  rotate: false
+  xy: 0, 1196
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+ragesword
+  rotate: false
+  xy: 48, 1196
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+redshard
+  rotate: false
+  xy: 0, 1248
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+revolverpistol
+  rotate: false
+  xy: 48, 1248
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+riflepistol
+  rotate: false
+  xy: 0, 1300
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+sabersword
+  rotate: false
+  xy: 48, 1300
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+sacredrod
+  rotate: false
+  xy: 0, 1352
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+scytheaxe
+  rotate: false
+  xy: 48, 1352
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+serpentrod
+  rotate: false
+  xy: 0, 1404
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+serpentsword
+  rotate: false
+  xy: 48, 1404
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+sharkpistol
+  rotate: false
+  xy: 0, 1456
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+sharpaxe
+  rotate: false
+  xy: 48, 1456
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+shooterpistol
+  rotate: false
+  xy: 0, 1508
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+starrod
+  rotate: false
+  xy: 48, 1508
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+stickrod
+  rotate: false
+  xy: 0, 1560
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+thunderdagger
+  rotate: false
+  xy: 48, 1560
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+triplodagger
+  rotate: false
+  xy: 0, 1612
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+turretpistol
+  rotate: false
+  xy: 48, 1612
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+venomsword
+  rotate: false
+  xy: 0, 1664
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+winddagger
+  rotate: false
+  xy: 48, 1664
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+woodsword
+  rotate: false
+  xy: 0, 1716
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+wrenckaxe
+  rotate: false
+  xy: 48, 1716
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+yellowshard
+  rotate: false
+  xy: 0, 1768
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
