@@ -941,7 +941,7 @@ public class GameControl {
 		}
 		
 		public Sprite ShowWeapon(String side,String walk, String type, float posX, float posY) {
-			dataManager.ShowWeapon(side, walk, type, posX, posY, Character_Data, inBattle, attackFrame, playerbattleframe);
+			spr_master = dataManager.ShowWeapon(side, walk, type, posX, posY, Character_Data, inBattle, attackFrame, playerbattleframe);
 			return spr_master;
 		}
 		
@@ -2656,8 +2656,82 @@ public class GameControl {
 			
 			if(text.equals("None")) { return spr_master; }
 			
+			//Usables
 			if(text.equals("Refrigerante")) {
 				spr_master = atlas_Inventory.createSprite("hpcan");
+			}
+			
+			//Weapons
+			//Novice
+			if(text.equals("basic_knife")) {
+				spr_master = atlas_Inventory.createSprite("basicknife");
+			}
+			if(text.equals("doubleedge_knife")) {
+				spr_master = atlas_Inventory.createSprite("edgedagger");
+			}
+			
+			//Swordman
+			if(text.equals("venom_sword")) {
+				spr_master = atlas_Inventory.createSprite("venomsword");
+			}
+			if(text.equals("wood_sword")) {
+				spr_master = atlas_Inventory.createSprite("woodsword");
+			}
+			if(text.equals("knight_sword")) {
+				spr_master = atlas_Inventory.createSprite("knightsword");
+			}
+			if(text.equals("serpent_sword")) {
+				spr_master = atlas_Inventory.createSprite("serpentsword");
+			}
+			if(text.equals("curved_sword")) {
+				spr_master = atlas_Inventory.createSprite("curvedsword");
+			}
+			if(text.equals("saber_sword")) {
+				spr_master = atlas_Inventory.createSprite("sabersword");
+			}
+			if(text.equals("cristal_sword")) {
+				spr_master = atlas_Inventory.createSprite("cristalsword");
+			}
+			if(text.equals("flame_sword")) {
+				spr_master = atlas_Inventory.createSprite("flamesword");
+			}
+			if(text.equals("edge_sword")) {
+				spr_master = atlas_Inventory.createSprite("edgesword");
+			}
+			if(text.equals("rage_sword")) {
+				spr_master = atlas_Inventory.createSprite("ragesword");
+			}
+			
+			//Magician
+			if(text.equals("butterfly_rod")) {
+				spr_master = atlas_Inventory.createSprite("butterflyrod");
+			}
+			if(text.equals("gloom_rod")) {
+				spr_master = atlas_Inventory.createSprite("gloomrod");
+			}
+			if(text.equals("death_rod")) {
+				spr_master = atlas_Inventory.createSprite("deathrod");
+			}
+			if(text.equals("lightwield_rod")) {
+				spr_master = atlas_Inventory.createSprite("lightwieldrod");
+			}
+			if(text.equals("curved_sword")) {
+				spr_master = atlas_Inventory.createSprite("curvedsword");
+			}
+			if(text.equals("saber_sword")) {
+				spr_master = atlas_Inventory.createSprite("sabersword");
+			}
+			if(text.equals("cristal_sword")) {
+				spr_master = atlas_Inventory.createSprite("cristalsword");
+			}
+			if(text.equals("flame_sword")) {
+				spr_master = atlas_Inventory.createSprite("flamesword");
+			}
+			if(text.equals("edge_sword")) {
+				spr_master = atlas_Inventory.createSprite("edgesword");
+			}
+			if(text.equals("rage_sword")) {
+				spr_master = atlas_Inventory.createSprite("ragesword");
 			}
 			
 			qtdItem = itemUsage[1].replace("]","");
@@ -2875,6 +2949,7 @@ public class GameControl {
 		public void VerificaItemCompra(String nomeloja, int numeroItem) {
 			
 			int money = Integer.parseInt(Character_Data.Money_A);		
+			
 			if(nomeloja.equals("SodaMachine")) {
 				if(numeroItem == 1) {
 					if(money >= 10) { 
@@ -2884,6 +2959,18 @@ public class GameControl {
 					}
 				}
 			}
+			
+			
+			if(nomeloja.equals("Shop1")) {
+				if(numeroItem == 1) {
+					if(money >= 5) { 
+					AdicionaItemMochila("basic_knife"); 
+					money = money - 5;  
+					Character_Data.Money_A = String.valueOf(money); 
+					}
+				}
+			}
+			
 		}
 		
 		public void AdicionaItemMochila(String nomeItem) {

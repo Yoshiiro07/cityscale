@@ -1,0 +1,285 @@
+daggers.png
+size: 2000, 50
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+basic_dagger_attack_left
+  rotate: false
+  xy: 0, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+basic_dagger_attack_right
+  rotate: false
+  xy: 50, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+basic_dagger_left
+  rotate: false
+  xy: 100, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+basic_dagger_right
+  rotate: false
+  xy: 150, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+black_dagger_attack_left
+  rotate: false
+  xy: 200, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+black_dagger_attack_right
+  rotate: false
+  xy: 250, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+black_dagger_left
+  rotate: false
+  xy: 300, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+black_dagger_right
+  rotate: false
+  xy: 350, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+colisseum_dagger_attack_left
+  rotate: false
+  xy: 400, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+colisseum_dagger_attack_right
+  rotate: false
+  xy: 450, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+colisseum_dagger_left
+  rotate: false
+  xy: 500, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+colisseum_dagger_right
+  rotate: false
+  xy: 550, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+edge_dagger_attack_left
+  rotate: false
+  xy: 600, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+edge_dagger_attack_right
+  rotate: false
+  xy: 650, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+edge_dagger_left
+  rotate: false
+  xy: 700, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+edge_dagger_right
+  rotate: false
+  xy: 750, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+flameberg_dagger_attack_left
+  rotate: false
+  xy: 800, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+flameberg_dagger_attack_right
+  rotate: false
+  xy: 850, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+flameberg_dagger_left
+  rotate: false
+  xy: 900, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+flameberg_dagger_right
+  rotate: false
+  xy: 950, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+marine_dagger_attack_left
+  rotate: false
+  xy: 1000, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+marine_dagger_attack_right
+  rotate: false
+  xy: 1050, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+marine_dagger_left
+  rotate: false
+  xy: 1100, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+marine_dagger_right
+  rotate: false
+  xy: 1150, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+poison_dagger_attack_left
+  rotate: false
+  xy: 1200, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+poison_dagger_attack_right
+  rotate: false
+  xy: 1250, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+poison_dagger_left
+  rotate: false
+  xy: 1300, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+poison_dagger_right
+  rotate: false
+  xy: 1350, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+thunder_dagger_attack_left
+  rotate: false
+  xy: 1400, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+thunder_dagger_attack_right
+  rotate: false
+  xy: 1450, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+thunder_dagger_left
+  rotate: false
+  xy: 1500, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+thunder_dagger_right
+  rotate: false
+  xy: 1550, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+triplo_dagger_attack_left
+  rotate: false
+  xy: 1600, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+triplo_dagger_attack_right
+  rotate: false
+  xy: 1650, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+triplo_dagger_left
+  rotate: false
+  xy: 1700, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+triplo_dagger_right
+  rotate: false
+  xy: 1750, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+wind_dagger_attack_left
+  rotate: false
+  xy: 1800, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+wind_dagger_attack_right
+  rotate: false
+  xy: 1850, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+wind_dagger_left
+  rotate: false
+  xy: 1900, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+wind_dagger_right
+  rotate: false
+  xy: 1950, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1

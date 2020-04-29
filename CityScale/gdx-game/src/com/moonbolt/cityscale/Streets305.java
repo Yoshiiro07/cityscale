@@ -248,7 +248,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_hair = gameControl.ReturnHairs(activePlayer.Hair_A, state,walk, playerX, playerY);
 				spr_weapon = gameControl.ShowWeapon(state, walk,  "", playerX, playerY);
 				
-				if(spr_weapon != null) { spr_weapon.draw(game.batch); }
+				if(spr_weapon != null) { 
+					spr_weapon.draw(game.batch); 
+				}
 				spr_player.draw(game.batch);
 				spr_hair.draw(game.batch);
 				
@@ -258,9 +260,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_hair = gameControl.ReturnHairs(activePlayer.Hair_A, state,walk, playerX, playerY);
 				spr_weapon = gameControl.ShowWeapon(state, walk,  "", playerX, playerY);
 				
+				if(spr_weapon != null) { spr_weapon.draw(game.batch); }
 				spr_player.draw(game.batch);
 				spr_hair.draw(game.batch);
-				if(spr_weapon != null) { spr_weapon.draw(game.batch); }
+				
 			}
 			
 			//Place Interface			

@@ -108,6 +108,78 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 					if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
 					if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
 				}
+				
+				if(Character_Data.Job_A.equals("Medic")) {
+					if(attackFrame && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_magicAttackSpell_right"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(attackFrame && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_magicAttackSpell_left"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 1 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 2 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 3 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+					if(pos == 4 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 5 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 6 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_swordman_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+
+					if(pos == 1 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_magician_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 2 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_magician_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 3 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_magician_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 4 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_magician_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_magician_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_magician_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+				}
+				
+				if(Character_Data.Job_A.equals("Thief")) {
+					if(attackFrame && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_right"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(attackFrame && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_left"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 1 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 2 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 3 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+					if(pos == 4 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 5 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 6 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+
+					if(pos == 1 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 2 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 3 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 4 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_thief_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+				}
+				
+				if(Character_Data.Job_A.equals("Beater")) {
+					if(attackFrame && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_right"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(attackFrame && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_left"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 1 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 2 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 3 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+					if(pos == 4 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 5 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 6 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+
+					if(pos == 1 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 2 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 3 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 4 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_merchant_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+				}
+				
+				if(Character_Data.Job_A.equals("Gunner")) {
+					if(attackFrame && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_right"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(attackFrame && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_meleeAttack_left"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 1 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 2 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 3 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+					if(pos == 4 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_right3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 5 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_right2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 6 && text.equals("yes_Right")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_right1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }	
+
+					if(pos == 1 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 2 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 3 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 4 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_left3"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 5 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_left2"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+					if(pos == 6 && text.equals("yes_Left")) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_gunner_left1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f); spr_master.setSize(25, 36); return spr_master; }
+				}
 			}
 
 			//Menu
@@ -116,7 +188,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 				return spr_master;
 			}
 
-			//Front
+			//Front basic_set_male_front3
 			if(side.equals("Front") && pos == 1) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front1"); spr_master.setPosition(posX - 0.6f, posY + 12.5f);  spr_master.setSize(25, 36); return spr_master; }
 			if(side.equals("Front") && pos == 2) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front2"); spr_master.setPosition(posX - 0.1f, posY + 12.3f); spr_master.setSize(25, 36); return spr_master; }
 			if(side.equals("Front") && pos == 3) { spr_master = atlas_basic_male_set.createSprite("basic_set_male_front3"); spr_master.setPosition(posX - 0.1f, posY + 12.4f); spr_master.setSize(25, 36); return spr_master; }
@@ -396,6 +468,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 				text = Character_Data.Battle_A;
 				weapon = Character_Data.Weapon_A;
 				
+				weapon = "wood_sword";
+				Character_Data.Job_A = "Swordman";
+				
 					//Novice
 					if(Character_Data.Job_A.equals("Novice")) {
 							
@@ -666,7 +741,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 								if(attackFrame) {
 									spr_master = atlas_swords.createSprite("wood_sword_attack_right");
 									spr_master.setSize(30,37);
-									spr_master.setPosition(posX + 8.9f, posY + 17);
+									spr_master.setPosition(posX + 7.3f, posY + 17);
 									return spr_master;
 								}
 								
@@ -687,7 +762,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 								if(playerbattleframe == 3 || playerbattleframe == 4) {
 									spr_master = atlas_swords.createSprite("wood_sword_side_right");
 									spr_master.setSize(25,39);
-									spr_master.setPosition(posX - 5f, posY + 30);
+									spr_master.setPosition(posX - 2f, posY + 24);
 									return spr_master;
 								}
 							}
@@ -785,7 +860,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 						}
 						
 						/// Knight Sword ///
-						if(weapon.equals("wood_sword")) {
+						if(weapon.equals("knight_sword")) {
 							
 							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
 								
@@ -903,6 +978,1014 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 								
 								if(playerbattleframe == 3 || playerbattleframe == 4) {
 									spr_master = atlas_swords.createSprite("knight_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 24);
+									return spr_master;
+								}							
+							}
+						}
+						
+						/// Edge Sword ///
+						if(weapon.equals("edge_sword")) {
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("edge_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 8.9f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("edge_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("edge_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("edge_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 5f, posY + 30);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("edge_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 15f, posY + 19);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("edge_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("edge_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("edge_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 30);
+									return spr_master;
+								}							
+							}
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("edge_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 4f, posY + 15f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("edge_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("edge_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 12f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("edge_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 7f, posY + 24);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("edge_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 14f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("edge_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("edge_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26.2f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("edge_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 24);
+									return spr_master;
+								}							
+							}
+						}
+						
+						/// Curved Sword ///
+						if(weapon.equals("curved_sword")) {
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("curved_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 8.9f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("curved_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("curved_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("curved_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 5f, posY + 30);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("curved_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 15f, posY + 19);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("curved_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("curved_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("curved_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 30);
+									return spr_master;
+								}							
+							}
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("curved_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 4f, posY + 15f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("curved_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("curved_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 12f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("curved_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 7f, posY + 24);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("curved_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 14f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("curved_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("curved_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26.2f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("curved_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 24);
+									return spr_master;
+								}							
+							}
+						}
+						
+						/// flame Sword ///
+						if(weapon.equals("flame_sword")) {
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("flame_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 8.9f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("flame_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("flame_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("flame_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 5f, posY + 30);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("flame_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 15f, posY + 19);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("flame_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("flame_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("flame_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 30);
+									return spr_master;
+								}							
+							}
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("flame_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 4f, posY + 15f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("flame_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("flame_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 12f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("flame_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 7f, posY + 24);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("flame_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 14f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("flame_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("flame_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26.2f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("flame_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 24);
+									return spr_master;
+								}							
+							}
+						}
+						
+						/// saber Sword ///
+						if(weapon.equals("saber_sword")) {
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("saber_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 8.9f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("saber_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("saber_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("saber_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 5f, posY + 30);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("saber_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 15f, posY + 19);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("saber_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("saber_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("saber_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 30);
+									return spr_master;
+								}							
+							}
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("saber_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 4f, posY + 15f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("saber_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("saber_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 12f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("saber_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 7f, posY + 24);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("saber_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 14f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("saber_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("saber_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26.2f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("saber_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 24);
+									return spr_master;
+								}							
+							}
+						}
+						
+						/// Cristal Sword ///
+						if(weapon.equals("cristal_sword")) {
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("cristal_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 8.9f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("cristal_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("cristal_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("cristal_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 5f, posY + 30);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("cristal_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 15f, posY + 19);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("cristal_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("cristal_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("cristal_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 30);
+									return spr_master;
+								}							
+							}
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("cristal_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 4f, posY + 15f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("cristal_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("cristal_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 12f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("cristal_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 7f, posY + 24);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("cristal_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 14f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("cristal_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("cristal_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26.2f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("cristal_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 24);
+									return spr_master;
+								}							
+							}
+						}
+						
+						/// Serpent Sword ///
+						if(weapon.equals("serpent_sword")) {
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("serpent_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 8.9f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("serpent_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("serpent_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("serpent_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 5f, posY + 30);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("serpent_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 15f, posY + 19);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("serpent_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("serpent_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("serpent_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 30);
+									return spr_master;
+								}							
+							}
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("serpent_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 4f, posY + 15f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("serpent_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("serpent_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 12f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("serpent_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 7f, posY + 24);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("serpent_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 14f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("serpent_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("serpent_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26.2f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("serpent_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 24);
+									return spr_master;
+								}							
+							}
+						}
+						
+						/// Venom Sword ///
+						if(weapon.equals("venom_sword")) {
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("venom_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 8.9f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("venom_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("venom_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("venom_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 5f, posY + 30);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("venom_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 15f, posY + 19);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("venom_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("venom_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("venom_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 30);
+									return spr_master;
+								}							
+							}
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("venom_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 4f, posY + 15f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("venom_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("venom_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 12f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("venom_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 7f, posY + 24);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("venom_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 14f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("venom_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("venom_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26.2f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("venom_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 24);
+									return spr_master;
+								}							
+							}
+						}
+						
+						/// Rage Sword ///
+						if(weapon.equals("rage_sword")) {
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("rage_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 8.9f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("rage_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("rage_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("rage_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 5f, posY + 30);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("M")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("rage_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 15f, posY + 19);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("rage_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("rage_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 5f, posY + 30);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("rage_sword_side_left");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX + 2f, posY + 30);
+									return spr_master;
+								}							
+							}
+							
+							if(text.equals("yes_Right") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("rage_sword_attack_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 4f, posY + 15f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("rage_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 11.9f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("rage_sword_right");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 12f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("rage_sword_side_right");
+									spr_master.setSize(25,39);
+									spr_master.setPosition(posX - 7f, posY + 24);
+									return spr_master;
+								}
+							}
+							if(text.equals("yes_Left") && Character_Data.Sex_A.equals("F")) {
+								
+								if(attackFrame) {
+									spr_master = atlas_swords.createSprite("rage_sword_attack_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX - 14f, posY + 17);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 1 || playerbattleframe == 6) {
+									spr_master = atlas_swords.createSprite("rage_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 2 || playerbattleframe == 5) {
+									spr_master = atlas_swords.createSprite("rage_sword_left");
+									spr_master.setSize(30,37);
+									spr_master.setPosition(posX + 2f, posY + 26.2f);
+									return spr_master;
+								}
+								
+								if(playerbattleframe == 3 || playerbattleframe == 4) {
+									spr_master = atlas_swords.createSprite("rage_sword_side_left");
 									spr_master.setSize(25,39);
 									spr_master.setPosition(posX + 2f, posY + 24);
 									return spr_master;
