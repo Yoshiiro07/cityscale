@@ -10,14 +10,14 @@ anchor_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-anchor_axe_left_attack
+anchor_axe_attack_left
   rotate: false
   xy: 60, 0
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-anchor_axe_left_side
+anchor_axe_side_left
   rotate: false
   xy: 0, 60
   size: 60, 60
@@ -38,7 +38,7 @@ anchor_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-anchor_axe_right_side
+anchor_axe_side_right
   rotate: false
   xy: 60, 120
   size: 60, 60
@@ -52,14 +52,14 @@ basic_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-basic_axe_left_attack
+basic_axe_attack_left
   rotate: false
   xy: 60, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-basic_axe_left_side
+basic_axe_side_left
   rotate: false
   xy: 0, 240
   size: 60, 60
@@ -80,7 +80,7 @@ basic_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-basic_axe_right_side
+basic_axe_side_right
   rotate: false
   xy: 60, 300
   size: 60, 60
@@ -94,14 +94,14 @@ bloodteeth_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-bloodteeth_axe_left_attack
+bloodteeth_axe_attack_left
   rotate: false
   xy: 60, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-bloodteeth_axe_left_side
+bloodteeth_axe_side_left
   rotate: false
   xy: 0, 420
   size: 60, 60
@@ -122,7 +122,7 @@ bloodteeth_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-bloodteeth_axe_right_side
+bloodteeth_axe_side_right
   rotate: false
   xy: 60, 480
   size: 60, 60
@@ -136,14 +136,14 @@ guitar_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-guitar_axe_left_attack
+guitar_axe_attack_left
   rotate: false
   xy: 60, 540
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-guitar_axe_left_side
+guitar_axe_side_left
   rotate: false
   xy: 0, 600
   size: 60, 60
@@ -164,7 +164,7 @@ guitar_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-guitar_axe_right_side
+guitar_axe_side_right
   rotate: false
   xy: 60, 660
   size: 60, 60
@@ -178,14 +178,14 @@ hammer_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-hammer_axe_left_attack
+hammer_axe_attack_left
   rotate: false
   xy: 60, 720
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-hammer_axe_left_side
+hammer_axe_side_left
   rotate: false
   xy: 0, 780
   size: 60, 60
@@ -206,7 +206,7 @@ hammer_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-hammer_axe_right_side
+hammer_axe_side_right
   rotate: false
   xy: 60, 840
   size: 60, 60
@@ -220,14 +220,14 @@ killer_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-killer_axe_left_attack
+killer_axe_attack_left
   rotate: false
   xy: 60, 900
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-killer_axe_left_side
+killer_axe_side_left
   rotate: false
   xy: 0, 960
   size: 60, 60
@@ -248,7 +248,7 @@ killer_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-killer_axe_right_side
+killer_axe_side_right
   rotate: false
   xy: 60, 1020
   size: 60, 60
@@ -262,14 +262,14 @@ pick_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-pick_axe_left_attack
+pick_axe_attack_left
   rotate: false
   xy: 60, 1080
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-pick_axe_left_side
+pick_axe_side_left
   rotate: false
   xy: 0, 1140
   size: 60, 60
@@ -290,7 +290,7 @@ pick_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-pick_axe_right_side
+pick_axe_side_right
   rotate: false
   xy: 60, 1200
   size: 60, 60
@@ -304,14 +304,14 @@ scythe_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-scythe_axe_left_attack
+scythe_axe_attack_left
   rotate: false
   xy: 60, 1260
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-scythe_axe_left_side
+scythe_axe_side_left
   rotate: false
   xy: 0, 1320
   size: 60, 60
@@ -332,7 +332,7 @@ scythe_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-scythe_axe_right_side
+scythe_axe_side_right
   rotate: false
   xy: 60, 1380
   size: 60, 60
@@ -346,14 +346,14 @@ sharp_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-sharp_axe_left_attack
+sharp_axe_attack_left
   rotate: false
   xy: 60, 1440
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-sharp_axe_left_side
+sharp_axe_side_left
   rotate: false
   xy: 0, 1500
   size: 60, 60
@@ -374,7 +374,7 @@ sharp_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-sharp_axe_right_side
+sharp_axe_side_right
   rotate: false
   xy: 60, 1560
   size: 60, 60
@@ -388,14 +388,14 @@ wrenck_axe_left
   orig: 60, 60
   offset: 0, 0
   index: -1
-wrenck_axe_left_attack
+wrenck_axe_attack_left
   rotate: false
   xy: 60, 1620
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-wrenck_axe_left_side
+wrenck_axe_side_left
   rotate: false
   xy: 0, 1680
   size: 60, 60
@@ -416,7 +416,7 @@ wrenck_axe_right_attack
   orig: 60, 60
   offset: 0, 0
   index: -1
-wrenck_axe_right_side
+wrenck_axe_side_right
   rotate: false
   xy: 60, 1740
   size: 60, 60

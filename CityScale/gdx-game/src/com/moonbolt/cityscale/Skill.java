@@ -249,9 +249,7 @@ public class Skill
 		return spr_master;
 	}
 	
-	public static Skill RetornaDadosSKill(String nomeSkill, String usr) {
-		Skill novaSkill = new Skill();
-		
+	public static Skill RetornaDadosSkill(Skill novaSkill, String nomeSkill, String usr) {
 		//Novice
 		if(nomeSkill == "tripleattack") {
 			novaSkill.nameSkill = "tripleattack";
@@ -269,6 +267,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		
 		//Mage
@@ -277,8 +276,8 @@ public class Skill
 			novaSkill.caster = usr;
 			novaSkill.posX = 0;
 			novaSkill.posY = 0;
-			novaSkill.height = 40;
-			novaSkill.width = 30;
+			novaSkill.height = 100;
+			novaSkill.width = 70;
 			novaSkill.timer = 60;
 			novaSkill.damage = 40;
 			novaSkill.castTime = 100;
@@ -288,6 +287,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "thundercloud") {
@@ -306,6 +306,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "fireball") {
@@ -324,6 +325,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "rockbound") {
@@ -342,6 +344,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "soulclash") {
@@ -360,6 +363,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		//Doctor
@@ -372,13 +376,14 @@ public class Skill
 			novaSkill.width = 30;
 			novaSkill.timer = 60;
 			novaSkill.damage = 10;
-			novaSkill.castTime = 0;
+			novaSkill.castTime = 10;
 			novaSkill.delay = 40;
 			novaSkill.areaSpreadX = 30;
 			novaSkill.areaSpreadY = 30;
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		if(nomeSkill == "atkboost") {
 			novaSkill.nameSkill = "atkboost";
@@ -396,6 +401,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		if(nomeSkill == "defboost") {
 			novaSkill.nameSkill = "defboost";
@@ -413,6 +419,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "regen") {
@@ -431,6 +438,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "holyprism") {
@@ -449,6 +457,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		//Swordman
@@ -469,6 +478,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "healthboost") {
 			novaSkill.nameSkill = "healthboost";
@@ -486,6 +496,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "ravenblade") {
 			novaSkill.nameSkill = "ravenblade";
@@ -503,6 +514,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "ironshield") {
 			novaSkill.nameSkill = "ironshield";
@@ -520,6 +532,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "protect") {
 			novaSkill.nameSkill = "protect";
@@ -537,6 +550,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		//Gunner
@@ -556,6 +570,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "lockshot") {
@@ -574,6 +589,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "precision") {
@@ -592,6 +608,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "mine") {
 			novaSkill.nameSkill = "mine";
@@ -609,6 +626,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		if(nomeSkill == "fastshot") {
 			novaSkill.nameSkill = "fastshot";
@@ -626,6 +644,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		
 		//Beaten
@@ -645,6 +664,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "ragebound") {
 			novaSkill.nameSkill = "ragebound";
@@ -662,6 +682,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "overpower") {
@@ -680,6 +701,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "berserk") {
@@ -698,6 +720,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "impound") {
 			novaSkill.nameSkill = "impound";
@@ -715,6 +738,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		
 		//Gambler
@@ -734,6 +758,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		
 		if(nomeSkill == "spellstep") {
@@ -752,6 +777,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			return novaSkill;
 		}
 		if(nomeSkill == "creditdance") {
 			novaSkill.nameSkill = "creditdance";
@@ -769,6 +795,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "malabarism") {
 			novaSkill.nameSkill = "malabarism";
@@ -786,6 +813,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		if(nomeSkill == "amplitude") {
 			novaSkill.nameSkill = "amplitude";
@@ -803,6 +831,7 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			return novaSkill;
 		}
 		
 		return novaSkill;

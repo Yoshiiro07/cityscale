@@ -196,6 +196,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	@Override
 	public void render(float p1) {
 		
+		activePlayer.Job_A = "Magician";
+		activePlayer.HP_A = "100";
+		
 		//Main Methods
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -548,8 +551,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 
 		//Tests
-		spr_teste.setPosition(130, -52); 
-		spr_teste2.setPosition(150, -52);
+		spr_teste.setPosition(cameraCoordsX + 72, cameraCoordsY - 52); 
+		spr_teste2.setPosition(cameraCoordsX + 81, cameraCoordsY - 70);
 		spr_teste.draw(game.batch);
 		spr_teste2.draw(game.batch);
 		//font_master.draw(game.batch,String.valueOf(playerX),cameraCoordsX,cameraCoordsY);
@@ -594,8 +597,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	
 	private void ExibeParty() {
 		try {
-		lstInfoOnline = gameControl.InfoPlayerOnline();
-		
+		lstInfoOnline = gameControl.InfoPlayerOnline();		
 		countParty = 0;
 		for(int i = 0; i < lstInfoOnline.size(); i++) {				
 			String partylst =  lstInfoOnline.get(i).Party_A;
@@ -799,7 +801,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		if( (playerX >= 44 && playerX <= 74) && (playerY >= -108 && playerY <= -80) ) {		
-			activePlayer.Job_A = "Swordman";	
+			activePlayer.Job_A = "Magician";	
 		}
 		
 		
@@ -1046,6 +1048,34 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				if((coordsTouch.x >= cameraCoordsX + 55 && coordsTouch.x <= cameraCoordsX + 62) && (coordsTouch.y >= cameraCoordsY - 70 && coordsTouch.y <= cameraCoordsY - 53)){
 					if(skillPressTime > 0) { return false; }				
 					skillSelected = 1;
+					areaSkillState = gameControl.VerificaRangedSkill(skillSelected);
+					if(!areaSkillState){
+						gameControl.SetaSkillSolo(skillSelected);
+					}
+				    else {
+						selectAreaSkillState = true;
+					}
+					skillPressTime = gameControl.delayinfo();
+					return false;
+				}
+				//Skill 2
+				if((coordsTouch.x >= cameraCoordsX + 63 && coordsTouch.x <= cameraCoordsX + 72) && (coordsTouch.y >= cameraCoordsY - 70 && coordsTouch.y <= cameraCoordsY - 52)){
+					if(skillPressTime > 0) { return false; }				
+					skillSelected = 2;
+					areaSkillState = gameControl.VerificaRangedSkill(skillSelected);
+					if(!areaSkillState){
+						gameControl.SetaSkillSolo(skillSelected);
+					}
+				    else {
+						selectAreaSkillState = true;
+					}
+					skillPressTime = gameControl.delayinfo();
+					return false;
+				}
+				//Skill 2
+				if((coordsTouch.x >= cameraCoordsX + 72 && coordsTouch.x <= cameraCoordsX + 81) && (coordsTouch.y >= cameraCoordsY - 70 && coordsTouch.y <= cameraCoordsY - 52)){
+					if(skillPressTime > 0) { return false; }				
+					skillSelected = 2;
 					areaSkillState = gameControl.VerificaRangedSkill(skillSelected);
 					if(!areaSkillState){
 						gameControl.SetaSkillSolo(skillSelected);

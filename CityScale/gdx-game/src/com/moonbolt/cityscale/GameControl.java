@@ -111,8 +111,8 @@ public class GameControl {
 		
 		private Player Character_Data;
 		private Monster mobContainer;
-		private Skill skillContainer;
 		private Skill skillUsed;
+		private Skill skillCasting;
 		
 		private ArrayList<Monster> lstMonsters;
 		private ArrayList<Damage> lstDamage;
@@ -178,8 +178,8 @@ public class GameControl {
 			tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
 			spr_master = new Sprite(tex_teste);
 			mobContainer = new Monster();
-			skillContainer = new Skill();
 			skillUsed = new Skill();
+			skillCasting = new Skill();
 			
 			//Instances of lists//
 			lstMonsters = new ArrayList<Monster>();
@@ -851,6 +851,7 @@ public class GameControl {
 			
 			if(isCasting) {
 				CastTime();
+				text = Character_Data.Battle_A;
 				spr_master = dataManager.CastingSpriteSet(posX,posY,set,text);
 				return spr_master;
 			}
@@ -1199,8 +1200,8 @@ public class GameControl {
 			
 			if(item.equals("barraAreaSkill")){
 				spr_master = atlas_gameplay_interface.createSprite("barareaaskill");
-				spr_master.setSize(60, 38);
-				spr_master.setPosition(fX + 45, fY - 70);
+				spr_master.setSize(60, 25);
+				spr_master.setPosition(fX - 32, fY + 75);
 				return spr_master;
 			}
 			
@@ -1872,9 +1873,8 @@ public class GameControl {
 			//Montando zona de attack do jogador
 			if(Character_Data.Job_A.equals("Novice") ||
 			   Character_Data.Job_A.equals("Swordman") ||
-			   Character_Data.Job_A.equals("Merchant") ||
-			   Character_Data.Job_A.equals("Thief") ||
-			   Character_Data.Job_A.equals("Monk")) {
+			   Character_Data.Job_A.equals("Beater") ||
+			   Character_Data.Job_A.equals("Thief")){
 				
 				pAttackZoneXPlus = pX + 20;
 				pAttackZoneXMinus = pX - 20;
@@ -1884,10 +1884,10 @@ public class GameControl {
 			
 			if(Character_Data.Job_A.equals("Gunner") ||
 			   Character_Data.Job_A.equals("Magician")) {
-				pAttackZoneXPlus = pX + 60;
-				pAttackZoneXMinus = pX - 60;
-				pAttackZoneYPlus = pY + 70;
-				pAttackZoneYPlus = pY - 70;
+				pAttackZoneXPlus = pX + 40;
+				pAttackZoneXMinus = pX - 40;
+				pAttackZoneYPlus = pY + 60;
+				pAttackZoneYMinus = pY - 60;
 			}
 			
 			
@@ -2028,7 +2028,7 @@ public class GameControl {
 										
 									}
 									
-									if(Character_Data.Job_A.equals("Magician")) {
+									if(Character_Data.Job_A.equals("Magician") || Character_Data.Job_A.equals("Medic")) {
 										playerAtk = playerAtk + (playerMind * 4) + (playerDextery) + (playerLucky);
 										mobHP = Integer.parseInt(lstMonsters.get(countA).HP);
 										mobDef = Integer.parseInt(lstMonsters.get(countA).DEF);
@@ -2054,14 +2054,6 @@ public class GameControl {
 									
 									if(Character_Data.Job_A.equals("Beater")) {
 										playerAtk = playerAtk + (playerStrenght * 4) + (playerDextery * 2) + (playerLucky);
-										mobHP = Integer.parseInt(lstMonsters.get(countA).HP);
-										mobDef = Integer.parseInt(lstMonsters.get(countA).DEF);
-										monsterEvade = Integer.parseInt(lstMonsters.get(countA).EVADE);							
-										mobHP = mobHP - (playerAtk + dmgWeapon);
-									}
-									
-									if(Character_Data.Job_A.equals("Juggle")) {
-										playerAtk = playerAtk + (playerStrenght * 2) + (playerDextery) + (playerMind * 2) + (playerAgility);
 										mobHP = Integer.parseInt(lstMonsters.get(countA).HP);
 										mobDef = Integer.parseInt(lstMonsters.get(countA).DEF);
 										monsterEvade = Integer.parseInt(lstMonsters.get(countA).EVADE);							
@@ -2316,7 +2308,7 @@ public class GameControl {
 			if(Character_Data.Job_A.equals("Novice")) {			
 				//tripleattack
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("tripleattack", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"tripleattack", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("tripleattack",mpPlayer)) { VerificaSkillDano(skillUsed, 0,0);}
 				}			
@@ -2328,7 +2320,7 @@ public class GameControl {
 			if(isCasting) { return; }
 			
 			int mpPlayer = Integer.parseInt(Character_Data.MP_A);
-			Skill skillUsed = new Skill();
+			skillUsed = new Skill();
 			
 			posTouchSkillX = posXSelect;
 			posTouchSkillY = posYSelect;
@@ -2336,40 +2328,40 @@ public class GameControl {
 			if(Character_Data.Job_A.equals("Swordman")) {
 				//Protect
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("protect", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"protect", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("Protect",mpPlayer)) { isCasting = true; castOver = false; }
 				}		
 			}
 			
 			if(Character_Data.Job_A.equals("Magician")) {			
-				//Fireball
+				//IceCrystal
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("fireball", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"icecrystal", Character_Data.Name_A);
+					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
+					if(Skill.CheckMP("icecrystal",mpPlayer)) { isCasting = true; castOver = false; }									
+				}		
+				//Fireball
+				if(numSkill == 2) {
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"fireball", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("fireball",mpPlayer)) { isCasting = true; castOver = false; }
-				}		
-				//IceCrystal
-				if(numSkill == 2) {
-					skillUsed = Skill.RetornaDadosSKill("icecrystal", Character_Data.Name_A);
-					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
-					if(Skill.CheckMP("icecrystal",mpPlayer)) { isCasting = true; castOver = false; }
 				}			
 				//Thundercloud
 				if(numSkill == 3) {
-					skillUsed = Skill.RetornaDadosSKill("thundercloud", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"thundercloud", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("thundercloud",mpPlayer)) { isCasting = true; castOver = false; }
 				}		
 				//Rockbound
 				if(numSkill == 4) {
-					skillUsed = Skill.RetornaDadosSKill("rockbound", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"rockbound", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("rockbound",mpPlayer)) { isCasting = true; castOver = false; }
 				}		
 				//Soulclash
 				if(numSkill == 5) {
-					skillUsed = Skill.RetornaDadosSKill("soulclash", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"soulclash", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("soulclash",mpPlayer)) { isCasting = true; castOver = false; }
 				}		
@@ -2377,31 +2369,31 @@ public class GameControl {
 			if(Character_Data.Job_A.equals("Medic")) {	
 				//Heal
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("heal", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"heal", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("heal",mpPlayer)) { isCasting = true; castOver = false; }
 				}		
 				//defboost
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("defboost", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"defboost", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("defboost",mpPlayer)) { isCasting = true; castOver = false;}
 				}	
 				//atkboost
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("atkboost", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"atkboost", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("atkboost",mpPlayer)) { isCasting = true; castOver = false; }
 				}	
 				//regen
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("regen", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"regen", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("regen",mpPlayer)) { isCasting = true; castOver = false; }
 				}	
 				//holyprism
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("holyprism", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"holyprism", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("holyprims",mpPlayer)) { isCasting = true; castOver = false; }
 				}	
@@ -2410,19 +2402,19 @@ public class GameControl {
 			if(Character_Data.Job_A.equals("Gunner")) {	
 				//bulletrain
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("bulletrain", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"bulletrain", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("bulletrain",mpPlayer)) { isCasting = true; castOver = false; }
 				}	
 				//lockshot
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("lockshot", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"lockshot", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("lockshot",mpPlayer)) { isCasting = true; castOver = false; }
 				}	
 				//mine
 				if(numSkill == 1) {
-					skillUsed = Skill.RetornaDadosSKill("mine", Character_Data.Name_A);
+					skillUsed = Skill.RetornaDadosSkill(skillUsed,"mine", Character_Data.Name_A);
 					skillOnline = skillUsed.nameSkill + "|" + String.valueOf(skillUsed.countFrameEffect);
 					if(Skill.CheckMP("mine",mpPlayer)) { isCasting = true; }
 				}	
@@ -2438,10 +2430,13 @@ public class GameControl {
 			castTime--;
 			castTime = castTime - ((playerDextery + playerMind) / 20);
 			
+			skillUsed.castTime = castTime;
+			
 			if(castTime < 0) {
 				VerificaSkillDano(skillUsed,posTouchSkillX,posTouchSkillY);
 				posTouchSkillX = 0;
 				posTouchSkillY = 0;
+				isCasting = false;
 			}		
 		}
 		
@@ -2458,56 +2453,49 @@ public class GameControl {
 			Skill skillUsed = new Skill();
 			
 			//Novice
-			if(numSkill == 1 && Character_Data.Job_A.equals("Novice")) { skillUsed.IsRangedSkill("tripleattack"); }
+			if(numSkill == 1 && Character_Data.Job_A.equals("Novice")) { return skillUsed.IsRangedSkill("tripleattack"); }
 			
 			//Swordman
-			if(numSkill == 1 && Character_Data.Job_A.equals("Swordman")) { skillUsed.IsRangedSkill("flysword"); }
-			if(numSkill == 2 && Character_Data.Job_A.equals("Swordman")) { skillUsed.IsRangedSkill("healthboost"); }
-			if(numSkill == 3 && Character_Data.Job_A.equals("Swordman")) { skillUsed.IsRangedSkill("havenblade"); }
-			if(numSkill == 4 && Character_Data.Job_A.equals("Swordman")) { skillUsed.IsRangedSkill("ironshield"); }
-			if(numSkill == 5 && Character_Data.Job_A.equals("Swordman")) { skillUsed.IsRangedSkill("protect"); }
+			if(numSkill == 1 && Character_Data.Job_A.equals("Swordman")) { return skillUsed.IsRangedSkill("flysword"); }
+			if(numSkill == 2 && Character_Data.Job_A.equals("Swordman")) { return skillUsed.IsRangedSkill("healthboost"); }
+			if(numSkill == 3 && Character_Data.Job_A.equals("Swordman")) { return skillUsed.IsRangedSkill("havenblade"); }
+			if(numSkill == 4 && Character_Data.Job_A.equals("Swordman")) { return skillUsed.IsRangedSkill("ironshield"); }
+			if(numSkill == 5 && Character_Data.Job_A.equals("Swordman")) { return skillUsed.IsRangedSkill("protect"); }
 			
 			//Mage
-			if(numSkill == 1 && Character_Data.Job_A.equals("Magician")) { skillUsed.IsRangedSkill("fireball"); }
-			if(numSkill == 2 && Character_Data.Job_A.equals("Magician")) { skillUsed.IsRangedSkill("icecrystal"); }
-			if(numSkill == 3 && Character_Data.Job_A.equals("Magician")) { skillUsed.IsRangedSkill("thundercloud"); }
-			if(numSkill == 4 && Character_Data.Job_A.equals("Magician")) { skillUsed.IsRangedSkill("rockbound"); }
-			if(numSkill == 5 && Character_Data.Job_A.equals("Magician")) { skillUsed.IsRangedSkill("soulclash"); }
+			if(numSkill == 1 && Character_Data.Job_A.equals("Magician")) { return skillUsed.IsRangedSkill("icecrystal"); } 
+			if(numSkill == 2 && Character_Data.Job_A.equals("Magician")) { return skillUsed.IsRangedSkill("fireball"); }
+			if(numSkill == 3 && Character_Data.Job_A.equals("Magician")) { return skillUsed.IsRangedSkill("thundercloud"); }
+			if(numSkill == 4 && Character_Data.Job_A.equals("Magician")) { return skillUsed.IsRangedSkill("rockbound"); }
+			if(numSkill == 5 && Character_Data.Job_A.equals("Magician")) { return skillUsed.IsRangedSkill("soulclash"); }
 			
 			//Thief
-			if(numSkill == 1 && Character_Data.Job_A.equals("Thief")) { skillUsed.IsRangedSkill("invisibility"); }
-			if(numSkill == 2 && Character_Data.Job_A.equals("Thief")) { skillUsed.IsRangedSkill("poisonhit"); }
-			if(numSkill == 3 && Character_Data.Job_A.equals("Thief")) { skillUsed.IsRangedSkill("dashkick"); }
-			if(numSkill == 4 && Character_Data.Job_A.equals("Thief")) { skillUsed.IsRangedSkill("steal"); }
-			if(numSkill == 5 && Character_Data.Job_A.equals("Thief")) { skillUsed.IsRangedSkill("doublehit"); }
-			
-			//Artist
-			if(numSkill == 1 && Character_Data.Job_A.equals("Artist")) { skillUsed.IsRangedSkill("drawcard"); }
-			if(numSkill == 2 && Character_Data.Job_A.equals("Artist")) { skillUsed.IsRangedSkill("spellstep"); }
-			if(numSkill == 3 && Character_Data.Job_A.equals("Artist")) { skillUsed.IsRangedSkill("creditdance"); }
-			if(numSkill == 4 && Character_Data.Job_A.equals("Artist")) { skillUsed.IsRangedSkill("malabarism"); }
-			if(numSkill == 5 && Character_Data.Job_A.equals("Artist")) { skillUsed.IsRangedSkill("amplitude"); }
+			if(numSkill == 1 && Character_Data.Job_A.equals("Thief")) { return skillUsed.IsRangedSkill("invisibility"); }
+			if(numSkill == 2 && Character_Data.Job_A.equals("Thief")) { return skillUsed.IsRangedSkill("poisonhit"); }
+			if(numSkill == 3 && Character_Data.Job_A.equals("Thief")) { return skillUsed.IsRangedSkill("dashkick"); }
+			if(numSkill == 4 && Character_Data.Job_A.equals("Thief")) { return skillUsed.IsRangedSkill("steal"); }
+			if(numSkill == 5 && Character_Data.Job_A.equals("Thief")) { return skillUsed.IsRangedSkill("doublehit"); }
 			
 			//gunner
-			if(numSkill == 1 && Character_Data.Job_A.equals("Gunner")) { skillUsed.IsRangedSkill("bulletrain"); }
-			if(numSkill == 2 && Character_Data.Job_A.equals("Gunner")) { skillUsed.IsRangedSkill("healthboost"); }
-			if(numSkill == 3 && Character_Data.Job_A.equals("Gunner")) { skillUsed.IsRangedSkill("precision"); }
-			if(numSkill == 4 && Character_Data.Job_A.equals("Gunner")) { skillUsed.IsRangedSkill("mine"); }
-			if(numSkill == 5 && Character_Data.Job_A.equals("Gunner")) { skillUsed.IsRangedSkill("fastshot"); }
+			if(numSkill == 1 && Character_Data.Job_A.equals("Gunner")) { return skillUsed.IsRangedSkill("bulletrain"); }
+			if(numSkill == 2 && Character_Data.Job_A.equals("Gunner")) { return skillUsed.IsRangedSkill("healthboost"); }
+			if(numSkill == 3 && Character_Data.Job_A.equals("Gunner")) { return skillUsed.IsRangedSkill("precision"); }
+			if(numSkill == 4 && Character_Data.Job_A.equals("Gunner")) { return skillUsed.IsRangedSkill("mine"); }
+			if(numSkill == 5 && Character_Data.Job_A.equals("Gunner")) { return skillUsed.IsRangedSkill("fastshot"); }
 			
 			//Beater
-			if(numSkill == 1 && Character_Data.Job_A.equals("Beater")) { skillUsed.IsRangedSkill("hammercrash"); }
-			if(numSkill == 2 && Character_Data.Job_A.equals("Beater")) { skillUsed.IsRangedSkill("overpower"); }
-			if(numSkill == 3 && Character_Data.Job_A.equals("Beater")) { skillUsed.IsRangedSkill("boundrage"); }
-			if(numSkill == 4 && Character_Data.Job_A.equals("Beater")) { skillUsed.IsRangedSkill("berserk"); }
-			if(numSkill == 5 && Character_Data.Job_A.equals("Beater")) { skillUsed.IsRangedSkill("impound"); }
+			if(numSkill == 1 && Character_Data.Job_A.equals("Beater")) { return skillUsed.IsRangedSkill("hammercrash"); }
+			if(numSkill == 2 && Character_Data.Job_A.equals("Beater")) { return skillUsed.IsRangedSkill("overpower"); }
+			if(numSkill == 3 && Character_Data.Job_A.equals("Beater")) { return skillUsed.IsRangedSkill("boundrage"); }
+			if(numSkill == 4 && Character_Data.Job_A.equals("Beater")) { return skillUsed.IsRangedSkill("berserk"); }
+			if(numSkill == 5 && Character_Data.Job_A.equals("Beater")) { return skillUsed.IsRangedSkill("impound"); }
 			
-			//Doctor
-			if(numSkill == 1 && Character_Data.Job_A.equals("Medic")) { skillUsed.IsRangedSkill("heal"); }
-			if(numSkill == 2 && Character_Data.Job_A.equals("Medic")) { skillUsed.IsRangedSkill("atkboost"); }
-			if(numSkill == 3 && Character_Data.Job_A.equals("Medic")) { skillUsed.IsRangedSkill("defboost"); }
-			if(numSkill == 4 && Character_Data.Job_A.equals("Medic")) { skillUsed.IsRangedSkill("regen"); }
-			if(numSkill == 5 && Character_Data.Job_A.equals("Medic")) { skillUsed.IsRangedSkill("holyprism"); }
+			//Medic
+			if(numSkill == 1 && Character_Data.Job_A.equals("Medic")) { return skillUsed.IsRangedSkill("heal"); }
+			if(numSkill == 2 && Character_Data.Job_A.equals("Medic")) { return skillUsed.IsRangedSkill("atkboost"); }
+			if(numSkill == 3 && Character_Data.Job_A.equals("Medic")) { return skillUsed.IsRangedSkill("defboost"); }
+			if(numSkill == 4 && Character_Data.Job_A.equals("Medic")) { return skillUsed.IsRangedSkill("regen"); }
+			if(numSkill == 5 && Character_Data.Job_A.equals("Medic")) { return skillUsed.IsRangedSkill("holyprism"); }
 			
 			
 			
@@ -2574,8 +2562,8 @@ public class GameControl {
 						if(pX > mobX) { Character_Data.Battle_A = "yes_Left";}
 						if(pX < mobX) { Character_Data.Battle_A = "yes_Right";}
 						
-						sk.posX = (int) mobX;
-						sk.posY = (int) mobY;
+						sk.posX = (int) mobX - 30;
+						sk.posY = (int) mobY - 15;
 						mobHP = Integer.parseInt(lstMonsters.get(countA).HP);
 						dmg = sk.CalculaDanoSkill(sk, Character_Data);
 						mobHP = mobHP - dmg;
@@ -2637,7 +2625,7 @@ public class GameControl {
 		}
 		
 		public Sprite ImageSkill(Skill sk) {			
-			spr_master = skillContainer.CarregaEfeitoFrame(sk.nameSkill, sk.countFrameEffect);			
+			spr_master = skillUsed.CarregaEfeitoFrame(sk.nameSkill, sk.countFrameEffect);			
 			return spr_master;
 		}
 		
@@ -2702,7 +2690,7 @@ public class GameControl {
 				spr_master = atlas_Inventory.createSprite("ragesword");
 			}
 			
-			//Magician
+			//Magician & Medic
 			if(text.equals("butterfly_rod")) {
 				spr_master = atlas_Inventory.createSprite("butterflyrod");
 			}
@@ -2732,6 +2720,102 @@ public class GameControl {
 			}
 			if(text.equals("rage_sword")) {
 				spr_master = atlas_Inventory.createSprite("ragesword");
+			}
+			
+			//Thief
+			if(text.equals("colisseum_dagger")) {
+				spr_master = atlas_Inventory.createSprite("colisseumdagger");
+			}
+			if(text.equals("flameberg_dagger")) {
+				spr_master = atlas_Inventory.createSprite("flamebergdagger");
+			}
+			if(text.equals("edge_dagger")) {
+				spr_master = atlas_Inventory.createSprite("edgedagger");
+			}
+			if(text.equals("black_dagger")) {
+				spr_master = atlas_Inventory.createSprite("blackdagger");
+			}
+			if(text.equals("basic_dagger")) {
+				spr_master = atlas_Inventory.createSprite("basic_dagger");
+			}
+			if(text.equals("wind_dagger")) {
+				spr_master = atlas_Inventory.createSprite("winddagger");
+			}
+			if(text.equals("thunder_dagger")) {
+				spr_master = atlas_Inventory.createSprite("thunderdagger");
+			}
+			if(text.equals("poison_dagger")) {
+				spr_master = atlas_Inventory.createSprite("poisondagger");
+			}
+			if(text.equals("marine_dagger")) {
+				spr_master = atlas_Inventory.createSprite("marinedagger");
+			}
+			if(text.equals("triplo_dagger")) {
+				spr_master = atlas_Inventory.createSprite("triplodagger");
+			}
+			
+			//Beater
+			if(text.equals("wrenck_axe")) {
+				spr_master = atlas_Inventory.createSprite("wrenckaxe");
+			}
+			if(text.equals("scythe_axe")) {
+				spr_master = atlas_Inventory.createSprite("scytheaxe");
+			}
+			if(text.equals("sharp_axe")) {
+				spr_master = atlas_Inventory.createSprite("sharpaxe");
+			}
+			if(text.equals("pick_axe")) {
+				spr_master = atlas_Inventory.createSprite("pickaxe");
+			}
+			if(text.equals("killer_axe")) {
+				spr_master = atlas_Inventory.createSprite("killeraxe");
+			}
+			if(text.equals("hammer_axe")) {
+				spr_master = atlas_Inventory.createSprite("hammeraxe");
+			}
+			if(text.equals("guitar_axe")) {
+				spr_master = atlas_Inventory.createSprite("guitaraxe");
+			}
+			if(text.equals("bloodteeth_axe")) {
+				spr_master = atlas_Inventory.createSprite("bloodteethaxe");
+			}
+			if(text.equals("anchor_axe")) {
+				spr_master = atlas_Inventory.createSprite("anchoraxe");
+			}
+			if(text.equals("basic_axe")) {
+				spr_master = atlas_Inventory.createSprite("basicaxe");
+			}
+			
+			//Gunner
+			if(text.equals("revolver_pistol")) {
+				spr_master = atlas_Inventory.createSprite("revolverpistol");
+			}
+			if(text.equals("rifle_pistol")) {
+				spr_master = atlas_Inventory.createSprite("riflepistol");
+			}
+			if(text.equals("turret_pistol")) {
+				spr_master = atlas_Inventory.createSprite("turretpistol");
+			}
+			if(text.equals("shark_pistol")) {
+				spr_master = atlas_Inventory.createSprite("sharkpistol");
+			}
+			if(text.equals("shooter_pistol")) {
+				spr_master = atlas_Inventory.createSprite("shooterpistol");
+			}
+			if(text.equals("machine_pistol")) {
+				spr_master = atlas_Inventory.createSprite("machinepistol");
+			}
+			if(text.equals("light_pistol")) {
+				spr_master = atlas_Inventory.createSprite("lightpistol");
+			}
+			if(text.equals("cannon_pistol")) {
+				spr_master = atlas_Inventory.createSprite("cannonpistol");
+			}
+			if(text.equals("basic_pistol")) {
+				spr_master = atlas_Inventory.createSprite("basicpistol");
+			}
+			if(text.equals("heavymachine_pistol")) {
+				spr_master = atlas_Inventory.createSprite("heavymachinepistol");
 			}
 			
 			qtdItem = itemUsage[1].replace("]","");
