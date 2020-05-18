@@ -21,8 +21,11 @@ public class Skill
 	public int castTime;
 	public int delay;
 	public int countFrameEffect;
+	public int mobX;
+	public int mobY;
 	public boolean overEffect;
 	public boolean isAreaSkill;
+	public boolean mobfollow;
 	public TextureAtlas atlas_tripleattack;
 	
 	public TextureAtlas atlas_icecrystal;
@@ -132,101 +135,101 @@ public class Skill
 			spr_master = atlas_icecrystal.createSprite("icecrystal" + countFrame);
 		}
 		if(nomeSkill.equals("fireball")) {
-			spr_master = atlas_icecrystal.createSprite("fireball" + countFrame);
+			spr_master = atlas_fireball.createSprite("fireball" + countFrame);
 		}
 		if(nomeSkill.equals("thundercloud")) {
-			spr_master = atlas_icecrystal.createSprite("thundercloud" + countFrame);
+			spr_master = atlas_thundercloud.createSprite("thundercloud" + countFrame);
 		}
 		if(nomeSkill.equals("rockbound")) {
-			spr_master = atlas_icecrystal.createSprite("rockbound" + countFrame);
+			spr_master = atlas_rockbound.createSprite("rockbound" + countFrame);
 		}
 		if(nomeSkill.equals("soulclash")) {
-			spr_master = atlas_icecrystal.createSprite("soulclash" + countFrame);
+			spr_master = atlas_soulclash.createSprite("soulclash" + countFrame);
 		}
 	
 		//Swordman
 		if(nomeSkill.equals("flysword")) {
-			spr_master = atlas_icecrystal.createSprite("flysword" + countFrame);
+			spr_master = atlas_flysword.createSprite("flysword" + countFrame);
 		}
 		if(nomeSkill.equals("healthboost")) {
-			spr_master = atlas_icecrystal.createSprite("healthboost" + countFrame);
+			spr_master = atlas_healthboost.createSprite("healthboost" + countFrame);
 		}
 		if(nomeSkill.equals("havenblade")) {
-			spr_master = atlas_icecrystal.createSprite("havenblade" + countFrame);
+			spr_master = atlas_ravenblade.createSprite("havenblade" + countFrame);
 		}
 		if(nomeSkill.equals("ironshield")) {
-			spr_master = atlas_icecrystal.createSprite("ironshield" + countFrame);
+			spr_master = atlas_ironshield.createSprite("ironshield" + countFrame);
 			
 		}if(nomeSkill.equals("protect")) {
-			spr_master = atlas_icecrystal.createSprite("protect" + countFrame);
+			spr_master = atlas_protect.createSprite("protect" + countFrame);
 		}
 		
 		//Priest
 		if(nomeSkill.equals("heal")) {
-			spr_master = atlas_icecrystal.createSprite("heal" + countFrame);
+			spr_master = atlas_heal.createSprite("heal" + countFrame);
 		}
 		if(nomeSkill.equals("atkboost")) {
-			spr_master = atlas_icecrystal.createSprite("atkboost" + countFrame);
+			spr_master = atlas_atkboost.createSprite("atkboost" + countFrame);
 		}
 		if(nomeSkill.equals("defboost")) {
-			spr_master = atlas_icecrystal.createSprite("defboost" + countFrame);
+			spr_master = atlas_defboost.createSprite("defboost" + countFrame);
 		}
 		if(nomeSkill.equals("regen")) {
-			spr_master = atlas_icecrystal.createSprite("regen" + countFrame);		
+			spr_master = atlas_regen.createSprite("regen" + countFrame);		
 		}
 		if(nomeSkill.equals("holyprism")) {
-			spr_master = atlas_icecrystal.createSprite("holyprism" + countFrame);
+			spr_master = atlas_holyprism.createSprite("holyprism" + countFrame);
 		}
 		
 		//Gunner
 		if(nomeSkill.equals("bulletrain")) {
-			spr_master = atlas_icecrystal.createSprite("bulletrain" + countFrame);
+			spr_master = atlas_bulletrain.createSprite("bulletrain" + countFrame);
 		}
 		if(nomeSkill.equals("lockshot")) {
-			spr_master = atlas_icecrystal.createSprite("lockshot" + countFrame);
+			spr_master = atlas_lockshot.createSprite("lockshot" + countFrame);
 		}
 		if(nomeSkill.equals("precision")) {
-			spr_master = atlas_icecrystal.createSprite("precision" + countFrame);
+			spr_master = atlas_precision.createSprite("precision" + countFrame);
 		}
 		if(nomeSkill.equals("mine")) {
-			spr_master = atlas_icecrystal.createSprite("mine" + countFrame);		
+			spr_master = atlas_mine.createSprite("mine" + countFrame);		
 		}
 		if(nomeSkill.equals("fastshot")) {
-			spr_master = atlas_icecrystal.createSprite("fastshot" + countFrame);
+			spr_master = atlas_fastshot.createSprite("fastshot" + countFrame);
 		}
 		
 		//Thief
 		if(nomeSkill.equals("invisibility")) {
-			spr_master = atlas_icecrystal.createSprite("invisibility" + countFrame);
+			spr_master = atlas_invisibility.createSprite("invisibility" + countFrame);
 		}
 		if(nomeSkill.equals("poisonhit")) {
-			spr_master = atlas_icecrystal.createSprite("poisonhit" + countFrame);
+			spr_master = atlas_poisonhit.createSprite("poisonhit" + countFrame);
 		}
 		if(nomeSkill.equals("dashkick")) {
-			spr_master = atlas_icecrystal.createSprite("dashkick" + countFrame);
+			spr_master = atlas_dashkick.createSprite("dashkick" + countFrame);
 		}
 		if(nomeSkill.equals("steal")) {
-			spr_master = atlas_icecrystal.createSprite("steal" + countFrame);		
+			spr_master = atlas_steal.createSprite("steal" + countFrame);		
 		}
 		if(nomeSkill.equals("doublehit")) {
-			spr_master = atlas_icecrystal.createSprite("doublehit" + countFrame);
+			spr_master = atlas_doublehit.createSprite("doublehit" + countFrame);
 		}
 		
 		//Beater
 		if(nomeSkill.equals("hammercrash")) {
-			spr_master = atlas_icecrystal.createSprite("hammercrash" + countFrame);
+			spr_master = atlas_hammercrash.createSprite("hammercrash" + countFrame);
 		}
 		if(nomeSkill.equals("ragebound")) {
-			spr_master = atlas_icecrystal.createSprite("ragebound" + countFrame);
+			spr_master = atlas_ragebound.createSprite("ragebound" + countFrame);
 		}
 		if(nomeSkill.equals("overpower")) {
-			spr_master = atlas_icecrystal.createSprite("overpower" + countFrame);
+			spr_master = atlas_overpower.createSprite("overpower" + countFrame);
 		}
 		if(nomeSkill.equals("berserk")) {
-			spr_master = atlas_icecrystal.createSprite("berserk" + countFrame);		
+			spr_master = atlas_berserk.createSprite("berserk" + countFrame);		
 		}
 		if(nomeSkill.equals("impound")) {
-			spr_master = atlas_icecrystal.createSprite("impound" + countFrame);
+			spr_master = atlas_impound.createSprite("impound" + countFrame);
 		}
 		
 		//Gambler
@@ -267,6 +270,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -287,6 +293,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -306,6 +315,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -314,8 +326,8 @@ public class Skill
 			novaSkill.caster = usr;
 			novaSkill.posX = 0;
 			novaSkill.posY = 0;
-			novaSkill.height = 40;
-			novaSkill.width = 30;
+			novaSkill.height = 80;
+			novaSkill.width = 70;
 			novaSkill.timer = 60;
 			novaSkill.damage = 40;
 			novaSkill.castTime = 30;
@@ -325,6 +337,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = true;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -344,6 +359,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -363,6 +381,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -383,6 +404,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "atkboost") {
@@ -401,6 +425,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "defboost") {
@@ -419,6 +446,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -438,6 +468,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -457,6 +490,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -478,6 +514,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "healthboost") {
@@ -496,6 +535,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "ravenblade") {
@@ -514,6 +556,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "ironshield") {
@@ -532,6 +577,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "protect") {
@@ -550,6 +598,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -570,6 +621,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -589,6 +643,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -608,6 +665,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "mine") {
@@ -626,6 +686,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "fastshot") {
@@ -644,6 +707,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = true;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -664,6 +730,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "ragebound") {
@@ -682,6 +751,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -701,6 +773,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -720,6 +795,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "impound") {
@@ -738,6 +816,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -758,6 +839,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		
@@ -777,6 +861,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = true;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "creditdance") {
@@ -795,6 +882,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "malabarism") {
@@ -813,6 +903,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		if(nomeSkill == "amplitude") {
@@ -831,6 +924,9 @@ public class Skill
 			novaSkill.countFrameEffect = 1;
 			novaSkill.overEffect = false;
 			novaSkill.isAreaSkill = false;
+			novaSkill.mobfollow = false;
+			novaSkill.mobX = 0;
+			novaSkill.mobY = 0;
 			return novaSkill;
 		}
 		

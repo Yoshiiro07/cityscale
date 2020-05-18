@@ -197,6 +197,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	public void render(float p1) {
 		
 		activePlayer.Job_A = "Magician";
+		activePlayer.Weapon_A = "stick_rod";
 		activePlayer.HP_A = "100";
 		
 		//Main Methods
@@ -245,7 +246,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			gameControl.AtualizaCameraX(cameraCoordsX);
 			gameControl.AtualizaCameraY(cameraCoordsY);
 			
-			//Set Player
+			//Set Player			
 			if(gameControl.RecuperaPosition() == 3 || gameControl.RecuperaPosition() == 4) {
 				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0,false);
 				spr_hair = gameControl.ReturnHairs(activePlayer.Hair_A, state,walk, playerX, playerY);
@@ -257,6 +258,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_player.draw(game.batch);
 				spr_hair.draw(game.batch);
 				
+				if(activePlayer.Job_A.equals("Magician") || activePlayer.Job_A.equals("Medic")) {
+					if(spr_weapon != null) {
+						spr_weapon.draw(game.batch);
+					}
+				}
 			}
 			else {
 				spr_player = gameControl.MovChar(activePlayer.Set_A, state,walk, "", playerX, playerY,0, false);
@@ -267,7 +273,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_player.draw(game.batch);
 				spr_hair.draw(game.batch);
 				
+				if(activePlayer.Job_A.equals("Magician") || activePlayer.Job_A.equals("Medic")) {
+					if(spr_weapon != null) {
+					spr_weapon.draw(game.batch);
+					}
+				}
 			}
+			
 			
 			//Place Interface			
 			spr_Interface = gameControl.InterfaceStreets305("PlayerTag", ""); spr_Interface.draw(game.batch);  //Player Tag
@@ -767,22 +779,48 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			timer = lstSkills.get(i).timer;
 			framesk = lstSkills.get(i).countFrameEffect;
 			
-			spr_master = gameControl.ImageSkill(lstSkills.get(i));
-			spr_master.setSize(lstSkills.get(i).width, lstSkills.get(i).height);
-			spr_master.setPosition(lstSkills.get(i).posX, lstSkills.get(i).posY);
-			spr_master.draw(game.batch);
-			timer--;
-			
-			if(timer == 50 || timer == 40 || timer == 30 || timer == 20 || timer == 10) { 
-				framesk++; 
-			}
-			if(timer <= 0) { 
-				gameControl.RemoveSkill(i); 
+			if(!lstSkills.get(i).mobfollow) {
+				spr_master = gameControl.ImageSkill(lstSkills.get(i));
+				spr_master.setSize(lstSkills.get(i).width, lstSkills.get(i).height);
+				spr_master.setPosition(lstSkills.get(i).posX, lstSkills.get(i).posY);
+				spr_master.draw(game.batch);
+				timer--;
+				
+				if(timer == 50 || timer == 40 || timer == 30 || timer == 20 || timer == 10) { 
+					framesk++; 
+				}
+				if(timer <= 0) { 
+					gameControl.RemoveSkill(i); 
+				}
+				else {
+					lstSkills.get(i).timer = timer;
+					lstSkills.get(i).countFrameEffect = framesk;
+				}
 			}
 			else {
-				lstSkills.get(i).timer = timer;
-				lstSkills.get(i).countFrameEffect = framesk;
-			}			
+				spr_master = gameControl.ImageSkill(lstSkills.get(i));
+				spr_master.setSize(lstSkills.get(i).width, lstSkills.get(i).height);
+				spr_master.setPosition(lstSkills.get(i).posX, lstSkills.get(i).posY);
+				spr_master.draw(game.batch);
+				timer--;
+				
+				if(lstSkills.get(i).posX < lstSkills.get(i).mobX) { lstSkills.get(i).posX = lstSkills.get(i).posX + 1; }
+				if(lstSkills.get(i).posX > lstSkills.get(i).mobX) { lstSkills.get(i).posX = lstSkills.get(i).posX - 1; }
+				if(lstSkills.get(i).posY < lstSkills.get(i).mobY) { lstSkills.get(i).posY = lstSkills.get(i).posY + 1; }
+				if(lstSkills.get(i).posY > lstSkills.get(i).mobY) { lstSkills.get(i).posY = lstSkills.get(i).posY - 1; }
+				
+				
+				if(timer == 50 || timer == 40 || timer == 30 || timer == 20 || timer == 10) { 
+					framesk++;
+				}
+				if(timer <= 0) { 
+					gameControl.RemoveSkill(i); 
+				}
+				else {
+					lstSkills.get(i).timer = timer;
+					lstSkills.get(i).countFrameEffect = framesk;
+				}
+			}
 		}
 	}
 	
@@ -1072,10 +1110,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					skillPressTime = gameControl.delayinfo();
 					return false;
 				}
-				//Skill 2
-				if((coordsTouch.x >= cameraCoordsX + 72 && coordsTouch.x <= cameraCoordsX + 81) && (coordsTouch.y >= cameraCoordsY - 70 && coordsTouch.y <= cameraCoordsY - 52)){
+				//Skill 3
+				if((coordsTouch.x >= cameraCoordsX + 73 && coordsTouch.x <= cameraCoordsX + 81) && (coordsTouch.y >= cameraCoordsY - 70 && coordsTouch.y <= cameraCoordsY - 52)){
 					if(skillPressTime > 0) { return false; }				
-					skillSelected = 2;
+					skillSelected = 3;
 					areaSkillState = gameControl.VerificaRangedSkill(skillSelected);
 					if(!areaSkillState){
 						gameControl.SetaSkillSolo(skillSelected);

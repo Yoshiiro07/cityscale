@@ -942,6 +942,7 @@ public class GameControl {
 		}
 		
 		public Sprite ShowWeapon(String side,String walk, String type, float posX, float posY) {
+			playerbattleframe = 1;
 			spr_master = dataManager.ShowWeapon(side, walk, type, posX, posY, Character_Data, inBattle, attackFrame, playerbattleframe);
 			return spr_master;
 		}
@@ -2562,8 +2563,10 @@ public class GameControl {
 						if(pX > mobX) { Character_Data.Battle_A = "yes_Left";}
 						if(pX < mobX) { Character_Data.Battle_A = "yes_Right";}
 						
-						sk.posX = (int) mobX - 30;
-						sk.posY = (int) mobY - 15;
+						if(sk.mobfollow) {sk.posX = (int) pX - 30; sk.posY = (int) pY - 15; }
+						if(!sk.mobfollow) {sk.posX = (int) mobX - 30; sk.posY = (int) mobY - 15; }					
+						sk.mobX = (int) mobX;
+						sk.mobY = (int) mobY;
 						mobHP = Integer.parseInt(lstMonsters.get(countA).HP);
 						dmg = sk.CalculaDanoSkill(sk, Character_Data);
 						mobHP = mobHP - dmg;
