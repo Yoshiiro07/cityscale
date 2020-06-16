@@ -10,14 +10,12 @@ public class LoadingScreen implements Screen{
 	ArrayList<Screen> screens;
 	private MainGame game;
 	private String config[];
-	private GameControl control;
 	private String platform;
 	private String network;
 	
 	public LoadingScreen(MainGame game){
 		this.game = game;
 		screens = new ArrayList<Screen>();
-		control = new GameControl();
 		platform = "Mobile";
 		network = "off";
 	}
@@ -30,35 +28,20 @@ public class LoadingScreen implements Screen{
 		}
 		
 		if(tipo.equals("TitleScreen")){	
-			TitleScreen titleScreen = new TitleScreen(game, config, control, platform);
+			TitleScreen titleScreen = new TitleScreen(game, config, platform);
 			game.setScreen(titleScreen);
 		}
 		
-		if(tipo.equals("CharacterSelect")) {
-			CharacterSelect characterScreen = new CharacterSelect(game, config, control,platform);
-			game.setScreen(characterScreen);
-		}
+		//if(tipo.equals("CharacterSelect")) {
+		//	CharacterSelect characterScreen = new CharacterSelect(game, config, control,platform);
+		//	game.setScreen(characterScreen);
+		//}
 		
-		if(tipo.equals("MetroStation")) {
-			MetroStation metrostationScreen = new MetroStation(game, config, control,platform, network);
-			game.setScreen(metrostationScreen);
-		}
-		
-		if(tipo.equals("Streets305")) {
-			Streets305 streets305Screen = new Streets305(game, config, control,platform, network);
-			game.setScreen(streets305Screen);
-		}
-		
-		if(tipo.equals("ForestArea")) {
-			ForestArea forestScreen = new ForestArea(game, config, control,platform,network);
-			game.setScreen(forestScreen);
-		}
 	}
 	
-	public void atualizaComponentes(MainGame maingameAlt, String[] configAlt, GameControl controlAlt, String platformAlt, String networkAlt){
+	public void atualizaComponentes(MainGame maingameAlt, String[] configAlt, String platformAlt, String networkAlt){
 		this.game = maingameAlt;
 		this.config = configAlt;
-		this.control = controlAlt;
 		this.platform = platformAlt;
 		this.network = networkAlt;
 	}

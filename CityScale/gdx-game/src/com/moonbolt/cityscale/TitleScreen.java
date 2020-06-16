@@ -20,14 +20,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 ////MAINLY///
 	private MainGame game;
 	private String[] config;
-	private GameControl gameControl;
 	private String platform;
 	private String networkState = "no";
 	
 	//Primitives
 	private boolean check = false;
 	private String text = "";
-	private float posXmetro = -100;
 	
 	//Camera
 	private OrthographicCamera camera;
@@ -36,36 +34,20 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	//Audio
 	private Music sound_select;
 	
-	//Sprites
+	//Sprite master
 	private Sprite spr_master;
-	
-	//Background
-	private Texture tex_sky;
-	private Texture tex_background;
-	private Texture tex_metro;
-	
-	private Sprite spr_sky;
-	private Sprite spr_background;
-	private Sprite spr_metro;
 	
 	//fonts
 	private BitmapFont font_master;
 	
-	//Barra Acesso
-	private Texture tex_BarraAcesso;
-	
-	private Sprite spr_BarraAcesso;
-	
 	//teste
 	Sprite spr_teste;
 	Sprite spr_teste2;
-	Sprite spr_teste3;
 	Texture tex_teste;
 	
-	public TitleScreen(MainGame gameAlt, String[] configAlt, GameControl controlAlt, String platformAlt){
+	public TitleScreen(MainGame gameAlt, String[] configAlt, String platformAlt){
 		this.game = gameAlt;
 		this.config = configAlt;
-		this.gameControl = controlAlt;
 		this.platform = platformAlt;
 		
 		//Camera and Inputs
@@ -85,23 +67,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		font_master.setUseIntegerPositions(false);
 		
 		//Sprites
-		tex_sky = new Texture(Gdx.files.internal("data/assets/skytitlescreen.png"));
-		spr_sky = new Sprite(tex_sky);
-		spr_sky.setPosition(0, 70);
-		spr_sky.setSize(100,30);
 		
-		tex_BarraAcesso = new Texture(Gdx.files.internal("data/interface/charactercreator/barralogin.png"));
-		spr_BarraAcesso = new Sprite(tex_BarraAcesso);
-		
-		tex_background = new Texture(Gdx.files.internal("data/assets/titlescreen.png"));
-		spr_background = new Sprite(tex_background);
-		spr_background.setPosition(0,0);
-		spr_background.setSize(100,100);
-		
-		tex_metro = new Texture(Gdx.files.internal("data/assets/metro.png"));
-		spr_metro = new Sprite(tex_metro);
-		spr_metro.setPosition(-100,76);
-		spr_metro.setSize(60,20);
 		
 		
 		//Teste dot
@@ -122,23 +88,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    game.batch.setProjectionMatrix(camera.combined);
 		game.batch.begin();
 		
-		//Animate Metro
-		posXmetro = posXmetro + 0.8f;	
-		if(posXmetro > 200) { posXmetro = -100;}
-		spr_metro.setPosition(posXmetro, 76);
+		//Animate Screen
 		
-		//Render Graphics
-		spr_sky.draw(game.batch);
-		spr_metro.draw(game.batch);
-		spr_background.draw(game.batch);
-		
-		spr_BarraAcesso.setPosition(72, 2);
-		spr_BarraAcesso.setSize(30, 35);
-		spr_BarraAcesso.draw(game.batch);
 		
 		//Check option Select
 		if(check == true){		
-		    game.AtualizaElementos(game, config, gameControl, platform, networkState);
+		    game.AtualizaElementos(game, config, platform, networkState);
 		    game.Switch("CharacterSelect");			
 		}
 		
@@ -164,12 +119,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				
 		//Criar nova Conta
 		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 28 && coordsTouch.y <= 35)){
-			gameControl.CreateNewData();
+			//gameControl.CreateNewData();
 			check = true;
 		}
 		//Recuperar do Backup
 		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
-			Gdx.input.getTextInput(this,"Digite o c�digo","",""); 
+			//Gdx.input.getTextInput(this,"Digite o c�digo","",""); 
 		}	
 			
 		
@@ -179,7 +134,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	@Override
 	public void input(String input){
 		text = input;		
-		gameControl.OperacaoOnline("Download", text);
+		//gameControl.OperacaoOnline("Download", text);
 	}
 	
 	@Override
@@ -224,7 +179,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	@Override
 	public void dispose()
 	{
-		gameControl = null;
+		//gameControl = null;
 		sound_select.dispose();
 		camera = null;
 		viewport = null;
