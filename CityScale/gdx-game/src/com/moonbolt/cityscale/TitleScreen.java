@@ -24,17 +24,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	private String networkState = "no";
 	
 	//Primitives
-	private boolean check = false;
-	private String text = "";
+	boolean finalized = false;
 	
 	//Camera
 	private OrthographicCamera camera;
     private Viewport viewport;
 
-	//Audio
-	private Music sound_select;
-	
-	//Sprite master
+	//Sprite 
 	private Sprite spr_master;
 	
 	//fonts
@@ -57,9 +53,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
 		
-		//Audio 
-		sound_select = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/sound/optionselected.mp3"));
-			
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 		font_master.setColor(Color.RED);
@@ -71,11 +64,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		
 		
 		//Teste dot
-		tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
-		spr_teste = new Sprite(tex_teste);
-		spr_teste.setSize(1,1);	
-		spr_teste2 = new Sprite(tex_teste);
-		spr_teste2.setSize(1,1);	
+		//tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+		//spr_teste = new Sprite(tex_teste);
+		//spr_teste.setSize(1,1);	
+		//spr_teste2 = new Sprite(tex_teste);
+		//spr_teste2.setSize(1,1);	
 	}
 
 	@Override
@@ -92,13 +85,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		
 		
 		//Check option Select
-		if(check == true){		
+		if(finalized){		
 		    game.AtualizaElementos(game, config, platform, networkState);
 		    game.Switch("CharacterSelect");			
 		}
 		
-		spr_teste.setPosition(72, 14);
-		spr_teste2.setPosition(99, 2);
+		//spr_teste.setPosition(72, 14);
+		//spr_teste2.setPosition(99, 2);
 		//spr_teste.draw(game.batch);
 		//spr_teste2.draw(game.batch);	
 		game.batch.end();
@@ -120,7 +113,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		//Criar nova Conta
 		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 28 && coordsTouch.y <= 35)){
 			//gameControl.CreateNewData();
-			check = true;
+			//check = true;
 		}
 		//Recuperar do Backup
 		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
@@ -133,7 +126,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	
 	@Override
 	public void input(String input){
-		text = input;		
+		//text = input;		
 		//gameControl.OperacaoOnline("Download", text);
 	}
 	
@@ -180,7 +173,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	public void dispose()
 	{
 		//gameControl = null;
-		sound_select.dispose();
 		camera = null;
 		viewport = null;
 		game.dispose();
