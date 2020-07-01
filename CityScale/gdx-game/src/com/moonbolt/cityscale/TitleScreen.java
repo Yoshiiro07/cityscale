@@ -17,11 +17,12 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
-////MAINLY///
+	////MAINLY///
 	private MainGame game;
+	private GameControl gameControl;
 	private String[] config;
 	private String platform;
-	private String networkState = "no";
+	private String networkState; 
 	
 	//Primitives
 	boolean finalized = false;
@@ -31,7 +32,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
     private Viewport viewport;
 
 	//Sprite 
-	private Sprite spr_master;
+	private Sprite spr_barAccess;
 	
 	//fonts
 	private BitmapFont font_master;
@@ -41,10 +42,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	Sprite spr_teste2;
 	Texture tex_teste;
 	
-	public TitleScreen(MainGame gameAlt, String[] configAlt, String platformAlt){
+	public TitleScreen(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
 		this.game = gameAlt;
+		this.gameControl = gameControl;
 		this.config = configAlt;
 		this.platform = platformAlt;
+		this.networkState = "no";
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -82,11 +85,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		game.batch.begin();
 		
 		//Animate Screen
-		
+		spr_barAccess = gameControl.LoadInterfaceCreate("barAccess");
+		spr_barAccess.draw(game.batch);
 		
 		//Check option Select
 		if(finalized){		
-		    game.AtualizaElementos(game, config, platform, networkState);
+		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
 		    game.Switch("CharacterSelect");			
 		}
 		
@@ -109,18 +113,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	public boolean touchDown(int p1, int p2, int p3, int p4)
 	{
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
-				
-		//Criar nova Conta
-		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 28 && coordsTouch.y <= 35)){
-			//gameControl.CreateNewData();
-			//check = true;
-		}
-		//Recuperar do Backup
-		if((coordsTouch.x >= 72 && coordsTouch.x <= 99) && (coordsTouch.y >= 2 && coordsTouch.y <= 14)){
-			//Gdx.input.getTextInput(this,"Digite o c�digo","",""); 
-		}	
-			
-		
+		gameControl.TouchVerify(coordsTouch.x, coordsTouch.y, "TitleScreen");
 		return false;
 	}
 	

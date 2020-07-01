@@ -9,12 +9,14 @@ import com.badlogic.gdx.Screen;
 public class LoadingScreen implements Screen{
 	ArrayList<Screen> screens;
 	private MainGame game;
+	private GameControl gameControl;
 	private String config[];
 	private String platform;
 	private String network;
 	
 	public LoadingScreen(MainGame game){
 		this.game = game;
+		this.gameControl = new GameControl();
 		screens = new ArrayList<Screen>();
 		platform = "Mobile";
 		network = "off";
@@ -28,7 +30,7 @@ public class LoadingScreen implements Screen{
 		}
 		
 		if(tipo.equals("TitleScreen")){	
-			TitleScreen titleScreen = new TitleScreen(game, config, platform);
+			TitleScreen titleScreen = new TitleScreen(game,gameControl, config, platform);
 			game.setScreen(titleScreen);
 		}
 		
@@ -39,8 +41,9 @@ public class LoadingScreen implements Screen{
 		
 	}
 	
-	public void atualizaComponentes(MainGame maingameAlt, String[] configAlt, String platformAlt, String networkAlt){
+	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkAlt){
 		this.game = maingameAlt;
+		this.gameControl = gameControl;
 		this.config = configAlt;
 		this.platform = platformAlt;
 		this.network = networkAlt;

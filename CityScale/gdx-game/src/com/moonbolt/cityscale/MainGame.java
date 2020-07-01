@@ -22,8 +22,8 @@ public MainGame(){};
 		loadingmanager.screenSwitch(screenName);
 	}
 	
-	public void AtualizaElementos(MainGame mainGameAlt, String[] configAlt, String platformAlt, String networkAlt) {
-		loadingmanager.atualizaComponentes( mainGameAlt, configAlt, platformAlt, networkAlt);
+	public void AtualizaElementos(MainGame mainGameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkAlt) {
+		loadingmanager.atualizaComponentes( mainGameAlt,gameControl, configAlt, platformAlt, networkAlt);
 	}
 
 	@Override
