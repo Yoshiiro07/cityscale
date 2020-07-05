@@ -2,10 +2,9 @@ package com.moonbolt.cityscale;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,7 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class CharacterSelect implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 	////MAINLY///
 	private MainGame game;
 	private GameControl gameControl;
@@ -33,12 +32,20 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
     private Viewport viewport;
 
 	//Sprite 
-	private Sprite spr_barAccess;
+	private Sprite spr_Background;
+	
+	//Texture
+	private Texture tex_Background;
 	
 	//fonts
 	private BitmapFont font_master;
 	
-	public TitleScreen(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
+	//teste
+	Sprite spr_teste;
+	Sprite spr_teste2;
+	Texture tex_teste;
+	
+	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
 		this.game = gameAlt;
 		this.gameControl = gameControl;
 		this.config = configAlt;
@@ -59,7 +66,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		font_master.setUseIntegerPositions(false);	
 		
 		//Sprites
-		spr_barAccess = gameControl.LoadInterfaceCreate("barAccess");
+		tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
+		spr_Background = new Sprite(tex_Background);
 	}
 
 	@Override
@@ -73,7 +81,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		game.batch.begin();
 		
 		//Sprites
-		spr_barAccess.draw(game.batch);
+		spr_Background.draw(game.batch);
 		
 		//Change Screen
 		if(changeScreen){		

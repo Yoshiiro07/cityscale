@@ -22,6 +22,10 @@ public class DataManager {
 		CheckData();
 	}
 	
+	public Player GetPlayer() {
+		return player;
+	}
+	
 	public void CheckData() {
 		file = Gdx.files.local("SaveData/SvDT.json");		
 		if(file == null) { CreateNewData(); }
