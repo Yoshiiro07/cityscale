@@ -1,40 +1,68 @@
-interfacecreate.png
-size: 890, 529
+interfaceCreate.png
+size: 890, 655
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 barAccess
   rotate: false
-  xy: 0, 0
+  xy: 297, 0
   size: 242, 84
   orig: 242, 84
   offset: 0, 0
   index: -1
 barcreatechar
   rotate: false
-  xy: 0, 115
+  xy: 0, 241
   size: 890, 414
   orig: 890, 414
   offset: 0, 0
   index: -1
+btnCriarNovo
+  rotate: false
+  xy: 65, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+btnDeletar
+  rotate: false
+  xy: 1, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 criandopersonagem
   rotate: false
-  xy: 528, 0
+  xy: 0, 210
   size: 299, 31
   orig: 299, 31
   offset: 0, 0
   index: -1
 deletandopersonagem
   rotate: false
-  xy: 242, 0
+  xy: 539, 0
   size: 286, 30
   orig: 286, 30
   offset: 0, 0
   index: -1
+luzclara
+  rotate: false
+  xy: 129, 0
+  size: 168, 210
+  orig: 168, 210
+  offset: 0, 0
+  index: -1
 selecionepersonagem
   rotate: false
-  xy: 0, 84
+  xy: 299, 210
   size: 389, 31
   orig: 389, 31
+  offset: 0, 0
+  index: -1
+testdot
+  rotate: false
+  xy: 0, 0
+  size: 1, 1
+  orig: 1, 1
   offset: 0, 0
   index: -1

@@ -34,10 +34,10 @@ public class LoadingScreen implements Screen{
 			game.setScreen(titleScreen);
 		}
 		
-		//if(tipo.equals("CharacterSelect")) {
-		//	CharacterSelect characterScreen = new CharacterSelect(game, config, control,platform);
-		//	game.setScreen(characterScreen);
-		//}
+		if(tipo.equals("CharacterSelect")) {
+			CharacterSelect characterScreen = new CharacterSelect(game,gameControl, config, platform);
+			game.setScreen(characterScreen);
+		}
 		
 	}
 	

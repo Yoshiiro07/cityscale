@@ -28,6 +28,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	boolean changeScreen = false;
 	String touchResult = "";
 	
+	float posTouchX = 0;
+	float posTouchY = 0;
+	
 	//Camera
 	private OrthographicCamera camera;
     private Viewport viewport;
@@ -75,6 +78,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		//Sprites
 		spr_barAccess.draw(game.batch);
 		
+		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+		font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+		
 		//Change Screen
 		if(changeScreen){		
 		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
@@ -97,6 +103,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	{
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 		touchResult = gameControl.TouchVerify(coordsTouch.x, coordsTouch.y, "TitleScreen");
+		
+		
+		posTouchX = coordsTouch.x;
+		posTouchY = coordsTouch.y;
 		
 		if(touchResult.equals("ChangeScreen")) { changeScreen = true; }
 		return false;

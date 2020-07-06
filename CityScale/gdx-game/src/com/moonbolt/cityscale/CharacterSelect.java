@@ -33,6 +33,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 
 	//Sprite 
 	private Sprite spr_Background;
+	private Sprite spr_TitleTop;
 	
 	//Texture
 	private Texture tex_Background;
@@ -68,6 +69,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		//Sprites
 		tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
 		spr_Background = new Sprite(tex_Background);
+		
+		
 	}
 
 	@Override
@@ -81,7 +84,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		game.batch.begin();
 		
 		//Sprites
+		spr_Background.setPosition(0, 0);
+		spr_Background.setSize(100, 100);
 		spr_Background.draw(game.batch);
+		
+		spr_TitleTop = gameControl.LoadInterfaceCreate("titleTopSelect");
+		spr_TitleTop.draw(game.batch);
 		
 		//Change Screen
 		if(changeScreen){		

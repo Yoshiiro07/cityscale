@@ -34,6 +34,12 @@ public class GameLoad {
 			spr_master.setPosition(70, 10);
 		}
 		
+		if(type.equals("titleTopSelect")) {
+			spr_master = atlas_InterfaceCreate.createSprite("selecionepersonagem");
+			spr_master.setSize(45, 7);
+			spr_master.setPosition(2, 87); 
+		}
+		
 		return spr_master;
 	}
 }

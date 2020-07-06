@@ -20,12 +20,6 @@ public class GameControl {
 	private Texture tex_teste;
 	
 	//Primitive Variables
-	float plusX;
-	float minusX;
-	float plusY;
-	float minusY;
-	float area;
-	
 	
 	public GameControl() {
 		this.gameLoader = new GameLoad();
@@ -49,37 +43,20 @@ public class GameControl {
 		
 		//Title Screen
 		if(ScreenPress.equals("TitleScreen")) {
-			
-			plusX = CheckSizePosition(70,24, "plus");
-			minusX = CheckSizePosition(70,24, "minus");
-			plusY = CheckSizePosition(10,20, "plus");
-			minusY = CheckSizePosition(10,20, "minus");
-			
-			if(touchX >= minusX && touchX <= plusX && touchY >= minusY && touchY <= plusY) {
+			//Start Button
+			if(touchX >= 75.7 && touchX <= 87.7 && touchY >= 18.8 && touchY <= 24.8) {
 				CheckData();
 				LoadData();
-				
 				return "ChangeScreen";
+			}
+			//Recovery Button
+			if(touchX >= 75.7 && touchX <= 87.7 && touchY >= 12.6 && touchY <= 17.7) {
+			
 			}
 		}
 		
 		return "";
 	}
-	
-	//Check if it is touch in the correct area for buttons
-	private float CheckSizePosition(float position, float size, String indicator) {
-		area = 0;
-		
-		if(indicator.equals("plus")) {
-			area = position + (size/2);		
-		}
-		if(indicator.equals("minus")){
-			area = position - (size/2);					
-		}
-		
-		return area;
-	}
-	
 	//[B] Account Data
 	//Check if the player has already a account, if not creates one
 	private void CheckData() {

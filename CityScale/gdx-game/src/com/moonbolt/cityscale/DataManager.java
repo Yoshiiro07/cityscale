@@ -27,8 +27,10 @@ public class DataManager {
 	}
 	
 	public void CheckData() {
-		file = Gdx.files.local("SaveData/SvDT.json");		
-		if(file == null) { CreateNewData(); }
+		file = Gdx.files.local("SaveData/save.json");		
+		if(!file.exists()) { 
+			CreateNewData(); 
+		}
 	}
 	
 	public void CreateNewData(){
