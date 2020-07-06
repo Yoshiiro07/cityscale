@@ -55,6 +55,33 @@ public class GameControl {
 			}
 		}
 		
+		//Character Select Screen
+		if(ScreenPress.equals("CharacterScreenMain")) {
+			//Create Button
+			if(touchX >= 84.9 && touchX <= 94.2 && touchY >= 2.4 && touchY <= 15.6) {
+				return "CharacterScreenCreate";
+			}
+			//Delete Button
+			if(touchX >= 5.1 && touchX <= 14.7 && touchY >= 2.2 && touchY <= 15.6) {
+				return "CharacterScreenDelete";
+			}
+		}
+		
+		if(ScreenPress.equals("CharacterScreenCreate")) {
+			//Name Button
+			if(touchX >= 84.9 && touchX <= 94.2 && touchY >= 2.4 && touchY <= 15.6) {
+				return "NameSelect";
+			}
+		}
+		
+		if(ScreenPress.equals("CharacterScreenDelete")) {
+			//Name Button
+			if(touchX >= 84.9 && touchX <= 94.2 && touchY >= 2.4 && touchY <= 15.6) {
+				return "CharacterScreenDelete";
+			}
+		}
+		
+		
 		return "";
 	}
 	//[B] Account Data

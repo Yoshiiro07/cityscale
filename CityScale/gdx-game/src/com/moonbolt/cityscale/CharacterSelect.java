@@ -24,8 +24,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private String networkState; 
 	
 	//Primitives
-	boolean changeScreen = false;
-	String touchResult = "";
+	private String touchResult = "";
+	private String screenShow = "CharacterScreenMain";
+	private boolean changeScreen = false;
+	private float movBackground = 0;
+	
+	float posTouchX = 0;
+	float posTouchY = 0;
 	
 	//Camera
 	private OrthographicCamera camera;
@@ -33,7 +38,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 
 	//Sprite 
 	private Sprite spr_Background;
-	private Sprite spr_TitleTop;
+	private Sprite spr_titleTop;
+	private Sprite spr_btnCreate;
+	private Sprite spr_btnDelete;
+	private Sprite spr_boardCreate;
 	
 	//Texture
 	private Texture tex_Background;
@@ -84,12 +92,41 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		game.batch.begin();
 		
 		//Sprites
-		spr_Background.setPosition(0, 0);
+		MovBackground();
+		spr_Background.setPosition(0, movBackground);
 		spr_Background.setSize(100, 100);
 		spr_Background.draw(game.batch);
 		
-		spr_TitleTop = gameControl.LoadInterfaceCreate("titleTopSelect");
-		spr_TitleTop.draw(game.batch);
+		//Main Screen Character Select
+		if(screenShow.equals("CharacterScreenMain")) {
+			spr_titleTop = gameControl.LoadInterfaceCreate("titleTopSelect");
+			spr_titleTop.draw(game.batch);
+			
+			spr_btnCreate = gameControl.LoadInterfaceCreate("btnCreate");
+			spr_btnCreate.draw(game.batch);
+			
+			spr_btnDelete = gameControl.LoadInterfaceCreate("btnDelete");
+			spr_btnDelete.draw(game.batch);
+				
+		}
+		
+		//Create Character Screen
+		if(screenShow.equals("CharacterScreenCreate")) {
+			spr_titleTop = gameControl.LoadInterfaceCreate("titleTopCreate");
+			spr_titleTop.draw(game.batch);
+			
+			spr_boardCreate = gameControl.LoadInterfaceCreate("boardCreate");
+			spr_boardCreate.draw(game.batch);
+		}
+		
+		
+		//Delete Character Screen
+		if(screenShow.equals("CharacterScreenDelete")) {
+			spr_titleTop = gameControl.LoadInterfaceCreate("titleTopDelete");
+			spr_titleTop.draw(game.batch);		
+		}
+		
+		
 		
 		//Change Screen
 		if(changeScreen){		
@@ -97,7 +134,23 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		    game.Switch("CharacterSelect");			
 		}
 		
+	
+		//Test
+		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+		font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+				
+		
 		game.batch.end();
+	}
+	
+	
+	
+	private void MovBackground() {
+		movBackground = movBackground + 0.01f;
+		
+		if(movBackground > 0.5f) {
+			movBackground = 0;
+		}
 	}
 
 	@Override
@@ -112,9 +165,21 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	public boolean touchDown(int p1, int p2, int p3, int p4)
 	{
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
-		touchResult = gameControl.TouchVerify(coordsTouch.x, coordsTouch.y, "TitleScreen");
+		
+		if(screenShow.equals("CharacterScreenMain")) {
+			touchResult = gameControl.TouchVerify(coordsTouch.x, coordsTouch.y, "CharacterScreenMain");
+		}
+		
+		if(screenShow.equals("CharacterScreenCreate")) {
+			touchResult = gameControl.TouchVerify(coordsTouch.x, coordsTouch.y, "CharacterScreenCreate");
+		}
+		
+		posTouchX = coordsTouch.x;
+		posTouchY = coordsTouch.y;
 		
 		if(touchResult.equals("ChangeScreen")) { changeScreen = true; }
+		if(touchResult.equals("CharacterScreenCreate")) { screenShow = "CharacterScreenCreate"; }
+		if(touchResult.equals("CharacterScreenDelete")) { screenShow = "CharacterScreenDelete"; }
 		return false;
 	}
 	

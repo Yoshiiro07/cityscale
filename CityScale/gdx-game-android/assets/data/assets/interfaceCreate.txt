@@ -1,5 +1,5 @@
 interfaceCreate.png
-size: 890, 655
+size: 890, 667
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -12,7 +12,7 @@ barAccess
   index: -1
 barcreatechar
   rotate: false
-  xy: 0, 241
+  xy: 0, 253
   size: 890, 414
   orig: 890, 414
   offset: 0, 0
@@ -34,15 +34,15 @@ btnDeletar
 criandopersonagem
   rotate: false
   xy: 0, 210
-  size: 299, 31
-  orig: 299, 31
+  size: 400, 41
+  orig: 400, 41
   offset: 0, 0
   index: -1
 deletandopersonagem
   rotate: false
   xy: 539, 0
-  size: 286, 30
-  orig: 286, 30
+  size: 344, 36
+  orig: 344, 36
   offset: 0, 0
   index: -1
 luzclara
@@ -54,9 +54,9 @@ luzclara
   index: -1
 selecionepersonagem
   rotate: false
-  xy: 299, 210
-  size: 389, 31
-  orig: 389, 31
+  xy: 400, 210
+  size: 415, 43
+  orig: 415, 43
   offset: 0, 0
   index: -1
 testdot

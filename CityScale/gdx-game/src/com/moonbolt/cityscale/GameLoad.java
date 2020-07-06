@@ -40,6 +40,39 @@ public class GameLoad {
 			spr_master.setPosition(2, 87); 
 		}
 		
+		if(type.equals("titleTopCreate")) {
+			spr_master = atlas_InterfaceCreate.createSprite("criandopersonagem");
+			spr_master.setSize(45, 7);
+			spr_master.setPosition(2, 87); 
+		}
+		
+		if(type.equals("titleTopDelete")) {
+			spr_master = atlas_InterfaceCreate.createSprite("deletandopersonagem");
+			spr_master.setSize(45, 7);
+			spr_master.setPosition(2, 87); 
+		}
+		
+		if(type.equals("boardCreate")) {
+			spr_master = atlas_InterfaceCreate.createSprite("barcreatechar");
+			spr_master.setSize(80, 80);
+			spr_master.setPosition(9.8f, 5); 
+		}
+		
+		
+		if(type.equals("btnCreate")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnCriarNovo");
+			spr_master.setSize(10,14);
+			spr_master.setPosition(85,2);
+		}
+		
+		if(type.equals("btnDelete")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnDeletar");
+			spr_master.setSize(10,14);
+			spr_master.setPosition(5,2);
+		}
+		
+		
+		
 		return spr_master;
 	}
 }
