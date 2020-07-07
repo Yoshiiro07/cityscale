@@ -19,6 +19,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	////MAINLY///
 	private MainGame game;
 	private GameControl gameControl;
+	private Player activeplayer;
 	private String[] config;
 	private String platform;
 	private String networkState; 
@@ -26,6 +27,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	//Primitives
 	private String touchResult = "";
 	private String screenShow = "CharacterScreenMain";
+	private String text = "";
 	private boolean changeScreen = false;
 	private float movBackground = 0;
 	
@@ -42,6 +44,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private Sprite spr_btnCreate;
 	private Sprite spr_btnDelete;
 	private Sprite spr_boardCreate;
+	private Sprite spr_characterSet;
+	private Sprite spr_hair;
 	
 	//Texture
 	private Texture tex_Background;
@@ -51,7 +55,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	
 	//teste
 	Sprite spr_teste;
-	Sprite spr_teste2;
 	Texture tex_teste;
 	
 	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
@@ -60,6 +63,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		this.config = configAlt;
 		this.platform = platformAlt;
 		this.networkState = "no";
+		this.activeplayer = gameControl.LoadPlayer();
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -71,14 +75,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 		font_master.setColor(Color.RED);
-		font_master.getData().setScale(0.13f,0.08f);
+		font_master.getData().setScale(0.11f,0.23f);
 		font_master.setUseIntegerPositions(false);	
 		
 		//Sprites
 		tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
-		spr_Background = new Sprite(tex_Background);
-		
-		
+		spr_Background = new Sprite(tex_Background);		
 	}
 
 	@Override
@@ -117,6 +119,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			spr_boardCreate = gameControl.LoadInterfaceCreate("boardCreate");
 			spr_boardCreate.draw(game.batch);
+			
+			font_master.setColor(Color.WHITE);
+			font_master.getData().setScale(0.11f,0.12f);
+			font_master.setUseIntegerPositions(false);	
+			font_master.draw(game.batch, text, 37.2f,73);	
+			
+			spr_characterSet = gameControl.SetCharacter(state, sex);
+			
 		}
 		
 		
@@ -136,8 +146,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 	
 		//Test
-		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
-		font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+		font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 				
 		
 		game.batch.end();
@@ -180,12 +190,15 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		if(touchResult.equals("ChangeScreen")) { changeScreen = true; }
 		if(touchResult.equals("CharacterScreenCreate")) { screenShow = "CharacterScreenCreate"; }
 		if(touchResult.equals("CharacterScreenDelete")) { screenShow = "CharacterScreenDelete"; }
+		
+		if(touchResult.equals("NameSelect")) { Gdx.input.getTextInput(this,"Digite o nome","","");  }
+		
 		return false;
 	}
 	
 	@Override
 	public void input(String input){
-		//text = input;		
+		text = input;		
 		//gameControl.OperacaoOnline("Download", text);
 	}
 	

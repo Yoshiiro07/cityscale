@@ -14,6 +14,9 @@ public class GameLoad {
 	//Interface Create 
 	private TextureAtlas atlas_InterfaceCreate;
 	
+	//Characters Assets
+	private TextureAtlas atlas_basicset_m;
+	
 	//etc
 
 	
@@ -22,7 +25,38 @@ public class GameLoad {
 		spr_master = new Sprite(tex_teste);
 		
 		//InterfaceCreate
-		atlas_InterfaceCreate = new TextureAtlas(Gdx.files.internal("data/assets/interfaceCreate.txt"));		
+		atlas_InterfaceCreate = new TextureAtlas(Gdx.files.internal("data/assets/interfaceCreate.txt"));	
+		
+		//Character Assets
+		atlas_basicset_m = new TextureAtlas(Gdx.files.internal("data/characters/players/basicset_m/basicset_m.txt"));
+		
+	}
+	
+	public Sprite LoadCharactersModel(String set, String state, String sex) {
+		
+		//Masc.
+		if(sex.equals("M")) {
+			if(set.equals("basicset_m")) {
+				if(state.equals("front1")) {
+					spr_master = atlas_basicset_m.createSprite("front1");
+					spr_master.setSize(24, 20);
+					spr_master.setPosition(50, 50);
+				}
+			}
+		}
+		
+		//Fem.
+		if(sex.equals("F")) {
+			if(set.equals("basicset_m")) {
+				if(state.equals("front1")) {
+					spr_master = atlas_basicset_m.createSprite("front1");
+					spr_master.setSize(24, 20);
+					spr_master.setPosition(70, 10);
+				}
+			}
+		}
+		
+		return spr_master;
 	}
 	
 	

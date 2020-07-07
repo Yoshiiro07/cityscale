@@ -9,6 +9,7 @@ public class GameControl {
 	//Sumary
 	//[A] Interface
 	//[B] Account Data
+	//[C] Character Code
 	
 	//Object Variables
 	private GameLoad gameLoader;	
@@ -20,6 +21,8 @@ public class GameControl {
 	private Texture tex_teste;
 	
 	//Primitive Variables
+	private String charState;
+	
 	
 	public GameControl() {
 		this.gameLoader = new GameLoad();
@@ -69,8 +72,15 @@ public class GameControl {
 		
 		if(ScreenPress.equals("CharacterScreenCreate")) {
 			//Name Button
-			if(touchX >= 84.9 && touchX <= 94.2 && touchY >= 2.4 && touchY <= 15.6) {
+			if(touchX >= 36.8 && touchX <= 57.3 && touchY >= 64.3 && touchY <= 74) {
 				return "NameSelect";
+			}
+			//Sexo
+			if(touchX >= 41.3 && touchX <= 53.6 && touchY >= 57.3 && touchY <= 64.1) {
+				return "Masculino";
+			}
+			if(touchX >= 54.3 && touchX <= 66.6 && touchY >= 57.3 && touchY <= 64.1) {
+				return "Feminino";
 			}
 		}
 		
@@ -100,4 +110,20 @@ public class GameControl {
 		dataManager.SetActivePlayerData(num);
 		activePlayer = dataManager.GetPlayer();
 	}
+	
+	//[C] Character Code
+	// Check 
+	public Sprite SetCharacter(String set, String state, String sex) {
+		
+		spr_master = gameLoader.LoadCharactersModel(set, state, sex);		
+		return spr_master;
+	}
+	
+	//
+	public Player LoadPlayer() {
+		dataManager.LoadData();
+		activePlayer = dataManager.GetPlayer();
+		return activePlayer;
+	}
+	
 }
