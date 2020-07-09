@@ -28,6 +28,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private String touchResult = "";
 	private String screenShow = "CharacterScreenMain";
 	private String text = "";
+	private String sex = "M";
+	private String hair = "";
+	private String name = "";
 	private boolean changeScreen = false;
 	private float movBackground = 0;
 	
@@ -125,7 +128,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			font_master.setUseIntegerPositions(false);	
 			font_master.draw(game.batch, text, 37.2f,73);	
 			
-			spr_characterSet = gameControl.SetCharacter(state, sex);
+			
+			spr_characterSet = gameControl.ShowCharacterMenu(sex); 
 			
 		}
 		
@@ -198,7 +202,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	
 	@Override
 	public void input(String input){
-		text = input;		
+		text = input;	
+		name = text;
 		//gameControl.OperacaoOnline("Download", text);
 	}
 	

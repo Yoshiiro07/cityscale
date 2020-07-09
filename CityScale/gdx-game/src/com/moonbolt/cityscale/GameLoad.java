@@ -32,6 +32,32 @@ public class GameLoad {
 		
 	}
 	
+	
+	public Sprite LoadCharactersMenu(String sex) {
+		//Masc.
+		if(sex.equals("M")) {
+			spr_master = atlas_basicset_m.createSprite("front1");
+			spr_master.setSize(24, 20);
+			spr_master.setPosition(50, 50);
+		}
+		
+		//Fem.
+		if(sex.equals("F")) {
+			spr_master = atlas_basicset_m.createSprite("front1");
+			spr_master.setSize(24, 20);
+			spr_master.setPosition(70, 10);	
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite LoadCharactersHairMenu(String hair) {
+		
+		return spr_master;
+	}
+	
+	
+	
 	public Sprite LoadCharactersModel(String set, String state, String sex) {
 		
 		//Masc.

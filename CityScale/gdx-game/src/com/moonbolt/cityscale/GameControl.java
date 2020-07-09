@@ -112,9 +112,13 @@ public class GameControl {
 	}
 	
 	//[C] Character Code
+	public Sprite ShowCharacterMenu(String sex) {
+		spr_master = gameLoader.LoadCharactersMenu(sex);
+		return spr_master;
+	}
+	
 	// Check 
-	public Sprite SetCharacter(String set, String state, String sex) {
-		
+	public Sprite ShowCharacterCreate(String set, String state, String sex) {	
 		spr_master = gameLoader.LoadCharactersModel(set, state, sex);		
 		return spr_master;
 	}
