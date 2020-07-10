@@ -1,0 +1,12 @@
+basicset_f.png
+size: 32, 69
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+front1
+  rotate: false
+  xy: 0, 0
+  size: 32, 69
+  orig: 32, 69
+  offset: 0, 0
+  index: -1

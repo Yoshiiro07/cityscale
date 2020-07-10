@@ -87,7 +87,7 @@ public class DataManager {
 			player.weapon_1 = "basic_knife";
 			player.level_1 = "1";
 			player.stats_1 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
-			if(sex.equals("M")) { player.sex_1 = "basicset_m"; } else { player.sex_1 = "basicset_f"; }
+			if(sex.equals("M")) { player.set_1 = "basicset_m"; } else { player.set_1 = "basicset_f"; }
 			player.hat_1 = "none";
 			player.exp_1 = "0";
 			player.hp_1 = "100";
@@ -118,7 +118,7 @@ public class DataManager {
 			player.weapon_2 = "basic_knife";
 			player.level_2 = "1";
 			player.stats_2 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
-			if(sex.equals("M")) { player.sex_2 = "basicset_m"; } else { player.sex_2 = "basicset_f"; }
+			if(sex.equals("M")) { player.set_2 = "basicset_m"; } else { player.set_2 = "basicset_f"; }
 			player.hat_2 = "none";
 			player.exp_2 = "0";
 			player.hp_2 = "100";
@@ -149,7 +149,7 @@ public class DataManager {
 			player.weapon_3 = "basic_knife";
 			player.level_3 = "1";
 			player.stats_3 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
-			if(sex.equals("M")) { player.sex_3 = "basicset_m"; } else { player.sex_3 = "basicset_f"; }
+			if(sex.equals("M")) { player.set_3 = "basicset_m"; } else { player.set_3 = "basicset_f"; }
 			player.hat_3 = "none";
 			player.exp_3 = "0";
 			player.hp_3 = "100";

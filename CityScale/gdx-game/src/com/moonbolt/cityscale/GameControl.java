@@ -40,6 +40,12 @@ public class GameControl {
 		return spr_master;
 	}
 	
+	//Load Elements from maps e screens 
+	public Sprite LoadObjectElements(String type) {
+		spr_master = gameLoader.LoadElements(type);
+		return spr_master;
+	}
+	
 	//Process comand select from UI. (Size/Position fixed from element)
 	public String TouchVerify(float touchX, float touchY, String ScreenPress) {
 		
@@ -77,11 +83,72 @@ public class GameControl {
 			}
 			//Sexo
 			if(touchX >= 41.3 && touchX <= 53.6 && touchY >= 57.3 && touchY <= 64.1) {
-				return "Masculino";
+				return "M";
 			}
 			if(touchX >= 54.3 && touchX <= 66.6 && touchY >= 57.3 && touchY <= 64.1) {
-				return "Feminino";
+				return "F";
 			}
+			//Confirmar
+			if(touchX >= 68.1 && touchX <= 80 && touchY >= 9.5 && touchY <= 15.8) {
+				return "Confirmar";
+			}
+			//Voltar
+			if(touchX >= 36.8 && touchX <= 49.1 && touchY >= 9 && touchY <= 15.8) {
+				return "Voltar";
+			}
+			
+			//Hair1 
+			if(touchX >= 36.8 && touchX <= 42.6 && touchY >= 36.8 && touchY <= 47.6) {
+				return "hair1";
+			}
+			//Hair2
+			if(touchX >= 43.2 && touchX <= 48.9 && touchY >= 36.8 && touchY <= 47.6) {
+				return "hair2";
+			}
+			//Hair3
+			if(touchX >= 49.4 && touchX <= 55.1 && touchY >= 36.8 && touchY <= 47.6) {
+				return "hair3";
+			}
+			//Hair4
+			if(touchX >= 55.7 && touchX <= 61.4 && touchY >= 36.8 && touchY <= 47.6) {
+				return "hair4";
+			}
+			//Hair5
+			if(touchX >= 62 && touchX <= 74.0 && touchY >= 67.6 && touchY <= 47.6) {
+				return "hair5";
+			}
+			//Hair6
+			if(touchX >= 68.3 && touchX <= 74.0 && touchY >= 36.8 && touchY <= 47.6) {
+				return "hair6";
+			}
+			
+			//Hair7
+			if(touchX >= 36.8 && touchX <= 42.6 && touchY >= 25.2 && touchY <= 35.7) {
+				return "hair7";
+			}
+			//Hair8
+			if(touchX >= 43.2 && touchX <= 48.9 && touchY >= 25.2 && touchY <= 35.7) {
+				return "hair8";
+			}
+			//Hair9
+			if(touchX >= 49.4 && touchX <= 55.1 && touchY >= 25.2 && touchY <= 35.7) {
+				return "hair9";
+			}
+			//Hair10
+			if(touchX >= 55.7 && touchX <= 61.4 && touchY >= 25.2 && touchY <= 35.7) {
+				return "hair10";
+			}
+			//Hair11
+			if(touchX >= 62 && touchX <= 74.0 && touchY >= 25.2 && touchY <= 35.7) {
+				return "hair11";
+			}
+			//Hair12
+			if(touchX >= 68.3 && touchX <= 74.0 && touchY >= 25.2 && touchY <= 35.7) {
+				return "hair12";
+			}
+			
+			
+			
 		}
 		
 		if(ScreenPress.equals("CharacterScreenDelete")) {
@@ -94,6 +161,13 @@ public class GameControl {
 		
 		return "";
 	}
+	
+	public Sprite LoadAllHairs(int num, String sex) {
+		spr_master = gameLoader.LoadAllHairsMenu(num, sex);
+		
+		return spr_master;
+	}
+	
 	//[B] Account Data
 	//Check if the player has already a account, if not creates one
 	private void CheckData() {
@@ -106,14 +180,23 @@ public class GameControl {
 	}
 	
 	//Set Active Character selected by player
-	private void SetCharacterActive(int num) {
+	public void SetCharacterActive(int num) {
 		dataManager.SetActivePlayerData(num);
 		activePlayer = dataManager.GetPlayer();
+	}
+	
+	public void GenerateCharacter(String name, String hair, String sex) {
+		dataManager.CreateNewCharacter(name, hair, sex);
 	}
 	
 	//[C] Character Code
 	public Sprite ShowCharacterMenu(String sex) {
 		spr_master = gameLoader.LoadCharactersMenu(sex);
+		return spr_master;
+	}
+	
+	public Sprite ShowCharacterHairMenu(String hair) {
+		spr_master = gameLoader.LoadCharactersHairMenu(hair);
 		return spr_master;
 	}
 	

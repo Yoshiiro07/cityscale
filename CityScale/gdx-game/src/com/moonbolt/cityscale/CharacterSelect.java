@@ -29,10 +29,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private String screenShow = "CharacterScreenMain";
 	private String text = "";
 	private String sex = "M";
-	private String hair = "";
+	private String hair = "hair1";
 	private String name = "";
 	private boolean changeScreen = false;
 	private float movBackground = 0;
+	private int num = 0;
 	
 	float posTouchX = 0;
 	float posTouchY = 0;
@@ -49,6 +50,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private Sprite spr_boardCreate;
 	private Sprite spr_characterSet;
 	private Sprite spr_hair;
+	private Sprite spr_hairLoop;
+	private Sprite spr_light;
 	
 	//Texture
 	private Texture tex_Background;
@@ -102,6 +105,15 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		spr_Background.setSize(100, 100);
 		spr_Background.draw(game.batch);
 		
+		spr_light = gameControl.LoadObjectElements("light1");
+		spr_light.draw(game.batch);
+		
+		spr_light = gameControl.LoadObjectElements("light2");
+		spr_light.draw(game.batch);
+		
+		spr_light = gameControl.LoadObjectElements("light3");
+		spr_light.draw(game.batch);
+		
 		//Main Screen Character Select
 		if(screenShow.equals("CharacterScreenMain")) {
 			spr_titleTop = gameControl.LoadInterfaceCreate("titleTopSelect");
@@ -112,6 +124,26 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			spr_btnDelete = gameControl.LoadInterfaceCreate("btnDelete");
 			spr_btnDelete.draw(game.batch);
+			
+			this.activeplayer = gameControl.LoadPlayer();
+			
+			if(!activeplayer.name_1.equals("none")) {
+				spr_characterSet = gameControl.ShowPlayerCharacter();
+				
+				spr_characterSet.draw(game.batch);
+				
+				spr_hair = gameControl.ShowPlayerHair();
+				
+				spr_hair.draw(game.batch);
+			}
+			
+			if(!activeplayer.name_2.equals("none")) {
+				
+			}
+			
+			if(!activeplayer.name_3.equals("none")) {
+				
+			}
 				
 		}
 		
@@ -130,6 +162,16 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			
 			spr_characterSet = gameControl.ShowCharacterMenu(sex); 
+			spr_characterSet.draw(game.batch);
+			
+			spr_hair = gameControl.ShowCharacterHairMenu(hair);
+			spr_hair.draw(game.batch);
+			
+			//for show
+			for(num = 1; num <= 11; num++) {
+			spr_hairLoop = gameControl.LoadAllHairs(num, sex);
+			spr_hairLoop.draw(game.batch);
+			}
 			
 		}
 		
@@ -150,8 +192,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 	
 		//Test
-		font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
 				
 		
 		game.batch.end();
@@ -186,6 +229,43 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(screenShow.equals("CharacterScreenCreate")) {
 			touchResult = gameControl.TouchVerify(coordsTouch.x, coordsTouch.y, "CharacterScreenCreate");
+			
+			if(touchResult.equals("Voltar")) { screenShow = "CharacterScreenMain"; }
+			if(touchResult.equals("Confirmar")) { screenShow = "CharacterScreenMain"; }
+			
+			if(touchResult.equals("M")) { sex = "M"; hair = "hair1"; }
+			if(touchResult.equals("F")) { sex = "F"; hair = "hair1_f"; }
+			
+			if(touchResult.equals("hair1") && sex.equals("M")) { hair = "hair1"; }
+			if(touchResult.equals("hair2") && sex.equals("M")) { hair = "hair2"; }
+			if(touchResult.equals("hair3") && sex.equals("M")) { hair = "hair3"; }
+			if(touchResult.equals("hair4") && sex.equals("M")) { hair = "hair4"; }
+			if(touchResult.equals("hair5") && sex.equals("M")) { hair = "hair5"; }
+			if(touchResult.equals("hair6") && sex.equals("M")) { hair = "hair6"; }
+			if(touchResult.equals("hair7") && sex.equals("M")) { hair = "hair7"; }
+			if(touchResult.equals("hair8") && sex.equals("M")) { hair = "hair8"; }
+			if(touchResult.equals("hair9") && sex.equals("M")) { hair = "hair9"; }
+			if(touchResult.equals("hair10") && sex.equals("M")) { hair = "hair10"; }
+			if(touchResult.equals("hair11") && sex.equals("M")) { hair = "hair11"; }
+			if(touchResult.equals("hair12") && sex.equals("M")) { hair = "hair12"; }
+			
+			if(touchResult.equals("hair1") && sex.equals("F")) { hair = "hair1_f"; }
+			if(touchResult.equals("hair2") && sex.equals("F")) { hair = "hair2_f"; }
+			if(touchResult.equals("hair3") && sex.equals("F")) { hair = "hair3_f"; }
+			if(touchResult.equals("hair4") && sex.equals("F")) { hair = "hair4_f"; }
+			if(touchResult.equals("hair5") && sex.equals("F")) { hair = "hair5_f"; }
+			if(touchResult.equals("hair6") && sex.equals("F")) { hair = "hair6_f"; }
+			if(touchResult.equals("hair7") && sex.equals("F")) { hair = "hair7_f"; }
+			if(touchResult.equals("hair8") && sex.equals("F")) { hair = "hair8_f"; }
+			if(touchResult.equals("hair9") && sex.equals("F")) { hair = "hair9_f"; }
+			if(touchResult.equals("hair10") && sex.equals("F")) { hair = "hair10_f"; }
+			if(touchResult.equals("hair11") && sex.equals("F")) { hair = "hair11_f"; }
+			if(touchResult.equals("hair12") && sex.equals("F")) { hair = "hair12_f"; }
+			
+			if(touchResult.equals("Confirmar")) {
+				gameControl.GenerateCharacter(name,hair,sex);
+				screenShow = "CharacterScreenMain";			
+			}
 		}
 		
 		posTouchX = coordsTouch.x;
