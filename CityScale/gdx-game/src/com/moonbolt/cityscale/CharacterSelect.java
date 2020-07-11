@@ -128,23 +128,34 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			this.activeplayer = gameControl.LoadPlayer();
 			
 			if(!activeplayer.name_1.equals("none")) {
-				spr_characterSet = gameControl.ShowPlayerCharacter();
-				
+				spr_characterSet = gameControl.ShowPlayerCharacter(1);
+				spr_characterSet.setPosition(20, 20);
 				spr_characterSet.draw(game.batch);
 				
-				spr_hair = gameControl.ShowPlayerHair();
-				
+				spr_hair = gameControl.ShowPlayerHair(1);
+				spr_hair.setPosition(20, 20);
 				spr_hair.draw(game.batch);
 			}
 			
 			if(!activeplayer.name_2.equals("none")) {
+				spr_characterSet = gameControl.ShowPlayerCharacter(2);
+				spr_characterSet.setPosition(40, 20);
+				spr_characterSet.draw(game.batch);
 				
+				spr_hair = gameControl.ShowPlayerHair(2);
+				spr_hair.setPosition(20, 20);
+				spr_hair.draw(game.batch);
 			}
 			
 			if(!activeplayer.name_3.equals("none")) {
+				spr_characterSet = gameControl.ShowPlayerCharacter(3);
+				spr_characterSet.setPosition(60, 20);
+				spr_characterSet.draw(game.batch);
 				
-			}
-				
+				spr_hair = gameControl.ShowPlayerHair(3);
+				spr_hair.setPosition(20, 20);
+				spr_hair.draw(game.batch);
+			}		
 		}
 		
 		//Create Character Screen
