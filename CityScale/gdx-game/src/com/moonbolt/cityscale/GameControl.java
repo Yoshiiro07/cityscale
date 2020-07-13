@@ -27,7 +27,6 @@ public class GameControl {
 	
 	
 	//Object Variables
-	private DataManager dataManager;
 	
 	//Game Variables
 	private Sprite spr_master;
@@ -43,7 +42,6 @@ public class GameControl {
 	
 	// CONSTRUCTOR
 	public GameControl() {
-		this.dataManager = new DataManager();
 		this.playerInfo = new Player();
 		
 		this.tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
@@ -73,6 +71,10 @@ public class GameControl {
 		if(!file.exists()) { 
 			CreateNewData(); 
 		}
+	}
+	
+	public Player GetPlayer() {
+		return playerInfo;
 	}
 	
 	public void CreateNewData(){
@@ -130,6 +132,7 @@ public class GameControl {
 			playerInfo.level_1 = "1";
 			playerInfo.stats_1 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
 			if(sex.equals("M")) { playerInfo.set_1 = "basicset_m"; } else { playerInfo.set_1 = "basicset_f"; }
+			playerInfo.hair_1 = hair;
 			playerInfo.hat_1 = "none";
 			playerInfo.exp_1 = "0";
 			playerInfo.hp_1 = "100";
@@ -161,6 +164,7 @@ public class GameControl {
 			playerInfo.level_2 = "1";
 			playerInfo.stats_2 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
 			if(sex.equals("M")) { playerInfo.set_2 = "basicset_m"; } else { playerInfo.set_2 = "basicset_f"; }
+			playerInfo.hair_2 = hair;
 			playerInfo.hat_2 = "none";
 			playerInfo.exp_2 = "0";
 			playerInfo.hp_2 = "100";
@@ -192,6 +196,7 @@ public class GameControl {
 			playerInfo.level_3 = "1";
 			playerInfo.stats_3 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
 			if(sex.equals("M")) { playerInfo.set_3 = "basicset_m"; } else { playerInfo.set_3 = "basicset_f"; }
+			playerInfo.hair_3 = hair;
 			playerInfo.hat_3 = "none";
 			playerInfo.exp_3 = "0";
 			playerInfo.hp_3 = "100";
@@ -215,10 +220,18 @@ public class GameControl {
 			playerInfo.state_3 = "stop";
 		}
 		
-		file.writeString(Base64Coder.encodeString(json.prettyPrint(playerInfo)),false);		
+		SaveData(playerInfo);	
 	}
 	
-	public void SaveData() {		
+	public void DeleteCharacter(int num) {
+		if(num == 1) { playerInfo.name_1 = "none"; }
+		if(num == 2) { playerInfo.name_2 = "none"; }
+		if(num == 3) { playerInfo.name_3 = "none"; }
+		
+		SaveData(playerInfo);
+	}
+	
+	public void SaveData(Player playerInfo) {		
 		file = Gdx.files.local("SaveData/SvDT.json");
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(playerInfo)),false);
 	}
@@ -321,18 +334,34 @@ public class GameControl {
 
 	//[B] INTERFACE
 	//Load elements for show in UI.
-	public Sprite LoadInterfaceCreate(String type) {		
-		spr_master = LoadInterface(type);
+	
+	public Sprite LoadCharacterMenu(String sex) {
+		
+		if(sex.equals("M")) {
+			spr_master = atlas_basicset_m.createSprite("front1");
+			spr_master.setSize(25, 40);
+			spr_master.setPosition(11.5f, 20);
+		}
+		
+		if(sex.equals("F")) {
+			spr_master = atlas_basicset_f.createSprite("front1");
+			spr_master.setSize(25, 40);
+			spr_master.setPosition(11.4f, 19.8f);	
+		}
+		
 		return spr_master;
 	}
 	
-	//Load Elements from maps e screens 
-	public Sprite LoadObjectElements(String type) {
-		spr_master = LoadElements(type);
+	public Sprite LoadCharacterHairMenu(String hair) {
+		spr_master = atlas_hairs.createSprite(hair);
+		spr_master.setSize(8, 12);
+		spr_master.setPosition(19.5f, 47f);	
+		
 		return spr_master;
 	}
 	
-
+	
+	
 	public Sprite LoadAllHairsMenu(int num, String sex) {
 		if(sex.equals("M")) {
 			spr_master = atlas_hairs.createSprite("hair" + num);
@@ -418,8 +447,18 @@ public class GameControl {
 			spr_master.setPosition(5,2);
 		}
 		
+		if(type.equals("btnVoltar")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnVoltar");
+			spr_master.setSize(10,14);
+			spr_master.setPosition(5,2);
+		}
 		
-		
+		if(type.equals("tagStart")) {
+			spr_master = atlas_InterfaceCreate.createSprite("tagStart");
+			spr_master.setSize(35,27);
+			spr_master.setPosition(64,70);
+		}
+					
 		return spr_master;
 	}
 	
@@ -446,119 +485,82 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	//Process comand select from UI. (Size/Position fixed from element)
-	public String TouchVerify(float touchX, float touchY, String ScreenPress) {
+	public Sprite LoadCharacterPlayer(String set,String sex, int frame, String state, String side) {
 		
-		
-		//Title Screen
-		if(ScreenPress.equals("TitleScreen")) {
-			//Start Button
-			if(touchX >= 75.7 && touchX <= 87.7 && touchY >= 18.8 && touchY <= 24.8) {
-				CheckData();
-				LoadData();
-				return "ChangeScreen";
-			}
-			//Recovery Button
-			if(touchX >= 75.7 && touchX <= 87.7 && touchY >= 12.6 && touchY <= 17.7) {
-			
+		//Male
+		if(sex.equals("M")) {
+			if(set.equals("basicset_m")) {
+				
+				//Stop
+				if(state.equals("stop")) {
+					if(side.equals("front")) { spr_master = atlas_basicset_m.createSprite("front1"); }
+					if(side.equals("back")) { spr_master = atlas_basicset_m.createSprite("back1"); }
+					if(side.equals("left")) { spr_master = atlas_basicset_m.createSprite("left1"); }
+					if(side.equals("right")) { spr_master = atlas_basicset_m.createSprite("right1"); }
+				}
+				
+				//Walk Front
+				if(state.equals("walk")) {
+					if(side.equals("front") && frame == 1) { spr_master = atlas_basicset_m.createSprite("front1"); }
+					if(side.equals("front") && frame == 2) { spr_master = atlas_basicset_m.createSprite("front2"); }
+					if(side.equals("front") && frame == 3) { spr_master = atlas_basicset_m.createSprite("front3"); }
+					
+					if(side.equals("back") && frame == 1) { spr_master = atlas_basicset_m.createSprite("back1"); }
+					if(side.equals("back") && frame == 2) { spr_master = atlas_basicset_m.createSprite("back2"); }
+					if(side.equals("back") && frame == 3) { spr_master = atlas_basicset_m.createSprite("back3"); }
+					
+					if(side.equals("left") && frame == 1) { spr_master = atlas_basicset_m.createSprite("left1"); }
+					if(side.equals("left") && frame == 2) { spr_master = atlas_basicset_m.createSprite("left2"); }
+					if(side.equals("left") && frame == 3) { spr_master = atlas_basicset_m.createSprite("left3"); }
+					
+					if(side.equals("right") && frame == 1) { spr_master = atlas_basicset_m.createSprite("right1"); }
+					if(side.equals("right") && frame == 2) { spr_master = atlas_basicset_m.createSprite("right2"); }
+					if(side.equals("right") && frame == 3) { spr_master = atlas_basicset_m.createSprite("right3"); }
+				}
+				
 			}
 		}
 		
-		//Character Select Screen
-		if(ScreenPress.equals("CharacterScreenMain")) {
-			//Create Button
-			if(touchX >= 84.9 && touchX <= 94.2 && touchY >= 2.4 && touchY <= 15.6) {
-				return "CharacterScreenCreate";
-			}
-			//Delete Button
-			if(touchX >= 5.1 && touchX <= 14.7 && touchY >= 2.2 && touchY <= 15.6) {
-				return "CharacterScreenDelete";
-			}
-		}
-		
-		if(ScreenPress.equals("CharacterScreenCreate")) {
-			//Name Button
-			if(touchX >= 36.8 && touchX <= 57.3 && touchY >= 64.3 && touchY <= 74) {
-				return "NameSelect";
-			}
-			//Sexo
-			if(touchX >= 41.3 && touchX <= 53.6 && touchY >= 57.3 && touchY <= 64.1) {
-				return "M";
-			}
-			if(touchX >= 54.3 && touchX <= 66.6 && touchY >= 57.3 && touchY <= 64.1) {
-				return "F";
-			}
-			//Confirmar
-			if(touchX >= 68.1 && touchX <= 80 && touchY >= 9.5 && touchY <= 15.8) {
-				return "Confirmar";
-			}
-			//Voltar
-			if(touchX >= 36.8 && touchX <= 49.1 && touchY >= 9 && touchY <= 15.8) {
-				return "Voltar";
-			}
-			
-			//Hair1 
-			if(touchX >= 36.8 && touchX <= 42.6 && touchY >= 36.8 && touchY <= 47.6) {
-				return "hair1";
-			}
-			//Hair2
-			if(touchX >= 43.2 && touchX <= 48.9 && touchY >= 36.8 && touchY <= 47.6) {
-				return "hair2";
-			}
-			//Hair3
-			if(touchX >= 49.4 && touchX <= 55.1 && touchY >= 36.8 && touchY <= 47.6) {
-				return "hair3";
-			}
-			//Hair4
-			if(touchX >= 55.7 && touchX <= 61.4 && touchY >= 36.8 && touchY <= 47.6) {
-				return "hair4";
-			}
-			//Hair5
-			if(touchX >= 62 && touchX <= 74.0 && touchY >= 67.6 && touchY <= 47.6) {
-				return "hair5";
-			}
-			//Hair6
-			if(touchX >= 68.3 && touchX <= 74.0 && touchY >= 36.8 && touchY <= 47.6) {
-				return "hair6";
-			}
-			
-			//Hair7
-			if(touchX >= 36.8 && touchX <= 42.6 && touchY >= 25.2 && touchY <= 35.7) {
-				return "hair7";
-			}
-			//Hair8
-			if(touchX >= 43.2 && touchX <= 48.9 && touchY >= 25.2 && touchY <= 35.7) {
-				return "hair8";
-			}
-			//Hair9
-			if(touchX >= 49.4 && touchX <= 55.1 && touchY >= 25.2 && touchY <= 35.7) {
-				return "hair9";
-			}
-			//Hair10
-			if(touchX >= 55.7 && touchX <= 61.4 && touchY >= 25.2 && touchY <= 35.7) {
-				return "hair10";
-			}
-			//Hair11
-			if(touchX >= 62 && touchX <= 74.0 && touchY >= 25.2 && touchY <= 35.7) {
-				return "hair11";
-			}
-			//Hair12
-			if(touchX >= 68.3 && touchX <= 74.0 && touchY >= 25.2 && touchY <= 35.7) {
-				return "hair12";
-			}
-			
-			
-			
-		}
-		
-		if(ScreenPress.equals("CharacterScreenDelete")) {
-			//Name Button
-			if(touchX >= 84.9 && touchX <= 94.2 && touchY >= 2.4 && touchY <= 15.6) {
-				return "CharacterScreenDelete";
+		//Female
+		if(sex.equals("F")) {
+				if(set.equals("basicset_f")) {
+				
+				//Stop
+				if(state.equals("stop")) {
+					if(side.equals("front")) { spr_master = atlas_basicset_f.createSprite("front1"); }
+					if(side.equals("back")) { spr_master = atlas_basicset_f.createSprite("back1"); }
+					if(side.equals("left")) { spr_master = atlas_basicset_f.createSprite("left1"); }
+					if(side.equals("right")) { spr_master = atlas_basicset_f.createSprite("right1"); }
+				}
+				
+				//Walk Front
+				if(state.equals("Walk")) {
+					
+				}
+				
 			}
 		}
+			
+		return spr_master;
+	}
+	
+	public Sprite LoadCharacterHairPlayer(String hair,String sex, String side) {
 		
+		if(sex.equals("M")) {		
+			if(side.equals("front")) { spr_master = atlas_hairs.createSprite(hair); }
+			if(side.equals("back")) { spr_master = atlas_hairs.createSprite(hair + "up"); }
+			if(side.equals("left")) { spr_master = atlas_hairs.createSprite(hair + "left"); }
+			if(side.equals("right")) { spr_master = atlas_hairs.createSprite(hair + "right"); }		
+		}
 		
-		return "";
-	}	
+		if(sex.equals("F")) {			
+			if(side.equals("front")) { spr_master = atlas_hairs.createSprite(hair); }
+			if(side.equals("back")) { spr_master = atlas_hairs.createSprite(hair + "up"); }
+			if(side.equals("left")) { spr_master = atlas_hairs.createSprite(hair + "left"); }
+			if(side.equals("right")) { spr_master = atlas_hairs.createSprite(hair + "right"); }		
+		}
+		
+		return spr_master;
+	}
+	
 }

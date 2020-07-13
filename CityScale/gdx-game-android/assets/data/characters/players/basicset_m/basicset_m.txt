@@ -1,5 +1,5 @@
 basicset_m.png
-size: 512, 384
+size: 256, 640
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -10,72 +10,65 @@ back1
   orig: 128, 128
   offset: 0, 0
   index: -1
-back2
+front1
   rotate: false
   xy: 128, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-front1
-  rotate: false
-  xy: 256, 0
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
 front2
-  rotate: false
-  xy: 384, 0
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-front3
   rotate: false
   xy: 0, 128
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-left1
+front3
   rotate: false
   xy: 128, 128
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-left2
-  rotate: false
-  xy: 256, 128
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-left3
-  rotate: false
-  xy: 384, 128
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-right1
+left1
   rotate: false
   xy: 0, 256
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-right2
+left2
   rotate: false
   xy: 128, 256
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+left3
+  rotate: false
+  xy: 0, 384
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+right1
+  rotate: false
+  xy: 128, 384
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+right2
+  rotate: false
+  xy: 0, 512
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 right3
   rotate: false
-  xy: 256, 256
+  xy: 128, 512
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

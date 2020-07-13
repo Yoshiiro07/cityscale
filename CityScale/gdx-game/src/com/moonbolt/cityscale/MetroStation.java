@@ -2,10 +2,9 @@ package com.moonbolt.cityscale;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,31 +15,34 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class MetroStation implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+
 	////MAINLY///
 	private MainGame game;
 	private GameControl gameControl;
 	private String[] config;
 	private String platform;
 	private String networkState; 
-	
-	//Primitives
 	private boolean changeScreen = false;
 	
-	private float posTouchX = 0;
-	private float posTouchY = 0;
+	//Variaveis
+	private float posTouchX;
+	private float posTouchY;
 	
 	//Camera
 	private OrthographicCamera camera;
     private Viewport viewport;
 
 	//Sprite 
-	private Sprite spr_barAccess;
+	private Sprite spr_Background;
+	private Texture tex_Background;
+	private Sprite spr_Player;
 	
 	//fonts
 	private BitmapFont font_master;
 	
-	public TitleScreen(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
+	// CONSTRUCTOR
+	public MetroStation(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt) {
 		this.game = gameAlt;
 		this.gameControl = gameControl;
 		this.config = configAlt;
@@ -57,11 +59,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 		font_master.setColor(Color.RED);
-		font_master.getData().setScale(0.13f,0.08f);
+		font_master.getData().setScale(0.11f,0.23f);
 		font_master.setUseIntegerPositions(false);	
 		
 		//Sprites
-		spr_barAccess = gameControl.LoadInterface("barAccess");
+		tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
+		spr_Background = new Sprite(tex_Background);
+		
 	}
 
 	@Override
@@ -75,10 +79,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		game.batch.begin();
 		
 		//Sprites
-		spr_barAccess.draw(game.batch);
+		
 		
 		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
-		font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 		
 		//Change Screen
 		if(changeScreen){		
@@ -102,17 +106,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	{
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 		
-		//Start Button
-		if(coordsTouch.x >= 75.7 && coordsTouch.x <= 87.7 && coordsTouch.y >= 18.8 && coordsTouch.y <= 24.8) {
-			gameControl.CheckData();
-			gameControl.LoadData();
-			changeScreen = true; 			
-		}
-		
-		//Recovery Button
-		//if(touchX >= 75.7 && touchX <= 87.7 && touchY >= 12.6 && touchY <= 17.7) {
-			
-		//}
 		
 		posTouchX = coordsTouch.x;
 		posTouchY = coordsTouch.y;
@@ -169,9 +162,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	public void dispose()
 	{
 		//gameControl = null;
-		camera = null;
-		viewport = null;
-		game.dispose();
+		//camera = null;
+		//viewport = null;
+		//game.dispose();
 	}
 	
 	@Override
@@ -222,4 +215,5 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		// TODO: Implement this method
 		return false;
 	}
+	
 }

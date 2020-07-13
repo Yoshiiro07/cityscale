@@ -25,8 +25,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private String networkState; 
 	
 	//Primitives
-	private String touchResult = "";
-	private String screenShow = "CharacterScreenMain";
+	private String systemMsg = "";
+	private String screenState = "Main";
 	private String text = "";
 	private String sex = "M";
 	private String hair = "hair1";
@@ -34,9 +34,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private boolean changeScreen = false;
 	private float movBackground = 0;
 	private int num = 0;
+	private int charnum = 0;
 	
-	float posTouchX = 0;
-	float posTouchY = 0;
+	private float posTouchX = 0;
+	private float posTouchY = 0;
 	
 	//Camera
 	private OrthographicCamera camera;
@@ -47,11 +48,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private Sprite spr_titleTop;
 	private Sprite spr_btnCreate;
 	private Sprite spr_btnDelete;
+	private Sprite spr_btnVoltar;
+	private Sprite spr_barraCharacter;
 	private Sprite spr_boardCreate;
 	private Sprite spr_characterSet;
 	private Sprite spr_hair;
 	private Sprite spr_hairLoop;
 	private Sprite spr_light;
+	private Sprite spr_darkLight;
 	
 	//Texture
 	private Texture tex_Background;
@@ -60,8 +64,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private BitmapFont font_master;
 	
 	//teste
-	Sprite spr_teste;
-	Texture tex_teste;
+	private Sprite spr_teste;
+	private Texture tex_teste;
 	
 	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
 		this.game = gameAlt;
@@ -69,7 +73,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		this.config = configAlt;
 		this.platform = platformAlt;
 		this.networkState = "no";
-		this.activeplayer = gameControl.LoadPlayer();
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -86,7 +89,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		//Sprites
 		tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
-		spr_Background = new Sprite(tex_Background);		
+		spr_Background = new Sprite(tex_Background);
+		
+		gameControl.LoadData();
 	}
 
 	@Override
@@ -99,98 +104,360 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    game.batch.setProjectionMatrix(camera.combined);
 		game.batch.begin();
 		
+		//Loader
+		gameControl.LoadData();
+		activeplayer = gameControl.GetPlayer();
+		
 		//Sprites
 		MovBackground();
 		spr_Background.setPosition(0, movBackground);
 		spr_Background.setSize(100, 100);
 		spr_Background.draw(game.batch);
 		
-		spr_light = gameControl.LoadObjectElements("light1");
-		spr_light.draw(game.batch);
 		
-		spr_light = gameControl.LoadObjectElements("light2");
-		spr_light.draw(game.batch);
-		
-		spr_light = gameControl.LoadObjectElements("light3");
-		spr_light.draw(game.batch);
 		
 		//Main Screen Character Select
-		if(screenShow.equals("CharacterScreenMain")) {
-			spr_titleTop = gameControl.LoadInterfaceCreate("titleTopSelect");
+		if(screenState.equals("Main")) {
+			
+			spr_light = gameControl.LoadElements("light1");
+			spr_light.draw(game.batch);
+			
+			spr_light = gameControl.LoadElements("light2");
+			spr_light.draw(game.batch);
+			
+			spr_light = gameControl.LoadElements("light3");
+			spr_light.draw(game.batch);
+			
+			spr_titleTop = gameControl.LoadInterface("titleTopSelect");
 			spr_titleTop.draw(game.batch);
 			
-			spr_btnCreate = gameControl.LoadInterfaceCreate("btnCreate");
+			spr_btnCreate = gameControl.LoadInterface("btnCreate");
 			spr_btnCreate.draw(game.batch);
 			
-			spr_btnDelete = gameControl.LoadInterfaceCreate("btnDelete");
+			spr_btnDelete = gameControl.LoadInterface("btnDelete");
 			spr_btnDelete.draw(game.batch);
 			
-			this.activeplayer = gameControl.LoadPlayer();
-			
 			if(!activeplayer.name_1.equals("none")) {
-				spr_characterSet = gameControl.ShowPlayerCharacter(1);
-				spr_characterSet.setPosition(20, 20);
-				spr_characterSet.draw(game.batch);
+				if(activeplayer.sex_1.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_1, activeplayer.sex_1, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(9, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_1,activeplayer.sex_1, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(17.1f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
 				
-				spr_hair = gameControl.ShowPlayerHair(1);
-				spr_hair.setPosition(20, 20);
-				spr_hair.draw(game.batch);
+				if(activeplayer.sex_1.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_1, activeplayer.sex_1, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(9, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_1,activeplayer.sex_1, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(17.1f, 41.4f);
+					spr_hair.draw(game.batch);
+				}
 			}
 			
 			if(!activeplayer.name_2.equals("none")) {
-				spr_characterSet = gameControl.ShowPlayerCharacter(2);
-				spr_characterSet.setPosition(40, 20);
-				spr_characterSet.draw(game.batch);
-				
-				spr_hair = gameControl.ShowPlayerHair(2);
-				spr_hair.setPosition(20, 20);
-				spr_hair.draw(game.batch);
+				if(activeplayer.sex_2.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_2, activeplayer.sex_2, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(37.5f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_2,activeplayer.sex_2, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(45.6f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+				if(activeplayer.sex_2.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_2, activeplayer.sex_2, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(37.5f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_2,activeplayer.sex_2, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(45.6f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
 			}
 			
 			if(!activeplayer.name_3.equals("none")) {
-				spr_characterSet = gameControl.ShowPlayerCharacter(3);
-				spr_characterSet.setPosition(60, 20);
-				spr_characterSet.draw(game.batch);
+				if(activeplayer.sex_3.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_3, activeplayer.sex_3, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(70f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_3,activeplayer.sex_3, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(78, 41.2f);
+					spr_hair.draw(game.batch);
+				}
 				
-				spr_hair = gameControl.ShowPlayerHair(3);
-				spr_hair.setPosition(20, 20);
-				spr_hair.draw(game.batch);
-			}		
+				if(activeplayer.sex_3.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_3, activeplayer.sex_3, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(70f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_3,activeplayer.sex_3, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(78, 41.2f);
+					spr_hair.draw(game.batch);					
+				}
+			}			
 		}
 		
+		if(screenState.equals("Select")) {
+			
+			spr_barraCharacter = gameControl.LoadInterface("tagStart");
+			spr_barraCharacter.draw(game.batch);
+			
+			spr_btnVoltar = gameControl.LoadInterface("btnVoltar");
+			spr_btnVoltar.draw(game.batch);
+			
+			font_master.setColor(Color.WHITE);
+			font_master.getData().setScale(0.10f,0.13f);
+			font_master.setUseIntegerPositions(false);	
+			
+			if(charnum == 1) {
+				spr_light = gameControl.LoadElements("light1");
+				spr_light.draw(game.batch);
+											
+				font_master.draw(game.batch, activeplayer.name_1,72.5f, 94.8f);
+				font_master.draw(game.batch, activeplayer.level_1,72.5f, 90f);
+				font_master.draw(game.batch, activeplayer.job_1,73.9f, 85.7f);
+				font_master.draw(game.batch, activeplayer.map_1,72.5f, 81f);
+				
+				if(activeplayer.sex_1.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_1, activeplayer.sex_1, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(9, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_1,activeplayer.sex_1, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(17.1f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+				
+				if(activeplayer.sex_1.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_1, activeplayer.sex_1, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(9, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_1,activeplayer.sex_1, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(17.1f, 41.4f);
+					spr_hair.draw(game.batch);
+				}
+				
+			}
+			
+			if(charnum == 2) {
+				spr_light = gameControl.LoadElements("light2");
+				spr_light.draw(game.batch);
+				
+				font_master.draw(game.batch, activeplayer.name_2,72.5f, 94.8f);
+				font_master.draw(game.batch, activeplayer.level_2,72.5f, 90f);
+				font_master.draw(game.batch, activeplayer.job_2,73.9f, 85.7f);
+				font_master.draw(game.batch, activeplayer.map_2,72.5f, 81f);
+				
+				if(activeplayer.sex_2.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_2, activeplayer.sex_2, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(37.5f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_2,activeplayer.sex_2, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(45.6f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+				if(activeplayer.sex_2.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_2, activeplayer.sex_2, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(37.5f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_2,activeplayer.sex_2, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(45.6f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+			}
+
+			if(charnum == 3) {
+				spr_light = gameControl.LoadElements("light3");
+				spr_light.draw(game.batch);
+				
+				font_master.draw(game.batch, activeplayer.name_3,72.5f, 94.8f);
+				font_master.draw(game.batch, activeplayer.level_3,72.5f, 90f);
+				font_master.draw(game.batch, activeplayer.job_3,73.9f, 85.7f);
+				font_master.draw(game.batch, activeplayer.map_3,72.5f, 81f);
+				
+				if(activeplayer.sex_3.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_3, activeplayer.sex_3, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(70f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_3,activeplayer.sex_3, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(78, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+				
+				if(activeplayer.sex_3.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_3, activeplayer.sex_3, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(70f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_3,activeplayer.sex_3, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(78, 41.2f);
+					spr_hair.draw(game.batch);					
+				}
+			}
+			
+			
+		}
+		
+		
 		//Create Character Screen
-		if(screenShow.equals("CharacterScreenCreate")) {
-			spr_titleTop = gameControl.LoadInterfaceCreate("titleTopCreate");
+		if(screenState.equals("Create")) {
+			spr_titleTop = gameControl.LoadInterface("titleTopCreate");
 			spr_titleTop.draw(game.batch);
 			
-			spr_boardCreate = gameControl.LoadInterfaceCreate("boardCreate");
+			spr_boardCreate = gameControl.LoadInterface("boardCreate");
 			spr_boardCreate.draw(game.batch);
 			
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.11f,0.12f);
 			font_master.setUseIntegerPositions(false);	
 			font_master.draw(game.batch, text, 37.2f,73);	
-			
-			
-			spr_characterSet = gameControl.ShowCharacterMenu(sex); 
+						
+			spr_characterSet = gameControl.LoadCharacterMenu(sex); 
 			spr_characterSet.draw(game.batch);
 			
-			spr_hair = gameControl.ShowCharacterHairMenu(hair);
+			spr_hair = gameControl.LoadCharacterHairMenu(hair);
 			spr_hair.draw(game.batch);
 			
 			//for show
 			for(num = 1; num <= 11; num++) {
-			spr_hairLoop = gameControl.LoadAllHairs(num, sex);
+			spr_hairLoop = gameControl.LoadAllHairsMenu(num, sex);
 			spr_hairLoop.draw(game.batch);
 			}
+			
+			font_master.draw(game.batch, systemMsg,57.5f, 72.3f);
 			
 		}
 		
 		
 		//Delete Character Screen
-		if(screenShow.equals("CharacterScreenDelete")) {
-			spr_titleTop = gameControl.LoadInterfaceCreate("titleTopDelete");
-			spr_titleTop.draw(game.batch);		
+		if(screenState.equals("Delete")) {
+			
+			spr_light = gameControl.LoadElements("light1");
+			spr_light.draw(game.batch);
+			
+			spr_light = gameControl.LoadElements("light2");
+			spr_light.draw(game.batch);
+			
+			spr_light = gameControl.LoadElements("light3");
+			spr_light.draw(game.batch);
+			
+			spr_titleTop = gameControl.LoadInterface("titleTopDelete");
+			spr_titleTop.draw(game.batch);	
+			
+			spr_btnVoltar = gameControl.LoadInterface("btnVoltar");
+			spr_btnVoltar.draw(game.batch);
+			
+			if(!activeplayer.name_1.equals("none")) {
+				if(activeplayer.sex_1.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_1, activeplayer.sex_1, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(9, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_1,activeplayer.sex_1, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(17.1f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+				
+				if(activeplayer.sex_1.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_1, activeplayer.sex_1, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(9, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_1,activeplayer.sex_1, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(17.1f, 41.4f);
+					spr_hair.draw(game.batch);
+				}
+			}
+			
+			if(!activeplayer.name_2.equals("none")) {
+				if(activeplayer.sex_2.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_2, activeplayer.sex_2, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(37.5f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_2,activeplayer.sex_2, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(45.6f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+				if(activeplayer.sex_2.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_2, activeplayer.sex_2, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(37.5f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_2,activeplayer.sex_2, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(45.6f, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+			}
+			
+			if(!activeplayer.name_3.equals("none")) {
+				if(activeplayer.sex_3.equals("M")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_3, activeplayer.sex_3, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(70f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_3,activeplayer.sex_3, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(78, 41.2f);
+					spr_hair.draw(game.batch);
+				}
+				
+				if(activeplayer.sex_3.equals("F")) {
+					spr_characterSet = gameControl.LoadCharacterPlayer(activeplayer.set_3, activeplayer.sex_3, 0, "stop", "front");
+					spr_characterSet.setSize(25, 40);
+					spr_characterSet.setPosition(70f, 14);
+					spr_characterSet.draw(game.batch);
+					
+					spr_hair = gameControl.LoadCharacterHairPlayer(activeplayer.hair_3,activeplayer.sex_3, "front");
+					spr_hair.setSize(8, 11);
+					spr_hair.setPosition(78, 41.2f);
+					spr_hair.draw(game.batch);
+					
+				}
+			}
 		}
 		
 		
@@ -198,12 +465,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		//Change Screen
 		if(changeScreen){		
 		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-		    game.Switch("CharacterSelect");			
+		    game.Switch("MetroStation");			
 		}
 		
 	
 		//Test
-		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+		font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
 				
@@ -220,6 +487,38 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			movBackground = 0;
 		}
 	}
+	
+	private boolean ValidaCharacterCreate() {
+		if(name.equals("none")){ systemMsg = "Insira um nome"; return false;}
+		if(name.equals("")) { systemMsg = "Insira um nome"; return false; }
+		if(name.contains(".")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains(";")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("'")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("~")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains(":")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("?")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("!")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("*")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("@")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("#")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("$")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("%")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("&")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("(")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains(")")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("/")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("\\")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains("<")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.contains(">")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(name.length() > 10) { systemMsg = "Ate 10 letras"; return false; }
+		if(sex.equals("")) { systemMsg = "Escolha o sexo"; return false; }
+		
+		return true;
+	}
 
 	@Override
 	public void resize(int p1, int p2)
@@ -234,59 +533,200 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	{
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 		
-		if(screenShow.equals("CharacterScreenMain")) {
-			touchResult = gameControl.TouchVerify(coordsTouch.x, coordsTouch.y, "CharacterScreenMain");
+		
+		if(screenState.equals("Main")) {
+			//Create button
+			if(coordsTouch.x >= 84.9 && coordsTouch.x <= 94.2 && coordsTouch.y >= 2.4 && coordsTouch.y <= 15.6) {
+				screenState = "Create";
+				return false;
+			}
+			
+			//Delete Button
+			if(coordsTouch.x >= 5.1 && coordsTouch.x <= 14.7 && coordsTouch.y >= 2.2 && coordsTouch.y <= 15.6) {
+				screenState = "Delete";
+				return false;
+			}
+			
+			//Select Char 1
+			if(coordsTouch.x >= 12.1 && coordsTouch.x <= 31.7 && coordsTouch.y >= 20.1 && coordsTouch.y <= 68.2) {
+				if(!activeplayer.name_1.equals("none")) {
+				charnum = 1;
+				screenState = "Select";
+				}
+				return false;
+			}
+			
+			//Select Char 2
+			if(coordsTouch.x >= 39.9 && coordsTouch.x <= 60.4 && coordsTouch.y >= 20.1 && coordsTouch.y <= 68.2) {
+				if(!activeplayer.name_2.equals("none")) {
+				charnum = 2;
+				screenState = "Select";
+				}
+				return false;
+			}
+			
+			//Select Char 3
+			if(coordsTouch.x >= 71.8 && coordsTouch.x <= 91.8 && coordsTouch.y >= 20.1 && coordsTouch.y <= 68.2) {
+				if(!activeplayer.name_3.equals("none")) {
+				charnum = 3;
+				screenState = "Select";
+				}
+				return false;
+			}
 		}
 		
-		if(screenShow.equals("CharacterScreenCreate")) {
-			touchResult = gameControl.TouchVerify(coordsTouch.x, coordsTouch.y, "CharacterScreenCreate");
-			
-			if(touchResult.equals("Voltar")) { screenShow = "CharacterScreenMain"; }
-			if(touchResult.equals("Confirmar")) { screenShow = "CharacterScreenMain"; }
-			
-			if(touchResult.equals("M")) { sex = "M"; hair = "hair1"; }
-			if(touchResult.equals("F")) { sex = "F"; hair = "hair1_f"; }
-			
-			if(touchResult.equals("hair1") && sex.equals("M")) { hair = "hair1"; }
-			if(touchResult.equals("hair2") && sex.equals("M")) { hair = "hair2"; }
-			if(touchResult.equals("hair3") && sex.equals("M")) { hair = "hair3"; }
-			if(touchResult.equals("hair4") && sex.equals("M")) { hair = "hair4"; }
-			if(touchResult.equals("hair5") && sex.equals("M")) { hair = "hair5"; }
-			if(touchResult.equals("hair6") && sex.equals("M")) { hair = "hair6"; }
-			if(touchResult.equals("hair7") && sex.equals("M")) { hair = "hair7"; }
-			if(touchResult.equals("hair8") && sex.equals("M")) { hair = "hair8"; }
-			if(touchResult.equals("hair9") && sex.equals("M")) { hair = "hair9"; }
-			if(touchResult.equals("hair10") && sex.equals("M")) { hair = "hair10"; }
-			if(touchResult.equals("hair11") && sex.equals("M")) { hair = "hair11"; }
-			if(touchResult.equals("hair12") && sex.equals("M")) { hair = "hair12"; }
-			
-			if(touchResult.equals("hair1") && sex.equals("F")) { hair = "hair1_f"; }
-			if(touchResult.equals("hair2") && sex.equals("F")) { hair = "hair2_f"; }
-			if(touchResult.equals("hair3") && sex.equals("F")) { hair = "hair3_f"; }
-			if(touchResult.equals("hair4") && sex.equals("F")) { hair = "hair4_f"; }
-			if(touchResult.equals("hair5") && sex.equals("F")) { hair = "hair5_f"; }
-			if(touchResult.equals("hair6") && sex.equals("F")) { hair = "hair6_f"; }
-			if(touchResult.equals("hair7") && sex.equals("F")) { hair = "hair7_f"; }
-			if(touchResult.equals("hair8") && sex.equals("F")) { hair = "hair8_f"; }
-			if(touchResult.equals("hair9") && sex.equals("F")) { hair = "hair9_f"; }
-			if(touchResult.equals("hair10") && sex.equals("F")) { hair = "hair10_f"; }
-			if(touchResult.equals("hair11") && sex.equals("F")) { hair = "hair11_f"; }
-			if(touchResult.equals("hair12") && sex.equals("F")) { hair = "hair12_f"; }
-			
-			if(touchResult.equals("Confirmar")) {
-				gameControl.GenerateCharacter(name,hair,sex);
-				screenShow = "CharacterScreenMain";			
+		if(screenState.equals("Select")) {
+			//Voltar
+			if(coordsTouch.x >= 5.12 && coordsTouch.x <= 14.7 && coordsTouch.y >= 3.5 && coordsTouch.y <= 15.7) {
+				screenState = "Main"; 
+				return false;
 			}
+			//Iniciar
+			if(coordsTouch.x >= 83.1f && coordsTouch.x <= 97f && coordsTouch.y >= 74.4f && coordsTouch.y <= 77.3f) {
+				gameControl.SetActivePlayerData(charnum);
+				changeScreen = true; 
+				return false;
+			}
+		}
+		
+		if(screenState.equals("Create")) {
+			
+			//Confirmar
+			if(coordsTouch.x >= 68.1 && coordsTouch.x <= 80 && coordsTouch.y >= 9.5 && coordsTouch.y <= 15.8) {
+				boolean checkvalida = ValidaCharacterCreate();			
+				if(checkvalida) { 
+					gameControl.CreateNewCharacter(name, hair, sex);
+					gameControl.LoadData();
+					screenState = "Main"; 
+				}
+				return false;
+			}
+			//Voltar
+			if(coordsTouch.x >= 36.8 && coordsTouch.x <= 49.1 && coordsTouch.y >= 9 && coordsTouch.y <= 15.8) {
+				screenState = "Main";
+				return false;
+			}
+			
+			//Name Button
+			if(coordsTouch.x >= 36.8 && coordsTouch.x <= 57.3 && coordsTouch.y >= 64.3 && coordsTouch.y <= 74) {
+				Gdx.input.getTextInput(this,"Digite o nome","","");
+				return false;
+			}
+			
+			//Sexo
+			if(coordsTouch.x >= 41.3 && coordsTouch.x <= 53.6 && coordsTouch.y >= 57.3 && coordsTouch.y <= 64.1) {
+				sex = "M"; hair = "hair1";
+				return false;
+			}
+			if(coordsTouch.x >= 54.3 && coordsTouch.x <= 66.6 && coordsTouch.y >= 57.3 && coordsTouch.y <= 64.1) {
+				sex = "F"; hair = "hair1_f";
+				return false;
+			}
+			
+			//Hair1 
+			if(coordsTouch.x >= 36.8 && coordsTouch.x <= 42.6 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
+				if(sex.equals("M")) { hair = "hair1"; }
+				if(sex.equals("F")) { hair = "hair1_f";}
+				return false;
+			}
+			//Hair2
+			if(coordsTouch.x >= 43.2 && coordsTouch.x <= 48.9 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
+				if(sex.equals("M")) { hair = "hair2"; }
+				if(sex.equals("F")) { hair = "hair2_f";}
+				return false;
+			}
+			//Hair3
+			if(coordsTouch.x >= 49.4 && coordsTouch.x <= 55.1 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
+				if(sex.equals("M")) { hair = "hair3"; }
+				if(sex.equals("F")) { hair = "hair3_f";}
+				return false;
+			}
+			//Hair4
+			if(coordsTouch.x >= 55.7 && coordsTouch.x <= 61.4 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
+				if(sex.equals("M")) { hair = "hair4"; }
+				if(sex.equals("F")) { hair = "hair4_f";}
+				return false;
+			}
+			//Hair5
+			if(coordsTouch.x >= 62 && coordsTouch.x <= 74.0 && coordsTouch.y >= 67.6 && coordsTouch.y <= 47.6) {
+				if(sex.equals("M")) { hair = "hair5"; }
+				if(sex.equals("F")) { hair = "hair5_f";}
+				return false;
+			}
+			//Hair6
+			if(coordsTouch.x >= 68.3 && coordsTouch.x <= 74.0 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
+				if(sex.equals("M")) { hair = "hair6"; }
+				if(sex.equals("F")) { hair = "hair6_f";}
+				return false;
+			}
+			
+			//Hair7
+			if(coordsTouch.x >= 36.8 && coordsTouch.x <= 42.6 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
+				if(sex.equals("M")) { hair = "hair7"; }
+				if(sex.equals("F")) { hair = "hair7_f";}
+				return false;
+			}
+			//Hair8
+			if(coordsTouch.x >= 43.2 && coordsTouch.x <= 48.9 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
+				if(sex.equals("M")) { hair = "hair8"; }
+				if(sex.equals("F")) { hair = "hair8_f";}
+				return false;
+			}
+			//Hair9
+			if(coordsTouch.x >= 49.4 && coordsTouch.x <= 55.1 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
+				if(sex.equals("M")) { hair = "hair9"; }
+				if(sex.equals("F")) { hair = "hair9_f";}
+				return false;
+			}
+			//Hair10
+			if(coordsTouch.x >= 55.7 && coordsTouch.x <= 61.4 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
+				if(sex.equals("M")) { hair = "hair10"; }
+				if(sex.equals("F")) { hair = "hair10_f";}
+				return false;
+			}
+			//Hair11
+			if(coordsTouch.x >= 62 && coordsTouch.x <= 74.0 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
+				if(sex.equals("M")) { hair = "hair11"; }
+				if(sex.equals("F")) { hair = "hair11_f";}
+				return false;
+			}
+			//Hair12
+			if(coordsTouch.x >= 68.3 && coordsTouch.x <= 74.0 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
+				//hair = "hair12";
+			}
+		}
+		
+		if(screenState.equals("Delete")) {
+			//Voltar
+			if(coordsTouch.x >= 5.12 && coordsTouch.x <= 14.7 && coordsTouch.y >= 3.5 && coordsTouch.y <= 15.7) {
+				screenState = "Main"; 
+				return false;
+			}
+			
+			//Delete Char 1
+			if(coordsTouch.x >= 12.1 && coordsTouch.x <= 31.7 && coordsTouch.y >= 20.1 && coordsTouch.y <= 68.2) {
+				gameControl.DeleteCharacter(1);
+				gameControl.LoadData();
+				return false;
+			}
+			
+			//Delete Char 2
+			if(coordsTouch.x >= 39.9 && coordsTouch.x <= 60.4 && coordsTouch.y >= 20.1 && coordsTouch.y <= 68.2) {
+				gameControl.DeleteCharacter(2);
+				gameControl.LoadData();
+				return false;
+			}
+			
+			//Delete Char 3
+			if(coordsTouch.x >= 71.8 && coordsTouch.x <= 91.8 && coordsTouch.y >= 20.1 && coordsTouch.y <= 68.2) {
+				gameControl.DeleteCharacter(3);
+				gameControl.LoadData();
+				return false;
+			}			
 		}
 		
 		posTouchX = coordsTouch.x;
 		posTouchY = coordsTouch.y;
-		
-		if(touchResult.equals("ChangeScreen")) { changeScreen = true; }
-		if(touchResult.equals("CharacterScreenCreate")) { screenShow = "CharacterScreenCreate"; }
-		if(touchResult.equals("CharacterScreenDelete")) { screenShow = "CharacterScreenDelete"; }
-		
-		if(touchResult.equals("NameSelect")) { Gdx.input.getTextInput(this,"Digite o nome","","");  }
 		
 		return false;
 	}
