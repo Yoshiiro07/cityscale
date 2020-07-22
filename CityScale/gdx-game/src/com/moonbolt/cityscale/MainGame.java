@@ -6,16 +6,16 @@ import com.badlogic.gdx.graphics.g2d.*;
 public class MainGame extends Game {
 public MainGame(){};
 	
-	SpriteBatch batch;
-	
+	SpriteBatch batch;	
 	public LoadingScreen loadingmanager;
 	
 	@Override
 	public void create()
 	{
-		batch = new SpriteBatch();
+		batch = new SpriteBatch();  
 		loadingmanager = new LoadingScreen(this);
 		this.Switch("SplashScreen");
+		//this.Switch("MetroStation");
 	}
 	
 	public void Switch(String screenName) {

@@ -39,6 +39,11 @@ public class LoadingScreen implements Screen{
 			game.setScreen(characterScreen);
 		}
 		
+		if(tipo.equals("MetroStation")) {
+			MetroStation metroScreen = new MetroStation(game,gameControl, config, platform);
+			game.setScreen(metroScreen);
+		}
+		
 	}
 	
 	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkAlt){

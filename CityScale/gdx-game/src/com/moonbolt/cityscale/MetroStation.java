@@ -4,50 +4,37 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.TextInputListener;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.Input.TextInputListener;
 
 public class MetroStation implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 
-	////MAINLY///
 	private MainGame game;
 	private GameControl gameControl;
 	private String[] config;
 	private String platform;
-	private String networkState; 
-	private boolean changeScreen = false;
+	private Sprite spr_master;   
+			
+	private String frameState = "stop";
 	
-	//Variaveis
-	private float posTouchX;
-	private float posTouchY;
+	private int mov = 0;
 	
 	//Camera
 	private OrthographicCamera camera;
     private Viewport viewport;
-
-	//Sprite 
-	private Sprite spr_Background;
-	private Texture tex_Background;
-	private Sprite spr_Player;
 	
-	//fonts
-	private BitmapFont font_master;
-	
-	// CONSTRUCTOR
-	public MetroStation(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt) {
+	public MetroStation(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt) {
 		this.game = gameAlt;
 		this.gameControl = gameControl;
 		this.config = configAlt;
 		this.platform = platformAlt;
-		this.networkState = "no";
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -55,43 +42,117 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		viewport.apply();
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
-		
-		//font
-		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
-		font_master.setColor(Color.RED);
-		font_master.getData().setScale(0.11f,0.23f);
-		font_master.setUseIntegerPositions(false);	
-		
-		//Sprites
-		tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
-		spr_Background = new Sprite(tex_Background);
-		
 	}
-
+	
+	
 	@Override
-	public void render(float p1)
-	{	
+	public void render(float delta) {
+		
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		camera.update();
-	    game.batch.setProjectionMatrix(camera.combined);
+	    game.batch.setProjectionMatrix(camera.combined);	
+	    
 		game.batch.begin();
+			
+		spr_master = gameControl.LoadElements("light1");
+		spr_master.draw(game.batch);
+				
+		game.batch.end();
 		
-		//Sprites
+	}
+	
+	@Override
+	public void input(String text) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void canceled() {
+		// TODO Auto-generated method stub
 		
-		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
-		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int p1, int p2, int pointer, int button) {
+		// TODO Auto-generated method stub
 		
-		//Change Screen
-		if(changeScreen){		
-		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-		    game.Switch("CharacterSelect");			
+		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+		
+		if(coordsTouch.x >= 50) {
+			frameState = "WalkRight";
+			return false;
 		}
 		
-		game.batch.end();
+		return false;
 	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		
+		frameState = "Stop";
+		
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 	@Override
 	public void resize(int p1, int p2)
@@ -99,121 +160,29 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		viewport.update(p1,p2);
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 	}	
-	
-	//TOUCH RESPONSE	
+
 	@Override
-	public boolean touchDown(int p1, int p2, int p3, int p4)
-	{
-		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+	public void pause() {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
 		
-		posTouchX = coordsTouch.x;
-		posTouchY = coordsTouch.y;
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
 		
-		return false;
-	}
-	
-	@Override
-	public void input(String input){
-		//text = input;		
-		//gameControl.OperacaoOnline("Download", text);
-	}
-	
-	@Override
-	public void canceled(){
-	}
-	
-	@Override
-	public void create()
-	{
-		// TODO: Implement this method
-	}
-	
-	@Override
-	public void render()
-	{
-		// TODO: Implement this method
-	}
-	
-	@Override
-	public void hide()
-	{
-		// TODO: Implement this method
 	}
 
 	@Override
-	public void show()
-	{
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
 	}
 
-	@Override
-	public void resume()
-	{
-		// TODO: Implement this method
-	}
-
-	@Override
-	public void pause()
-	{
-		// TODO: Implement this method
-	}
-
-	@Override
-	public void dispose()
-	{
-		//gameControl = null;
-		//camera = null;
-		//viewport = null;
-		//game.dispose();
-	}
-	
-	@Override
-	public boolean touchUp(int p1, int p2, int p3, int p4)
-	{
-		// TODO: Implement this method
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int p1, int p2, int p3)
-	{
-		// TODO: Implement this method
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int p1)
-	{
-		// TODO: Implement this method
-		return false;
-	}
-
-	@Override
-	public boolean keyDown(int p1)
-	{
-		// TODO: Implement this method
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char p1)
-	{
-		// TODO: Implement this method
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int p1, int p2)
-	{
-		// TODO: Implement this method
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int p1)
-	{
-		// TODO: Implement this method
-		return false;
-	}
-	
 }
