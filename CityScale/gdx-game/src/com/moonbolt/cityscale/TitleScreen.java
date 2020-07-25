@@ -78,7 +78,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		spr_barAccess.draw(game.batch);
 		
 		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
-		font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 		
 		//Change Screen
 		if(changeScreen){		

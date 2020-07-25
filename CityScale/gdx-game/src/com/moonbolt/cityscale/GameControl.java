@@ -14,9 +14,9 @@ public class GameControl {
 
 	//Sumary
 	//[A] Data Manager
-	//[A] Interface
-	//[B] Account Data
-	//[C] Character Code
+	//[B] Interface
+	//[C] Account Data
+	//[D] Character Code
 	
 	//Data Manager Variables
 	private Json json;
@@ -46,12 +46,10 @@ public class GameControl {
 		
 		this.tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
 		this.spr_master = new Sprite(tex_teste);
-		
-		
+				
 		//Data Manager
 		json = new Json();
 		playerInfo = new Player();
-		activeCharNumber = 0;
 		CheckData();
 		
 		//Atlas Section
@@ -73,8 +71,16 @@ public class GameControl {
 		}
 	}
 	
+	public void SetActivePlayer(int num) {
+		activeCharNumber = num; 
+	}
+	
 	public Player GetPlayer() {
 		return playerInfo;
+	}
+	
+	public int GetPlayerActiveNum() {
+		return activeCharNumber;
 	}
 	
 	public void CreateNewData(){
@@ -137,6 +143,8 @@ public class GameControl {
 			playerInfo.exp_1 = "0";
 			playerInfo.hp_1 = "100";
 			playerInfo.mp_1 = "100";
+			playerInfo.coordX_1 = "50";
+			playerInfo.coordY_1 = "50";
 			playerInfo.maxhp_1 = "100";
 			playerInfo.maxmp_1 = "100";
 			playerInfo.money_1 = "50";
@@ -144,8 +152,6 @@ public class GameControl {
 			playerInfo.statusPoint_1 = "0";
 			playerInfo.skillPoint_1 = "0";
 			playerInfo.skills_1 = "none";
-			playerInfo.coordX_1 = "";
-			playerInfo.coordY_1 = "";
 			playerInfo.inBattle_1 = "no";
 			playerInfo.target_1 = "none";
 			playerInfo.itens_1 = "none";
@@ -169,6 +175,8 @@ public class GameControl {
 			playerInfo.exp_2 = "0";
 			playerInfo.hp_2 = "100";
 			playerInfo.mp_2 = "100";
+			playerInfo.coordX_2 = "50";
+			playerInfo.coordY_2 = "50";
 			playerInfo.maxhp_2 = "100";
 			playerInfo.maxmp_2 = "100";
 			playerInfo.money_2 = "50";
@@ -201,6 +209,8 @@ public class GameControl {
 			playerInfo.exp_3 = "0";
 			playerInfo.hp_3 = "100";
 			playerInfo.mp_3 = "100";
+			playerInfo.coordX_3 = "50";
+			playerInfo.coordY_3 = "50";
 			playerInfo.maxhp_3 = "100";
 			playerInfo.maxmp_3 = "100";
 			playerInfo.money_3 = "50";
@@ -236,10 +246,11 @@ public class GameControl {
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(playerInfo)),false);
 	}
 	
-	public void SetActivePlayerData(int num) {
+	public Player SetActivePlayerData(int num) {
 		
 		if(num == 1) {
 			playerInfo.name_A = playerInfo.name_1;
+			playerInfo.hair_A = playerInfo.hair_1;
 			playerInfo.sex_A = playerInfo.sex_1;
 			playerInfo.job_A = playerInfo.job_1;
 			playerInfo.weapon_A = playerInfo.weapon_1;
@@ -270,6 +281,7 @@ public class GameControl {
 		}
 		if(num == 2) {
 			playerInfo.name_A = playerInfo.name_2;
+			playerInfo.hair_A = playerInfo.hair_2;
 			playerInfo.sex_A = playerInfo.sex_2;
 			playerInfo.job_A = playerInfo.job_2;
 			playerInfo.weapon_A = playerInfo.weapon_2;
@@ -300,6 +312,7 @@ public class GameControl {
 		}
 		if(num == 3) {
 			playerInfo.name_A = playerInfo.name_3;
+			playerInfo.hair_A = playerInfo.hair_3;
 			playerInfo.sex_A = playerInfo.sex_3;
 			playerInfo.job_A = playerInfo.job_3;
 			playerInfo.weapon_A = playerInfo.weapon_3;
@@ -328,6 +341,8 @@ public class GameControl {
 			playerInfo.quest_A = playerInfo.quest_3;
 			playerInfo.state_A = playerInfo.state_3;
 		}
+		
+		return playerInfo;
 	}
 	
 	
@@ -355,8 +370,14 @@ public class GameControl {
 	public Sprite LoadCharacterHairMenu(String hair) {
 		spr_master = atlas_hairs.createSprite(hair);
 		spr_master.setSize(8, 12);
-		spr_master.setPosition(19.5f, 47f);	
-		
+		spr_master.setPosition(19.5f, 47f);			
+		return spr_master;
+	}
+	
+	public Sprite LoadPlayerTagHair(String hair) {
+		spr_master = atlas_hairs.createSprite(hair);
+		spr_master.setSize(7, 11);
+		spr_master.setPosition(-0.1f, 87);
 		return spr_master;
 	}
 	
@@ -458,6 +479,14 @@ public class GameControl {
 			spr_master.setSize(35,27);
 			spr_master.setPosition(64,70);
 		}
+		
+		
+		//Player UI
+		if(type.equals("playerTag")) {
+			spr_master = atlas_InterfaceCreate.createSprite("tagPlayer");
+			spr_master.setSize(25,20);
+			spr_master.setPosition(0,80);
+		}
 					
 		return spr_master;
 	}
@@ -485,7 +514,8 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	public Sprite LoadCharacterPlayer(String set,String sex, int frame, String state, String side) {
+	// [D] Character Code	
+	public Sprite MovPlayerCharacter(String set,String sex, int frame, String state, String walk) {
 		
 		//Male
 		if(sex.equals("M")) {
@@ -493,74 +523,75 @@ public class GameControl {
 				
 				//Stop
 				if(state.equals("stop")) {
-					if(side.equals("front")) { spr_master = atlas_basicset_m.createSprite("front1"); }
-					if(side.equals("back")) { spr_master = atlas_basicset_m.createSprite("back1"); }
-					if(side.equals("left")) { spr_master = atlas_basicset_m.createSprite("left1"); }
-					if(side.equals("right")) { spr_master = atlas_basicset_m.createSprite("right1"); }
+					if(state.equals("front")) { spr_master = atlas_basicset_m.createSprite("front1"); return spr_master; }
+					if(state.equals("back")) { spr_master = atlas_basicset_m.createSprite("back1"); return spr_master; }
+					if(state.equals("left")) { spr_master = atlas_basicset_m.createSprite("left1");  return spr_master; }
+					if(state.equals("right")) { spr_master = atlas_basicset_m.createSprite("right1"); return spr_master; }
 				}
 				
 				//Walk Front
 				if(state.equals("walk")) {
-					if(side.equals("front") && frame == 1) { spr_master = atlas_basicset_m.createSprite("front1"); }
-					if(side.equals("front") && frame == 2) { spr_master = atlas_basicset_m.createSprite("front2"); }
-					if(side.equals("front") && frame == 3) { spr_master = atlas_basicset_m.createSprite("front3"); }
+					if(state.equals("front") && frame == 1) { spr_master = atlas_basicset_m.createSprite("front1"); return spr_master; }
+					if(state.equals("front") && frame == 2) { spr_master = atlas_basicset_m.createSprite("front2"); return spr_master; }
+					if(state.equals("front") && frame == 3) { spr_master = atlas_basicset_m.createSprite("front3"); return spr_master; }
 					
-					if(side.equals("back") && frame == 1) { spr_master = atlas_basicset_m.createSprite("back1"); }
-					if(side.equals("back") && frame == 2) { spr_master = atlas_basicset_m.createSprite("back2"); }
-					if(side.equals("back") && frame == 3) { spr_master = atlas_basicset_m.createSprite("back3"); }
+					if(state.equals("back") && frame == 1) { spr_master = atlas_basicset_m.createSprite("back1"); return spr_master; }
+					if(state.equals("back") && frame == 2) { spr_master = atlas_basicset_m.createSprite("back2"); }
+					if(state.equals("back") && frame == 3) { spr_master = atlas_basicset_m.createSprite("back3"); }
 					
-					if(side.equals("left") && frame == 1) { spr_master = atlas_basicset_m.createSprite("left1"); }
-					if(side.equals("left") && frame == 2) { spr_master = atlas_basicset_m.createSprite("left2"); }
-					if(side.equals("left") && frame == 3) { spr_master = atlas_basicset_m.createSprite("left3"); }
+					if(state.equals("left") && frame == 1) { spr_master = atlas_basicset_m.createSprite("left1"); }
+					if(state.equals("left") && frame == 2) { spr_master = atlas_basicset_m.createSprite("left2"); }
+					if(state.equals("left") && frame == 3) { spr_master = atlas_basicset_m.createSprite("left3"); }
 					
-					if(side.equals("right") && frame == 1) { spr_master = atlas_basicset_m.createSprite("right1"); }
-					if(side.equals("right") && frame == 2) { spr_master = atlas_basicset_m.createSprite("right2"); }
-					if(side.equals("right") && frame == 3) { spr_master = atlas_basicset_m.createSprite("right3"); }
-				}
-				
+					if(state.equals("right") && frame == 1) { spr_master = atlas_basicset_m.createSprite("right1"); }
+					if(state.equals("right") && frame == 2) { spr_master = atlas_basicset_m.createSprite("right2"); }
+					if(state.equals("right") && frame == 3) { spr_master = atlas_basicset_m.createSprite("right3"); }
+				}				
 			}
 		}
 		
 		//Female
 		if(sex.equals("F")) {
 				if(set.equals("basicset_f")) {
-				
+					
 				//Stop
 				if(state.equals("stop")) {
-					if(side.equals("front")) { spr_master = atlas_basicset_f.createSprite("front1"); }
-					if(side.equals("back")) { spr_master = atlas_basicset_f.createSprite("back1"); }
-					if(side.equals("left")) { spr_master = atlas_basicset_f.createSprite("left1"); }
-					if(side.equals("right")) { spr_master = atlas_basicset_f.createSprite("right1"); }
+					if(state.equals("front")) { spr_master = atlas_basicset_f.createSprite("front1"); }
+					if(state.equals("back")) { spr_master = atlas_basicset_f.createSprite("back1"); }
+					if(state.equals("left")) { spr_master = atlas_basicset_f.createSprite("left1"); }
+					if(state.equals("right")) { spr_master = atlas_basicset_f.createSprite("right1"); }
 				}
 				
 				//Walk Front
 				if(state.equals("Walk")) {
 					
-				}
-				
+				}				
 			}
 		}
 			
 		return spr_master;
 	}
 	
-	public Sprite LoadCharacterHairPlayer(String hair,String sex, String side) {
+	public Sprite MovPlayerHair(String hair,String sex, String state) {
 		
 		if(sex.equals("M")) {		
-			if(side.equals("front")) { spr_master = atlas_hairs.createSprite(hair); }
-			if(side.equals("back")) { spr_master = atlas_hairs.createSprite(hair + "up"); }
-			if(side.equals("left")) { spr_master = atlas_hairs.createSprite(hair + "left"); }
-			if(side.equals("right")) { spr_master = atlas_hairs.createSprite(hair + "right"); }		
+			if(state.equals("front")) { spr_master = atlas_hairs.createSprite(hair); }
+			if(state.equals("back")) { spr_master = atlas_hairs.createSprite(hair + "up"); }
+			if(state.equals("left")) { spr_master = atlas_hairs.createSprite(hair + "left"); }
+			if(state.equals("right")) { spr_master = atlas_hairs.createSprite(hair + "right"); }		
 		}
 		
 		if(sex.equals("F")) {			
-			if(side.equals("front")) { spr_master = atlas_hairs.createSprite(hair); }
-			if(side.equals("back")) { spr_master = atlas_hairs.createSprite(hair + "up"); }
-			if(side.equals("left")) { spr_master = atlas_hairs.createSprite(hair + "left"); }
-			if(side.equals("right")) { spr_master = atlas_hairs.createSprite(hair + "right"); }		
+			if(state.equals("front")) { spr_master = atlas_hairs.createSprite(hair); }
+			if(state.equals("back")) { spr_master = atlas_hairs.createSprite(hair + "up"); }
+			if(state.equals("left")) { spr_master = atlas_hairs.createSprite(hair + "left"); }
+			if(state.equals("right")) { spr_master = atlas_hairs.createSprite(hair + "right"); }		
 		}
 		
 		return spr_master;
 	}
+	
+	
+	
 	
 }

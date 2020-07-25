@@ -1,5 +1,5 @@
 interfaceCreate.png
-size: 1000, 1823
+size: 1000, 1959
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -19,14 +19,14 @@ barAccess
   index: -1
 barcreatechar
   rotate: false
-  xy: 0, 1409
+  xy: 0, 1545
   size: 890, 414
   orig: 890, 414
   offset: 0, 0
   index: -1
 barMenu
   rotate: false
-  xy: 536, 210
+  xy: 536, 346
   size: 80, 299
   orig: 80, 299
   offset: 0, 0
@@ -73,67 +73,88 @@ deletandopersonagem
   orig: 344, 36
   offset: 0, 0
   index: -1
+innerpad
+  rotate: false
+  xy: 483, 106
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
 logo
   rotate: false
-  xy: 0, 210
+  xy: 0, 346
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 luzclara
   rotate: false
-  xy: 200, 210
+  xy: 368, 346
   size: 168, 210
   orig: 168, 210
   offset: 0, 0
   index: -1
 luzescura
   rotate: false
-  xy: 368, 210
+  xy: 200, 346
   size: 168, 210
   orig: 168, 210
   offset: 0, 0
   index: -1
 menuConfig
   rotate: false
-  xy: 0, 509
+  xy: 0, 645
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuItens
   rotate: false
-  xy: 500, 509
+  xy: 500, 1245
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuPet
   rotate: false
-  xy: 500, 1109
+  xy: 500, 945
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuSkills
   rotate: false
-  xy: 0, 809
+  xy: 500, 645
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuSocial
   rotate: false
-  xy: 0, 1109
+  xy: 0, 945
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuStatus
   rotate: false
-  xy: 500, 809
+  xy: 0, 1245
   size: 500, 300
   orig: 500, 300
+  offset: 0, 0
+  index: -1
+metro
+  rotate: false
+  xy: 241, 206
+  size: 581, 122
+  orig: 581, 122
+  offset: 0, 0
+  index: -1
+outerpad
+  rotate: false
+  xy: 822, 206
+  size: 140, 140
+  orig: 140, 140
   offset: 0, 0
   index: -1
 selecionepersonagem
@@ -159,14 +180,14 @@ tagParty
   index: -1
 tagPlayer
   rotate: false
-  xy: 683, 106
+  xy: 0, 206
   size: 241, 104
   orig: 241, 104
   offset: 0, 0
   index: -1
 tagStart
   rotate: false
-  xy: 483, 106
+  xy: 583, 106
   size: 200, 100
   orig: 200, 100
   offset: 0, 0
