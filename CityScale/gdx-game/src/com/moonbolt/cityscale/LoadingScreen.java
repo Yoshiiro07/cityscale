@@ -44,6 +44,11 @@ public class LoadingScreen implements Screen{
 			game.setScreen(metroScreen);
 		}
 		
+		if(tipo.equals("Streets305")) {
+			Streets305 streets305Screen = new Streets305(game,gameControl, config, platform);
+			game.setScreen(streets305Screen);
+		}
+		
 	}
 	
 	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkAlt){

@@ -25,6 +25,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private GameControl gameControl;
 	private String[] config;
 	private String platform;
+	private String networkState;
 	
 	//Player
 	private Player activePlayer;
@@ -53,6 +54,11 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private float posTrainX = -60;
 	private float posTrainY = 76;
 	
+	//Primitives
+	private float posTouchX = 0;
+	private float posTouchY = 0;
+	private boolean changeScreen = false;
+	
 	//fonts
 	private BitmapFont font_master;
 	
@@ -64,6 +70,10 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
     
     //Controller
     private final IntSet downKeys = new IntSet(20);
+    
+    //teste
+  	private Sprite spr_teste;
+  	private Texture tex_teste;
 	
 	public MetroStation(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt) {
 		this.game = gameAlt;
@@ -113,6 +123,12 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    
 		game.batch.begin();
 		
+		//Coords Player
+		activePlayer = gameControl.GetPlayer();
+		playerPosX = Float.parseFloat(activePlayer.coordX_A);
+		playerPosY = Float.parseFloat(activePlayer.coordY_A);
+	    
+		
 		//Background
 		spr_Background.draw(game.batch);
 		
@@ -122,14 +138,13 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		spr_metro.draw(game.batch);
 				
 		//Player Character
-		spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,framePlayer,state,walk);
-		spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state);
-		
-		spr_playerCharacter.setSize(10, 10);
-		spr_playerHair.setSize(10, 10);
-				
+		spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false);
+		spr_playerCharacter.setSize(22, 34);
 		spr_playerCharacter.setPosition(playerPosX, playerPosY);
-		spr_playerHair.setPosition(playerPosX, playerPosY);
+		spr_playerCharacter.draw(game.batch);
+		
+		spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state);
+		spr_playerHair.draw(game.batch);
 			
 		//UI Elements
 		spr_playerTag = gameControl.LoadInterface("playerTag");
@@ -146,9 +161,30 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		font_master.draw(game.batch, activePlayer.mp_A, 9f,90.5f);
 		font_master.draw(game.batch, activePlayer.level_A, 9f,90.5f);
 		font_master.draw(game.batch, activePlayer.exp_A, 18.8f,94.7f);
-					
-		game.batch.end();
+		font_master.draw(game.batch, "X:" + playerPosX, 1.5f,78.7f);
+		font_master.draw(game.batch, "Y:" + playerPosY, 10.5f,78.7f);
 		
+		//Test
+		font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
+		
+		
+		CheckColide();
+		
+		//Change Screen
+		if(changeScreen){		
+		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
+		    game.Switch("Streets305");			
+		}
+		
+		game.batch.end();	
+	}
+	
+	private void CheckColide() {
+		if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
+			changeScreen = true;
+		}
 	}
 	
 	private void MoveTrain() {
@@ -163,8 +199,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 
 	@Override
 	public void canceled() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
@@ -176,22 +211,22 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
         }
         if(downKeys.size == 1) {
         	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-        		state = "Left";
+        		state = "left";
         		walk = "walk";    		
             }
     		
     		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
-    			state = "Back";
+    			state = "back";
     			walk = "walk";
             }
     		
     		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
-    			state = "Front";
+    			state = "front";
     			walk = "walk";	
             }
     		
     		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-    			state = "Right";
+    			state = "right";
     			walk = "walk";	   			
             } 		
         }
@@ -214,13 +249,13 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 
 	@Override
 	public boolean touchDown(int p1, int p2, int pointer, int button) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 		movement = true;	
-		if(coordsTouch.x >= 50) {
-			return false;
-		}
+		
+		
+		posTouchX = coordsTouch.x;
+		posTouchY = coordsTouch.y;
 		
 		return false;
 	}
@@ -237,22 +272,22 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 				
 			if(coordsTouch.x > (cameraCoordsX - 58) && coordsTouch.x < (cameraCoordsX - 39) && coordsTouch.y > (cameraCoordsY -37) && coordsTouch.y < (cameraCoordsY -13)) {
-				state = "Right";
+				state = "right";
 				walk = "walk";		
 			}
 			
 			if(coordsTouch.x > (cameraCoordsX - 77) && coordsTouch.x < (cameraCoordsX - 58) && coordsTouch.y > (cameraCoordsY -37) && coordsTouch.y < (cameraCoordsY -13)) {
-				state = "Left";
+				state = "left";
 				walk = "walk";		
 			}
 			
 			if(coordsTouch.x > (cameraCoordsX - 68) && coordsTouch.x < (cameraCoordsX - 49) && coordsTouch.y > (cameraCoordsY -45) && coordsTouch.y < (cameraCoordsY -26)) {
-				state = "Front";
+				state = "front";
 				walk = "walk";
 			}
 			
 			if(coordsTouch.x > (cameraCoordsX - 68) && coordsTouch.x < (cameraCoordsX - 49) && coordsTouch.y > (cameraCoordsY -26) && coordsTouch.y < (cameraCoordsY -7)) {
-				state = "Back";
+				state = "back";
 				walk = "walk";
 			}
 		}
@@ -263,49 +298,49 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    //For multiple key presses
 	    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
-	        	state = "Left-Front";
+	        	state = "left-front";
         		walk = "walk";  	
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
-	        	state = "Left-Back";
+	        	state = "left-back";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 	    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
-	    		state = "Right-Back";
+	    		state = "right-back";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 	    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
-	    		state = "Right-Front";
+	    		state = "right-front";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
-	        	state = "Back-Right";
+	        	state = "back-right";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
-	        	state = "Back-Left";
+	        	state = "back-left";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
-	        	state = "Front-Right";
+	        	state = "front-right";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
-	        	state = "Front-Left";
+	        	state = "front-left";
 	        	walk = "walk";		
 	        }
 	    }
