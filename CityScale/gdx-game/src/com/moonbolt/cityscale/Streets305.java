@@ -45,6 +45,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_playerHair;
 		private Sprite spr_playerTag;
 		private Sprite spr_playerHairTag;
+		private Sprite spr_Minibar;
+		private Sprite spr_Hotbar;
 		private Sprite spr_BackController;
 		private Sprite spr_Controller;
 		
@@ -103,6 +105,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			Gdx.gl.glClearColor(1,1,1,1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			
+			//Regen Timer
+			gameControl.RegenerateHPMP();
+			//Save Data
+			gameControl.UpdateDataSave(numPlayerActive);
+			
 			//Coords Player
 			activePlayer = gameControl.GetPlayer();
 			playerPosX = Float.parseFloat(activePlayer.coordX_A);
@@ -144,11 +151,23 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_playerHair.draw(game.batch);
 				
 			//UI Elements
-			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag");
+			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","");
 			spr_playerTag.draw(game.batch);
 			
-			spr_playerHairTag = gameControl.LoadPlayerTagHair(activePlayer.hair_A);
+			spr_playerHairTag = gameControl.LoadInterfaceGamePlay("hairTag",activePlayer.hair_A);
 			spr_playerHairTag.draw(game.batch);
+			
+			spr_Minibar = gameControl.LoadInterfaceGamePlay("minibar", "");
+			spr_Minibar.draw(game.batch);
+			
+			spr_Hotbar = gameControl.LoadInterfaceGamePlay("hotbar", "");
+			spr_Hotbar.draw(game.batch);
+			
+			spr_BackController = gameControl.LoadInterfaceGamePlay("outerpad", "");
+			spr_BackController.draw(game.batch);
+			
+			spr_Controller = gameControl.LoadInterfaceGamePlay("innerpad", "");
+			spr_Controller.draw(game.batch);
 			
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.10f,0.12f);
@@ -156,12 +175,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 60.5f,cameraCoordsY + 101f);
 			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 63f,cameraCoordsY + 97f);
 			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 63f,cameraCoordsY + 91f);
-			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 50f,cameraCoordsY + 97f);
-			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 60.5f,cameraCoordsY + 101f);
+			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 49f,cameraCoordsY + 97f);
+			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 50.5f,cameraCoordsY + 90f);
 			font_master.draw(game.batch, "X:" + playerPosX, cameraCoordsX - 73f, cameraCoordsY + 72.7f);
 			font_master.draw(game.batch, "Y:" + playerPosY, cameraCoordsX - 60f, cameraCoordsY + 72.7f);
 					
-			font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+			//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 			//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 			//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
 			

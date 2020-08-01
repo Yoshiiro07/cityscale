@@ -129,6 +129,12 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		playerPosY = Float.parseFloat(activePlayer.coordY_A);
 	    
 		
+		//Regen Timer
+		gameControl.RegenerateHPMP();
+		//Save Data
+		gameControl.UpdateDataSave(numPlayerActive);
+		
+		
 		//Background
 		spr_Background.draw(game.batch);
 		

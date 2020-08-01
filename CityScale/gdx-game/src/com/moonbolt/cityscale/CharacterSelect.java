@@ -464,7 +464,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		//Change Screen
 		if(changeScreen){		
 		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-		    game.Switch("MetroStation");			
+		    if(charnum == 1) { game.Switch(activeplayer.map_1); }
+		    if(charnum == 2) { game.Switch(activeplayer.map_2); }
+		    if(charnum == 3) { game.Switch(activeplayer.map_3); }			
 		}
 		
 	

@@ -23,13 +23,22 @@ public class GameControl {
 	private FileHandle file;
 	private Random randnumber;
 	private Player playerInfo;
+	
+	//Primitive Variable
 	private int activeCharNumber;
 	private int countFrameMov = 1;
 	private int frame = 1;
 	private float playerPosX;
 	private float playerPosY;
+	private int recoverytimer = 700;
+	private int savetimer = 800;
 	
+	private int playerHP;
+	private int playerMP;
+	private int playerHPMax;
+	private int playerMPMax;
 	
+
 	//Camera Variables
 	private float cameraCoordsX;
 	private float cameraCoordsY;	
@@ -252,6 +261,111 @@ public class GameControl {
 	public void SaveData(Player playerInfo) {		
 		file = Gdx.files.local("SaveData/SvDT.json");
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(playerInfo)),false);
+	}
+	
+	public void UpdateDataSave(int num) {
+		savetimer--;
+		if(savetimer <= 0) {
+		
+			if(num == 1) {
+				playerInfo.name_1 = playerInfo.name_A;
+				playerInfo.hair_1 = playerInfo.hair_A;
+				playerInfo.set_1 = playerInfo.set_A;
+				playerInfo.sex_1 = playerInfo.sex_A;
+				playerInfo.job_1 = playerInfo.job_A;
+				playerInfo.weapon_1 = playerInfo.weapon_A;
+				playerInfo.level_1 = playerInfo.level_A;
+				playerInfo.stats_1 = playerInfo.stats_A;
+				playerInfo.sex_1 = playerInfo.sex_A; 
+				playerInfo.hat_1 = playerInfo.hat_A;
+				playerInfo.exp_1 = playerInfo.exp_A;
+				playerInfo.hp_1 = playerInfo.hp_A;
+				playerInfo.mp_1 = playerInfo.mp_A;
+				playerInfo.maxhp_1 = playerInfo.maxhp_A;
+				playerInfo.maxmp_1 = playerInfo.maxmp_A;
+				playerInfo.money_1 = playerInfo.money_A;
+				playerInfo.cooldown_1 = playerInfo.cooldown_A;
+				playerInfo.statusPoint_1 = playerInfo.statusPoint_A;
+				playerInfo.skillPoint_1 = playerInfo.skillPoint_A;
+				playerInfo.skills_1 = playerInfo.skills_A;
+				playerInfo.coordX_1 = playerInfo.coordX_A;
+				playerInfo.coordY_1 = playerInfo.coordY_A;
+				playerInfo.inBattle_1 = playerInfo.inBattle_A;
+				playerInfo.target_1 = playerInfo.target_A;
+				playerInfo.itens_1 = playerInfo.itens_A;
+				playerInfo.map_1 = playerInfo.map_A;
+				playerInfo.party_1 = playerInfo.party_A;
+				playerInfo.inCasting_1 = playerInfo.party_A;
+				playerInfo.quest_1 = playerInfo.quest_A;
+				playerInfo.state_1 = playerInfo.state_A;
+			}
+			if(num == 2) {
+				playerInfo.name_2 = playerInfo.name_A;
+				playerInfo.hair_2 = playerInfo.hair_A;
+				playerInfo.set_2 = playerInfo.set_A;
+				playerInfo.sex_2 = playerInfo.sex_A;
+				playerInfo.job_2 = playerInfo.job_A;
+				playerInfo.weapon_2 = playerInfo.weapon_A;
+				playerInfo.level_2 = playerInfo.level_A;
+				playerInfo.stats_2 = playerInfo.stats_A;
+				playerInfo.sex_2 = playerInfo.sex_A; 
+				playerInfo.hat_2 = playerInfo.hat_A;
+				playerInfo.exp_2 = playerInfo.exp_A;
+				playerInfo.hp_2 = playerInfo.hp_A;
+				playerInfo.mp_2 = playerInfo.mp_A;
+				playerInfo.maxhp_2 = playerInfo.maxhp_A;
+				playerInfo.maxmp_2 = playerInfo.maxmp_A;
+				playerInfo.money_2 = playerInfo.money_A;
+				playerInfo.cooldown_2 = playerInfo.cooldown_A;
+				playerInfo.statusPoint_2 = playerInfo.statusPoint_A;
+				playerInfo.skillPoint_2 = playerInfo.skillPoint_A;
+				playerInfo.skills_2 = playerInfo.skills_A;
+				playerInfo.coordX_2 = playerInfo.coordX_A;
+				playerInfo.coordY_2 = playerInfo.coordY_A;
+				playerInfo.inBattle_2 = playerInfo.inBattle_A;
+				playerInfo.target_2 = playerInfo.target_A;
+				playerInfo.itens_2 = playerInfo.itens_A;
+				playerInfo.map_2 = playerInfo.map_A;
+				playerInfo.party_2 = playerInfo.party_A;
+				playerInfo.inCasting_2 = playerInfo.party_A;
+				playerInfo.quest_2 = playerInfo.quest_A;
+				playerInfo.state_2 = playerInfo.state_A;
+			}
+			if(num == 3) {
+				playerInfo.name_3 = playerInfo.name_A;
+				playerInfo.hair_3 = playerInfo.hair_A;
+				playerInfo.set_3 = playerInfo.set_A;
+				playerInfo.sex_3 = playerInfo.sex_A;
+				playerInfo.job_3 = playerInfo.job_A;
+				playerInfo.weapon_3 = playerInfo.weapon_A;
+				playerInfo.level_3 = playerInfo.level_A;
+				playerInfo.stats_3 = playerInfo.stats_A;
+				playerInfo.sex_3 = playerInfo.sex_A; 
+				playerInfo.hat_3 = playerInfo.hat_A;
+				playerInfo.exp_3 = playerInfo.exp_A;
+				playerInfo.hp_3 = playerInfo.hp_A;
+				playerInfo.mp_3 = playerInfo.mp_A;
+				playerInfo.maxhp_3 = playerInfo.maxhp_A;
+				playerInfo.maxmp_3 = playerInfo.maxmp_A;
+				playerInfo.money_3 = playerInfo.money_A;
+				playerInfo.cooldown_3 = playerInfo.cooldown_A;
+				playerInfo.statusPoint_3 = playerInfo.statusPoint_A;
+				playerInfo.skillPoint_3 = playerInfo.skillPoint_A;
+				playerInfo.skills_3 = playerInfo.skills_A;
+				playerInfo.coordX_3 = playerInfo.coordX_A;
+				playerInfo.coordY_3 = playerInfo.coordY_A;
+				playerInfo.inBattle_3 = playerInfo.inBattle_A;
+				playerInfo.target_3 = playerInfo.target_A;
+				playerInfo.itens_3 = playerInfo.itens_A;
+				playerInfo.map_3 = playerInfo.map_A;
+				playerInfo.party_3 = playerInfo.party_A;
+				playerInfo.inCasting_3 = playerInfo.party_A;
+				playerInfo.quest_3 = playerInfo.quest_A;
+				playerInfo.state_3 = playerInfo.state_A;
+			}
+			SaveData(playerInfo);
+			savetimer = 800;
+		}
 	}
 	
 	public Player SetActivePlayerData(int num) {
@@ -507,14 +621,55 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	public Sprite LoadInterfaceGamePlay(String type) {
+	public Sprite LoadInterfaceGamePlay(String type, String value) {
 		//Player Tag
 		if(type.equals("playerTag")) {
 			spr_master = atlas_InterfaceCreate.createSprite("tagPlayer");
 			spr_master.setSize(35,30);
 			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			return spr_master;
 		}
 		
+		//Hair Tag
+		if(type.equals("hairTag")) {
+			spr_master = atlas_hairs.createSprite(value);
+			spr_master.setSize(9, 13);
+			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 88);
+			return spr_master;
+		}
+		
+		//Mini Bar
+		if(type.equals("minibar")) {
+			spr_master = atlas_InterfaceCreate.createSprite("minibar");
+			spr_master.setSize(35,30);
+			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			return spr_master;
+		}
+		
+		//Hot Bar
+		if(type.equals("hotbar")) {
+			spr_master = atlas_InterfaceCreate.createSprite("hotbar");
+			spr_master.setSize(35,30);
+			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			return spr_master;
+		}
+		
+		//Outer Pad
+		if(type.equals("outerpad")) {
+			spr_master = atlas_InterfaceCreate.createSprite("outerpad");
+			spr_master.setSize(35,30);
+			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			return spr_master;
+		}
+				
+		//innerpad
+		if(type.equals("innerpad")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(35,30);
+			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			return spr_master;
+		}
+
 		
 		return spr_master;
 	}
@@ -546,7 +701,29 @@ public class GameControl {
 	
 	
 	
-	// [D] Character Code	
+	// [D] Character Code
+	public void RegenerateHPMP() {
+		recoverytimer--;
+		if(recoverytimer <= 0) {
+			playerHP = Integer.parseInt(playerInfo.hp_A);
+			playerMP = Integer.parseInt(playerInfo.mp_A);
+			
+			playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+			playerMPMax = Integer.parseInt(playerInfo.maxmp_A);
+			
+			playerHP = playerHP + 20;
+			playerMP = playerMP + 20;
+			
+			if(playerHP >= playerHPMax) { playerHP = playerHPMax; }
+			if(playerMP >= playerMPMax) { playerMP = playerMPMax; }
+			
+			playerInfo.hp_A = String.valueOf(playerHP);
+			playerInfo.mp_A = String.valueOf(playerMP);
+			
+			recoverytimer = 700;
+		}
+	}
+	
 	public Sprite MovPlayerCharacter(String set,String sex, String walk, String state, boolean menu) {
 		
 		if(!menu) {
