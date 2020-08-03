@@ -34,12 +34,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private float playerPosX;
 		private float playerPosY;
 		
+		private float testeX;
+		private float testeY;
+		
 		//Sprites
 		private Sprite spr_Background;
 		private Texture tex_Background;
-		
-		private Sprite spr_metro;
-		private Texture tex_metro;
 		
 		private Sprite spr_playerCharacter;
 		private Sprite spr_playerHair;
@@ -50,10 +50,20 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_BackController;
 		private Sprite spr_Controller;
 		
+		private Sprite spr_Menubar;
+		private Sprite spr_Status;
+		private Sprite spr_Itens;
+		private Sprite spr_Skills;
+		private Sprite spr_Pet;
+		private Sprite spr_Social;
+		private Sprite spr_Config;
+		
+		
 		//Primitives
 		private float posTouchX = 0;
 		private float posTouchY = 0;
 		private boolean changeScreen = false;
+		private String gameState = "Main";
 		
 		//fonts
 		private BitmapFont font_master;
@@ -63,6 +73,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 	    private Viewport viewport;
 	    private float cameraCoordsX = 0;
 	    private float cameraCoordsY = 0;
+	    
+	    //Teste Dot
+	    private Sprite spr_testeDot;
+	    private Texture tex_testeDot;
 	    
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);
@@ -96,6 +110,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			tex_Background = new Texture(Gdx.files.internal("data/maps/streets305.png"));
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
+			
+			
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+			spr_testeDot = new Sprite(tex_testeDot);
+			spr_Background.setSize(1, 1);
 		}
 		
 		
@@ -147,26 +166,26 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_playerCharacter.setPosition(playerPosX, playerPosY);
 			spr_playerCharacter.draw(game.batch);
 			
-			spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state);
+			spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state, "Main");
 			spr_playerHair.draw(game.batch);
 				
 			//UI Elements
-			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","");
+			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","","");
 			spr_playerTag.draw(game.batch);
 			
-			spr_playerHairTag = gameControl.LoadInterfaceGamePlay("hairTag",activePlayer.hair_A);
+			spr_playerHairTag = gameControl.LoadInterfaceGamePlay("hairTag",activePlayer.hair_A,"");
 			spr_playerHairTag.draw(game.batch);
 			
-			spr_Minibar = gameControl.LoadInterfaceGamePlay("minibar", "");
+			spr_Minibar = gameControl.LoadInterfaceGamePlay("minibar", "","");
 			spr_Minibar.draw(game.batch);
 			
-			spr_Hotbar = gameControl.LoadInterfaceGamePlay("hotbar", "");
+			spr_Hotbar = gameControl.LoadInterfaceGamePlay("hotbar", "","");
 			spr_Hotbar.draw(game.batch);
 			
-			spr_BackController = gameControl.LoadInterfaceGamePlay("outerpad", "");
+			spr_BackController = gameControl.LoadInterfaceGamePlay("outerpad", "","");
 			spr_BackController.draw(game.batch);
 			
-			spr_Controller = gameControl.LoadInterfaceGamePlay("innerpad", "");
+			spr_Controller = gameControl.LoadInterfaceGamePlay("innerpad", walk,state);
 			spr_Controller.draw(game.batch);
 			
 			font_master.setColor(Color.WHITE);
@@ -179,10 +198,43 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 50.5f,cameraCoordsY + 90f);
 			font_master.draw(game.batch, "X:" + playerPosX, cameraCoordsX - 73f, cameraCoordsY + 72.7f);
 			font_master.draw(game.batch, "Y:" + playerPosY, cameraCoordsX - 60f, cameraCoordsY + 72.7f);
-					
-			//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+			
+			
+			if(gameState.equals("Menu")) {
+				spr_Menubar = gameControl.LoadInterfaceGamePlay("barMenu", "", "");
+				spr_Menubar.draw(game.batch);
+			}
+			
+			if(gameState.equals("Menu-Status")) {
+				spr_Status = gameControl.LoadInterfaceGamePlay("menuStatus", "", "");
+				spr_Status.draw(game.batch);
+				
+				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false);
+				spr_playerCharacter.setSize(40, 60);
+				spr_playerCharacter.setPosition(cameraCoordsX - 51, cameraCoordsY - 10);
+				spr_playerCharacter.draw(game.batch);
+				
+				spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,"stop", "Menu-Status");
+				spr_playerHair.setSize(12,19);
+				spr_playerHair.setPosition(cameraCoordsX - 37.8f, cameraCoordsY + 30.2f);
+				spr_playerHair.draw(game.batch);
+			}
+			
+			if(gameState.equals("Menu-Itens")) {
+				spr_Status = gameControl.LoadInterfaceGamePlay("menuItens", "", "");
+				spr_Status.draw(game.batch);
+			}
+			
+			
+			spr_testeDot.setPosition(cameraCoordsX + 65, cameraCoordsY + 61);
+			spr_testeDot.draw(game.batch);
+			
+			spr_testeDot.setPosition(cameraCoordsX + 74, cameraCoordsY + 51);
+			spr_testeDot.draw(game.batch);
+			//font_master.draw(game.batch, "A",testeX, testeY);
 			//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 			//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
+			
 			
 			game.batch.end();	
 		}
@@ -200,32 +252,35 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 
 		@Override
 		public boolean keyDown(int keycode) {
-			movement = true;
-			downKeys.add(keycode);
-	        if (downKeys.size >= 2){
-	            onMultipleKeysDown(keycode);
-	        }
-	        if(downKeys.size == 1) {
-	        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-	        		state = "left";
-	        		walk = "walk";    		
-	            }
-	    		
-	    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
-	    			state = "back";
-	    			walk = "walk";
-	            }
-	    		
-	    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
-	    			state = "front";
-	    			walk = "walk";	
-	            }
-	    		
-	    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-	    			state = "right";
-	    			walk = "walk";	   			
-	            } 		
-	        }
+			
+			if(gameState.equals("Main")) {		
+				movement = true;
+				downKeys.add(keycode);
+		        if (downKeys.size >= 2){
+		            onMultipleKeysDown(keycode);
+		        }
+		        if(downKeys.size == 1) {
+		        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+		        		state = "left";
+		        		walk = "walk";    		
+		            }
+		    		
+		    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
+		    			state = "back";
+		    			walk = "walk";
+		            }
+		    		
+		    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
+		    			state = "front";
+		    			walk = "walk";	
+		            }
+		    		
+		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+		    			state = "right";
+		    			walk = "walk";	   			
+		            } 		
+		        }      
+			}
 			return false;
 		}
 
@@ -248,16 +303,39 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			// TODO Auto-generated method stub
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
-			movement = true;
-			
-			posTouchX = coordsTouch.x;
-			posTouchY = coordsTouch.y;
-			
-			
-			if(coordsTouch.x >= 50) {
-				return false;
+			if(gameState.equals("Main")) {
+				movement = true;
+				
+				//Menu button
+				if(coordsTouch.x >= (cameraCoordsX - 75) && coordsTouch.x <= (cameraCoordsX - 66) && coordsTouch.y >= (cameraCoordsY + 75) && coordsTouch.y <= (cameraCoordsY + 83)) {
+					gameState = "Menu";
+					return false;
+				}				
 			}
 			
+			if(gameState.equals("Menu")) {
+				movement = false;
+				
+				//Status Menu button
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY + 62) && coordsTouch.y <= (cameraCoordsY + 74)) {
+					gameState = "Menu-Status";
+					return false;
+				}
+				
+				//Item Menu button
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY + 51) && coordsTouch.y <= (cameraCoordsY + 61)) {
+					gameState = "Menu-Itens";
+					return false;
+				}
+			}
+			
+			if(gameState.equals("Menu-Status")) {
+				
+			}
+					
+			posTouchX = coordsTouch.x;
+			posTouchY = coordsTouch.y;
+				
 			return false;
 		}
 

@@ -100,6 +100,18 @@ public class GameControl {
 		return activeCharNumber;
 	}
 	
+	public void ScreenChange(String map) {
+		if(map.equals("MetroStation")) {
+			
+		}
+		
+		if(map.equals("Streets305Entrance")) {
+			playerInfo.map_A = "Streets305";
+			//playerInfo.coordX_A = "";
+			//playerInfo.coordY_A = "";
+		}
+	}
+	
 	public void CreateNewData(){
 		try {
 			//Variaveis
@@ -621,7 +633,7 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	public Sprite LoadInterfaceGamePlay(String type, String value) {
+	public Sprite LoadInterfaceGamePlay(String type, String value, String extra) {
 		//Player Tag
 		if(type.equals("playerTag")) {
 			spr_master = atlas_InterfaceCreate.createSprite("tagPlayer");
@@ -641,32 +653,136 @@ public class GameControl {
 		//Mini Bar
 		if(type.equals("minibar")) {
 			spr_master = atlas_InterfaceCreate.createSprite("minibar");
-			spr_master.setSize(35,30);
-			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			spr_master.setSize(18,15);
+			spr_master.setPosition(cameraCoordsX + 57,cameraCoordsY - 30);
 			return spr_master;
 		}
 		
 		//Hot Bar
 		if(type.equals("hotbar")) {
 			spr_master = atlas_InterfaceCreate.createSprite("hotbar");
-			spr_master.setSize(35,30);
-			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			spr_master.setSize(45,15);
+			spr_master.setPosition(cameraCoordsX + 30,cameraCoordsY - 45);
 			return spr_master;
 		}
 		
 		//Outer Pad
 		if(type.equals("outerpad")) {
 			spr_master = atlas_InterfaceCreate.createSprite("outerpad");
-			spr_master.setSize(35,30);
-			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			spr_master.setSize(20,30);
+			spr_master.setPosition(cameraCoordsX - 60,cameraCoordsY - 30);
 			return spr_master;
 		}
-				
+		
+		//Menu Bar
+		if(type.equals("barMenu")) {
+			spr_master = atlas_InterfaceCreate.createSprite("barMenu");
+			spr_master.setSize(10,80);
+			spr_master.setPosition(cameraCoordsX + 65,cameraCoordsY - 5);
+			return spr_master;
+		}
+		
+		//Menu Status
+		if(type.equals("menuStatus")) {
+			spr_master = atlas_InterfaceCreate.createSprite("menuStatus");
+			spr_master.setSize(100,100);
+			spr_master.setPosition(cameraCoordsX - 50,cameraCoordsY - 15);
+			return spr_master;
+		}
+		
+		//Menu Itens
+		if(type.equals("menuItens")) {
+			spr_master = atlas_InterfaceCreate.createSprite("menuItens");
+			spr_master.setSize(100,100);
+			spr_master.setPosition(cameraCoordsX - 50,cameraCoordsY - 15);
+			return spr_master;
+		}
+		
 		//innerpad
-		if(type.equals("innerpad")) {
+		if(type.equals("innerpad") && value.equals("stop")) {
 			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
-			spr_master.setSize(35,30);
-			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 56,cameraCoordsY - 26);
+			return spr_master;
+		}
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("right")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 51,cameraCoordsY - 26);
+			return spr_master;
+		}		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("left")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 61,cameraCoordsY - 26);
+			return spr_master;
+		}
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("front")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 56,cameraCoordsY - 31);
+			return spr_master;
+		}
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("back")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 56,cameraCoordsY - 19);
+			return spr_master;
+		}
+		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("right-front")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 51,cameraCoordsY - 31);
+			return spr_master;
+		}
+		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("left-front")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 61,cameraCoordsY - 31);
+			return spr_master;
+		}
+		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("front-right")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 51,cameraCoordsY - 31);
+			return spr_master;
+		}
+		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("front-left")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 61,cameraCoordsY - 31);
+			return spr_master;
+		}
+		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("right-back")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 51,cameraCoordsY - 19);
+			return spr_master;
+		}
+		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("left-back")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 61,cameraCoordsY - 19);
+			return spr_master;
+		}
+		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("back-right")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 51,cameraCoordsY - 19);
+			return spr_master;
+		}
+		
+		if(type.equals("innerpad") && value.equals("walk") && extra.equals("back-left")) {
+			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
+			spr_master.setSize(12,22);
+			spr_master.setPosition(cameraCoordsX - 61,cameraCoordsY - 19);
 			return spr_master;
 		}
 
@@ -903,11 +1019,20 @@ public class GameControl {
 				}				
 			}
 		}
-			
-		return spr_master;
+		
+		
+		return spr_master;	
+		
 	}
 	
-	public Sprite MovPlayerHair(String hair,String sex, String state) {
+	public Sprite MovPlayerHair(String hair,String sex, String state, String gameState) {
+		
+		if(gameState.equals("Menu-Status")) {
+			if(sex.equals("M")) { spr_master = atlas_hairs.createSprite(hair); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }
+			
+			if(sex.equals("F")) {}
+		}
+		
 		
 		if(sex.equals("M")) {		
 			if((state.equals("front") || state.equals("front-left") || state.equals("front-right"))  && frame == 1) { spr_master = atlas_hairs.createSprite(hair); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }

@@ -127,7 +127,6 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		activePlayer = gameControl.GetPlayer();
 		playerPosX = Float.parseFloat(activePlayer.coordX_A);
 		playerPosY = Float.parseFloat(activePlayer.coordY_A);
-	    
 		
 		//Regen Timer
 		gameControl.RegenerateHPMP();
@@ -146,32 +145,32 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		//Player Character
 		spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false);
 		spr_playerCharacter.setSize(22, 34);
-		spr_playerCharacter.setPosition(playerPosX, playerPosY);
+		spr_playerCharacter.setPosition(playerPosX,playerPosY);
 		spr_playerCharacter.draw(game.batch);
 		
-		spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state);
+		spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state, "Main");
 		spr_playerHair.draw(game.batch);
-			
+		
 		//UI Elements
-		spr_playerTag = gameControl.LoadInterface("playerTag");
-		spr_playerTag.draw(game.batch);
+		//spr_playerTag = gameControl.LoadInterface("playerTag");
+		//spr_playerTag.draw(game.batch);
 		
-		spr_playerHairTag = gameControl.LoadPlayerTagHair(activePlayer.hair_A);
-		spr_playerHairTag.draw(game.batch);
+		//spr_playerHairTag = gameControl.LoadPlayerTagHair(activePlayer.hair_A);
+		//spr_playerHairTag.draw(game.batch);
 		
-		font_master.setColor(Color.WHITE);
-		font_master.getData().setScale(0.07f,0.08f);
-		font_master.setUseIntegerPositions(false);	
-		font_master.draw(game.batch, activePlayer.name_A, 10.3f,97.5f);
-		font_master.draw(game.batch, activePlayer.hp_A, 9f,94.5f);
-		font_master.draw(game.batch, activePlayer.mp_A, 9f,90.5f);
-		font_master.draw(game.batch, activePlayer.level_A, 9f,90.5f);
-		font_master.draw(game.batch, activePlayer.exp_A, 18.8f,94.7f);
-		font_master.draw(game.batch, "X:" + playerPosX, 1.5f,78.7f);
-		font_master.draw(game.batch, "Y:" + playerPosY, 10.5f,78.7f);
+		//font_master.setColor(Color.WHITE);
+		//font_master.getData().setScale(0.07f,0.08f);
+		//font_master.setUseIntegerPositions(false);	
+		//font_master.draw(game.batch, activePlayer.name_A, 10.3f,97.5f);
+		//font_master.draw(game.batch, activePlayer.hp_A, 9f,94.5f);
+		//font_master.draw(game.batch, activePlayer.mp_A, 9f,90.5f);
+		//font_master.draw(game.batch, activePlayer.level_A, 9f,90.5f);
+		//font_master.draw(game.batch, activePlayer.exp_A, 18.8f,94.7f);
+		//font_master.draw(game.batch, "X:" + playerPosX, 1.5f,78.7f);
+		//font_master.draw(game.batch, "Y:" + playerPosY, 10.5f,78.7f);
 		
 		//Test
-		font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
 		
@@ -179,7 +178,9 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		CheckColide();
 		
 		//Change Screen
-		if(changeScreen){		
+		if(changeScreen){	
+			
+			gameControl.UpdateDataSave(numPlayerActive);
 		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
 		    game.Switch("Streets305");			
 		}
