@@ -165,7 +165,7 @@ public class GameControl {
 			playerInfo.job_1 = "Novice";
 			playerInfo.weapon_1 = "basic_knife";
 			playerInfo.level_1 = "1";
-			playerInfo.stats_1 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
+			playerInfo.stats_1 = "str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1";
 			if(sex.equals("M")) { playerInfo.set_1 = "basicset_m"; } else { playerInfo.set_1 = "basicset_f"; }
 			playerInfo.hair_1 = hair;
 			playerInfo.hat_1 = "none";
@@ -693,6 +693,38 @@ public class GameControl {
 		//Menu Itens
 		if(type.equals("menuItens")) {
 			spr_master = atlas_InterfaceCreate.createSprite("menuItens");
+			spr_master.setSize(100,100);
+			spr_master.setPosition(cameraCoordsX - 50,cameraCoordsY - 15);
+			return spr_master;
+		}
+		
+		//Menu Skills
+		if(type.equals("menuSkills")) {
+			spr_master = atlas_InterfaceCreate.createSprite("menuSkills");
+			spr_master.setSize(100,100);
+			spr_master.setPosition(cameraCoordsX - 50,cameraCoordsY - 15);
+			return spr_master;
+		}
+		
+		//Menu Social
+		if(type.equals("menuSocial")) {
+			spr_master = atlas_InterfaceCreate.createSprite("menuSocial");
+			spr_master.setSize(100,100);
+			spr_master.setPosition(cameraCoordsX - 50,cameraCoordsY - 15);
+			return spr_master;
+		}
+		
+		//Menu Pet
+		if(type.equals("menuPet")) {
+			spr_master = atlas_InterfaceCreate.createSprite("menuPet");
+			spr_master.setSize(100,100);
+			spr_master.setPosition(cameraCoordsX - 50,cameraCoordsY - 15);
+			return spr_master;
+		}
+		
+		//Menu Pet
+		if(type.equals("menuConfig")) {
+			spr_master = atlas_InterfaceCreate.createSprite("menuConfig");
 			spr_master.setSize(100,100);
 			spr_master.setPosition(cameraCoordsX - 50,cameraCoordsY - 15);
 			return spr_master;
