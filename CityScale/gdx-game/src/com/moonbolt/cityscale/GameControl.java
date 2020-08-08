@@ -105,10 +105,10 @@ public class GameControl {
 			
 		}
 		
-		if(map.equals("Streets305Entrance")) {
+		if(map.equals("Streets305")) {
 			playerInfo.map_A = "Streets305";
-			//playerInfo.coordX_A = "";
-			//playerInfo.coordY_A = "";
+			playerInfo.coordX_A = "182";
+			playerInfo.coordY_A = "132";
 		}
 	}
 	
@@ -118,7 +118,7 @@ public class GameControl {
 			int count;
 			Player player = new Player();
 			
-			//método
+			//mï¿½todo
 			count = 0;	   	    
 			randnumber = new Random();
 			FileHandle file = Gdx.files.local("SaveData/SvDT.json");

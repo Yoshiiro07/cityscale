@@ -33,6 +33,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private int framePlayer = 1;
 	private String state = "front";
 	private String walk = "stop";
+	private String breakWalk = "";
 	private boolean movement;
 	private float playerPosX;
 	private float playerPosY;
@@ -206,63 +207,24 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		
 		spr_Controller.draw(game.batch);
 		
-		
-		
 		//Test
 		font_master.setColor(Color.WHITE);
 		font_master.getData().setScale(0.10f,0.12f);
 		font_master.setUseIntegerPositions(false);	
-		font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+		
+		font_master.draw(game.batch, "X:" + playerPosX, 10, 60);
+		font_master.draw(game.batch, "Y:" + playerPosY, 30, 60);
+		
+		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
 		
 		spr_testeDot.setSize(1, 1);
-		
-		//Back
-		spr_testeDot.setPosition(15.6f, 19);
-		spr_testeDot.draw(game.batch);
-		
-		spr_testeDot.setPosition(18f, 29);
-		spr_testeDot.draw(game.batch);
-		
-		spr_testeDot.setPosition(13f, 29);
-		spr_testeDot.draw(game.batch);
-		
-		//Right
-		spr_testeDot.setPosition(21, 23);
-		spr_testeDot.draw(game.batch);
-		
-		spr_testeDot.setPosition(21, 15);
-		spr_testeDot.draw(game.batch);
-		
-		spr_testeDot.setPosition(15.6f, 19);
-		spr_testeDot.draw(game.batch);
-		
-		//Left
-		spr_testeDot.setPosition(10, 23);
-		spr_testeDot.draw(game.batch);
-		
-		spr_testeDot.setPosition(10, 15);
-		spr_testeDot.draw(game.batch);
-		
-		spr_testeDot.setPosition(15.6f, 19);
-		spr_testeDot.draw(game.batch);
-		
-		//Front
-		spr_testeDot.setPosition(15.6f, 19);
-		spr_testeDot.draw(game.batch);
-		
-		spr_testeDot.setPosition(18f, 9);
-		spr_testeDot.draw(game.batch);
-		
-		spr_testeDot.setPosition(13f, 9);
-		spr_testeDot.draw(game.batch);
-		
 		CheckColide();
 		
 		//Change Screen
 		if(changeScreen){	
-			
+			gameControl.ScreenChange("Streets305");
 			gameControl.UpdateDataSave(numPlayerActive);
 		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
 		    game.Switch("Streets305");			
@@ -275,6 +237,28 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
 			changeScreen = true;
 		}
+		
+		if(playerPosX < -8) {
+			state = "right";
+			breakWalk = "left";
+		}
+		
+		if(playerPosY > 58) {
+			state = "front";
+			breakWalk = "back";
+		}
+		
+		if(playerPosX > 7 && playerPosY > 15.5f) {
+			state = "left";
+			breakWalk = "right";
+		}
+		
+		if(playerPosY < -7) {
+			state = "back";
+			breakWalk = "front";
+		}
+		
+		breakWalk = "";
 	}
 	
 	private void MoveTrain() {
@@ -300,22 +284,22 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
             onMultipleKeysDown(keycode);
         }
         if(downKeys.size == 1) {
-        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+        	if ((keycode == Input.Keys.A || keycode == Input.Keys.LEFT) && !breakWalk.equals("left")) {
         		state = "left";
         		walk = "walk";    		
             }
     		
-    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
+    		if ((keycode == Input.Keys.W || keycode == Input.Keys.UP) && !breakWalk.equals("back")) {
     			state = "back";
     			walk = "walk";
             }
     		
-    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
+    		if ((keycode == Input.Keys.S || keycode == Input.Keys.DOWN) && !breakWalk.equals("front")) {
     			state = "front";
     			walk = "walk";	
             }
     		
-    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+    		if ((keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) && !breakWalk.equals("right")) {
     			state = "right";
     			walk = "walk";	   			
             } 		
@@ -363,6 +347,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				
 			//Right
 			if(coordsTouch.x > 15.6f && coordsTouch.x < 21 && coordsTouch.y > 15 && coordsTouch.y < 23) {
+				if(breakWalk.equals("right")) { return false;}
 				state = "right";
 				walk = "walk";	
 				return false;
@@ -370,6 +355,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 			//Left
 			if(coordsTouch.x > 10 && coordsTouch.x < 15.6f && coordsTouch.y > 15 && coordsTouch.y < 23) {
+				if(breakWalk.equals("left")) { return false;}
 				state = "left";
 				walk = "walk";	
 				return false;
@@ -377,6 +363,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 			//Front
 			if(coordsTouch.x > 13f && coordsTouch.x < 18f && coordsTouch.y > 9 && coordsTouch.y < 19) {
+				if(breakWalk.equals("front")) { return false;}
 				state = "front";
 				walk = "walk";
 				return false;
@@ -384,6 +371,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 			//Back
 			if(coordsTouch.x > 13f && coordsTouch.x < 18f && coordsTouch.y > 19 && coordsTouch.y < 29) {
+				if(breakWalk.equals("back")) { return false;}
 				state = "back";
 				walk = "walk";
 				return false;
@@ -391,6 +379,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 			//right-back
 			if(coordsTouch.x > 15.6f && coordsTouch.x < 21 && coordsTouch.y > 23 && coordsTouch.y < 29.6f) {
+				if(breakWalk.equals("right") || breakWalk.equals("back")) { return false;}
 				state = "right-back";
 				walk = "walk";		
 				return false;
@@ -398,6 +387,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 			//left-back
 			if(coordsTouch.x > 10 && coordsTouch.x < 15.6f && coordsTouch.y > 23 && coordsTouch.y < 29.6f) {
+				if(breakWalk.equals("left") || breakWalk.equals("back")) { return false;}
 				state = "left-back";
 				walk = "walk";	
 				return false;
@@ -405,6 +395,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 			//left-front
 			if(coordsTouch.x > 10.1f && coordsTouch.x < 13.5f && coordsTouch.y > 9.6f && coordsTouch.y < 15.4f) {
+				if(breakWalk.equals("left") || breakWalk.equals("front")) { return false;}
 				state = "left-front";
 				walk = "walk";		
 				return false;
@@ -412,6 +403,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 			//right-front
 			if(coordsTouch.x > 18.2f && coordsTouch.x < 21.3f && coordsTouch.y > 9.6f && coordsTouch.y < 15.4f) {
+				if(breakWalk.equals("right") || breakWalk.equals("front")) { return false;}
 				state = "right-front";
 				walk = "walk";		
 				return false;
@@ -426,48 +418,56 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    //For multiple key presses
 	    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
+	        	if(breakWalk.equals("left") || breakWalk.equals("front")) { return;}
 	        	state = "left-front";
         		walk = "walk";  	
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
+	        	if(breakWalk.equals("left") || breakWalk.equals("back")) { return;}
 	        	state = "left-back";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 	    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
+	    		if(breakWalk.equals("right") || breakWalk.equals("back")) { return;}
 	    		state = "right-back";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 	    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
+	    		if(breakWalk.equals("right") || breakWalk.equals("front")) { return;}
 	    		state = "right-front";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
+	        	if(breakWalk.equals("back") || breakWalk.equals("right")) { return;}
 	        	state = "back-right";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
+	        	if(breakWalk.equals("back") || breakWalk.equals("left")) { return;}
 	        	state = "back-left";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
+	        	if(breakWalk.equals("front") || breakWalk.equals("right")) { return;}
 	        	state = "front-right";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
+	        	if(breakWalk.equals("front") || breakWalk.equals("left")) { return;}
 	        	state = "front-left";
 	        	walk = "walk";		
 	        }

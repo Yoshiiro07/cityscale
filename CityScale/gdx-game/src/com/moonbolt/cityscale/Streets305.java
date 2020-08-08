@@ -30,7 +30,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private int framePlayer = 1;
 		private String state = "front";
 		private String walk = "stop";
-		private String[] status;
+		private String[] stats;
+		private String[] statsPoint;
 		private boolean movement;
 		private float playerPosX;
 		private float playerPosY;
@@ -213,16 +214,29 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				font_master.draw(game.batch, activePlayer.job_A, cameraCoordsX - 37,cameraCoordsY + 62);
 				font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39,cameraCoordsY + 57);
 
-				status = activePlayer.stats_A.split("|");
 				
-				font_master.draw(game.batch, status[0], cameraCoordsX - 10,cameraCoordsY + 54);
-				font_master.draw(game.batch, status[1], cameraCoordsX - 10,cameraCoordsY + 45);
-				font_master.draw(game.batch, status[2], cameraCoordsX - 10,cameraCoordsY + 36);
-				font_master.draw(game.batch, status[3], cameraCoordsX - 10,cameraCoordsY + 26);
-				font_master.draw(game.batch, status[4], cameraCoordsX - 10,cameraCoordsY + 16);
-				font_master.draw(game.batch, status[5], cameraCoordsX - 10,cameraCoordsY + 6);
-				font_master.draw(game.batch, status[6], cameraCoordsX - 10,cameraCoordsY - 5);
-				font_master.draw(game.batch, status[7], cameraCoordsX - 10,cameraCoordsY + 36);
+				//Str
+				stats = activePlayer.stats_A.split("|");
+				statsPoint = stats[0].split(":");
+				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 54);
+				
+				//Vit
+				stats = activePlayer.stats_A.split("|");
+				statsPoint = stats[1].split(":");
+				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 45);
+				
+				//Agi
+				stats = activePlayer.stats_A.split("|");
+				statsPoint = stats[2].split(":");
+				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 36);
+				
+				
+				
+				//font_master.draw(game.batch, status[3], cameraCoordsX - 10,cameraCoordsY + 26);
+				//font_master.draw(game.batch, status[4], cameraCoordsX - 10,cameraCoordsY + 16);
+				//font_master.draw(game.batch, status[5], cameraCoordsX - 10,cameraCoordsY + 6);
+				//font_master.draw(game.batch, status[6], cameraCoordsX - 10,cameraCoordsY - 5);
+				//font_master.draw(game.batch, status[7], cameraCoordsX - 10,cameraCoordsY + 36);
 				
 				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false);
 				spr_playerCharacter.setSize(40, 60);
