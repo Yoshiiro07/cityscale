@@ -1,7 +1,5 @@
 package com.moonbolt.cityscale;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -68,12 +66,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private float posTouchY = 0;
 		private boolean changeScreen = false;
 		private String gameState = "Main";
-		private int count = 0;
-		private String text = "";
 		
 		//fonts
 		private BitmapFont font_master;
-		private ArrayList<String> lstChats;
 		
 		//Camera
 		private OrthographicCamera camera;
@@ -102,7 +97,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Camera and Inputs
 			camera = new OrthographicCamera();
-		    viewport = new StretchViewport(135,135,camera);
+		    viewport = new StretchViewport(150,150,camera);
 			viewport.apply();
 			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 			Gdx.input.setInputProcessor(this);
@@ -112,9 +107,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.setColor(Color.RED);
 			font_master.getData().setScale(0.11f,0.23f);
 			font_master.setUseIntegerPositions(false);	
-			
-			//Initializing Chats
-			lstChats = new ArrayList<String>();
 			
 			//Sprites
 			tex_Background = new Texture(Gdx.files.internal("data/maps/streets305.png"));
@@ -199,35 +191,16 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Controller.draw(game.batch);
 			
 			font_master.setColor(Color.WHITE);
-			font_master.getData().setScale(0.09f,0.11f);
+			font_master.getData().setScale(0.10f,0.12f);
 			font_master.setUseIntegerPositions(false);	
-			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 52f,cameraCoordsY + 91.5f);
-			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 54f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 54f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 41f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 43f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, "X:" + playerPosX, cameraCoordsX - 65f, cameraCoordsY + 66.7f);
-			font_master.draw(game.batch, "Y:" + playerPosY, cameraCoordsX - 48f, cameraCoordsY + 66.7f);
+			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 60.5f,cameraCoordsY + 101f);
+			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 63f,cameraCoordsY + 97f);
+			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 63f,cameraCoordsY + 91f);
+			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 49f,cameraCoordsY + 97f);
+			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 50.5f,cameraCoordsY + 90f);
+			font_master.draw(game.batch, "X:" + playerPosX, cameraCoordsX - 73f, cameraCoordsY + 72.7f);
+			font_master.draw(game.batch, "Y:" + playerPosY, cameraCoordsX - 60f, cameraCoordsY + 72.7f);
 			
-			
-			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
-			for(count = 0; count < lstChats.size(); count++) {
-				if(count == 0) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 17.7f);
-				}
-				if(count == 1) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 22.7f);
-				}
-				if(count == 2) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
-				}
-				if(count == 3) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 32.7f);
-				}
-				if(count == 4) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 37.7f);
-				}			
-			}
 			
 			if(gameState.equals("Menu")) {
 				spr_Menubar = gameControl.LoadInterfaceGamePlay("barMenu", "", "");
@@ -243,39 +216,27 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 
 				
 				//Str
-				stats = activePlayer.stats_A.split("#");
+				stats = activePlayer.stats_A.split("|");
 				statsPoint = stats[0].split(":");
 				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 54);
 				
-				//Agi
-				stats = activePlayer.stats_A.split("#");
+				//Vit
+				stats = activePlayer.stats_A.split("|");
 				statsPoint = stats[1].split(":");
 				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 45);
 				
-				//Wis
-				stats = activePlayer.stats_A.split("#");
+				//Agi
+				stats = activePlayer.stats_A.split("|");
 				statsPoint = stats[2].split(":");
 				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 36);
 				
-				//Vit
-				stats = activePlayer.stats_A.split("#");
-				statsPoint = stats[3].split(":");
-				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 26);
 				
-				//Des
-				stats = activePlayer.stats_A.split("#");
-				statsPoint = stats[4].split(":");
-				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 16);
 				
-				//Sor
-				stats = activePlayer.stats_A.split("#");
-				statsPoint = stats[5].split(":");
-				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY + 6);
-				
-				//Res
-				stats = activePlayer.stats_A.split("#");
-				statsPoint = stats[6].split(":");
-				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY - 4);
+				//font_master.draw(game.batch, status[3], cameraCoordsX - 10,cameraCoordsY + 26);
+				//font_master.draw(game.batch, status[4], cameraCoordsX - 10,cameraCoordsY + 16);
+				//font_master.draw(game.batch, status[5], cameraCoordsX - 10,cameraCoordsY + 6);
+				//font_master.draw(game.batch, status[6], cameraCoordsX - 10,cameraCoordsY - 5);
+				//font_master.draw(game.batch, status[7], cameraCoordsX - 10,cameraCoordsY + 36);
 				
 				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false);
 				spr_playerCharacter.setSize(40, 60);
@@ -328,23 +289,26 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_Status.draw(game.batch);
 			}
 			
+			//
 			
-			// Test Dot
-			spr_testeDot.setPosition(cameraCoordsX + 59, cameraCoordsY - 22);
+			
+			spr_testeDot.setPosition(cameraCoordsX + 32, cameraCoordsY + 83);
 			spr_testeDot.draw(game.batch);
 			
-			spr_testeDot.setPosition(cameraCoordsX + 67, cameraCoordsY - 9);
+			spr_testeDot.setPosition(cameraCoordsX + 49, cameraCoordsY + 65);
 			spr_testeDot.draw(game.batch);
+			//font_master.draw(game.batch, "A",testeX, testeY);
+			//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+			//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
+			
 			
 			game.batch.end();	
 		}
 		
 		
 		@Override
-		public void input(String input) {
-			text = input;	
-			
-			lstChats.add(input);
+		public void input(String text) {
+			// TODO Auto-generated method stub	
 		}
 
 		@Override
@@ -409,102 +373,53 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				movement = true;
 				
 				//Menu button
-				if(coordsTouch.x >= (cameraCoordsX - 66.5f) && coordsTouch.x <= (cameraCoordsX - 57.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX - 75) && coordsTouch.x <= (cameraCoordsX - 66) && coordsTouch.y >= (cameraCoordsY + 75) && coordsTouch.y <= (cameraCoordsY + 83)) {
 					gameState = "Menu";
 					return false;
-				}		
-				
-				//Chat Button
-				if(coordsTouch.x >= (cameraCoordsX - 56.5f) && coordsTouch.x <= (cameraCoordsX - 47.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
-					Gdx.input.getTextInput(this,"Mensagem","","");
-					return false;
-				}
-				
-				//Hotbar 1
-				if(coordsTouch.x >= (cameraCoordsX + 51) && coordsTouch.x <= (cameraCoordsX + 59) && coordsTouch.y >= (cameraCoordsY - 22) && coordsTouch.y <= (cameraCoordsY - 9)) {
-					//Hotbar 1
-					return false;
-				}
-				
-				//Hotbar 2
-				if(coordsTouch.x >= (cameraCoordsX + 59) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY - 22) && coordsTouch.y <= (cameraCoordsY - 9)) {
-					//HotBar 1
-					return false;
-				}
-				
-				//Skill 1
-				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 30) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
-					return false;
-				}
-				//Skill 2
-				if(coordsTouch.x >= (cameraCoordsX + 31) && coordsTouch.x <= (cameraCoordsX + 37) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
-					return false;
-				}
-				//Skill 3
-				if(coordsTouch.x >= (cameraCoordsX + 38) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
-					return false;
-				}
-				//Skill 4
-				if(coordsTouch.x >= (cameraCoordsX + 45) && coordsTouch.x <= (cameraCoordsX + 52) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
-					return false;
-				}
-				//Skill 5
-				if(coordsTouch.x >= (cameraCoordsX + 52) && coordsTouch.x <= (cameraCoordsX + 59) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
-					return false;
-				}
-				//Skill 6
-				if(coordsTouch.x >= (cameraCoordsX + 59) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
-					return false;
-				}
+				}				
 			}
 			
 			if(gameState.equals("Menu")) {
 				movement = false;
 				
 				//Status Menu button
-				if(coordsTouch.x >= (cameraCoordsX + 57.5f) && coordsTouch.x <= (cameraCoordsX + 67f) && coordsTouch.y >= (cameraCoordsY + 62) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY + 62) && coordsTouch.y <= (cameraCoordsY + 74)) {
 					gameState = "Menu-Status";
 					return false;
 				}
 				
 				//Item Menu button
-				if(coordsTouch.x >= (cameraCoordsX + 57.5f) && coordsTouch.x <= (cameraCoordsX + 67f) && coordsTouch.y >= (cameraCoordsY + 51) && coordsTouch.y <= (cameraCoordsY + 61)) {
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY + 51) && coordsTouch.y <= (cameraCoordsY + 61)) {
 					gameState = "Menu-Itens";
 					return false;
 				}		
 				
 				//Skill Menu button
-				if(coordsTouch.x >= (cameraCoordsX + 57.5f) && coordsTouch.x <= (cameraCoordsX + 67f) && coordsTouch.y >= (cameraCoordsY + 39) && coordsTouch.y <= (cameraCoordsY + 50)) {
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY + 39) && coordsTouch.y <= (cameraCoordsY + 50)) {
 					gameState = "Menu-Skills";
 					return false;
 				}
 				
 				//Social Menu button
-				if(coordsTouch.x >= (cameraCoordsX + 57.5f) && coordsTouch.x <= (cameraCoordsX + 67f) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 38)) {
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 38)) {
 					gameState = "Menu-Social";
 					return false;
 				}
 				
 				//Pet Menu button
-				if(coordsTouch.x >= (cameraCoordsX + 57.5f) && coordsTouch.x <= (cameraCoordsX + 67f) && coordsTouch.y >= (cameraCoordsY + 15) && coordsTouch.y <= (cameraCoordsY + 26)) {
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY + 15) && coordsTouch.y <= (cameraCoordsY + 26)) {
 					gameState = "Menu-Pet";
 					return false;
 				}
 				
 				//Config Menu button
-				if(coordsTouch.x >= (cameraCoordsX + 57.5f) && coordsTouch.x <= (cameraCoordsX + 67f) && coordsTouch.y >= (cameraCoordsY + 4) && coordsTouch.y <= (cameraCoordsY + 14)) {
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY + 4) && coordsTouch.y <= (cameraCoordsY + 14)) {
 					gameState = "Menu-Config";
 					return false;
 				}
 				
 				//Sair Menu button
-				if(coordsTouch.x >= (cameraCoordsX + 57.5f) && coordsTouch.x <= (cameraCoordsX + 67f) && coordsTouch.y >= (cameraCoordsY - 5) && coordsTouch.y <= (cameraCoordsY + 3)) {
+				if(coordsTouch.x >= (cameraCoordsX + 65) && coordsTouch.x <= (cameraCoordsX + 74) && coordsTouch.y >= (cameraCoordsY - 5) && coordsTouch.y <= (cameraCoordsY + 3)) {
 					gameState = "Main";
 					return false;
 				}
@@ -516,42 +431,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					gameState = "Menu";
 					return false;
 				}
-				//Str Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 48.2f) && coordsTouch.y <= (cameraCoordsY + 56.2f)) {
-					gameState = "Menu";
-					return false;
-				}		
-				//Agi Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 38f) && coordsTouch.y <= (cameraCoordsY + 47f)) {
-					gameState = "Menu";
-					return false;
-				}
-				//Wis Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 29f) && coordsTouch.y <= (cameraCoordsY + 37f)) {
-					gameState = "Menu";
-					return false;
-				}
-				//Vit Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 19f) && coordsTouch.y <= (cameraCoordsY + 28f)) {
-					gameState = "Menu";
-					return false;
-				}
-				//Des Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 9f) && coordsTouch.y <= (cameraCoordsY + 18)) {
-					gameState = "Menu";
-					return false;
-				}
-				//Sor Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 8) && coordsTouch.y <= (cameraCoordsY)) {
-					gameState = "Menu";
-					return false;
-				}
-				//Res Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY - 11) && coordsTouch.y <= (cameraCoordsY - 2)) {
-					gameState = "Menu";
-					return false;
-				}
-				
 			}
 			if(gameState.equals("Menu-Itens")) {
 				//Voltar
@@ -606,60 +485,24 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(movement == true){
 				Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 					
-				//Right
-				if(coordsTouch.x > (cameraCoordsX - 50.5f) && coordsTouch.x <= (cameraCoordsX - 40.5f) && coordsTouch.y > (cameraCoordsY - 24) && coordsTouch.y < (cameraCoordsY - 7)) {
+				if(coordsTouch.x > (cameraCoordsX - 58) && coordsTouch.x < (cameraCoordsX - 39) && coordsTouch.y > (cameraCoordsY -37) && coordsTouch.y < (cameraCoordsY -13)) {
 					state = "right";
-					walk = "walk";	
-					return false;
+					walk = "walk";		
 				}
 				
-				//Left
-				if(coordsTouch.x >= (cameraCoordsX - 60.5f) && coordsTouch.x < (cameraCoordsX - 50.5f) && coordsTouch.y > (cameraCoordsY - 24) && coordsTouch.y < (cameraCoordsY - 7)) {
+				if(coordsTouch.x > (cameraCoordsX - 77) && coordsTouch.x < (cameraCoordsX - 58) && coordsTouch.y > (cameraCoordsY -37) && coordsTouch.y < (cameraCoordsY -13)) {
 					state = "left";
-					walk = "walk";
-					return false;
+					walk = "walk";		
 				}
 				
-				//Front
-				if(coordsTouch.x > (cameraCoordsX - 54f) && coordsTouch.x < (cameraCoordsX - 47f) && coordsTouch.y > (cameraCoordsY - 31) && coordsTouch.y < (cameraCoordsY - 16)) {
+				if(coordsTouch.x > (cameraCoordsX - 68) && coordsTouch.x < (cameraCoordsX - 49) && coordsTouch.y > (cameraCoordsY -45) && coordsTouch.y < (cameraCoordsY -26)) {
 					state = "front";
 					walk = "walk";
-					return false;
 				}
 				
-				//Back
-				if(coordsTouch.x > (cameraCoordsX - 54f) && coordsTouch.x < (cameraCoordsX - 47f) && coordsTouch.y > (cameraCoordsY - 16) && coordsTouch.y <= (cameraCoordsY)) {
+				if(coordsTouch.x > (cameraCoordsX - 68) && coordsTouch.x < (cameraCoordsX - 49) && coordsTouch.y > (cameraCoordsY -26) && coordsTouch.y < (cameraCoordsY -7)) {
 					state = "back";
 					walk = "walk";
-					return false;
-				}
-				
-				//Right-Back
-				if(coordsTouch.x > (cameraCoordsX - 47f) && coordsTouch.x < (cameraCoordsX - 40.5f) && coordsTouch.y > (cameraCoordsY - 16) && coordsTouch.y <= (cameraCoordsY)) {
-					state = "right-back";
-					walk = "walk";
-					return false;
-				}
-				
-				//Left-Back
-				if(coordsTouch.x > (cameraCoordsX - 60.5f) && coordsTouch.x < (cameraCoordsX - 54f) && coordsTouch.y > (cameraCoordsY - 16) && coordsTouch.y <= (cameraCoordsY)) {
-					state = "left-back";
-					walk = "walk";
-					return false;
-				}
-				
-				//Right-Front
-				if(coordsTouch.x > (cameraCoordsX - 47f) && coordsTouch.x < (cameraCoordsX - 40.5f) && coordsTouch.y > (cameraCoordsY - 31) && coordsTouch.y <= (cameraCoordsY - 16)) {
-					state = "right-front";
-					walk = "walk";
-					return false;
-				}
-				
-				//Left-Front
-				if(coordsTouch.x > (cameraCoordsX - 60.5f) && coordsTouch.x < (cameraCoordsX - 54f) && coordsTouch.y > (cameraCoordsY - 31) && coordsTouch.y <= (cameraCoordsY - 16)) {
-					state = "left-front";
-					walk = "walk";
-					return false;
 				}
 			}
 			return false;

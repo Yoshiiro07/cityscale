@@ -30,7 +30,6 @@ public class GameControl {
 	private int frame = 1;
 	private float playerPosX;
 	private float playerPosY;
-	private float playerSpeed = 0.4f;
 	private int recoverytimer = 700;
 	private int savetimer = 800;
 	
@@ -108,9 +107,8 @@ public class GameControl {
 		
 		if(map.equals("Streets305")) {
 			playerInfo.map_A = "Streets305";
-			playerInfo.coordX_A = "181";
-			playerInfo.coordY_A = "-130";
-			savetimer = 0;
+			playerInfo.coordX_A = "182";
+			playerInfo.coordY_A = "132";
 		}
 	}
 	
@@ -167,7 +165,7 @@ public class GameControl {
 			playerInfo.job_1 = "Novice";
 			playerInfo.weapon_1 = "basic_knife";
 			playerInfo.level_1 = "1";
-			playerInfo.stats_1 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";
+			playerInfo.stats_1 = "str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1";
 			if(sex.equals("M")) { playerInfo.set_1 = "basicset_m"; } else { playerInfo.set_1 = "basicset_f"; }
 			playerInfo.hair_1 = hair;
 			playerInfo.hat_1 = "none";
@@ -199,7 +197,7 @@ public class GameControl {
 			playerInfo.job_2 = "Novice";
 			playerInfo.weapon_2 = "basic_knife";
 			playerInfo.level_2 = "1";
-			playerInfo.stats_2 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";
+			playerInfo.stats_2 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
 			if(sex.equals("M")) { playerInfo.set_2 = "basicset_m"; } else { playerInfo.set_2 = "basicset_f"; }
 			playerInfo.hair_2 = hair;
 			playerInfo.hat_2 = "none";
@@ -233,7 +231,7 @@ public class GameControl {
 			playerInfo.job_3 = "Novice";
 			playerInfo.weapon_3 = "basic_knife";
 			playerInfo.level_3 = "1";
-			playerInfo.stats_3 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";
+			playerInfo.stats_3 = "|str:1|vit:1|agi:1|dex:1|luk:1|wis:1|res:1|";
 			if(sex.equals("M")) { playerInfo.set_3 = "basicset_m"; } else { playerInfo.set_3 = "basicset_f"; }
 			playerInfo.hair_3 = hair;
 			playerInfo.hat_3 = "none";
@@ -639,8 +637,8 @@ public class GameControl {
 		//Player Tag
 		if(type.equals("playerTag")) {
 			spr_master = atlas_InterfaceCreate.createSprite("tagPlayer");
-			spr_master.setSize(33,27);
-			spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 68);
+			spr_master.setSize(35,30);
+			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 75);
 			return spr_master;
 		}
 		
@@ -648,15 +646,15 @@ public class GameControl {
 		if(type.equals("hairTag")) {
 			spr_master = atlas_hairs.createSprite(value);
 			spr_master.setSize(9, 13);
-			spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 78);
+			spr_master.setPosition(cameraCoordsX - 75,cameraCoordsY + 88);
 			return spr_master;
 		}
 		
 		//Mini Bar
 		if(type.equals("minibar")) {
 			spr_master = atlas_InterfaceCreate.createSprite("minibar");
-			spr_master.setSize(16,14);
-			spr_master.setPosition(cameraCoordsX + 51.5f,cameraCoordsY - 21.9f);
+			spr_master.setSize(18,15);
+			spr_master.setPosition(cameraCoordsX + 57,cameraCoordsY - 30);
 			return spr_master;
 		}
 		
@@ -664,7 +662,7 @@ public class GameControl {
 		if(type.equals("hotbar")) {
 			spr_master = atlas_InterfaceCreate.createSprite("hotbar");
 			spr_master.setSize(45,15);
-			spr_master.setPosition(cameraCoordsX + 23,cameraCoordsY - 37);
+			spr_master.setPosition(cameraCoordsX + 30,cameraCoordsY - 45);
 			return spr_master;
 		}
 		
@@ -680,7 +678,7 @@ public class GameControl {
 		if(type.equals("barMenu")) {
 			spr_master = atlas_InterfaceCreate.createSprite("barMenu");
 			spr_master.setSize(10,80);
-			spr_master.setPosition(cameraCoordsX + 58,cameraCoordsY - 5);
+			spr_master.setPosition(cameraCoordsX + 65,cameraCoordsY - 5);
 			return spr_master;
 		}
 		
@@ -880,113 +878,113 @@ public class GameControl {
 			if(state.equals("right") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX + playerSpeed;
+				playerPosX = playerPosX + 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);
 			}
 			if(state.equals("left") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX - playerSpeed;
+				playerPosX = playerPosX - 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);
 			}
 			if(state.equals("front") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY - playerSpeed;
+				playerPosY = playerPosY - 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 			}
 			if(state.equals("back") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY + playerSpeed;
+				playerPosY = playerPosY + 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 			}
 			
 			if(state.equals("front-left") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY - playerSpeed;
+				playerPosY = playerPosY - 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX - playerSpeed;
+				playerPosX = playerPosX - 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);				
 			}
 			
 			if(state.equals("front-right") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY - playerSpeed;
+				playerPosY = playerPosY - 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX + playerSpeed;
+				playerPosX = playerPosX + 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);				
 			}
 			
 			if(state.equals("back-left") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY + playerSpeed;
+				playerPosY = playerPosY + 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX - playerSpeed;
+				playerPosX = playerPosX - 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);				
 			}
 			
 			if(state.equals("back-right") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY + playerSpeed;
+				playerPosY = playerPosY + 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX + playerSpeed;
+				playerPosX = playerPosX + 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);				
 			}
 			
 			if(state.equals("right-front") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY - playerSpeed;
+				playerPosY = playerPosY - 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX + playerSpeed;
+				playerPosX = playerPosX + 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);				
 			}
 			
 			if(state.equals("right-back") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY + playerSpeed;
+				playerPosY = playerPosY + 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX + playerSpeed;
+				playerPosX = playerPosX + 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);				
 			}
 			
 			if(state.equals("left-front") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY - playerSpeed;
+				playerPosY = playerPosY - 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX - playerSpeed;
+				playerPosX = playerPosX - 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);				
 			}
 			
 			if(state.equals("left-back") && walk.equals("walk")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
-				playerPosY = playerPosY + playerSpeed;
+				playerPosY = playerPosY + 0.5f;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
-				playerPosX = playerPosX - playerSpeed;
+				playerPosX = playerPosX - 0.5f;
 				playerInfo.coordX_A = String.valueOf(playerPosX);				
 			}
 		
