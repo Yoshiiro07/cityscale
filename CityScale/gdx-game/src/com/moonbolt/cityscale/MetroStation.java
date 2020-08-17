@@ -33,6 +33,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private int framePlayer = 1;
 	private String state = "front";
 	private String walk = "stop";
+	private String breakWalk = "";
 	private boolean movement;
 	private float playerPosX;
 	private float playerPosY;
@@ -71,9 +72,9 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
     //Controller
     private final IntSet downKeys = new IntSet(20);
     
-    //teste
-  	private Sprite spr_teste;
-  	private Texture tex_teste;
+  //Teste Dot
+    private Sprite spr_testeDot;
+    private Texture tex_testeDot;
 	
 	public MetroStation(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt) {
 		this.game = gameAlt;
@@ -109,6 +110,10 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		spr_metro = new Sprite(tex_metro);
 		spr_metro.setPosition(posTrainX, posTrainY);
 		spr_metro.setSize(70, 30);
+		
+		tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+		spr_testeDot = new Sprite(tex_testeDot);
+		
 	}
 	
 	
@@ -152,34 +157,74 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		spr_playerHair.draw(game.batch);
 		
 		//UI Elements
-		//spr_playerTag = gameControl.LoadInterface("playerTag");
-		//spr_playerTag.draw(game.batch);
+		spr_BackController = gameControl.LoadInterfaceGamePlay("outerpad", "", "");
+		spr_BackController.setSize(12,20);
+		spr_BackController.setPosition(10, 10);
+		spr_BackController.draw(game.batch);
 		
-		//spr_playerHairTag = gameControl.LoadPlayerTagHair(activePlayer.hair_A);
-		//spr_playerHairTag.draw(game.batch);
+		spr_Controller = gameControl.LoadInterfaceGamePlay("innerpad", walk, state);
+		spr_Controller.setSize(6,10);
 		
-		//font_master.setColor(Color.WHITE);
-		//font_master.getData().setScale(0.07f,0.08f);
-		//font_master.setUseIntegerPositions(false);	
-		//font_master.draw(game.batch, activePlayer.name_A, 10.3f,97.5f);
-		//font_master.draw(game.batch, activePlayer.hp_A, 9f,94.5f);
-		//font_master.draw(game.batch, activePlayer.mp_A, 9f,90.5f);
-		//font_master.draw(game.batch, activePlayer.level_A, 9f,90.5f);
-		//font_master.draw(game.batch, activePlayer.exp_A, 18.8f,94.7f);
-		//font_master.draw(game.batch, "X:" + playerPosX, 1.5f,78.7f);
-		//font_master.draw(game.batch, "Y:" + playerPosY, 10.5f,78.7f);
+		if(walk.equals("stop")) {
+			spr_Controller.setPosition(13, 15);
+		}
+		if(walk.equals("walk") && state.equals("right")) {
+			spr_Controller.setPosition(16, 15);
+		}
+		if(walk.equals("walk") && state.equals("left")) {
+			spr_Controller.setPosition(10, 15);
+		}
+		if(walk.equals("walk") && state.equals("front")) {
+			spr_Controller.setPosition(13, 10);
+		}
+		if(walk.equals("walk") && state.equals("back")) {
+			spr_Controller.setPosition(13, 20);
+		}
+		if(walk.equals("walk") && state.equals("right-back")) {
+			spr_Controller.setPosition(16, 20);
+		}
+		if(walk.equals("walk") && state.equals("left-back")) {
+			spr_Controller.setPosition(10, 20);
+		}
+		if(walk.equals("walk") && state.equals("right-front")) {
+			spr_Controller.setPosition(16, 10);
+		}
+		if(walk.equals("walk") && state.equals("left-front")) {
+			spr_Controller.setPosition(10, 10);
+		}		
+		if(walk.equals("walk") && state.equals("front-right")) {
+			spr_Controller.setPosition(16, 10);
+		}
+		if(walk.equals("walk") && state.equals("front-left")) {
+			spr_Controller.setPosition(10, 10);
+		}
+		if(walk.equals("walk") && state.equals("back-right")) {
+			spr_Controller.setPosition(16, 20);
+		}
+		if(walk.equals("walk") && state.equals("back-left")) {
+			spr_Controller.setPosition(10, 20);
+		}
+		
+		spr_Controller.draw(game.batch);
 		
 		//Test
+		font_master.setColor(Color.WHITE);
+		font_master.getData().setScale(0.10f,0.12f);
+		font_master.setUseIntegerPositions(false);	
+		
+		font_master.draw(game.batch, "X:" + playerPosX, 10, 60);
+		font_master.draw(game.batch, "Y:" + playerPosY, 30, 60);
+		
 		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
 		
-		
+		spr_testeDot.setSize(1, 1);
 		CheckColide();
 		
 		//Change Screen
 		if(changeScreen){	
-			
+			gameControl.ScreenChange("Streets305");
 			gameControl.UpdateDataSave(numPlayerActive);
 		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
 		    game.Switch("Streets305");			
@@ -192,6 +237,28 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
 			changeScreen = true;
 		}
+		
+		if(playerPosX < -8) {
+			state = "right";
+			breakWalk = "left";
+		}
+		
+		if(playerPosY > 58) {
+			state = "front";
+			breakWalk = "back";
+		}
+		
+		if(playerPosX > 7 && playerPosY > 15.5f) {
+			state = "left";
+			breakWalk = "right";
+		}
+		
+		if(playerPosY < -7) {
+			state = "back";
+			breakWalk = "front";
+		}
+		
+		breakWalk = "";
 	}
 	
 	private void MoveTrain() {
@@ -217,22 +284,22 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
             onMultipleKeysDown(keycode);
         }
         if(downKeys.size == 1) {
-        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+        	if ((keycode == Input.Keys.A || keycode == Input.Keys.LEFT) && !breakWalk.equals("left")) {
         		state = "left";
         		walk = "walk";    		
             }
     		
-    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
+    		if ((keycode == Input.Keys.W || keycode == Input.Keys.UP) && !breakWalk.equals("back")) {
     			state = "back";
     			walk = "walk";
             }
     		
-    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
+    		if ((keycode == Input.Keys.S || keycode == Input.Keys.DOWN) && !breakWalk.equals("front")) {
     			state = "front";
     			walk = "walk";	
             }
     		
-    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+    		if ((keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) && !breakWalk.equals("right")) {
     			state = "right";
     			walk = "walk";	   			
             } 		
@@ -278,26 +345,72 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		if(movement == true){
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 				
-			if(coordsTouch.x > (cameraCoordsX - 58) && coordsTouch.x < (cameraCoordsX - 39) && coordsTouch.y > (cameraCoordsY -37) && coordsTouch.y < (cameraCoordsY -13)) {
+			//Right
+			if(coordsTouch.x > 15.6f && coordsTouch.x < 21 && coordsTouch.y > 15 && coordsTouch.y < 23) {
+				if(breakWalk.equals("right")) { return false;}
 				state = "right";
-				walk = "walk";		
+				walk = "walk";	
+				return false;
 			}
 			
-			if(coordsTouch.x > (cameraCoordsX - 77) && coordsTouch.x < (cameraCoordsX - 58) && coordsTouch.y > (cameraCoordsY -37) && coordsTouch.y < (cameraCoordsY -13)) {
+			//Left
+			if(coordsTouch.x > 10 && coordsTouch.x < 15.6f && coordsTouch.y > 15 && coordsTouch.y < 23) {
+				if(breakWalk.equals("left")) { return false;}
 				state = "left";
-				walk = "walk";		
+				walk = "walk";	
+				return false;
 			}
 			
-			if(coordsTouch.x > (cameraCoordsX - 68) && coordsTouch.x < (cameraCoordsX - 49) && coordsTouch.y > (cameraCoordsY -45) && coordsTouch.y < (cameraCoordsY -26)) {
+			//Front
+			if(coordsTouch.x > 13f && coordsTouch.x < 18f && coordsTouch.y > 9 && coordsTouch.y < 19) {
+				if(breakWalk.equals("front")) { return false;}
 				state = "front";
 				walk = "walk";
+				return false;
 			}
 			
-			if(coordsTouch.x > (cameraCoordsX - 68) && coordsTouch.x < (cameraCoordsX - 49) && coordsTouch.y > (cameraCoordsY -26) && coordsTouch.y < (cameraCoordsY -7)) {
+			//Back
+			if(coordsTouch.x > 13f && coordsTouch.x < 18f && coordsTouch.y > 19 && coordsTouch.y < 29) {
+				if(breakWalk.equals("back")) { return false;}
 				state = "back";
 				walk = "walk";
+				return false;
 			}
+			
+			//right-back
+			if(coordsTouch.x > 15.6f && coordsTouch.x < 21 && coordsTouch.y > 23 && coordsTouch.y < 29.6f) {
+				if(breakWalk.equals("right") || breakWalk.equals("back")) { return false;}
+				state = "right-back";
+				walk = "walk";		
+				return false;
+			}
+			
+			//left-back
+			if(coordsTouch.x > 10 && coordsTouch.x < 15.6f && coordsTouch.y > 23 && coordsTouch.y < 29.6f) {
+				if(breakWalk.equals("left") || breakWalk.equals("back")) { return false;}
+				state = "left-back";
+				walk = "walk";	
+				return false;
+			}
+			
+			//left-front
+			if(coordsTouch.x > 10.1f && coordsTouch.x < 13.5f && coordsTouch.y > 9.6f && coordsTouch.y < 15.4f) {
+				if(breakWalk.equals("left") || breakWalk.equals("front")) { return false;}
+				state = "left-front";
+				walk = "walk";		
+				return false;
+			}
+			
+			//right-front
+			if(coordsTouch.x > 18.2f && coordsTouch.x < 21.3f && coordsTouch.y > 9.6f && coordsTouch.y < 15.4f) {
+				if(breakWalk.equals("right") || breakWalk.equals("front")) { return false;}
+				state = "right-front";
+				walk = "walk";		
+				return false;
+			}
+			
 		}
+		
 		return false;
 	}
 	
@@ -305,48 +418,56 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    //For multiple key presses
 	    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
+	        	if(breakWalk.equals("left") || breakWalk.equals("front")) { return;}
 	        	state = "left-front";
         		walk = "walk";  	
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
+	        	if(breakWalk.equals("left") || breakWalk.equals("back")) { return;}
 	        	state = "left-back";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 	    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
+	    		if(breakWalk.equals("right") || breakWalk.equals("back")) { return;}
 	    		state = "right-back";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 	    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
+	    		if(breakWalk.equals("right") || breakWalk.equals("front")) { return;}
 	    		state = "right-front";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
+	        	if(breakWalk.equals("back") || breakWalk.equals("right")) { return;}
 	        	state = "back-right";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
+	        	if(breakWalk.equals("back") || breakWalk.equals("left")) { return;}
 	        	state = "back-left";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
+	        	if(breakWalk.equals("front") || breakWalk.equals("right")) { return;}
 	        	state = "front-right";
 	        	walk = "walk";		
 	        }
 	    }
 	    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 	        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
+	        	if(breakWalk.equals("front") || breakWalk.equals("left")) { return;}
 	        	state = "front-left";
 	        	walk = "walk";		
 	        }
