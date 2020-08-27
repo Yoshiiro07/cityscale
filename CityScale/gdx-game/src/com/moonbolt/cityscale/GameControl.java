@@ -17,6 +17,7 @@ public class GameControl {
 	//[B] Interface
 	//[C] Account Data
 	//[D] Character Code
+	//[E] Itens and Inventory
 	
 	//Data Manager Variables
 	private Json json;
@@ -56,6 +57,11 @@ public class GameControl {
 	private TextureAtlas atlas_basicset_m;
 	private TextureAtlas atlas_basicset_f;
 	private TextureAtlas atlas_InterfaceCreate;
+	private TextureAtlas atlas_shops;
+	
+	private TextureAtlas atlas_skills;
+	private TextureAtlas atlas_iconSkills;
+	private TextureAtlas atlas_tripleattack;
 	
 	
 	// CONSTRUCTOR
@@ -73,12 +79,17 @@ public class GameControl {
 		//Atlas Section
 		//InterfaceCreate
 		atlas_InterfaceCreate = new TextureAtlas(Gdx.files.internal("data/assets/interfaceCreate.txt"));	
+		atlas_shops = new TextureAtlas(Gdx.files.internal("data/assets/shops.txt"));	
 		
 		//Character Assets
 		atlas_hairs = new TextureAtlas(Gdx.files.internal("data/characters/players/hair/hairs.txt"));
 				
 		atlas_basicset_m = new TextureAtlas(Gdx.files.internal("data/characters/players/basicset_m/basicset_m.txt"));
 		atlas_basicset_f = new TextureAtlas(Gdx.files.internal("data/characters/players/basicset_f/basicset_f.txt"));
+		
+		atlas_iconSkills = new TextureAtlas(Gdx.files.internal("data/skills/skillicons.txt"));  //tripleattack
+		
+		atlas_tripleattack = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/tripleattack.txt"));
 	}
 	
 	//[A] DATA MANAGER
@@ -732,6 +743,14 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		//Shops 
+		if(type.equals("RefriShop")) {
+			spr_master = atlas_shops.createSprite("shopRefri");
+			spr_master.setSize(50,80);
+			spr_master.setPosition(cameraCoordsX + 10,cameraCoordsY - 5);
+			return spr_master;		
+		}
+		
 		//innerpad
 		if(type.equals("innerpad") && value.equals("stop")) {
 			spr_master = atlas_InterfaceCreate.createSprite("innerpad");
@@ -1114,6 +1133,57 @@ public class GameControl {
 		
 		return spr_master;
 	}
+	
+	public Sprite SkillHotbar(String job, String skill) {
+		
+		if(job.equals("All")) {
+			spr_master = atlas_iconSkills.createSprite("btnacao");
+			spr_master.setSize(6.8f,13);
+			spr_master.setPosition(cameraCoordsX + 24,cameraCoordsY - 36);
+			return spr_master;
+		}
+				
+		if(job.equals("Novice")) {
+			if(skill.equals("tripleattack")) {
+				spr_master = atlas_iconSkills.createSprite("btntripleattack");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 31,cameraCoordsY - 36);
+				return spr_master;
+			}	
+			
+			if(skill.equals("icecrystal")) {
+				spr_master = atlas_iconSkills.createSprite("btnthundercloud");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 38.2f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("berserk")) {
+				spr_master = atlas_iconSkills.createSprite("btnrockbound");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 45.4f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("precision")) {
+				spr_master = atlas_iconSkills.createSprite("btnregen");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("fireball")) {
+				spr_master = atlas_iconSkills.createSprite("btnsteal");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 60,cameraCoordsY - 36);
+				return spr_master;
+			}
+		}
+		
+		return spr_master;
+	}
+	
+	//[E] Itens and Inventory
 	
 	
 	

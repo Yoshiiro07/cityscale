@@ -2,6 +2,8 @@ package com.moonbolt.cityscale;
 
 import java.util.ArrayList;
 
+import org.omg.CORBA.FloatHolder;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -32,11 +34,15 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private int framePlayer = 1;
 		private String state = "front";
 		private String walk = "stop";
+		private String shop = "";
 		private String[] stats;
 		private String[] statsPoint;
+		private String breakWalk = "";
 		private boolean movement;
 		private float playerPosX;
 		private float playerPosY;
+		private int playerPosiX;
+		private int playerPosiY;
 		
 		private float testeX;
 		private float testeY;
@@ -53,6 +59,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_Hotbar;
 		private Sprite spr_BackController;
 		private Sprite spr_Controller;
+		private Sprite spr_Skill;
+		private Sprite spr_Shop;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_Status;
@@ -94,6 +102,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			this.config = configAlt;
 			this.platform = platformAlt;
 			
+			//test dot
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+			spr_testeDot = new Sprite(tex_testeDot);
+			
+			
 			//Load Player Data
 			numPlayerActive = gameControl.GetPlayerActiveNum();
 			activePlayer = gameControl.SetActivePlayerData(numPlayerActive);
@@ -121,10 +134,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
 			
-			
-			tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
-			spr_testeDot = new Sprite(tex_testeDot);
-			spr_Background.setSize(1, 1);
+			spr_Skill = new Sprite(tex_testeDot);
+			spr_Shop = new Sprite(tex_testeDot);
 		}
 		
 		
@@ -206,6 +217,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 54f,cameraCoordsY + 81.8f);
 			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 41f,cameraCoordsY + 87.8f);
 			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 43f,cameraCoordsY + 81.8f);
+			
+			playerPosiX = Math.round(playerPosX);
+			playerPosiY = Math.round(playerPosY);
 			font_master.draw(game.batch, "X:" + playerPosX, cameraCoordsX - 65f, cameraCoordsY + 66.7f);
 			font_master.draw(game.batch, "Y:" + playerPosY, cameraCoordsX - 48f, cameraCoordsY + 66.7f);
 			
@@ -228,6 +242,57 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 37.7f);
 				}			
 			}
+			
+			//hotbarskills
+			spr_Skill = gameControl.SkillHotbar("All","");
+			spr_Skill.draw(game.batch);
+			
+			if(activePlayer.job_A.equals("Aprendiz")) {
+				spr_Skill = gameControl.SkillHotbar("Aprendiz","tripleattack"); spr_Skill.draw(game.batch);		
+			}
+			if(activePlayer.job_A.equals("Espadachim")) {
+				spr_Skill = gameControl.SkillHotbar("Espadachim","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Espadachim","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Espadachim","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Espadachim","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Espadachim","fireball"); spr_Skill.draw(game.batch);			
+			}
+			if(activePlayer.job_A.equals("Mago")) {
+				spr_Skill = gameControl.SkillHotbar("Mago","fireball"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Mago","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Mago","thundercloud"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Mago","rockbound"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Mago","soulcrash"); spr_Skill.draw(game.batch);			
+			}
+			if(activePlayer.job_A.equals("Ladrao")) {
+				spr_Skill = gameControl.SkillHotbar("Ladrao","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Ladrao","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Ladrao","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Ladrao","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Ladrao","fireball"); spr_Skill.draw(game.batch);			
+			}
+			if(activePlayer.job_A.equals("Medico")) {
+				spr_Skill = gameControl.SkillHotbar("Medico","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medico","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Medico","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medico","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medico","fireball"); spr_Skill.draw(game.batch);			
+			}
+			if(activePlayer.job_A.equals("Batedor")) {
+				spr_Skill = gameControl.SkillHotbar("Batedor","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Batedor","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Batedor","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Batedor","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Batedor","fireball"); spr_Skill.draw(game.batch);			
+			}
+			if(activePlayer.job_A.equals("Pistoleiro")) {
+				spr_Skill = gameControl.SkillHotbar("Pistoleiro","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Pistoleiro","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Pistoleiro","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Pistoleiro","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Pistoleiro","fireball"); spr_Skill.draw(game.batch);			
+			}
+			
 			
 			if(gameState.equals("Menu")) {
 				spr_Menubar = gameControl.LoadInterfaceGamePlay("barMenu", "", "");
@@ -328,17 +393,62 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_Status.draw(game.batch);
 			}
 			
-			
+			if(gameState.equals("Shop")) {
+				spr_Shop = gameControl.LoadInterfaceGamePlay(shop, "", "");
+				spr_Shop.draw(game.batch);
+			}
+						
 			// Test Dot
-			spr_testeDot.setPosition(cameraCoordsX + 59, cameraCoordsY - 22);
+			spr_testeDot.setPosition(cameraCoordsX + 11, cameraCoordsY + 42);
 			spr_testeDot.draw(game.batch);
-			
-			spr_testeDot.setPosition(cameraCoordsX + 67, cameraCoordsY - 9);
+
+			spr_testeDot.setPosition(cameraCoordsX + 22, cameraCoordsY + 27);
 			spr_testeDot.draw(game.batch);
 			
 			game.batch.end();	
 		}
 		
+		
+		private void CheckColide() {
+			if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
+				changeScreen = true;
+			}
+			
+			if(playerPosX < -8) {
+				state = "right";
+				breakWalk = "left";
+			}
+			
+			if(playerPosY > 58) {
+				state = "front";
+				breakWalk = "back";
+			}
+			
+			if(playerPosX > 7 && playerPosY > 15.5f) {
+				state = "left";
+				breakWalk = "right";
+			}
+			
+			if(playerPosY < -7) {
+				state = "back";
+				breakWalk = "front";
+			}
+			
+			breakWalk = "";
+		}
+		
+		private void ActionVerify() {
+			//Shop 1
+			if(playerPosX > 118.2f && playerPosY < 134.2f && playerPosY < 68.6f) {
+				
+			}
+			
+			//Refri Shop
+			if(playerPosX > -9.7f && playerPosX < 5.4f && playerPosY > 54f && playerPosY < 70.2f) {
+				gameState = "Shop";
+				shop = "RefriShop";
+			}
+		}
 		
 		@Override
 		public void input(String input) {
@@ -408,6 +518,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(gameState.equals("Main")) {
 				movement = true;
 				
+				//Action Button
+				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 30) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 22)) {
+					ActionVerify();
+					return false;
+				}
+				
 				//Menu button
 				if(coordsTouch.x >= (cameraCoordsX - 66.5f) && coordsTouch.x <= (cameraCoordsX - 57.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
 					gameState = "Menu";
@@ -422,7 +538,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				
 				//Hotbar 1
 				if(coordsTouch.x >= (cameraCoordsX + 51) && coordsTouch.x <= (cameraCoordsX + 59) && coordsTouch.y >= (cameraCoordsY - 22) && coordsTouch.y <= (cameraCoordsY - 9)) {
-					//Hotbar 1
 					return false;
 				}
 				
@@ -588,7 +703,58 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}
 			}
-					
+			
+			
+			
+			if(gameState.equals("Shop")) {
+				//Voltar
+				if(coordsTouch.x >= (cameraCoordsX + 32) && coordsTouch.x <= (cameraCoordsX + 49) && coordsTouch.y >= (cameraCoordsY + 65) && coordsTouch.y <= (cameraCoordsY + 83)) {
+					gameState = "Main";
+					return false;
+				}
+				//Item 1
+				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
+					if(shop.equals("RefriShop")) {}
+					return false;
+				}
+				//Item 2
+				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
+					if(shop.equals("RefriShop")) {}
+					return false;
+				}
+				//Item 3
+				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
+					if(shop.equals("RefriShop")) {}
+					return false;
+				}
+				//Item 4
+				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
+					if(shop.equals("RefriShop")) {}
+					return false;
+				}
+				
+				//Item 5
+				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
+					if(shop.equals("RefriShop")) {}
+					return false;
+				}
+				//Item 6
+				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
+					if(shop.equals("RefriShop")) {}
+					return false;
+				}
+				//Item 7
+				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
+					if(shop.equals("RefriShop")) {}
+					return false;
+				}
+				//Item 8
+				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
+					if(shop.equals("RefriShop")) {}
+					return false;
+				}			
+			}
+						
 			posTouchX = coordsTouch.x;
 			posTouchY = coordsTouch.y;
 				

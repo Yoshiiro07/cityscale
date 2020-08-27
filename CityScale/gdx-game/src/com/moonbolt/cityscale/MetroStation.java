@@ -51,6 +51,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private Sprite spr_playerHairTag;
 	private Sprite spr_BackController;
 	private Sprite spr_Controller;
+	private Sprite spr_skill;
 	
 	private float posTrainX = -60;
 	private float posTrainY = 76;
@@ -113,6 +114,8 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		
 		tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
 		spr_testeDot = new Sprite(tex_testeDot);
+		
+		spr_skill = new Sprite(tex_testeDot);
 		
 	}
 	
@@ -207,19 +210,20 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		
 		spr_Controller.draw(game.batch);
 		
-		//Test
-		font_master.setColor(Color.WHITE);
-		font_master.getData().setScale(0.10f,0.12f);
-		font_master.setUseIntegerPositions(false);	
 		
 		font_master.draw(game.batch, "X:" + playerPosX, 10, 60);
 		font_master.draw(game.batch, "Y:" + playerPosY, 30, 60);
 		
+		//Test
+		//font_master.setColor(Color.WHITE);
+		//font_master.getData().setScale(0.10f,0.12f);
+		//font_master.setUseIntegerPositions(false);	
+				
 		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
 		
-		spr_testeDot.setSize(1, 1);
+		//spr_testeDot.setSize(1, 1);
 		CheckColide();
 		
 		//Change Screen

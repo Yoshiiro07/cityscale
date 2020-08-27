@@ -1,0 +1,243 @@
+skillicons.png
+size: 1003, 102
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+btnacao
+  rotate: false
+  xy: 0, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnatkboost
+  rotate: false
+  xy: 59, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnberserk
+  rotate: false
+  xy: 118, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnbulletrain
+  rotate: false
+  xy: 177, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btndashkick
+  rotate: false
+  xy: 236, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btndef
+  rotate: false
+  xy: 295, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btndefboost
+  rotate: false
+  xy: 354, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btndoublehit
+  rotate: false
+  xy: 413, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnfastshot
+  rotate: false
+  xy: 472, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnfireball
+  rotate: false
+  xy: 531, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnflysword
+  rotate: false
+  xy: 590, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnhammercrash
+  rotate: false
+  xy: 649, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnheal
+  rotate: false
+  xy: 708, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnhealthboost
+  rotate: false
+  xy: 767, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnholyprism
+  rotate: false
+  xy: 826, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnicecrystal
+  rotate: false
+  xy: 885, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnimpound
+  rotate: false
+  xy: 944, 0
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btninvisibility
+  rotate: false
+  xy: 0, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnironshield
+  rotate: false
+  xy: 59, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnlockshot
+  rotate: false
+  xy: 118, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnmine
+  rotate: false
+  xy: 177, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnoverpower
+  rotate: false
+  xy: 236, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnpoisonhit
+  rotate: false
+  xy: 295, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnprecision
+  rotate: false
+  xy: 354, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnprotect
+  rotate: false
+  xy: 413, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnpular
+  rotate: false
+  xy: 472, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnragebound
+  rotate: false
+  xy: 531, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnravenblade
+  rotate: false
+  xy: 590, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnregen
+  rotate: false
+  xy: 649, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnrockbound
+  rotate: false
+  xy: 708, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnsoulclash
+  rotate: false
+  xy: 767, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnsteal
+  rotate: false
+  xy: 826, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btnthundercloud
+  rotate: false
+  xy: 885, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
+btntripleattack
+  rotate: false
+  xy: 944, 51
+  size: 59, 51
+  orig: 59, 51
+  offset: 0, 0
+  index: -1
