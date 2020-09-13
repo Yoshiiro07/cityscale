@@ -1,32 +1,95 @@
 itens.png
-size: 172, 43
+size: 86, 301
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-chipz
+basicaxe
   rotate: false
   xy: 0, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-hpcan
+basicdagger
   rotate: false
   xy: 43, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
+basicknife
+  rotate: false
+  xy: 0, 43
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicpistol
+  rotate: false
+  xy: 43, 43
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicrod
+  rotate: false
+  xy: 0, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicset
+  rotate: false
+  xy: 43, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicsetF
+  rotate: false
+  xy: 0, 129
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicsword
+  rotate: false
+  xy: 43, 129
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+chipz
+  rotate: false
+  xy: 0, 172
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+doubleedge
+  rotate: false
+  xy: 43, 172
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hpcan
+  rotate: false
+  xy: 0, 215
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
 mpcan
   rotate: false
-  xy: 86, 0
+  xy: 43, 215
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 stcan
   rotate: false
-  xy: 129, 0
+  xy: 0, 258
   size: 43, 43
   orig: 43, 43
   offset: 0, 0

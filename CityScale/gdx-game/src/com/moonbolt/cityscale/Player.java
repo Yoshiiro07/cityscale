@@ -25,6 +25,9 @@ public class Player {
 	public String skills_1;
 	public String coordX_1;
 	public String coordY_1;
+	public String pos_1;
+	public String side_1;
+	public String walk_1;
 	public String inBattle_1;
 	public String target_1;
 	public String itens_1;
@@ -33,6 +36,8 @@ public class Player {
 	public String inCasting_1;
 	public String quest_1;
 	public String state_1;
+	public String hotkey1_1;
+	public String hotkey2_1;
 	
 	public String name_2;
 	public String sex_2;
@@ -55,6 +60,9 @@ public class Player {
 	public String skills_2;
 	public String coordX_2;
 	public String coordY_2;
+	public String pos_2;
+	public String side_2;
+	public String walk_2;
 	public String inBattle_2;
 	public String target_2;
 	public String itens_2;
@@ -63,6 +71,8 @@ public class Player {
 	public String inCasting_2;
 	public String quest_2;
 	public String state_2;
+	public String hotkey1_2;
+	public String hotkey2_2;
 	
 	public String name_3;
 	public String sex_3;
@@ -85,6 +95,9 @@ public class Player {
 	public String skills_3;
 	public String coordX_3;
 	public String coordY_3;
+	public String pos_3;
+	public String side_3;
+	public String walk_3;
 	public String inBattle_3;
 	public String target_3;
 	public String itens_3;
@@ -93,6 +106,8 @@ public class Player {
 	public String inCasting_3;
 	public String quest_3;
 	public String state_3;
+	public String hotkey1_3;
+	public String hotkey2_3;
 	
 	public String name_A;
 	public String sex_A;
@@ -115,6 +130,9 @@ public class Player {
 	public String skills_A;
 	public String coordX_A;
 	public String coordY_A;
+	public String pos_A;
+	public String side_A;
+	public String walk_A;
 	public String inBattle_A;
 	public String target_A;
 	public String itens_A;
@@ -123,5 +141,6 @@ public class Player {
 	public String inCasting_A;
 	public String quest_A;
 	public String state_A;
-	
+	public String hotkey1_A;
+	public String hotkey2_A;	
 }
