@@ -269,8 +269,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Skill = gameControl.SkillHotbar("All","");
 			spr_Skill.draw(game.batch);
 			
-			if(activePlayer.job_A.equals("Aprendiz")) {
-				spr_Skill = gameControl.SkillHotbar("Aprendiz","tripleattack"); spr_Skill.draw(game.batch);		
+			String jo = activePlayer.job_A;
+			if(activePlayer.job_A.equals("Novice")) {
+				spr_Skill = gameControl.SkillHotbar("Novice","tripleattack"); spr_Skill.draw(game.batch);		
 			}
 			if(activePlayer.job_A.equals("Espadachim")) {
 				spr_Skill = gameControl.SkillHotbar("Espadachim","tripleattack"); spr_Skill.draw(game.batch);
@@ -428,9 +429,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(isDisplay) {
 				countDisplay--;
 				if(countDisplay <= 0) {
-					//countDisplay = 0;
-					//isDisplay = true;
-					//typeDisplay = "";
+					countDisplay = 0;
+					isDisplay = true;
+					typeDisplay = "";
 				}
 				
 				if(typeDisplay.equals("Config")) {
@@ -439,11 +440,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 						
 			// Test Dot
-			//spr_testeDot.setPosition(cameraCoordsX - 36, cameraCoordsY + 42);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 11, cameraCoordsY + 56);
+			spr_testeDot.draw(game.batch);
 
-			//spr_testeDot.setPosition(cameraCoordsX - 23, cameraCoordsY + 35);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 45, cameraCoordsY + 47);
+			spr_testeDot.draw(game.batch);
 			
 			game.batch.end();	
 		}
@@ -1215,7 +1216,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}
 				
-				//Online
+				//Online Ligar
 				if(coordsTouch.x >= (cameraCoordsX - 36) && coordsTouch.x <= (cameraCoordsX - 23) && coordsTouch.y >= (cameraCoordsY + 35) && coordsTouch.y <= (cameraCoordsY + 42)) {
 					network = true;
 					gameControl.OnlineManager("Sync","");
@@ -1223,6 +1224,32 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					msgDisplay = "Online Ligado";
 					isDisplay = true;
 					countDisplay = 200;
+					return false;
+				}
+				
+				//Online Ligar
+				if(coordsTouch.x >= (cameraCoordsX - 17) && coordsTouch.x <= (cameraCoordsX - 3) && coordsTouch.y >= (cameraCoordsY + 35) && coordsTouch.y <= (cameraCoordsY + 42)) {
+					network = true;
+					gameControl.OnlineManager("Desligar","");
+					typeDisplay = "Config";
+					msgDisplay = "Online Desligado";
+					isDisplay = true;
+					countDisplay = 200;
+					return false;
+				}
+				
+				//Trocar Personagem
+				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 47) && coordsTouch.y <= (cameraCoordsY + 56)) {
+					gameControl.UpdateDataSave(numPlayerActive);
+					if(network) {
+						game.AtualizaElementos(game,gameControl, config, platform, "Yes");
+					}
+					else {
+						game.AtualizaElementos(game,gameControl, config, platform, "No");
+					}
+				    
+				    game.Switch("CharacterSelect");
+					network = false;
 					return false;
 				}
 			}
