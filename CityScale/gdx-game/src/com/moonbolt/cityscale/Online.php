@@ -32,7 +32,14 @@
 	$lside = $_POST['lside'];
 	$lbattle = $_POST['lbattle'];
 	
+	
+	#Variaveis de chat
 	$lchat = $_POST['lchat'];
+	
+	#Variaveis de Combate
+	$lmobID = $_POST['lmobID'];
+	$ldmg = $_POST['ldmg'];
+	$ldmg = $_POST['ldmg'];
 	
 	#Variaveis de uso Global
 	$lAll = '';
@@ -68,20 +75,20 @@
 		}
 		
 		/////Recupera Mobs /////
-		//$lAll = '';
-		//$sql = "SELECT * FROM Mobs where MAP = '$lmap' ";
-		//$result = $conn->query($sql);			
-		//if ($result->num_rows > 0) {
-		//	while($row = $result->fetch_assoc()) {
+		$lAll = '';
+		$sql = "SELECT * FROM Mobs where MAP = '$lmap' ";
+		$result = $conn->query($sql);			
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
 									
-		//	$lAll = $lAll . ("SYSTEMMOBS - :MOBID=" . $row["MobsID"]. 
-		//					  ":GameMobID=" .  $row["GameMobID"]. 
-		//					  ":MOBHP=" . $row["HPMob"] . 
-		//					  ":MAP=" . $row["MAP"] .
-		//					  ": - \n");			
-		//	}		
-		//}
-		//echo($lAll);
+			$lAll = $lAll . ("SYSTEMMOBS - :MobID=" . $row["MobsID"]. 
+							  ":GameMobID=" .  $row["GameMobID"]. 
+							  ":HPMob=" . $row["HPMob"] . 
+							  ":Map=" . $row["MAP"] .
+							  ": - \n");			
+			}		
+		}
+		echo($lAll);
 		
 		/////Recupera EXPSHARED /////
 		//$lAll = '';
@@ -212,10 +219,10 @@
 	if ($lrequest == "Atk"){
 		
 		$lAll = '';
-		$sql = "SELECT * FROM Mobs where GameMobID = '$lmobID' ";	
+		$sql = "SELECT * FROM Mobs where GameMobID = '$lmobID' and MAP = '$lmap' ";	
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {			
-			$sql = "UPDATE Mobs set HPMob = '$ldmg' where GameMobID = '$lmobID' ";			
+			$sql = "UPDATE Mobs set HPMob = '$ldmg' where GameMobID = '$lmobID' and MAP = '$lmap' ";			
 			$result = $conn->query($sql);
 			if ($conn->query($sql) === TRUE) { echo nl2br("\n - AtualizadoMOB - \n"); } else { echo nl2br("\n - Falhou Update - \n") . $conn->error; }
 		}

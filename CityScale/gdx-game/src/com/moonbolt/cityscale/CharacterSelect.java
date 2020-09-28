@@ -326,9 +326,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setPosition(78, 41.2f);
 					spr_hair.draw(game.batch);					
 				}
-			}
-			
-			
+			}		
 		}
 		
 		
@@ -348,7 +346,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			spr_characterSet = gameControl.LoadCharacterMenu(sex); 
 			spr_characterSet.draw(game.batch);
 			
-			spr_hair = gameControl.LoadCharacterHairMenu(hair);
+			spr_hair = gameControl.LoadCharacterHairMenu(hair, sex);
 			spr_hair.draw(game.batch);
 			
 			//for show
@@ -357,8 +355,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			spr_hairLoop.draw(game.batch);
 			}
 			
-			font_master.draw(game.batch, systemMsg,57.5f, 72.3f);
-			
+			font_master.draw(game.batch, systemMsg,57.5f, 72.3f);		
 		}
 		
 		
@@ -453,14 +450,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair = gameControl.PlayerHairCharacterSelect(activeplayer.hair_3,activeplayer.sex_3, "front");
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(78, 41.2f);
-					spr_hair.draw(game.batch);
-					
+					spr_hair.draw(game.batch);					
 				}
 			}
 		}
-		
-		
-		
+			
 		//Change Screen
 		if(changeScreen){		
 		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
@@ -469,12 +463,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		    if(charnum == 3) { game.Switch(activeplayer.map_3); }			
 		}
 		
-	
 		//Test
 		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
-				
 		
 		game.batch.end();
 	}
@@ -619,75 +611,75 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				return false;
 			}
 			if(coordsTouch.x >= 54.3 && coordsTouch.x <= 66.6 && coordsTouch.y >= 57.3 && coordsTouch.y <= 64.1) {
-				sex = "F"; hair = "hair1_f";
+				sex = "F"; hair = "hair1";
 				return false;
 			}
 			
 			//Hair1 
 			if(coordsTouch.x >= 36.8 && coordsTouch.x <= 42.6 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
 				if(sex.equals("M")) { hair = "hair1"; }
-				if(sex.equals("F")) { hair = "hair1_f";}
+				if(sex.equals("F")) { hair = "hair1";}
 				return false;
 			}
 			//Hair2
 			if(coordsTouch.x >= 43.2 && coordsTouch.x <= 48.9 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
 				if(sex.equals("M")) { hair = "hair2"; }
-				if(sex.equals("F")) { hair = "hair2_f";}
+				if(sex.equals("F")) { hair = "hair2";}
 				return false;
 			}
 			//Hair3
 			if(coordsTouch.x >= 49.4 && coordsTouch.x <= 55.1 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
 				if(sex.equals("M")) { hair = "hair3"; }
-				if(sex.equals("F")) { hair = "hair3_f";}
+				if(sex.equals("F")) { hair = "hair3";}
 				return false;
 			}
 			//Hair4
 			if(coordsTouch.x >= 55.7 && coordsTouch.x <= 61.4 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
 				if(sex.equals("M")) { hair = "hair4"; }
-				if(sex.equals("F")) { hair = "hair4_f";}
+				if(sex.equals("F")) { hair = "hair4";}
 				return false;
 			}
 			//Hair5
 			if(coordsTouch.x >= 62 && coordsTouch.x <= 74.0 && coordsTouch.y >= 67.6 && coordsTouch.y <= 47.6) {
 				if(sex.equals("M")) { hair = "hair5"; }
-				if(sex.equals("F")) { hair = "hair5_f";}
+				if(sex.equals("F")) { hair = "hair5";}
 				return false;
 			}
 			//Hair6
 			if(coordsTouch.x >= 68.3 && coordsTouch.x <= 74.0 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
 				if(sex.equals("M")) { hair = "hair6"; }
-				if(sex.equals("F")) { hair = "hair6_f";}
+				if(sex.equals("F")) { hair = "hair6";}
 				return false;
 			}
 			
 			//Hair7
 			if(coordsTouch.x >= 36.8 && coordsTouch.x <= 42.6 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
 				if(sex.equals("M")) { hair = "hair7"; }
-				if(sex.equals("F")) { hair = "hair7_f";}
+				if(sex.equals("F")) { hair = "hair7";}
 				return false;
 			}
 			//Hair8
 			if(coordsTouch.x >= 43.2 && coordsTouch.x <= 48.9 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
 				if(sex.equals("M")) { hair = "hair8"; }
-				if(sex.equals("F")) { hair = "hair8_f";}
+				if(sex.equals("F")) { hair = "hair8";}
 				return false;
 			}
 			//Hair9
 			if(coordsTouch.x >= 49.4 && coordsTouch.x <= 55.1 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
 				if(sex.equals("M")) { hair = "hair9"; }
-				if(sex.equals("F")) { hair = "hair9_f";}
+				if(sex.equals("F")) { hair = "hair9";}
 				return false;
 			}
 			//Hair10
 			if(coordsTouch.x >= 55.7 && coordsTouch.x <= 61.4 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
 				if(sex.equals("M")) { hair = "hair10"; }
-				if(sex.equals("F")) { hair = "hair10_f";}
+				if(sex.equals("F")) { hair = "hair10"; }
 				return false;
 			}
 			//Hair11
 			if(coordsTouch.x >= 62 && coordsTouch.x <= 74.0 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
 				if(sex.equals("M")) { hair = "hair11"; }
-				if(sex.equals("F")) { hair = "hair11_f";}
+				if(sex.equals("F")) { hair = "hair11";}
 				return false;
 			}
 			//Hair12

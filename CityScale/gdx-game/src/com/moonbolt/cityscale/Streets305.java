@@ -43,6 +43,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private float playerPosY;
 		private int playerPosiX;
 		private int playerPosiY;
+		private String autoAtk = "no";
 		
 		//Sprites
 		private Sprite spr_Background;
@@ -56,11 +57,18 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_Hotbar;
 		private Sprite spr_BackController;
 		private Sprite spr_Controller;
+		private Sprite spr_autoAtk;
+		private Sprite spr_switchTarget;
+		private Sprite spr_TargetArrow;
+		private Sprite spr_Weapon;
 		private Sprite spr_Skill;
 		private Sprite spr_Shop;
 		private Sprite spr_item;
 		private Sprite spr_mob;
 		private Sprite spr_npc;
+		private Sprite spr_lootItem;
+		private Sprite spr_lootBar;
+		private Sprite spr_skill;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -69,8 +77,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_MenuPet;
 		private Sprite spr_MenuSocial;
 		private Sprite spr_MenuConfig;
-		
-		
+			
 		//Primitives
 		private float posTouchX = 0;
 		private float posTouchY = 0;
@@ -88,7 +95,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private String typeDisplay = "";
 		private String msgDisplay = "";
 		private String[] logItens;
+		private String job = "";
 		private ArrayList<Monster> lstMobs;
+		private ArrayList<Damage> lstDano;
+		private ArrayList<Skill> lstSkill;
+		private boolean isAreaSkill = false;
 		
 			
 		//fonts
@@ -202,14 +213,14 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_playerCharacter.setPosition(playerPosX, playerPosY);
 			spr_playerCharacter.draw(game.batch);
 			
-			spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state, "Main");
+			spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state, "Main", walk);
 			spr_playerHair.draw(game.batch);
 				
 			//UI Elements
 			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","","");
 			spr_playerTag.draw(game.batch);
 			
-			spr_playerHairTag = gameControl.LoadInterfaceGamePlay("hairTag",activePlayer.hair_A,"");
+			spr_playerHairTag = gameControl.LoadInterfaceGamePlay("hairTag",activePlayer.hair_A,activePlayer.sex_A);
 			spr_playerHairTag.draw(game.batch);
 			
 			spr_Minibar = gameControl.LoadInterfaceGamePlay("minibar", "","");
@@ -224,6 +235,25 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Controller = gameControl.LoadInterfaceGamePlay("innerpad", walk,state);
 			spr_Controller.draw(game.batch);
 			
+			
+			if(autoAtk.equals("yes")) {
+				spr_autoAtk = gameControl.LoadInterfaceGamePlay("autoatkOFF", "","");
+				spr_autoAtk.draw(game.batch);		
+			}
+			
+			if(autoAtk.equals("no")) {
+				spr_autoAtk = gameControl.LoadInterfaceGamePlay("autoatkON","","");
+				spr_autoAtk.draw(game.batch);
+				gameControl.ExitBattle();
+			}
+			
+			spr_switchTarget = gameControl.LoadInterfaceGamePlay("switchTarget","","");
+			spr_switchTarget.draw(game.batch);
+			
+			font_master.draw(game.batch, "Atk:" + String.valueOf(gameControl.GetCountDown()), cameraCoordsX + 58, cameraCoordsY + 32);
+			font_master.draw(game.batch, "Skl:" + String.valueOf(gameControl.GetCountDownSkill()), cameraCoordsX + 58, cameraCoordsY + 37);
+			
+			
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.09f,0.11f);
 			font_master.setUseIntegerPositions(false);	
@@ -232,6 +262,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 54f,cameraCoordsY + 81.8f);
 			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 41f,cameraCoordsY + 87.8f);
 			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 43f,cameraCoordsY + 81.8f);
+			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX - 39f,cameraCoordsY + 73.2f);
 			
 			playerPosiX = Math.round(playerPosX);
 			playerPosiY = Math.round(playerPosY);
@@ -269,60 +300,61 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Skill = gameControl.SkillHotbar("All","");
 			spr_Skill.draw(game.batch);
 			
-			String jo = activePlayer.job_A;
+			job = activePlayer.job_A;
 			if(activePlayer.job_A.equals("Novice")) {
 				spr_Skill = gameControl.SkillHotbar("Novice","tripleattack"); spr_Skill.draw(game.batch);		
 			}
-			if(activePlayer.job_A.equals("Espadachim")) {
-				spr_Skill = gameControl.SkillHotbar("Espadachim","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Espadachim","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Espadachim","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Espadachim","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Espadachim","fireball"); spr_Skill.draw(game.batch);			
+			if(activePlayer.job_A.equals("Swordman")) {
+				spr_Skill = gameControl.SkillHotbar("Swordman","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Swordman","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Swordman","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Swordman","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Swordman","fireball"); spr_Skill.draw(game.batch);			
 			}
-			if(activePlayer.job_A.equals("Mago")) {
-				spr_Skill = gameControl.SkillHotbar("Mago","fireball"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Mago","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Mago","thundercloud"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Mago","rockbound"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Mago","soulcrash"); spr_Skill.draw(game.batch);			
+			if(activePlayer.job_A.equals("Mage")) {
+				spr_Skill = gameControl.SkillHotbar("Mage","fireball"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Mage","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Mage","thundercloud"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Mage","rockbound"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Mage","soulcrash"); spr_Skill.draw(game.batch);			
 			}
-			if(activePlayer.job_A.equals("Ladrao")) {
-				spr_Skill = gameControl.SkillHotbar("Ladrao","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Ladrao","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Ladrao","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Ladrao","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Ladrao","fireball"); spr_Skill.draw(game.batch);			
+			if(activePlayer.job_A.equals("Thief")) {
+				spr_Skill = gameControl.SkillHotbar("Thief","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Thief","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Thief","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Thief","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Thief","fireball"); spr_Skill.draw(game.batch);			
 			}
-			if(activePlayer.job_A.equals("Medico")) {
-				spr_Skill = gameControl.SkillHotbar("Medico","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Medico","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Medico","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Medico","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Medico","fireball"); spr_Skill.draw(game.batch);			
+			if(activePlayer.job_A.equals("Medic")) {
+				spr_Skill = gameControl.SkillHotbar("Medic","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medic","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Medic","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medic","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medic","fireball"); spr_Skill.draw(game.batch);			
 			}
-			if(activePlayer.job_A.equals("Batedor")) {
-				spr_Skill = gameControl.SkillHotbar("Batedor","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Batedor","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Batedor","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Batedor","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Batedor","fireball"); spr_Skill.draw(game.batch);			
+			if(activePlayer.job_A.equals("Beater")) {
+				spr_Skill = gameControl.SkillHotbar("Beater","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Beater","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Beater","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Beater","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Beater","fireball"); spr_Skill.draw(game.batch);			
 			}
-			if(activePlayer.job_A.equals("Pistoleiro")) {
-				spr_Skill = gameControl.SkillHotbar("Pistoleiro","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Pistoleiro","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Pistoleiro","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Pistoleiro","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Pistoleiro","fireball"); spr_Skill.draw(game.batch);			
+			if(activePlayer.job_A.equals("Gunner")) {
+				spr_Skill = gameControl.SkillHotbar("Gunner","tripleattack"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Gunner","icecrystal"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Gunner","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Gunner","precision"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Gunner","fireball"); spr_Skill.draw(game.batch);			
 			}
 			
 			
 			//Show Online Players
 			ShowOnlinePlayers();
 			
-			
 			//Show Monsters
 			ShowMonsters();
+			
+			
 				
 			if(gameState.equals("Menu")) {
 				spr_Menubar = gameControl.LoadInterfaceGamePlay("barMenu", "", "");
@@ -377,7 +409,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_playerCharacter.setPosition(cameraCoordsX - 51, cameraCoordsY - 10);
 				spr_playerCharacter.draw(game.batch);
 				
-				spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,"stop", "Menu-Status");
+				spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,"stop", "Menu-Status", "stop");
 				spr_playerHair.setSize(12,19);
 				spr_playerHair.setPosition(cameraCoordsX - 37.8f, cameraCoordsY + 30.2f);
 				spr_playerHair.draw(game.batch);
@@ -392,7 +424,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_playerCharacter.setPosition(cameraCoordsX + 5, cameraCoordsY);
 				spr_playerCharacter.draw(game.batch);
 				
-				spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,"stop", "Menu-Status");
+				spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,"stop", "Menu-Status","stop");
 				spr_playerHair.setSize(12,19);
 				spr_playerHair.setPosition(cameraCoordsX + 18.2f, cameraCoordsY + 40.3f);
 				spr_playerHair.draw(game.batch);
@@ -438,13 +470,37 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch, msgDisplay, cameraCoordsX - 7,cameraCoordsY);
 				}
 			}
+			
+			//Show Damage
+			ShowDamage();
+			ShowSkillUsed();
+			
+			//Verify Combate
+			if(autoAtk.equals("yes")) {
+				gameControl.AutoAttack();
+			}
+			
+			//Show Weapon
+			spr_Weapon = gameControl.ShowWeapon(playerPosX, playerPosY, walk);
+			if(spr_Weapon != null) { spr_Weapon.draw(game.batch); }		
+			gameControl.CheckMonsterAttack();		
+			gameControl.RespawnMob();
+			
+			//Show Loot
+			spr_lootItem = gameControl.ShowLootItem(cameraCoordsX, cameraCoordsY);
+			if(spr_lootItem != null) {	
+				spr_lootBar = gameControl.LoadInterfaceGamePlay("lootbar", "", "");			
+				spr_lootBar.draw(game.batch);
+				font_master.draw(game.batch, "Item Obtido:  " + gameControl.GetLootName(), cameraCoordsX - 23,cameraCoordsY + 68);
+				spr_lootItem.draw(game.batch);
+			}
 						
 			// Test Dot
-			spr_testeDot.setPosition(cameraCoordsX + 11, cameraCoordsY + 56);
-			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setPosition(cameraCoordsX + 30, cameraCoordsY - 23);
+			//spr_testeDot.draw(game.batch);
 
-			spr_testeDot.setPosition(cameraCoordsX + 45, cameraCoordsY + 47);
-			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setPosition(cameraCoordsX + 23, cameraCoordsY - 37);
+			//spr_testeDot.draw(game.batch);
 			
 			game.batch.end();	
 		}
@@ -567,19 +623,58 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					
 					spr_playerHairOnline = gameControl.MovPlayerOnlineHair(lstPlayerOnline.get(i));
 					spr_playerHairOnline.draw(game.batch);
+					
+					font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX(),spr_playerCharacterOnline.getY() - 15);
 				}
 			}
 		}
 		
 		private void ShowMonsters() {
-			
 			lstMobs = gameControl.GetMonsters();
-			
 			for(int i = 0; i < lstMobs.size(); i++) {
 				spr_mob = gameControl.MobAppear(i);
 				spr_mob.draw(game.batch);
-			}
+				font_master.draw(game.batch, lstMobs.get(i).name + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
+			}	
 			
+			spr_TargetArrow = gameControl.TargetMobArrow();
+			if(spr_TargetArrow != null) {
+				spr_TargetArrow.draw(game.batch);
+			}
+		}
+		
+		public void ShowDamage() {
+			lstDano = gameControl.GetDamageList();
+			for(int i = 0; i < lstDano.size(); i++) {			
+				lstDano.get(i).frame++;	
+				if(lstDano.get(i).frame > 50) { gameControl.RemoveDamage(i); return; }
+				if(lstDano.get(i).color.equals("Yellow")) { font_master.setColor(Color.YELLOW); }
+				if(lstDano.get(i).color.equals("Red")) { font_master.setColor(Color.RED); }
+				font_master.getData().setScale(0.20f,0.23f);
+				font_master.setUseIntegerPositions(false);	
+				font_master.draw(game.batch, String.valueOf(lstDano.get(i).dmg), lstDano.get(i).posX, lstDano.get(i).posY);
+				
+				font_master.setColor(Color.WHITE);
+				font_master.getData().setScale(0.09f,0.11f);
+				font_master.setUseIntegerPositions(false);
+			}
+		}
+		
+		public void ShowSkillUsed() {
+			lstSkill = gameControl.GetSkillList();
+			
+			for(int i = 0; i < lstSkill.size(); i++) {	
+				
+				if(lstSkill.get(i).follow == false) {
+					spr_skill = gameControl.EffectSkill(lstSkill.get(i));
+					if(spr_skill != null) {
+						lstSkill.get(i).frame++;
+						spr_skill.draw(game.batch);
+						
+						if(lstSkill.get(i).frame > 60) { lstSkill.remove(i); }
+					}
+				}
+			}
 		}
 		
 		@Override
@@ -670,6 +765,25 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}		
 				
+				//Atk Button
+				if(coordsTouch.x >= (cameraCoordsX + 58) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY - 7) && coordsTouch.y <= (cameraCoordsY + 7)) {
+					if(autoAtk.equals("yes")) {
+						autoAtk = "no";
+						return false;
+					}
+					if(autoAtk.equals("no")) {
+						autoAtk = "yes";
+						return false;
+					}
+					return false;
+				}
+				
+				//Switch Target
+				if(coordsTouch.x >= (cameraCoordsX + 58) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY + 10) && coordsTouch.y <= (cameraCoordsY + 25)) {
+					gameControl.SwitchTarget();
+					return false;
+				}
+				
 				//Chat Button
 				if(coordsTouch.x >= (cameraCoordsX - 56.5f) && coordsTouch.x <= (cameraCoordsX - 47.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
 					Gdx.input.getTextInput(this,"Mensagem","","");
@@ -688,33 +802,33 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				
 				//Skill 1
-				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 30) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
+				if(coordsTouch.x >= (cameraCoordsX + 31) && coordsTouch.x <= (cameraCoordsX + 37) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
+					isAreaSkill = gameControl.CheckSkillType(1);
+					
+					if(!isAreaSkill) {
+						gameControl.SkillAtk(1);
+					}
+					
 					return false;
 				}
 				//Skill 2
-				if(coordsTouch.x >= (cameraCoordsX + 31) && coordsTouch.x <= (cameraCoordsX + 37) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
+				if(coordsTouch.x >= (cameraCoordsX + 38) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
+					//Skill 3
 					return false;
 				}
 				//Skill 3
-				if(coordsTouch.x >= (cameraCoordsX + 38) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
+				if(coordsTouch.x >= (cameraCoordsX + 45) && coordsTouch.x <= (cameraCoordsX + 52) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
+					//Skill 4
 					return false;
 				}
 				//Skill 4
-				if(coordsTouch.x >= (cameraCoordsX + 45) && coordsTouch.x <= (cameraCoordsX + 52) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
+				if(coordsTouch.x >= (cameraCoordsX + 52) && coordsTouch.x <= (cameraCoordsX + 59) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
+					//Skill 5
 					return false;
 				}
 				//Skill 5
-				if(coordsTouch.x >= (cameraCoordsX + 52) && coordsTouch.x <= (cameraCoordsX + 59) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
-					return false;
-				}
-				//Skill 6
 				if(coordsTouch.x >= (cameraCoordsX + 59) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 1
+					//Skill 6
 					return false;
 				}
 			}
@@ -1227,7 +1341,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}
 				
-				//Online Ligar
+				//Online Desligar
 				if(coordsTouch.x >= (cameraCoordsX - 17) && coordsTouch.x <= (cameraCoordsX - 3) && coordsTouch.y >= (cameraCoordsY + 35) && coordsTouch.y <= (cameraCoordsY + 42)) {
 					network = true;
 					gameControl.OnlineManager("Desligar","");

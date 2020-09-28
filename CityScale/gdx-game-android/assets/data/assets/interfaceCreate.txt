@@ -1,179 +1,207 @@
 interfaceCreate.png
-size: 1022, 1939
+size: 2000, 1175
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 areaSelect
   rotate: false
-  xy: 361, 104
+  xy: 925, 58
   size: 241, 75
   orig: 241, 75
   offset: 0, 0
   index: -1
 barAccess
   rotate: false
-  xy: 602, 104
+  xy: 1166, 58
   size: 242, 84
   orig: 242, 84
   offset: 0, 0
   index: -1
 barcreatechar
   rotate: false
-  xy: 0, 1525
+  xy: 1000, 761
   size: 890, 414
   orig: 890, 414
   offset: 0, 0
   index: -1
+barloot
+  rotate: false
+  xy: 367, 0
+  size: 297, 41
+  orig: 297, 41
+  offset: 0, 0
+  index: -1
 barMenu
   rotate: false
-  xy: 676, 326
+  xy: 1457, 162
   size: 80, 299
   orig: 80, 299
   offset: 0, 0
   index: -1
+btnAutoAttackOFF
+  rotate: false
+  xy: 1516, 0
+  size: 66, 58
+  orig: 66, 58
+  offset: 0, 0
+  index: -1
+btnAutoAttackON
+  rotate: false
+  xy: 1582, 0
+  size: 66, 58
+  orig: 66, 58
+  offset: 0, 0
+  index: -1
 btnCriarNovo
   rotate: false
-  xy: 0, 104
+  xy: 564, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 btnDeletar
   rotate: false
-  xy: 128, 104
+  xy: 628, 58
   size: 64, 64
   orig: 64, 64
+  offset: 0, 0
+  index: -1
+btnTrocarAlvo
+  rotate: false
+  xy: 1648, 0
+  size: 66, 58
+  orig: 66, 58
   offset: 0, 0
   index: -1
 btnVoltar
   rotate: false
-  xy: 64, 104
+  xy: 692, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-checkSelect
-  rotate: false
-  xy: 23, 0
-  size: 22, 22
-  orig: 22, 22
-  offset: 0, 0
-  index: -1
 criandopersonagem
   rotate: false
-  xy: 389, 0
+  xy: 664, 0
   size: 400, 41
   orig: 400, 41
   offset: 0, 0
   index: -1
 deletandopersonagem
   rotate: false
-  xy: 45, 0
+  xy: 23, 0
   size: 344, 36
   orig: 344, 36
   offset: 0, 0
   index: -1
+hicon
+  rotate: false
+  xy: 721, 162
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
 hotbar
   rotate: false
-  xy: 415, 41
+  xy: 0, 58
   size: 418, 63
   orig: 418, 63
   offset: 0, 0
   index: -1
 innerpad
   rotate: false
-  xy: 844, 104
+  xy: 1408, 58
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 logo
   rotate: false
-  xy: 140, 326
+  xy: 921, 162
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 luzclara
   rotate: false
-  xy: 508, 326
+  xy: 1121, 162
   size: 168, 210
   orig: 168, 210
   offset: 0, 0
   index: -1
 luzescura
   rotate: false
-  xy: 340, 326
+  xy: 1289, 162
   size: 168, 210
   orig: 168, 210
   offset: 0, 0
   index: -1
 menuConfig
   rotate: false
-  xy: 0, 625
+  xy: 0, 461
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuItens
   rotate: false
-  xy: 500, 625
+  xy: 500, 461
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuPet
   rotate: false
-  xy: 500, 925
+  xy: 1000, 461
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuSkills
   rotate: false
-  xy: 0, 1225
+  xy: 1500, 461
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuSocial
   rotate: false
-  xy: 500, 1225
+  xy: 0, 761
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuStatus
   rotate: false
-  xy: 0, 925
+  xy: 500, 761
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 metro
   rotate: false
-  xy: 441, 204
+  xy: 0, 162
   size: 581, 122
   orig: 581, 122
   offset: 0, 0
   index: -1
 minibar
   rotate: false
-  xy: 833, 41
+  xy: 418, 58
   size: 146, 63
   orig: 146, 63
   offset: 0, 0
   index: -1
 outerpad
   rotate: false
-  xy: 0, 326
+  xy: 581, 162
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 selecionepersonagem
   rotate: false
-  xy: 0, 41
+  xy: 1064, 0
   size: 415, 43
   orig: 415, 43
   offset: 0, 0
@@ -187,23 +215,30 @@ selected
   index: -1
 tagParty
   rotate: false
-  xy: 192, 104
+  xy: 756, 58
   size: 169, 65
   orig: 169, 65
   offset: 0, 0
   index: -1
 tagPlayer
   rotate: false
-  xy: 200, 204
+  xy: 1708, 58
   size: 241, 104
   orig: 241, 104
   offset: 0, 0
   index: -1
 tagStart
   rotate: false
-  xy: 0, 204
+  xy: 1508, 58
   size: 200, 100
   orig: 200, 100
+  offset: 0, 0
+  index: -1
+target
+  rotate: false
+  xy: 1479, 0
+  size: 37, 43
+  orig: 37, 43
   offset: 0, 0
   index: -1
 testdot

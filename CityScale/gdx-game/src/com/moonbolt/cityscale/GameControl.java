@@ -38,29 +38,68 @@ public class GameControl {
 	private Player playerInfo;
 	private Player playerInfoOnline;
 	private ArrayList<Monster> lstMobs;
+	private ArrayList<Damage> lstDanos;
+	private ArrayList<Skill> lstSkill;
 	
 	//Primitive Variable
 	private int activeCharNumber;
 	private int countFrameMov = 1;
 	private int frame = 1;
+	private int atkHitRandom = 0;
 	private float playerPosX;
 	private float playerPosY;
 	private float playerSpeed = 0.4f;
 	private int recoverytimer = 700;
 	private int savetimer = 800;
 	private int frameMob = 0;
-	private int skillMob = 0;
+	private int randomCount;
+	private int countLootShowing = 0;
+	private String lootItemName = "none";
 	
-	
+	//Player Variables
 	private int playerHP;
 	private int playerMP;
 	private int playerHPMax;
 	private int playerMPMax;
+	private int playerCountDown = 200;
 	private int coordsXint = 0;
 	private int coordsYint = 0;
+	private int playerAtk = 3;
+	private int exitAnimationFrame = 0;
+	private int skillCoolDown = 0;
+	private String playerSide = "";
+	private String playerWeapon = "";
+	private String[] playerStatus;
+	private String[] playerStatusNumber;
+	private float playerCoordsX;
+	private float playerCoordsY;
 	private float coordsXfloat = 0;
 	private float coordsYfloat = 0;
-	private int setIndexPlayerOnline = 0;
+	private float playerRangeXMinus;
+	private float playerRangeXPlus;
+	private float playerRangeYMinus;
+	private float playerRangeYPlus;
+	private int playerStr;
+	private int playerAgi;
+	private int playerDex;
+	private int playerWis;
+	private int playerLuk;
+	private int playerRes;
+	private int playerVit;
+	
+	
+	//Mob Variables
+	private int mobCountDown;
+	private int mobHP;
+	private int mobMP;
+	private int mobAtk;
+	private float mobX;
+	private float mobY;
+	private float mobRangeXMinus;
+	private float mobRangeXPlus;
+	private float mobRangeYMinus;
+	private float mobRangeYPlus;
+	
 	
 	//Online
 	private int threahCount = 0;
@@ -80,6 +119,7 @@ public class GameControl {
 	
 	//Game Variables
 	private Sprite spr_master;
+	private Sprite spr_targetArrow;
 	private Texture tex_teste;
 	
 	
@@ -90,13 +130,12 @@ public class GameControl {
 	private TextureAtlas atlas_InterfaceCreate;
 	private TextureAtlas atlas_shops;
 	private TextureAtlas atlas_itens;
+	private TextureAtlas atlas_loots;
 	
-	private TextureAtlas atlas_skills;
 	private TextureAtlas atlas_iconSkills;
 	private TextureAtlas atlas_tripleattack;
 	
 	private TextureAtlas atlas_basicknife;
-	private TextureAtlas atlas_weapon;
 	
 	private TextureAtlas atlas_MonstersSewer;
 	
@@ -107,6 +146,8 @@ public class GameControl {
 		
 		this.tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
 		this.spr_master = new Sprite(tex_teste);
+		
+		randnumber = new Random();
 				
 		//Data Manager
 		json = new Json();
@@ -115,6 +156,8 @@ public class GameControl {
 		lstPlayersOnline = new ArrayList<Player>();
 		lstChats = new ArrayList<String>();
 		lstMobs = new ArrayList<Monster>();
+		lstDanos = new ArrayList<Damage>();
+		lstSkill = new ArrayList<Skill>();
 		CheckData();
 		
 		//Atlas Section
@@ -132,14 +175,17 @@ public class GameControl {
 		//Itens 
 		atlas_itens = new TextureAtlas(Gdx.files.internal("data/itens/itens.txt"));
 		
+		//Loots
+		atlas_loots = new TextureAtlas(Gdx.files.internal("data/itens/loots.txt"));
+		
 		//Weapons Sets
-		atlas_weapon = new TextureAtlas(Gdx.files.internal("data/weapons/nknifes.txt"));
+		atlas_basicknife = new TextureAtlas(Gdx.files.internal("data/weapons/nknifes.txt"));
 		
 		//Skill Icons
-		atlas_iconSkills = new TextureAtlas(Gdx.files.internal("data/skills/skillicons.txt"));  //tripleattack
+		atlas_iconSkills = new TextureAtlas(Gdx.files.internal("data/skills/skillicons.txt"));  
 		
 		//Skill Effects
-		atlas_tripleattack = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/tripleattack.txt"));
+		atlas_tripleattack = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/tripleattack.txt")); //tripleattack
 		
 		//Monsters
 		atlas_MonstersSewer = new TextureAtlas(Gdx.files.internal("data/monsters/mobsForest.txt"));
@@ -233,6 +279,7 @@ public class GameControl {
 			playerInfo.weapon_1 = "basic_knife";
 			playerInfo.level_1 = "1";
 			playerInfo.stats_1 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";
+			playerInfo.stamina_1 = "100";
 			if(sex.equals("M")) { playerInfo.set_1 = "basicset_m"; } else { playerInfo.set_1 = "basicset_f"; }
 			playerInfo.hair_1 = hair;
 			playerInfo.hat_1 = "none";
@@ -274,6 +321,7 @@ public class GameControl {
 			playerInfo.weapon_2 = "basic_knife";
 			playerInfo.level_2 = "1";
 			playerInfo.stats_2 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";
+			playerInfo.stamina_2 = "100";
 			if(sex.equals("M")) { playerInfo.set_2 = "basicset_m"; } else { playerInfo.set_2 = "basicset_f"; }
 			playerInfo.hair_2 = hair;
 			playerInfo.hat_2 = "none";
@@ -318,6 +366,7 @@ public class GameControl {
 			playerInfo.weapon_3 = "basic_knife";
 			playerInfo.level_3 = "1";
 			playerInfo.stats_3 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";
+			playerInfo.stamina_3 = "100";
 			if(sex.equals("M")) { playerInfo.set_3 = "basicset_m"; } else { playerInfo.set_3 = "basicset_f"; }
 			playerInfo.hair_3 = hair;
 			playerInfo.hat_3 = "none";
@@ -384,6 +433,7 @@ public class GameControl {
 				playerInfo.weapon_1 = playerInfo.weapon_A;
 				playerInfo.level_1 = playerInfo.level_A;
 				playerInfo.stats_1 = playerInfo.stats_A;
+				playerInfo.stamina_1 = playerInfo.stamina_A;
 				playerInfo.sex_1 = playerInfo.sex_A; 
 				playerInfo.hat_1 = playerInfo.hat_A;
 				playerInfo.exp_1 = playerInfo.exp_A;
@@ -421,6 +471,7 @@ public class GameControl {
 				playerInfo.weapon_2 = playerInfo.weapon_A;
 				playerInfo.level_2 = playerInfo.level_A;
 				playerInfo.stats_2 = playerInfo.stats_A;
+				playerInfo.stamina_2 = playerInfo.stamina_A;
 				playerInfo.sex_2 = playerInfo.sex_A; 
 				playerInfo.hat_2 = playerInfo.hat_A;
 				playerInfo.exp_2 = playerInfo.exp_A;
@@ -458,6 +509,7 @@ public class GameControl {
 				playerInfo.weapon_3 = playerInfo.weapon_A;
 				playerInfo.level_3 = playerInfo.level_A;
 				playerInfo.stats_3 = playerInfo.stats_A;
+				playerInfo.stamina_3 = playerInfo.stamina_A;
 				playerInfo.sex_3 = playerInfo.sex_A; 
 				playerInfo.hat_3 = playerInfo.hat_A;
 				playerInfo.exp_3 = playerInfo.exp_A;
@@ -502,6 +554,7 @@ public class GameControl {
 			playerInfo.weapon_A = playerInfo.weapon_1;
 			playerInfo.level_A = playerInfo.level_1;
 			playerInfo.stats_A = playerInfo.stats_1;
+			playerInfo.stamina_A = playerInfo.stamina_1;
 			playerInfo.sex_A = playerInfo.sex_1; 
 			playerInfo.hat_A = playerInfo.hat_1;
 			playerInfo.exp_A = playerInfo.exp_1;
@@ -539,6 +592,7 @@ public class GameControl {
 			playerInfo.weapon_A = playerInfo.weapon_2;
 			playerInfo.level_A = playerInfo.level_2;
 			playerInfo.stats_A = playerInfo.stats_2;
+			playerInfo.stamina_A = playerInfo.stamina_2;
 			playerInfo.sex_A = playerInfo.sex_2; 
 			playerInfo.hat_A = playerInfo.hat_2;
 			playerInfo.exp_A = playerInfo.exp_2;
@@ -576,6 +630,7 @@ public class GameControl {
 			playerInfo.weapon_A = playerInfo.weapon_3;
 			playerInfo.level_A = playerInfo.level_3;
 			playerInfo.stats_A = playerInfo.stats_3;
+			playerInfo.stamina_A = playerInfo.stamina_3;
 			playerInfo.sex_A = playerInfo.sex_3; 
 			playerInfo.hat_A = playerInfo.hat_3;
 			playerInfo.exp_A = playerInfo.exp_3;
@@ -630,17 +685,38 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	public Sprite LoadCharacterHairMenu(String hair) {
-		spr_master = atlas_hairs.createSprite(hair);
-		spr_master.setSize(8, 12);
-		spr_master.setPosition(19.5f, 47f);			
+	public Sprite LoadCharacterHairMenu(String hair, String sex) {
+		if(sex.equals("M")) {
+			spr_master = atlas_hairs.createSprite(hair);
+			spr_master.setSize(8, 12);
+			spr_master.setPosition(19.5f, 47f);			
+			return spr_master;
+		}
+		if(sex.equals("F")) {
+			spr_master = atlas_hairs.createSprite(hair + "_f");
+			spr_master.setSize(8, 12);
+			spr_master.setPosition(19.5f, 47f);			
+			return spr_master;
+		}	
+		
 		return spr_master;
 	}
 	
-	public Sprite LoadPlayerTagHair(String hair) {
-		spr_master = atlas_hairs.createSprite(hair);
-		spr_master.setSize(7, 11);
-		spr_master.setPosition(-0.1f, 87);
+	public Sprite LoadPlayerTagHair(String hair, String sex) {
+		if(sex.equals("M")) {
+			spr_master = atlas_hairs.createSprite(hair);
+			spr_master.setSize(7, 11);
+			spr_master.setPosition(-0.1f, 87);
+			return spr_master;
+		}
+		
+		if(sex.equals("F")) {
+			spr_master = atlas_hairs.createSprite(hair + "_f");
+			spr_master.setSize(7, 11);
+			spr_master.setPosition(-0.1f, 87);
+			return spr_master;
+		}
+		
 		return spr_master;
 	}
 	
@@ -770,10 +846,18 @@ public class GameControl {
 		
 		//Hair Tag
 		if(type.equals("hairTag")) {
-			spr_master = atlas_hairs.createSprite(value);
-			spr_master.setSize(9, 13);
-			spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 78);
-			return spr_master;
+			if(extra.equals("M")) {
+				spr_master = atlas_hairs.createSprite(value);
+				spr_master.setSize(9, 13);
+				spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 78);
+				return spr_master;
+			}
+			if(extra.equals("F")) {
+				spr_master = atlas_hairs.createSprite(value + "_f");
+				spr_master.setSize(9, 13);
+				spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 78);
+				return spr_master;
+			}
 		}
 		
 		//Mini Bar
@@ -797,6 +881,36 @@ public class GameControl {
 			spr_master = atlas_InterfaceCreate.createSprite("outerpad");
 			spr_master.setSize(20,30);
 			spr_master.setPosition(cameraCoordsX - 60,cameraCoordsY - 30);
+			return spr_master;
+		}
+		
+		//Auto Atk 
+		if(type.equals("autoatkON")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnAutoAttackON");
+			spr_master.setSize(10,15);
+			spr_master.setPosition(cameraCoordsX + 58,cameraCoordsY - 7);
+			return spr_master;
+		}
+		if(type.equals("autoatkOFF")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnAutoAttackOFF");
+			spr_master.setSize(10,15);
+			spr_master.setPosition(cameraCoordsX + 58,cameraCoordsY - 7);
+			return spr_master;
+		}
+		
+		//Switch Target 
+		if(type.equals("switchTarget")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnTrocarAlvo");
+			spr_master.setSize(10,15);
+			spr_master.setPosition(cameraCoordsX + 58,cameraCoordsY + 10);
+			return spr_master;
+		}
+		
+		//Loot Bar
+		if(type.equals("lootbar")) {
+			spr_master = atlas_InterfaceCreate.createSprite("barloot");
+			spr_master.setSize(50,15);
+			spr_master.setPosition(cameraCoordsX - 25,cameraCoordsY + 60);
 			return spr_master;
 		}
 		
@@ -1136,6 +1250,20 @@ public class GameControl {
 		
 			playerInfo.pos_A = String.valueOf(frame);
 			playerInfo.walk_A = walk;
+			
+			if(playerCountDown <= 0) {
+				exitAnimationFrame++;
+			}
+			
+			if(exitAnimationFrame >= 1 && exitAnimationFrame < 20) {
+				exitAnimationFrame++;
+			}
+			
+			if(exitAnimationFrame >= 20) {
+				frame = 1;
+				exitAnimationFrame = 0;
+			}
+			
 			if(countFrameMov >= 0 && countFrameMov <= 10) { frame = 1; }
 			if(countFrameMov >= 10 && countFrameMov <= 20) { frame = 2; }
 			if(countFrameMov >= 20 && countFrameMov <= 30) { frame = 1; }
@@ -1150,6 +1278,34 @@ public class GameControl {
 		//Male
 		if(sex.equals("M")) {
 			if(set.equals("basicset_m")) {
+				
+				//Menu
+				if(menu) {
+					if(state.equals("front")) { spr_master = atlas_basicset_m.createSprite("front1"); return spr_master; }
+				}
+				
+				//in Battle
+				if(walk.equals("stop") && playerInfo.inBattle_A.equals("yes")) {
+					countFrameMov++;
+					if(playerSide.equals("right") && frame == 1 && exitAnimationFrame == 0) { spr_master = atlas_basicset_m.createSprite("battle1right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 1 && exitAnimationFrame == 0) { spr_master = atlas_basicset_m.createSprite("battle1left"); return spr_master; }
+					
+					if(playerSide.equals("right") && frame == 2 && exitAnimationFrame == 0) { spr_master = atlas_basicset_m.createSprite("battle2right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 2 && exitAnimationFrame == 0) { spr_master = atlas_basicset_m.createSprite("battle2left"); return spr_master; }
+					
+					if(playerSide.equals("right") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_basicset_m.createSprite("battle3right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_basicset_m.createSprite("battle3left"); return spr_master; }
+					
+					if(playerInfo.job_A.equals("Mage") || playerInfo.job_A.equals("Medic")) {
+						if(playerSide.equals("right") && frame >= 50) { spr_master = atlas_basicset_m.createSprite("attackmagicright"); return spr_master; }
+						if(playerSide.equals("left") && frame >= 50) { spr_master = atlas_basicset_m.createSprite("attackmagicleft"); return spr_master; }
+					}
+					else {
+						if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_basicset_m.createSprite("attackhitright"); return spr_master; }
+						if(playerSide.equals("left") && exitAnimationFrame > 0) { spr_master = atlas_basicset_m.createSprite("attackhitleft"); return spr_master; }
+					}				
+				}
+				
 				
 				//Stop
 				if(walk.equals("stop")) {
@@ -1185,18 +1341,38 @@ public class GameControl {
 		if(sex.equals("F")) {
 				if(set.equals("basicset_f")) {
 					
-				//Stop
-				if(walk.equals("stop")) {
-					if(state.equals("front") || state.equals("front-left") || state.equals("front-right")) { spr_master = atlas_basicset_f.createSprite("front1"); return spr_master; }
-					if(state.equals("back") || state.equals("back-left") || state.equals("back-right")) { spr_master = atlas_basicset_f.createSprite("back1"); return spr_master; }
-					if(state.equals("left") || state.equals("left-front") || state.equals("left-back")) { spr_master = atlas_basicset_f.createSprite("left1"); return spr_master; }
-					if(state.equals("right") || state.equals("right-front") || state.equals("right-back")) { spr_master = atlas_basicset_f.createSprite("right1"); return spr_master; }
-				}
-				
-				//Walk Front
-				if(walk.equals("Walk")) {
+					//Menu
+					if(menu) {
+						if(state.equals("front")) { spr_master = atlas_basicset_f.createSprite("front1"); return spr_master; }
+					}
 					
-				}				
+					//Stop
+					if(walk.equals("stop")) {
+						frame = 1;
+						if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("front1"); return spr_master; }
+						if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("back1"); return spr_master; }
+						if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("left1"); return spr_master; }
+						if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("right1"); return spr_master; }
+					}
+					
+					//Walk Front
+					if(walk.equals("walk")) {
+						if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("front1"); return spr_master; }
+						if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 2) { spr_master = atlas_basicset_f.createSprite("front2"); return spr_master; }
+						if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("front3"); return spr_master; }
+						
+						if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("back1"); return spr_master; }
+						if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 2) { spr_master = atlas_basicset_f.createSprite("back2"); return spr_master; }
+						if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("back3"); return spr_master; }
+						
+						if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("left1"); return spr_master; }
+						if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 2) { spr_master = atlas_basicset_f.createSprite("left2"); return spr_master; }
+						if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("left3"); return spr_master; }
+						
+						if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("right1"); return spr_master; }
+						if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 2) { spr_master = atlas_basicset_f.createSprite("right2"); return spr_master; }
+						if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("right3"); return spr_master; }
+					}				
 			}
 		}
 		
@@ -1205,16 +1381,33 @@ public class GameControl {
 		
 	}
 	
-	public Sprite MovPlayerHair(String hair,String sex, String state, String gameState) {
+	public Sprite MovPlayerHair(String hair,String sex, String state, String gameState, String walk) {
 		
 		if(gameState.equals("Menu-Status")) {
-			if(sex.equals("M")) { spr_master = atlas_hairs.createSprite(hair); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }
-			
-			if(sex.equals("F")) {}
+			if(sex.equals("M")) { spr_master = atlas_hairs.createSprite(hair); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }		
+			if(sex.equals("F")) { spr_master = atlas_hairs.createSprite(hair + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }
 		}
-		
-		
-		if(sex.equals("M")) {		
+			
+		if(sex.equals("M")) {	
+			
+			if(exitAnimationFrame > 0 ) {
+				if(playerSide.equals("right") && playerInfo.inBattle_A.equals("yes") && exitAnimationFrame > 0) {
+					spr_master = atlas_hairs.createSprite(hair + "attack_right"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;		
+				}
+				
+				if(playerSide.equals("left") && playerInfo.inBattle_A.equals("yes") && exitAnimationFrame > 0) {			
+					spr_master = atlas_hairs.createSprite(hair + "attack_left"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;
+				}
+			}
+			
+			if(playerSide.equals("right") && playerInfo.inBattle_A.equals("yes") && walk.equals("stop")) {
+				spr_master = atlas_hairs.createSprite(hair + "battle"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23.5f); return spr_master;		
+			}
+			
+			if(playerSide.equals("left") && playerInfo.inBattle_A.equals("yes") && walk.equals("stop")) {			
+				spr_master = atlas_hairs.createSprite(hair + "battle_left"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.5f, playerPosY + 23.5f); return spr_master;
+			}
+			
 			if((state.equals("front") || state.equals("front-left") || state.equals("front-right"))  && frame == 1) { spr_master = atlas_hairs.createSprite(hair); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }
 			if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "up"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.3f, playerPosY + 22.7f); return spr_master; }
 			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "left"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.5f, playerPosY + 23); return spr_master; }
@@ -1232,10 +1425,20 @@ public class GameControl {
 		}
 		
 		if(sex.equals("F")) {			
-			if(state.equals("front")) { spr_master = atlas_hairs.createSprite(hair); }
-			if(state.equals("back")) { spr_master = atlas_hairs.createSprite(hair + "up"); }
-			if(state.equals("left")) { spr_master = atlas_hairs.createSprite(hair + "left"); }
-			if(state.equals("right")) { spr_master = atlas_hairs.createSprite(hair + "right"); }		
+			if((state.equals("front") || state.equals("front-left") || state.equals("front-right"))  && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }
+			if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "up" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.3f, playerPosY + 22.7f); return spr_master; }
+			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.5f, playerPosY + 23); return spr_master; }
+			if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.8f, playerPosY + 23); return spr_master; }
+			
+			if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.2f, playerPosY + 22.7f); return spr_master; }
+			if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "up" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.3f, playerPosY + 22.7f); return spr_master; }
+			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 6.8f, playerPosY + 22.3f); return spr_master; }
+			if((state.equals("right")  || state.equals("right-front") || state.equals("right-back")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 6.5f, playerPosY + 22.3f); return spr_master; }
+			
+			if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.2f, playerPosY + 22.4f); return spr_master; }
+			if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "up" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.3f, playerPosY + 22.7f); return spr_master; }
+			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.2f, playerPosY + 22.8f); return spr_master; }
+			if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.4f, playerPosY + 22.8f); return spr_master; }		
 		}
 		
 		return spr_master;
@@ -1253,9 +1456,9 @@ public class GameControl {
 		
 		if(sex.equals("F")) {			
 			if(state.equals("front")) { 
-				spr_master = atlas_hairs.createSprite(hair); 
+				spr_master = atlas_hairs.createSprite(hair + "_f"); 
 				return spr_master; 
-				}	
+			}	
 		}
 		
 		return spr_master;
@@ -1303,6 +1506,23 @@ public class GameControl {
 				spr_master = atlas_iconSkills.createSprite("btnsteal");
 				spr_master.setSize(7,13);
 				spr_master.setPosition(cameraCoordsX + 60,cameraCoordsY - 36);
+				return spr_master;
+			}
+		}
+		
+		if(job.equals("Swordman")) {
+			
+			if(skill.equals("tripleattack")) {
+				spr_master = atlas_iconSkills.createSprite("btnregen");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("tripleattack")) {
+				spr_master = atlas_iconSkills.createSprite("btnregen");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
 				return spr_master;
 			}
 		}
@@ -1902,7 +2122,21 @@ public class GameControl {
 				
 				//Walk Front
 				if(walk.equals("Walk")) {
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("front1"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 2) { spr_master = atlas_basicset_f.createSprite("front2"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("front3"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
 					
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("back1"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 2) { spr_master = atlas_basicset_f.createSprite("back2"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("back3"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("left1"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 2) { spr_master = atlas_basicset_f.createSprite("left2"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("left3"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_basicset_f.createSprite("right1"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 2) { spr_master = atlas_basicset_f.createSprite("right2"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("right3"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
 				}				
 			}
 		}
@@ -2064,24 +2298,114 @@ public class GameControl {
 		        	if(returnFromServer.contains("SYSTEMCHAT")) {
 		        		ChatManagerOnline(returnFromServer); 
 		        	}
-		        	
-			        if (returnFromServer.contains("SYSTEMPLAYERS")) {            	
-			        	PlayersManagerOnline(returnFromServer);     		
-		            }	
-			        
-			        if(returnFromServer.contains("SYSTEMMOBS")) {
-			        	MobsManagerOnline(returnFromServer);
-			        }
-			        
-			        if(returnFromServer.contains("SYSTEMPARTYEXP")) {
-			        	ExpSharedManagerOnline(returnFromServer);
-			        }
 				}
 		        
 		        wr.close();
 		        rd.close();
 			}
 			
+			if(request.equals("Atk")) {
+				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
+		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Atk", "UTF-8");
+		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
+		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
+		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
+		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode("citybase", "UTF-8");
+		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("a1", "UTF-8");
+		        data += "&" + URLEncoder.encode("lmobID", "UTF-8") + "=" + URLEncoder.encode(playerInfo.target_A, "UTF-8");
+		        data += "&" + URLEncoder.encode("lmap", "UTF-8") + "=" + URLEncoder.encode(playerInfo.map_A, "UTF-8");
+		        data += "&" + URLEncoder.encode("ldmg", "UTF-8") + "=" + URLEncoder.encode(subdata, "UTF-8");
+		        	        
+		        // Send data
+		        URL url = new URL("http://moonbolt.online/Conector/Online.php");
+		        URLConnection conn = url.openConnection();
+		        conn.setDoOutput(true);
+		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+		        wr.write(data);
+		        wr.flush();
+		        
+		        // Get the response
+		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		        
+		        rd.close();
+		        wr.close();	        
+			}
+			
+			if(request.equals("Download")) {
+				
+				String returnFromServer = "";
+				
+				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
+		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
+		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
+		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
+		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
+		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode("citybase", "UTF-8");
+		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("a1", "UTF-8");
+		        
+		        // Send data
+		        URL url = new URL("http://moonbolt.online/Conector/Online.php");
+		        URLConnection conn = url.openConnection();
+		        conn.setDoOutput(true);
+		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+		        wr.write(data);
+		        wr.flush();
+		        
+		        // Get the response
+		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		        String line;
+		        line = "";
+		        returnFromServer = "";
+		        while ((line = rd.readLine()) != null) {
+		        	returnFromServer = line;   
+		        	//Resultado:
+		        	if(!returnFromServer.contains("Inexistente")) {
+		        		LoadDownloadData(returnFromServer);       
+		        	}
+				}
+		        
+		        wr.close();
+		        rd.close();
+			}
+
+			if(request.equals("Upload")) {
+					
+				String returnFromServer = "";
+				String accountData = LoadDataText();
+				
+				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(accountData, "UTF-8");
+			    data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Upload", "UTF-8");
+			    data += "&" + URLEncoder.encode("laccount", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
+			    data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
+			    data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
+			    data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
+			    data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode("citybase", "UTF-8");
+			    data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("a1", "UTF-8");
+			    
+			    // Send data
+			    URL url = new URL("http://moonbolt.online/Conector/Online.php");
+			    URLConnection conn = url.openConnection();
+			    conn.setDoOutput(true);
+			    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			    wr.write(data);
+			    wr.flush();
+			    
+			    // Get the response
+			    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			    String line;
+			    line = "";
+			    returnFromServer = "";
+			    while ((line = rd.readLine()) != null) {
+			    	returnFromServer = line;   
+			    	//Resultado:
+			    	if(returnFromServer.contains("Works")) {
+			    		//Retorna que funcionou
+			    	}
+				}
+			    
+			    wr.close();
+			    rd.close();
+			}
 		}
 		catch(Exception ex) {
 			
@@ -2089,9 +2413,10 @@ public class GameControl {
 	}
 	
 	private void PlayersManagerOnline(String data) {
-		//lstPlayersOnline
-		
+		//lstPlayersOnline	
 		dataSplit = data.split(":");
+		
+		playerInfoOnline = new Player();
 		
 		dataInfoSplit = dataSplit[1].split("=");
 		playerInfoOnline.name_A = dataInfoSplit[1];
@@ -2154,17 +2479,55 @@ public class GameControl {
 		dataInfoSplit = dataSplit[19].split("=");
 		playerInfoOnline.job_A = dataInfoSplit[1];
 		
-		if(lstPlayersOnline.contains(playerInfoOnline)){
-			setIndexPlayerOnline = lstPlayersOnline.indexOf(playerInfoOnline);
-			lstPlayersOnline.set(setIndexPlayerOnline, playerInfoOnline);
-		}
-		else {
+		boolean check = false;
+		for(int i = 0; i < lstPlayersOnline.size(); i++) {
+			if(playerInfoOnline.accountID.equals(lstPlayersOnline.get(i).accountID)) {
+				
+				lstPlayersOnline.get(i).name_A = playerInfoOnline.name_A; 
+				lstPlayersOnline.get(i).hp_A = playerInfoOnline.hp_A; 
+				lstPlayersOnline.get(i).mp_A = playerInfoOnline.mp_A; 
+				lstPlayersOnline.get(i).coordX_A = playerInfoOnline.coordX_A; 
+				lstPlayersOnline.get(i).coordY_A = playerInfoOnline.coordY_A; 
+				lstPlayersOnline.get(i).level_A = playerInfoOnline.level_A; 
+				lstPlayersOnline.get(i).set_A = playerInfoOnline.set_A; 
+				lstPlayersOnline.get(i).hair_A = playerInfoOnline.hair_A; 
+				lstPlayersOnline.get(i).hat_A = playerInfoOnline.hat_A;
+				lstPlayersOnline.get(i).weapon_A = playerInfoOnline.weapon_A;
+				lstPlayersOnline.get(i).inBattle_A = playerInfoOnline.inBattle_A;
+				lstPlayersOnline.get(i).side_A = playerInfoOnline.side_A;
+				lstPlayersOnline.get(i).pos_A = playerInfoOnline.pos_A;
+				lstPlayersOnline.get(i).walk_A = playerInfoOnline.walk_A;
+				lstPlayersOnline.get(i).accountID = playerInfoOnline.accountID;
+				lstPlayersOnline.get(i).party_A = playerInfoOnline.party_A;
+				lstPlayersOnline.get(i).sex_A = playerInfoOnline.sex_A;
+				lstPlayersOnline.get(i).job_A = playerInfoOnline.job_A;
+				check = true;
+			}
+		}		
+		if(!check) {
 			lstPlayersOnline.add(playerInfoOnline);
 		}	
 	}
 	
 	private void MobsManagerOnline(String data) {
-		
+			
+		for(int i = 0; i < lstMobs.size(); i++) {
+			
+			dataSplit = data.split(":");
+			dataInfoSplit = dataSplit[4].split("=");
+			
+			if(lstMobs.get(i).map.equals(dataInfoSplit[1])) {
+				
+				dataSplit = data.split(":");
+				dataInfoSplit = dataSplit[2].split("=");
+					
+				if(lstMobs.get(i).mobID.equals(dataInfoSplit[1])) {
+					dataSplit = data.split(":");
+					dataInfoSplit = dataSplit[3].split("=");
+					lstMobs.get(i).hp = Integer.parseInt(dataInfoSplit[1]);
+				}				
+			}		
+		}	
 	}
 	
 	private void ChatManagerOnline(String data) {
@@ -2183,9 +2546,26 @@ public class GameControl {
 		
 	}
 	
+	public void LoadDownloadData(String hash) {
+		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
+		playerInfo = json.fromJson(Player.class,Base64Coder.decodeString(hash));			
+		file.writeString(Base64Coder.encodeString(json.prettyPrint(playerInfo)),false);
+	}
+	
+	public String LoadDataText() {
+		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
+		String dataStr = file.readString();
+		return dataStr;
+	}
+	
+	
+	
+	/////////////////////////////////////////////////////////ONLINE  ENDS//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//[G] Battle
 	public ArrayList<Monster> LoadMonsters(String map) {
+		
+		lstMobs.clear();
 		
 		//Sewers
 		if(map.equals("Sewers")) {
@@ -2194,9 +2574,9 @@ public class GameControl {
 			mobA.mobPosX = 59;
 			mobA.mobPosY = -26;
 			mobA.mobID = "SlimeA";
-			mobA.hp = 10;
+			mobA.hp = 30;
 			mobA.mp = 10;
-			mobA.maxHP = 10;
+			mobA.maxHP = 30;
 			mobA.maxMP = 10;
 			mobA.exp = 2;
 			mobA.inCasting = false;
@@ -2204,9 +2584,20 @@ public class GameControl {
 			mobA.target = "None";
 			mobA.frame = 1;
 			mobA.atkCount = 0;
-			mobA.atkHit = 100;
+			mobA.atkHit = 5;
 			mobA.getHit = false;
+			mobA.mobCountDown = 300;
+			mobA.mobCountDownMax = 300;
 			mobA.side = "right";
+			mobA.MobSelected = "no";
+			mobA.maxRanged = 20;
+			mobA.minRanged = 40;
+			mobA.loot1 = "GOSMA";
+			mobA.loot2 = "HPCAN";
+			mobA.loot3 = "GOSMA";
+			mobA.respawnTime = 300;
+			mobA.respawnTimeMax = 300;
+			mobA.map = "Streets305";
 			lstMobs.add(mobA);
 		}
 		
@@ -2224,17 +2615,45 @@ public class GameControl {
 		//Slime
 		if(mob.name.equals("Slime")) {
 			if(mob.name.equals("Slime") && mob.side.equals("right")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersSewer.createSprite("slime4_right"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(10, 14); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//For move
 				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersSewer.createSprite("slime1_right"); }
 				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersSewer.createSprite("slime2_right"); }
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersSewer.createSprite("slime3_right"); }
-				//if(mob.frame >= 15  && mob.frame <= 20) { spr_master = atlas_MonstersSewer.createSprite("slime4_right"); }
+				
+				//Getting hit
 				if(mob.getHit) { spr_master = atlas_MonstersSewer.createSprite("slime1_damage_right"); mob.getHit = false; }
 			}
 			if(mob.name.equals("Slime") && mob.side.equals("left")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersSewer.createSprite("slime4_left"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(10, 14); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//for move
 				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersSewer.createSprite("slime1_left"); }
 				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersSewer.createSprite("slime2_left"); }
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersSewer.createSprite("slime3_left"); }
-				//if(mob.frame >= 15 && mob.frame <= 20) { spr_master = atlas_MonstersSewer.createSprite("slime4_left"); }
+				
+				//Getting hit
 				if(mob.getHit) { spr_master = atlas_MonstersSewer.createSprite("slime1_damage_left"); mob.getHit = false; }
 			}
 		
@@ -2258,14 +2677,507 @@ public class GameControl {
 		
 			spr_master.setPosition(mob.mobPosX, mob.mobPosY);
 			spr_master.setSize(10, 14);
-			
+						
 			mob.frame++;
 			if(mob.frame >= 33) { mob.frame = 1; }		
 			lstMobs.set(num, mob);
+			
+			if(playerInfo.target_A.equals(mob.mobID)){
+				spr_targetArrow = atlas_InterfaceCreate.createSprite("target");
+				spr_targetArrow.setSize(7,11);
+				spr_targetArrow.setPosition(mob.mobPosX + 1.5f, mob.mobPosY + 15);
+			}
+			else {
+				spr_targetArrow = null;
+			}
+		}
+		
+		if(mob.target.equals(playerInfo.name_A)) {
+			playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+			playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+			
+			if(mob.mobPosX > playerCoordsX) { mob.mobPosX -= 0.08f; }
+			if(mob.mobPosX < playerCoordsX + 9) { mob.mobPosX += 0.08f; }
+			if(mob.mobPosY > playerCoordsY) { mob.mobPosY -= 0.08f; }
+			if(mob.mobPosY < playerCoordsY) { mob.mobPosY += 0.08f; }
 		}
 		
 		return spr_master;
 	}
 	
+	public void AutoAttack() {
+		
+		if(playerInfo.target_A.equals("none")) { return; }
+		
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+				
+		if (playerInfo.job_A.equals("Gunner")) {
+			playerRangeXMinus = playerCoordsX - 70;
+			playerRangeXPlus = playerCoordsX + 70;
+			playerRangeYMinus = playerCoordsY - 70;
+			playerRangeYPlus = playerCoordsY + 70;
+		}
+		else {
+			playerRangeXMinus = playerCoordsX - 8;
+			playerRangeXPlus = playerCoordsX + 30;
+			playerRangeYMinus = playerCoordsY - 10;
+			playerRangeYPlus = playerCoordsY + 40;
+		}
+		
+		if(playerInfo.inBattle_A.equals("yes")) {
+			playerCountDown--;
+			skillCoolDown--;
+			
+			if(playerCountDown < 0) { 
+				playerCountDown = 200; 
+			}
+			
+			if(skillCoolDown <= 0) {
+				skillCoolDown = 0;
+			}
+		}
+		
+		for(int i = 0; i < lstMobs.size(); i++) {
+			
+			mobX = lstMobs.get(i).mobPosX;
+			mobY = lstMobs.get(i).mobPosY;	
+			
+			if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+				
+				if(playerCoordsX < mobX) { playerSide = "right"; }
+				if(playerCoordsX > mobX) { playerSide = "left"; }
+				
+				if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+					
+					playerInfo.inBattle_A = "yes";			
+					if(playerInfo.job_1.equals("Novice") && playerCountDown <= 0) {
+						
+						playerStatus = playerInfo.stats_A.split("#");
+						playerStatusNumber = playerStatus[0].split(":");
+						playerStr = Integer.parseInt(playerStatusNumber[1]);
+						playerAtk = 3;
+						playerAtk = playerAtk + playerStr;
+						if(playerInfo.stamina_A.equals("0")) { playerAtk = 1; }
+						mobHP = lstMobs.get(i).hp;
+						mobHP = mobHP - playerAtk;
+						lstMobs.get(i).target = playerInfo.name_A;
+						lstMobs.get(i).getHit = true;
+						lstMobs.get(i).hp = mobHP;
+						
+						if(lstMobs.get(i).hp <= 0) {  
+							GiveLoot(lstMobs.get(i));							
+							lstMobs.get(i).dead = true;
+							playerInfo.inBattle_A = "no";
+						}
+						
+						Damage dmg = new Damage();
+						dmg.color = "Yellow";
+						dmg.posX = mobX;
+						dmg.posY = mobY + 10;
+						dmg.user = playerInfo.name_A;
+						dmg.dmg = playerAtk;
+						dmg.frame = 0;					
+						lstDanos.add(dmg);
+						
+						OnlineManager("Atk",String.valueOf(mobHP));
+					}			
+				}			
+			}
+		}	
+	}
 	
+	public void CheckMonsterAttack() {
+		
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+		playerHP = Integer.parseInt(playerInfo.hp_A);
+		
+		for(int i = 0; i < lstMobs.size(); i++) {
+			
+			mobX = lstMobs.get(i).mobPosX;
+			mobY = lstMobs.get(i).mobPosY;
+			
+			mobRangeXMinus = mobX - 20;
+			mobRangeXPlus = mobX + 20; 
+			
+			mobRangeYMinus = mobY - 30;
+			mobRangeYPlus = mobY + 30;
+			
+			mobCountDown = lstMobs.get(i).mobCountDown;
+			
+			if(lstMobs.get(i).target.equals(playerInfo.name_A)) {
+				mobCountDown--;
+				lstMobs.get(i).mobCountDown = mobCountDown;
+				if(mobCountDown <= 0) {
+					if(mobRangeXPlus > playerCoordsX && mobRangeXMinus < playerCoordsX && mobRangeYPlus > playerCoordsY && mobRangeYMinus < playerCoordsY) {
+						
+						atkHitRandom = randnumber.nextInt(10);
+						
+						if(atkHitRandom <= 2) {
+							mobAtk = lstMobs.get(i).atkHit + 10;
+							playerHP = playerHP - mobAtk;
+							playerInfo.hp_A = String.valueOf(playerHP);
+							lstMobs.get(i).frame = 50;
+							
+							Damage dmg = new Damage();
+							dmg.color = "Red";
+							dmg.posX = playerCoordsX + 5;
+							dmg.posY = playerCoordsY + 10;
+							dmg.user = lstMobs.get(i).name;
+							dmg.dmg = mobAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+						}
+						else 
+						{
+							mobAtk = lstMobs.get(i).atkHit;
+							playerHP = playerHP - mobAtk;
+							playerInfo.hp_A = String.valueOf(playerHP);
+							lstMobs.get(i).frame = 50;
+							
+							Damage dmg = new Damage();
+							dmg.color = "Red";
+							dmg.posX = playerCoordsX + 5;
+							dmg.posY = playerCoordsY + 10;
+							dmg.user = lstMobs.get(i).name;
+							dmg.dmg = mobAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+						}	
+						
+						lstMobs.get(i).mobCountDown = lstMobs.get(i).mobCountDownMax;
+					}	
+				}
+			}
+		}		
+	}
+	
+	public boolean CheckSkillType(int numSkill) {
+		
+		if(playerInfo.job_1.equals("Novice")) {
+			//Triple Attack
+			if(numSkill == 1) {
+				return false;
+			}
+		}
+		
+		
+		
+		
+		return false;
+	}
+	
+	public void SkillAtk(int numSkill) {
+		
+		if(skillCoolDown > 0) { return; }
+		playerCountDown = 200;
+		
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+		
+		if (playerInfo.job_A.equals("Gunner")) {
+			playerRangeXMinus = playerCoordsX - 70;
+			playerRangeXPlus = playerCoordsX + 70;
+			playerRangeYMinus = playerCoordsY - 70;
+			playerRangeYPlus = playerCoordsY + 70;
+		}
+		else {
+			playerRangeXMinus = playerCoordsX - 8;
+			playerRangeXPlus = playerCoordsX + 30;
+			playerRangeYMinus = playerCoordsY - 10;
+			playerRangeYPlus = playerCoordsY + 40;
+		}
+		
+		
+		//Novice
+		if(playerInfo.job_1.equals("Novice")) {
+			//Triple Attack
+			if(numSkill == 1) {
+				
+				for(int i = 0; i < lstMobs.size(); i++) {
+					
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+					
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+					
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#");
+							playerStatusNumber = playerStatus[0].split(":");
+							playerStr = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = 3;
+							playerAtk = (playerAtk + playerStr) * 3;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+							
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));							
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+							
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+							
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Ataque Triplo";
+							skl.posX = mobX;
+							skl.posY = mobY;
+							skl.height = 30;
+							skl.width = 30;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 300;
+							lstSkill.add(skl);
+							
+							skillCoolDown = 300;
+							
+							OnlineManager("Atk",String.valueOf(mobHP));
+							
+						}					
+					}
+				}			
+			}
+		}
+	}
+	
+	public Sprite EffectSkill(Skill skillUsed) {
+		
+		spr_master = null;
+		int frame = skillUsed.frame;
+		if(skillUsed.name.equals("Ataque Triplo")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_tripleattack.createSprite("tripleattack1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_tripleattack.createSprite("tripleattack2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_tripleattack.createSprite("tripleattack3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_tripleattack.createSprite("tripleattack4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_tripleattack.createSprite("tripleattack5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_tripleattack.createSprite("tripleattack6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		
+		
+		
+		return spr_master;
+	}
+	
+	public void RespawnMob() {
+		
+		for(int i = 0; i < lstMobs.size(); i++) {
+		
+			if(lstMobs.get(i).hp <= 0 && lstMobs.get(i).dead == true) {
+				
+				lstMobs.get(i).mobPosX = 409;
+				lstMobs.get(i).mobPosY = 400;
+				lstMobs.get(i).target = "none";
+				lstMobs.get(i).dead = true;
+				lstMobs.get(i).respawnTime--;
+			}
+			
+			if(lstMobs.get(i).respawnTime <= 0 && lstMobs.get(i).dead == true) {
+				randomCount = randnumber.nextInt(100);			
+				lstMobs.get(i).mobPosX = randomCount;
+				
+				randomCount = randnumber.nextInt(100);
+				lstMobs.get(i).mobPosY = randomCount;
+				
+				lstMobs.get(i).hp = lstMobs.get(i).maxHP;
+				lstMobs.get(i).mp = lstMobs.get(i).maxMP;
+				
+				lstMobs.get(i).respawnTime = lstMobs.get(i).respawnTimeMax;
+				lstMobs.get(i).dead = false;
+				
+			}
+		}
+	}
+	
+	public void GiveLoot(Monster mob) {
+		
+		randomCount = randnumber.nextInt(100);
+		
+		if(randomCount > 50) {			
+			if(randomCount > 50 && randomCount < 70) {
+				lootItemName = mob.loot1;
+				countLootShowing = 200;
+			}
+			if(randomCount > 70 && randomCount < 99) {
+				lootItemName = mob.loot2;
+				countLootShowing = 200;
+			}
+			if(randomCount >= 99 && randomCount <= 100) {
+				lootItemName = mob.loot3;
+				countLootShowing = 200;
+			}
+		}
+		else {
+			lootItemName = "none";
+			countLootShowing = 0;
+		}
+	}
+	
+	public void GiveExp(Monster mob) {
+		
+		int playerExp = Integer.parseInt(playerInfo.exp_A);
+		
+		playerExp = playerExp + mob.exp;
+		
+		
+		if(playerInfo.level_A.equals("1") && playerExp >= 100) { playerInfo.level_A = "2"; playerInfo.exp_A = "0"; }
+		
+		
+	}
+	
+	public Sprite ShowLootItem(float ccX, float ccY) {
+		
+		if(countLootShowing > 0) {
+			if(lootItemName.equals("HPCAN")) { spr_master = atlas_itens.createSprite("hpcan"); }
+			if(lootItemName.equals("MPCAN")) { spr_master = atlas_itens.createSprite("mpcan"); }
+			if(lootItemName.equals("STCAN")) { spr_master = atlas_itens.createSprite("stcan"); }
+			if(lootItemName.equals("CHIPZ")) { spr_master = atlas_itens.createSprite("chipz"); }
+			if(lootItemName.equals("GOSMA")) { spr_master = atlas_loots.createSprite("gosma"); }
+			if(lootItemName.equals("FOLHAVENENOSA")) { spr_master = atlas_loots.createSprite("folhavenenosa"); }
+			if(lootItemName.equals("COGUMELO")) { spr_master = atlas_loots.createSprite("cogumelo"); }
+			if(lootItemName.equals("FERRAO")) { spr_master = atlas_loots.createSprite("ferrao"); }
+			if(lootItemName.equals("GALHOS")) { spr_master = atlas_loots.createSprite("galhos"); }
+			
+			spr_master.setSize(7, 12);
+			spr_master.setPosition(ccX + 15, ccY + 61.5f);
+			
+			countLootShowing--;
+			return spr_master;
+		}
+		
+		else {
+			countLootShowing = 0;
+			lootItemName = "none";
+			return null;
+		}
+	
+	}
+	
+	public String GetLootName() {
+		return lootItemName;
+	}
+	
+	public void SwitchTarget() {
+		String playerTarget = playerInfo.target_A;
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+				
+		playerRangeXMinus = playerCoordsX - 65;
+		playerRangeXPlus = playerCoordsX + 66;
+		
+		playerRangeYMinus = playerCoordsY - 34;
+		playerRangeYPlus = playerCoordsY + 90;
+		
+		for(int i = 0; i < lstMobs.size(); i++) {
+			
+			mobX = lstMobs.get(i).mobPosX;
+			mobY = lstMobs.get(i).mobPosY;	
+		
+			if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+				if(!playerTarget.equals(lstMobs.get(i).mobID)) {
+					playerInfo.target_A = lstMobs.get(i).mobID;
+					return;
+				}
+			}	
+		}
+	}
+	
+	public Sprite ShowWeapon(float pX, float pY, String walk) {
+		if(playerInfo.inBattle_A.equals("yes")) {
+			
+			if(walk.equals("walk")) {
+				return null;
+			}
+			
+			playerInfo.hp_A = "10";
+			
+			playerWeapon = playerInfo.weapon_A;
+			if(playerWeapon.equals("basic_knife")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_basicknife.createSprite("basic_knife_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_basicknife.createSprite("basic_knife_attack_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_basicknife.createSprite("basic_knife_left"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 4.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_basicknife.createSprite("basic_knife_attack_left");  
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 5, pY + 4);
+						return spr_master;
+					}
+				}			
+			}		
+		}
+		
+		return null;
+	}
+	
+	public void RemoveDamage(int count) {
+		lstDanos.remove(count);
+	}
+	
+	public int GetCountDown() {
+		return playerCountDown;
+	}
+	
+	public int GetCountDownSkill() {
+		return skillCoolDown;
+	}
+	
+	public void ExitBattle() {
+		playerCountDown = 200;
+		playerInfo.inBattle_A = "no";
+	}
+	
+	public Sprite TargetMobArrow() {	
+		return spr_targetArrow;
+	}
+	
+	public ArrayList<Damage> GetDamageList(){
+		return lstDanos;
+	}
+	
+	public ArrayList<Skill> GetSkillList(){
+		return lstSkill;
+	}
 }

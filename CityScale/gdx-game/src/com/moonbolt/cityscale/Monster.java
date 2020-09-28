@@ -2,13 +2,15 @@ package com.moonbolt.cityscale;
 
 public class Monster {
 	
-	public String mobID; 
 	public float mobPosX;
 	public float mobPosY;
+	public String mobID; 
 	public String name;
-	public boolean inCasting;
 	public String target;
-	public boolean dead;
+	public String side;
+	public String MobSelected;
+	public String mobSide;
+	public String map;
 	public int hp;
 	public int mp;
 	public int maxHP;
@@ -17,6 +19,16 @@ public class Monster {
 	public int frame;
 	public int atkCount;
 	public int atkHit;
+	public int mobCountDown;
+	public int mobCountDownMax;
+	public boolean inCasting;
+	public boolean dead;
 	public boolean getHit;
-	public String side;
+	public float minRanged;
+	public float maxRanged;
+	public int respawnTime;
+	public int respawnTimeMax;
+	public String loot1;
+	public String loot2;
+	public String loot3;
 }

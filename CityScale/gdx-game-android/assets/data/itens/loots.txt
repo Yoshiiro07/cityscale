@@ -1,0 +1,40 @@
+loots.png
+size: 215, 43
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cogumelo
+  rotate: false
+  xy: 0, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+ferrao
+  rotate: false
+  xy: 43, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+folhavenenosa
+  rotate: false
+  xy: 86, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+galhos
+  rotate: false
+  xy: 129, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+gosma
+  rotate: false
+  xy: 172, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1

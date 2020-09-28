@@ -156,7 +156,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		spr_playerCharacter.setPosition(playerPosX,playerPosY);
 		spr_playerCharacter.draw(game.batch);
 		
-		spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state, "Main");
+		spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state,walk, "Main");
 		spr_playerHair.draw(game.batch);
 		
 		//UI Elements
