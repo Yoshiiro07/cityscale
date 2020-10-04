@@ -24,6 +24,7 @@ public class Player {
 	public String statusPoint_1;
 	public String skillPoint_1;
 	public String skills_1;
+	public String buffs_1;
 	public String coordX_1;
 	public String coordY_1;
 	public String pos_1;
@@ -60,6 +61,7 @@ public class Player {
 	public String statusPoint_2;
 	public String skillPoint_2;
 	public String skills_2;
+	public String buffs_2;
 	public String coordX_2;
 	public String coordY_2;
 	public String pos_2;
@@ -96,6 +98,7 @@ public class Player {
 	public String statusPoint_3;
 	public String skillPoint_3;
 	public String skills_3;
+	public String buffs_3;
 	public String coordX_3;
 	public String coordY_3;
 	public String pos_3;
@@ -132,6 +135,7 @@ public class Player {
 	public String statusPoint_A;
 	public String skillPoint_A;
 	public String skills_A;
+	public String buffs_A;
 	public String coordX_A;
 	public String coordY_A;
 	public String pos_A;

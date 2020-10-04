@@ -135,6 +135,42 @@ public class GameControl {
 	private TextureAtlas atlas_iconSkills;
 	private TextureAtlas atlas_tripleattack;
 	
+	private TextureAtlas atlas_flysword;
+	private TextureAtlas atlas_ravenblade;
+	private TextureAtlas atlas_healthboost;
+	private TextureAtlas atlas_ironshield;
+	private TextureAtlas atlas_protect;
+	
+	private TextureAtlas atlas_fireball;
+	private TextureAtlas atlas_icecrystal;
+	private TextureAtlas atlas_thundercloud;
+	private TextureAtlas atlas_rockbound;
+	private TextureAtlas atlas_soulcrash;
+	
+	private TextureAtlas atlas_doublehit;
+	private TextureAtlas atlas_poisonhit;
+	private TextureAtlas atlas_steal;
+	private TextureAtlas atlas_dashkick;
+	private TextureAtlas atlas_invisibility;
+	
+	private TextureAtlas atlas_heal;
+	private TextureAtlas atlas_atkboost;
+	private TextureAtlas atlas_defboost;
+	private TextureAtlas atlas_holyprism;
+	private TextureAtlas atlas_regen;
+	
+	private TextureAtlas atlas_hammercrash;
+	private TextureAtlas atlas_berserk;
+	private TextureAtlas atlas_overpower;
+	private TextureAtlas atlas_ragebound;
+	private TextureAtlas atlas_impound;
+	
+	private TextureAtlas atlas_fastshot;
+	private TextureAtlas atlas_bulletrain;
+	private TextureAtlas atlas_precision;
+	private TextureAtlas atlas_lockshot;
+	private TextureAtlas atlas_mine;
+	
 	private TextureAtlas atlas_basicknife;
 	
 	private TextureAtlas atlas_MonstersSewer;
@@ -186,6 +222,43 @@ public class GameControl {
 		
 		//Skill Effects
 		atlas_tripleattack = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/tripleattack.txt")); //tripleattack
+		
+		atlas_flysword = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/flysword.txt"));
+		atlas_ravenblade = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/ravenblade.txt"));
+		atlas_healthboost = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/healthboost.txt"));
+		atlas_ironshield = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/ironshield.txt"));
+		atlas_protect = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/protect.txt"));
+		
+		atlas_fireball = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/fireball.txt"));
+		atlas_icecrystal = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/icecrystal.txt"));
+		atlas_thundercloud = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/thundercloud.txt"));
+		atlas_rockbound = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/rockbound.txt"));
+		atlas_soulcrash = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/soulclash.txt"));
+		
+		atlas_doublehit = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/doublehit.txt"));
+		atlas_poisonhit = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/poisonhit.txt"));
+		atlas_steal = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/steal.txt"));
+		atlas_dashkick = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/dashkick.txt"));
+		atlas_invisibility = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/invisibility.txt"));
+		
+		atlas_heal = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/heal.txt"));
+		atlas_atkboost = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/atkboost.txt"));
+		atlas_defboost = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/defboost.txt"));
+		atlas_holyprism = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/holyprism.txt"));
+		atlas_regen = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/regen.txt"));
+		
+		atlas_hammercrash = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/hammercrash.txt"));
+		atlas_berserk = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/berserk.txt"));
+		atlas_overpower = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/overpower.txt"));
+		atlas_ragebound = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/ragebound.txt"));
+		atlas_impound = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/impound.txt"));
+			
+		atlas_fastshot = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/fastshot.txt"));
+		atlas_bulletrain = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/bulletrain.txt"));
+		atlas_precision = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/precision.txt"));
+		atlas_lockshot = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/lockshot.txt"));
+		atlas_mine = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/mine.txt"));
+		
 		
 		//Monsters
 		atlas_MonstersSewer = new TextureAtlas(Gdx.files.internal("data/monsters/mobsForest.txt"));
@@ -298,6 +371,7 @@ public class GameControl {
 			playerInfo.statusPoint_1 = "0";
 			playerInfo.skillPoint_1 = "0";
 			playerInfo.skills_1 = "none";
+			playerInfo.buffs_1 = "none";
 			playerInfo.inBattle_1 = "no";
 			playerInfo.target_1 = "none";
 			playerInfo.map_1 = "MetroStation";
@@ -340,6 +414,7 @@ public class GameControl {
 			playerInfo.statusPoint_2 = "0";
 			playerInfo.skillPoint_2 = "0";
 			playerInfo.skills_2 = "none";
+			playerInfo.buffs_2 = "none";
 			playerInfo.coordX_2 = "";
 			playerInfo.coordY_2 = "";
 			playerInfo.inBattle_2 = "no";
@@ -385,6 +460,7 @@ public class GameControl {
 			playerInfo.statusPoint_3 = "0";
 			playerInfo.skillPoint_3 = "0";
 			playerInfo.skills_3 = "none";
+			playerInfo.buffs_3 = "none";
 			playerInfo.coordX_3 = "";
 			playerInfo.coordY_3 = "";
 			playerInfo.inBattle_3 = "no";
@@ -446,6 +522,7 @@ public class GameControl {
 				playerInfo.statusPoint_1 = playerInfo.statusPoint_A;
 				playerInfo.skillPoint_1 = playerInfo.skillPoint_A;
 				playerInfo.skills_1 = playerInfo.skills_A;
+				playerInfo.buffs_1 = playerInfo.buffs_A;
 				playerInfo.coordX_1 = playerInfo.coordX_A;
 				playerInfo.coordY_1 = playerInfo.coordY_A;
 				playerInfo.pos_1 = playerInfo.pos_A;
@@ -484,6 +561,7 @@ public class GameControl {
 				playerInfo.statusPoint_2 = playerInfo.statusPoint_A;
 				playerInfo.skillPoint_2 = playerInfo.skillPoint_A;
 				playerInfo.skills_2 = playerInfo.skills_A;
+				playerInfo.buffs_2 = playerInfo.buffs_A;
 				playerInfo.coordX_2 = playerInfo.coordX_A;
 				playerInfo.coordY_2 = playerInfo.coordY_A;
 				playerInfo.pos_2 = playerInfo.pos_A;
@@ -522,6 +600,7 @@ public class GameControl {
 				playerInfo.statusPoint_3 = playerInfo.statusPoint_A;
 				playerInfo.skillPoint_3 = playerInfo.skillPoint_A;
 				playerInfo.skills_3 = playerInfo.skills_A;
+				playerInfo.buffs_3 = playerInfo.buffs_A;
 				playerInfo.coordX_3 = playerInfo.coordX_A;
 				playerInfo.coordY_3 = playerInfo.coordY_A;
 				playerInfo.pos_3 = playerInfo.pos_A;
@@ -567,6 +646,7 @@ public class GameControl {
 			playerInfo.statusPoint_A = playerInfo.statusPoint_1;
 			playerInfo.skillPoint_A = playerInfo.skillPoint_1;
 			playerInfo.skills_A = playerInfo.skills_1;
+			playerInfo.buffs_A = playerInfo.buffs_1;
 			playerInfo.coordX_A = playerInfo.coordX_1;
 			playerInfo.coordY_A = playerInfo.coordY_1;
 			playerInfo.pos_A = playerInfo.pos_1;
@@ -605,6 +685,7 @@ public class GameControl {
 			playerInfo.statusPoint_A = playerInfo.statusPoint_2;
 			playerInfo.skillPoint_A = playerInfo.skillPoint_2;
 			playerInfo.skills_A = playerInfo.skills_2;
+			playerInfo.buffs_A = playerInfo.buffs_2;
 			playerInfo.coordX_A = playerInfo.coordX_2;
 			playerInfo.coordY_A = playerInfo.coordY_2;
 			playerInfo.pos_A = playerInfo.pos_2;
@@ -643,6 +724,7 @@ public class GameControl {
 			playerInfo.statusPoint_A = playerInfo.statusPoint_3;
 			playerInfo.skillPoint_A = playerInfo.skillPoint_3;
 			playerInfo.skills_A = playerInfo.skills_3;
+			playerInfo.buffs_A = playerInfo.buffs_3;
 			playerInfo.coordX_A = playerInfo.coordX_3;
 			playerInfo.coordY_A = playerInfo.coordY_3;
 			playerInfo.pos_A = playerInfo.pos_3;
@@ -1122,6 +1204,8 @@ public class GameControl {
 	
 	public Sprite MovPlayerCharacter(String set,String sex, String walk, String state, boolean menu) {
 		
+		playerInfo.job_A = "Swordman";
+		
 		if(!menu) {
 			if(state.equals("right") && walk.equals("walk")) {
 				countFrameMov++;
@@ -1346,6 +1430,28 @@ public class GameControl {
 						if(state.equals("front")) { spr_master = atlas_basicset_f.createSprite("front1"); return spr_master; }
 					}
 					
+					//in Battle
+					if(walk.equals("stop") && playerInfo.inBattle_A.equals("yes")) {
+						countFrameMov++;
+						if(playerSide.equals("right") && frame == 1 && exitAnimationFrame == 0) { spr_master = atlas_basicset_f.createSprite("battle1right"); return spr_master; }
+						if(playerSide.equals("left") && frame == 1 && exitAnimationFrame == 0) { spr_master = atlas_basicset_f.createSprite("battle1left"); return spr_master; }
+						
+						if(playerSide.equals("right") && frame == 2 && exitAnimationFrame == 0) { spr_master = atlas_basicset_f.createSprite("battle2right"); return spr_master; }
+						if(playerSide.equals("left") && frame == 2 && exitAnimationFrame == 0) { spr_master = atlas_basicset_f.createSprite("battle2left"); return spr_master; }
+						
+						if(playerSide.equals("right") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_basicset_f.createSprite("battle3right"); return spr_master; }
+						if(playerSide.equals("left") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_basicset_f.createSprite("battle3left"); return spr_master; }
+						
+						if(playerInfo.job_A.equals("Mage") || playerInfo.job_A.equals("Medic")) {
+							if(playerSide.equals("right") && frame >= 50) { spr_master = atlas_basicset_f.createSprite("attackmagicright"); return spr_master; }
+							if(playerSide.equals("left") && frame >= 50) { spr_master = atlas_basicset_f.createSprite("attackmagicleft"); return spr_master; }
+						}
+						else {
+							if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_basicset_f.createSprite("attackhitright"); return spr_master; }
+							if(playerSide.equals("left") && exitAnimationFrame > 0) { spr_master = atlas_basicset_f.createSprite("attackhitleft"); return spr_master; }
+						}				
+					}
+					
 					//Stop
 					if(walk.equals("stop")) {
 						frame = 1;
@@ -1480,49 +1586,232 @@ public class GameControl {
 				spr_master.setPosition(cameraCoordsX + 31,cameraCoordsY - 36);
 				return spr_master;
 			}	
+		}
+		
+		if(job.equals("Swordman")) {
 			
-			if(skill.equals("icecrystal")) {
-				spr_master = atlas_iconSkills.createSprite("btnthundercloud");
+			if(skill.equals("flysword")) {
+				spr_master = atlas_iconSkills.createSprite("btnflysword");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 31,cameraCoordsY - 36);
+				return spr_master;
+			}	
+			
+			if(skill.equals("ravenblade")) {
+				spr_master = atlas_iconSkills.createSprite("btnravenblade");
 				spr_master.setSize(7,13);
 				spr_master.setPosition(cameraCoordsX + 38.2f,cameraCoordsY - 36);
 				return spr_master;
 			}
 			
-			if(skill.equals("berserk")) {
-				spr_master = atlas_iconSkills.createSprite("btnrockbound");
+			if(skill.equals("healthboost")) {
+				spr_master = atlas_iconSkills.createSprite("btnhealthboost");
 				spr_master.setSize(7,13);
 				spr_master.setPosition(cameraCoordsX + 45.4f,cameraCoordsY - 36);
 				return spr_master;
 			}
 			
-			if(skill.equals("precision")) {
-				spr_master = atlas_iconSkills.createSprite("btnregen");
+			if(skill.equals("ironshield")) {
+				spr_master = atlas_iconSkills.createSprite("btnironshield");
 				spr_master.setSize(7,13);
 				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
 				return spr_master;
 			}
 			
-			if(skill.equals("fireball")) {
-				spr_master = atlas_iconSkills.createSprite("btnsteal");
+			if(skill.equals("protect")) {
+				spr_master = atlas_iconSkills.createSprite("btnprotect");
 				spr_master.setSize(7,13);
 				spr_master.setPosition(cameraCoordsX + 60,cameraCoordsY - 36);
 				return spr_master;
 			}
 		}
 		
-		if(job.equals("Swordman")) {
+		if(job.equals("Mage")) {
 			
-			if(skill.equals("tripleattack")) {
-				spr_master = atlas_iconSkills.createSprite("btnregen");
+			if(skill.equals("fireball")) {
+				spr_master = atlas_iconSkills.createSprite("btnfireball");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 31,cameraCoordsY - 36);
+				return spr_master;
+			}	
+			
+			if(skill.equals("icecrystal")) {
+				spr_master = atlas_iconSkills.createSprite("btnicecrystal");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 38.2f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("thundercloud")) {
+				spr_master = atlas_iconSkills.createSprite("btnthundercloud");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 45.4f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("rockbound")) {
+				spr_master = atlas_iconSkills.createSprite("btnrockbound");
 				spr_master.setSize(7,13);
 				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
 				return spr_master;
 			}
 			
-			if(skill.equals("tripleattack")) {
-				spr_master = atlas_iconSkills.createSprite("btnregen");
+			if(skill.equals("soulcrash")) {
+				spr_master = atlas_iconSkills.createSprite("btnsoulclash");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 60,cameraCoordsY - 36);
+				return spr_master;
+			}
+		}
+		
+		if(job.equals("Thief")) {
+			
+			if(skill.equals("doublehit")) {
+				spr_master = atlas_iconSkills.createSprite("btndoublehit");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 31,cameraCoordsY - 36);
+				return spr_master;
+			}	
+			
+			if(skill.equals("dashkick")) {
+				spr_master = atlas_iconSkills.createSprite("btndashkick");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 38.2f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("steal")) {
+				spr_master = atlas_iconSkills.createSprite("btnsteal");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 45.4f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("poisonhit")) {
+				spr_master = atlas_iconSkills.createSprite("btnpoisonhit");
 				spr_master.setSize(7,13);
 				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("invisibility")) {
+				spr_master = atlas_iconSkills.createSprite("btninvisibility");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 60,cameraCoordsY - 36);
+				return spr_master;
+			}
+		}
+		
+		if(job.equals("Medic")) {
+			
+			if(skill.equals("heal")) {
+				spr_master = atlas_iconSkills.createSprite("btnheal");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 31,cameraCoordsY - 36);
+				return spr_master;
+			}	
+			
+			if(skill.equals("atkboost")) {
+				spr_master = atlas_iconSkills.createSprite("btnatkboost");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 38.2f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("defboost")) {
+				spr_master = atlas_iconSkills.createSprite("btndefboost");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 45.4f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("holyprism")) {
+				spr_master = atlas_iconSkills.createSprite("btnholyprism");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("regen")) {
+				spr_master = atlas_iconSkills.createSprite("btnregen");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 60,cameraCoordsY - 36);
+				return spr_master;
+			}
+		}
+		
+		if(job.equals("Beater")) {
+			
+			if(skill.equals("hammercrash")) {
+				spr_master = atlas_iconSkills.createSprite("btnhammercrash");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 31,cameraCoordsY - 36);
+				return spr_master;
+			}	
+			
+			if(skill.equals("berserk")) {
+				spr_master = atlas_iconSkills.createSprite("btnberserk");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 38.2f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("overpower")) {
+				spr_master = atlas_iconSkills.createSprite("btnoverpower");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 45.4f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("ragebound")) {
+				spr_master = atlas_iconSkills.createSprite("btnragebound");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("impound")) {
+				spr_master = atlas_iconSkills.createSprite("btnimpound");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 60,cameraCoordsY - 36);
+				return spr_master;
+			}
+		}
+		
+		if(job.equals("Gunner")) {
+			
+			if(skill.equals("fastshot")) {
+				spr_master = atlas_iconSkills.createSprite("btnfastshot");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 31,cameraCoordsY - 36);
+				return spr_master;
+			}	
+			
+			if(skill.equals("bulletrain")) {
+				spr_master = atlas_iconSkills.createSprite("btnbulletrain");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 38.2f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("precision")) {
+				spr_master = atlas_iconSkills.createSprite("btnprecision");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 45.4f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("lockshot")) {
+				spr_master = atlas_iconSkills.createSprite("btnlockshot");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 52.8f,cameraCoordsY - 36);
+				return spr_master;
+			}
+			
+			if(skill.equals("mine")) {
+				spr_master = atlas_iconSkills.createSprite("btnmine");
+				spr_master.setSize(7,13);
+				spr_master.setPosition(cameraCoordsX + 60,cameraCoordsY - 36);
 				return spr_master;
 			}
 		}
@@ -2855,9 +3144,24 @@ public class GameControl {
 	
 	public boolean CheckSkillType(int numSkill) {
 		
-		if(playerInfo.job_1.equals("Novice")) {
+		if(playerInfo.job_A.equals("Novice")) {
 			//Triple Attack
 			if(numSkill == 1) {
+				return false;
+			}
+		}
+		
+		if(playerInfo.job_A.equals("Swordman")) {
+			//flysword
+			if(numSkill == 1) {
+				return false;
+			}
+			//Raven blade
+			if(numSkill == 2) {
+				return false;
+			}
+			//Heath Boost
+			if(numSkill == 3) {
 				return false;
 			}
 		}
@@ -2958,6 +3262,149 @@ public class GameControl {
 				}			
 			}
 		}
+		
+		
+		//Swordman
+		if(playerInfo.job_1.equals("Swordman")) {
+			
+			//Flysword
+			if(numSkill == 1) {
+				
+				for(int i = 0; i < lstMobs.size(); i++) {
+					
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+					
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+					
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#");
+							playerStatusNumber = playerStatus[0].split(":");
+							playerStr = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = 3;
+							playerAtk = (playerAtk + playerStr) * 10;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+							
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));							
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+							
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+							
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Espadas Voadoras";
+							skl.posX = mobX - 15;
+							skl.posY = mobY - 5;
+							skl.height = 50;
+							skl.width = 50;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 300;
+							lstSkill.add(skl);
+							
+							skillCoolDown = 300;
+							
+							OnlineManager("Atk",String.valueOf(mobHP));
+							
+						}					
+					}
+				}			
+			}
+			
+			//RavenBlade
+			if(numSkill == 2) {
+					for(int i = 0; i < lstMobs.size(); i++) {
+					
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+					
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+					
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#");
+							playerStatusNumber = playerStatus[4].split(":");
+							playerDex = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = 3;
+							playerAtk = (playerAtk + (playerDex * 2)) * 5;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+							
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));							
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+							
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+							
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Corte da Rapina";
+							skl.posX = mobX - 15;
+							skl.posY = mobY - 15;
+							skl.height = 70;
+							skl.width = 50;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 200;
+							lstSkill.add(skl);
+							
+							skillCoolDown = 300;
+							
+							OnlineManager("Atk",String.valueOf(mobHP));
+							
+						}					
+					}
+				}
+			}
+			
+			//Health Boost
+			if(numSkill == 3) {
+									
+					
+				
+			}
+		}		
 	}
 	
 	public Sprite EffectSkill(Skill skillUsed) {
@@ -2975,6 +3422,31 @@ public class GameControl {
 			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
 			spr_master.setSize(skillUsed.width, skillUsed.height);
 		}
+		
+		if(skillUsed.name.equals("Espadas Voadoras")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_flysword.createSprite("flysword1");	} 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_flysword.createSprite("flysword2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_flysword.createSprite("flysword3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_flysword.createSprite("flysword4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_flysword.createSprite("flysword5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_flysword.createSprite("flysword6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Corte da Rapina")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_ravenblade.createSprite("ravenblade1");	} 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_ravenblade.createSprite("ravenblade2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_ravenblade.createSprite("ravenblade3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_ravenblade.createSprite("ravenblade4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_ravenblade.createSprite("ravenblade5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_ravenblade.createSprite("ravenblade6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
 		
 		
 		

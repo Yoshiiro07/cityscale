@@ -301,15 +301,16 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Skill.draw(game.batch);
 			
 			job = activePlayer.job_A;
+			
 			if(activePlayer.job_A.equals("Novice")) {
 				spr_Skill = gameControl.SkillHotbar("Novice","tripleattack"); spr_Skill.draw(game.batch);		
 			}
 			if(activePlayer.job_A.equals("Swordman")) {
-				spr_Skill = gameControl.SkillHotbar("Swordman","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Swordman","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Swordman","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Swordman","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Swordman","fireball"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Swordman","flysword"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Swordman","ravenblade"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Swordman","healthboost"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Swordman","ironshield"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Swordman","protect"); spr_Skill.draw(game.batch);			
 			}
 			if(activePlayer.job_A.equals("Mage")) {
 				spr_Skill = gameControl.SkillHotbar("Mage","fireball"); spr_Skill.draw(game.batch);
@@ -319,32 +320,32 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_Skill = gameControl.SkillHotbar("Mage","soulcrash"); spr_Skill.draw(game.batch);			
 			}
 			if(activePlayer.job_A.equals("Thief")) {
-				spr_Skill = gameControl.SkillHotbar("Thief","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Thief","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Thief","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Thief","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Thief","fireball"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Thief","doublehit"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Thief","poisonhit"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Thief","steal"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Thief","dashkick"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Thief","invisibility"); spr_Skill.draw(game.batch);			
 			}
 			if(activePlayer.job_A.equals("Medic")) {
-				spr_Skill = gameControl.SkillHotbar("Medic","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Medic","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Medic","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Medic","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Medic","fireball"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Medic","heal"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medic","atkboost"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Medic","defboost"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medic","holyprism"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Medic","regen"); spr_Skill.draw(game.batch);			
 			}
 			if(activePlayer.job_A.equals("Beater")) {
-				spr_Skill = gameControl.SkillHotbar("Beater","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Beater","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Beater","berserk"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Beater","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Beater","fireball"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Beater","hammercrash"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Beater","berserk"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Beater","overpower"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Beater","ragebound"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Beater","impound"); spr_Skill.draw(game.batch);			
 			}
 			if(activePlayer.job_A.equals("Gunner")) {
-				spr_Skill = gameControl.SkillHotbar("Gunner","tripleattack"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Gunner","icecrystal"); spr_Skill.draw(game.batch);			
-				spr_Skill = gameControl.SkillHotbar("Gunner","berserk"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Gunner","fastshot"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Gunner","bulletrain"); spr_Skill.draw(game.batch);			
 				spr_Skill = gameControl.SkillHotbar("Gunner","precision"); spr_Skill.draw(game.batch);
-				spr_Skill = gameControl.SkillHotbar("Gunner","fireball"); spr_Skill.draw(game.batch);			
+				spr_Skill = gameControl.SkillHotbar("Gunner","lockshot"); spr_Skill.draw(game.batch);
+				spr_Skill = gameControl.SkillHotbar("Gunner","mine"); spr_Skill.draw(game.batch);			
 			}
 			
 			
@@ -813,22 +814,38 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				//Skill 2
 				if(coordsTouch.x >= (cameraCoordsX + 38) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 3
+					isAreaSkill = gameControl.CheckSkillType(2);
+					
+					if(!isAreaSkill) {
+						gameControl.SkillAtk(2);
+					}
 					return false;
 				}
 				//Skill 3
 				if(coordsTouch.x >= (cameraCoordsX + 45) && coordsTouch.x <= (cameraCoordsX + 52) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 4
+					isAreaSkill = gameControl.CheckSkillType(3);
+					
+					if(!isAreaSkill) {
+						gameControl.SkillAtk(3);
+					}
 					return false;
 				}
 				//Skill 4
 				if(coordsTouch.x >= (cameraCoordsX + 52) && coordsTouch.x <= (cameraCoordsX + 59) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 5
+					isAreaSkill = gameControl.CheckSkillType(4);
+					
+					if(!isAreaSkill) {
+						gameControl.SkillAtk(4);
+					}
 					return false;
 				}
 				//Skill 5
 				if(coordsTouch.x >= (cameraCoordsX + 59) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
-					//Skill 6
+					isAreaSkill = gameControl.CheckSkillType(5);
+					
+					if(!isAreaSkill) {
+						gameControl.SkillAtk(5);
+					}
 					return false;
 				}
 			}
