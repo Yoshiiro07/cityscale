@@ -4,6 +4,8 @@ public class Monster {
 	
 	public float mobPosX;
 	public float mobPosY;
+	public float mobHeight;
+	public float mobWidth;
 	public String mobID; 
 	public String name;
 	public String target;
@@ -11,6 +13,9 @@ public class Monster {
 	public String MobSelected;
 	public String mobSide;
 	public String map;
+	public String status;
+	public int statusTime;
+	public float speed;
 	public int hp;
 	public int mp;
 	public int maxHP;

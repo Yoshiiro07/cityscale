@@ -14,4 +14,7 @@ public class Skill {
 	public int frame;
 	public int mpcost;
 	public int cd;
+	public float posMobX;
+	public float posMobY;
+	
 }

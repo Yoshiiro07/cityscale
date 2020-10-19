@@ -65,6 +65,7 @@ public class GameControl {
 	private int coordsXint = 0;
 	private int coordsYint = 0;
 	private int playerAtk = 3;
+	private int playerDef = 1;
 	private int exitAnimationFrame = 0;
 	private int skillCoolDown = 0;
 	private String playerSide = "";
@@ -79,6 +80,9 @@ public class GameControl {
 	private float playerRangeXPlus;
 	private float playerRangeYMinus;
 	private float playerRangeYPlus;
+	private float touchPosX;
+	private float touchPosY;
+	private boolean isCasting;
 	private int playerStr;
 	private int playerAgi;
 	private int playerDex;
@@ -87,7 +91,6 @@ public class GameControl {
 	private int playerRes;
 	private int playerVit;
 	
-	
 	//Mob Variables
 	private int mobCountDown;
 	private int mobHP;
@@ -95,10 +98,15 @@ public class GameControl {
 	private int mobAtk;
 	private float mobX;
 	private float mobY;
+	private float mobHeight;
+	private float mobWidth;
 	private float mobRangeXMinus;
 	private float mobRangeXPlus;
 	private float mobRangeYMinus;
 	private float mobRangeYPlus;
+	private int expsharedOnline = 0;
+	private int damageOnline = 0;
+	private String mobStatus = "";
 	
 	
 	//Online
@@ -145,7 +153,7 @@ public class GameControl {
 	private TextureAtlas atlas_icecrystal;
 	private TextureAtlas atlas_thundercloud;
 	private TextureAtlas atlas_rockbound;
-	private TextureAtlas atlas_soulcrash;
+	private TextureAtlas atlas_soulclash;
 	
 	private TextureAtlas atlas_doublehit;
 	private TextureAtlas atlas_poisonhit;
@@ -233,7 +241,7 @@ public class GameControl {
 		atlas_icecrystal = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/icecrystal.txt"));
 		atlas_thundercloud = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/thundercloud.txt"));
 		atlas_rockbound = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/rockbound.txt"));
-		atlas_soulcrash = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/soulclash.txt"));
+		atlas_soulclash = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/soulclash.txt"));
 		
 		atlas_doublehit = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/doublehit.txt"));
 		atlas_poisonhit = new TextureAtlas(Gdx.files.internal("data/skills/base/skilleffect/poisonhit.txt"));
@@ -367,11 +375,15 @@ public class GameControl {
 			playerInfo.maxhp_1 = "100";
 			playerInfo.maxmp_1 = "100";
 			playerInfo.money_1 = "50";
+			playerInfo.atk_1 = "3";
+			playerInfo.def_1 = "0";
 			playerInfo.cooldown_1 = "";
 			playerInfo.statusPoint_1 = "0";
 			playerInfo.skillPoint_1 = "0";
 			playerInfo.skills_1 = "none";
-			playerInfo.buffs_1 = "none";
+			playerInfo.buffsA_1 = "none:0";
+			playerInfo.buffsB_1 = "none:0";
+			playerInfo.buffsC_1 = "none:0";
 			playerInfo.inBattle_1 = "no";
 			playerInfo.target_1 = "none";
 			playerInfo.map_1 = "MetroStation";
@@ -409,12 +421,16 @@ public class GameControl {
 			playerInfo.side_2 = "front";
 			playerInfo.maxhp_2 = "100";
 			playerInfo.maxmp_2 = "100";
+			playerInfo.atk_2 = "3";
+			playerInfo.def_2 = "0";
 			playerInfo.money_2 = "50";
 			playerInfo.cooldown_2 = "";
 			playerInfo.statusPoint_2 = "0";
 			playerInfo.skillPoint_2 = "0";
 			playerInfo.skills_2 = "none";
-			playerInfo.buffs_2 = "none";
+			playerInfo.buffsA_2 = "none:0";
+			playerInfo.buffsB_2 = "none:0";
+			playerInfo.buffsC_2 = "none:0";
 			playerInfo.coordX_2 = "";
 			playerInfo.coordY_2 = "";
 			playerInfo.inBattle_2 = "no";
@@ -455,12 +471,16 @@ public class GameControl {
 			playerInfo.side_3 = "front";
 			playerInfo.maxhp_3 = "100";
 			playerInfo.maxmp_3 = "100";
+			playerInfo.atk_3 = "3";
+			playerInfo.def_3 = "0";
 			playerInfo.money_3 = "50";
 			playerInfo.cooldown_3 = "";
 			playerInfo.statusPoint_3 = "0";
 			playerInfo.skillPoint_3 = "0";
 			playerInfo.skills_3 = "none";
-			playerInfo.buffs_3 = "none";
+			playerInfo.buffsA_3 = "none:0";
+			playerInfo.buffsB_3 = "none:0";
+			playerInfo.buffsC_3 = "none:0";
 			playerInfo.coordX_3 = "";
 			playerInfo.coordY_3 = "";
 			playerInfo.inBattle_3 = "no";
@@ -517,12 +537,16 @@ public class GameControl {
 				playerInfo.mp_1 = playerInfo.mp_A;
 				playerInfo.maxhp_1 = playerInfo.maxhp_A;
 				playerInfo.maxmp_1 = playerInfo.maxmp_A;
+				playerInfo.atk_1 = playerInfo.atk_A;
+				playerInfo.def_1 = playerInfo.def_A;
 				playerInfo.money_1 = playerInfo.money_A;
 				playerInfo.cooldown_1 = playerInfo.cooldown_A;
 				playerInfo.statusPoint_1 = playerInfo.statusPoint_A;
 				playerInfo.skillPoint_1 = playerInfo.skillPoint_A;
 				playerInfo.skills_1 = playerInfo.skills_A;
-				playerInfo.buffs_1 = playerInfo.buffs_A;
+				playerInfo.buffsA_1 = playerInfo.buffsA_A;
+				playerInfo.buffsB_1 = playerInfo.buffsB_A;
+				playerInfo.buffsC_1 = playerInfo.buffsC_A;
 				playerInfo.coordX_1 = playerInfo.coordX_A;
 				playerInfo.coordY_1 = playerInfo.coordY_A;
 				playerInfo.pos_1 = playerInfo.pos_A;
@@ -556,12 +580,16 @@ public class GameControl {
 				playerInfo.mp_2 = playerInfo.mp_A;
 				playerInfo.maxhp_2 = playerInfo.maxhp_A;
 				playerInfo.maxmp_2 = playerInfo.maxmp_A;
+				playerInfo.atk_2 = playerInfo.atk_A;
+				playerInfo.def_2 = playerInfo.def_A;
 				playerInfo.money_2 = playerInfo.money_A;
 				playerInfo.cooldown_2 = playerInfo.cooldown_A;
 				playerInfo.statusPoint_2 = playerInfo.statusPoint_A;
 				playerInfo.skillPoint_2 = playerInfo.skillPoint_A;
 				playerInfo.skills_2 = playerInfo.skills_A;
-				playerInfo.buffs_2 = playerInfo.buffs_A;
+				playerInfo.buffsA_2 = playerInfo.buffsA_A;
+				playerInfo.buffsB_2 = playerInfo.buffsB_A;
+				playerInfo.buffsC_2 = playerInfo.buffsC_A;
 				playerInfo.coordX_2 = playerInfo.coordX_A;
 				playerInfo.coordY_2 = playerInfo.coordY_A;
 				playerInfo.pos_2 = playerInfo.pos_A;
@@ -595,12 +623,16 @@ public class GameControl {
 				playerInfo.mp_3 = playerInfo.mp_A;
 				playerInfo.maxhp_3 = playerInfo.maxhp_A;
 				playerInfo.maxmp_3 = playerInfo.maxmp_A;
+				playerInfo.atk_3 = playerInfo.atk_A;
+				playerInfo.def_3 = playerInfo.def_A;
 				playerInfo.money_3 = playerInfo.money_A;
 				playerInfo.cooldown_3 = playerInfo.cooldown_A;
 				playerInfo.statusPoint_3 = playerInfo.statusPoint_A;
 				playerInfo.skillPoint_3 = playerInfo.skillPoint_A;
 				playerInfo.skills_3 = playerInfo.skills_A;
-				playerInfo.buffs_3 = playerInfo.buffs_A;
+				playerInfo.buffsA_3 = playerInfo.buffsA_A;
+				playerInfo.buffsB_3 = playerInfo.buffsB_A;
+				playerInfo.buffsC_3 = playerInfo.buffsC_A;
 				playerInfo.coordX_3 = playerInfo.coordX_A;
 				playerInfo.coordY_3 = playerInfo.coordY_A;
 				playerInfo.pos_3 = playerInfo.pos_A;
@@ -641,12 +673,13 @@ public class GameControl {
 			playerInfo.mp_A = playerInfo.mp_1;
 			playerInfo.maxhp_A = playerInfo.maxhp_1;
 			playerInfo.maxmp_A = playerInfo.maxmp_1;
+			playerInfo.atk_A = playerInfo.atk_1;
+			playerInfo.def_A = playerInfo.def_1;
 			playerInfo.money_A = playerInfo.money_1;
 			playerInfo.cooldown_A = playerInfo.cooldown_1;
 			playerInfo.statusPoint_A = playerInfo.statusPoint_1;
 			playerInfo.skillPoint_A = playerInfo.skillPoint_1;
 			playerInfo.skills_A = playerInfo.skills_1;
-			playerInfo.buffs_A = playerInfo.buffs_1;
 			playerInfo.coordX_A = playerInfo.coordX_1;
 			playerInfo.coordY_A = playerInfo.coordY_1;
 			playerInfo.pos_A = playerInfo.pos_1;
@@ -662,6 +695,11 @@ public class GameControl {
 			playerInfo.state_A = playerInfo.state_1;
 			playerInfo.hotkey1_A = playerInfo.hotkey1_1;
 			playerInfo.hotkey2_A = playerInfo.hotkey2_1;
+			playerInfo.buffsA_A = playerInfo.buffsA_1;
+			playerInfo.buffsB_A = playerInfo.buffsB_1;
+			playerInfo.buffsC_A = playerInfo.buffsC_1;
+			
+			CleanBuffEffectsLog();
 		}
 		if(num == 2) {
 			playerInfo.name_A = playerInfo.name_2;
@@ -680,12 +718,16 @@ public class GameControl {
 			playerInfo.mp_A = playerInfo.mp_2;
 			playerInfo.maxhp_A = playerInfo.maxhp_2;
 			playerInfo.maxmp_A = playerInfo.maxmp_2;
+			playerInfo.atk_A = playerInfo.atk_2;
+			playerInfo.def_A = playerInfo.def_2;
 			playerInfo.money_A = playerInfo.money_2;
 			playerInfo.cooldown_A = playerInfo.cooldown_2;
 			playerInfo.statusPoint_A = playerInfo.statusPoint_2;
 			playerInfo.skillPoint_A = playerInfo.skillPoint_2;
 			playerInfo.skills_A = playerInfo.skills_2;
-			playerInfo.buffs_A = playerInfo.buffs_2;
+			playerInfo.buffsA_A = playerInfo.buffsA_2;
+			playerInfo.buffsB_A = playerInfo.buffsB_2;
+			playerInfo.buffsC_A = playerInfo.buffsC_2;
 			playerInfo.coordX_A = playerInfo.coordX_2;
 			playerInfo.coordY_A = playerInfo.coordY_2;
 			playerInfo.pos_A = playerInfo.pos_2;
@@ -701,6 +743,8 @@ public class GameControl {
 			playerInfo.state_A = playerInfo.state_2;
 			playerInfo.hotkey1_A = playerInfo.hotkey1_2;
 			playerInfo.hotkey2_A = playerInfo.hotkey2_2;
+			
+			CleanBuffEffectsLog();
 		}
 		if(num == 3) {
 			playerInfo.name_A = playerInfo.name_3;
@@ -719,12 +763,16 @@ public class GameControl {
 			playerInfo.mp_A = playerInfo.mp_3;
 			playerInfo.maxhp_A = playerInfo.maxhp_3;
 			playerInfo.maxmp_A = playerInfo.maxmp_3;
+			playerInfo.atk_A = playerInfo.atk_3;
+			playerInfo.def_A = playerInfo.def_3;
 			playerInfo.money_A = playerInfo.money_3;
 			playerInfo.cooldown_A = playerInfo.cooldown_3;
 			playerInfo.statusPoint_A = playerInfo.statusPoint_3;
 			playerInfo.skillPoint_A = playerInfo.skillPoint_3;
 			playerInfo.skills_A = playerInfo.skills_3;
-			playerInfo.buffs_A = playerInfo.buffs_3;
+			playerInfo.buffsA_A = playerInfo.buffsA_3;
+			playerInfo.buffsB_A = playerInfo.buffsB_3;
+			playerInfo.buffsC_A = playerInfo.buffsC_3;
 			playerInfo.coordX_A = playerInfo.coordX_3;
 			playerInfo.coordY_A = playerInfo.coordY_3;
 			playerInfo.pos_A = playerInfo.pos_3;
@@ -740,6 +788,8 @@ public class GameControl {
 			playerInfo.state_A = playerInfo.state_3;
 			playerInfo.hotkey1_A = playerInfo.hotkey1_3;
 			playerInfo.hotkey2_A = playerInfo.hotkey2_3;
+			
+			CleanBuffEffectsLog();
 		}
 		
 		return playerInfo;
@@ -940,6 +990,25 @@ public class GameControl {
 				spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 78);
 				return spr_master;
 			}
+		}
+		
+		//Area Select Skill
+		if(type.equals("areaSelect")) {
+			spr_master = atlas_InterfaceCreate.createSprite("areaSelect");
+			spr_master.setSize(30,16);
+			spr_master.setPosition(cameraCoordsX - 10,cameraCoordsY + 48);
+			return spr_master;
+		}
+		
+		//Area Target 
+		if(type.equals("skillareatarget")) {
+			spr_master = atlas_InterfaceCreate.createSprite("skillareatarget");
+			touchPosX = Float.parseFloat(value);
+			touchPosY = Float.parseFloat(extra);
+			spr_master.setPosition(touchPosX - 10,touchPosY - 10);
+			spr_master.setSize(40,40);
+			
+			return spr_master;
 		}
 		
 		//Mini Bar
@@ -1175,14 +1244,15 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	
-	
-	
-	
 	// [D] Character Code
 	public void RegenerateHPMP() {
 		recoverytimer--;
 		if(recoverytimer <= 0) {
+				
+			if(playerInfo.buffsA_A.contains("healthboost")) { return; }
+			if(playerInfo.buffsB_A.contains("healthboost")) { return; }
+			if(playerInfo.buffsC_A.contains("healthboost")) { return; }
+			
 			playerHP = Integer.parseInt(playerInfo.hp_A);
 			playerMP = Integer.parseInt(playerInfo.mp_A);
 			
@@ -1204,8 +1274,8 @@ public class GameControl {
 	
 	public Sprite MovPlayerCharacter(String set,String sex, String walk, String state, boolean menu) {
 		
-		playerInfo.job_A = "Swordman";
-		
+		playerInfo.job_A = "Beater";
+	
 		if(!menu) {
 			if(state.equals("right") && walk.equals("walk")) {
 				countFrameMov++;
@@ -1363,6 +1433,10 @@ public class GameControl {
 		if(sex.equals("M")) {
 			if(set.equals("basicset_m")) {
 				
+				//Casting
+				if(isCasting && playerSide.equals("right")) { spr_master = atlas_basicset_m.createSprite("attackmagicright"); return spr_master; }
+				if(isCasting && playerSide.equals("left")) { spr_master = atlas_basicset_m.createSprite("attackmagicleft"); return spr_master; }
+				
 				//Menu
 				if(menu) {
 					if(state.equals("front")) { spr_master = atlas_basicset_m.createSprite("front1"); return spr_master; }
@@ -1424,6 +1498,10 @@ public class GameControl {
 		//Female
 		if(sex.equals("F")) {
 				if(set.equals("basicset_f")) {
+					
+					//Casting
+					if(isCasting && playerSide.equals("right")) { spr_master = atlas_basicset_f.createSprite("attackmagicright"); return spr_master; }
+					if(isCasting && playerSide.equals("left")) { spr_master = atlas_basicset_f.createSprite("attackmagicleft"); return spr_master; }
 					
 					//Menu
 					if(menu) {
@@ -1496,6 +1574,14 @@ public class GameControl {
 			
 		if(sex.equals("M")) {	
 			
+			if(isCasting && playerSide.equals("right")) {
+				spr_master = atlas_hairs.createSprite(hair + "attack_right"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;
+			}
+			
+			if(isCasting && playerSide.equals("right")) {
+				spr_master = atlas_hairs.createSprite(hair + "attack_left"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;
+			}
+			
 			if(exitAnimationFrame > 0 ) {
 				if(playerSide.equals("right") && playerInfo.inBattle_A.equals("yes") && exitAnimationFrame > 0) {
 					spr_master = atlas_hairs.createSprite(hair + "attack_right"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;		
@@ -1530,7 +1616,34 @@ public class GameControl {
 			if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "right"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.4f, playerPosY + 22.8f); return spr_master; }
 		}
 		
-		if(sex.equals("F")) {			
+		if(sex.equals("F")) {
+			
+			if(isCasting && playerSide.equals("right")) {
+				spr_master = atlas_hairs.createSprite(hair + "attack_f_right"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;
+			}
+			
+			if(isCasting && playerSide.equals("right")) {
+				spr_master = atlas_hairs.createSprite(hair + "attack_f_left"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;
+			}
+			
+			if(exitAnimationFrame > 0 ) {
+				if(playerSide.equals("right") && playerInfo.inBattle_A.equals("yes") && exitAnimationFrame > 0) {
+					spr_master = atlas_hairs.createSprite(hair + "attack_f_right"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;		
+				}
+				
+				if(playerSide.equals("left") && playerInfo.inBattle_A.equals("yes") && exitAnimationFrame > 0) {			
+					spr_master = atlas_hairs.createSprite(hair + "attack_f_left"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master;
+				}
+			}
+			
+			if(playerSide.equals("right") && playerInfo.inBattle_A.equals("yes") && walk.equals("stop")) {
+				spr_master = atlas_hairs.createSprite(hair + "battle_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23.5f); return spr_master;		
+			}
+			
+			if(playerSide.equals("left") && playerInfo.inBattle_A.equals("yes") && walk.equals("stop")) {			
+				spr_master = atlas_hairs.createSprite(hair + "battle_f_left"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.5f, playerPosY + 23.5f); return spr_master;
+			}
+			
 			if((state.equals("front") || state.equals("front-left") || state.equals("front-right"))  && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }
 			if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "up" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.3f, playerPosY + 22.7f); return spr_master; }
 			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.5f, playerPosY + 23); return spr_master; }
@@ -2367,7 +2480,7 @@ public class GameControl {
 		//Male
 		if(sex.equals("M")) {
 			if(set.equals("basicset_m")) {
-				
+							
 				//Stop
 				if(walk.equals("stop")) {
 					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 1) { spr_master = atlas_basicset_m.createSprite("front1"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
@@ -2862,6 +2975,8 @@ public class GameControl {
 			mobA.name = "Slime";
 			mobA.mobPosX = 59;
 			mobA.mobPosY = -26;
+			mobA.mobHeight = 14;
+			mobA.mobWidth = 10;
 			mobA.mobID = "SlimeA";
 			mobA.hp = 30;
 			mobA.mp = 10;
@@ -2887,6 +3002,9 @@ public class GameControl {
 			mobA.respawnTime = 300;
 			mobA.respawnTimeMax = 300;
 			mobA.map = "Streets305";
+			mobA.statusTime = 300;
+			mobA.speed = 0.10f;
+			mobA.status = "none";
 			lstMobs.add(mobA);
 		}
 		
@@ -2946,22 +3064,32 @@ public class GameControl {
 				if(mob.getHit) { spr_master = atlas_MonstersSewer.createSprite("slime1_damage_left"); mob.getHit = false; }
 			}
 		
+			
+			//See status stun
+			if(!mob.status.equals("stun")) {
+						
 			//Mov X
 			frameMob = randnumber.nextInt(10);
 			if(frameMob >= 0 && frameMob <= 4) {
-				mob.mobPosX = mob.mobPosX + 0.10f;
+				mob.mobPosX = mob.mobPosX + mob.speed;
 			}
 			if(frameMob >= 5 && frameMob <= 10) {
-				mob.mobPosX = mob.mobPosX - 0.10f;
-			}
-		
+				mob.mobPosX = mob.mobPosX - mob.speed;
+			}			
 			//Mov Y
 			frameMob = randnumber.nextInt(10);		
 			if(frameMob >= 0 && frameMob <= 4) {
-				mob.mobPosY = mob.mobPosY + 0.10f;
+				mob.mobPosY = mob.mobPosY + mob.speed;
 			}
 			if(frameMob >= 5 && frameMob <= 10) {
-				mob.mobPosY = mob.mobPosY - 0.10f;
+				mob.mobPosY = mob.mobPosY - mob.speed;
+			}
+			
+			}
+			
+			//See status poison
+			if(mob.status.equals("poison") && mob.frame >= 10 && mob.frame <= 12) {
+				mob.hp = mob.hp--;
 			}
 		
 			spr_master.setPosition(mob.mobPosX, mob.mobPosY);
@@ -2994,6 +3122,12 @@ public class GameControl {
 		return spr_master;
 	}
 	
+	public void CheckSkillCooldown() {
+		if(skillCoolDown > 0) {
+			skillCoolDown--;
+		}
+	}
+	
 	public void AutoAttack() {
 		
 		if(playerInfo.target_A.equals("none")) { return; }
@@ -3002,10 +3136,10 @@ public class GameControl {
 		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
 				
 		if (playerInfo.job_A.equals("Gunner")) {
-			playerRangeXMinus = playerCoordsX - 70;
-			playerRangeXPlus = playerCoordsX + 70;
-			playerRangeYMinus = playerCoordsY - 70;
-			playerRangeYPlus = playerCoordsY + 70;
+			playerRangeXMinus = playerCoordsX - 90;
+			playerRangeXPlus = playerCoordsX + 90;
+			playerRangeYMinus = playerCoordsY - 90;
+			playerRangeYPlus = playerCoordsY + 90;
 		}
 		else {
 			playerRangeXMinus = playerCoordsX - 8;
@@ -3016,10 +3150,21 @@ public class GameControl {
 		
 		if(playerInfo.inBattle_A.equals("yes")) {
 			playerCountDown--;
-			skillCoolDown--;
 			
 			if(playerCountDown < 0) { 
-				playerCountDown = 200; 
+				playerStatus = playerInfo.stats_A.split("#");
+				playerStatusNumber = playerStatus[1].split(":");
+				playerAgi = Integer.parseInt(playerStatusNumber[1]);
+				
+				playerCountDown = 300; 
+				
+				if(playerAgi > 1) {
+					playerCountDown = playerCountDown - playerAgi;
+				}
+				
+				if(playerInfo.job_1.equals("Thief")) {
+					playerCountDown = playerCountDown - 20;
+				}
 			}
 			
 			if(skillCoolDown <= 0) {
@@ -3032,7 +3177,16 @@ public class GameControl {
 			mobX = lstMobs.get(i).mobPosX;
 			mobY = lstMobs.get(i).mobPosY;	
 			
-			if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+			mobHeight = lstMobs.get(i).mobHeight;
+			mobWidth = lstMobs.get(i).mobWidth;
+			
+			mobRangeXMinus = mobX - mobWidth/2;
+			mobRangeXPlus = mobX + mobWidth/2; 
+			
+			mobRangeYMinus = mobY - mobHeight/2;
+			mobRangeYPlus = mobY + mobHeight/2;
+			
+			if(playerRangeXPlus > (mobX - mobWidth) && playerRangeXMinus < (mobX + mobWidth) && playerRangeYPlus > (mobY - mobHeight) && playerRangeYMinus < (mobY + mobHeight)) {
 				
 				if(playerCoordsX < mobX) { playerSide = "right"; }
 				if(playerCoordsX > mobX) { playerSide = "left"; }
@@ -3047,182 +3201,16 @@ public class GameControl {
 						playerStr = Integer.parseInt(playerStatusNumber[1]);
 						playerAtk = 3;
 						playerAtk = playerAtk + playerStr;
-						if(playerInfo.stamina_A.equals("0")) { playerAtk = 1; }
-						mobHP = lstMobs.get(i).hp;
-						mobHP = mobHP - playerAtk;
-						lstMobs.get(i).target = playerInfo.name_A;
-						lstMobs.get(i).getHit = true;
-						lstMobs.get(i).hp = mobHP;
-						
-						if(lstMobs.get(i).hp <= 0) {  
-							GiveLoot(lstMobs.get(i));							
-							lstMobs.get(i).dead = true;
-							playerInfo.inBattle_A = "no";
-						}
-						
-						Damage dmg = new Damage();
-						dmg.color = "Yellow";
-						dmg.posX = mobX;
-						dmg.posY = mobY + 10;
-						dmg.user = playerInfo.name_A;
-						dmg.dmg = playerAtk;
-						dmg.frame = 0;					
-						lstDanos.add(dmg);
-						
-						OnlineManager("Atk",String.valueOf(mobHP));
-					}			
-				}			
-			}
-		}	
-	}
-	
-	public void CheckMonsterAttack() {
-		
-		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
-		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
-		playerHP = Integer.parseInt(playerInfo.hp_A);
-		
-		for(int i = 0; i < lstMobs.size(); i++) {
-			
-			mobX = lstMobs.get(i).mobPosX;
-			mobY = lstMobs.get(i).mobPosY;
-			
-			mobRangeXMinus = mobX - 20;
-			mobRangeXPlus = mobX + 20; 
-			
-			mobRangeYMinus = mobY - 30;
-			mobRangeYPlus = mobY + 30;
-			
-			mobCountDown = lstMobs.get(i).mobCountDown;
-			
-			if(lstMobs.get(i).target.equals(playerInfo.name_A)) {
-				mobCountDown--;
-				lstMobs.get(i).mobCountDown = mobCountDown;
-				if(mobCountDown <= 0) {
-					if(mobRangeXPlus > playerCoordsX && mobRangeXMinus < playerCoordsX && mobRangeYPlus > playerCoordsY && mobRangeYMinus < playerCoordsY) {
-						
-						atkHitRandom = randnumber.nextInt(10);
-						
-						if(atkHitRandom <= 2) {
-							mobAtk = lstMobs.get(i).atkHit + 10;
-							playerHP = playerHP - mobAtk;
-							playerInfo.hp_A = String.valueOf(playerHP);
-							lstMobs.get(i).frame = 50;
-							
-							Damage dmg = new Damage();
-							dmg.color = "Red";
-							dmg.posX = playerCoordsX + 5;
-							dmg.posY = playerCoordsY + 10;
-							dmg.user = lstMobs.get(i).name;
-							dmg.dmg = mobAtk;
-							dmg.frame = 0;					
-							lstDanos.add(dmg);
-						}
-						else 
-						{
-							mobAtk = lstMobs.get(i).atkHit;
-							playerHP = playerHP - mobAtk;
-							playerInfo.hp_A = String.valueOf(playerHP);
-							lstMobs.get(i).frame = 50;
-							
-							Damage dmg = new Damage();
-							dmg.color = "Red";
-							dmg.posX = playerCoordsX + 5;
-							dmg.posY = playerCoordsY + 10;
-							dmg.user = lstMobs.get(i).name;
-							dmg.dmg = mobAtk;
-							dmg.frame = 0;					
-							lstDanos.add(dmg);
-						}	
-						
-						lstMobs.get(i).mobCountDown = lstMobs.get(i).mobCountDownMax;
-					}	
-				}
-			}
-		}		
-	}
-	
-	public boolean CheckSkillType(int numSkill) {
-		
-		if(playerInfo.job_A.equals("Novice")) {
-			//Triple Attack
-			if(numSkill == 1) {
-				return false;
-			}
-		}
-		
-		if(playerInfo.job_A.equals("Swordman")) {
-			//flysword
-			if(numSkill == 1) {
-				return false;
-			}
-			//Raven blade
-			if(numSkill == 2) {
-				return false;
-			}
-			//Heath Boost
-			if(numSkill == 3) {
-				return false;
-			}
-		}
-		
-		
-		
-		
-		return false;
-	}
-	
-	public void SkillAtk(int numSkill) {
-		
-		if(skillCoolDown > 0) { return; }
-		playerCountDown = 200;
-		
-		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
-		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
-		
-		if (playerInfo.job_A.equals("Gunner")) {
-			playerRangeXMinus = playerCoordsX - 70;
-			playerRangeXPlus = playerCoordsX + 70;
-			playerRangeYMinus = playerCoordsY - 70;
-			playerRangeYPlus = playerCoordsY + 70;
-		}
-		else {
-			playerRangeXMinus = playerCoordsX - 8;
-			playerRangeXPlus = playerCoordsX + 30;
-			playerRangeYMinus = playerCoordsY - 10;
-			playerRangeYPlus = playerCoordsY + 40;
-		}
-		
-		
-		//Novice
-		if(playerInfo.job_1.equals("Novice")) {
-			//Triple Attack
-			if(numSkill == 1) {
-				
-				for(int i = 0; i < lstMobs.size(); i++) {
-					
-					mobX = lstMobs.get(i).mobPosX;
-					mobY = lstMobs.get(i).mobPosY;
-					
-					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
-						
-						if(playerCoordsX < mobX) { playerSide = "right"; }
-						if(playerCoordsX > mobX) { playerSide = "left"; }
-					
-						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
-							
-							playerInfo.inBattle_A = "yes";
-							playerStatus = playerInfo.stats_A.split("#");
-							playerStatusNumber = playerStatus[0].split(":");
-							playerStr = Integer.parseInt(playerStatusNumber[1]);
-							playerAtk = 3;
-							playerAtk = (playerAtk + playerStr) * 3;
-							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+						playerStatusNumber = playerStatus[4].split(":");
+						playerDex = Integer.parseInt(playerStatusNumber[1]);						
+						atkHitRandom = randnumber.nextInt(200);
+						if(atkHitRandom <= (50 + playerDex)) {
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 2; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
+							lstMobs.get(i).hp = mobHP;
 							
 							if(lstMobs.get(i).hp <= 0) {  
 								GiveLoot(lstMobs.get(i));							
@@ -3239,6 +3227,298 @@ public class GameControl {
 							dmg.frame = 0;					
 							lstDanos.add(dmg);
 							
+							OnlineManager("Atk",String.valueOf(mobHP));
+						}
+						else
+						{
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = 0;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+							
+							OnlineManager("Atk",String.valueOf(mobHP));
+						}
+					}			
+				}			
+			}
+		}	
+	}
+	
+	public void CheckMonsterAttack() {
+		
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+		playerHP = Integer.parseInt(playerInfo.hp_A);
+		
+		for(int i = 0; i < lstMobs.size(); i++) {
+			
+			if(!lstMobs.get(i).status.equals("none")){
+				lstMobs.get(i).statusTime = lstMobs.get(i).statusTime--;
+				if(lstMobs.get(i).statusTime <= 0) {
+					lstMobs.get(i).status = "none";
+					lstMobs.get(i).statusTime = 300;
+				}
+			}
+			
+			mobX = lstMobs.get(i).mobPosX;
+			mobY = lstMobs.get(i).mobPosY;
+			
+			mobRangeXMinus = mobX - 10;
+			mobRangeXPlus = mobX + 25; 
+			
+			mobRangeYMinus = mobY - 30;
+			mobRangeYPlus = mobY + 35;
+			
+			mobCountDown = lstMobs.get(i).mobCountDown;
+			
+			if(lstMobs.get(i).target.equals(playerInfo.name_A)) {
+				mobCountDown--;
+				lstMobs.get(i).mobCountDown = mobCountDown;
+				if(mobCountDown <= 0) {
+					if(mobRangeXPlus > (playerCoordsX + 10) && mobRangeXMinus < (playerCoordsX + 10) && mobRangeYPlus > (playerCoordsY + 18) && mobRangeYMinus < (playerCoordsY + 18)) {
+						
+						atkHitRandom = randnumber.nextInt(10);						
+						if(lstMobs.get(i).status.equals("stun")) {
+						
+							if(atkHitRandom <= 2) {
+								mobAtk = lstMobs.get(i).atkHit * 2;
+								if(playerInfo.buffsA_A.contains("ironshield")) { mobAtk = mobAtk/2 ; }
+								if(playerInfo.buffsB_A.contains("ironshield")) { mobAtk = mobAtk/2 ; }
+								if(playerInfo.buffsC_A.contains("ironshield")) { mobAtk = mobAtk/2 ; }
+								if(playerInfo.buffsA_A.contains("protect")) { mobAtk = 0 ; }
+								if(playerInfo.buffsB_A.contains("protect")) { mobAtk = 0 ; }
+								if(playerInfo.buffsC_A.contains("protect")) { mobAtk = 0 ; }
+								if(playerInfo.buffsA_A.contains("invisibility")) { mobAtk = 0 ; }
+								if(playerInfo.buffsB_A.contains("invisibility")) { mobAtk = 0 ; }
+								if(playerInfo.buffsC_A.contains("invisibility")) { mobAtk = 0 ; }
+								playerHP = playerHP - mobAtk;
+								playerInfo.hp_A = String.valueOf(playerHP);
+								lstMobs.get(i).frame = 50;
+								
+								
+								Damage dmg = new Damage();
+								dmg.color = "Red";
+								dmg.posX = playerCoordsX + 5;
+								dmg.posY = playerCoordsY + 10;
+								dmg.user = lstMobs.get(i).name;
+								dmg.dmg = mobAtk;
+								dmg.frame = 0;					
+								lstDanos.add(dmg);
+							}
+							else 
+							{
+								mobAtk = lstMobs.get(i).atkHit;
+								if(playerInfo.buffsA_A.contains("ironshield")) { mobAtk = mobAtk/2 ; }
+								if(playerInfo.buffsB_A.contains("ironshield")) { mobAtk = mobAtk/2 ; }
+								if(playerInfo.buffsC_A.contains("ironshield")) { mobAtk = mobAtk/2 ; }
+								if(playerInfo.buffsA_A.contains("protect")) { mobAtk = 0 ; }
+								if(playerInfo.buffsB_A.contains("protect")) { mobAtk = 0 ; }
+								if(playerInfo.buffsC_A.contains("protect")) { mobAtk = 0 ; }
+								if(playerInfo.buffsA_A.contains("invisibility")) { mobAtk = 0 ; }
+								if(playerInfo.buffsB_A.contains("invisibility")) { mobAtk = 0 ; }
+								if(playerInfo.buffsC_A.contains("invisibility")) { mobAtk = 0 ; }
+								playerHP = playerHP - mobAtk;
+								playerInfo.hp_A = String.valueOf(playerHP);
+								lstMobs.get(i).frame = 50;
+								
+								Damage dmg = new Damage();
+								dmg.color = "Red";
+								dmg.posX = playerCoordsX + 5;
+								dmg.posY = playerCoordsY + 10;
+								dmg.user = lstMobs.get(i).name;
+								dmg.dmg = mobAtk;
+								dmg.frame = 0;					
+								lstDanos.add(dmg);
+							}	
+							
+							lstMobs.get(i).mobCountDown = lstMobs.get(i).mobCountDownMax;
+						}
+					}	
+				}
+			}
+		}		
+	}
+	
+	public boolean CheckSkillType(int numSkill) {
+		if(skillCoolDown > 0) { return false; }
+		
+		//Novice
+		if(playerInfo.job_A.equals("Novice")) {
+			//Triple Attack
+			if(numSkill == 1) {
+				return false;
+			}
+		}
+		
+		//Swordman
+		if(playerInfo.job_A.equals("Swordman")) {
+			//flysword
+			if(numSkill == 1) {
+				return false;
+			}
+			//Raven blade
+			if(numSkill == 2) {
+				return false;
+			}
+			//Heath Boost
+			if(numSkill == 3) {
+				return false;
+			}
+			//Ironshield
+			if(numSkill == 4) {
+				return false;
+			}
+			//Protect
+			if(numSkill == 5) {
+				return false;
+			}
+		}
+		
+		//Mage
+		if(playerInfo.job_A.equals("Mage")) {
+			//Fireball
+			if(numSkill == 1) {
+				return true;
+			}
+			//icecrystal
+			if(numSkill == 2) {
+				return true;
+			}
+			//Thundercloud
+			if(numSkill == 3) {
+				return true;
+			}
+			//Rockbound
+			if(numSkill == 4) {
+				return true;
+			}
+			//soulcrash
+			if(numSkill == 5) {
+				return true;
+			}
+		}
+		
+		//Thief
+		if(playerInfo.job_A.equals("Thief")) {
+			//Double hit
+			if(numSkill == 1) {
+				return false;
+			}
+			//Dash Kick
+			if(numSkill == 2) {
+				return false;
+			}
+			//Steal
+			if(numSkill == 3) {
+				return false;
+			}
+			//Poison Hit
+			if(numSkill == 4) {
+				return false;
+			}
+			//Invisibility
+			if(numSkill == 5) {
+				return false;
+			}
+		}
+		
+		//Medic
+		if(playerInfo.job_A.equals("Medic")) {
+			//Heal
+			if(numSkill == 1) {
+				return true;
+			}
+			//atkboost
+			if(numSkill == 2) {
+				return true;
+			}
+			//defboost
+			if(numSkill == 3) {
+				return true;
+			}
+			//holyprism
+			if(numSkill == 4) {
+				return true;
+			}
+			//regen
+			if(numSkill == 5) {
+				return true;
+			}
+		}
+			
+		return false;
+	}
+	
+	public void SkillAtkNovice(int numSkill){
+		if(skillCoolDown > 0) { return; }
+		playerCountDown = 200;
+
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+
+		if (playerInfo.job_A.equals("Gunner")) {
+			playerRangeXMinus = playerCoordsX - 70;
+			playerRangeXPlus = playerCoordsX + 70;
+			playerRangeYMinus = playerCoordsY - 70;
+			playerRangeYPlus = playerCoordsY + 70;
+		}
+		else {
+			playerRangeXMinus = playerCoordsX - 8;
+			playerRangeXPlus = playerCoordsX + 30;
+			playerRangeYMinus = playerCoordsY - 10;
+			playerRangeYPlus = playerCoordsY + 40;
+		}
+		
+		//Novice
+		if(playerInfo.job_A.equals("Novice")) {
+			//Triple Attack
+			if(numSkill == 1) {
+
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#");
+							playerStatusNumber = playerStatus[0].split(":");
+							playerStr = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + playerStr) * 3;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
 							Skill skl = new Skill();
 							skl.caster = playerInfo.name_A;
 							skl.name = "Ataque Triplo";
@@ -3252,20 +3532,32 @@ public class GameControl {
 							skl.frame = 1;
 							skl.cd = 300;
 							lstSkill.add(skl);
-							
+
 							skillCoolDown = 300;
-							
-							OnlineManager("Atk",String.valueOf(mobHP));
-							
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
 						}					
 					}
 				}			
 			}
 		}
+	}
+	
+	public void SkillAtkSwordman(int numSkill) {
 		
+		if(skillCoolDown > 0) { return; }
+		playerCountDown = 200;
+		
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+	
+		playerRangeXMinus = playerCoordsX - 8;
+		playerRangeXPlus = playerCoordsX + 30;
+		playerRangeYMinus = playerCoordsY - 10;
+		playerRangeYPlus = playerCoordsY + 40;
 		
 		//Swordman
-		if(playerInfo.job_1.equals("Swordman")) {
+		if(playerInfo.job_A.equals("Swordman")) {
 			
 			//Flysword
 			if(numSkill == 1) {
@@ -3286,7 +3578,7 @@ public class GameControl {
 							playerStatus = playerInfo.stats_A.split("#");
 							playerStatusNumber = playerStatus[0].split(":");
 							playerStr = Integer.parseInt(playerStatusNumber[1]);
-							playerAtk = 3;
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + playerStr) * 10;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
@@ -3296,7 +3588,8 @@ public class GameControl {
 							lstMobs.get(i).hp = mobHP; 
 							
 							if(lstMobs.get(i).hp <= 0) {  
-								GiveLoot(lstMobs.get(i));							
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
 								lstMobs.get(i).dead = true;
 								playerInfo.inBattle_A = "no";
 							}
@@ -3326,7 +3619,7 @@ public class GameControl {
 							
 							skillCoolDown = 300;
 							
-							OnlineManager("Atk",String.valueOf(mobHP));
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
 							
 						}					
 					}
@@ -3351,7 +3644,7 @@ public class GameControl {
 							playerStatus = playerInfo.stats_A.split("#");
 							playerStatusNumber = playerStatus[4].split(":");
 							playerDex = Integer.parseInt(playerStatusNumber[1]);
-							playerAtk = 3;
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerDex * 2)) * 5;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
@@ -3361,7 +3654,8 @@ public class GameControl {
 							lstMobs.get(i).hp = mobHP; 
 							
 							if(lstMobs.get(i).hp <= 0) {  
-								GiveLoot(lstMobs.get(i));							
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
 								lstMobs.get(i).dead = true;
 								playerInfo.inBattle_A = "no";
 							}
@@ -3391,8 +3685,7 @@ public class GameControl {
 							
 							skillCoolDown = 300;
 							
-							OnlineManager("Atk",String.valueOf(mobHP));
-							
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }							
 						}					
 					}
 				}
@@ -3400,11 +3693,1583 @@ public class GameControl {
 			
 			//Health Boost
 			if(numSkill == 3) {
-									
-					
 				
+				playerHP = Integer.parseInt(playerInfo.hp_A);
+				playerHP = playerHP * 5;
+				playerInfo.hp_A = String.valueOf(playerHP);
+				
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Aumento de Vida";
+				skl.posX = Float.parseFloat(playerInfo.coordX_A);
+				skl.posY = Float.parseFloat(playerInfo.coordY_A);
+				skl.height = 70;
+				skl.width = 50;
+				skl.type = "heal";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 2000;
+				lstSkill.add(skl);
+				
+				skillCoolDown = 2000;
+				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "healthboost:2000"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "healthboost:2000"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "healthboost:2000"; return; }				
+			}
+			
+			// Iron Shield
+			if(numSkill == 4){
+				
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Escudo de Ferro";
+				skl.posX = Float.parseFloat(playerInfo.coordX_A);
+				skl.posY = Float.parseFloat(playerInfo.coordY_A);
+				skl.height = 70;
+				skl.width = 50;
+				skl.type = "heal";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 500;
+				lstSkill.add(skl);
+
+				skillCoolDown = 500;
+
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "ironshield:1500"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "ironshield:1500"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "ironshield:1500"; return; }		
+			}
+			
+			//Protect
+			if(numSkill == 5){
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Protecao";
+				skl.posX = Float.parseFloat(playerInfo.coordX_A);
+				skl.posY = Float.parseFloat(playerInfo.coordY_A);
+				skl.height = 70;
+				skl.width = 50;
+				skl.type = "heal";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 2000;
+				lstSkill.add(skl);
+
+				skillCoolDown = 2000;
+
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "protect:500"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "protect:500"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "protect:500"; return; }
 			}
 		}		
+	}
+	
+	
+	
+	public void SkillAtkThief(int numSkill){
+		if(skillCoolDown > 0) { return; }
+		playerCountDown = 200;
+
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+
+		playerRangeXMinus = playerCoordsX - 8;
+		playerRangeXPlus = playerCoordsX + 30;
+		playerRangeYMinus = playerCoordsY - 10;
+		playerRangeYPlus = playerCoordsY + 40;
+	
+	
+		//Thief
+		if(playerInfo.job_A.equals("Thief")) {
+			//Double hit
+			if(numSkill == 1) {
+
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[5].split(":");
+							playerLuk = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerLuk * 2)) * 4;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Golpe Duplo";
+							skl.posX = mobX - 30;
+							skl.posY = mobY - 20;
+							skl.height = 70;
+							skl.width = 70;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 100;
+							lstSkill.add(skl);
+
+							skillCoolDown = 100;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			}
+			//Triple Attack
+			if(numSkill == 2) {
+
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[1].split(":");
+							playerAgi = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + 50 + (playerLuk) + (playerAgi * 3)) * 2;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+							lstMobs.get(i).status = "Stun";
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Chute Rapido";
+							skl.posX = mobX - 30;
+							skl.posY = mobY - 20;
+							skl.height = 70;
+							skl.width = 70;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 1000;
+							lstSkill.add(skl);
+
+							skillCoolDown = 1000;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			}
+			//Steal
+			if(numSkill == 3) {
+
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[5].split(":");
+							playerLuk = Integer.parseInt(playerStatusNumber[1]);
+							randomCount = randnumber.nextInt(100);
+							
+							if(randomCount <= playerLuk) {
+								GiveLoot(lstMobs.get(i));
+							}
+							
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));							
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Roubar";
+							skl.posX = mobX - 30;
+							skl.posY = mobY - 20;
+							skl.height = 70;
+							skl.width = 70;
+							skl.type = "dmg";
+							skl.dmg = 0;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 1000;
+							lstSkill.add(skl);
+
+							skillCoolDown = 1000;
+	
+						}					
+					}
+				}			
+			}
+			
+			//Poison Hit
+			if(numSkill == 4) {
+
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[5].split(":");
+							playerLuk = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[1].split(":");
+							playerAgi = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[0].split(":");
+							playerStr = Integer.parseInt(playerStatusNumber[1]);				
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerLuk * 2) + (playerAgi * 2) + (playerStr * 2)) * 2;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+							lstMobs.get(i).status = "Poison";
+							
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+							
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Envenenar";
+							skl.posX = mobX - 30;
+							skl.posY = mobY - 20;
+							skl.height = 70;
+							skl.width = 70;
+							skl.type = "dmg";
+							skl.dmg = 0;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 250;
+							lstSkill.add(skl);
+
+							skillCoolDown = 250;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			}
+			
+			//Invisibility
+			if(numSkill == 5) {
+				
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Invisibilidade";
+				skl.posX = Float.parseFloat(playerInfo.coordX_A);
+				skl.posY = Float.parseFloat(playerInfo.coordY_A);
+				skl.height = 70;
+				skl.width = 50;
+				skl.type = "heal";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 1000;
+				lstSkill.add(skl);
+				
+				skillCoolDown = 1000;
+				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "invisibility:2000"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "invisibility:2000"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "invisibility:2000"; return; }				
+			}	
+		}
+	}
+	
+	public void SkillAtkMedic(int numSkill, float posX, float posY){
+		if(skillCoolDown > 0) { return; }
+		playerCountDown = 200;
+		
+		isCasting = false;
+
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+		
+		playerRangeXMinus = touchPosX - 20;
+		playerRangeXPlus = touchPosX + 20;
+		playerRangeYMinus = touchPosY - 20;
+		playerRangeYPlus = touchPosY + 20;
+		
+		//Medic
+		if(playerInfo.job_A.equals("Medic")) {
+			//Heal
+			if(numSkill == 1) {
+
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+
+					if(playerCoordsX > playerRangeXMinus && playerCoordsX < playerRangeXPlus && playerCoordsY > playerRangeYMinus && playerCoordsY < playerRangeYPlus) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+
+							playerStatus = playerInfo.stats_A.split("#");
+							playerStatusNumber = playerStatus[2].split(":");
+							playerWis = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + playerWis) * 5;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							playerHP = Integer.parseInt(playerInfo.hp_A);
+							playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+							playerHP = playerHP + playerAtk;
+							if(playerHP >= playerHPMax) { playerHP = playerHPMax; }
+							playerInfo.hp_A = String.valueOf(playerHP);
+							
+							Damage dmg = new Damage();
+							dmg.color = "Green";
+							dmg.posX = Float.parseFloat(playerInfo.coordX_A);
+							dmg.posY = Float.parseFloat(playerInfo.coordY_A);
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Curar";
+							skl.posX = Float.parseFloat(playerInfo.coordX_A);
+							skl.posY = Float.parseFloat(playerInfo.coordY_A);
+							skl.height = 30;
+							skl.width = 30;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 300;
+							lstSkill.add(skl);
+
+							skillCoolDown = 300;
+
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			}
+			
+			//Atk Boost
+			if(numSkill == 2) {		
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk + 30;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Aumentar Ataque";
+				skl.posX = playerCoordsX - 30;
+				skl.posY = playerCoordsY - 15;
+				skl.height = 100;
+				skl.width = 100;
+				skl.type = "dmg";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 20;
+				lstSkill.add(skl);
+
+				skillCoolDown = 20;
+				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "atkboost:800"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "atkboost:800"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "atkboost:800"; return; }	
+	
+			}
+			
+			//Def Boost
+			if(numSkill == 3) {		
+				playerDef = Integer.parseInt(playerInfo.atk_A);
+				playerDef = playerDef + 30;
+				playerInfo.def_A = String.valueOf(playerDef);
+
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Aumentar Defesa";
+				skl.posX = playerCoordsX - 30;
+				skl.posY = playerCoordsY - 15;
+				skl.height = 100;
+				skl.width = 100;
+				skl.type = "dmg";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 30;
+				lstSkill.add(skl);
+
+				skillCoolDown = 30;
+				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "defboost:700"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "defboost:700"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "defboost:700"; return; }	
+				
+			}
+		
+		
+			//Holyprism
+			if(numSkill == 4) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+	
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY)
+	
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+	
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[2].split(":");
+							playerWis = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[3].split(":");
+							playerVit = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerWis * 3) + (playerVit * 3)) * 3;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+	
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+	
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+	
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Prisma Sagrado";
+							skl.posX = mobX - 20;
+							skl.posY = mobY - 10;
+							skl.posMobX = mobX - 10;
+							skl.posMobY = mobY;
+							skl.height = 70;
+							skl.width = 70;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = true;
+							skl.frame = 1;
+							skl.cd = 300;
+							lstSkill.add(skl);
+	
+							skillCoolDown = 300;
+	
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			
+				//Regen
+				if(numSkill == 5) {		
+	
+					Skill skl = new Skill();
+					skl.caster = playerInfo.name_A;
+					skl.name = "Regenerar";
+					skl.posX = playerCoordsX - 30;
+					skl.posY = playerCoordsY - 15;
+					skl.height = 100;
+					skl.width = 100;
+					skl.type = "dmg";
+					skl.dmg = 0;
+					skl.follow = false;
+					skl.frame = 1;
+					skl.cd = 100;
+					lstSkill.add(skl);
+	
+					skillCoolDown = 100;
+					
+					if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "regen:2200"; return; }
+					if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "regen:2200"; return; }
+					if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "regen:2200"; return; }			
+				}
+		}
+	}
+	
+	public void SkillAtkMage(int numSkill, float posX, float posY){
+		if(skillCoolDown > 0) { return; }
+		playerCountDown = 200;
+
+		isCasting = false;
+		
+		//Mage
+		if(playerInfo.job_A.equals("Mage")) {
+			//Fireball
+			if(numSkill == 1) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[2].split(":");
+							playerWis = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + playerWis) * 5;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Bola de Fogo";
+							skl.posX = Float.parseFloat(playerInfo.coordX_A);
+							skl.posY = Float.parseFloat(playerInfo.coordY_A);
+							skl.posMobX = mobX;
+							skl.posMobY = mobY;
+							skl.height = 40;
+							skl.width = 40;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = true;
+							skl.frame = 1;
+							skl.cd = 150;
+							lstSkill.add(skl);
+
+							skillCoolDown = 150;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			}
+			//Icecrystal
+			if(numSkill == 2) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[2].split(":");
+							playerWis = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[5].split(":");
+							playerDex = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + playerWis + (playerDex * 2)) * 3;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Cristal de Gelo";
+							skl.posX = mobX;
+							skl.posY = mobY;
+							skl.posMobX = mobX - 10;
+							skl.posMobY = mobY;
+							skl.height = 70;
+							skl.width = 70;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 350;
+							lstSkill.add(skl);
+
+							skillCoolDown = 350;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			}
+			
+			//thundercloud
+			if(numSkill == 3) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[2].split(":");
+							playerWis = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[5].split(":");
+							playerDex = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[2].split(":");
+							playerAgi = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerWis * 3) + playerDex + (playerAgi *2)) * 5;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Tempestade";
+							skl.posX = mobX;
+							skl.posY = mobY;
+							skl.posMobX = mobX - 10;
+							skl.posMobY = mobY;
+							skl.height = 70;
+							skl.width = 70;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 750;
+							lstSkill.add(skl);
+
+							skillCoolDown = 750;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			}
+			
+			//Rockbound
+			if(numSkill == 4) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[2].split(":");
+							playerWis = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[4].split(":");
+							playerDex = Integer.parseInt(playerStatusNumber[1]);
+							playerHP = Integer.parseInt(playerInfo.hp_A);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerWis * 2) + playerDex + (playerHP)) * 2;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Terremoto";
+							skl.posX = mobX;
+							skl.posY = mobY;
+							skl.posMobX = mobX - 10;
+							skl.posMobY = mobY;
+							skl.height = 70;
+							skl.width = 70;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 300;
+							lstSkill.add(skl);
+
+							skillCoolDown = 300;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+						}					
+					}
+				}			
+			}
+			
+			//Soul Clash
+			if(numSkill == 5) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[2].split(":");
+							playerWis = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[5].split(":");
+							playerLuk = Integer.parseInt(playerStatusNumber[1]);
+							playerMP = Integer.parseInt(playerInfo.mp_A);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerWis * 2) + (playerLuk * 2) + (playerMP)) * 2;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Fantasmagorica";
+							skl.posX = mobX;
+							skl.posY = mobY;
+							skl.posMobX = mobX - 10;
+							skl.posMobY = mobY;
+							skl.height = 40;
+							skl.width = 40;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = true;
+							skl.frame = 1;
+							skl.cd = 50;
+							lstSkill.add(skl);
+
+							skillCoolDown = 50;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}					
+					}
+				}			
+			}
+		}
+	}
+	
+	
+	public void SkillAtkGunner(int numSkill){
+		if(skillCoolDown > 0) { return; }
+		playerCountDown = 200;
+
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+		
+		isCasting = false;
+		
+		//Gunner
+		if(playerInfo.job_A.equals("Gunner")) {
+			//Fastshot
+			if(numSkill == 1) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#"); 
+							playerStatusNumber = playerStatus[5].split(":");
+							playerLuk = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + playerLuk) * 2;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Tiro Rapido";
+							skl.posX = playerCoordsX;
+							skl.posY = playerCoordsY;
+							skl.posMobX = mobX;
+							skl.posMobY = mobY;
+							skl.height = 40;
+							skl.width = 40;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = true;
+							skl.frame = 1;
+							skl.cd = 50;
+							lstSkill.add(skl);
+
+							skillCoolDown = 50;
+
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						}								
+				}			
+			}
+			//Bullet Rain
+			if(numSkill == 2) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+					if(playerCoordsX < mobX) { playerSide = "right"; }
+					if(playerCoordsX > mobX) { playerSide = "left"; }
+
+					if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+						playerInfo.inBattle_A = "yes";
+						playerStatus = playerInfo.stats_A.split("#"); 
+						playerStatusNumber = playerStatus[1].split(":");
+						playerAgi = Integer.parseInt(playerStatusNumber[1]);
+						playerStatusNumber = playerStatus[4].split(":");
+						playerDex = Integer.parseInt(playerStatusNumber[1]);
+						playerAtk = Integer.parseInt(playerInfo.atk_A);
+						playerAtk = (playerAtk + playerAgi) + (playerDex * 3) * 4;
+						if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+						mobHP = lstMobs.get(i).hp;
+						mobHP = mobHP - playerAtk;
+						lstMobs.get(i).target = playerInfo.name_A;
+						lstMobs.get(i).getHit = true;
+						lstMobs.get(i).hp = mobHP; 
+
+						if(lstMobs.get(i).hp <= 0) {  
+							GiveLoot(lstMobs.get(i));	
+							GiveExp(lstMobs.get(i));
+							lstMobs.get(i).dead = true;
+							playerInfo.inBattle_A = "no";
+						}
+
+						Damage dmg = new Damage();
+						dmg.color = "Yellow";
+						dmg.posX = mobX;
+						dmg.posY = mobY + 10;
+						dmg.user = playerInfo.name_A;
+						dmg.dmg = playerAtk;
+						dmg.frame = 0;					
+						lstDanos.add(dmg);
+
+						Skill skl = new Skill();
+						skl.caster = playerInfo.name_A;
+						skl.name = "Chuva de balas";
+						skl.posX = mobX;
+						skl.posY = mobY;
+						skl.posMobX = mobX - 10;
+						skl.posMobY = mobY;
+						skl.height = 70;
+						skl.width = 70;
+						skl.type = "dmg";
+						skl.dmg = playerAtk;
+						skl.follow = false;
+						skl.frame = 1;
+						skl.cd = 300;
+						lstSkill.add(skl);
+
+						skillCoolDown = 300;
+
+						if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+					}						
+				}			
+			}
+			
+			//Precision
+			if(numSkill == 3) {		
+		
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Precisao";
+				skl.posX = playerCoordsX - 30;
+				skl.posY = playerCoordsY - 15;
+				skl.height = 100;
+				skl.width = 100;
+				skl.type = "dmg";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 200;
+				lstSkill.add(skl);
+
+				skillCoolDown = 200;
+				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "precision:1500"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "precision:1500"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "precision:1500"; return; }			
+			}
+			
+			//LockShot
+			if(numSkill == 4) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;		
+
+					if(playerCoordsX < mobX) { playerSide = "right"; }
+					if(playerCoordsX > mobX) { playerSide = "left"; }
+
+					if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+						playerInfo.inBattle_A = "yes";
+						playerStatus = playerInfo.stats_A.split("#"); 
+						playerStatusNumber = playerStatus[2].split(":");
+						playerWis = Integer.parseInt(playerStatusNumber[1]);
+						playerStatusNumber = playerStatus[4].split(":");
+						playerDex = Integer.parseInt(playerStatusNumber[1]);
+						playerStatusNumber = playerStatus[2].split(":");
+						playerAgi = Integer.parseInt(playerStatusNumber[1]);
+						playerStatusNumber = playerStatus[5].split(":");
+						playerLuk = Integer.parseInt(playerStatusNumber[1]);
+						playerAtk = Integer.parseInt(playerInfo.atk_A);
+						playerAtk = ((playerAtk * 3) + (playerWis * 2) + (playerDex * 2) + (playerLuk * 3)) * 2;
+						if(playerInfo.stamina_A.equals("0")) { playerAtk = 30; }
+						mobHP = lstMobs.get(i).hp;
+						mobHP = mobHP - playerAtk;
+						lstMobs.get(i).target = playerInfo.name_A;
+						lstMobs.get(i).getHit = true;
+						lstMobs.get(i).hp = mobHP; 
+
+						if(lstMobs.get(i).hp <= 0) {  
+							GiveLoot(lstMobs.get(i));	
+							GiveExp(lstMobs.get(i));
+							lstMobs.get(i).dead = true;
+							playerInfo.inBattle_A = "no";
+						}
+
+						Damage dmg = new Damage();
+						dmg.color = "Yellow";
+						dmg.posX = mobX;
+						dmg.posY = mobY + 10;
+						dmg.user = playerInfo.name_A;
+						dmg.dmg = playerAtk;
+						dmg.frame = 0;					
+						lstDanos.add(dmg);
+
+						Skill skl = new Skill();
+						skl.caster = playerInfo.name_A;
+						skl.name = "Tiro Mirado";
+						skl.posX = mobX - 20;
+						skl.posY = mobY - 10;
+						skl.posMobX = mobX - 20;
+						skl.posMobY = mobY - 10;
+						skl.height = 60;
+						skl.width = 60;
+						skl.type = "dmg";
+						skl.dmg = playerAtk;
+						skl.follow = false;
+						skl.frame = 1;
+						skl.cd = 2500;
+						lstSkill.add(skl);
+
+						skillCoolDown = 2500;
+
+						if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+					}								
+				}			
+			}
+			
+			//Mine
+			if(numSkill == 5) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;						
+
+					if(playerCoordsX < mobX) { playerSide = "right"; }
+					if(playerCoordsX > mobX) { playerSide = "left"; }
+
+					if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+						playerInfo.inBattle_A = "yes";
+						playerStatus = playerInfo.stats_A.split("#"); 
+						playerStatusNumber = playerStatus[0].split(":");
+						playerStr = Integer.parseInt(playerStatusNumber[1]);
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						playerAtk = Integer.parseInt(playerInfo.atk_A);
+						playerAtk = (playerAtk + playerStr) * 2;
+						if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+						mobHP = lstMobs.get(i).hp;
+						mobHP = mobHP - playerAtk;
+						lstMobs.get(i).target = playerInfo.name_A;
+						lstMobs.get(i).getHit = true;
+						lstMobs.get(i).hp = mobHP; 
+						lstMobs.get(i).status = "stun";
+
+						if(lstMobs.get(i).hp <= 0) {  
+							GiveLoot(lstMobs.get(i));	
+							GiveExp(lstMobs.get(i));
+							lstMobs.get(i).dead = true;
+							playerInfo.inBattle_A = "no";
+						}
+
+						Damage dmg = new Damage();
+						dmg.color = "Yellow";
+						dmg.posX = mobX;
+						dmg.posY = mobY + 10;
+						dmg.user = playerInfo.name_A;
+						dmg.dmg = playerAtk;
+						dmg.frame = 0;					
+						lstDanos.add(dmg);
+
+						Skill skl = new Skill();
+						skl.caster = playerInfo.name_A;
+						skl.name = "Mina";
+						skl.posX = playerCoordsX - 10;
+						skl.posY = playerCoordsY;
+						skl.posMobX = mobX - 10;
+						skl.posMobY = mobY;
+						skl.height = 50;
+						skl.width = 50;
+						skl.type = "dmg";
+						skl.dmg = playerAtk;
+						skl.follow = true;
+						skl.frame = 1;
+						skl.cd = 400;
+						lstSkill.add(skl);
+
+						skillCoolDown = 400;
+
+						if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+					}								
+				}			
+			}
+		}
+	}
+	
+	public void SkillAtkBeater(int numSkill){
+		if(skillCoolDown > 0) { return; }
+		playerCountDown = 200;
+		
+		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+	
+		playerRangeXMinus = playerCoordsX - 8;
+		playerRangeXPlus = playerCoordsX + 30;
+		playerRangeYMinus = playerCoordsY - 10;
+		playerRangeYPlus = playerCoordsY + 40;
+		
+		//Beater
+		if(playerInfo.job_A.equals("Beater")) {
+			
+			//HammerCrash
+			if(numSkill == 1) {
+				
+				for(int i = 0; i < lstMobs.size(); i++) {
+					
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+					
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+					
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#");
+							playerStatusNumber = playerStatus[0].split(":");
+							playerStr = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerStr * 2)) * 3;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+							
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+							
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+							
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Batida do Martelo";
+							skl.posX = mobX - 15;
+							skl.posY = mobY - 5;
+							skl.height = 50;
+							skl.width = 50;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 350;
+							lstSkill.add(skl);
+							
+							skillCoolDown = 350;
+							
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+							
+						}					
+					}
+				}			
+			}
+			
+			//Berserk
+			if(numSkill == 2) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+					
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+					
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+					
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#");
+							playerStatusNumber = playerStatus[0].split(":");
+							playerStr = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[4].split(":");
+							playerDex = Integer.parseInt(playerStatusNumber[1]);
+							playerStatusNumber = playerStatus[5].split(":");
+							playerLuk = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerStr * 5) + (playerLuk * 2) + (playerDex)) * 6;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+							
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+							
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+							
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Furia";
+							skl.posX = mobX - 15;
+							skl.posY = mobY - 5;
+							skl.height = 50;
+							skl.width = 50;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 2500;
+							lstSkill.add(skl);
+							
+							skillCoolDown = 2500;
+							
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+							
+						}					
+					}
+				}	
+			}
+			
+			//Overpower
+			if(numSkill == 3) {				
+				playerHP = Integer.parseInt(playerInfo.hp_A);
+				playerHP = playerHP * 2;
+				playerInfo.hp_A = String.valueOf(playerHP);
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk * 3;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Super Poder";
+				skl.posX = playerCoordsX - 20;
+				skl.posY = playerCoordsY - 10;
+				skl.height = 70;
+				skl.width = 50;
+				skl.type = "heal";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 2000;
+				lstSkill.add(skl);
+				
+				skillCoolDown = 2000;
+				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "overpower:2000"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "overpower:2000"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "overpower:2000"; return; }				
+			}
+			
+			// Rage Bound
+			if(numSkill == 4){
+				
+				for(int i = 0; i < lstMobs.size(); i++) {
+					
+					mobX = lstMobs.get(i).mobPosX;
+					mobY = lstMobs.get(i).mobPosY;
+					
+					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						if(playerCoordsX < mobX) { playerSide = "right"; }
+						if(playerCoordsX > mobX) { playerSide = "left"; }
+					
+						if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
+							
+							playerInfo.inBattle_A = "yes";
+							playerStatus = playerInfo.stats_A.split("#");
+							playerStatusNumber = playerStatus[2].split(":");
+							playerWis = Integer.parseInt(playerStatusNumber[1]);
+							playerAtk = Integer.parseInt(playerInfo.atk_A);
+							playerAtk = (playerAtk + (playerWis * 4)) * 2;
+							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
+							mobHP = lstMobs.get(i).hp;
+							mobHP = mobHP - playerAtk;
+							lstMobs.get(i).target = playerInfo.name_A;
+							lstMobs.get(i).getHit = true;
+							lstMobs.get(i).hp = mobHP; 
+							
+							if(lstMobs.get(i).hp <= 0) {  
+								GiveLoot(lstMobs.get(i));	
+								GiveExp(lstMobs.get(i));
+								lstMobs.get(i).dead = true;
+								playerInfo.inBattle_A = "no";
+							}
+							
+							Damage dmg = new Damage();
+							dmg.color = "Yellow";
+							dmg.posX = mobX;
+							dmg.posY = mobY + 10;
+							dmg.user = playerInfo.name_A;
+							dmg.dmg = playerAtk;
+							dmg.frame = 0;					
+							lstDanos.add(dmg);
+							
+							Skill skl = new Skill();
+							skl.caster = playerInfo.name_A;
+							skl.name = "Batida da Furia";
+							skl.posX = mobX - 15;
+							skl.posY = mobY - 5;
+							skl.height = 50;
+							skl.width = 50;
+							skl.type = "dmg";
+							skl.dmg = playerAtk;
+							skl.follow = false;
+							skl.frame = 1;
+							skl.cd = 550;
+							lstSkill.add(skl);
+							
+							skillCoolDown = 500;
+							
+							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+							
+						}					
+					}
+				}		
+			}
+			
+			//Imponderamento
+			if(numSkill == 5){
+				playerDef = Integer.parseInt(playerInfo.def_A);
+				playerDef = playerDef * 2;
+				playerInfo.def_A = String.valueOf(playerDef);
+				
+				Skill skl = new Skill();
+				skl.caster = playerInfo.name_A;
+				skl.name = "Imponderamento";
+				skl.posX = playerCoordsX - 20;
+				skl.posY = playerCoordsY - 10;
+				skl.height = 70;
+				skl.width = 50;
+				skl.type = "heal";
+				skl.dmg = 0;
+				skl.follow = false;
+				skl.frame = 1;
+				skl.cd = 50;
+				lstSkill.add(skl);
+
+				skillCoolDown = 50;
+
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "impound:800"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "impound:800"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "impound:800"; return; }
+			}
+		}
+	}
+	
+	public int GetCastTime(int skillNum) {
+		if(playerInfo.job_A.equals("Mage")) {
+			
+			isCasting = true;
+			
+			//Fireball
+			if(skillNum == 1) {
+				return 100;
+			}
+			//icecrystal
+			if(skillNum == 2) {
+				return 350;
+			}
+			//thundercloud
+			if(skillNum == 3) {
+				return 400;
+			}
+			//rockbound
+			if(skillNum == 4) {
+				return 200;
+			}
+			//soulcrash 
+			if(skillNum == 5) {
+				return 50;
+			}	
+		}
+		
+		if(playerInfo.job_A.equals("Medic")) {
+			isCasting = true;
+			
+			//Heal
+			if(skillNum == 1) {
+				return 100;
+			}
+			//AtkBoost
+			if(skillNum == 2) {
+				return 50;
+			}
+			//DefBoost
+			if(skillNum == 3) {
+				return 50;
+			}
+			//Holyprism
+			if(skillNum == 4) {
+				return 200;
+			}
+			//Regen 
+			if(skillNum == 5) {
+				return 50;
+			}
+		}
+		
+		return 0;
 	}
 	
 	public Sprite EffectSkill(Skill skillUsed) {
@@ -3447,8 +5312,513 @@ public class GameControl {
 			spr_master.setSize(skillUsed.width, skillUsed.height);
 		}
 		
+		if(skillUsed.name.equals("Aumento de Vida")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_healthboost.createSprite("healthboost1");  } 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_healthboost.createSprite("healthboost2"); }
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_healthboost.createSprite("healthboost3"); }
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_healthboost.createSprite("healthboost4"); }
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_healthboost.createSprite("healthboost5"); }
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_healthboost.createSprite("healthboost6"); }
+			
+			spr_master.setPosition(skillUsed.posX - 12, skillUsed.posY - 7);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Escudo de Ferro")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_ironshield.createSprite("ironshield1");  } 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_ironshield.createSprite("ironshield2"); }
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_ironshield.createSprite("ironshield3"); }
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_ironshield.createSprite("ironshield4"); }
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_ironshield.createSprite("ironshield5"); }
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_ironshield.createSprite("ironshield6"); }
+			
+			spr_master.setPosition(skillUsed.posX - 12, skillUsed.posY - 7);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Protecao")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_protect.createSprite("protect1");  } 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_protect.createSprite("protect2"); }
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_protect.createSprite("protect3"); }
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_protect.createSprite("protect4"); }
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_protect.createSprite("protect5"); }
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_protect.createSprite("protect6"); }
+			
+			spr_master.setPosition(skillUsed.posX - 12, skillUsed.posY - 7);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Bola de Fogo")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_fireball.createSprite("fireball1");  } 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_fireball.createSprite("fireball2"); }
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_fireball.createSprite("fireball3"); }
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_fireball.createSprite("fireball4"); }
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_fireball.createSprite("fireball5"); }
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_fireball.createSprite("fireball6"); }
+			
+			if(skillUsed.posX < skillUsed.posMobX) { skillUsed.posX = skillUsed.posX + 0.9f; }
+			if(skillUsed.posX > skillUsed.posMobX) { skillUsed.posX = skillUsed.posX - 0.9f; }
+			if(skillUsed.posY < skillUsed.posMobY) { skillUsed.posY = skillUsed.posY + 0.9f; }
+			if(skillUsed.posY > skillUsed.posMobY) { skillUsed.posY = skillUsed.posY - 0.9f; }
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Cristal de Gelo")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_icecrystal.createSprite("icecrystal1");  } 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_icecrystal.createSprite("icecrystal2"); }
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_icecrystal.createSprite("icecrystal3"); }
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_icecrystal.createSprite("icecrystal4"); }
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_icecrystal.createSprite("icecrystal5"); }
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_icecrystal.createSprite("icecrystal6"); }
+			
+			spr_master.setPosition(skillUsed.posX - 12, skillUsed.posY - 7);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Tempestade")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_thundercloud.createSprite("thundercloud1");  } 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_thundercloud.createSprite("thundercloud2"); }
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_thundercloud.createSprite("thundercloud3"); }
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_thundercloud.createSprite("thundercloud4"); }
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_thundercloud.createSprite("thundercloud5"); }
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_thundercloud.createSprite("thundercloud6"); }
+			
+			spr_master.setPosition(skillUsed.posX - 12, skillUsed.posY - 7);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Terremoto")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_rockbound.createSprite("rockbound1");  } 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_rockbound.createSprite("rockbound2"); }
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_rockbound.createSprite("rockbound3"); }
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_rockbound.createSprite("rockbound4"); }
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_rockbound.createSprite("rockbound5"); }
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_rockbound.createSprite("rockbound6"); }
+			
+			spr_master.setPosition(skillUsed.posX - 12, skillUsed.posY - 7);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Fantasmagorica")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_soulclash.createSprite("soulclash1");  } 
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_soulclash.createSprite("soulclash2"); }
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_soulclash.createSprite("soulclash3"); }
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_soulclash.createSprite("soulclash4"); }
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_soulclash.createSprite("soulclash5"); }
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_soulclash.createSprite("soulclash6"); }
+			
+			if(skillUsed.posX < skillUsed.posMobX) { skillUsed.posX = skillUsed.posX + 0.9f; }
+			if(skillUsed.posX > skillUsed.posMobX) { skillUsed.posX = skillUsed.posX - 0.9f; }
+			if(skillUsed.posY < skillUsed.posMobY) { skillUsed.posY = skillUsed.posY + 0.9f; }
+			if(skillUsed.posY > skillUsed.posMobY) { skillUsed.posY = skillUsed.posY - 0.9f; }
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Golpe Duplo")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_doublehit.createSprite("doublehit1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_doublehit.createSprite("doublehit2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_doublehit.createSprite("doublehit3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_doublehit.createSprite("doublehit4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_doublehit.createSprite("doublehit5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_doublehit.createSprite("doublehit6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Chute Rapido")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_dashkick.createSprite("dashkick1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_dashkick.createSprite("dashkick2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_dashkick.createSprite("dashkick3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_dashkick.createSprite("dashkick4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_dashkick.createSprite("dashkick5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_dashkick.createSprite("dashkick6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}  
+		
+		if(skillUsed.name.equals("Roubar")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_steal.createSprite("steal1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_steal.createSprite("steal2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_steal.createSprite("steal3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_steal.createSprite("steal4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_steal.createSprite("steal5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_steal.createSprite("steal6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Envenenar")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_poisonhit.createSprite("poisonhit1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_poisonhit.createSprite("poisonhit2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_poisonhit.createSprite("poisonhit3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_poisonhit.createSprite("poisonhit4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_poisonhit.createSprite("poisonhit5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_poisonhit.createSprite("poisonhit6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Invisibilidade")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_invisibility.createSprite("invisibility1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_invisibility.createSprite("invisibility2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_invisibility.createSprite("invisibility3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_invisibility.createSprite("invisibility4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_invisibility.createSprite("invisibility5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_invisibility.createSprite("invisibility6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Curar")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_heal.createSprite("heal1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_heal.createSprite("heal2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_heal.createSprite("heal3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_heal.createSprite("heal4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_heal.createSprite("heal5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_heal.createSprite("heal6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Aumentar Ataque
+		if(skillUsed.name.equals("Aumentar Ataque")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_atkboost.createSprite("atkboost1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_atkboost.createSprite("atkboost2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_atkboost.createSprite("atkboost3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_atkboost.createSprite("atkboost4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_atkboost.createSprite("atkboost5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_atkboost.createSprite("atkboost6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Aumentar Defesa
+		if(skillUsed.name.equals("Aumentar Defesa")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_defboost.createSprite("defboost1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_defboost.createSprite("defboost2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_defboost.createSprite("defboost3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_defboost.createSprite("defboost4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_defboost.createSprite("defboost5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_defboost.createSprite("defboost6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Prisma Sagrado
+		if(skillUsed.name.equals("Prisma Sagrado")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_holyprism.createSprite("holyprism1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_holyprism.createSprite("holyprism2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_holyprism.createSprite("holyprism3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_holyprism.createSprite("holyprism4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_holyprism.createSprite("holyprism5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_holyprism.createSprite("holyprism6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Regenerar
+		if(skillUsed.name.equals("Regenerar")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_regen.createSprite("regen1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_regen.createSprite("regen2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_regen.createSprite("regen3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_regen.createSprite("regen4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_regen.createSprite("regen5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_regen.createSprite("regen6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Tiro Rapido
+		if(skillUsed.name.equals("Tiro Rapido")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_fastshot.createSprite("fastshot1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_fastshot.createSprite("fastshot2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_fastshot.createSprite("fastshot3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_fastshot.createSprite("fastshot4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_fastshot.createSprite("fastshot5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_fastshot.createSprite("fastshot6");	}
+			
+			if(skillUsed.posX < skillUsed.posMobX) { skillUsed.posX = skillUsed.posX + 0.9f; }
+			if(skillUsed.posX > skillUsed.posMobX) { skillUsed.posX = skillUsed.posX - 0.9f; }
+			if(skillUsed.posY < skillUsed.posMobY) { skillUsed.posY = skillUsed.posY + 0.9f; }
+			if(skillUsed.posY > skillUsed.posMobY) { skillUsed.posY = skillUsed.posY - 0.9f; }
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Chuva de Balas
+		if(skillUsed.name.equals("Chuva de balas")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_bulletrain.createSprite("bulletrain1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_bulletrain.createSprite("bulletrain2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_bulletrain.createSprite("bulletrain3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_bulletrain.createSprite("bulletrain4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_bulletrain.createSprite("bulletrain5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_bulletrain.createSprite("bulletrain6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Precisao
+		if(skillUsed.name.equals("Precisao")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_precision.createSprite("precision1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_precision.createSprite("precision2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_precision.createSprite("precision3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_precision.createSprite("precision4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_precision.createSprite("precision5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_precision.createSprite("precision6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Tiro mirado
+		if(skillUsed.name.equals("Tiro Mirado")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_lockshot.createSprite("lockshot1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_lockshot.createSprite("lockshot2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_lockshot.createSprite("lockshot3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_lockshot.createSprite("lockshot4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_lockshot.createSprite("lockshot5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_lockshot.createSprite("lockshot6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		//Mina
+		if(skillUsed.name.equals("Mina")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_mine.createSprite("mine1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_mine.createSprite("mine2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_mine.createSprite("mine3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_mine.createSprite("mine4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_mine.createSprite("mine5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_mine.createSprite("mine6");	}
+			
+			if(skillUsed.posX < skillUsed.posMobX) { skillUsed.posX = skillUsed.posX + 0.9f; }
+			if(skillUsed.posX > skillUsed.posMobX) { skillUsed.posX = skillUsed.posX - 0.9f; }
+			if(skillUsed.posY < skillUsed.posMobY) { skillUsed.posY = skillUsed.posY + 0.9f; }
+			if(skillUsed.posY > skillUsed.posMobY) { skillUsed.posY = skillUsed.posY - 0.9f; }
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
 		
 		
+		if(skillUsed.name.equals("Batida do Martelo")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_hammercrash.createSprite("hammercrash1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_hammercrash.createSprite("hammercrash2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_hammercrash.createSprite("hammercrash3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_hammercrash.createSprite("hammercrash4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_hammercrash.createSprite("hammercrash5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_hammercrash.createSprite("hammercrash6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Furia")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_berserk.createSprite("berserk1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_berserk.createSprite("berserk2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_berserk.createSprite("berserk3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_berserk.createSprite("berserk4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_berserk.createSprite("berserk5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_berserk.createSprite("berserk6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		if(skillUsed.name.equals("Super Poder")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_overpower.createSprite("overpower1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_overpower.createSprite("overpower2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_overpower.createSprite("overpower3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_overpower.createSprite("overpower4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_overpower.createSprite("overpower5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_overpower.createSprite("overpower6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		if(skillUsed.name.equals("Batida da Furia")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_ragebound.createSprite("ragebound1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_ragebound.createSprite("ragebound2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_ragebound.createSprite("ragebound3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_ragebound.createSprite("ragebound4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_ragebound.createSprite("ragebound5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_ragebound.createSprite("ragebound6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+			
+		if(skillUsed.name.equals("Imponderamento")) {
+			if(frame >= 1 && frame <= 10) { spr_master = atlas_impound.createSprite("impound1");	}
+			if(frame >= 10 && frame <= 20) { spr_master = atlas_impound.createSprite("impound2");	}
+			if(frame >= 20 && frame <= 30) { spr_master = atlas_impound.createSprite("impound3");	}
+			if(frame >= 30 && frame <= 40) { spr_master = atlas_impound.createSprite("impound4");	}
+			if(frame >= 40 && frame <= 50) { spr_master = atlas_impound.createSprite("impound5");	}
+			if(frame >= 50 && frame <= 60) { spr_master = atlas_impound.createSprite("impound6");	}
+			
+			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
+			spr_master.setSize(skillUsed.width, skillUsed.height);
+		}
+		
+		
+	
+				
+		return spr_master;
+	}
+	
+	public void CleanBuffEffects() {
+		String[] buff;
+		String buffname;
+		int duration;
+		int stats; 
+		
+		//Buff A
+		buff = playerInfo.buffsA_A.split(":");
+		buffname = buff[0];
+		duration = Integer.parseInt(buff[1]);
+		if(buffname.equals("healthboost") && duration <= 0) { stats = Integer.parseInt(playerInfo.maxhp_A); playerInfo.hp_A = String.valueOf(stats); }
+		if(buffname.equals("invisibility") && duration <= 0) {  }
+		if(buffname.equals("atkboost") && duration <= 0) { playerAtk = Integer.parseInt(playerInfo.atk_A); playerAtk = playerAtk - 30; playerInfo.atk_A = String.valueOf(playerAtk);  }
+		if(buffname.equals("defboost") && duration <= 0) { playerDef = Integer.parseInt(playerInfo.def_A); playerDef = playerDef - 30; playerInfo.def_A = String.valueOf(playerDef);  }
+		if(buffname.equals("regen") && duration <= 0) {  }
+		if(buffname.equals("impound") && duration <= 0) { playerDef = Integer.parseInt(playerInfo.def_A); playerAtk = playerDef / 2; playerInfo.def_A = String.valueOf(playerDef);  }
+		if(buffname.equals("overpower") && duration <= 0) { playerHP = Integer.parseInt(playerInfo.hp_A); playerHP = playerHP / 2; playerInfo.hp_A = String.valueOf(playerHP); playerAtk = Integer.parseInt(playerInfo.atk_A); playerAtk = playerAtk / 3; playerInfo.atk_A = String.valueOf(playerAtk);  }
+		if(buffname.equals("protect") && duration <= 0) {  }
+		if(buffname.equals("ironshield") && duration <= 0) {  }
+		if(buffname.equals("precision") && duration <= 0) {  }
+		
+		//Buff B
+		buff = playerInfo.buffsB_A.split(":");
+		buffname = buff[0];
+		duration = Integer.parseInt(buff[1]);
+		if(buffname.equals("healthboost") && duration <= 0) { stats = Integer.parseInt(playerInfo.maxhp_A); playerInfo.hp_A = String.valueOf(stats); }
+		if(buffname.equals("invisibility") && duration <= 0) {  }
+		if(buffname.equals("atkboost") && duration <= 0) { playerAtk = Integer.parseInt(playerInfo.atk_A); playerAtk = playerAtk - 30; playerInfo.atk_A = String.valueOf(playerAtk);  }
+		if(buffname.equals("defboost") && duration <= 0) { playerDef = Integer.parseInt(playerInfo.def_A); playerDef = playerDef - 30; playerInfo.def_A = String.valueOf(playerDef);  }
+		if(buffname.equals("regen") && duration <= 0) {  }
+		if(buffname.equals("impound") && duration <= 0) { playerDef = Integer.parseInt(playerInfo.def_A); playerAtk = playerDef / 2; playerInfo.def_A = String.valueOf(playerDef);  }
+		if(buffname.equals("overpower") && duration <= 0) { playerHP = Integer.parseInt(playerInfo.hp_A); playerHP = playerHP / 2; playerInfo.hp_A = String.valueOf(playerHP); playerAtk = Integer.parseInt(playerInfo.atk_A); playerAtk = playerAtk / 3; playerInfo.atk_A = String.valueOf(playerAtk);  }
+		if(buffname.equals("protect") && duration <= 0) {  }
+		if(buffname.equals("ironshield") && duration <= 0) {  }
+		if(buffname.equals("precision") && duration <= 0) {  }
+		
+		//Buff C
+		buff = playerInfo.buffsC_A.split(":");
+		buffname = buff[0];
+		duration = Integer.parseInt(buff[1]);
+		if(buffname.equals("healthboost") && duration <= 0) { stats = Integer.parseInt(playerInfo.maxhp_A); playerInfo.hp_A = String.valueOf(stats); }
+		if(buffname.equals("invisibility") && duration <= 0) {  }
+		if(buffname.equals("atkboost") && duration <= 0) { playerAtk = Integer.parseInt(playerInfo.atk_A); playerAtk = playerAtk - 30; playerInfo.atk_A = String.valueOf(playerAtk);  }
+		if(buffname.equals("defboost") && duration <= 0) { playerDef = Integer.parseInt(playerInfo.def_A); playerDef = playerDef - 30; playerInfo.def_A = String.valueOf(playerDef);  }
+		if(buffname.equals("regen") && duration <= 0) {  }
+		if(buffname.equals("impound") && duration <= 0) { playerDef = Integer.parseInt(playerInfo.def_A); playerAtk = playerDef / 2; playerInfo.def_A = String.valueOf(playerDef);  }
+		if(buffname.equals("overpower") && duration <= 0) { playerHP = Integer.parseInt(playerInfo.hp_A); playerHP = playerHP / 2; playerInfo.hp_A = String.valueOf(playerHP); playerAtk = Integer.parseInt(playerInfo.atk_A); playerAtk = playerAtk / 3; playerInfo.atk_A = String.valueOf(playerAtk);  }
+		if(buffname.equals("protect") && duration <= 0) {  }
+		if(buffname.equals("ironshield") && duration <= 0) {  }
+		if(buffname.equals("precision") && duration <= 0) {  }
+	}
+	
+	public void CleanBuffEffectsLog() {
+		String[] buff;
+		String buffname;
+		
+		buff = playerInfo.buffsA_A.split(":");
+		buffname = buff[0];
+		playerInfo.buffsA_A = buffname + ":" + "0";
+		
+		buff = playerInfo.buffsA_A.split(":");
+		buffname = buff[0];
+		playerInfo.buffsB_A = buffname + ":" + "0";
+		
+		buff = playerInfo.buffsA_A.split(":");
+		buffname = buff[0];
+		playerInfo.buffsC_A = buffname + ":" + "0";
+		
+		BuffEffectDuration();
+		
+	}
+	
+	public void BuffEffectDuration() {
+		
+		if(playerInfo.buffsA_A.equals("none:0") && playerInfo.buffsB_A.equals("none:0") && playerInfo.buffsC_A.equals("none:0")) {
+			return;
+		}
+			
+		String[] buff;
+		String buffname;
+		int duration;
+		
+		//Buff A
+		buff = playerInfo.buffsA_A.split(":");
+		buffname = buff[0];
+		duration = Integer.parseInt(buff[1]);
+		if(duration > 0) { duration--; playerInfo.buffsA_A = buffname + ":" + duration; }
+		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsA_A = buffname + ":" + duration; }
+		
+		//Buff B
+		buff = playerInfo.buffsB_A.split(":");
+		buffname = buff[0];
+		duration = Integer.parseInt(buff[1]);
+		if(duration > 0) { duration--; playerInfo.buffsB_A = buffname + ":" + duration; }
+		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsB_A = buffname + ":" + duration; }
+		
+		//Buff C
+		buff = playerInfo.buffsC_A.split(":");
+		buffname = buff[0];
+		duration = Integer.parseInt(buff[1]);
+		if(duration > 0) { duration--; playerInfo.buffsC_A = buffname + ":" + duration; }
+		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsC_A = buffname + ":" + duration; }
+		
+	}
+	
+	public Sprite ReturnIconBuffs(int numBuff) {
+		
+		String[] buff;
+		String buffname;
+		
+		if(numBuff == 1) {
+			buff = playerInfo.buffsA_A.split(":");
+			buffname = buff[0];
+			if(buffname.equals("none")) { return null; }
+			spr_master = atlas_iconSkills.createSprite("btn" + buffname);
+			spr_master.setPosition(cameraCoordsX - 33, cameraCoordsY + 88);
+			spr_master.setSize(5, 7);
+		}
+		
+		if(numBuff == 2) {
+			buff = playerInfo.buffsB_A.split(":");
+			buffname = buff[0];
+			if(buffname.equals("none")) { return null; }
+			spr_master = atlas_iconSkills.createSprite("btn" + buffname);
+			spr_master.setPosition(cameraCoordsX - 33, cameraCoordsY + 80);
+			spr_master.setSize(5, 7);
+		}
+		
+		if(numBuff == 3) {
+			buff = playerInfo.buffsC_A.split(":");
+			buffname = buff[0];
+			if(buffname.equals("none")) { return null; }
+			spr_master = atlas_iconSkills.createSprite("btn" + buffname);
+			spr_master.setPosition(cameraCoordsX - 33, cameraCoordsY + 72);
+			spr_master.setSize(5, 7);
+		}
 		
 		
 		return spr_master;
@@ -3510,13 +5880,136 @@ public class GameControl {
 	
 	public void GiveExp(Monster mob) {
 		
-		int playerExp = Integer.parseInt(playerInfo.exp_A);
+		boolean levelup = false;
+		int playerExp = Integer.parseInt(playerInfo.exp_A);	
+		playerExp = playerExp + mob.exp;	
+		if(playerInfo.level_A.equals("1") && playerExp >= 100) { playerInfo.level_A = "2"; playerInfo.exp_A = "0"; levelup = true; }
+		if(playerInfo.level_A.equals("2") && playerExp >= 100) { playerInfo.level_A = "3"; playerInfo.exp_A = "0"; levelup = true; }
+		if(playerInfo.level_A.equals("3") && playerExp >= 100) { playerInfo.level_A = "4"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("4") && playerExp >= 100) { playerInfo.level_A = "5"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("5") && playerExp >= 100) { playerInfo.level_A = "6"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("6") && playerExp >= 100) { playerInfo.level_A = "7"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("7") && playerExp >= 100) { playerInfo.level_A = "8"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("8") && playerExp >= 100) { playerInfo.level_A = "9"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("9") && playerExp >= 100) { playerInfo.level_A = "10"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("10") && playerExp >= 100) { playerInfo.level_A = "11"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("11") && playerExp >= 100) { playerInfo.level_A = "12"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("12") && playerExp >= 100) { playerInfo.level_A = "13"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("13") && playerExp >= 100) { playerInfo.level_A = "14"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("14") && playerExp >= 100) { playerInfo.level_A = "15"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("15") && playerExp >= 100) { playerInfo.level_A = "16"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("16") && playerExp >= 100) { playerInfo.level_A = "17"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("17") && playerExp >= 100) { playerInfo.level_A = "18"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("18") && playerExp >= 100) { playerInfo.level_A = "19"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("19") && playerExp >= 100) { playerInfo.level_A = "20"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("20") && playerExp >= 100) { playerInfo.level_A = "21"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("21") && playerExp >= 100) { playerInfo.level_A = "22"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("22") && playerExp >= 100) { playerInfo.level_A = "23"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("23") && playerExp >= 100) { playerInfo.level_A = "24"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("24") && playerExp >= 100) { playerInfo.level_A = "25"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("25") && playerExp >= 100) { playerInfo.level_A = "26"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("26") && playerExp >= 100) { playerInfo.level_A = "27"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("27") && playerExp >= 100) { playerInfo.level_A = "28"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("28") && playerExp >= 100) { playerInfo.level_A = "29"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("29") && playerExp >= 100) { playerInfo.level_A = "30"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("30") && playerExp >= 100) { playerInfo.level_A = "31"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("31") && playerExp >= 100) { playerInfo.level_A = "32"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("32") && playerExp >= 100) { playerInfo.level_A = "33"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("33") && playerExp >= 100) { playerInfo.level_A = "34"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("34") && playerExp >= 100) { playerInfo.level_A = "35"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("35") && playerExp >= 100) { playerInfo.level_A = "36"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("36") && playerExp >= 100) { playerInfo.level_A = "37"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("37") && playerExp >= 100) { playerInfo.level_A = "38"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("38") && playerExp >= 100) { playerInfo.level_A = "39"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("39") && playerExp >= 100) { playerInfo.level_A = "40"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("40") && playerExp >= 100) { playerInfo.level_A = "41"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("41") && playerExp >= 100) { playerInfo.level_A = "42"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("42") && playerExp >= 100) { playerInfo.level_A = "43"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("43") && playerExp >= 100) { playerInfo.level_A = "44"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("44") && playerExp >= 100) { playerInfo.level_A = "45"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("45") && playerExp >= 100) { playerInfo.level_A = "46"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("46") && playerExp >= 100) { playerInfo.level_A = "47"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("47") && playerExp >= 100) { playerInfo.level_A = "48"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("48") && playerExp >= 100) { playerInfo.level_A = "49"; playerInfo.exp_A = "0"; levelup = true;}
+		if(playerInfo.level_A.equals("49") && playerExp >= 100) { playerInfo.level_A = "50"; playerInfo.exp_A = "0"; levelup = true;}
 		
-		playerExp = playerExp + mob.exp;
+		if(levelup) {
+			if(playerInfo.job_1.equals("Novice")) {
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk + 2;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+				playerHPMax = playerHPMax + 10;
+				playerInfo.maxhp_A = String.valueOf(playerHPMax);
+				levelup = false;
+			}
+			
+			if(playerInfo.job_1.equals("Swordman")) {
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk + 2;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				playerDef = Integer.parseInt(playerInfo.def_A);
+				playerDef = playerDef + 2;
+				playerInfo.def_A = String.valueOf(playerDef);
+				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+				playerHPMax = playerHPMax + 30;
+				playerInfo.maxhp_A = String.valueOf(playerHPMax);
+				levelup = false;
+			}
+			
+			if(playerInfo.job_1.equals("Mage")) {
+				playerDef = Integer.parseInt(playerInfo.def_A);
+				playerDef = playerDef + 1;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				playerMPMax = Integer.parseInt(playerInfo.maxmp_A);
+				playerMPMax = playerMPMax + 40;
+				playerInfo.maxhp_A = String.valueOf(playerHPMax);
+				levelup = false;
+			}
+			
+			if(playerInfo.job_1.equals("Thief")) {
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk + 1;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				playerDef = Integer.parseInt(playerInfo.def_A);
+				playerDef = playerDef + 1;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+				playerHPMax = playerHPMax + 10;
+				playerInfo.maxhp_A = String.valueOf(playerHPMax);
+				levelup = false;
+			}
+			
+			if(playerInfo.job_1.equals("Medic")) {
+				playerDef = Integer.parseInt(playerInfo.def_A);
+				playerDef = playerDef + 2;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+				playerHPMax = playerHPMax + 10;
+				playerInfo.maxhp_A = String.valueOf(playerHPMax);
+				levelup = false;
+			}
+			if(playerInfo.job_1.equals("Gunner")) {
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk + 2;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+				playerHPMax = playerHPMax + 20;
+				playerInfo.maxhp_A = String.valueOf(playerHPMax);
+				levelup = false;
+			}
+			if(playerInfo.job_1.equals("Beater")) {
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk + 5;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+				playerHPMax = playerHPMax + 5;
+				playerInfo.maxhp_A = String.valueOf(playerHPMax);
+				levelup = false;
+			}
+		}
 		
-		
-		if(playerInfo.level_A.equals("1") && playerExp >= 100) { playerInfo.level_A = "2"; playerInfo.exp_A = "0"; }
-		
+		if(onlineCheck) { expsharedOnline = mob.exp; }
 		
 	}
 	
@@ -3583,8 +6076,6 @@ public class GameControl {
 			if(walk.equals("walk")) {
 				return null;
 			}
-			
-			playerInfo.hp_A = "10";
 			
 			playerWeapon = playerInfo.weapon_A;
 			if(playerWeapon.equals("basic_knife")) {

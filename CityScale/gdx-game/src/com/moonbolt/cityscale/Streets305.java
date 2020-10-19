@@ -43,7 +43,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private float playerPosY;
 		private int playerPosiX;
 		private int playerPosiY;
+		private int numSkillCast = 0;
+		private int castTime = 0;
 		private String autoAtk = "no";
+		private boolean isAreaSkill = false;
+		private boolean areaSkillSelected = false;
+		private float skillTouchX;
+		private float skillTouchY;
 		
 		//Sprites
 		private Sprite spr_Background;
@@ -69,6 +75,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_lootItem;
 		private Sprite spr_lootBar;
 		private Sprite spr_skill;
+		private Sprite spr_buff;
+		private Sprite spr_areaSelect;
+		private Sprite spr_areaSkillTarget;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -99,7 +108,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private ArrayList<Monster> lstMobs;
 		private ArrayList<Damage> lstDano;
 		private ArrayList<Skill> lstSkill;
-		private boolean isAreaSkill = false;
+		
 		
 			
 		//fonts
@@ -347,16 +356,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_Skill = gameControl.SkillHotbar("Gunner","lockshot"); spr_Skill.draw(game.batch);
 				spr_Skill = gameControl.SkillHotbar("Gunner","mine"); spr_Skill.draw(game.batch);			
 			}
-			
-			
+					
 			//Show Online Players
 			ShowOnlinePlayers();
 			
 			//Show Monsters
 			ShowMonsters();
-			
-			
-				
+					
 			if(gameState.equals("Menu")) {
 				spr_Menubar = gameControl.LoadInterfaceGamePlay("barMenu", "", "");
 				spr_Menubar.draw(game.batch);
@@ -475,8 +481,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//Show Damage
 			ShowDamage();
 			ShowSkillUsed();
+			ShowBuffs();
 			
 			//Verify Combate
+			gameControl.CheckSkillCooldown();
 			if(autoAtk.equals("yes")) {
 				gameControl.AutoAttack();
 			}
@@ -495,10 +503,34 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				font_master.draw(game.batch, "Item Obtido:  " + gameControl.GetLootName(), cameraCoordsX - 23,cameraCoordsY + 68);
 				spr_lootItem.draw(game.batch);
 			}
-						
+			
+			//Ranged Skill
+			if(isAreaSkill) {
+				spr_areaSelect = gameControl.LoadInterfaceGamePlay("areaSelect", "", "");
+				spr_areaSelect.draw(game.batch);
+			}
+			
+			//CastTime Skill
+			if(areaSkillSelected) {
+				if(castTime > 0) {
+					font_master.draw(game.batch, "Cast:" + castTime, cameraCoordsX + 5, cameraCoordsY + 38.6f);
+					castTime--;
+					isAreaSkill = false;
+					spr_areaSkillTarget = gameControl.LoadInterfaceGamePlay("skillareatarget", String.valueOf(skillTouchX), String.valueOf(skillTouchY));
+					spr_areaSkillTarget.draw(game.batch);
+				}
+				if(castTime <= 0 && numSkillCast > 0) {
+					if(activePlayer.job_A.equals("Mage")) { gameControl.SkillAtkMage(numSkillCast, skillTouchX, skillTouchY); }
+					if(activePlayer.job_A.equals("Medic")) { gameControl.SkillAtkMedic(numSkillCast, skillTouchX, skillTouchY); }
+					numSkillCast = 0;
+					areaSkillSelected = false;
+					gameState = "Main";
+				}
+			}
+									
 			// Test Dot
-			//spr_testeDot.setPosition(cameraCoordsX + 30, cameraCoordsY - 23);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(76.0f + 5f, 70f);
+			spr_testeDot.draw(game.batch);
 
 			//spr_testeDot.setPosition(cameraCoordsX + 23, cameraCoordsY - 37);
 			//spr_testeDot.draw(game.batch);
@@ -651,6 +683,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				if(lstDano.get(i).frame > 50) { gameControl.RemoveDamage(i); return; }
 				if(lstDano.get(i).color.equals("Yellow")) { font_master.setColor(Color.YELLOW); }
 				if(lstDano.get(i).color.equals("Red")) { font_master.setColor(Color.RED); }
+				if(lstDano.get(i).color.equals("Green")) { font_master.setColor(Color.GREEN); }
 				font_master.getData().setScale(0.20f,0.23f);
 				font_master.setUseIntegerPositions(false);	
 				font_master.draw(game.batch, String.valueOf(lstDano.get(i).dmg), lstDano.get(i).posX, lstDano.get(i).posY);
@@ -675,7 +708,29 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 						if(lstSkill.get(i).frame > 60) { lstSkill.remove(i); }
 					}
 				}
+				else {
+					spr_skill = gameControl.EffectSkill(lstSkill.get(i));
+					if(spr_skill != null) {
+						lstSkill.get(i).frame++;
+						spr_skill.draw(game.batch);
+						
+						if(lstSkill.get(i).frame > 60) { lstSkill.remove(i); }
+					}
+				}
 			}
+		}
+		
+		public void ShowBuffs() {
+			gameControl.BuffEffectDuration();
+			
+			spr_buff = gameControl.ReturnIconBuffs(1);
+			if(spr_buff != null) { spr_buff.draw(game.batch); }
+			
+			spr_buff = gameControl.ReturnIconBuffs(2);
+			if(spr_buff != null) { spr_buff.draw(game.batch); }
+			
+			spr_buff = gameControl.ReturnIconBuffs(3);
+			if(spr_buff != null) { spr_buff.draw(game.batch); }		
 		}
 		
 		@Override
@@ -752,7 +807,18 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			if(gameState.equals("Main")) {
-				movement = true;
+							
+				if(isAreaSkill) {
+					gameState = "casting";
+					areaSkillSelected = true;
+					skillTouchX = coordsTouch.x;
+					skillTouchY = coordsTouch.y;
+					castTime = gameControl.GetCastTime(numSkillCast);
+					return false;
+				}
+				else {
+					movement = true;
+				}
 				
 				//Action Button
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 30) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 22)) {
@@ -805,46 +871,65 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				//Skill 1
 				if(coordsTouch.x >= (cameraCoordsX + 31) && coordsTouch.x <= (cameraCoordsX + 37) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
 					isAreaSkill = gameControl.CheckSkillType(1);
-					
+					numSkillCast = 1;
 					if(!isAreaSkill) {
-						gameControl.SkillAtk(1);
+						if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(1); }
+						if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(1); }	
+						if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(1); }
+						if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(1); }
+						if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(1); }
 					}
-					
 					return false;
 				}
 				//Skill 2
 				if(coordsTouch.x >= (cameraCoordsX + 38) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
 					isAreaSkill = gameControl.CheckSkillType(2);
-					
+					numSkillCast = 2;
 					if(!isAreaSkill) {
-						gameControl.SkillAtk(2);
+						if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(2); }
+						if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(2); }
+						if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(2); }
+						if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(2); }
+						if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(2); }
 					}
 					return false;
 				}
 				//Skill 3
 				if(coordsTouch.x >= (cameraCoordsX + 45) && coordsTouch.x <= (cameraCoordsX + 52) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
 					isAreaSkill = gameControl.CheckSkillType(3);
-					
+					numSkillCast = 3;
 					if(!isAreaSkill) {
-						gameControl.SkillAtk(3);
+						if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(3); }
+						if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(3); }	
+						if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(3); }
+						if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(3); }
+						if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(3); }
 					}
 					return false;
 				}
 				//Skill 4
 				if(coordsTouch.x >= (cameraCoordsX + 52) && coordsTouch.x <= (cameraCoordsX + 59) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
 					isAreaSkill = gameControl.CheckSkillType(4);
-					
+					numSkillCast = 4;
 					if(!isAreaSkill) {
-						gameControl.SkillAtk(4);
+						if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(4); }
+						if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(4); }	
+						if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(4); }
+						if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(4); }
+						if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(4); }
 					}
 					return false;
 				}
 				//Skill 5
 				if(coordsTouch.x >= (cameraCoordsX + 59) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY - 37) && coordsTouch.y <= (cameraCoordsY - 23)) {
 					isAreaSkill = gameControl.CheckSkillType(5);
-					
+					numSkillCast = 5;
 					if(!isAreaSkill) {
-						gameControl.SkillAtk(5);
+						if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(5); }
+						if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(5); }
+						if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(5); }
+						if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(5); }
+						if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(5); }
 					}
 					return false;
 				}
