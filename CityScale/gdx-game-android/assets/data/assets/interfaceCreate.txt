@@ -1,25 +1,25 @@
 interfaceCreate.png
-size: 2000, 1175
+size: 1802, 1382
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 areaSelect
   rotate: false
-  xy: 925, 58
+  xy: 991, 58
   size: 241, 75
   orig: 241, 75
   offset: 0, 0
   index: -1
 barAccess
   rotate: false
-  xy: 1166, 58
+  xy: 1232, 58
   size: 242, 84
   orig: 242, 84
   offset: 0, 0
   index: -1
 barcreatechar
   rotate: false
-  xy: 1000, 761
+  xy: 630, 968
   size: 890, 414
   orig: 890, 414
   offset: 0, 0
@@ -33,7 +33,7 @@ barloot
   index: -1
 barMenu
   rotate: false
-  xy: 1657, 162
+  xy: 168, 368
   size: 80, 299
   orig: 80, 299
   offset: 0, 0
@@ -54,28 +54,42 @@ btnAutoAttackON
   index: -1
 btnCriarNovo
   rotate: false
-  xy: 564, 58
+  xy: 630, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 btnDeletar
   rotate: false
-  xy: 628, 58
+  xy: 694, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-btnTrocarAlvo
+btnMestreClasses
   rotate: false
   xy: 1670, 0
   size: 66, 58
   orig: 66, 58
   offset: 0, 0
   index: -1
+btnMissao
+  rotate: false
+  xy: 1736, 0
+  size: 66, 58
+  orig: 66, 58
+  offset: 0, 0
+  index: -1
+btnTrocarAlvo
+  rotate: false
+  xy: 0, 58
+  size: 66, 58
+  orig: 66, 58
+  offset: 0, 0
+  index: -1
 btnVoltar
   rotate: false
-  xy: 692, 58
+  xy: 758, 58
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -103,105 +117,112 @@ deletandopersonagem
   index: -1
 hicon
   rotate: false
-  xy: 721, 162
+  xy: 962, 158
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 hotbar
   rotate: false
-  xy: 0, 58
+  xy: 66, 58
   size: 418, 63
   orig: 418, 63
   offset: 0, 0
   index: -1
 innerpad
   rotate: false
-  xy: 1408, 58
+  xy: 1474, 58
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
+JobBoard
+  rotate: false
+  xy: 300, 968
+  size: 330, 350
+  orig: 330, 350
+  offset: 0, 0
+  index: -1
 logo
   rotate: false
-  xy: 921, 162
+  xy: 1162, 158
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 luzclara
   rotate: false
-  xy: 1321, 162
+  xy: 1562, 158
   size: 168, 210
   orig: 168, 210
   offset: 0, 0
   index: -1
 luzescura
   rotate: false
-  xy: 1489, 162
+  xy: 0, 368
   size: 168, 210
   orig: 168, 210
   offset: 0, 0
   index: -1
 menuConfig
   rotate: false
-  xy: 0, 461
+  xy: 248, 368
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuItens
   rotate: false
-  xy: 500, 461
+  xy: 748, 368
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuPet
   rotate: false
-  xy: 1000, 461
+  xy: 1248, 368
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuSkills
   rotate: false
-  xy: 1500, 461
+  xy: 0, 668
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuSocial
   rotate: false
-  xy: 0, 761
+  xy: 500, 668
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuStatus
   rotate: false
-  xy: 500, 761
+  xy: 1000, 668
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 metro
   rotate: false
-  xy: 0, 162
+  xy: 241, 158
   size: 581, 122
   orig: 581, 122
   offset: 0, 0
   index: -1
 minibar
   rotate: false
-  xy: 418, 58
+  xy: 484, 58
   size: 146, 63
   orig: 146, 63
   offset: 0, 0
   index: -1
 outerpad
   rotate: false
-  xy: 581, 162
+  xy: 822, 158
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
@@ -220,30 +241,44 @@ selected
   orig: 22, 22
   offset: 0, 0
   index: -1
+shopRefri
+  rotate: false
+  xy: 1500, 668
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+shops
+  rotate: false
+  xy: 0, 968
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
 skillareatarget
   rotate: false
-  xy: 1121, 162
+  xy: 1362, 158
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 tagParty
   rotate: false
-  xy: 756, 58
+  xy: 822, 58
   size: 169, 65
   orig: 169, 65
   offset: 0, 0
   index: -1
 tagPlayer
   rotate: false
-  xy: 1708, 58
+  xy: 0, 158
   size: 241, 104
   orig: 241, 104
   offset: 0, 0
   index: -1
 tagStart
   rotate: false
-  xy: 1508, 58
+  xy: 1574, 58
   size: 200, 100
   orig: 200, 100
   offset: 0, 0

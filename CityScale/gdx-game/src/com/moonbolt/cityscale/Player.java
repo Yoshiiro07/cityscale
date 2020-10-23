@@ -44,6 +44,8 @@ public class Player {
 	public String state_1;
 	public String hotkey1_1;
 	public String hotkey2_1;
+	public String heal_1;
+	public String expshared_1;
 	
 	public String name_2;
 	public String sex_2;
@@ -85,6 +87,8 @@ public class Player {
 	public String state_2;
 	public String hotkey1_2;
 	public String hotkey2_2;
+	public String heal_2;
+	public String expshared_2;
 	
 	public String name_3;
 	public String sex_3;
@@ -126,6 +130,8 @@ public class Player {
 	public String state_3;
 	public String hotkey1_3;
 	public String hotkey2_3;
+	public String heal_3;
+	public String expshared_3;
 	
 	public String name_A;
 	public String sex_A;
@@ -167,4 +173,6 @@ public class Player {
 	public String state_A;
 	public String hotkey1_A;
 	public String hotkey2_A;	
+	public String heal_A;
+	public String expshared_A;
 }

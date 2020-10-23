@@ -30,6 +30,8 @@ public class GameControl {
 	//[E] Itens and Inventory
 	//[F] Online
 	//[G] Battle
+	//[H] Npcs
+	//[I] Auxiliary
 	
 	//Data Manager Variables
 	private Json json;
@@ -56,6 +58,7 @@ public class GameControl {
 	private int countLootShowing = 0;
 	private String lootItemName = "none";
 	
+	
 	//Player Variables
 	private int playerHP;
 	private int playerMP;
@@ -68,6 +71,8 @@ public class GameControl {
 	private int playerDef = 1;
 	private int exitAnimationFrame = 0;
 	private int skillCoolDown = 0;
+	private String heal = "0";
+	private String expShared = "0";
 	private String playerSide = "";
 	private String playerWeapon = "";
 	private String[] playerStatus;
@@ -83,6 +88,8 @@ public class GameControl {
 	private float touchPosX;
 	private float touchPosY;
 	private boolean isCasting;
+	private boolean playerRangeHit;
+	private boolean playerAtkCooldownHit;
 	private int playerStr;
 	private int playerAgi;
 	private int playerDex;
@@ -104,8 +111,7 @@ public class GameControl {
 	private float mobRangeXPlus;
 	private float mobRangeYMinus;
 	private float mobRangeYPlus;
-	private int expsharedOnline = 0;
-	private int damageOnline = 0;
+	private String damageOnline = "0";
 	private String mobStatus = "";
 	
 	
@@ -117,6 +123,10 @@ public class GameControl {
 	private String onlineDataReceive = "";
 	private String[] dataSplit;
 	private String[] dataInfoSplit;
+	private int countplayerOnline = 0;
+	private int expsharedOnline = 0;
+	private String IDSharedOnline = "0";
+	private int auxShared = 0;
 	
 
 	//Camera Variables
@@ -139,6 +149,7 @@ public class GameControl {
 	private TextureAtlas atlas_shops;
 	private TextureAtlas atlas_itens;
 	private TextureAtlas atlas_loots;
+	private TextureAtlas atlas_npc;
 	
 	private TextureAtlas atlas_iconSkills;
 	private TextureAtlas atlas_tripleattack;
@@ -215,6 +226,9 @@ public class GameControl {
 		//Character Sets
 		atlas_basicset_m = new TextureAtlas(Gdx.files.internal("data/characters/players/basicset_m/basicset_m.txt"));
 		atlas_basicset_f = new TextureAtlas(Gdx.files.internal("data/characters/players/basicset_f/basicset_f.txt"));
+		
+		//NPCs
+		atlas_npc = new TextureAtlas(Gdx.files.internal("data/characters/npcs/npcs.txt"));
 		
 		//Itens 
 		atlas_itens = new TextureAtlas(Gdx.files.internal("data/itens/itens.txt"));
@@ -381,9 +395,9 @@ public class GameControl {
 			playerInfo.statusPoint_1 = "0";
 			playerInfo.skillPoint_1 = "0";
 			playerInfo.skills_1 = "none";
-			playerInfo.buffsA_1 = "none:0";
-			playerInfo.buffsB_1 = "none:0";
-			playerInfo.buffsC_1 = "none:0";
+			playerInfo.buffsA_1 = "none-0";
+			playerInfo.buffsB_1 = "none-0";
+			playerInfo.buffsC_1 = "none-0";
 			playerInfo.inBattle_1 = "no";
 			playerInfo.target_1 = "none";
 			playerInfo.map_1 = "MetroStation";
@@ -393,6 +407,8 @@ public class GameControl {
 			playerInfo.state_1 = "stop";
 			playerInfo.hotkey1_1 = "none";
 			playerInfo.hotkey2_1 = "none";
+			playerInfo.heal_1 = "0";
+			playerInfo.expshared_1 = "0";
 					
 			for(int i = 0; i < 48; i++) {
 				itensList = itensList + "[HPCAN#1]-";
@@ -428,9 +444,9 @@ public class GameControl {
 			playerInfo.statusPoint_2 = "0";
 			playerInfo.skillPoint_2 = "0";
 			playerInfo.skills_2 = "none";
-			playerInfo.buffsA_2 = "none:0";
-			playerInfo.buffsB_2 = "none:0";
-			playerInfo.buffsC_2 = "none:0";
+			playerInfo.buffsA_2 = "none-0";
+			playerInfo.buffsB_2 = "none-0";
+			playerInfo.buffsC_2 = "none-0";
 			playerInfo.coordX_2 = "";
 			playerInfo.coordY_2 = "";
 			playerInfo.inBattle_2 = "no";
@@ -443,6 +459,8 @@ public class GameControl {
 			playerInfo.state_2 = "stop";
 			playerInfo.hotkey1_2 = "none";
 			playerInfo.hotkey2_2 = "none";
+			playerInfo.heal_2 = "0";
+			playerInfo.expshared_2 = "0";
 			
 			for(int i = 0; i < 48; i++) {
 				itensList = itensList + "[NONE]-";
@@ -478,9 +496,9 @@ public class GameControl {
 			playerInfo.statusPoint_3 = "0";
 			playerInfo.skillPoint_3 = "0";
 			playerInfo.skills_3 = "none";
-			playerInfo.buffsA_3 = "none:0";
-			playerInfo.buffsB_3 = "none:0";
-			playerInfo.buffsC_3 = "none:0";
+			playerInfo.buffsA_3 = "none-0";
+			playerInfo.buffsB_3 = "none-0";
+			playerInfo.buffsC_3 = "none-0";
 			playerInfo.coordX_3 = "";
 			playerInfo.coordY_3 = "";
 			playerInfo.inBattle_3 = "no";
@@ -493,6 +511,8 @@ public class GameControl {
 			playerInfo.state_3 = "stop";
 			playerInfo.hotkey1_3 = "none";
 			playerInfo.hotkey2_3 = "none";
+			playerInfo.heal_3 = "0";
+			playerInfo.expshared_3 = "0";
 			
 			for(int i = 0; i < 48; i++) {
 				itensList = itensList + "[NONE]-";
@@ -562,6 +582,8 @@ public class GameControl {
 				playerInfo.state_1 = playerInfo.state_A;
 				playerInfo.hotkey1_1 = playerInfo.hotkey1_A;
 				playerInfo.hotkey2_1 = playerInfo.hotkey2_A;
+				playerInfo.heal_1 = playerInfo.heal_A;
+				playerInfo.expshared_1 = playerInfo.expshared_A;
 			}
 			if(num == 2) {
 				playerInfo.name_2 = playerInfo.name_A;
@@ -605,6 +627,8 @@ public class GameControl {
 				playerInfo.state_2 = playerInfo.state_A;
 				playerInfo.hotkey1_2 = playerInfo.hotkey1_A;
 				playerInfo.hotkey2_2 = playerInfo.hotkey2_A;
+				playerInfo.heal_2 = playerInfo.heal_A;
+				playerInfo.expshared_2 = playerInfo.expshared_A;
 			}
 			if(num == 3) {
 				playerInfo.name_3 = playerInfo.name_A;
@@ -648,6 +672,8 @@ public class GameControl {
 				playerInfo.state_3 = playerInfo.state_A;
 				playerInfo.hotkey1_3 = playerInfo.hotkey1_A;
 				playerInfo.hotkey2_3 = playerInfo.hotkey2_A;
+				playerInfo.heal_3 = playerInfo.heal_A;
+				playerInfo.expshared_3 = playerInfo.expshared_A;
 			}
 			SaveData(playerInfo);
 			savetimer = 800;
@@ -698,6 +724,8 @@ public class GameControl {
 			playerInfo.buffsA_A = playerInfo.buffsA_1;
 			playerInfo.buffsB_A = playerInfo.buffsB_1;
 			playerInfo.buffsC_A = playerInfo.buffsC_1;
+			playerInfo.heal_A = playerInfo.heal_1;
+			playerInfo.expshared_A = playerInfo.expshared_1;
 			
 			CleanBuffEffectsLog();
 		}
@@ -743,6 +771,8 @@ public class GameControl {
 			playerInfo.state_A = playerInfo.state_2;
 			playerInfo.hotkey1_A = playerInfo.hotkey1_2;
 			playerInfo.hotkey2_A = playerInfo.hotkey2_2;
+			playerInfo.heal_2 = playerInfo.heal_A;
+			playerInfo.expshared_2 = playerInfo.expshared_A;
 			
 			CleanBuffEffectsLog();
 		}
@@ -788,6 +818,8 @@ public class GameControl {
 			playerInfo.state_A = playerInfo.state_3;
 			playerInfo.hotkey1_A = playerInfo.hotkey1_3;
 			playerInfo.hotkey2_A = playerInfo.hotkey2_3;
+			playerInfo.heal_3 = playerInfo.heal_A;
+			playerInfo.expshared_3 = playerInfo.expshared_A;
 			
 			CleanBuffEffectsLog();
 		}
@@ -1008,6 +1040,22 @@ public class GameControl {
 			spr_master.setPosition(touchPosX - 10,touchPosY - 10);
 			spr_master.setSize(40,40);
 			
+			return spr_master;
+		}
+		
+		//Bar job change
+		if(type.equals("btnjobchange")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnMestreClasses");
+			spr_master.setSize(8,12);
+			spr_master.setPosition(22, -28);
+			return spr_master;
+		}
+		
+		//Board Job
+		if(type.equals("boardJob")) {
+			spr_master = atlas_InterfaceCreate.createSprite("JobBoard");
+			spr_master.setSize(42,80);
+			spr_master.setPosition(cameraCoordsX - 20, cameraCoordsY - 5);
 			return spr_master;
 		}
 		
@@ -1268,14 +1316,12 @@ public class GameControl {
 			playerInfo.hp_A = String.valueOf(playerHP);
 			playerInfo.mp_A = String.valueOf(playerMP);
 			
-			recoverytimer = 700;
+			recoverytimer = 2500;
 		}
 	}
 	
 	public Sprite MovPlayerCharacter(String set,String sex, String walk, String state, boolean menu) {
 		
-		playerInfo.job_A = "Beater";
-	
 		if(!menu) {
 			if(state.equals("right") && walk.equals("walk")) {
 				countFrameMov++;
@@ -2582,6 +2628,28 @@ public class GameControl {
 		return spr_master;
 	}
 	
+	public void MetaInfoOnline() {
+		//Check Heal
+		for(int i = 0; i < lstPlayersOnline.size(); i++) {
+			
+			if(playerInfo.party_A.equals("None")) {
+				
+				if(lstPlayersOnline.get(i).party_A.equals(playerInfo.party_A)) {
+					
+					//Check Heal
+					if(!lstPlayersOnline.get(i).heal_A.equals("0")) {
+						auxShared = Integer.parseInt(lstPlayersOnline.get(i).heal_A);
+						playerHP = Integer.parseInt(playerInfo.hp_A);
+						playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
+						
+						playerHP = playerHP + auxShared;
+						if(playerHP > playerHPMax) { playerHP = playerHPMax; }
+					}				
+				}
+			}
+		}	
+	}
+	
 	public void OnlineOperation(String request, String subdata) throws UnsupportedEncodingException {
 		
 		try {
@@ -2626,7 +2694,13 @@ public class GameControl {
 	        data += "&" + URLEncoder.encode("lside", "UTF-8") + "=" + URLEncoder.encode(playerInfo.side_A, "UTF-8");
 	        data += "&" + URLEncoder.encode("laccount", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
 	        data += "&" + URLEncoder.encode("lbattle", "UTF-8") + "=" + URLEncoder.encode(playerInfo.inBattle_A, "UTF-8");
-	        
+	        data += "&" + URLEncoder.encode("lbuffA", "UTF-8") + "=" + URLEncoder.encode(playerInfo.buffsA_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lbuffB", "UTF-8") + "=" + URLEncoder.encode(playerInfo.buffsB_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lbuffC", "UTF-8") + "=" + URLEncoder.encode(playerInfo.buffsC_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lheal", "UTF-8") + "=" + URLEncoder.encode(heal, "UTF-8");
+	        data += "&" + URLEncoder.encode("lexpshared", "UTF-8") + "=" + URLEncoder.encode(expShared, "UTF-8");
+	        data += "&" + URLEncoder.encode("ldamage", "UTF-8") + "=" + URLEncoder.encode(damageOnline, "UTF-8");
+	              
 	        // Send data
 	        URL url = new URL("http://moonbolt.online/Conector/Online.php");
 	        URLConnection conn = url.openConnection();
@@ -2653,10 +2727,6 @@ public class GameControl {
 		        
 		        if(returnFromServer.contains("SYSTEMMOBS")) {
 		        	MobsManagerOnline(returnFromServer);
-		        }
-		        
-		        if(returnFromServer.contains("SYSTEMPARTYEXP")) {
-		        	ExpSharedManagerOnline(returnFromServer);
 		        }
 			}
 	        
@@ -2881,6 +2951,21 @@ public class GameControl {
 		dataInfoSplit = dataSplit[19].split("=");
 		playerInfoOnline.job_A = dataInfoSplit[1];
 		
+		dataInfoSplit = dataSplit[21].split("=");
+		playerInfoOnline.buffsA_A = dataInfoSplit[1];
+		
+		dataInfoSplit = dataSplit[22].split("=");
+		playerInfoOnline.buffsB_A = dataInfoSplit[1];
+		
+		dataInfoSplit = dataSplit[23].split("=");
+		playerInfoOnline.buffsC_A = dataInfoSplit[1];
+		
+		dataInfoSplit = dataSplit[24].split("=");
+		playerInfoOnline.heal_A = dataInfoSplit[1];
+		
+		dataInfoSplit = dataSplit[25].split("=");
+		playerInfoOnline.expshared_A = dataInfoSplit[1];
+		
 		boolean check = false;
 		for(int i = 0; i < lstPlayersOnline.size(); i++) {
 			if(playerInfoOnline.accountID.equals(lstPlayersOnline.get(i).accountID)) {
@@ -2903,6 +2988,11 @@ public class GameControl {
 				lstPlayersOnline.get(i).party_A = playerInfoOnline.party_A;
 				lstPlayersOnline.get(i).sex_A = playerInfoOnline.sex_A;
 				lstPlayersOnline.get(i).job_A = playerInfoOnline.job_A;
+				lstPlayersOnline.get(i).buffsA_A = playerInfoOnline.buffsA_A;
+				lstPlayersOnline.get(i).buffsB_A = playerInfoOnline.buffsB_A;
+				lstPlayersOnline.get(i).buffsC_A = playerInfoOnline.buffsC_A;
+				lstPlayersOnline.get(i).heal_A = playerInfoOnline.heal_A;
+				lstPlayersOnline.get(i).expshared_A = playerInfoOnline.expshared_A;
 				check = true;
 			}
 		}		
@@ -2941,10 +3031,6 @@ public class GameControl {
 		lstChats.add(onlineDataReceive);		
 		
 		if(lstChats.size() > 3) { lstChats.remove(0); }
-		
-	}
-	
-	private void ExpSharedManagerOnline(String data) {
 		
 	}
 	
@@ -2988,7 +3074,7 @@ public class GameControl {
 			mobA.target = "None";
 			mobA.frame = 1;
 			mobA.atkCount = 0;
-			mobA.atkHit = 5;
+			mobA.atkHit = 1;
 			mobA.getHit = false;
 			mobA.mobCountDown = 300;
 			mobA.mobCountDownMax = 300;
@@ -3134,7 +3220,9 @@ public class GameControl {
 		
 		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
 		playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
-				
+		playerRangeHit = false;
+		playerAtkCooldownHit = false;
+		
 		if (playerInfo.job_A.equals("Gunner")) {
 			playerRangeXMinus = playerCoordsX - 90;
 			playerRangeXPlus = playerCoordsX + 90;
@@ -3143,7 +3231,7 @@ public class GameControl {
 		}
 		else {
 			playerRangeXMinus = playerCoordsX - 8;
-			playerRangeXPlus = playerCoordsX + 30;
+			playerRangeXPlus = playerCoordsX + 30; 
 			playerRangeYMinus = playerCoordsY - 10;
 			playerRangeYPlus = playerCoordsY + 40;
 		}
@@ -3165,6 +3253,8 @@ public class GameControl {
 				if(playerInfo.job_1.equals("Thief")) {
 					playerCountDown = playerCountDown - 20;
 				}
+				
+				playerAtkCooldownHit = true;
 			}
 			
 			if(skillCoolDown <= 0) {
@@ -3183,10 +3273,12 @@ public class GameControl {
 			mobRangeXMinus = mobX - mobWidth/2;
 			mobRangeXPlus = mobX + mobWidth/2; 
 			
-			mobRangeYMinus = mobY - mobHeight/2;
-			mobRangeYPlus = mobY + mobHeight/2;
+			mobRangeYMinus = mobY - mobHeight;
+			mobRangeYPlus = mobY + mobHeight;
 			
-			if(playerRangeXPlus > (mobX - mobWidth) && playerRangeXMinus < (mobX + mobWidth) && playerRangeYPlus > (mobY - mobHeight) && playerRangeYMinus < (mobY + mobHeight)) {
+			if(playerRangeXPlus > mobRangeXMinus && playerRangeYMinus < mobRangeYPlus) { playerRangeHit = true; }
+			
+			if(playerRangeHit) {
 				
 				if(playerCoordsX < mobX) { playerSide = "right"; }
 				if(playerCoordsX > mobX) { playerSide = "left"; }
@@ -3194,8 +3286,10 @@ public class GameControl {
 				if(playerInfo.target_A.equals(lstMobs.get(i).mobID)) {
 					
 					playerInfo.inBattle_A = "yes";			
-					if(playerInfo.job_1.equals("Novice") && playerCountDown <= 0) {
+					if(playerAtkCooldownHit) {
 						
+						playerAtkCooldownHit = false;
+						playerRangeHit = false;
 						playerStatus = playerInfo.stats_A.split("#");
 						playerStatusNumber = playerStatus[0].split(":");
 						playerStr = Integer.parseInt(playerStatusNumber[1]);
@@ -3227,7 +3321,7 @@ public class GameControl {
 							dmg.frame = 0;					
 							lstDanos.add(dmg);
 							
-							OnlineManager("Atk",String.valueOf(mobHP));
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
 						}
 						else
 						{
@@ -3240,7 +3334,7 @@ public class GameControl {
 							dmg.frame = 0;					
 							lstDanos.add(dmg);
 							
-							OnlineManager("Atk",String.valueOf(mobHP));
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
 						}
 					}			
 				}			
@@ -3282,7 +3376,7 @@ public class GameControl {
 					if(mobRangeXPlus > (playerCoordsX + 10) && mobRangeXMinus < (playerCoordsX + 10) && mobRangeYPlus > (playerCoordsY + 18) && mobRangeYMinus < (playerCoordsY + 18)) {
 						
 						atkHitRandom = randnumber.nextInt(10);						
-						if(lstMobs.get(i).status.equals("stun")) {
+						if(!lstMobs.get(i).status.equals("stun")) {
 						
 							if(atkHitRandom <= 2) {
 								mobAtk = lstMobs.get(i).atkHit * 2;
@@ -3535,7 +3629,8 @@ public class GameControl {
 
 							skillCoolDown = 300;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							damageOnline = "0";
 						}					
 					}
 				}			
@@ -3619,8 +3714,8 @@ public class GameControl {
 							
 							skillCoolDown = 300;
 							
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
-							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
+							damageOnline = "0";
 						}					
 					}
 				}			
@@ -3685,7 +3780,8 @@ public class GameControl {
 							
 							skillCoolDown = 300;
 							
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
+							damageOnline = "0";
 						}					
 					}
 				}
@@ -3714,9 +3810,9 @@ public class GameControl {
 				
 				skillCoolDown = 2000;
 				
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "healthboost:2000"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "healthboost:2000"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "healthboost:2000"; return; }				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "healthboost-2000"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "healthboost-2000"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "healthboost-2000"; return; }				
 			}
 			
 			// Iron Shield
@@ -3738,9 +3834,9 @@ public class GameControl {
 
 				skillCoolDown = 500;
 
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "ironshield:1500"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "ironshield:1500"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "ironshield:1500"; return; }		
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "ironshield-1500"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "ironshield-1500"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "ironshield-1500"; return; }		
 			}
 			
 			//Protect
@@ -3761,9 +3857,9 @@ public class GameControl {
 
 				skillCoolDown = 2000;
 
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "protect:500"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "protect:500"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "protect:500"; return; }
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "protect-500"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "protect-500"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "protect-500"; return; }
 			}
 		}		
 	}
@@ -3845,7 +3941,8 @@ public class GameControl {
 
 							skillCoolDown = 100;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							damageOnline = "0";
 						}					
 					}
 				}			
@@ -3911,7 +4008,8 @@ public class GameControl {
 
 							skillCoolDown = 1000;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							damageOnline = "0";
 						}					
 					}
 				}			
@@ -4033,7 +4131,8 @@ public class GameControl {
 
 							skillCoolDown = 250;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
+							damageOnline = "0";
 						}					
 					}
 				}			
@@ -4058,9 +4157,9 @@ public class GameControl {
 				
 				skillCoolDown = 1000;
 				
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "invisibility:2000"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "invisibility:2000"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "invisibility:2000"; return; }				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "invisibility-2000"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "invisibility-2000"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "invisibility-2000"; return; }				
 			}	
 		}
 	}
@@ -4100,7 +4199,7 @@ public class GameControl {
 							playerStatusNumber = playerStatus[2].split(":");
 							playerWis = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
-							playerAtk = (playerAtk + playerWis) * 5;
+							playerAtk = (playerAtk + playerWis * 2) * 5;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							playerHP = Integer.parseInt(playerInfo.hp_A);
 							playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
@@ -4133,7 +4232,8 @@ public class GameControl {
 
 							skillCoolDown = 300;
 
-							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); heal = String.valueOf(playerAtk); }	
+							damageOnline = "0";
 						}					
 					}
 				}			
@@ -4161,9 +4261,9 @@ public class GameControl {
 
 				skillCoolDown = 20;
 				
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "atkboost:800"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "atkboost:800"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "atkboost:800"; return; }	
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "atkboost-800"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "atkboost-800"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "atkboost-800"; return; }	
 	
 			}
 			
@@ -4189,9 +4289,9 @@ public class GameControl {
 
 				skillCoolDown = 30;
 				
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "defboost:700"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "defboost:700"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "defboost:700"; return; }	
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "defboost-700"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "defboost-700"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "defboost-700"; return; }	
 				
 			}
 		
@@ -4258,7 +4358,7 @@ public class GameControl {
 	
 							skillCoolDown = 300;
 	
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
 						}					
 					}
 				}			
@@ -4282,9 +4382,9 @@ public class GameControl {
 	
 					skillCoolDown = 100;
 					
-					if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "regen:2200"; return; }
-					if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "regen:2200"; return; }
-					if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "regen:2200"; return; }			
+					if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "regen-2200"; return; }
+					if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "regen-2200"; return; }
+					if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "regen-2200"; return; }			
 				}
 		}
 	}
@@ -4357,7 +4457,7 @@ public class GameControl {
 
 							skillCoolDown = 150;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
 						}					
 					}
 				}			
@@ -4424,7 +4524,7 @@ public class GameControl {
 
 							skillCoolDown = 350;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
 						}					
 					}
 				}			
@@ -4494,7 +4594,7 @@ public class GameControl {
 
 							skillCoolDown = 750;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
 						}					
 					}
 				}			
@@ -4563,7 +4663,7 @@ public class GameControl {
 
 							skillCoolDown = 300;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
 						}					
 					}
 				}			
@@ -4632,7 +4732,7 @@ public class GameControl {
 
 							skillCoolDown = 50;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
 						}					
 					}
 				}			
@@ -4710,7 +4810,7 @@ public class GameControl {
 
 							skillCoolDown = 50;
 
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
 						}								
 				}			
 			}
@@ -4774,7 +4874,7 @@ public class GameControl {
 
 						skillCoolDown = 300;
 
-						if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
 					}						
 				}			
 			}
@@ -4798,9 +4898,9 @@ public class GameControl {
 
 				skillCoolDown = 200;
 				
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "precision:1500"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "precision:1500"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "precision:1500"; return; }			
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "precision-1500"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "precision-1500"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "precision-1500"; return; }			
 			}
 			
 			//LockShot
@@ -4867,7 +4967,7 @@ public class GameControl {
 
 						skillCoolDown = 2500;
 
-						if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
 					}								
 				}			
 			}
@@ -4932,7 +5032,7 @@ public class GameControl {
 
 						skillCoolDown = 400;
 
-						if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }		
+						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
 					}								
 				}			
 			}
@@ -5014,7 +5114,7 @@ public class GameControl {
 							
 							skillCoolDown = 350;
 							
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
 							
 						}					
 					}
@@ -5084,7 +5184,7 @@ public class GameControl {
 							
 							skillCoolDown = 2500;
 							
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
 							
 						}					
 					}
@@ -5116,9 +5216,9 @@ public class GameControl {
 				
 				skillCoolDown = 2000;
 				
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "overpower:2000"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "overpower:2000"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "overpower:2000"; return; }				
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "overpower-2000"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "overpower-2000"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "overpower-2000"; return; }				
 			}
 			
 			// Rage Bound
@@ -5181,7 +5281,7 @@ public class GameControl {
 							
 							skillCoolDown = 500;
 							
-							if(onlineCheck) { damageOnline = playerAtk; OnlineManager("Atk",String.valueOf(mobHP)); }	
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
 							
 						}					
 					}
@@ -5210,9 +5310,9 @@ public class GameControl {
 
 				skillCoolDown = 50;
 
-				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "impound:800"; return; }
-				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "impound:800"; return; }
-				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "impound:800"; return; }
+				if(playerInfo.buffsA_A.equals("none:0")) { playerInfo.buffsA_A = "impound-800"; return; }
+				if(playerInfo.buffsB_A.equals("none:0")) { playerInfo.buffsB_A = "impound-800"; return; }
+				if(playerInfo.buffsC_A.equals("none:0")) { playerInfo.buffsC_A = "impound-800"; return; }
 			}
 		}
 	}
@@ -5676,9 +5776,6 @@ public class GameControl {
 			spr_master.setPosition(skillUsed.posX, skillUsed.posY);
 			spr_master.setSize(skillUsed.width, skillUsed.height);
 		}
-		
-		
-	
 				
 		return spr_master;
 	}
@@ -5690,7 +5787,7 @@ public class GameControl {
 		int stats; 
 		
 		//Buff A
-		buff = playerInfo.buffsA_A.split(":");
+		buff = playerInfo.buffsA_A.split("-");
 		buffname = buff[0];
 		duration = Integer.parseInt(buff[1]);
 		if(buffname.equals("healthboost") && duration <= 0) { stats = Integer.parseInt(playerInfo.maxhp_A); playerInfo.hp_A = String.valueOf(stats); }
@@ -5705,7 +5802,7 @@ public class GameControl {
 		if(buffname.equals("precision") && duration <= 0) {  }
 		
 		//Buff B
-		buff = playerInfo.buffsB_A.split(":");
+		buff = playerInfo.buffsB_A.split("-");
 		buffname = buff[0];
 		duration = Integer.parseInt(buff[1]);
 		if(buffname.equals("healthboost") && duration <= 0) { stats = Integer.parseInt(playerInfo.maxhp_A); playerInfo.hp_A = String.valueOf(stats); }
@@ -5720,7 +5817,7 @@ public class GameControl {
 		if(buffname.equals("precision") && duration <= 0) {  }
 		
 		//Buff C
-		buff = playerInfo.buffsC_A.split(":");
+		buff = playerInfo.buffsC_A.split("-");
 		buffname = buff[0];
 		duration = Integer.parseInt(buff[1]);
 		if(buffname.equals("healthboost") && duration <= 0) { stats = Integer.parseInt(playerInfo.maxhp_A); playerInfo.hp_A = String.valueOf(stats); }
@@ -5739,17 +5836,17 @@ public class GameControl {
 		String[] buff;
 		String buffname;
 		
-		buff = playerInfo.buffsA_A.split(":");
+		buff = playerInfo.buffsA_A.split("-");
 		buffname = buff[0];
-		playerInfo.buffsA_A = buffname + ":" + "0";
+		playerInfo.buffsA_A = buffname + "-" + "0";
 		
-		buff = playerInfo.buffsA_A.split(":");
+		buff = playerInfo.buffsA_A.split("-");
 		buffname = buff[0];
-		playerInfo.buffsB_A = buffname + ":" + "0";
+		playerInfo.buffsB_A = buffname + "-" + "0";
 		
-		buff = playerInfo.buffsA_A.split(":");
+		buff = playerInfo.buffsA_A.split("-");
 		buffname = buff[0];
-		playerInfo.buffsC_A = buffname + ":" + "0";
+		playerInfo.buffsC_A = buffname + "-" + "0";
 		
 		BuffEffectDuration();
 		
@@ -5757,7 +5854,7 @@ public class GameControl {
 	
 	public void BuffEffectDuration() {
 		
-		if(playerInfo.buffsA_A.equals("none:0") && playerInfo.buffsB_A.equals("none:0") && playerInfo.buffsC_A.equals("none:0")) {
+		if(playerInfo.buffsA_A.equals("none-0") && playerInfo.buffsB_A.equals("none-0") && playerInfo.buffsC_A.equals("none-0")) {
 			return;
 		}
 			
@@ -5766,25 +5863,25 @@ public class GameControl {
 		int duration;
 		
 		//Buff A
-		buff = playerInfo.buffsA_A.split(":");
+		buff = playerInfo.buffsA_A.split("-");
 		buffname = buff[0];
 		duration = Integer.parseInt(buff[1]);
-		if(duration > 0) { duration--; playerInfo.buffsA_A = buffname + ":" + duration; }
-		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsA_A = buffname + ":" + duration; }
+		if(duration > 0) { duration--; playerInfo.buffsA_A = buffname + "-" + duration; }
+		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsA_A = buffname + "-" + duration; }
 		
 		//Buff B
-		buff = playerInfo.buffsB_A.split(":");
+		buff = playerInfo.buffsB_A.split("-");
 		buffname = buff[0];
 		duration = Integer.parseInt(buff[1]);
-		if(duration > 0) { duration--; playerInfo.buffsB_A = buffname + ":" + duration; }
-		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsB_A = buffname + ":" + duration; }
+		if(duration > 0) { duration--; playerInfo.buffsB_A = buffname + "-" + duration; }
+		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsB_A = buffname + "-" + duration; }
 		
 		//Buff C
-		buff = playerInfo.buffsC_A.split(":");
+		buff = playerInfo.buffsC_A.split("-");
 		buffname = buff[0];
 		duration = Integer.parseInt(buff[1]);
-		if(duration > 0) { duration--; playerInfo.buffsC_A = buffname + ":" + duration; }
-		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsC_A = buffname + ":" + duration; }
+		if(duration > 0) { duration--; playerInfo.buffsC_A = buffname + "-" + duration; }
+		if(duration <= 0) { CleanBuffEffects(); duration = 0; buffname = "none"; playerInfo.buffsC_A = buffname + "-" + duration; }
 		
 	}
 	
@@ -5794,7 +5891,7 @@ public class GameControl {
 		String buffname;
 		
 		if(numBuff == 1) {
-			buff = playerInfo.buffsA_A.split(":");
+			buff = playerInfo.buffsA_A.split("-");
 			buffname = buff[0];
 			if(buffname.equals("none")) { return null; }
 			spr_master = atlas_iconSkills.createSprite("btn" + buffname);
@@ -5803,7 +5900,7 @@ public class GameControl {
 		}
 		
 		if(numBuff == 2) {
-			buff = playerInfo.buffsB_A.split(":");
+			buff = playerInfo.buffsB_A.split("-");
 			buffname = buff[0];
 			if(buffname.equals("none")) { return null; }
 			spr_master = atlas_iconSkills.createSprite("btn" + buffname);
@@ -5812,7 +5909,7 @@ public class GameControl {
 		}
 		
 		if(numBuff == 3) {
-			buff = playerInfo.buffsC_A.split(":");
+			buff = playerInfo.buffsC_A.split("-");
 			buffname = buff[0];
 			if(buffname.equals("none")) { return null; }
 			spr_master = atlas_iconSkills.createSprite("btn" + buffname);
@@ -5882,58 +5979,63 @@ public class GameControl {
 		
 		boolean levelup = false;
 		int playerExp = Integer.parseInt(playerInfo.exp_A);	
-		playerExp = playerExp + mob.exp;	
-		if(playerInfo.level_A.equals("1") && playerExp >= 100) { playerInfo.level_A = "2"; playerInfo.exp_A = "0"; levelup = true; }
-		if(playerInfo.level_A.equals("2") && playerExp >= 100) { playerInfo.level_A = "3"; playerInfo.exp_A = "0"; levelup = true; }
-		if(playerInfo.level_A.equals("3") && playerExp >= 100) { playerInfo.level_A = "4"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("4") && playerExp >= 100) { playerInfo.level_A = "5"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("5") && playerExp >= 100) { playerInfo.level_A = "6"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("6") && playerExp >= 100) { playerInfo.level_A = "7"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("7") && playerExp >= 100) { playerInfo.level_A = "8"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("8") && playerExp >= 100) { playerInfo.level_A = "9"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("9") && playerExp >= 100) { playerInfo.level_A = "10"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("10") && playerExp >= 100) { playerInfo.level_A = "11"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("11") && playerExp >= 100) { playerInfo.level_A = "12"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("12") && playerExp >= 100) { playerInfo.level_A = "13"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("13") && playerExp >= 100) { playerInfo.level_A = "14"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("14") && playerExp >= 100) { playerInfo.level_A = "15"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("15") && playerExp >= 100) { playerInfo.level_A = "16"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("16") && playerExp >= 100) { playerInfo.level_A = "17"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("17") && playerExp >= 100) { playerInfo.level_A = "18"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("18") && playerExp >= 100) { playerInfo.level_A = "19"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("19") && playerExp >= 100) { playerInfo.level_A = "20"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("20") && playerExp >= 100) { playerInfo.level_A = "21"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("21") && playerExp >= 100) { playerInfo.level_A = "22"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("22") && playerExp >= 100) { playerInfo.level_A = "23"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("23") && playerExp >= 100) { playerInfo.level_A = "24"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("24") && playerExp >= 100) { playerInfo.level_A = "25"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("25") && playerExp >= 100) { playerInfo.level_A = "26"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("26") && playerExp >= 100) { playerInfo.level_A = "27"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("27") && playerExp >= 100) { playerInfo.level_A = "28"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("28") && playerExp >= 100) { playerInfo.level_A = "29"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("29") && playerExp >= 100) { playerInfo.level_A = "30"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("30") && playerExp >= 100) { playerInfo.level_A = "31"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("31") && playerExp >= 100) { playerInfo.level_A = "32"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("32") && playerExp >= 100) { playerInfo.level_A = "33"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("33") && playerExp >= 100) { playerInfo.level_A = "34"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("34") && playerExp >= 100) { playerInfo.level_A = "35"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("35") && playerExp >= 100) { playerInfo.level_A = "36"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("36") && playerExp >= 100) { playerInfo.level_A = "37"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("37") && playerExp >= 100) { playerInfo.level_A = "38"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("38") && playerExp >= 100) { playerInfo.level_A = "39"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("39") && playerExp >= 100) { playerInfo.level_A = "40"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("40") && playerExp >= 100) { playerInfo.level_A = "41"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("41") && playerExp >= 100) { playerInfo.level_A = "42"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("42") && playerExp >= 100) { playerInfo.level_A = "43"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("43") && playerExp >= 100) { playerInfo.level_A = "44"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("44") && playerExp >= 100) { playerInfo.level_A = "45"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("45") && playerExp >= 100) { playerInfo.level_A = "46"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("46") && playerExp >= 100) { playerInfo.level_A = "47"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("47") && playerExp >= 100) { playerInfo.level_A = "48"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("48") && playerExp >= 100) { playerInfo.level_A = "49"; playerInfo.exp_A = "0"; levelup = true;}
-		if(playerInfo.level_A.equals("49") && playerExp >= 100) { playerInfo.level_A = "50"; playerInfo.exp_A = "0"; levelup = true;}
+		playerExp = playerExp + mob.exp;
+		int point = Integer.parseInt(playerInfo.statusPoint_A);
+		
+		if(playerInfo.level_A.equals("1") && playerExp >= 100) { playerInfo.level_A = "2"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("2") && playerExp >= 230) { playerInfo.level_A = "3"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("3") && playerExp >= 410) { playerInfo.level_A = "4"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("4") && playerExp >= 650) { playerInfo.level_A = "5"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("5") && playerExp >= 810) { playerInfo.level_A = "6"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("6") && playerExp >= 1340) { playerInfo.level_A = "7"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("7") && playerExp >= 1780) { playerInfo.level_A = "8"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("8") && playerExp >= 2420) { playerInfo.level_A = "9"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("9") && playerExp >= 3700) { playerInfo.level_A = "10"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
+		if(playerInfo.level_A.equals("10") && playerExp >= 10200) { playerInfo.level_A = "11"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("11") && playerExp >= 12500) { playerInfo.level_A = "12"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("12") && playerExp >= 15700) { playerInfo.level_A = "13"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("13") && playerExp >= 19800) { playerInfo.level_A = "14"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("14") && playerExp >= 22500) { playerInfo.level_A = "15"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("15") && playerExp >= 27800) { playerInfo.level_A = "16"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("16") && playerExp >= 32500) { playerInfo.level_A = "17"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("17") && playerExp >= 35900) { playerInfo.level_A = "18"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("18") && playerExp >= 39010) { playerInfo.level_A = "19"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("19") && playerExp >= 45020) { playerInfo.level_A = "20"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("20") && playerExp >= 78000) { playerInfo.level_A = "21"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("21") && playerExp >= 79500) { playerInfo.level_A = "22"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("22") && playerExp >= 83222) { playerInfo.level_A = "23"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("23") && playerExp >= 100) { playerInfo.level_A = "24"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("24") && playerExp >= 100) { playerInfo.level_A = "25"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("25") && playerExp >= 100) { playerInfo.level_A = "26"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("26") && playerExp >= 100) { playerInfo.level_A = "27"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("27") && playerExp >= 100) { playerInfo.level_A = "28"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("28") && playerExp >= 100) { playerInfo.level_A = "29"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("29") && playerExp >= 100) { playerInfo.level_A = "30"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("30") && playerExp >= 100) { playerInfo.level_A = "31"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("31") && playerExp >= 100) { playerInfo.level_A = "32"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("32") && playerExp >= 100) { playerInfo.level_A = "33"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("33") && playerExp >= 100) { playerInfo.level_A = "34"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("34") && playerExp >= 100) { playerInfo.level_A = "35"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("35") && playerExp >= 100) { playerInfo.level_A = "36"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("36") && playerExp >= 100) { playerInfo.level_A = "37"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("37") && playerExp >= 100) { playerInfo.level_A = "38"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("38") && playerExp >= 100) { playerInfo.level_A = "39"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("39") && playerExp >= 100) { playerInfo.level_A = "40"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("40") && playerExp >= 100) { playerInfo.level_A = "41"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("41") && playerExp >= 100) { playerInfo.level_A = "42"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("42") && playerExp >= 100) { playerInfo.level_A = "43"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("43") && playerExp >= 100) { playerInfo.level_A = "44"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("44") && playerExp >= 100) { playerInfo.level_A = "45"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("45") && playerExp >= 100) { playerInfo.level_A = "46"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("46") && playerExp >= 100) { playerInfo.level_A = "47"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("47") && playerExp >= 100) { playerInfo.level_A = "48"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("48") && playerExp >= 100) { playerInfo.level_A = "49"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("49") && playerExp >= 100) { playerInfo.level_A = "50"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
 		
 		if(levelup) {
+			
+			playerInfo.statusPoint_A = String.valueOf(point);
+			
 			if(playerInfo.job_1.equals("Novice")) {
 				playerAtk = Integer.parseInt(playerInfo.atk_A);
 				playerAtk = playerAtk + 2;
@@ -6115,6 +6217,19 @@ public class GameControl {
 		return null;
 	}
 	
+	
+	//[H] Npcs
+	public Sprite GetNpcs(String npcCode) {
+		
+		if(npcCode.equals("JobMaster")) {
+			spr_master = atlas_npc.createSprite("NPCS");
+			spr_master.setSize(8, 26);
+			spr_master.setPosition(22, -53);		
+		}
+		return spr_master;
+	}
+	
+	//[I] Auxiliary
 	public void RemoveDamage(int count) {
 		lstDanos.remove(count);
 	}
@@ -6142,5 +6257,9 @@ public class GameControl {
 	
 	public ArrayList<Skill> GetSkillList(){
 		return lstSkill;
+	}
+	
+	public void UpdateJob(String job) {
+		playerInfo.job_A = job;
 	}
 }

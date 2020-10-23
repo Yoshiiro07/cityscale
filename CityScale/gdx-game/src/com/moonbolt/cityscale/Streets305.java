@@ -78,6 +78,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_buff;
 		private Sprite spr_areaSelect;
 		private Sprite spr_areaSkillTarget;
+		private Sprite spr_boardJob;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -108,8 +109,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private ArrayList<Monster> lstMobs;
 		private ArrayList<Damage> lstDano;
 		private ArrayList<Skill> lstSkill;
-		
-		
 			
 		//fonts
 		private BitmapFont font_master;
@@ -215,6 +214,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Background.setPosition(-100, -150);
 			spr_Background.setSize(350, 350);
 			spr_Background.draw(game.batch);
+			
+			//Show NPC
+			ShowNPCs();
 			
 			//Player Character
 			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false);
@@ -362,6 +364,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Show Monsters
 			ShowMonsters();
+			
+			//Calculate MetaInfo From Online
+			gameControl.MetaInfoOnline();
+			
+			
 					
 			if(gameState.equals("Menu")) {
 				spr_Menubar = gameControl.LoadInterfaceGamePlay("barMenu", "", "");
@@ -527,13 +534,18 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					gameState = "Main";
 				}
 			}
+			
+			if(gameState.equals("jobpost")) {
+				spr_boardJob = gameControl.LoadInterfaceGamePlay("boardJob", "", "");
+				spr_boardJob.draw(game.batch);
+			}
 									
 			// Test Dot
-			spr_testeDot.setPosition(76.0f + 5f, 70f);
+			spr_testeDot.setPosition(cameraCoordsX + 16, cameraCoordsY + 70);
 			spr_testeDot.draw(game.batch);
 
-			//spr_testeDot.setPosition(cameraCoordsX + 23, cameraCoordsY - 37);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 20, cameraCoordsY + 63);
+			spr_testeDot.draw(game.batch);
 			
 			game.batch.end();	
 		}
@@ -569,14 +581,18 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		private void ActionVerify() {
 			//Shop 1
-			if(playerPosX > 118.2f && playerPosY < 134.2f && playerPosY < 68.6f) {
-				
+			if(playerPosX > 118.2f && playerPosY < 134.2f && playerPosY < 68.6f) {		
 			}
 			
 			//Refri Shop
 			if(playerPosX > -9.7f && playerPosX < 5.4f && playerPosY > 54f && playerPosY < 70.2f) {
 				gameState = "Shop";
 				shop = "RefriShop";
+			}
+			
+			//JobMaster
+			if(playerPosX > 8f && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
+				gameState = "jobpost";
 			}
 		}
 		
@@ -660,6 +676,14 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX(),spr_playerCharacterOnline.getY() - 15);
 				}
 			}
+		}
+		
+		private void ShowNPCs() {		
+			//JOB NPC
+			spr_npc = gameControl.LoadInterfaceGamePlay("btnjobchange","","");
+			spr_npc.draw(game.batch);
+			spr_npc = gameControl.GetNpcs("JobMaster");
+			spr_npc.draw(game.batch);			
 		}
 		
 		private void ShowMonsters() {
@@ -935,6 +959,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 			
+			
+			//Menu
 			if(gameState.equals("Menu")) {
 				movement = false;
 				
@@ -1470,6 +1496,58 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 			
+			
+			//Job Board
+			if(gameState.equals("jobpost")) {
+				//Voltar
+				if(coordsTouch.x >= (cameraCoordsX + 16) && coordsTouch.x <= (cameraCoordsX + 20) && coordsTouch.y >= (cameraCoordsY + 63) && coordsTouch.y <= (cameraCoordsY + 70)) {
+					gameState = "Main";
+					return false;
+				}
+				
+				//Swordman
+				if(coordsTouch.x >= (cameraCoordsX - 16) && coordsTouch.x <= (cameraCoordsX + 16) && coordsTouch.y >= (cameraCoordsY + 55) && coordsTouch.y <= (cameraCoordsY + 62)) {
+					activePlayer.job_A = "Swordman";
+					gameControl.UpdateJob("Swordman");
+					gameState = "Main";
+					return false;
+				}
+				//Mage
+				if(coordsTouch.x >= (cameraCoordsX - 16) && coordsTouch.x <= (cameraCoordsX + 16) && coordsTouch.y >= (cameraCoordsY + 48) && coordsTouch.y <= (cameraCoordsY + 54)) {
+					activePlayer.job_A = "Mage";
+					gameControl.UpdateJob("Mage");
+					gameState = "Main";
+					return false;
+				}
+				//Thief
+				if(coordsTouch.x >= (cameraCoordsX - 16) && coordsTouch.x <= (cameraCoordsX + 16) && coordsTouch.y >= (cameraCoordsY + 39) && coordsTouch.y <= (cameraCoordsY + 46)) {
+					activePlayer.job_A = "Thief";
+					gameControl.UpdateJob("Thief");
+					gameState = "Main";
+					return false;
+				}
+				//Medic
+				if(coordsTouch.x >= (cameraCoordsX - 16) && coordsTouch.x <= (cameraCoordsX + 16) && coordsTouch.y >= (cameraCoordsY + 31) && coordsTouch.y <= (cameraCoordsY + 38)) {
+					activePlayer.job_A = "Medic";
+					gameControl.UpdateJob("Medic");
+					gameState = "Main";
+					return false;
+				}
+				//Gunner
+				if(coordsTouch.x >= (cameraCoordsX - 16) && coordsTouch.x <= (cameraCoordsX + 16) && coordsTouch.y >= (cameraCoordsY + 23) && coordsTouch.y <= (cameraCoordsY + 30)) {
+					activePlayer.job_A = "Gunner";
+					gameControl.UpdateJob("Gunner");
+					gameState = "Main";
+					return false;
+				}
+				//Beater
+				if(coordsTouch.x >= (cameraCoordsX - 16) && coordsTouch.x <= (cameraCoordsX + 16) && coordsTouch.y >= (cameraCoordsY + 15) && coordsTouch.y <= (cameraCoordsY + 22)) {
+					activePlayer.job_A = "Beater";
+					gameControl.UpdateJob("Beater");
+					gameState = "Main";
+					return false;
+				}
+			}
 			
 			
 			if(gameState.equals("Shop")) {
