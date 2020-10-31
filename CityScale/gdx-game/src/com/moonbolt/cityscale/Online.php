@@ -32,7 +32,16 @@
 	$lside = $_POST['lside'];
 	$lbattle = $_POST['lbattle'];
 	
+	$lbuffA = $_POST['lbuffA'];
+	$lbuffB = $_POST['lbuffB'];
+	$lbuffC = $_POST['lbuffC'];
+	$lheal = $_POST['lheal'];
+	$lexpshared = $_POST['lexpshared'];
+	$ldamage = $_POST['ldamage'];
 	
+	$lsyncPlayerMob = $_POST['lsyncPlayerMob'];
+	$lMobsHPSync = $_POST['lMobsHPSync'];
+		
 	#Variaveis de chat
 	$lchat = $_POST['lchat'];
 	
@@ -90,24 +99,6 @@
 		}
 		echo($lAll);
 		
-		/////Recupera EXPSHARED /////
-		//$lAll = '';
-		//$sql = "SELECT * FROM PartyExp where Party = '$lparty' ORDER BY ExpSharedID DESC LIMIT 1";
-		//$result = $conn->query($sql);			
-		//if ($result->num_rows > 0) {
-		//	while($row = $result->fetch_assoc()) {
-									
-		//		$lAll = $lAll . ("SYSTEMPARTYEXP - :EXPSHAREDID=" . $row["ExpSharedID"]. 
-		//					  ":EXPSEND=" .  $row["ExpSend"]. 
-		//					  ":PARTY=" . $row["Party"] . 
-		//					  ":ACCOUNT=" . $row["Account"] . 
-		//					  ": - \n");			
-		//	}		
-		//}
-		//echo($lAll);
-		
-		//echo nl2br($lAll);
-		
 		//Verifica se já está ativo
 		$sql = "SELECT * FROM Processos where ACCOUNT = '$ldata' ";
 		$result = $conn->query($sql);
@@ -130,7 +121,15 @@
 										 Account = '$laccount',
 										 Party = '$lparty',
 										 Sex = '$lsex',
-										 Job = '$ljob'
+										 Job = '$ljob',
+										 Damage = '$ldamage',
+										 BuffA = '$lbuffA',
+										 BuffB = '$lbuffB',
+										 BuffC = '$lbuffC',
+										 Heal = '$lheal',
+										 ExpShared = '$lexpshared',
+										 SyncPlayerMob = '$lsyncPlayerMob',
+										 MobsHPSync = '$lMobsHPSync'
 										 where Account = '$laccount' ";			
 			$result = $conn->query($sql);
 			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado - \n"); } else { echo nl2br("\n - Falhou Update - \n") . $conn->error; }
@@ -139,7 +138,7 @@
 		else
 		{
 			$lAll = '';
-			$sql = "INSERT INTO Processos (Name,Sex,Level,Hp,Mp,CoordsX,CoordsY,Map,Hair,Hat,SetEquip,Party,Job,Walk,Pos,Weapon,Account,Side,Battle) VALUES ('$lname','$lsex','$llevel','$lhp','$lmp','$lcoordsX','$lcoordsY','$lmap','$lhair','$lhat','$lsetEquip','$lparty','$ljob','$lwalk','$lpos','$lweapon','$laccount','$lside','$lbattle')"; 
+			$sql = "INSERT INTO Processos (Name,Sex,Level,Hp,Mp,CoordsX,CoordsY,Map,Hair,Hat,SetEquip,Party,Job,Damage,Walk,Pos,Weapon,Account,Side,Battle,BuffA,BuffB,BuffC,Heal,ExpShared,SyncPlayerMob,MobsHPSync) VALUES ('$lname','$lsex','$llevel','$lhp','$lmp','$lcoordsX','$lcoordsY','$lmap','$lhair','$lhat','$lsetEquip','$lparty','$ljob','$ldamage','$lwalk','$lpos','$lweapon','$laccount','$lside','$lbattle','$lbuffA','$lbuffB','$lbuffC','$lheal','$lexpshared','$lsyncPlayerMob','$lMobsHPSync')"; 
 		
 			if ($conn->query($sql) === TRUE) {
 				echo "SYSTEMINSERT \n";
@@ -148,6 +147,7 @@
 			}			
 		}
 		
+		echo "Vai rodar \n";
 		/////Retorna Players Online /////
 		$lAll = '';
 		$sql = "SELECT * FROM Processos";
@@ -173,14 +173,22 @@
 							  ":Account=" . $row["Account"] .
 							  ":Party=" . $row["Party"] .
 							  ":Sex=" . $row["Sex"] .
-							  ":Job=" . $row["Job"] .   
+							  ":Job=" . $row["Job"] . 
+							  ":Damage=" . $row["Damage"] .
+							  ":BuffA=" . $row["BuffA"] .
+							  ":BuffB=" . $row["BuffB"] .
+							  ":BuffC=" . $row["BuffC"] .
+							  ":Heal=" . $row["Heal"] .
+							  ":ExpShared=" . $row["ExpShared"] .							  
+							  ":SyncPlayerMob=" . $row["SyncPlayerMob"] . 
+							  ":MobsHPSync=" . $row["MobsHPSync"] .
 							  ": - \n");
 				echo($lAll);
 			}
 		}
-		
-		
 		$conn->close();
+		
+		echo "Passou aqui \n";
 	}
 	
 	#CREATE PARTY 
@@ -197,24 +205,7 @@
 		
 		$conn->close();
 	}
-	
-	#SEND EXP PARTY
-	if ($lrequest == "ExpSharedUpdate"){
-		
-		$lAll = '';
-		$sql = 
-		"INSERT INTO PartyExp (ExpSend,Party,Account)  VALUES 
-		('$lexpshared','$lparty','$ldata') ";
 
-		if ($conn->query($sql) === TRUE) {
-			echo "SYSTEMEXPUPDATE \n";
-		} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
-		}
-		
-		$conn->close();
-	}
-	
 	#Atk 
 	if ($lrequest == "Atk"){
 		

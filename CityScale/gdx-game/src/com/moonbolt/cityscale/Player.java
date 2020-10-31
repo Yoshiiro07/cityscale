@@ -11,6 +11,7 @@ public class Player {
 	public String level_1;
 	public String stats_1;
 	public String stamina_1;
+	public String staminamax_1;
 	public String set_1;
 	public String hair_1;
 	public String hat_1;
@@ -54,6 +55,7 @@ public class Player {
 	public String level_2;
 	public String stats_2;
 	public String stamina_2;
+	public String staminamax_2;
 	public String set_2;
 	public String hair_2;
 	public String hat_2;
@@ -97,6 +99,7 @@ public class Player {
 	public String level_3;
 	public String stats_3;
 	public String stamina_3;
+	public String staminamax_3;
 	public String set_3;
 	public String hair_3;
 	public String hat_3;
@@ -140,6 +143,7 @@ public class Player {
 	public String level_A;
 	public String stats_A;
 	public String stamina_A;
+	public String staminamax_A;
 	public String set_A;
 	public String hair_A;
 	public String hat_A;

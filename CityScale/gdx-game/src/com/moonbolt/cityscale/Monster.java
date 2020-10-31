@@ -4,6 +4,8 @@ public class Monster {
 	
 	public float mobPosX;
 	public float mobPosY;
+	public float mobStartPosX;
+	public float mobStartPosY;
 	public float mobHeight;
 	public float mobWidth;
 	public String mobID; 
@@ -36,4 +38,5 @@ public class Monster {
 	public String loot1;
 	public String loot2;
 	public String loot3;
+	public String OnlineID;
 }

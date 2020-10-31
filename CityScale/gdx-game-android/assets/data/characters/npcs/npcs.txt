@@ -178,14 +178,14 @@ NPCL
   orig: 37, 88
   offset: 0, 0
   index: -1
-NPCL
+NPCL2
   rotate: false
   xy: 37, 88
   size: 37, 88
   orig: 37, 88
   offset: 0, 0
   index: 2
-NPCL
+NPCL3
   rotate: false
   xy: 111, 88
   size: 37, 88

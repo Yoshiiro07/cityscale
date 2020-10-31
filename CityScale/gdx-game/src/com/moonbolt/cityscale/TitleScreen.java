@@ -26,6 +26,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	
 	//Primitives
 	private boolean changeScreen = false;
+	private Sprite spr_titleBackground;
+	private Texture tex_titleBackground;
+	private Sprite spr_logo;
+	private Texture tex_logo;
+	private String state = "Main";
+	private String ResultOnlineRequest = "Aguardando...";
 	
 	private float posTouchX = 0;
 	private float posTouchY = 0;
@@ -36,6 +42,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 
 	//Sprite 
 	private Sprite spr_barAccess;
+	private Sprite spr_barRecover;
+	
+	private Sprite spr_testeDot;
+    private Texture tex_testeDot;
+    
 	
 	//fonts
 	private BitmapFont font_master;
@@ -54,6 +65,16 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
 		
+		//Title
+		tex_titleBackground = new Texture(Gdx.files.internal("data/assets/titlescreen.jpg"));
+		spr_titleBackground = new Sprite(tex_titleBackground);
+		spr_titleBackground.setSize(100, 100);
+		
+		//Logo
+		tex_logo = new Texture(Gdx.files.internal("data/assets/maintitle.png"));
+		spr_logo = new Sprite(tex_logo);
+		spr_logo.setSize(100, 100);
+		
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 		font_master.setColor(Color.RED);
@@ -62,6 +83,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		
 		//Sprites
 		spr_barAccess = gameControl.LoadInterface("barAccess");
+		
+	    //test dot
+	    tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+		spr_testeDot = new Sprite(tex_testeDot);
+		
 	}
 
 	@Override
@@ -74,17 +100,36 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    game.batch.setProjectionMatrix(camera.combined);
 		game.batch.begin();
 		
-		//Sprites
-		spr_barAccess.draw(game.batch);
+		//Background
+		spr_titleBackground.setPosition(0, -10);
+		spr_titleBackground.setSize(100, 120);
+		spr_titleBackground.draw(game.batch);
 		
-		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
-		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+		spr_logo.setPosition(5, 55);
+		spr_logo.setSize(30, 30);
+		spr_logo.draw(game.batch);
 		
-		//Change Screen
-		if(changeScreen){		
-		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-		    game.Switch("CharacterSelect");			
+		if(state.equals("Main")) {
+			//Sprites
+			spr_barAccess.draw(game.batch);
+			
+			//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
+			//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
+			
+			//Change Screen
+			if(changeScreen){		
+			    game.AtualizaElementos(game,gameControl, config, platform, networkState);
+			    game.Switch("CharacterSelect");			
+			}
 		}
+		
+		// Test Dot
+		spr_testeDot.setPosition(75.7f,17f);
+		spr_testeDot.draw(game.batch);
+
+		spr_testeDot.setPosition(87.7f,12);
+		spr_testeDot.draw(game.batch);
+
 		
 		game.batch.end();
 	}
@@ -110,9 +155,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		}
 		
 		//Recovery Button
-		//if(touchX >= 75.7 && touchX <= 87.7 && touchY >= 12.6 && touchY <= 17.7) {
-			
-		//}
+		if(coordsTouch.x >= 75.7 && coordsTouch.x <= 87.7 && coordsTouch.y >= 12 && coordsTouch.y <= 17) {
+			Gdx.input.getTextInput(this,"Digite seu ID","","");
+		}
 		
 		posTouchX = coordsTouch.x;
 		posTouchY = coordsTouch.y;
@@ -122,8 +167,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	
 	@Override
 	public void input(String input){
-		//text = input;		
-		//gameControl.OperacaoOnline("Download", text);
+		gameControl.OnlineManager("Download", input);
+		//ResultOnlineRequest = 
 	}
 	
 	@Override

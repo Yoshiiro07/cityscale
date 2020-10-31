@@ -57,6 +57,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		private Sprite spr_playerCharacter;
 		private Sprite spr_playerHair;
+		private Sprite spr_playerHat;
 		private Sprite spr_playerTag;
 		private Sprite spr_playerHairTag;
 		private Sprite spr_Minibar;
@@ -79,6 +80,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_areaSelect;
 		private Sprite spr_areaSkillTarget;
 		private Sprite spr_boardJob;
+		private Sprite spr_iconSkillMenu;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -95,12 +97,17 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private boolean discart = false;
 		private boolean hotkey = false;
 		private boolean description = false;
+		private boolean typeParty = false;
 		private String detailItem = "";
 		private String gameState = "Main";
 		private String text = "";
 		private int count = 0;
 		private int menuItemTab = 1;
 		private int countDisplay = 0;
+		private int countParty = 0;
+		private int timeBuyCount = 0;
+		private String nameBuy = "";
+		private float walkNPC = 0;
 		private boolean isDisplay = false;
 		private String typeDisplay = "";
 		private String msgDisplay = "";
@@ -109,6 +116,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private ArrayList<Monster> lstMobs;
 		private ArrayList<Damage> lstDano;
 		private ArrayList<Skill> lstSkill;
+		private ArrayList<Sprite> lstNPCs;
 			
 		//fonts
 		private BitmapFont font_master;
@@ -118,6 +126,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private ArrayList<Player> lstPlayerOnline;
 		private Sprite spr_playerCharacterOnline;
 		private Sprite spr_playerHairOnline;
+		private Sprite spr_TagParty;
+		private Sprite spr_TagPartyHair;
 		
 		//Camera
 		private OrthographicCamera camera;
@@ -187,6 +197,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//Save Data
 			gameControl.UpdateDataSave(numPlayerActive);
 			
+			//Check Stamina
+			gameControl.CheckStamina();
+			
 			//Coords Player
 			activePlayer = gameControl.GetPlayer();
 			playerPosX = Float.parseFloat(activePlayer.coordX_A);
@@ -226,6 +239,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			spr_playerHair = gameControl.MovPlayerHair(activePlayer.hair_A,activePlayer.sex_A,state, "Main", walk);
 			spr_playerHair.draw(game.batch);
+			
+			if(!activePlayer.hat_A.equals("none")) {
+				spr_playerHat = gameControl.MovPlayerHat(activePlayer.hat_A,activePlayer.sex_A,state, "Main", walk);
+				spr_playerHat.draw(game.batch);
+			}
 				
 			//UI Elements
 			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","","");
@@ -291,13 +309,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				if(count == 2) {
 					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
-				}
-				if(count == 3) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 32.7f);
-				}
-				if(count == 4) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 37.7f);
-				}			
+				}	
 			}
 			
 			//Hotkey Itens
@@ -361,14 +373,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					
 			//Show Online Players
 			ShowOnlinePlayers();
-			
+					
 			//Show Monsters
 			ShowMonsters();
 			
 			//Calculate MetaInfo From Online
 			gameControl.MetaInfoOnline();
-			
-			
 					
 			if(gameState.equals("Menu")) {
 				spr_Menubar = gameControl.LoadInterfaceGamePlay("barMenu", "", "");
@@ -449,6 +459,235 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(gameState.equals("Menu-Skills")) {
 				spr_MenuSkills = gameControl.LoadInterfaceGamePlay("menuSkills", "", "");
 				spr_MenuSkills.draw(game.batch);
+				
+				font_master.draw(game.batch, activePlayer.job_A, cameraCoordsX - 38,cameraCoordsY + 63);
+				
+				if(activePlayer.job_A.equals("Novice")) {
+					spr_iconSkillMenu = gameControl.SkillHotbar("Novice","tripleattack");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Ataque Triplo -", cameraCoordsX - 38,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Desfere um ataque que causa", cameraCoordsX - 38,cameraCoordsY + 42);
+					font_master.draw(game.batch, "3 vez o dano normal", cameraCoordsX - 38,cameraCoordsY + 38);
+				}
+				if(activePlayer.job_A.equals("Swordman")) {
+					spr_iconSkillMenu = gameControl.SkillHotbar("Swordman","flysword");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Espadas Voadoras -", cameraCoordsX - 38,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Desfere um ataque forte ", cameraCoordsX - 38,cameraCoordsY + 42);
+					font_master.draw(game.batch, "baseado em Forca", cameraCoordsX - 38,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Swordman","ravenblade");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Laminas Aladas -", cameraCoordsX - 38,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Desfere um ataque alado ", cameraCoordsX - 38,cameraCoordsY + 23);
+					font_master.draw(game.batch, "que corta profundamente", cameraCoordsX - 38,cameraCoordsY + 19);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Swordman","healthboost");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY - 3);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Aumento de Vida -", cameraCoordsX - 38,cameraCoordsY + 9);
+					font_master.draw(game.batch, "Aumenta seu HP Total", cameraCoordsX - 38,cameraCoordsY + 4);
+					font_master.draw(game.batch, "Temporariamente", cameraCoordsX - 38,cameraCoordsY);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Swordman","ironshield");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Escudo de Ferro -", cameraCoordsX + 11,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Diminui o dano dos inimigos", cameraCoordsX + 11,cameraCoordsY + 42);
+					font_master.draw(game.batch, "infligido no jogador", cameraCoordsX + 11,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Swordman","protect");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Protecao -", cameraCoordsX + 11,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Ignora o dano dos inimigos", cameraCoordsX + 11,cameraCoordsY + 23);
+					font_master.draw(game.batch, "completamente", cameraCoordsX + 11,cameraCoordsY + 19);
+				}
+				
+				if(activePlayer.job_A.equals("Mage")) {
+					spr_iconSkillMenu = gameControl.SkillHotbar("Mage","fireball");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Bola de Fogo -", cameraCoordsX - 38,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Desfere uma bola de fogo", cameraCoordsX - 38,cameraCoordsY + 42);
+					font_master.draw(game.batch, "magica contra o oponente", cameraCoordsX - 38,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Mage","icecrystal");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Cristal de Gelo -", cameraCoordsX - 38,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Cria um cristal gelado", cameraCoordsX - 38,cameraCoordsY + 23);
+					font_master.draw(game.batch, "que impala os inimigos", cameraCoordsX - 38,cameraCoordsY + 19);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Mage","thundercloud");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY - 3);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Tempestade -", cameraCoordsX - 38,cameraCoordsY + 9);
+					font_master.draw(game.batch, "Conjunto de Raios perfurantes", cameraCoordsX - 38,cameraCoordsY + 4);
+					font_master.draw(game.batch, "baseado em Agi e Des", cameraCoordsX - 38,cameraCoordsY);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Mage","rockbound");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Terremoto -", cameraCoordsX + 11,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Estremece a terra causando", cameraCoordsX + 11,cameraCoordsY + 42);
+					font_master.draw(game.batch, "dano ao inimigo", cameraCoordsX + 11,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Mage","soulcrash");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Impacto da Alma -", cameraCoordsX + 11,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Acerta o inimigo com poderes", cameraCoordsX + 11,cameraCoordsY + 23);
+					font_master.draw(game.batch, "vindos de outro mundo", cameraCoordsX + 11,cameraCoordsY + 19);
+				}
+				
+				if(activePlayer.job_A.equals("Thief")) {
+					spr_iconSkillMenu = gameControl.SkillHotbar("Thief","doublehit");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Ataque Duplo -", cameraCoordsX - 38,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Acerta o Inimigo causando", cameraCoordsX - 38,cameraCoordsY + 42);
+					font_master.draw(game.batch, "um dano perfurante", cameraCoordsX - 38,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Thief","poisonhit");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Golpe Envenenador -", cameraCoordsX - 38,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Atinge o inimigo com uma arma", cameraCoordsX - 38,cameraCoordsY + 23);
+					font_master.draw(game.batch, "envenenada, chance de veneno", cameraCoordsX - 38,cameraCoordsY + 19);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Thief","steal");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY - 3);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Roubar -", cameraCoordsX - 38,cameraCoordsY + 9);
+					font_master.draw(game.batch, "Tenta furtar o adversario", cameraCoordsX - 38,cameraCoordsY + 4);
+					font_master.draw(game.batch, "a chance e aleatoria fixa", cameraCoordsX - 38,cameraCoordsY);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Thief","dashkick");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Chute Rapido -", cameraCoordsX + 11,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Atinge em tamanha velocidade", cameraCoordsX + 11,cameraCoordsY + 42);
+					font_master.draw(game.batch, "baseado em agi e sor", cameraCoordsX + 11,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Thief","invisibility");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Invisibilidade -", cameraCoordsX + 11,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Deixa o jogador invisivel sem", cameraCoordsX + 11,cameraCoordsY + 23);
+					font_master.draw(game.batch, "tomar danos", cameraCoordsX + 11,cameraCoordsY + 19);
+				}
+				if(activePlayer.job_A.equals("Medic")) {
+					spr_iconSkillMenu = gameControl.SkillHotbar("Medic","heal");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Curar -", cameraCoordsX - 38,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Recupera o HP do jogador", cameraCoordsX - 38,cameraCoordsY + 42);
+					font_master.draw(game.batch, "e do grupo de aliados", cameraCoordsX - 38,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Medic","atkboost");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Aumentar Ataque -", cameraCoordsX - 38,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Aumenta o atk do jogador", cameraCoordsX - 38,cameraCoordsY + 23);
+					font_master.draw(game.batch, "e do grupo de aliados", cameraCoordsX - 38,cameraCoordsY + 19);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Medic","defboost");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY - 3);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Aumentar Defesa -", cameraCoordsX - 38,cameraCoordsY + 9);
+					font_master.draw(game.batch, "Aumenta a def do jogador", cameraCoordsX - 38,cameraCoordsY + 4);
+					font_master.draw(game.batch, "e do grupo de aliados", cameraCoordsX - 38,cameraCoordsY);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Medic","holyprism");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Prisma Sagrado -", cameraCoordsX + 11,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Atinge o inimigo com o poder", cameraCoordsX + 11,cameraCoordsY + 42);
+					font_master.draw(game.batch, "da luz, baseado em vit", cameraCoordsX + 11,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Medic","regen");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Regeneracao -", cameraCoordsX + 11,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Recupera gradualmente", cameraCoordsX + 11,cameraCoordsY + 23);
+					font_master.draw(game.batch, "o HP seu e dos aliados", cameraCoordsX + 11,cameraCoordsY + 19);
+				}
+				if(activePlayer.job_A.equals("Gunner")) {
+					spr_iconSkillMenu = gameControl.SkillHotbar("Gunner","fastshot");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Tiro Rapido -", cameraCoordsX - 38,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Acerta o Inimigo de forma veloz", cameraCoordsX - 38,cameraCoordsY + 42);
+					font_master.draw(game.batch, "baseado em luk", cameraCoordsX - 38,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Gunner","bulletrain");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Chuva de Balas -", cameraCoordsX - 38,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Acerta o inimigo com tiros", cameraCoordsX - 38,cameraCoordsY + 23);
+					font_master.draw(game.batch, "que caem do ceu", cameraCoordsX - 38,cameraCoordsY + 19);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Gunner","precision");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY - 3);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Precisao -", cameraCoordsX - 38,cameraCoordsY + 9);
+					font_master.draw(game.batch, "Garante o acerto no alvo", cameraCoordsX - 38,cameraCoordsY + 4);
+					font_master.draw(game.batch, "ao jogador e grupo de aliados", cameraCoordsX - 38,cameraCoordsY);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Gunner","lockshot");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Tiro Certeiro -", cameraCoordsX + 11,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Atinge pontos vitais do inimigo", cameraCoordsX + 11,cameraCoordsY + 42);
+					font_master.draw(game.batch, "baseado em varios atributos", cameraCoordsX + 11,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Gunner","mine");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Atirar Mina -", cameraCoordsX + 11,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Joga uma mina no adversario", cameraCoordsX + 11,cameraCoordsY + 23);
+					font_master.draw(game.batch, "base em MP,efeito atordoador", cameraCoordsX + 11,cameraCoordsY + 19);
+				}
+				if(activePlayer.job_A.equals("Beater")) {
+					spr_iconSkillMenu = gameControl.SkillHotbar("Beater","hammercrash");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Batida do Machado -", cameraCoordsX - 38,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Acerta o Inimigo com forca", cameraCoordsX - 38,cameraCoordsY + 42);
+					font_master.draw(game.batch, "baseado em forca", cameraCoordsX - 38,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Beater","berserk");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Furia -", cameraCoordsX - 38,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Atinge o inimigo com toda ira", cameraCoordsX - 38,cameraCoordsY + 23);
+					font_master.draw(game.batch, "do usuario", cameraCoordsX - 38,cameraCoordsY + 19);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Beater","overpower");
+					spr_iconSkillMenu.setPosition(cameraCoordsX - 47, cameraCoordsY - 3);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Sobrepoder -", cameraCoordsX - 38,cameraCoordsY + 9);
+					font_master.draw(game.batch, "Aumenta o Atk / HP do usuario", cameraCoordsX - 38,cameraCoordsY + 4);
+					font_master.draw(game.batch, "por tempo determinado", cameraCoordsX - 38,cameraCoordsY);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Beater","ragebound");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 34);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Batida da Furia -", cameraCoordsX + 11,cameraCoordsY + 48);
+					font_master.draw(game.batch, "Acerta o inimigo canalizando", cameraCoordsX + 11,cameraCoordsY + 42);
+					font_master.draw(game.batch, "a forca da mente", cameraCoordsX + 11,cameraCoordsY + 38);
+					
+					spr_iconSkillMenu = gameControl.SkillHotbar("Beater","impound");
+					spr_iconSkillMenu.setPosition(cameraCoordsX + 2, cameraCoordsY + 15);
+					spr_iconSkillMenu.draw(game.batch);
+					font_master.draw(game.batch, "Imponderamento -", cameraCoordsX + 11,cameraCoordsY + 28);
+					font_master.draw(game.batch, "Uma energia que protege", cameraCoordsX + 11,cameraCoordsY + 23);
+					font_master.draw(game.batch, "os danos, jogador e aliados", cameraCoordsX + 11,cameraCoordsY + 19);
+				}
 			}
 			
 			if(gameState.equals("Menu-Social")) {
@@ -464,6 +703,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(gameState.equals("Menu-Config")) {
 				spr_MenuConfig = gameControl.LoadInterfaceGamePlay("menuConfig", "", "");
 				spr_MenuConfig.draw(game.batch);
+				
+				font_master.draw(game.batch, "Seu ID:" + activePlayer.accountID, cameraCoordsX + 30, cameraCoordsY - 5);
 			}
 			
 			if(gameState.equals("Shop")) {
@@ -497,7 +738,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			//Show Weapon
-			spr_Weapon = gameControl.ShowWeapon(playerPosX, playerPosY, walk);
+			if(activePlayer.job_A.equals("Novice")) { spr_Weapon = gameControl.ShowWeaponNovice(playerPosX, playerPosY, walk); }
 			if(spr_Weapon != null) { spr_Weapon.draw(game.batch); }		
 			gameControl.CheckMonsterAttack();		
 			gameControl.RespawnMob();
@@ -539,13 +780,26 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_boardJob = gameControl.LoadInterfaceGamePlay("boardJob", "", "");
 				spr_boardJob.draw(game.batch);
 			}
+			
+			if(gameState.equals("Shop")) {
+				font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX + 12,cameraCoordsY + 3);
+				font_master.draw(game.batch, nameBuy, cameraCoordsX + 27,cameraCoordsY + 3);
+				if(timeBuyCount > 0) {
+					timeBuyCount--;
+					
+					if(timeBuyCount <= 0) {
+						nameBuy = "";
+						timeBuyCount = 0;
+					}
+				}
+			}
 									
 			// Test Dot
-			spr_testeDot.setPosition(cameraCoordsX + 16, cameraCoordsY + 70);
-			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setPosition(cameraCoordsX + 12, cameraCoordsY + 42);
+			//spr_testeDot.draw(game.batch);
 
-			spr_testeDot.setPosition(cameraCoordsX + 20, cameraCoordsY + 63);
-			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setPosition(cameraCoordsX + 45, cameraCoordsY + 33);
+			//spr_testeDot.draw(game.batch);
 			
 			game.batch.end();	
 		}
@@ -580,8 +834,15 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		private void ActionVerify() {
-			//Shop 1
-			if(playerPosX > 118.2f && playerPosY < 134.2f && playerPosY < 68.6f) {		
+			//Shop 305
+			if(playerPosX > 119 && playerPosX < 136 && playerPosY > 51 && playerPosY < 70) {
+				gameState = "Shop";
+				shop = "305";
+			}
+			//Shop Classico
+			if(playerPosX > -43 && playerPosX < -25 && playerPosY > 55 && playerPosY < 70) {
+				gameState = "Shop";
+				shop = "Classical";
 			}
 			
 			//Refri Shop
@@ -612,8 +873,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_item.draw(game.batch);
 			spr_item = gameControl.ShowEquippedItens(2,cameraCoordsX, cameraCoordsY); // Set
 			spr_item.draw(game.batch);
-			//spr_item = gameControl.ShowEquippedItens(3); // Hat
-			
+			spr_item = gameControl.ShowEquippedItens(3,cameraCoordsX, cameraCoordsY); // Hat
+			if(spr_item != null) { spr_item.draw(game.batch); }
+					
 			//HotKey Itens
 			spr_item = gameControl.ShowItemHotKey(1,cameraCoordsX,cameraCoordsY);
 			if(spr_item != null) { spr_item.draw(game.batch); }
@@ -666,6 +928,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				lstChats = gameControl.GetOnlineChats();				
 				lstPlayerOnline = gameControl.GetOnlinePlayers();	
 				for(int i = 0; i < lstPlayerOnline.size(); i++) {
+					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID)) {
 					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
 					spr_playerCharacterOnline.setSize(22, 34);
 					spr_playerCharacterOnline.draw(game.batch);
@@ -673,8 +936,60 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					spr_playerHairOnline = gameControl.MovPlayerOnlineHair(lstPlayerOnline.get(i));
 					spr_playerHairOnline.draw(game.batch);
 					
-					font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX(),spr_playerCharacterOnline.getY() - 15);
+					font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX() + 7.5f,spr_playerCharacterOnline.getY() + 5);
+					
+					if(lstPlayerOnline.get(i).party_A.equals(activePlayer.party_A) && !activePlayer.party_A.equals("None")) {
+						countParty++;
+						
+						if(countParty == 1) {
+							
+							spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "1", "");
+							spr_TagParty.draw(game.batch);
+							
+							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty1",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
+							spr_TagPartyHair.draw(game.batch);	
+							
+							
+							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 65f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 60.9f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 60.9f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 57f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 52.7f);										
+						}
+						
+						if(countParty == 2) {
+							spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "2", "");
+							spr_TagParty.draw(game.batch);
+							
+							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty2",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
+							spr_TagPartyHair.draw(game.batch);	
+							
+							
+							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 45.8f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 42);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 42);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 38);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 33.5f);
+						}
+						
+						if(countParty == 3) {
+							spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "3", "");
+							spr_TagParty.draw(game.batch);
+							
+							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty3",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
+							spr_TagPartyHair.draw(game.batch);	
+							
+							
+							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 26.8f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 23);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 23);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 19);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 14.5f);
+						}
+					}
+					}
 				}
+				countParty = 0;
 			}
 		}
 		
@@ -682,8 +997,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//JOB NPC
 			spr_npc = gameControl.LoadInterfaceGamePlay("btnjobchange","","");
 			spr_npc.draw(game.batch);
-			spr_npc = gameControl.GetNpcs("JobMaster");
-			spr_npc.draw(game.batch);			
+			
+			
+			lstNPCs = gameControl.GetNpcsStreets305();
+			for(int i = 0; i < lstNPCs.size(); i++) {
+				spr_npc = lstNPCs.get(i);
+				spr_npc.draw(game.batch);
+			}
 		}
 		
 		private void ShowMonsters() {
@@ -759,7 +1079,15 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		@Override
 		public void input(String input) {
-			text = input;						
+			text = input;
+			
+			if(typeParty) {
+				if(text.equals("None")) { return; }
+				gameControl.SetPartyName(text);
+				typeParty = false;
+				return;
+			}
+			
 			if(network) {
 				try {
 					gameControl.OnlineOperation("Chat", text);
@@ -1015,7 +1343,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				//Str Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 48.2f) && coordsTouch.y <= (cameraCoordsY + 56.2f)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Str");
 					return false;
 				}		
 				//Agi Point
@@ -1047,8 +1375,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY - 11) && coordsTouch.y <= (cameraCoordsY - 2)) {
 					gameState = "Menu";
 					return false;
-				}
-				
+				}		
 			}
 			if(gameState.equals("Menu-Itens")) {
 				//Voltar
@@ -1397,6 +1724,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}
 				
+				//Unequip Hat
+				if(coordsTouch.x >= (cameraCoordsX - 2) && coordsTouch.x <= (cameraCoordsX + 7) && coordsTouch.y >= (cameraCoordsY + 42) && coordsTouch.y <= (cameraCoordsY + 56)) {
+					gameControl.UnequipHat();
+					return false;
+				}
+				
+				
 				//Hotkey
 				if(coordsTouch.x >= (cameraCoordsX - 12) && coordsTouch.x <= (cameraCoordsX + 5) && coordsTouch.y >= (cameraCoordsY - 11f) && coordsTouch.y <= (cameraCoordsY - 3)) {
 					discart = false;
@@ -1441,6 +1775,19 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				//Voltar
 				if(coordsTouch.x >= (cameraCoordsX + 32) && coordsTouch.x <= (cameraCoordsX + 49) && coordsTouch.y >= (cameraCoordsY + 65) && coordsTouch.y <= (cameraCoordsY + 83)) {
 					gameState = "Menu";
+					return false;
+				}
+				//Criar Grupo
+				if(coordsTouch.x >= (cameraCoordsX - 48) && coordsTouch.x <= (cameraCoordsX - 1) && coordsTouch.y >= (cameraCoordsY + 15) && coordsTouch.y <= (cameraCoordsY + 34)) {
+					typeParty = true;
+					Gdx.input.getTextInput(this,"Nome do Grupo","","");
+					return false;
+				}
+				//Sair do Grupo
+				if(coordsTouch.x >= (cameraCoordsX) && coordsTouch.x <= (cameraCoordsX + 47) && coordsTouch.y >= (cameraCoordsY + 15) && coordsTouch.y <= (cameraCoordsY + 34)) {
+					gameControl.LeaveParty();
+					activePlayer.party_A = "None";
+					gameState = "Main";
 					return false;
 				}
 			}
@@ -1492,6 +1839,20 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				    
 				    game.Switch("CharacterSelect");
 					network = false;
+					return false;
+				}
+				
+				//Upload Save
+				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 33) && coordsTouch.y <= (cameraCoordsY + 45)) {
+					network = true;   //here
+					gameControl.OnlineManager("Sync","");
+					typeDisplay = "Config";
+					isDisplay = true;
+					countDisplay = 200;
+					
+					gameControl.OnlineManager("Upload","");
+					msgDisplay = "Online Ligado / " + gameControl.ResultOnlineRequest();
+					
 					return false;
 				}
 			}
@@ -1552,70 +1913,87 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			if(gameState.equals("Shop")) {
 				//Voltar
-				if(coordsTouch.x >= (cameraCoordsX + 32) && coordsTouch.x <= (cameraCoordsX + 49) && coordsTouch.y >= (cameraCoordsY + 65) && coordsTouch.y <= (cameraCoordsY + 83)) {
+				if(coordsTouch.x >= (cameraCoordsX + 40) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY - 1) && coordsTouch.y <= (cameraCoordsY + 8)) {
 					gameState = "Main";
 					return false;
 				}
 				//Item 1
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { gameControl.ItemBuy("RefriShop", 1); }
+					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuy("RefriShop", 1); timeBuyCount = 40; } 
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 1); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 1); timeBuyCount = 40; } 
+					
 					return false;
 				}
 				//Item 2
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { gameControl.ItemBuy("RefriShop", 2); }
+					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuy("RefriShop", 2); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 2); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 2); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 3
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { gameControl.ItemBuy("RefriShop", 3);}
+					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuy("RefriShop", 3); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 3); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 3); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 4
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { gameControl.ItemBuy("RefriShop", 4);}
+					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuy("RefriShop", 4); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 4); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 4); timeBuyCount = 40; }
 					return false;
 				}
 				
 				//Item 5
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("RefriShop")) {}
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 5); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 5); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 6
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("RefriShop")) {}
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 6); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 6); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 7
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("RefriShop")) {}
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 7); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 7); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 8
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("RefriShop")) {}
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 8); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 8); timeBuyCount = 40; }
 					return false;
 				}	
 				
 				//Item 9
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("RefriShop")) {}
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 9); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 9); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 10
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("RefriShop")) {}
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 10); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 10); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 11
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("RefriShop")) {}
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 11); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 11); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 12
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("RefriShop")) {}
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 12); timeBuyCount = 40; } 
+					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 12); timeBuyCount = 40; }
 					return false;
 				}	
 			}

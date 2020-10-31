@@ -26,7 +26,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	
 	//Primitives
 	private String systemMsg = "";
-	private String screenState = "Main";
+	private String screenState = "ID";
 	private String text = "";
 	private String sex = "M";
 	private String hair = "hair1";
@@ -35,6 +35,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private float movBackground = 0;
 	private int num = 0;
 	private int charnum = 0;
+	private String accountid;
 	
 	private float posTouchX = 0;
 	private float posTouchY = 0;
@@ -56,17 +57,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private Sprite spr_hairLoop;
 	private Sprite spr_light;
 	private Sprite spr_darkLight;
+	private Sprite spr_barraID;
 	
 	//Texture
 	private Texture tex_Background;
 	
 	//fonts
 	private BitmapFont font_master;
-	
-	//teste
-	private Sprite spr_teste;
-	private Texture tex_teste;
-	
+		
 	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
 		this.game = gameAlt;
 		this.gameControl = gameControl;
@@ -114,8 +112,17 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		spr_Background.setSize(100, 100);
 		spr_Background.draw(game.batch);
 		
-		
-		
+		if(screenState.equals("ID")) {	
+			font_master.setColor(Color.YELLOW);
+			font_master.getData().setScale(0.10f,0.20f);
+			font_master.setUseIntegerPositions(false);	
+			
+			spr_barraID = gameControl.LoadInterfaceGamePlay("IDbar", "", "");
+			spr_barraID.draw(game.batch);		
+			font_master.draw(game.batch, "Seu ID de acesso:", 27,70);
+			font_master.draw(game.batch, activeplayer.accountID, 60,70);
+		}
+			
 		//Main Screen Character Select
 		if(screenState.equals("Main")) {
 			
@@ -463,11 +470,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		    if(charnum == 3) { game.Switch(activeplayer.map_3); }			
 		}
 		
-		//Test
-		//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
-		//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
-		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
-		
 		game.batch.end();
 	}
 	
@@ -525,6 +527,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	public boolean touchDown(int p1, int p2, int p3, int p4)
 	{
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+		
+		if(screenState.equals("ID")) {
+			if(coordsTouch.x >= 0 && coordsTouch.x <= 100 && coordsTouch.y >= 0 && coordsTouch.y <= 100) {
+				screenState = "Main";
+				return false;
+			}
+		}
+		
 			
 		if(screenState.equals("Main")) {
 			//Create button
@@ -640,7 +650,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				return false;
 			}
 			//Hair5
-			if(coordsTouch.x >= 62 && coordsTouch.x <= 74.0 && coordsTouch.y >= 67.6 && coordsTouch.y <= 47.6) {
+			if(coordsTouch.x >= 62 && coordsTouch.x <= 74.0 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
 				if(sex.equals("M")) { hair = "hair5"; }
 				if(sex.equals("F")) { hair = "hair5";}
 				return false;

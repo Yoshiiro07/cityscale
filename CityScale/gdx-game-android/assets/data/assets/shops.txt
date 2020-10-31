@@ -1,11 +1,32 @@
 shops.png
-size: 300, 300
+size: 1200, 300
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-shopRefri
+shop305
   rotate: false
   xy: 0, 0
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+shopbase
+  rotate: false
+  xy: 300, 0
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+shopClassico
+  rotate: false
+  xy: 600, 0
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+shopsRefri
+  rotate: false
+  xy: 900, 0
   size: 300, 300
   orig: 300, 300
   offset: 0, 0
