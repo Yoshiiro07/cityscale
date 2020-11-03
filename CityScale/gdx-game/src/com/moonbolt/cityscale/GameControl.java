@@ -174,6 +174,8 @@ public class GameControl {
 	private TextureAtlas atlas_hairs;
 	private TextureAtlas atlas_basicset_m;
 	private TextureAtlas atlas_basicset_f;
+	private TextureAtlas atlas_sport_m;
+	private TextureAtlas atlas_schoolpride_f;
 	private TextureAtlas atlas_hat;
 	private TextureAtlas atlas_InterfaceCreate;
 	private TextureAtlas atlas_shops;
@@ -221,6 +223,11 @@ public class GameControl {
 	
 	private TextureAtlas atlas_basicknife;
 	private TextureAtlas atlas_doubleedgeknife;
+	private TextureAtlas atlas_swords;
+	private TextureAtlas atlas_guns;
+	private TextureAtlas atlas_rods;
+	private TextureAtlas atlas_daggers;
+	private TextureAtlas atlas_axes;
 	
 	private TextureAtlas atlas_MonstersSewer;
 	
@@ -258,6 +265,9 @@ public class GameControl {
 		atlas_basicset_m = new TextureAtlas(Gdx.files.internal("data/characters/players/basicset_m/basicset_m.txt"));
 		atlas_basicset_f = new TextureAtlas(Gdx.files.internal("data/characters/players/basicset_f/basicset_f.txt"));
 		
+		atlas_sport_m = new TextureAtlas(Gdx.files.internal("data/characters/players/sportset/sportset.txt"));
+		atlas_schoolpride_f = new TextureAtlas(Gdx.files.internal("data/characters/players/schoolpridesetF/schoolpridesetF.txt"));
+		
 		//Hats
 		atlas_hat = new TextureAtlas(Gdx.files.internal("data/itens/hats.txt"));
 		
@@ -270,6 +280,13 @@ public class GameControl {
 		//Weapons Sets
 		atlas_basicknife = new TextureAtlas(Gdx.files.internal("data/weapons/nknifes.txt"));
 		atlas_doubleedgeknife = new TextureAtlas(Gdx.files.internal("data/weapons/nknifes.txt"));
+		
+		atlas_swords = new TextureAtlas(Gdx.files.internal("data/weapons/swords.txt"));
+		atlas_guns = new TextureAtlas(Gdx.files.internal("data/weapons/pistols.txt"));
+		atlas_rods = new TextureAtlas(Gdx.files.internal("data/weapons/rods.txt"));
+		atlas_daggers = new TextureAtlas(Gdx.files.internal("data/weapons/daggers.txt"));
+		atlas_axes = new TextureAtlas(Gdx.files.internal("data/weapons/axes.txt"));
+		
 		
 		//Skill Icons
 		atlas_iconSkills = new TextureAtlas(Gdx.files.internal("data/skills/skillicons.txt"));  
@@ -975,11 +992,15 @@ public class GameControl {
 		
 		statusPointRemain = Integer.parseInt(playerInfo.statusPoint_A);
 		
-		if(statusPointRemain > -1) {
+		statusPointRemain = statusPointRemain + 10;
+		
+		
+		if(statusPointRemain > 0) {
 			if(statusSelect.equals("Str")) {
 				playerStatus = playerInfo.stats_A.split("#");
 				playerStatusNumber = playerStatus[0].split(":");
 				playerStr = Integer.parseInt(playerStatusNumber[1]);
+				if(playerStr >= 99) { return; }
 				playerStr++;			
 				playerStatus[0] = "str:" + String.valueOf(playerStr);
 				
@@ -998,8 +1019,9 @@ public class GameControl {
 				playerStatus = playerInfo.stats_A.split("#");
 				playerStatusNumber = playerStatus[1].split(":");
 				playerAgi = Integer.parseInt(playerStatusNumber[1]);
+				if(playerAgi >= 99) { return; }
 				playerAgi++;			
-				playerStatus[1] = "agi:" + String.valueOf(playerStr);
+				playerStatus[1] = "agi:" + String.valueOf(playerAgi);
 				
 				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
 									 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
@@ -1012,8 +1034,9 @@ public class GameControl {
 				playerStatus = playerInfo.stats_A.split("#");
 				playerStatusNumber = playerStatus[2].split(":");
 				playerWis = Integer.parseInt(playerStatusNumber[1]);
+				if(playerWis >= 99) { return; }
 				playerWis++;			
-				playerStatus[1] = "wis:" + String.valueOf(playerWis);
+				playerStatus[2] = "wis:" + String.valueOf(playerWis);
 				
 				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
 									 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
@@ -1030,8 +1053,9 @@ public class GameControl {
 				playerStatus = playerInfo.stats_A.split("#");
 				playerStatusNumber = playerStatus[3].split(":");
 				playerVit = Integer.parseInt(playerStatusNumber[1]);
+				if(playerVit >= 99) { return; }
 				playerVit++;			
-				playerStatus[1] = "vit:" + String.valueOf(playerVit);
+				playerStatus[3] = "vit:" + String.valueOf(playerVit);
 				
 				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
 									 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
@@ -1048,8 +1072,9 @@ public class GameControl {
 				playerStatus = playerInfo.stats_A.split("#");
 				playerStatusNumber = playerStatus[4].split(":");
 				playerDex = Integer.parseInt(playerStatusNumber[1]);
+				if(playerDex >= 99) { return; }
 				playerDex++;			
-				playerStatus[1] = "des:" + String.valueOf(playerDex);
+				playerStatus[4] = "des:" + String.valueOf(playerDex);
 				
 				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
 									 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
@@ -1062,8 +1087,9 @@ public class GameControl {
 				playerStatus = playerInfo.stats_A.split("#");
 				playerStatusNumber = playerStatus[5].split(":");
 				playerLuk = Integer.parseInt(playerStatusNumber[1]);
+				if(playerLuk >= 99) { return; }
 				playerLuk++;			
-				playerStatus[1] = "sor:" + String.valueOf(playerLuk);
+				playerStatus[5] = "sor:" + String.valueOf(playerLuk);
 				
 				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
 									 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
@@ -1076,8 +1102,9 @@ public class GameControl {
 				playerStatus = playerInfo.stats_A.split("#");
 				playerStatusNumber = playerStatus[6].split(":");
 				playerRes = Integer.parseInt(playerStatusNumber[1]);
+				if(playerRes >= 99) { return; }
 				playerRes++;			
-				playerStatus[1] = "res:" + String.valueOf(playerRes);
+				playerStatus[6] = "res:" + String.valueOf(playerRes);
 				
 				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
 									 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
@@ -1091,7 +1118,7 @@ public class GameControl {
 				playerInfo.def_A = String.valueOf(playerDef);
 				
 				playerStamina = Integer.parseInt(playerInfo.staminamax_A);
-				playerStamina = playerStamina + 10;
+				playerStamina = playerStamina + 3;
 				playerInfo.staminamax_A = String.valueOf(playerStamina);
 				
 				statusPointRemain--;
@@ -1778,6 +1805,7 @@ public class GameControl {
 		
 		//walk = "walk";
 		//frame = 3;
+		//exitAnimationFrame = 3;
 		
 		//Male
 		if(sex.equals("M")) {
@@ -1805,8 +1833,8 @@ public class GameControl {
 					if(playerSide.equals("left") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_basicset_m.createSprite("battle3left"); return spr_master; }
 					
 					if(playerInfo.job_A.equals("Mage") || playerInfo.job_A.equals("Medic")) {
-						if(playerSide.equals("right") && frame >= 50) { spr_master = atlas_basicset_m.createSprite("attackmagicright"); return spr_master; }
-						if(playerSide.equals("left") && frame >= 50) { spr_master = atlas_basicset_m.createSprite("attackmagicleft"); return spr_master; }
+						if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_basicset_m.createSprite("attackmagicright"); return spr_master; }
+						if(playerSide.equals("left") && exitAnimationFrame > 0) { spr_master = atlas_basicset_m.createSprite("attackmagicleft"); return spr_master; }
 					}
 					else {
 						if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_basicset_m.createSprite("attackhitright"); return spr_master; }
@@ -1843,10 +1871,73 @@ public class GameControl {
 					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_basicset_m.createSprite("right3"); return spr_master; }
 				}				
 			}
+			
+			if(set.equals("SPORTSET")) { 
+				
+				//Casting
+				if(isCasting && playerSide.equals("right")) { spr_master = atlas_sport_m.createSprite("attackmagicright"); return spr_master; }
+				if(isCasting && playerSide.equals("left")) { spr_master = atlas_sport_m.createSprite("attackmagicleft"); return spr_master; }
+				
+				//Menu
+				if(menu) {
+					if(state.equals("front")) { spr_master = atlas_sport_m.createSprite("front1"); return spr_master; }
+				}
+				
+				//in Battle
+				if(walk.equals("stop") && playerInfo.inBattle_A.equals("yes")) {
+					countFrameMov++;
+					if(playerSide.equals("right") && frame == 1 && exitAnimationFrame == 0) { spr_master = atlas_sport_m.createSprite("battle1right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 1 && exitAnimationFrame == 0) { spr_master = atlas_sport_m.createSprite("battle1left"); return spr_master; }
+					
+					if(playerSide.equals("right") && frame == 2 && exitAnimationFrame == 0) { spr_master = atlas_sport_m.createSprite("battle2right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 2 && exitAnimationFrame == 0) { spr_master = atlas_sport_m.createSprite("battle2left"); return spr_master; }
+					
+					if(playerSide.equals("right") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_sport_m.createSprite("battle3right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_sport_m.createSprite("battle3left"); return spr_master; }
+					
+					if(playerInfo.job_A.equals("Mage") || playerInfo.job_A.equals("Medic")) {
+						if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_sport_m.createSprite("attackmagicright"); return spr_master; }
+						if(playerSide.equals("left") && exitAnimationFrame > 0) { spr_master = atlas_sport_m.createSprite("attackmagicleft"); return spr_master; }
+					}
+					else {
+						if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_sport_m.createSprite("attackhitright"); return spr_master; }
+						if(playerSide.equals("left") && exitAnimationFrame > 0) { spr_master = atlas_sport_m.createSprite("attackhitleft"); return spr_master; }
+					}				
+				}
+				
+				
+				//Stop
+				if(walk.equals("stop")) {
+					frame = 1;
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 1) { spr_master = atlas_sport_m.createSprite("front1"); return spr_master; }
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_sport_m.createSprite("back1"); return spr_master; }
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_sport_m.createSprite("left1"); return spr_master; }
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_sport_m.createSprite("right1"); return spr_master; }
+				}
+				
+				//Walk Front
+				if(walk.equals("walk")) {
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 1) { spr_master = atlas_sport_m.createSprite("front1"); return spr_master; }
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 2) { spr_master = atlas_sport_m.createSprite("front2"); return spr_master; }
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 3) { spr_master = atlas_sport_m.createSprite("front3"); return spr_master; }
+					
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_sport_m.createSprite("back1"); return spr_master; }
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 2) { spr_master = atlas_sport_m.createSprite("back2"); return spr_master; }
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 3) { spr_master = atlas_sport_m.createSprite("back3"); return spr_master; }
+					
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_sport_m.createSprite("left1"); return spr_master; }
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 2) { spr_master = atlas_sport_m.createSprite("left2"); return spr_master; }
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 3) { spr_master = atlas_sport_m.createSprite("left3"); return spr_master; }
+					
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_sport_m.createSprite("right1"); return spr_master; }
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 2) { spr_master = atlas_sport_m.createSprite("right2"); return spr_master; }
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_sport_m.createSprite("right3"); return spr_master; }
+				}				
+			}
 		}
 		
-		//Female
-		if(sex.equals("F")) {
+			//Female
+			if(sex.equals("F")) {
 				if(set.equals("BASICSETF")) {
 					
 					//Casting
@@ -1858,6 +1949,7 @@ public class GameControl {
 						if(state.equals("front")) { spr_master = atlas_basicset_f.createSprite("front1"); return spr_master; }
 					}
 					
+					//in Battle
 					//in Battle
 					if(walk.equals("stop") && playerInfo.inBattle_A.equals("yes")) {
 						countFrameMov++;
@@ -1871,8 +1963,8 @@ public class GameControl {
 						if(playerSide.equals("left") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_basicset_f.createSprite("battle3left"); return spr_master; }
 						
 						if(playerInfo.job_A.equals("Mage") || playerInfo.job_A.equals("Medic")) {
-							if(playerSide.equals("right") && frame >= 50) { spr_master = atlas_basicset_f.createSprite("attackmagicright"); return spr_master; }
-							if(playerSide.equals("left") && frame >= 50) { spr_master = atlas_basicset_f.createSprite("attackmagicleft"); return spr_master; }
+							if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_basicset_f.createSprite("attackmagicright"); return spr_master; }
+							if(playerSide.equals("left") && exitAnimationFrame > 0) { spr_master = atlas_basicset_f.createSprite("attackmagicleft"); return spr_master; }
 						}
 						else {
 							if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_basicset_f.createSprite("attackhitright"); return spr_master; }
@@ -1908,11 +2000,71 @@ public class GameControl {
 						if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_basicset_f.createSprite("right3"); return spr_master; }
 					}				
 			}
+				
+			if(set.equals("SCHOOLPRIDESETF")) {
+				
+				//Casting
+				if(isCasting && playerSide.equals("right")) { spr_master = atlas_schoolpride_f.createSprite("attackmagicright"); return spr_master; }
+				if(isCasting && playerSide.equals("left")) { spr_master = atlas_schoolpride_f.createSprite("attackmagicleft"); return spr_master; }
+				
+				//Menu
+				if(menu) {
+					if(state.equals("front")) { spr_master = atlas_schoolpride_f.createSprite("front1"); return spr_master; }
+				}
+				
+				//in Battle
+				if(walk.equals("stop") && playerInfo.inBattle_A.equals("yes")) {
+					countFrameMov++;
+					if(playerSide.equals("right") && frame == 1 && exitAnimationFrame == 0) { spr_master = atlas_schoolpride_f.createSprite("battle1right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 1 && exitAnimationFrame == 0) { spr_master = atlas_schoolpride_f.createSprite("battle1left"); return spr_master; }
+					
+					if(playerSide.equals("right") && frame == 2 && exitAnimationFrame == 0) { spr_master = atlas_schoolpride_f.createSprite("battle2right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 2 && exitAnimationFrame == 0) { spr_master = atlas_schoolpride_f.createSprite("battle2left"); return spr_master; }
+					
+					if(playerSide.equals("right") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_schoolpride_f.createSprite("battle3right"); return spr_master; }
+					if(playerSide.equals("left") && frame == 3 && exitAnimationFrame == 0) { spr_master = atlas_schoolpride_f.createSprite("battle3left"); return spr_master; }
+					
+					if(playerInfo.job_A.equals("Mage") || playerInfo.job_A.equals("Medic")) {
+						if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_schoolpride_f.createSprite("attackmagicright"); return spr_master; }
+						if(playerSide.equals("left") && exitAnimationFrame > 0) { spr_master = atlas_schoolpride_f.createSprite("attackmagicleft"); return spr_master; }
+					}
+					else {
+						if(playerSide.equals("right") && exitAnimationFrame > 0) { spr_master = atlas_schoolpride_f.createSprite("attackhitright"); return spr_master; }
+						if(playerSide.equals("left") && exitAnimationFrame > 0) { spr_master = atlas_schoolpride_f.createSprite("attackhitleft"); return spr_master; }
+					}				
+				}
+				
+				//Stop
+				if(walk.equals("stop")) {
+					frame = 1;
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 1) { spr_master = atlas_schoolpride_f.createSprite("front1"); return spr_master; }
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_schoolpride_f.createSprite("back1"); return spr_master; }
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_schoolpride_f.createSprite("left1"); return spr_master; }
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_schoolpride_f.createSprite("right1"); return spr_master; }
+				}
+				
+				//Walk Front
+				if(walk.equals("walk")) {
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 1) { spr_master = atlas_schoolpride_f.createSprite("front1"); return spr_master; }
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 2) { spr_master = atlas_schoolpride_f.createSprite("front2"); return spr_master; }
+					if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 3) { spr_master = atlas_schoolpride_f.createSprite("front3"); return spr_master; }
+					
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_schoolpride_f.createSprite("back1"); return spr_master; }
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 2) { spr_master = atlas_schoolpride_f.createSprite("back2"); return spr_master; }
+					if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 3) { spr_master = atlas_schoolpride_f.createSprite("back3"); return spr_master; }
+					
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_schoolpride_f.createSprite("left1"); return spr_master; }
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 2) { spr_master = atlas_schoolpride_f.createSprite("left2"); return spr_master; }
+					if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 3) { spr_master = atlas_schoolpride_f.createSprite("left3"); return spr_master; }
+					
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_schoolpride_f.createSprite("right1"); return spr_master; }
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 2) { spr_master = atlas_schoolpride_f.createSprite("right2"); return spr_master; }
+					if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_schoolpride_f.createSprite("right3"); return spr_master; }
+				}				
+			}
 		}
 		
-		
-		return spr_master;	
-		
+		return spr_master;			
 	}
 	
 	public Sprite MovPlayerHat(String hat,String sex, String state, String gameState, String walk) {
@@ -2048,18 +2200,18 @@ public class GameControl {
 			
 			if((state.equals("front") || state.equals("front-left") || state.equals("front-right"))  && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7, playerPosY + 23f); return spr_master; }
 			if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "up" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.3f, playerPosY + 22.7f); return spr_master; }
-			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.5f, playerPosY + 23); return spr_master; }
-			if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.8f, playerPosY + 23); return spr_master; }
+			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(8, 10); spr_master.setPosition(playerPosX + 6.5f, playerPosY + 23); return spr_master; }
+			if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(8, 10); spr_master.setPosition(playerPosX + 7.1f, playerPosY + 23); return spr_master; }
 			
 			if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.2f, playerPosY + 22.7f); return spr_master; }
 			if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "up" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.3f, playerPosY + 22.7f); return spr_master; }
-			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 6.8f, playerPosY + 22.3f); return spr_master; }
-			if((state.equals("right")  || state.equals("right-front") || state.equals("right-back")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 6.5f, playerPosY + 22.3f); return spr_master; }
+			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(8, 10); spr_master.setPosition(playerPosX + 6.8f, playerPosY + 22.3f); return spr_master; }
+			if((state.equals("right")  || state.equals("right-front") || state.equals("right-back")) && frame == 2) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(8, 10); spr_master.setPosition(playerPosX + 7.1f, playerPosY + 22.3f); return spr_master; }
 			
 			if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.2f, playerPosY + 22.4f); return spr_master; }
 			if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "up" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.3f, playerPosY + 22.7f); return spr_master; }
-			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.2f, playerPosY + 22.8f); return spr_master; }
-			if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(7, 10); spr_master.setPosition(playerPosX + 7.4f, playerPosY + 22.8f); return spr_master; }		
+			if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "left" + "_f"); spr_master.setSize(8, 10); spr_master.setPosition(playerPosX + 7.2f, playerPosY + 22.8f); return spr_master; }
+			if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_hairs.createSprite(hair + "right" + "_f"); spr_master.setSize(8, 10); spr_master.setPosition(playerPosX + 7.1f, playerPosY + 22.8f); return spr_master; }		
 		}
 		
 		return spr_master;
@@ -2339,8 +2491,8 @@ public class GameControl {
 		
 		//Teste
 		int playerMoney = Integer.parseInt(playerInfo.money_A);
-		//playerMoney = playerMoney + 100;
-		//playerInfo.money_A = String.valueOf(playerMoney);
+		playerMoney = playerMoney + 100;
+		playerInfo.money_A = String.valueOf(playerMoney);
 		
 		if(shopName.equals("RefriShop")) {
 			//HPCAN
@@ -2702,6 +2854,37 @@ public class GameControl {
 				spr_master.setSize(9, 14); 
 				return spr_master; 
 			}
+			if(playerInfo.weapon_A.equals("SABERSWORD")) { 
+				spr_master = atlas_itens.createSprite("sabersword"); 
+				spr_master.setPosition(coordsX -1.5f, coordsY + 11f); 
+				spr_master.setSize(9, 14); 
+				return spr_master; 
+			}
+			if(playerInfo.weapon_A.equals("REVOLVERPISTOL")) { 
+				spr_master = atlas_itens.createSprite("revolverpistol"); 
+				spr_master.setPosition(coordsX -1.5f, coordsY + 11f); 
+				spr_master.setSize(9, 14); 
+				return spr_master; 
+			}
+			if(playerInfo.weapon_A.equals("GLOOMROD")) { 
+				spr_master = atlas_itens.createSprite("gloomrod"); 
+				spr_master.setPosition(coordsX -1.5f, coordsY + 11f); 
+				spr_master.setSize(9, 14); 
+				return spr_master; 
+			}
+			
+			if(playerInfo.weapon_A.equals("HAMMERAXE")) { 
+				spr_master = atlas_itens.createSprite("hammeraxe"); 
+				spr_master.setPosition(coordsX -1.5f, coordsY + 11f); 
+				spr_master.setSize(9, 14); 
+				return spr_master; 
+			}		
+			if(playerInfo.weapon_A.equals("EDGEDAGGER")) { 
+				spr_master = atlas_itens.createSprite("edgedagger"); 
+				spr_master.setPosition(coordsX -1.5f, coordsY + 11f); 
+				spr_master.setSize(9, 14); 
+				return spr_master; 
+			}
 		}
 		
 		//Set
@@ -2713,10 +2896,23 @@ public class GameControl {
 				spr_master.setSize(9, 14); 
 				return spr_master; 
 			}
+			if(playerInfo.set_A.equals("SPORTSET")) {  
+				spr_master = atlas_itens.createSprite("sportset"); 
+				spr_master.setPosition(coordsX -1.5f, coordsY + 26.8f); 
+				spr_master.setSize(9, 14); 
+				return spr_master; 
+			}
 			
 			//Female
 			if(playerInfo.set_A.equals("BASICSETF")) {  
 				spr_master = atlas_itens.createSprite("basicsetF"); 
+				spr_master.setPosition(coordsX -1.5f, coordsY + 26.8f); 
+				spr_master.setSize(9, 14); 
+				return spr_master; 
+			}
+			
+			if(playerInfo.set_A.equals("SCHOOLPRIDESETF")) {  
+				spr_master = atlas_itens.createSprite("schoolpridesetF"); 
 				spr_master.setPosition(coordsX -1.5f, coordsY + 26.8f); 
 				spr_master.setSize(9, 14); 
 				return spr_master; 
@@ -2834,6 +3030,8 @@ public class GameControl {
 		if(item.equals("STCAN")) { spr_master = atlas_itens.createSprite("stcan"); return spr_master; }
 		if(item.equals("CHIPZ")) { spr_master = atlas_itens.createSprite("chipz"); return spr_master; }
 		
+		if(item.equals("BASICSET")) { spr_master = atlas_itens.createSprite("basicset"); return spr_master; } 
+		if(item.equals("BASICSETF")) { spr_master = atlas_itens.createSprite("basicsetF"); return spr_master; }
 		if(item.equals("BASICKNIFE")) { spr_master = atlas_itens.createSprite("basicknife"); return spr_master; }
 		if(item.equals("DOUBLEEDGEKNIFE")) { spr_master = atlas_itens.createSprite("doubleedgeknife"); return spr_master; }
 		if(item.equals("SABERSWORD")) { spr_master = atlas_itens.createSprite("sabersword"); return spr_master; }
@@ -2971,21 +3169,66 @@ public class GameControl {
 				equipable = false;
 			}
 			
-			if(itemName.equals("BASICKNIFE")) {		
-				if(playerInfo.job_A.equals("Novice")) {
+			if(itemName.equals("BASICKNIFE")) {	
+				if(itemName.equals(playerInfo.weapon_A)) { return; }
+				if(!playerInfo.job_A.equals("Novice")) { return; }
 					AddItemBag(playerInfo.weapon_A);
 					playerInfo.weapon_A = itemName;
-					lstItem = playerInfo.itens_A.split("-");
-				}			
+					lstItem = playerInfo.itens_A.split("-");			
 				equipable = true;
 			}
 			
-			if(itemName.equals("DOUBLEEDGEKNIFE")) {		
-				if(playerInfo.job_A.equals("Novice")) {
+			if(itemName.equals("DOUBLEEDGEKNIFE")) {
+				if(itemName.equals(playerInfo.weapon_A)) { return; }
+				if(!playerInfo.job_A.equals("Novice")) { return; }
 					AddItemBag(playerInfo.weapon_A);
 					playerInfo.weapon_A = itemName;
-					lstItem = playerInfo.itens_A.split("-");
-				}			
+					lstItem = playerInfo.itens_A.split("-");		
+				equipable = true;
+			}
+			
+			if(itemName.equals("SABERSWORD")) {	
+				if(itemName.equals(playerInfo.weapon_A)) { return; }
+				if(!playerInfo.job_A.equals("Swordman")) { return; }
+					AddItemBag(playerInfo.weapon_A);
+					playerInfo.weapon_A = itemName;
+					lstItem = playerInfo.itens_A.split("-");			
+				equipable = true;
+			}
+			
+			if(itemName.equals("REVOLVERPISTOL")) {	
+				if(itemName.equals(playerInfo.weapon_A)) { return; }
+				if(!playerInfo.job_A.equals("Gunner")) { return; }
+					AddItemBag(playerInfo.weapon_A);
+					playerInfo.weapon_A = itemName;
+					lstItem = playerInfo.itens_A.split("-");			
+				equipable = true;
+			}
+			
+			if(itemName.equals("GLOOMROD")) {	
+				if(itemName.equals(playerInfo.weapon_A)) { return; }
+				if(!(playerInfo.job_A.equals("Medic") || playerInfo.job_A.equals("Mage") )) { return; }
+					AddItemBag(playerInfo.weapon_A);
+					playerInfo.weapon_A = itemName;
+					lstItem = playerInfo.itens_A.split("-");			
+				equipable = true;
+			}
+			
+			if(itemName.equals("HAMMERAXE")) {	
+				if(itemName.equals(playerInfo.weapon_A)) { return; }
+				if(!playerInfo.job_A.equals("Beater")) { return; }
+					AddItemBag(playerInfo.weapon_A);
+					playerInfo.weapon_A = itemName;
+					lstItem = playerInfo.itens_A.split("-");			
+				equipable = true;
+			}
+			
+			if(itemName.equals("EDGEDAGGER")) {	
+				if(itemName.equals(playerInfo.weapon_A)) { return; }
+				if(!playerInfo.job_A.equals("Thief")) { return; }
+					AddItemBag(playerInfo.weapon_A);
+					playerInfo.weapon_A = itemName;
+					lstItem = playerInfo.itens_A.split("-");			
 				equipable = true;
 			}
 			
@@ -3016,6 +3259,42 @@ public class GameControl {
 				playerInfo.hat_A = itemName;
 				lstItem = playerInfo.itens_A.split("-");
 				equipable = true;
+			}
+			
+			if(itemName.equals("BASICSET")) {
+				if(playerInfo.sex_A.equals("F")) { return; }
+				if(itemName.equals(playerInfo.set_A)) { return; }
+				if(!playerInfo.set_A.equals("none")) { AddItemBag(playerInfo.set_A); }
+				playerInfo.set_A = itemName;
+				lstItem = playerInfo.itens_A.split("-");
+				equipable = true;  
+			}
+			
+			if(itemName.equals("BASICSETF")) {
+				if(playerInfo.sex_A.equals("M")) { return; }
+				if(itemName.equals(playerInfo.set_A)) { return; }
+				if(!playerInfo.set_A.equals("none")) { AddItemBag(playerInfo.set_A); }
+				playerInfo.set_A = itemName;
+				lstItem = playerInfo.itens_A.split("-");
+				equipable = true;  
+			}
+			
+			if(itemName.equals("SPORTSET")) {
+				if(playerInfo.sex_A.equals("F")) { return; }
+				if(itemName.equals(playerInfo.set_A)) { return; }
+				if(!playerInfo.set_A.equals("none")) { AddItemBag(playerInfo.set_A); }
+				playerInfo.set_A = itemName;
+				lstItem = playerInfo.itens_A.split("-");
+				equipable = true;  
+			}
+			
+			if(itemName.equals("SCHOOLPRIDESETF")) {
+				if(playerInfo.sex_A.equals("M")) { return; }
+				if(itemName.equals(playerInfo.set_A)) { return; }
+				if(!playerInfo.set_A.equals("none")) { AddItemBag(playerInfo.set_A); }
+				playerInfo.set_A = itemName;
+				lstItem = playerInfo.itens_A.split("-");
+				equipable = true;  
 			}
 			
 			qtd = qtd - 1;
@@ -3700,7 +3979,7 @@ public class GameControl {
 				
 				String returnFromServer = "";
 				
-				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
+				String data = URLEncoder.encode("laccount", "UTF-8") + "=" + URLEncoder.encode(subdata, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
 		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
 		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
@@ -3726,7 +4005,7 @@ public class GameControl {
 		        	//Resultado:
 		        	if(!returnFromServer.contains("Inexistente")) {
 		        		LoadDownloadData(returnFromServer);
-		        		OnlineRequest = "Download Concluido";
+		        		OnlineRequest = "Concluido";
 		        	}
 				}
 		        
@@ -3765,7 +4044,7 @@ public class GameControl {
 			    	returnFromServer = line;   
 			    	//Resultado:
 			    	if(returnFromServer.contains("Works")) {
-			    		OnlineRequest = "Upload Efetuado";
+			    		OnlineRequest = "Concluido";
 			    	}
 				}
 			    
@@ -4086,7 +4365,7 @@ public class GameControl {
 		
 			
 			//See status stun
-			if(!mob.status.equals("stun")) {
+			if(mob.status.equals("stun")) {
 				
 				if(syncPlayerMob.equals("yes")) {
 					//Mov X
@@ -4111,10 +4390,10 @@ public class GameControl {
 					
 					if(walkInDirection > 0) {
 						walkInDirection--;
-						if(mobDirectionOnWalk.equals("right")) { mob.mobPosX = mob.mobPosX + mob.speed; }
-						if(mobDirectionOnWalk.equals("left")) { mob.mobPosX = mob.mobPosX - mob.speed;  }
-						if(mobDirectionOnWalk.equals("back")) { mob.mobPosY = mob.mobPosY + mob.speed; }
-						if(mobDirectionOnWalk.equals("front")) { mob.mobPosY = mob.mobPosY - mob.speed;  }
+						if(mobDirectionOnWalk.equals("right")) { mob.mobPosX = mob.mobPosX; } //+ mob.speed; }
+						if(mobDirectionOnWalk.equals("left")) { mob.mobPosX = mob.mobPosX; } // - mob.speed;  }
+						if(mobDirectionOnWalk.equals("back")) { mob.mobPosY = mob.mobPosY; } // + mob.speed; }
+						if(mobDirectionOnWalk.equals("front")) { mob.mobPosY = mob.mobPosY; } // - mob.speed;  }
 					}
 					if(walkInDirection <= 0) {
 						walkInDirection = 0;
@@ -4150,15 +4429,15 @@ public class GameControl {
 			}
 		}
 		
-		if(mob.target.equals(playerInfo.name_A)) {
-			playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
-			playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+		//if(mob.target.equals(playerInfo.name_A)) {
+		//	playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+		//	playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
 			
-			if(mob.mobPosX > playerCoordsX) { mob.mobPosX -= 0.15f; }
-			if(mob.mobPosX < playerCoordsX + 9) { mob.mobPosX += 0.15f; }
-			if(mob.mobPosY > playerCoordsY) { mob.mobPosY -= 0.15f; }
-			if(mob.mobPosY < playerCoordsY) { mob.mobPosY += 0.15f; }
-		}
+		//	if(mob.mobPosX > playerCoordsX) { mob.mobPosX -= 0.15f; }
+		//	if(mob.mobPosX < playerCoordsX + 9) { mob.mobPosX += 0.15f; }
+		//	if(mob.mobPosY > playerCoordsY) { mob.mobPosY -= 0.15f; }
+		//	if(mob.mobPosY < playerCoordsY) { mob.mobPosY += 0.15f; }
+		//}
 		
 		return spr_master;
 	}
@@ -4179,16 +4458,18 @@ public class GameControl {
 		playerAtkCooldownHit = false;
 		
 		if (playerInfo.job_A.equals("Gunner")) {
-			playerRangeXMinus = playerCoordsX - 24;
-			playerRangeXPlus = playerCoordsX + 75;
-			playerRangeYMinus = playerCoordsY - 24;
-			playerRangeYPlus = playerCoordsY + 75;
+			playerRangeXPlus = playerCoordsX + 55;
+			playerRangeYPlus = playerCoordsY + 70;
+			playerRangeXMinus = playerCoordsX - 45;
+			playerRangeYMinus = playerCoordsY - 30;
+			
 		}
 		else {
-			playerRangeXMinus = playerCoordsX - 8;
-			playerRangeXPlus = playerCoordsX + 30; 
-			playerRangeYMinus = playerCoordsY - 10;
-			playerRangeYPlus = playerCoordsY + 40;
+			playerRangeXPlus = playerCoordsX + 25;
+			playerRangeYPlus = playerCoordsY + 45;
+			playerRangeXMinus = playerCoordsX - 5;		 
+			playerRangeYMinus = playerCoordsY - 5;
+			
 		}
 		
 		if(playerInfo.inBattle_A.equals("yes")) {
@@ -4225,14 +4506,18 @@ public class GameControl {
 			mobHeight = lstMobs.get(i).mobHeight;
 			mobWidth = lstMobs.get(i).mobWidth;
 			
-			mobRangeXMinus = mobX - mobWidth/2;
-			mobRangeXPlus = mobX + mobWidth/2; 
+			mobRangeXMinus = mobX - (mobWidth * 2);
+			mobRangeXPlus = mobX + (mobWidth * 2);
 			
-			mobRangeYMinus = mobY - mobHeight;
-			mobRangeYPlus = mobY + mobHeight;
+			mobRangeYMinus = mobY - (mobHeight * 3);
+			mobRangeYPlus = mobY + (mobHeight * 3);
 			
-			if(playerRangeXPlus > mobRangeXMinus && playerRangeYMinus < mobRangeYPlus) { playerRangeHit = true; }
+			if(playerRangeXPlus > mobRangeXMinus && playerRangeXPlus < mobRangeXPlus && playerRangeYPlus > mobRangeYMinus && playerRangeYPlus < mobRangeYPlus) { playerRangeHit = true; }
+			if(playerRangeXPlus > mobRangeXMinus && playerRangeXPlus < mobRangeXPlus && playerRangeYMinus < mobRangeYPlus && playerRangeYMinus > mobRangeYMinus) { playerRangeHit = true; }
+			if(playerRangeXMinus < mobRangeXPlus && playerRangeXMinus > mobRangeXMinus && playerRangeYPlus > mobRangeYMinus && playerRangeYPlus < mobRangeYPlus) { playerRangeHit = true; }
+			if(playerRangeXMinus < mobRangeXPlus && playerRangeXMinus > mobRangeXMinus && playerRangeYMinus < mobRangeYPlus && playerRangeYMinus > mobRangeYMinus) { playerRangeHit = true; }
 			
+			playerRangeHit = false; 
 			if(playerRangeHit) {
 				
 				if(playerCoordsX < mobX) { playerSide = "right"; }
@@ -7247,6 +7532,230 @@ public class GameControl {
 						spr_master = atlas_doubleedgeknife.createSprite("doubleedge_knife_left_attack");  
 						spr_master.setSize(20, 25);
 						spr_master.setPosition(pX - 5, pY + 4);
+						return spr_master;
+					}
+				}			
+			}
+		}
+		
+		return null;
+	}
+	
+	public Sprite ShowWeaponSwordman(float pX, float pY, String walk) {
+		if(playerInfo.inBattle_A.equals("yes")) {
+			
+			if(walk.equals("walk")) {
+				return null;
+			}
+			
+			playerWeapon = playerInfo.weapon_A;
+			if(playerWeapon.equals("SABERSWORD")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_swords.createSprite("saber_sword_left"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_swords.createSprite("saber_sword_attack_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_swords.createSprite("saber_sword_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 4.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_swords.createSprite("saber_sword_attack_left");  
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 5, pY + 4);
+						return spr_master;
+					}
+				}			
+			}
+		}
+		
+		return null;
+	}
+	
+	public Sprite ShowWeaponGunner(float pX, float pY, String walk) {
+		if(playerInfo.inBattle_A.equals("yes")) {
+			
+			if(walk.equals("walk")) {
+				return null;
+			}
+			
+			playerWeapon = playerInfo.weapon_A;
+			if(playerWeapon.equals("REVOLVERPISTOL")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_guns.createSprite("revolver_pistol_attack_right"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX - 2, pY + 9);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_guns.createSprite("revolver_pistol_attack_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 6, pY + 8);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_guns.createSprite("revolver_pistol_attack_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 8.4f, pY + 9);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_guns.createSprite("revolver_pistol_attack_right");  
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 2, pY + 9);
+						return spr_master;
+					}
+				}			
+			}
+		}
+		
+		return null;
+	}
+	
+	public Sprite ShowWeaponThief(float pX, float pY, String walk) {
+		if(playerInfo.inBattle_A.equals("yes")) {
+			
+			if(walk.equals("walk")) {
+				return null;
+			}
+			
+			playerWeapon = playerInfo.weapon_A;
+			if(playerWeapon.equals("EDGEDAGGER")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_daggers.createSprite("edgedagger_left"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 2, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_daggers.createSprite("edgedagger_attack_right"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 8, pY + 8);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_daggers.createSprite("edgedagger_right"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 10f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_daggers.createSprite("edgedagger_side_right");  
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 2, pY + 9);
+						return spr_master;
+					}
+				}			
+			}
+		}
+		
+		return null;
+	}
+	
+	public Sprite ShowWeaponBeater(float pX, float pY, String walk) {
+		if(playerInfo.inBattle_A.equals("yes")) {
+			
+			if(walk.equals("walk")) {
+				return null;
+			}
+			
+			playerWeapon = playerInfo.weapon_A;
+			if(playerWeapon.equals("HAMMERAXE")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_axes.createSprite("hammer_axe_left"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX - 0.5f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_axes.createSprite("hammer_axe_right_attack"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_axes.createSprite("hammer_axe_right"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX + 6f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_axes.createSprite("hammer_axe_attack_left");  
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX - 1, pY + 4);
+						return spr_master;
+					}
+				}				
+			}
+		}
+		
+		return null;
+	}
+	
+	public Sprite ShowWeaponCaster(float pX, float pY, String walk) {
+		if(playerInfo.inBattle_A.equals("yes")) {
+			
+			if(walk.equals("walk")) {
+				return null;
+			}
+			
+			playerWeapon = playerInfo.weapon_A;
+			if(playerWeapon.equals("GLOOMROD")) {
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_rods.createSprite("gloom_rod_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_rods.createSprite("gloom_rod_right"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 9, pY + 20);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_rods.createSprite("gloom_rod_right"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 8.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_rods.createSprite("gloom_rod_left");  
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX - 3, pY + 20);
 						return spr_master;
 					}
 				}			

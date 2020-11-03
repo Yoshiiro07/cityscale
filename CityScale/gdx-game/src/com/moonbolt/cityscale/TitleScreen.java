@@ -31,7 +31,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	private Sprite spr_logo;
 	private Texture tex_logo;
 	private String state = "Main";
-	private String ResultOnlineRequest = "Aguardando...";
+	private String ResultOnlineRequest = "";
+	private String version = "V 0.1";
 	
 	private float posTouchX = 0;
 	private float posTouchY = 0;
@@ -113,6 +114,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			//Sprites
 			spr_barAccess.draw(game.batch);
 			
+			font_master.setColor(Color.WHITE);
+			font_master.getData().setScale(0.10f,0.15f);
+			font_master.setUseIntegerPositions(false);	
+			font_master.draw(game.batch, ResultOnlineRequest,10, 10);  //version
+			
+			font_master.draw(game.batch, version,10, 5);
 			//font_master.draw(game.batch, "X:" + posTouchX,posTouchX, posTouchY);
 			//font_master.draw(game.batch, "Y:" + posTouchY,posTouchX, posTouchY);
 			
@@ -124,11 +131,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		}
 		
 		// Test Dot
-		spr_testeDot.setPosition(75.7f,17f);
-		spr_testeDot.draw(game.batch);
+		//spr_testeDot.setPosition(75.7f,17f);
+		//spr_testeDot.draw(game.batch);
 
-		spr_testeDot.setPosition(87.7f,12);
-		spr_testeDot.draw(game.batch);
+		//spr_testeDot.setPosition(87.7f,12);
+		//spr_testeDot.draw(game.batch);
 
 		
 		game.batch.end();
@@ -168,7 +175,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	@Override
 	public void input(String input){
 		gameControl.OnlineManager("Download", input);
-		//ResultOnlineRequest = 
+		ResultOnlineRequest = gameControl.ResultOnlineRequest();
+		if(ResultOnlineRequest.equals("Concluido")) {
+			gameControl.LoadData();
+			changeScreen = true; 	
+		}
 	}
 	
 	@Override

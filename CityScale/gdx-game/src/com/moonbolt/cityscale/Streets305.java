@@ -54,6 +54,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		//Sprites
 		private Sprite spr_Background;
 		private Texture tex_Background;
+		private Sprite spr_BackgroundOver;
+		private Texture tex_BackgroundOver;
 		
 		private Sprite spr_playerCharacter;
 		private Sprite spr_playerHair;
@@ -181,6 +183,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
 			
+			tex_BackgroundOver = new Texture(Gdx.files.internal("data/maps/streets305over.png"));
+			spr_BackgroundOver = new Sprite(tex_BackgroundOver);
+			spr_BackgroundOver.setSize(100, 100);
+			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
 		}
@@ -230,7 +236,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Show NPC
 			ShowNPCs();
-			
+				
 			//Player Character
 			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false);
 			spr_playerCharacter.setSize(22, 34);
@@ -244,6 +250,17 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_playerHat = gameControl.MovPlayerHat(activePlayer.hat_A,activePlayer.sex_A,state, "Main", walk);
 				spr_playerHat.draw(game.batch);
 			}
+			
+			//Show Online Players
+			ShowOnlinePlayers();
+					
+			//Show Monsters
+			ShowMonsters();
+			
+			//Background Over
+			spr_BackgroundOver.setPosition(-100, -150);
+			spr_BackgroundOver.setSize(350, 350);
+			spr_BackgroundOver.draw(game.batch);
 				
 			//UI Elements
 			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","","");
@@ -295,8 +312,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			playerPosiX = Math.round(playerPosX);
 			playerPosiY = Math.round(playerPosY);
-			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 65f, cameraCoordsY + 66.7f);
-			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 48f, cameraCoordsY + 66.7f);
+			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 34f, cameraCoordsY + 75f);
+			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
 			
 			
 			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
@@ -371,11 +388,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_Skill = gameControl.SkillHotbar("Gunner","mine"); spr_Skill.draw(game.batch);			
 			}
 					
-			//Show Online Players
-			ShowOnlinePlayers();
-					
-			//Show Monsters
-			ShowMonsters();
+			
 			
 			//Calculate MetaInfo From Online
 			gameControl.MetaInfoOnline();
@@ -693,6 +706,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(gameState.equals("Menu-Social")) {
 				spr_MenuSocial = gameControl.LoadInterfaceGamePlay("menuSocial", "", "");
 				spr_MenuSocial.draw(game.batch);
+				
+				font_master.draw(game.batch, "Em Grupo:" + activePlayer.party_A, cameraCoordsX + 5,cameraCoordsY + 62);
 			}
 			
 			if(gameState.equals("Menu-Pet")) {
@@ -739,6 +754,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Show Weapon
 			if(activePlayer.job_A.equals("Novice")) { spr_Weapon = gameControl.ShowWeaponNovice(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Swordman")) { spr_Weapon = gameControl.ShowWeaponSwordman(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Gunner")) { spr_Weapon = gameControl.ShowWeaponGunner(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Thief")) { spr_Weapon = gameControl.ShowWeaponThief(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Beater")) { spr_Weapon = gameControl.ShowWeaponBeater(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Mage") || activePlayer.job_A.equals("Medic")) { spr_Weapon = gameControl.ShowWeaponCaster(playerPosX, playerPosY, walk); }
 			if(spr_Weapon != null) { spr_Weapon.draw(game.batch); }		
 			gameControl.CheckMonsterAttack();		
 			gameControl.RespawnMob();
@@ -793,12 +813,30 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					}
 				}
 			}
+			
+			CheckColide();
 									
 			// Test Dot
-			//spr_testeDot.setPosition(cameraCoordsX + 12, cameraCoordsY + 42);
+			
+			//ranged
+			//spr_testeDot.setPosition(playerPosX + 55, playerPosY + 70);
 			//spr_testeDot.draw(game.batch);
 
-			//spr_testeDot.setPosition(cameraCoordsX + 45, cameraCoordsY + 33);
+			//spr_testeDot.setPosition(playerPosX - 45, playerPosY - 30);
+			//spr_testeDot.draw(game.batch);
+			
+			//melee
+			//spr_testeDot.setPosition(playerPosX + 25, playerPosY + 45);
+			//spr_testeDot.draw(game.batch);
+
+			//spr_testeDot.setPosition(playerPosX - 5, playerPosY - 5);
+			//spr_testeDot.draw(game.batch);
+			
+			//mob
+			spr_testeDot.setPosition(39, 16.0f);
+			spr_testeDot.draw(game.batch);
+
+			//spr_testeDot.setPosition(playerPosX - 5, playerPosY - 5);
 			//spr_testeDot.draw(game.batch);
 			
 			game.batch.end();	
@@ -806,29 +844,136 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		
 		private void CheckColide() {
-			if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
-				changeScreen = true;
+			if(playerPosX > 27 && playerPosX < 30f && playerPosY < -99 && playerPosY > -123) {
+				//changeScreen = true;  go to sewers
 			}
 			
-			if(playerPosX < -8) {
-				state = "right";
-				breakWalk = "left";
-			}
-			
-			if(playerPosY > 58) {
+			//top end
+			if(playerPosX > 13 && playerPosX < 107 && playerPosY > 159) {
 				state = "front";
 				breakWalk = "back";
+				return;
 			}
 			
-			if(playerPosX > 7 && playerPosY > 15.5f) {
+			//top build left
+			if(playerPosX < 13 && playerPosY < 158 && playerPosY > 70) {
+				state = "right";
+				breakWalk = "left";
+				return;
+			}
+			
+			//top build right
+			if(playerPosX > 107 && playerPosY > 68 && playerPosY < 190) {
 				state = "left";
 				breakWalk = "right";
+				return;
 			}
 			
-			if(playerPosY < -7) {
+			//top build top right
+			if(playerPosX > 111 && playerPosX < 230 && playerPosY > 64) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+						
+			//top build top left
+			if(playerPosX > -101 && playerPosX < 9 && playerPosY > 64) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+			
+			//top bar left
+			if(playerPosX > -101 && playerPosX < 13 && playerPosY < 18 && playerPosY > -63) {
 				state = "back";
 				breakWalk = "front";
+				return;
 			}
+			
+			//top bar right
+			if(playerPosX > 108 && playerPosX < 230 && playerPosY < 15 && playerPosY > -63) {
+				state = "back";
+				breakWalk = "front";
+				return;
+			}
+			
+			//top bar left pedestrian
+			if(playerPosX < 16 && playerPosY < 5 && playerPosY > -59) {
+				state = "front";
+				breakWalk = "left";
+				return;
+			}
+			
+			//bottom bar left
+			if(playerPosX > -101 && playerPosX < 10 && playerPosY > -70 && playerPosY < 14) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+			
+			//bottom pislow
+			if(playerPosY < -79 && playerPosY > -152 && playerPosX > 19 && playerPosX < 25) {
+				state = "left";
+				breakWalk = "right";
+				return;
+			}
+			
+			//next to sewers
+			if(playerPosY < -79 && playerPosY > -152 && playerPosX > 26 && playerPosX < 27) {
+				state = "right";
+				breakWalk = "left";
+				return;
+			}
+			
+			//blue build down
+			if(playerPosY > -150 && playerPosY < -104 && playerPosX < -24) {
+				state = "right";
+				breakWalk = "left";
+				return;
+			}
+			
+			//down
+			if(playerPosY < -150) {
+				state = "back";
+				breakWalk = "front";
+				return;
+			}
+			
+			//right
+			if(playerPosX > 230) {
+				state = "left";
+				breakWalk = "right";
+				return;
+			}
+			
+			//left
+			if(playerPosX < -100) {
+				state = "right";
+				breakWalk = "left";
+				return;
+			}
+			
+			//bottom bar right
+			if(playerPosX > 108 && playerPosX < 229 && playerPosY > -72 && playerPosY < 15) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+			
+			//bottom pislow
+			if(playerPosX < 97 && playerPosX > 91 && playerPosY > -150 && playerPosY < -82) {
+				state = "right";
+				breakWalk = "left";
+				return;
+			}
+			
+			//top bar left pedestrian
+			if(playerPosX > 104 && playerPosY < 5 && playerPosY > -59) {
+				state = "left";
+				breakWalk = "right";
+				return;
+			}
+			
 			
 			breakWalk = "";
 		}
@@ -1348,32 +1493,32 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}		
 				//Agi Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 38f) && coordsTouch.y <= (cameraCoordsY + 47f)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Agi");
 					return false;
 				}
 				//Wis Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 29f) && coordsTouch.y <= (cameraCoordsY + 37f)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Wis");
 					return false;
 				}
 				//Vit Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 19f) && coordsTouch.y <= (cameraCoordsY + 28f)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Vit");
 					return false;
 				}
 				//Des Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 9f) && coordsTouch.y <= (cameraCoordsY + 18)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Des");
 					return false;
 				}
 				//Sor Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 8) && coordsTouch.y <= (cameraCoordsY)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Sor");
 					return false;
 				}
 				//Res Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY - 11) && coordsTouch.y <= (cameraCoordsY - 2)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Res");
 					return false;
 				}		
 			}
