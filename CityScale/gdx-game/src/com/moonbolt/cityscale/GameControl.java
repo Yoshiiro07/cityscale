@@ -4506,18 +4506,18 @@ public class GameControl {
 			mobHeight = lstMobs.get(i).mobHeight;
 			mobWidth = lstMobs.get(i).mobWidth;
 			
-			mobRangeXMinus = mobX - (mobWidth * 2);
-			mobRangeXPlus = mobX + (mobWidth * 2);
+			mobRangeXMinus = mobX - (mobWidth);
+			mobRangeXPlus = mobX + (mobWidth);
 			
-			mobRangeYMinus = mobY - (mobHeight * 3);
-			mobRangeYPlus = mobY + (mobHeight * 3);
+			mobRangeYMinus = mobY - (mobHeight * 2);
+			mobRangeYPlus = mobY + (mobHeight * 2);
 			
 			if(playerRangeXPlus > mobRangeXMinus && playerRangeXPlus < mobRangeXPlus && playerRangeYPlus > mobRangeYMinus && playerRangeYPlus < mobRangeYPlus) { playerRangeHit = true; }
 			if(playerRangeXPlus > mobRangeXMinus && playerRangeXPlus < mobRangeXPlus && playerRangeYMinus < mobRangeYPlus && playerRangeYMinus > mobRangeYMinus) { playerRangeHit = true; }
 			if(playerRangeXMinus < mobRangeXPlus && playerRangeXMinus > mobRangeXMinus && playerRangeYPlus > mobRangeYMinus && playerRangeYPlus < mobRangeYPlus) { playerRangeHit = true; }
 			if(playerRangeXMinus < mobRangeXPlus && playerRangeXMinus > mobRangeXMinus && playerRangeYMinus < mobRangeYPlus && playerRangeYMinus > mobRangeYMinus) { playerRangeHit = true; }
 			
-			playerRangeHit = false; 
+			//playerRangeHit = false; 
 			if(playerRangeHit) {
 				
 				if(playerCoordsX < mobX) { playerSide = "right"; }
@@ -4590,6 +4590,14 @@ public class GameControl {
 		}	
 	}
 	
+	public float ReturnPosPlus() {		
+		return mobRangeYPlus;
+	}
+	
+	public float ReturnPosMinus() {		
+		return mobRangeYMinus;
+	}
+		
 	public void CheckMonsterAttack() {
 		
 		playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
@@ -7257,13 +7265,16 @@ public class GameControl {
 	
 	public void GiveExp(Monster mob, String typeExp, int expShared) {
 		
+		int playerlvl = Integer.parseInt(playerInfo.level_A);
+		if(playerlvl >= 10) { return; }
+		
 		boolean levelup = false;
 		int playerExp = Integer.parseInt(playerInfo.exp_A);
 		
 		if(typeExp.equals("normal")) { playerExp = playerExp + mob.exp; } 
 		if(typeExp.equals("partyshared")) { playerExp = playerExp + expShared; }
 		int point = Integer.parseInt(playerInfo.statusPoint_A);
-		
+			
 		playerInfo.exp_A = String.valueOf(playerExp);
 		
 		if(playerInfo.level_A.equals("1") && playerExp >= 100) { playerInfo.level_A = "2"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }

@@ -815,29 +815,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			CheckColide();
-									
-			// Test Dot
-			
-			//ranged
-			//spr_testeDot.setPosition(playerPosX + 55, playerPosY + 70);
-			//spr_testeDot.draw(game.batch);
-
-			//spr_testeDot.setPosition(playerPosX - 45, playerPosY - 30);
-			//spr_testeDot.draw(game.batch);
-			
-			//melee
-			//spr_testeDot.setPosition(playerPosX + 25, playerPosY + 45);
-			//spr_testeDot.draw(game.batch);
-
-			//spr_testeDot.setPosition(playerPosX - 5, playerPosY - 5);
-			//spr_testeDot.draw(game.batch);
-			
-			//mob
-			spr_testeDot.setPosition(39, 16.0f);
-			spr_testeDot.draw(game.batch);
-
-			//spr_testeDot.setPosition(playerPosX - 5, playerPosY - 5);
-			//spr_testeDot.draw(game.batch);
 			
 			game.batch.end();	
 		}
@@ -998,6 +975,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//JobMaster
 			if(playerPosX > 8f && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
+				if(!activePlayer.job_A.equals("Novice")) { return; } 
 				gameState = "jobpost";
 			}
 		}
