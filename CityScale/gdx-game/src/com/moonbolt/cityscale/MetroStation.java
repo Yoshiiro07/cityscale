@@ -77,11 +77,12 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
     private Sprite spr_testeDot;
     private Texture tex_testeDot;
 	
-	public MetroStation(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt) {
+	public MetroStation(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt, String networkState) {
 		this.game = gameAlt;
 		this.gameControl = gameControl;
 		this.config = configAlt;
 		this.platform = platformAlt;
+		this.networkState = networkState;
 		
 		//Load Player Data
 		numPlayerActive = gameControl.GetPlayerActiveNum();

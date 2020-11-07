@@ -27,6 +27,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private String[] config;
 		private String platform;
 		private boolean network = false;
+		private String networkState;
 		
 		//Player
 		private Player activePlayer;
@@ -50,10 +51,14 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private boolean areaSkillSelected = false;
 		private float skillTouchX;
 		private float skillTouchY;
+		private int deathCount = 300;
+		private String mapChange = "";
 		
 		//Sprites
 		private Sprite spr_Background;
 		private Texture tex_Background;
+		private Sprite spr_BackgroundOver;
+		private Texture tex_BackgroundOver;
 		
 		private Sprite spr_playerCharacter;
 		private Sprite spr_playerHair;
@@ -81,6 +86,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private Sprite spr_areaSkillTarget;
 		private Sprite spr_boardJob;
 		private Sprite spr_iconSkillMenu;
+		private Sprite spr_death;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -98,6 +104,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private boolean hotkey = false;
 		private boolean description = false;
 		private boolean typeParty = false;
+		private boolean deathCheck = false;
 		private String detailItem = "";
 		private String gameState = "Main";
 		private String text = "";
@@ -142,11 +149,12 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);
 		
-		public Sewers(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt) {
+		public Sewers(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt, String networkState) {
 			this.game = gameAlt;
 			this.gameControl = gameControl;
 			this.config = configAlt;
 			this.platform = platformAlt;
+			this.networkState = networkState;
 			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
@@ -180,6 +188,10 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			tex_Background = new Texture(Gdx.files.internal("data/maps/sewers.png"));
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
+			
+			tex_BackgroundOver = new Texture(Gdx.files.internal("data/maps/streets305over.png"));
+			spr_BackgroundOver = new Sprite(tex_BackgroundOver);
+			spr_BackgroundOver.setSize(100, 100);
 			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
@@ -229,8 +241,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			spr_Background.draw(game.batch);
 			
 			//Show NPC
-			ShowNPCs();
-			
+			//ShowNPCs();
+				
 			//Player Character
 			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false);
 			spr_playerCharacter.setSize(22, 34);
@@ -244,6 +256,17 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				spr_playerHat = gameControl.MovPlayerHat(activePlayer.hat_A,activePlayer.sex_A,state, "Main", walk);
 				spr_playerHat.draw(game.batch);
 			}
+			
+			//Show Online Players
+			ShowOnlinePlayers();
+					
+			//Show Monsters
+			ShowMonsters();
+			
+			//Background Over
+			//spr_BackgroundOver.setPosition(-100, -150);
+			//spr_BackgroundOver.setSize(350, 350);
+			//spr_BackgroundOver.draw(game.batch);
 				
 			//UI Elements
 			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","","");
@@ -295,21 +318,23 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 			playerPosiX = Math.round(playerPosX);
 			playerPosiY = Math.round(playerPosY);
-			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 65f, cameraCoordsY + 66.7f);
-			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 48f, cameraCoordsY + 66.7f);
+			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 34f, cameraCoordsY + 75f);
+			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
 			
 			
-			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
-			for(count = 0; count < lstChats.size(); count++) {
-				if(count == 0) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 17.7f);
+			if(lstChats != null) {
+				font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
+				for(count = 0; count < lstChats.size(); count++) {
+					if(count == 0) {
+						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 17.7f);
+					}
+					if(count == 1) {
+						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 22.7f);
+					}
+					if(count == 2) {
+						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
+					}	
 				}
-				if(count == 1) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 22.7f);
-				}
-				if(count == 2) {
-					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
-				}	
 			}
 			
 			//Hotkey Itens
@@ -370,12 +395,6 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				spr_Skill = gameControl.SkillHotbar("Gunner","lockshot"); spr_Skill.draw(game.batch);
 				spr_Skill = gameControl.SkillHotbar("Gunner","mine"); spr_Skill.draw(game.batch);			
 			}
-					
-			//Show Online Players
-			ShowOnlinePlayers();
-					
-			//Show Monsters
-			ShowMonsters();
 			
 			//Calculate MetaInfo From Online
 			gameControl.MetaInfoOnline();
@@ -392,6 +411,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				font_master.draw(game.batch, activePlayer.job_A, cameraCoordsX - 37,cameraCoordsY + 62);
 				font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39,cameraCoordsY + 57);
 
+				//Remain points
+				font_master.draw(game.batch, activePlayer.statusPoint_A, cameraCoordsX - 18,cameraCoordsY - 5);
 				
 				//Str
 				stats = activePlayer.stats_A.split("#");
@@ -693,6 +714,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			if(gameState.equals("Menu-Social")) {
 				spr_MenuSocial = gameControl.LoadInterfaceGamePlay("menuSocial", "", "");
 				spr_MenuSocial.draw(game.batch);
+				
+				font_master.draw(game.batch, "Em Grupo:" + activePlayer.party_A, cameraCoordsX + 5,cameraCoordsY + 62);
 			}
 			
 			if(gameState.equals("Menu-Pet")) {
@@ -703,6 +726,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			if(gameState.equals("Menu-Config")) {
 				spr_MenuConfig = gameControl.LoadInterfaceGamePlay("menuConfig", "", "");
 				spr_MenuConfig.draw(game.batch);
+				
+				font_master.draw(game.batch, "Seu ID:" + activePlayer.accountID, cameraCoordsX + 30, cameraCoordsY - 5);
 			}
 			
 			if(gameState.equals("Shop")) {
@@ -737,6 +762,11 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 			//Show Weapon
 			if(activePlayer.job_A.equals("Novice")) { spr_Weapon = gameControl.ShowWeaponNovice(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Swordman")) { spr_Weapon = gameControl.ShowWeaponSwordman(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Gunner")) { spr_Weapon = gameControl.ShowWeaponGunner(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Thief")) { spr_Weapon = gameControl.ShowWeaponThief(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Beater")) { spr_Weapon = gameControl.ShowWeaponBeater(playerPosX, playerPosY, walk); }
+			if(activePlayer.job_A.equals("Mage") || activePlayer.job_A.equals("Medic")) { spr_Weapon = gameControl.ShowWeaponCaster(playerPosX, playerPosY, walk); }
 			if(spr_Weapon != null) { spr_Weapon.draw(game.batch); }		
 			gameControl.CheckMonsterAttack();		
 			gameControl.RespawnMob();
@@ -791,68 +821,161 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 					}
 				}
 			}
-									
-			// Test Dot
-			//spr_testeDot.setPosition(cameraCoordsX - 2, cameraCoordsY + 56);
-			//spr_testeDot.draw(game.batch);
-
-			//spr_testeDot.setPosition(cameraCoordsX + 7, cameraCoordsY + 42);
-			//spr_testeDot.draw(game.batch);
+			
+			CheckColide();
+			
+			//Change Screen
+			if(changeScreen){	
+				
+				if(mapChange.equals("Streets305FromSewers")) {
+					gameControl.ScreenChange("Streets305FromSewers");
+					gameControl.UpdateDataSave(numPlayerActive);
+				    game.AtualizaElementos(game,gameControl, config, platform, networkState);
+				    game.Switch("Streets305");			
+				}
+				
+				if(mapChange.equals("MetroStation")) {
+					gameControl.ScreenChange("MetroStation");
+					gameControl.UpdateDataSave(numPlayerActive);
+				    game.AtualizaElementos(game,gameControl, config, platform, networkState);
+				    game.Switch("MetroStation");		
+				}
+			}
+			
+			deathCheck = gameControl.VerifyDeath();
+			if(deathCheck) {
+				deathCount--;
+				spr_death = gameControl.LoadInterfaceGamePlay("deathbar", "","");
+				spr_death.draw(game.batch);
+				
+				if(deathCount <= 0) {
+					activePlayer.hp_A = "1";
+					activePlayer.mp_A = "1";
+					activePlayer.inBattle_A = "no";
+					mapChange = "MetroStation";
+					changeScreen = true;
+				}
+			}
 			
 			game.batch.end();	
 		}
 		
 		
 		private void CheckColide() {
-			if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
-				changeScreen = true;
+			if(playerPosX > 47 && playerPosX < 53 && playerPosY > 156) {
+				changeScreen = true;  //go to Streets305
+				mapChange = "Streets305FromSewers";
 			}
 			
-			if(playerPosX < -8) {
-				state = "right";
-				breakWalk = "left";
-			}
-			
-			if(playerPosY > 58) {
+			//top wall left
+			if(playerPosX > -98 && playerPosX < 41 && playerPosY > 143) {
 				state = "front";
 				breakWalk = "back";
+				return;
 			}
 			
-			if(playerPosX > 7 && playerPosY > 15.5f) {
-				state = "left";
-				breakWalk = "right";
+			//top wall right
+			if(playerPosX > 57 && playerPosX < 231 && playerPosY > 143) {
+				state = "front";
+				breakWalk = "back";
+				return;
 			}
-			
-			if(playerPosY < -7) {
+			 
+			//top wall down left
+			if(playerPosX > -98 && playerPosX < -79 &&  playerPosY > 51 && playerPosY < 95) {
 				state = "back";
 				breakWalk = "front";
+				return;
 			}
 			
+			//top wall down center
+			if(playerPosX > -65 && playerPosX < 188 &&  playerPosY > 51 && playerPosY < 95) {
+				state = "back";
+				breakWalk = "front";
+				return;
+			}
+			
+			//top wall down right
+			if(playerPosX > 201 && playerPosX < 235 &&  playerPosY > 51 && playerPosY < 95) {
+				state = "back";
+				breakWalk = "front";
+				return;
+			}
+			
+			//bottom wall down left
+			if(playerPosX > -100 && playerPosX < -79 &&  playerPosY > 50 && playerPosY < 95) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+			
+			//bottom wall down center
+			if(playerPosX > -65 && playerPosX < 188 &&  playerPosY > 50 && playerPosY < 95) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+			
+			//bottom wall down right
+			if(playerPosX > 201 && playerPosX < 235 &&  playerPosY > 50 && playerPosY < 95) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+			
+			//bottom water down right
+			if(playerPosX > 32 && playerPosX < 235 &&  playerPosY > -71 && playerPosY < -33) {
+				state = "back";
+				breakWalk = "front";
+				return;
+			}
+			
+			//bottom water down left
+			if(playerPosX > -100 && playerPosX < 5 &&  playerPosY > -71 && playerPosY < -33) {
+				state = "back";
+				breakWalk = "front";
+				return;
+			}
+			
+			//up water down left
+			if(playerPosX > -100 && playerPosX < 5 &&  playerPosY > -73 && playerPosY < -33) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+			
+			//up water down right
+			if(playerPosX > 32 && playerPosX < 235 &&  playerPosY > -73 && playerPosY < -33) {
+				state = "front";
+				breakWalk = "back";
+				return;
+			}
+					
+			//down
+			if(playerPosY < -127) {
+				state = "back";
+				breakWalk = "front";
+				return;
+			}
+			
+			//right
+			if(playerPosX > 230) {
+				state = "left";
+				breakWalk = "right";
+				return;
+			}
+			
+			//left
+			if(playerPosX < -100) {
+				state = "right";
+				breakWalk = "left";
+				return;
+			}	
 			breakWalk = "";
 		}
 		
 		private void ActionVerify() {
-			//Shop 305
-			if(playerPosX > 119 && playerPosX < 136 && playerPosY > 51 && playerPosY < 70) {
-				gameState = "Shop";
-				shop = "305";
-			}
-			//Shop Classico
-			if(playerPosX > -43 && playerPosX < -25 && playerPosY > 55 && playerPosY < 70) {
-				gameState = "Shop";
-				shop = "Classical";
-			}
-			
-			//Refri Shop
-			if(playerPosX > -9.7f && playerPosX < 5.4f && playerPosY > 54f && playerPosY < 70.2f) {
-				gameState = "Shop";
-				shop = "RefriShop";
-			}
-			
-			//JobMaster
-			if(playerPosX > 8f && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
-				gameState = "jobpost";
-			}
+		
 		}
 		
 		private void ShowItensBag() {
@@ -1106,6 +1229,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		@Override
 		public boolean keyDown(int keycode) {
 			
+			if(deathCheck) { return false; }
+			
 			if(gameState.equals("Main")) {		
 				movement = true;
 				downKeys.add(keycode);
@@ -1154,6 +1279,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		@Override
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
 			// TODO Auto-generated method stub
+			
+			if(deathCheck) { return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			if(gameState.equals("Main")) {
@@ -1209,12 +1336,13 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				
 				//Hotbar 1
 				if(coordsTouch.x >= (cameraCoordsX + 51) && coordsTouch.x <= (cameraCoordsX + 59) && coordsTouch.y >= (cameraCoordsY - 22) && coordsTouch.y <= (cameraCoordsY - 9)) {
+					gameControl.UseItemHotbar(1);
 					return false;
 				}
 				
 				//Hotbar 2
 				if(coordsTouch.x >= (cameraCoordsX + 59) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY - 22) && coordsTouch.y <= (cameraCoordsY - 9)) {
-					//HotBar 1
+					gameControl.UseItemHotbar(2);
 					return false;
 				}
 				
@@ -1346,32 +1474,32 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				}		
 				//Agi Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 38f) && coordsTouch.y <= (cameraCoordsY + 47f)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Agi");
 					return false;
 				}
 				//Wis Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 29f) && coordsTouch.y <= (cameraCoordsY + 37f)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Wis");
 					return false;
 				}
 				//Vit Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 19f) && coordsTouch.y <= (cameraCoordsY + 28f)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Vit");
 					return false;
 				}
 				//Des Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 9f) && coordsTouch.y <= (cameraCoordsY + 18)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Des");
 					return false;
 				}
 				//Sor Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 8) && coordsTouch.y <= (cameraCoordsY)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Sor");
 					return false;
 				}
 				//Res Point
 				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY - 11) && coordsTouch.y <= (cameraCoordsY - 2)) {
-					gameState = "Menu";
+					gameControl.DistributeStatusPoint("Res");
 					return false;
 				}		
 			}
@@ -1839,6 +1967,20 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 					network = false;
 					return false;
 				}
+				
+				//Upload Save
+				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 33) && coordsTouch.y <= (cameraCoordsY + 45)) {
+					network = true;   //here
+					gameControl.OnlineManager("Sync","");
+					typeDisplay = "Config";
+					isDisplay = true;
+					countDisplay = 200;
+					
+					gameControl.OnlineManager("Upload","");
+					msgDisplay = "Online Ligado / " + gameControl.ResultOnlineRequest();
+					
+					return false;
+				}
 			}
 			
 			
@@ -1901,85 +2043,6 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 					gameState = "Main";
 					return false;
 				}
-				//Item 1
-				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuy("RefriShop", 1); timeBuyCount = 40; } 
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 1); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 1); timeBuyCount = 40; } 
-					
-					return false;
-				}
-				//Item 2
-				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuy("RefriShop", 2); timeBuyCount = 40; }
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 2); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 2); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 3
-				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuy("RefriShop", 3); timeBuyCount = 40; }
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 3); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 3); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 4
-				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuy("RefriShop", 4); timeBuyCount = 40; }
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 4); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 4); timeBuyCount = 40; }
-					return false;
-				}
-				
-				//Item 5
-				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 5); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 5); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 6
-				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 6); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 6); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 7
-				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 7); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 7); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 8
-				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 8); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 8); timeBuyCount = 40; }
-					return false;
-				}	
-				
-				//Item 9
-				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 9); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 9); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 10
-				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 10); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 10); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 11
-				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 11); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 11); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 12
-				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuy("305", 12); timeBuyCount = 40; } 
-					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuy("Classical", 12); timeBuyCount = 40; }
-					return false;
-				}	
 			}
 						
 			posTouchX = coordsTouch.x;

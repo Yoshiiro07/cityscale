@@ -35,17 +35,22 @@ public class LoadingScreen implements Screen{
 		}
 		
 		if(tipo.equals("CharacterSelect")) {
-			CharacterSelect characterScreen = new CharacterSelect(game,gameControl, config, platform);
+			CharacterSelect characterScreen = new CharacterSelect(game,gameControl, config, platform,network);
 			game.setScreen(characterScreen);
 		}
 		
 		if(tipo.equals("MetroStation")) {
-			MetroStation metroScreen = new MetroStation(game,gameControl, config, platform);
+			MetroStation metroScreen = new MetroStation(game,gameControl, config, platform,network);
 			game.setScreen(metroScreen);
 		}
 		
 		if(tipo.equals("Streets305")) {
-			Streets305 streets305Screen = new Streets305(game,gameControl, config, platform);
+			Streets305 streets305Screen = new Streets305(game,gameControl, config, platform,network);
+			game.setScreen(streets305Screen);
+		}
+		
+		if(tipo.equals("Sewers")) {
+			Sewers streets305Screen = new Sewers(game,gameControl, config, platform,network);
 			game.setScreen(streets305Screen);
 		}
 		

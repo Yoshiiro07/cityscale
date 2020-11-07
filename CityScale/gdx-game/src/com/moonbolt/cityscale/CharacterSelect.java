@@ -65,12 +65,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	//fonts
 	private BitmapFont font_master;
 		
-	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
+	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkState){
 		this.game = gameAlt;
 		this.gameControl = gameControl;
 		this.config = configAlt;
 		this.platform = platformAlt;
-		this.networkState = "no";
+		this.networkState = networkState;
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
