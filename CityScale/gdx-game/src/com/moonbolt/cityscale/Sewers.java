@@ -866,6 +866,15 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				}
 			}
 			
+			
+			spr_testeDot.setPosition(cameraCoordsX, cameraCoordsY + 8);
+			spr_testeDot.draw(game.batch);
+			
+			spr_testeDot.setPosition(cameraCoordsX, cameraCoordsY);
+			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
+			
+			
 			game.batch.end();	
 		}
 		
@@ -1487,7 +1496,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 					return false;
 				}
 				//Sor Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 8) && coordsTouch.y <= (cameraCoordsY)) {
+				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY) && coordsTouch.y <= (cameraCoordsY + 8)) {
 					gameControl.DistributeStatusPoint("Sor");
 					return false;
 				}

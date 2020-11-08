@@ -856,6 +856,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 			
+			
+			
 			game.batch.end();	
 		}
 		
@@ -997,8 +999,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//JobMaster
 			if(playerPosX > 8f && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
-				if(!activePlayer.job_A.equals("Novice")) { return; } 
 				int playerlevel = Integer.parseInt(activePlayer.level_A);
+				if(playerlevel == 10 && !activePlayer.job_A.equals("Novice")) { gameControl.PushReset(); }
+				if(!activePlayer.job_A.equals("Novice")) { return; } 
 				if(playerlevel < 10) { return; }
 				if(playerlevel > 10) { return; }
 				gameState = "jobpost";
@@ -1520,7 +1523,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}
 				//Sor Point
-				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY + 8) && coordsTouch.y <= (cameraCoordsY)) {
+				if(coordsTouch.x >= (cameraCoordsX - 6.5f) && coordsTouch.x <= (cameraCoordsX + 46.5f) && coordsTouch.y >= (cameraCoordsY) && coordsTouch.y <= (cameraCoordsY + 8)) {
 					gameControl.DistributeStatusPoint("Sor");
 					return false;
 				}

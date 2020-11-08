@@ -211,7 +211,6 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		
 		spr_Controller.draw(game.batch);
 		
-		
 		//font_master.draw(game.batch, "X:" + playerPosX, 10, 60);
 		//font_master.draw(game.batch, "Y:" + playerPosY, 30, 60);
 		

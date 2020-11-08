@@ -16,6 +16,7 @@ public class Monster {
 	public String mobSide;
 	public String map;
 	public String status;
+	public String mobDirectionOnWalk;
 	public int statusTime;
 	public float speed;
 	public int hp;

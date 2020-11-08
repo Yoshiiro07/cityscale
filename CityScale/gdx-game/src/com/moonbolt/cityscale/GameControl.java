@@ -344,6 +344,18 @@ public class GameControl {
 		atlas_MonstersSewer = new TextureAtlas(Gdx.files.internal("data/monsters/mobsSewers.txt"));
 	}
 	
+	//TEMP
+	public void PushReset() {
+		
+		playerInfo.stats_A = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";
+		playerInfo.hp_A = "190";
+		playerInfo.mp_A = "100";
+		playerInfo.atk_A = "21";
+		playerInfo.def_A = "0";
+		playerInfo.statusPoint_A = "18";
+		playerInfo.job_A = "Novice";		
+	}
+	
 	//[A] DATA MANAGER
 	public void CheckData() {
 		file = Gdx.files.local("SaveData/save.json");		
@@ -3470,6 +3482,11 @@ public class GameControl {
 		if(item.equals("HATBUTTERFLY")) { spr_master = atlas_itens.createSprite("hatbutterfly"); return spr_master; }
 		if(item.equals("HATFASHIONGLASSES")) { spr_master = atlas_itens.createSprite("hatfashionglasses"); return spr_master; }
 		
+		if(item.equals("BLOP")) { spr_master = atlas_itens.createSprite("lootblop"); return spr_master; }
+		if(item.equals("FANG")) { spr_master = atlas_itens.createSprite("lootfang"); return spr_master; }
+		if(item.equals("POISONLEAF")) { spr_master = atlas_itens.createSprite("lootpoisonleaf"); return spr_master; }
+		if(item.equals("MUSHROOM")) { spr_master = atlas_itens.createSprite("lootmushroom"); return spr_master; }
+		
 		return spr_master;
 	}
 	
@@ -3547,6 +3564,11 @@ public class GameControl {
 			itemSplit = item.split("#");
 			itemName = itemSplit[0].replace("[", "");
 			qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+			
+			if(itemName.equals("BLOP")) { return; }
+			if(itemName.equals("FANG")) { return; }
+			if(itemName.equals("POISONLEAF")) { return; }
+			if(itemName.equals("MUSHROOM")) { return; }
 			
 			
 			if(itemName.equals("HPCAN")) {
@@ -5024,7 +5046,7 @@ public class GameControl {
 			mobA.target = "None";
 			mobA.frame = 1;
 			mobA.atkCount = 0;
-			mobA.atkHit = 10;
+			mobA.atkHit = 5;
 			mobA.getHit = false;
 			mobA.mobCountDown = 300;
 			mobA.mobCountDownMax = 300;
@@ -5041,6 +5063,7 @@ public class GameControl {
 			mobA.statusTime = 300;
 			mobA.speed = 0.12f;
 			mobA.status = "none";
+			mobA.mobDirectionOnWalk = "wait";
 			mobA.OnlineID = "MobA";
 			lstMobs.add(mobA);
 			
@@ -5080,6 +5103,7 @@ public class GameControl {
 			mobB.statusTime = 300;
 			mobB.speed = 0.20f;
 			mobB.status = "none";
+			mobB.mobDirectionOnWalk = "wait";
 			mobB.OnlineID = "MobB";
 			lstMobs.add(mobB);
 			
@@ -5119,6 +5143,7 @@ public class GameControl {
 			mobC.statusTime = 300;
 			mobC.speed = 0.11f;
 			mobC.status = "none";
+			mobC.mobDirectionOnWalk = "wait";
 			mobC.OnlineID = "MobC";
 			lstMobs.add(mobC);
 			
@@ -5159,6 +5184,7 @@ public class GameControl {
 			mobD.speed = 0.11f;
 			mobD.status = "none";
 			mobD.OnlineID = "MobD";
+			mobD.mobDirectionOnWalk = "wait";
 			lstMobs.add(mobD);
 			
 			Monster mobE = new Monster();
@@ -5180,7 +5206,7 @@ public class GameControl {
 			mobE.target = "None";
 			mobE.frame = 1;
 			mobE.atkCount = 0;
-			mobE.atkHit = 10;
+			mobE.atkHit = 5;
 			mobE.getHit = false;
 			mobE.mobCountDown = 300;
 			mobE.mobCountDownMax = 300;
@@ -5197,6 +5223,7 @@ public class GameControl {
 			mobE.statusTime = 300;
 			mobE.speed = 0.12f;
 			mobE.status = "none";
+			mobE.mobDirectionOnWalk = "wait";
 			mobE.OnlineID = "MobE";
 			lstMobs.add(mobE);
 			
@@ -5227,7 +5254,7 @@ public class GameControl {
 			mobF.MobSelected = "no";
 			mobF.maxRanged = 20;
 			mobF.minRanged = 40;
-			mobF.loot1 = "BLOP";
+			mobF.loot1 = "FANG";
 			mobF.loot2 = "HPCAN";
 			mobF.loot3 = "MPCAN";
 			mobF.respawnTime = 300;
@@ -5236,6 +5263,7 @@ public class GameControl {
 			mobF.statusTime = 300;
 			mobF.speed = 0.19f;
 			mobF.status = "none";
+			mobF.mobDirectionOnWalk = "wait";
 			mobF.OnlineID = "MobF";
 			lstMobs.add(mobF);
 			
@@ -5267,7 +5295,7 @@ public class GameControl {
 			mobG.maxRanged = 20;
 			mobG.minRanged = 40;
 			mobG.loot1 = "HPCAN";
-			mobG.loot2 = "HPCAN";
+			mobG.loot2 = "MPCAN";
 			mobG.loot3 = "MPCAN";
 			mobG.respawnTime = 300;
 			mobG.respawnTimeMax = 300;
@@ -5275,6 +5303,7 @@ public class GameControl {
 			mobG.statusTime = 300;
 			mobG.speed = 0.10f;
 			mobG.status = "none";
+			mobG.mobDirectionOnWalk = "wait";
 			mobG.OnlineID = "MobF";
 			lstMobs.add(mobG);
 		}
@@ -5528,34 +5557,34 @@ public class GameControl {
 		if(!mob.status.equals("stun")) {			
 				//Mov X
 				frameMob = randnumber.nextInt(80);
-				if(frameMob >= 0 && frameMob <= 20 && mobDirectionOnWalk.equals("wait")) {
-					walkInDirection = 20;
-					mobDirectionOnWalk = "right";					
+				if(frameMob >= 0 && frameMob <= 20 && mob.mobDirectionOnWalk.equals("wait")) {
+					walkInDirection = 500;
+					mob.mobDirectionOnWalk = "right";					
 				}
-				if(frameMob >= 20 && frameMob <= 40 && mobDirectionOnWalk.equals("wait")) {
-					walkInDirection = 20;
-					mobDirectionOnWalk = "left";						
+				if(frameMob >= 20 && frameMob <= 40 && mob.mobDirectionOnWalk.equals("wait")) {
+					walkInDirection = 500;
+					mob.mobDirectionOnWalk = "left";						
 				}			
 				//Mov Y
-				if(frameMob >= 40 && frameMob <= 60 && mobDirectionOnWalk.equals("wait")) {
-					walkInDirection = 20;
-					mobDirectionOnWalk = "back";					
+				if(frameMob >= 40 && frameMob <= 60 && mob.mobDirectionOnWalk.equals("wait")) {
+					walkInDirection = 500;
+					mob.mobDirectionOnWalk = "back";					
 				}
-				if(frameMob >= 60 && frameMob <= 80 && mobDirectionOnWalk.equals("wait")) {
-					walkInDirection = 20;
-					mobDirectionOnWalk = "front";
+				if(frameMob >= 60 && frameMob <= 80 && mob.mobDirectionOnWalk.equals("wait")) {
+					walkInDirection = 500;
+					mob.mobDirectionOnWalk = "front";
 				}
 				
 				if(walkInDirection > 0) {
 					walkInDirection--;
-					if(mobDirectionOnWalk.equals("right")) { mob.mobPosX = mob.mobPosX + mob.speed; }
-					if(mobDirectionOnWalk.equals("left")) { mob.mobPosX = mob.mobPosX - mob.speed;  }
-					if(mobDirectionOnWalk.equals("back")) { mob.mobPosY = mob.mobPosY + mob.speed; }
-					if(mobDirectionOnWalk.equals("front")) { mob.mobPosY = mob.mobPosY - mob.speed;  }
+					if(mob.mobDirectionOnWalk.equals("right")) { mob.mobPosX = mob.mobPosX + mob.speed; }
+					if(mob.mobDirectionOnWalk.equals("left")) { mob.mobPosX = mob.mobPosX - mob.speed;  }
+					if(mob.mobDirectionOnWalk.equals("back")) { mob.mobPosY = mob.mobPosY + mob.speed; }
+					if(mob.mobDirectionOnWalk.equals("front")) { mob.mobPosY = mob.mobPosY - mob.speed;  }
 				}
 				if(walkInDirection <= 0) {
 					walkInDirection = 0;
-					mobDirectionOnWalk = "wait";
+					mob.mobDirectionOnWalk = "wait";
 				}
 				
 				if(mob.mobPosX > 237 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
@@ -5710,7 +5739,7 @@ public class GameControl {
 								lstMobs.get(i).hp = mobHP;
 							}
 							
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -6005,9 +6034,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
-
-							if(lstMobs.get(i).hp <= 0) {  
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -6039,7 +6070,7 @@ public class GameControl {
 
 							skillCoolDown = 300;
 
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							
 							damageOnline = "0";
 						}					
 					}
@@ -6099,9 +6130,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
 							
-							if(lstMobs.get(i).hp <= 0) {  
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP));  }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -6133,8 +6166,6 @@ public class GameControl {
 							
 							skillCoolDown = 300;
 							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
-							damageOnline = "0";
 						}					
 					}
 				}			
@@ -6175,11 +6206,13 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
 							
-							if(lstMobs.get(i).hp <= 0) {  
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP));  }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
-									GiveExp(lstMobs.get(i),"normal",0);
+								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
 								playerInfo.inBattle_A = "no";
 							}
@@ -6208,9 +6241,6 @@ public class GameControl {
 							lstSkill.add(skl);
 							
 							skillCoolDown = 300;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
-							damageOnline = "0";
 						}					
 					}
 				}
@@ -6378,9 +6408,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -6412,8 +6444,6 @@ public class GameControl {
 
 							skillCoolDown = 100;
 
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							damageOnline = "0";
 						}					
 					}
 				}			
@@ -6453,10 +6483,12 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
 							lstMobs.get(i).status = "Stun";
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -6487,9 +6519,6 @@ public class GameControl {
 							lstSkill.add(skl);
 
 							skillCoolDown = 1000;
-
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							damageOnline = "0";
 						}					
 					}
 				}			
@@ -6593,10 +6622,12 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
 							lstMobs.get(i).status = "Poison";
 							
-							if(lstMobs.get(i).hp <= 0) {  
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -6627,9 +6658,6 @@ public class GameControl {
 							lstSkill.add(skl);
 
 							skillCoolDown = 250;
-
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
-							damageOnline = "0";
 						}					
 					}
 				}			
@@ -6866,9 +6894,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
-	
-							if(lstMobs.get(i).hp <= 0) {  
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -6900,9 +6930,7 @@ public class GameControl {
 							skl.cd = 300;
 							lstSkill.add(skl);
 	
-							skillCoolDown = 300;
-	
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
+							skillCoolDown = 300;		
 						}					
 					}
 				}
@@ -6990,9 +7018,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7024,9 +7054,7 @@ public class GameControl {
 							skl.cd = 150;
 							lstSkill.add(skl);
 
-							skillCoolDown = 150;
-
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
+							skillCoolDown = 150;	
 						}					
 					}
 				}			
@@ -7066,9 +7094,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7101,8 +7131,7 @@ public class GameControl {
 							lstSkill.add(skl);
 
 							skillCoolDown = 350;
-
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
+		
 						}					
 					}
 				}			
@@ -7146,9 +7175,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7180,9 +7211,7 @@ public class GameControl {
 							skl.cd = 750;
 							lstSkill.add(skl);
 
-							skillCoolDown = 750;
-
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
+							skillCoolDown = 750;		
 						}					
 					}
 				}			
@@ -7225,9 +7254,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
+														
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7259,9 +7290,7 @@ public class GameControl {
 							skl.cd = 300;
 							lstSkill.add(skl);
 
-							skillCoolDown = 300;
-
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
+							skillCoolDown = 300;	
 						}					
 					}
 				}			
@@ -7304,9 +7333,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7338,9 +7369,7 @@ public class GameControl {
 							skl.cd = 50;
 							lstSkill.add(skl);
 
-							skillCoolDown = 50;
-
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
+							skillCoolDown = 50;		
 						}					
 					}
 				}			
@@ -7399,9 +7428,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
+							
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-							if(lstMobs.get(i).hp <= 0) {  
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7434,8 +7465,7 @@ public class GameControl {
 							lstSkill.add(skl);
 
 							skillCoolDown = 50;
-
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
+	
 						}	
 					}
 				}			
@@ -7476,9 +7506,11 @@ public class GameControl {
 						mobHP = mobHP - playerAtk;
 						lstMobs.get(i).target = playerInfo.name_A;
 						lstMobs.get(i).getHit = true;
-						lstMobs.get(i).hp = mobHP; 
+						
+						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+						if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-						if(lstMobs.get(i).hp <= 0) {  
+						if(mobHP <= 0) {  
 							GiveLoot(lstMobs.get(i));	
 							GiveExp(lstMobs.get(i),"normal",0);
 							lstMobs.get(i).dead = true;
@@ -7510,9 +7542,7 @@ public class GameControl {
 						skl.cd = 300;
 						lstSkill.add(skl);
 
-						skillCoolDown = 300;
-
-						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
+						skillCoolDown = 300;	
 					}
 				}	
 				}
@@ -7593,9 +7623,11 @@ public class GameControl {
 						mobHP = mobHP - playerAtk;
 						lstMobs.get(i).target = playerInfo.name_A;
 						lstMobs.get(i).getHit = true;
-						lstMobs.get(i).hp = mobHP; 
+						
+						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+						if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-						if(lstMobs.get(i).hp <= 0) {  
+						if(mobHP <= 0) {  
 							GiveLoot(lstMobs.get(i));	
 							GiveExp(lstMobs.get(i),"normal",0);
 							lstMobs.get(i).dead = true;
@@ -7628,8 +7660,6 @@ public class GameControl {
 						lstSkill.add(skl);
 
 						skillCoolDown = 1000;
-
-						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
 					}
 					}
 				}			
@@ -7670,10 +7700,12 @@ public class GameControl {
 						mobHP = mobHP - playerAtk;
 						lstMobs.get(i).target = playerInfo.name_A;
 						lstMobs.get(i).getHit = true;
-						lstMobs.get(i).hp = mobHP; 
 						lstMobs.get(i).status = "stun";
+						
+						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+						if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
 
-						if(lstMobs.get(i).hp <= 0) {  
+						if(mobHP <= 0) {  
 							GiveLoot(lstMobs.get(i));	
 							GiveExp(lstMobs.get(i),"normal",0);
 							lstMobs.get(i).dead = true;
@@ -7705,9 +7737,7 @@ public class GameControl {
 						skl.cd = 500;
 						lstSkill.add(skl);
 
-						skillCoolDown = 500;
-
-						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }		
+						skillCoolDown = 500;	
 					}								
 				}
 				}
@@ -7765,9 +7795,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
 							
-							if(lstMobs.get(i).hp <= 0) {  
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7797,9 +7829,7 @@ public class GameControl {
 							skl.cd = 350;
 							lstSkill.add(skl);
 							
-							skillCoolDown = 350;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
+							skillCoolDown = 350;	
 							
 						}					
 					}
@@ -7845,9 +7875,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
 							
-							if(lstMobs.get(i).hp <= 0) {  
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7878,8 +7910,6 @@ public class GameControl {
 							lstSkill.add(skl);
 							
 							skillCoolDown = 2500;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
 							
 						}					
 					}
@@ -7964,9 +7994,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP; 
 							
-							if(lstMobs.get(i).hp <= 0) {  
+							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							
+							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
@@ -7997,8 +8029,6 @@ public class GameControl {
 							lstSkill.add(skl);
 							
 							skillCoolDown = 500;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }	
 							
 						}					
 					}
@@ -8667,10 +8697,10 @@ public class GameControl {
 			}
 			
 			if(lstMobs.get(i).respawnTime <= 0 && lstMobs.get(i).dead == true) {
-				randomCount = randnumber.nextInt(30);			
+				randomCount = randnumber.nextInt(60);			
 				lstMobs.get(i).mobPosX = randomCount;
 				
-				randomCount = randnumber.nextInt(30);
+				randomCount = randnumber.nextInt(60);
 				lstMobs.get(i).mobPosY = randomCount;
 				
 				lstMobs.get(i).hp = lstMobs.get(i).maxHP;
@@ -8686,8 +8716,8 @@ public class GameControl {
 		
 		randomCount = randnumber.nextInt(100);
 		
-		if(randomCount > 50) {			
-			if(randomCount >= 50 && randomCount <= 70) {
+		if(randomCount > 0) {			
+			if(randomCount >= 0 && randomCount <= 70) {
 				lootItemName = mob.loot1;
 				countLootShowing = 200;
 				AddItemBag(lootItemName);
@@ -8871,9 +8901,8 @@ public class GameControl {
 			if(lootItemName.equals("BLOP")) { spr_master = atlas_itens.createSprite("lootblop"); }
 			if(lootItemName.equals("POISONLEAf")) { spr_master = atlas_itens.createSprite("lootpoisonleaf"); }
 			if(lootItemName.equals("MUSHROOM")) { spr_master = atlas_itens.createSprite("lootmushroom"); }
-			if(lootItemName.equals("STRING")) { spr_master = atlas_itens.createSprite("lootfang"); }
-			if(lootItemName.equals("STICK")) { spr_master = atlas_itens.createSprite("lootfang"); }
-			
+			if(lootItemName.equals("FANG")) { spr_master = atlas_itens.createSprite("lootfang"); }
+			if(lootItemName.equals("STICK")) { spr_master = atlas_itens.createSprite("lootfang"); }			
 			if(lootItemName.equals("HATSLIME")) { spr_master = atlas_itens.createSprite("lootfang"); }
 			
 			spr_master.setSize(7, 12);
