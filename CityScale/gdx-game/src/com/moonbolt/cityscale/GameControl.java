@@ -52,7 +52,7 @@ public class GameControl {
 	private float playerPosX;
 	private float playerPosY;
 	private float playerSpeed = 0.4f;
-	private int recoverytimer = 10000;
+	private int recoverytimer = 6500;
 	private int savetimer = 800;
 	private int frameMob = 0;
 	private int randomCount;
@@ -160,6 +160,7 @@ public class GameControl {
 	private int healStop = 0;
 	private String healOnline = "";
 	private String OnlineRequest = "Aguardando..";
+	private int countCleanPlayersOnline = 300;
 	
 	//Camera Variables
 	private float cameraCoordsX;
@@ -1019,10 +1020,6 @@ public class GameControl {
 	public void DistributeStatusPoint(String statusSelect) {
 		
 		statusPointRemain = Integer.parseInt(playerInfo.statusPoint_A);
-		
-		statusPointRemain = statusPointRemain + 10;
-		
-		
 		if(statusPointRemain > 0) {
 			if(statusSelect.equals("Str")) {
 				playerStatus = playerInfo.stats_A.split("#");
@@ -1152,9 +1149,7 @@ public class GameControl {
 				statusPointRemain--;
 				playerInfo.statusPoint_A = String.valueOf(statusPointRemain);
 			}
-		
-		}
-		
+		}		
 	}
 	
 	
@@ -1682,43 +1677,52 @@ public class GameControl {
 			if(playerInfo.buffsB_A.contains("regen")) { recoverytimer = 500; return; }
 			if(playerInfo.buffsC_A.contains("regen")) { recoverytimer = 500; return; }
 			
-			recoverytimer = 10000;
+			recoverytimer = 6500;
 		}
 	}
 	
-	public Sprite MovPlayerCharacter(String set,String sex, String walk, String state, boolean menu) {
+	public Sprite MovPlayerCharacter(String set,String sex, String walk, String state, boolean menu, String breakWalk) {
 		
 		if(!menu) {
 			if(state.equals("right") && walk.equals("walk")) {
+				if(!breakWalk.equals("right")) {
 				countFrameMov++;
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
 				playerPosX = playerPosX + playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);
 				playerInfo.side_A = "right";
+				}
 			}
 			if(state.equals("left") && walk.equals("walk")) {
+				if(!breakWalk.equals("left")) {
 				countFrameMov++;
 				playerPosX = Float.parseFloat(playerInfo.coordX_A);
 				playerPosX = playerPosX - playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);
 				playerInfo.side_A = "left";
+				}
 			}
 			if(state.equals("front") && walk.equals("walk")) {
+			    if(!breakWalk.equals("front")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY - playerSpeed;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				playerInfo.side_A = "front";
+			    }
 			}
 			if(state.equals("back") && walk.equals("walk")) {
+				if(!breakWalk.equals("back")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY + playerSpeed;
 				playerInfo.coordY_A = String.valueOf(playerPosY);
 				playerInfo.side_A = "back";
+				}
 			}
 			
 			if(state.equals("front-left") && walk.equals("walk")) {
+				if(!breakWalk.equals("front") && !breakWalk.equals("left")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY - playerSpeed;
@@ -1728,9 +1732,11 @@ public class GameControl {
 				playerPosX = playerPosX - playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);	
 				playerInfo.side_A = "left";
+				}
 			}
 			
 			if(state.equals("front-right") && walk.equals("walk")) {
+				if(!breakWalk.equals("front") && !breakWalk.equals("right")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY - playerSpeed;
@@ -1740,9 +1746,11 @@ public class GameControl {
 				playerPosX = playerPosX + playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);	
 				playerInfo.side_A = "right";
+				}
 			}
 			
 			if(state.equals("back-left") && walk.equals("walk")) {
+				if(!breakWalk.equals("back") && !breakWalk.equals("left")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY + playerSpeed;
@@ -1752,9 +1760,11 @@ public class GameControl {
 				playerPosX = playerPosX - playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);	
 				playerInfo.side_A = "left";
+				}
 			}
 			
 			if(state.equals("back-right") && walk.equals("walk")) {
+				if(!breakWalk.equals("back") && !breakWalk.equals("right")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY + playerSpeed;
@@ -1764,9 +1774,11 @@ public class GameControl {
 				playerPosX = playerPosX + playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);	
 				playerInfo.side_A = "right";
+				}
 			}
 			
 			if(state.equals("right-front") && walk.equals("walk")) {
+				if(!breakWalk.equals("right") && !breakWalk.equals("front")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY - playerSpeed;
@@ -1776,9 +1788,11 @@ public class GameControl {
 				playerPosX = playerPosX + playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);
 				playerInfo.side_A = "right";
+				}
 			}
 			
 			if(state.equals("right-back") && walk.equals("walk")) {
+				if(!breakWalk.equals("right") && !breakWalk.equals("back")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY + playerSpeed;
@@ -1788,9 +1802,11 @@ public class GameControl {
 				playerPosX = playerPosX + playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);
 				playerInfo.side_A = "right";
+				}
 			}
 			
 			if(state.equals("left-front") && walk.equals("walk")) {
+				if(!breakWalk.equals("left") && !breakWalk.equals("front")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY - playerSpeed;
@@ -1800,9 +1816,11 @@ public class GameControl {
 				playerPosX = playerPosX - playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);
 				playerInfo.side_A = "left";
+				}
 			}
 			
 			if(state.equals("left-back") && walk.equals("walk")) {
+				if(!breakWalk.equals("left") && !breakWalk.equals("back")) {
 				countFrameMov++;
 				playerPosY = Float.parseFloat(playerInfo.coordY_A);
 				playerPosY = playerPosY + playerSpeed;
@@ -1812,6 +1830,7 @@ public class GameControl {
 				playerPosX = playerPosX - playerSpeed;
 				playerInfo.coordX_A = String.valueOf(playerPosX);
 				playerInfo.side_A = "left";
+				}
 			}
 		
 			playerInfo.pos_A = String.valueOf(frame);
@@ -2657,8 +2676,8 @@ public class GameControl {
 		if(shopName.equals("RefriShop")) {
 			//HPCAN
 			if(numItem == 1) {
-				if(playerMoney >= 15) {
-					playerMoney = playerMoney - 15;
+				if(playerMoney >= 2) {
+					playerMoney = playerMoney - 2;
 					playerInfo.money_A = String.valueOf(playerMoney);
 					AddItemBag("HPCAN");
 					return "Comprado";
@@ -3534,7 +3553,7 @@ public class GameControl {
 				playerHP = Integer.parseInt(playerInfo.hp_A);
 				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
 				
-				playerHP = playerHP + 30;
+				playerHP = playerHP + 10;
 				
 				if(playerHP > playerHPMax) { playerHP = playerHPMax; }
 				playerInfo.hp_A = String.valueOf(playerHP);
@@ -4367,7 +4386,7 @@ public class GameControl {
 		//Check All Shared Meta Infos
 		for(int i = 0; i < lstPlayersOnline.size(); i++) {
 			
-			if(!playerInfo.party_A.equals("None")) {
+			if(!playerInfo.party_A.equals("None") && playerInfo.map_A.equals(lstPlayersOnline.get(i).map_A)) {
 				
 				if(lstPlayersOnline.get(i).party_A.equals(playerInfo.party_A) && !lstPlayersOnline.get(i).accountID.equals(playerInfo.accountID)) {
 					countPartyPlayers++;
@@ -4547,6 +4566,14 @@ public class GameControl {
 				healStop = 0;
 				heal = "0";
 			}
+			
+			if(countCleanPlayersOnline > 0) {
+				countCleanPlayersOnline--;
+			}
+			if(countCleanPlayersOnline <= 0) {
+				lstPlayersOnline.clear();
+				countCleanPlayersOnline = 300;
+			}
 	        
 			String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
 	        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Sync", "UTF-8");
@@ -4620,8 +4647,7 @@ public class GameControl {
 	        rd.close();
 	        
 			}
-			
-			
+					
 			if(request.equals("Chat")) {
 				
 				String retornoOnline = "retry";
@@ -4853,19 +4879,19 @@ public class GameControl {
 		dataInfoSplit = dataSplit[25].split("=");
 		playerInfoOnline.expshared_A = dataInfoSplit[1]; 
 		
-		if(lstPlayersOnline.size() > 0) {
-			if(lstPlayersOnline.get(0).accountID.equals(playerInfo.accountID) && lstPlayersOnline.get(0).map_A.equals(playerInfo.map_A)) {
-				syncPlayerMob = "yes";
-			}
-			else {
-				syncPlayerMob = "no";
-				dataInfoSplit = dataSplit[27].split("=");
-				MobsHPSync = dataInfoSplit[1];  
-			}	
+		if(!playerInfo.map_A.equals(playerInfoOnline.map_A)) {
+			return;
 		}
 		
-		//if(playerInfo.name_A.equals(playerInfoOnline.name_A)) {
-		//	return;
+		//if(lstPlayersOnline.size() > 0) {
+		//	if(lstPlayersOnline.get(0).accountID.equals(playerInfo.accountID) && lstPlayersOnline.get(0).map_A.equals(playerInfo.map_A)) {
+		//		syncPlayerMob = "yes";
+		//	}
+		//	else {
+		//		syncPlayerMob = "no";
+		//		dataInfoSplit = dataSplit[27].split("=");
+		//		MobsHPSync = dataInfoSplit[1];  
+		//	}	
 		//}
 		
 		boolean check = false;
@@ -4937,10 +4963,10 @@ public class GameControl {
 				}
 			}
 			
-			if(syncPlayerMob.equals("yes") && lstMobs.get(i).map.equals(playerInfo.map_A)) {
-				if(lstMobs.get(i).dead) { mobCondition = "dead"; } else { mobCondition = "alive"; }
-				MobsHPSync = MobsHPSync + "#" + lstMobs.get(i).mobID + "@" + lstMobs.get(i).mobPosX + "@" + lstMobs.get(i).mobPosY + "@" + mobCondition; 
-			}
+			//if(syncPlayerMob.equals("yes") && lstMobs.get(i).map.equals(playerInfo.map_A)) {
+			//	if(lstMobs.get(i).dead) { mobCondition = "dead"; } else { mobCondition = "alive"; }
+			//	MobsHPSync = MobsHPSync + "#" + lstMobs.get(i).mobID + "@" + lstMobs.get(i).mobPosX + "@" + lstMobs.get(i).mobPosY + "@" + mobCondition; 
+			//}
 		}
 	}
 	
@@ -5499,9 +5525,7 @@ public class GameControl {
 				
 			
 		//See status stun
-		if(!mob.status.equals("stun")) {		
-			if(syncPlayerMob.equals("yes")) {
-				
+		if(!mob.status.equals("stun")) {			
 				//Mov X
 				frameMob = randnumber.nextInt(80);
 				if(frameMob >= 0 && frameMob <= 20 && mobDirectionOnWalk.equals("wait")) {
@@ -5547,8 +5571,7 @@ public class GameControl {
 					if(mob.mobPosX < playerCoordsX + 9) { mob.mobPosX += 0.15f; }
 					if(mob.mobPosY > playerCoordsY) { mob.mobPosY -= 0.15f; }
 					if(mob.mobPosY < playerCoordsY) { mob.mobPosY += 0.15f; }
-				}
-			}
+				}	
 		}
 		
 		//See status poison
@@ -5666,10 +5689,10 @@ public class GameControl {
 						playerStatusNumber = playerStatus[0].split(":");
 						playerStr = Integer.parseInt(playerStatusNumber[1]);
 						playerAtk = Integer.parseInt(playerInfo.atk_A);
-						playerAtk = playerAtk + playerStr;
+						playerAtk = playerAtk + playerStr + playerDex;
 						playerStatusNumber = playerStatus[4].split(":");
 						playerDex = Integer.parseInt(playerStatusNumber[1]);						
-						atkHitRandom = randnumber.nextInt(150);
+						atkHitRandom = randnumber.nextInt(100);
 						if(playerInfo.buffsA_A.contains("precision")) { playerDex = playerDex + 50; }
 						if(playerInfo.buffsB_A.contains("precision")) { playerDex = playerDex + 50; }
 						if(playerInfo.buffsC_A.contains("precision")) { playerDex = playerDex + 50; }
@@ -5679,7 +5702,13 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							lstMobs.get(i).hp = mobHP;
+							
+							if(onlineCheck) { 
+								OnlineManager("Atk",String.valueOf(mobHP)); 
+							}
+							if(!onlineCheck) {
+								lstMobs.get(i).hp = mobHP;
+							}
 							
 							if(lstMobs.get(i).hp <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -5696,10 +5725,6 @@ public class GameControl {
 							dmg.dmg = playerAtk;
 							dmg.frame = 0;					
 							lstDanos.add(dmg);
-							
-							if(onlineCheck) { 
-								OnlineManager("Atk",String.valueOf(mobHP)); 
-							}
 						}
 						else
 						{
@@ -5711,10 +5736,6 @@ public class GameControl {
 							dmg.dmg = 0;
 							dmg.frame = 0;					
 							lstDanos.add(dmg);
-							
-							if(onlineCheck) { 
-								OnlineManager("Atk",String.valueOf(mobHP)); 
-							}
 						}
 					}			
 				}			

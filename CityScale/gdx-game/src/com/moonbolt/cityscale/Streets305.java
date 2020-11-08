@@ -253,7 +253,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			ShowNPCs();
 				
 			//Player Character
-			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false);
+			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false, breakWalk);
 			spr_playerCharacter.setSize(22, 34);
 			spr_playerCharacter.setPosition(playerPosX, playerPosY);
 			spr_playerCharacter.draw(game.batch);
@@ -404,9 +404,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_Skill = gameControl.SkillHotbar("Gunner","lockshot"); spr_Skill.draw(game.batch);
 				spr_Skill = gameControl.SkillHotbar("Gunner","mine"); spr_Skill.draw(game.batch);			
 			}
-					
-			
-			
+							
 			//Calculate MetaInfo From Online
 			gameControl.MetaInfoOnline();
 					
@@ -460,7 +458,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				statsPoint = stats[6].split(":");
 				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY - 4);
 				
-				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false);
+				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false, breakWalk);
 				spr_playerCharacter.setSize(40, 60);
 				spr_playerCharacter.setPosition(cameraCoordsX - 51, cameraCoordsY - 10);
 				spr_playerCharacter.draw(game.batch);
@@ -475,7 +473,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_MenuItens = gameControl.LoadInterfaceGamePlay("menuItens", "", "");
 				spr_MenuItens.draw(game.batch);
 				
-				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false);
+				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false, breakWalk);
 				spr_playerCharacter.setSize(40, 60);
 				spr_playerCharacter.setPosition(cameraCoordsX + 5, cameraCoordsY);
 				spr_playerCharacter.draw(game.batch);
@@ -869,126 +867,108 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//top end
 			if(playerPosX > 13 && playerPosX < 107 && playerPosY > 159) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//top build left
 			if(playerPosX < 13 && playerPosY < 158 && playerPosY > 70) {
-				state = "right";
 				breakWalk = "left";
 				return;
 			}
 			
 			//top build right
 			if(playerPosX > 107 && playerPosY > 68 && playerPosY < 190) {
-				state = "left";
 				breakWalk = "right";
 				return;
 			}
 			
 			//top build top right
 			if(playerPosX > 111 && playerPosX < 230 && playerPosY > 64) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 						
 			//top build top left
 			if(playerPosX > -101 && playerPosX < 9 && playerPosY > 64) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//top bar left
 			if(playerPosX > -101 && playerPosX < 13 && playerPosY < 18 && playerPosY > -63) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//top bar right
 			if(playerPosX > 108 && playerPosX < 230 && playerPosY < 15 && playerPosY > -63) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//top bar left pedestrian
 			if(playerPosX < 16 && playerPosY < 5 && playerPosY > -59) {
-				state = "front";
 				breakWalk = "left";
 				return;
 			}
 			
 			//bottom bar left
 			if(playerPosX > -101 && playerPosX < 10 && playerPosY > -70 && playerPosY < 14) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//bottom pislow
 			if(playerPosY < -79 && playerPosY > -152 && playerPosX > 19 && playerPosX < 25) {
-				state = "left";
 				breakWalk = "right";
 				return;
 			}
 			
 			//next to sewers
 			if(playerPosY < -79 && playerPosY > -152 && playerPosX > 26 && playerPosX < 27) {
-				state = "right";
 				breakWalk = "left";
 				return;
 			}
 			
 			//blue build down
 			if(playerPosY > -150 && playerPosY < -104 && playerPosX < -24) {
-				state = "right";
 				breakWalk = "left";
 				return;
 			}
 			
 			//down
 			if(playerPosY < -150) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//right
 			if(playerPosX > 230) {
-				state = "left";
 				breakWalk = "right";
 				return;
 			}
 			
 			//left
 			if(playerPosX < -100) {
-				state = "right";
 				breakWalk = "left";
 				return;
 			}
 			
 			//bottom bar right
 			if(playerPosX > 108 && playerPosX < 229 && playerPosY > -72 && playerPosY < 15) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//bottom pislow
 			if(playerPosX < 97 && playerPosX > 91 && playerPosY > -150 && playerPosY < -82) {
-				state = "right";
 				breakWalk = "left";
 				return;
 			}
 			
 			//top bar left pedestrian
 			if(playerPosX > 104 && playerPosY < 5 && playerPosY > -59) {
-				state = "left";
 				breakWalk = "right";
 				return;
 			}

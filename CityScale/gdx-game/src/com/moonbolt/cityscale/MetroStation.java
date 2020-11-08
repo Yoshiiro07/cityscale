@@ -152,7 +152,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		spr_metro.draw(game.batch);
 				
 		//Player Character
-		spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false);
+		spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false, breakWalk);
 		spr_playerCharacter.setSize(22, 34);
 		spr_playerCharacter.setPosition(playerPosX,playerPosY);
 		spr_playerCharacter.draw(game.batch);
@@ -244,22 +244,18 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		}
 		
 		if(playerPosX < -8) {
-			state = "right";
 			breakWalk = "left";
 		}
 		
 		if(playerPosY > 58) {
-			state = "front";
 			breakWalk = "back";
 		}
 		
 		if(playerPosX > 7 && playerPosY > 15.5f) {
-			state = "left";
 			breakWalk = "right";
 		}
 		
 		if(playerPosY < -7) {
-			state = "back";
 			breakWalk = "front";
 		}
 		

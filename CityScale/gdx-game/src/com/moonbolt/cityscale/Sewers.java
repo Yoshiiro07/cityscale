@@ -195,6 +195,15 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
+			
+			if(networkState.equals("yes")) {
+				network = true;
+				gameControl.OnlineManager("Sync","");
+				typeDisplay = "Config";
+				msgDisplay = "Online Ligado";
+				isDisplay = true;
+				countDisplay = 200;
+			}
 		}
 		
 		
@@ -244,7 +253,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			//ShowNPCs();
 				
 			//Player Character
-			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false);
+			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false, breakWalk);
 			spr_playerCharacter.setSize(22, 34);
 			spr_playerCharacter.setPosition(playerPosX, playerPosY);
 			spr_playerCharacter.draw(game.batch);
@@ -449,7 +458,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				statsPoint = stats[6].split(":");
 				font_master.draw(game.batch, statsPoint[1], cameraCoordsX - 10,cameraCoordsY - 4);
 				
-				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false);
+				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false, breakWalk);
 				spr_playerCharacter.setSize(40, 60);
 				spr_playerCharacter.setPosition(cameraCoordsX - 51, cameraCoordsY - 10);
 				spr_playerCharacter.draw(game.batch);
@@ -464,7 +473,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				spr_MenuItens = gameControl.LoadInterfaceGamePlay("menuItens", "", "");
 				spr_MenuItens.draw(game.batch);
 				
-				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false);
+				spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,"stop","front", false, breakWalk);
 				spr_playerCharacter.setSize(40, 60);
 				spr_playerCharacter.setPosition(cameraCoordsX + 5, cameraCoordsY);
 				spr_playerCharacter.draw(game.batch);
@@ -849,8 +858,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				spr_death.draw(game.batch);
 				
 				if(deathCount <= 0) {
-					activePlayer.hp_A = "1";
-					activePlayer.mp_A = "1";
+					activePlayer.hp_A = "35";
+					activePlayer.mp_A = "35";
 					activePlayer.inBattle_A = "no";
 					mapChange = "MetroStation";
 					changeScreen = true;
@@ -869,105 +878,90 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 			//top wall left
 			if(playerPosX > -98 && playerPosX < 41 && playerPosY > 143) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//top wall right
 			if(playerPosX > 57 && playerPosX < 231 && playerPosY > 143) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			 
 			//top wall down left
 			if(playerPosX > -98 && playerPosX < -79 &&  playerPosY > 51 && playerPosY < 95) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//top wall down center
 			if(playerPosX > -65 && playerPosX < 188 &&  playerPosY > 51 && playerPosY < 95) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//top wall down right
 			if(playerPosX > 201 && playerPosX < 235 &&  playerPosY > 51 && playerPosY < 95) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//bottom wall down left
 			if(playerPosX > -100 && playerPosX < -79 &&  playerPosY > 50 && playerPosY < 95) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//bottom wall down center
 			if(playerPosX > -65 && playerPosX < 188 &&  playerPosY > 50 && playerPosY < 95) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//bottom wall down right
 			if(playerPosX > 201 && playerPosX < 235 &&  playerPosY > 50 && playerPosY < 95) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//bottom water down right
 			if(playerPosX > 32 && playerPosX < 235 &&  playerPosY > -71 && playerPosY < -33) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//bottom water down left
 			if(playerPosX > -100 && playerPosX < 5 &&  playerPosY > -71 && playerPosY < -33) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//up water down left
 			if(playerPosX > -100 && playerPosX < 5 &&  playerPosY > -73 && playerPosY < -33) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 			
 			//up water down right
 			if(playerPosX > 32 && playerPosX < 235 &&  playerPosY > -73 && playerPosY < -33) {
-				state = "front";
 				breakWalk = "back";
 				return;
 			}
 					
 			//down
 			if(playerPosY < -127) {
-				state = "back";
 				breakWalk = "front";
 				return;
 			}
 			
 			//right
 			if(playerPosX > 230) {
-				state = "left";
 				breakWalk = "right";
 				return;
 			}
 			
 			//left
 			if(playerPosX < -100) {
-				state = "right";
 				breakWalk = "left";
 				return;
 			}	

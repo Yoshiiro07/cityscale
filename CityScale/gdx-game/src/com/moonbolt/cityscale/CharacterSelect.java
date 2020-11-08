@@ -146,7 +146,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			if(!activeplayer.name_1.equals("none")) {
 				if(activeplayer.sex_1.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(9, 14);
 					spr_characterSet.draw(game.batch);
@@ -158,7 +158,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(activeplayer.sex_1.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(9, 14);
 					spr_characterSet.draw(game.batch);
@@ -172,7 +172,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			if(!activeplayer.name_2.equals("none")) {
 				if(activeplayer.sex_2.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(37.5f, 14);
 					spr_characterSet.draw(game.batch);
@@ -183,7 +183,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.draw(game.batch);
 				}
 				if(activeplayer.sex_2.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(37.5f, 14);
 					spr_characterSet.draw(game.batch);
@@ -197,7 +197,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			if(!activeplayer.name_3.equals("none")) {
 				if(activeplayer.sex_3.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(70f, 14);
 					spr_characterSet.draw(game.batch);
@@ -209,7 +209,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(activeplayer.sex_3.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(70f, 14);
 					spr_characterSet.draw(game.batch);
@@ -244,7 +244,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				font_master.draw(game.batch, activeplayer.map_1,72.5f, 81f);
 				
 				if(activeplayer.sex_1.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(9, 14);
 					spr_characterSet.draw(game.batch);
@@ -256,7 +256,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(activeplayer.sex_1.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(9, 14);
 					spr_characterSet.draw(game.batch);
@@ -278,7 +278,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				font_master.draw(game.batch, activeplayer.map_2,72.5f, 81f);
 				
 				if(activeplayer.sex_2.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(37.5f, 14);
 					spr_characterSet.draw(game.batch);
@@ -289,7 +289,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.draw(game.batch);
 				}
 				if(activeplayer.sex_2.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(37.5f, 14);
 					spr_characterSet.draw(game.batch);
@@ -311,7 +311,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				font_master.draw(game.batch, activeplayer.map_3,72.5f, 81f);
 				
 				if(activeplayer.sex_3.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(70f, 14);
 					spr_characterSet.draw(game.batch);
@@ -323,7 +323,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(activeplayer.sex_3.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(70f, 14);
 					spr_characterSet.draw(game.batch);
@@ -386,7 +386,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			if(!activeplayer.name_1.equals("none")) {
 				if(activeplayer.sex_1.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(9, 14);
 					spr_characterSet.draw(game.batch);
@@ -398,7 +398,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(activeplayer.sex_1.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_1, activeplayer.sex_1, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(9, 14);
 					spr_characterSet.draw(game.batch);
@@ -412,7 +412,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			if(!activeplayer.name_2.equals("none")) {
 				if(activeplayer.sex_2.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(37.5f, 14);
 					spr_characterSet.draw(game.batch);
@@ -423,7 +423,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.draw(game.batch);
 				}
 				if(activeplayer.sex_2.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(37.5f, 14);
 					spr_characterSet.draw(game.batch);
@@ -437,7 +437,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			if(!activeplayer.name_3.equals("none")) {
 				if(activeplayer.sex_3.equals("M")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(70f, 14);
 					spr_characterSet.draw(game.batch);
@@ -449,7 +449,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(activeplayer.sex_3.equals("F")) {
-					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true);
+					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_3, activeplayer.sex_3, "stop", "front", true, "");
 					spr_characterSet.setSize(25, 40);
 					spr_characterSet.setPosition(70f, 14);
 					spr_characterSet.draw(game.batch);
