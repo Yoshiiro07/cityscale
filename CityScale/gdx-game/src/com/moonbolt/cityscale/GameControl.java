@@ -103,6 +103,7 @@ public class GameControl {
 	private int loopStamina = 2000;
 	private float positionTriggerX;
 	private float positionTriggerY;
+	private int weapondmg = 0;
 	
 	//Mob Variables
 	private int mobCountDown;  
@@ -503,7 +504,8 @@ public class GameControl {
 			playerInfo.expshared_1 = "0";
 					
 			for(int i = 0; i < 48; i++) {
-				if(i == 0) { itensList = itensList + "[HPCAN#30]-"; }
+				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
+				if(i == 1) { itensList = itensList + "[MPCAN#10]-"; }
 				else { itensList = itensList + "[NONE]-"; }
 			}			
 			playerInfo.itens_1 = itensList;
@@ -555,7 +557,8 @@ public class GameControl {
 			playerInfo.expshared_2 = "0";
 			
 			for(int i = 0; i < 48; i++) {
-				if(i == 0) { itensList = itensList + "[HPCAN#30]-"; }
+				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
+				if(i == 1) { itensList = itensList + "[MPCAN#10]-"; }
 				else { itensList = itensList + "[NONE]-"; }
 			}			
 			playerInfo.itens_2 = itensList;
@@ -607,7 +610,8 @@ public class GameControl {
 			playerInfo.expshared_3 = "0";
 			
 			for(int i = 0; i < 48; i++) {
-				if(i == 0) { itensList = itensList + "[HPCAN#30]-"; }
+				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
+				if(i == 1) { itensList = itensList + "[MPCAN#10]-"; }
 				else { itensList = itensList + "[NONE]-"; }
 			}			
 			playerInfo.itens_3 = itensList;
@@ -1324,13 +1328,13 @@ public class GameControl {
 			if(extra.equals("M")) {
 				spr_master = atlas_hairs.createSprite(value);
 				spr_master.setSize(9, 13);
-				spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 78);
+				spr_master.setPosition(cameraCoordsX - 66.5f,cameraCoordsY + 78);
 				return spr_master;
 			}
 			if(extra.equals("F")) {
 				spr_master = atlas_hairs.createSprite(value + "_f");
 				spr_master.setSize(9, 13);
-				spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 78);
+				spr_master.setPosition(cameraCoordsX - 66.5f,cameraCoordsY + 78);
 				return spr_master;
 			}
 		}
@@ -1377,6 +1381,25 @@ public class GameControl {
 				spr_master.setPosition(cameraCoordsX - 66.5f,cameraCoordsY + 16);
 				return spr_master;
 			}
+		}
+		
+		if(type.equals("hatTagParty1")) {
+			spr_master = atlas_hat.createSprite(value + "_front");
+			spr_master.setSize(14, 16);
+			spr_master.setPosition(cameraCoordsX - 69.5f,cameraCoordsY + 55);
+			return spr_master;
+		}
+		if(type.equals("hatTagParty2")) {
+			spr_master = atlas_hat.createSprite(value + "_front");
+			spr_master.setSize(14, 16);
+			spr_master.setPosition(cameraCoordsX - 69.5f,cameraCoordsY + 36);
+			return spr_master;
+		}
+		if(type.equals("hatTagParty3")) {
+			spr_master = atlas_hat.createSprite(value + "_front");
+			spr_master.setSize(14, 16);
+			spr_master.setPosition(cameraCoordsX - 69.5f,cameraCoordsY + 18);
+			return spr_master;			
 		}
 		
 		
@@ -3895,17 +3918,34 @@ public class GameControl {
 	public void DiscartItem(int itemNum) {
 		String[] lstItem = playerInfo.itens_A.split("-");
 		String listaItemFinal = "";
+		String[] itemSplit;
+		String item;
+		String itemName;
+		int qtd;
 		int money = 0;
 		
+		//Get Item
+		item = lstItem[itemNum];
+		if(item.equals("[NONE]")) { return; }
+		
+		
+		//Check quantity
+		itemSplit = item.split("#");
+		itemName = itemSplit[0].replace("[", "");
+		qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+		
+		//Give Money
+		money = Integer.parseInt(playerInfo.money_A);
+		if(money > 500) { return; }
+		money = money + (qtd * 2);
+		playerInfo.money_A = String.valueOf(money);
+		
+		//Clean Item placebox
 		lstItem[itemNum] = "[NONE]";
 		listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
 		listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
-		playerInfo.itens_A = listaItemFinal;
+		playerInfo.itens_A = listaItemFinal;	
 		
-		money = Integer.parseInt(playerInfo.money_A);
-		if(money > 500) { return; }
-		money = money + 2;
-		playerInfo.money_A = String.valueOf(money);
 	}
 	
 	public String Decription(int numItem) {
@@ -4291,7 +4331,7 @@ public class GameControl {
 						if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_schoolpride_f.createSprite("right3"); spr_master.setPosition(coordsX, coordsY); return spr_master; }
 					}				
 				}
-				if(set.equals("ROUGESETF")) { //here
+				if(set.equals("ROUGESETF")) {
 					
 					//Battle
 					if(inBattle.equals("yes") && walk.equals("stop")) {
@@ -4396,6 +4436,62 @@ public class GameControl {
 		return spr_master;
 	}
 	
+	public Sprite MovPlayerOnlineHat(Player playerOnline) {
+		
+		String sex = playerOnline.sex_A;
+		String state = playerOnline.side_A;
+		int frame = Integer.parseInt(playerOnline.pos_A);
+		String hat = playerOnline.hat_A;
+		String walk = playerOnline.walk_A;
+		float coordsX = Float.parseFloat(playerOnline.coordX_A);
+		float coordsY = Float.parseFloat(playerOnline.coordY_A);
+		String inBattle = playerOnline.inBattle_A;
+		
+		
+		if(isCasting && playerSide.equals("right")) {
+			spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 4, coordsY + 21f); return spr_master;
+		}
+		
+		if(isCasting && playerSide.equals("right")) {
+			spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 4, coordsY + 21f); return spr_master;
+		}
+		
+		if(exitAnimationFrame > 0 ) {
+			if(playerSide.equals("right") && playerInfo.inBattle_A.equals("yes") && exitAnimationFrame > 0) {
+				spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 4, coordsY + 21f); return spr_master;		
+			}
+			
+			if(playerSide.equals("left") && playerInfo.inBattle_A.equals("yes") && exitAnimationFrame > 0) {			
+				spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 4, coordsY + 21f); return spr_master;
+			}
+		}
+		
+		if(playerSide.equals("right") && playerInfo.inBattle_A.equals("yes") && walk.equals("stop")) {
+			spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 4, coordsY + 21f); return spr_master;	
+		}
+		
+		if(playerSide.equals("left") && playerInfo.inBattle_A.equals("yes") && walk.equals("stop")) {			
+			spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 4, coordsY + 21f); return spr_master;
+		}
+		
+		if((state.equals("front") || state.equals("front-left") || state.equals("front-right"))  && frame == 1) { spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 4, coordsY + 21f); return spr_master; }
+		if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 1) { spr_master = atlas_hat.createSprite(hat + "_back"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 5.4f, coordsY + 21); return spr_master; }
+		if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 1) { spr_master = atlas_hat.createSprite(hat + "_left"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 5f, coordsY + 21); return spr_master; }
+		if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 1) { spr_master = atlas_hat.createSprite(hat + "_right"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 6f, coordsY + 21); return spr_master; }
+		
+		if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 2) { spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 3.8f, coordsY + 21f); return spr_master; }
+		if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 2) { spr_master = atlas_hat.createSprite(hat + "_back"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 5.6f, coordsY + 21); return spr_master; }
+		if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 2) { spr_master = atlas_hat.createSprite(hat + "_left"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 4.5f, coordsY + 21); return spr_master; }
+		if((state.equals("right")  || state.equals("right-front") || state.equals("right-back")) && frame == 2) { spr_master = atlas_hat.createSprite(hat + "_right"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 5.5f, coordsY + 21); return spr_master; }
+		
+		if((state.equals("front") || state.equals("front-left") || state.equals("front-right")) && frame == 3) { spr_master = atlas_hat.createSprite(hat + "_front"); spr_master.setSize(13, 21); spr_master.setPosition(coordsX + 4, coordsY + 21f); return spr_master; }
+		if((state.equals("back") || state.equals("back-left") || state.equals("back-right")) && frame == 3) { spr_master = atlas_hat.createSprite(hat + "_back"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 5.4f, coordsY + 21); return spr_master; }
+		if((state.equals("left") || state.equals("left-front") || state.equals("left-back")) && frame == 3) { spr_master = atlas_hat.createSprite(hat + "_left"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 5f, coordsY + 21); return spr_master; }
+		if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_hat.createSprite(hat + "_right"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 6f, coordsY + 21); return spr_master; }
+
+		return spr_master;
+	}
+	
 	public void MetaInfoOnline() {
 		countPartyPlayers = 0;
 		cdExpShared--;
@@ -4421,7 +4517,7 @@ public class GameControl {
 					
 					if(!lstPlayersOnline.get(i).expshared_A.equals("0") && cdExpShared == 0) {
 						expsharedReceive = Integer.parseInt(lstPlayersOnline.get(i).expshared_A);
-						cdExpShared = 100;
+						cdExpShared = 120;
 					}
 					
 					//Check Heal
@@ -4433,7 +4529,7 @@ public class GameControl {
 						playerHP = playerHP + auxShared;
 						if(playerHP > playerHPMax) { playerHP = playerHPMax; }
 						playerInfo.hp_A = String.valueOf(playerHP);
-						cdHealShared = 100;
+						cdHealShared = 120;
 					}	
 							
 					//Check Buffs
@@ -4596,7 +4692,7 @@ public class GameControl {
 				lstPlayersOnline.clear();
 				countCleanPlayersOnline = 300;
 			}
-	        
+			
 			String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
 	        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Sync", "UTF-8");
 	        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
@@ -4998,10 +5094,14 @@ public class GameControl {
 		onlineDataReceive = dataInfoSplit[1];
 		dataInfoSplit = dataSplit[2].split("=");
 		onlineDataReceive = onlineDataReceive + ":" + dataInfoSplit[1];		
-		lstChats.add(onlineDataReceive);		
 		
-		if(lstChats.size() > 3) { lstChats.remove(0); }
-		
+		if(!lstChats.contains(onlineDataReceive)) {
+			lstChats.add(onlineDataReceive);
+			lstChats.remove(0);
+		}
+		if(lstChats.size() < 3) {
+			lstChats.add(onlineDataReceive);
+		}
 	}
 	
 	public void LoadDownloadData(String hash) {
@@ -5663,8 +5763,7 @@ public class GameControl {
 			playerRangeXPlus = playerCoordsX + positionTriggerX;
 			playerRangeYPlus = playerCoordsY + positionTriggerY;
 			playerRangeXMinus = playerCoordsX - positionTriggerX;		 
-			playerRangeYMinus = playerCoordsY - positionTriggerY;
-			
+			playerRangeYMinus = playerCoordsY - positionTriggerY;		
 		}
 		
 		if(playerInfo.inBattle_A.equals("yes")) {
@@ -5724,7 +5823,10 @@ public class GameControl {
 						atkHitRandom = randnumber.nextInt(100);
 						if(playerInfo.buffsA_A.contains("precision")) { playerDex = playerDex + 50; }
 						if(playerInfo.buffsB_A.contains("precision")) { playerDex = playerDex + 50; }
-						if(playerInfo.buffsC_A.contains("precision")) { playerDex = playerDex + 50; }
+						if(playerInfo.buffsC_A.contains("precision")) { playerDex = playerDex + 50; } 
+						weapondmg = GetWeaponDamage();
+						playerAtk = playerAtk + weapondmg;
+						if(playerInfo.weapon_A.equals("DOUBLEEDGEKNIFE")) { playerDex = playerDex + 20; playerAtk = (playerAtk / 2); if(playerAtk <= 0) { playerAtk = 0; } }
 						if(atkHitRandom <= (50 + playerDex)) {
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 2; }
 							mobHP = lstMobs.get(i).hp;
@@ -5770,6 +5872,30 @@ public class GameControl {
 				}			
 			}
 		}	
+	}
+	
+	public int GetWeaponDamage() {
+		
+		//novice
+		if(playerInfo.weapon_A.equals("BASICKNIFE")) { return 0; } 
+		if(playerInfo.weapon_A.equals("DOUBLEEDGEKNIFE")) { return 2; }
+		
+		//level 1
+		if(playerInfo.weapon_A.equals("SABERSWORD")) { return 5; }
+		if(playerInfo.weapon_A.equals("REVOLVERPISTOL")) { return 4; }
+		if(playerInfo.weapon_A.equals("GLOOMROD")) { return 3; }
+		if(playerInfo.weapon_A.equals("HAMMERAXE")) { return 10; }
+		if(playerInfo.weapon_A.equals("EDGEDAGGER")) { return 4; }
+		
+		//level 2
+		if(playerInfo.weapon_A.equals("KNIGHTSWORD")) { return 10; }
+		if(playerInfo.weapon_A.equals("MACHINEPISTOL")) { return 4; }
+		if(playerInfo.weapon_A.equals("STARROD")) { return 2; }
+		if(playerInfo.weapon_A.equals("WRENCKAXE")) { return 15; }
+		if(playerInfo.weapon_A.equals("POISONDAGGER")) { return 5; }
+		
+				
+	    return 0;
 	}
 	
 	public float ReturnPosPlus() {		
@@ -6002,22 +6128,22 @@ public class GameControl {
 			//Triple Attack
 			if(numSkill == 1) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 10) {
-					playerMP = playerMP - 10;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
 					mobY = lstMobs.get(i).mobPosY;
 
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
-
+						
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 10) {
+							playerMP = playerMP - 10;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -6098,21 +6224,21 @@ public class GameControl {
 			//Flysword
 			if(numSkill == 1) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 25) {
-					playerMP = playerMP - 25;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 					
 					mobX = lstMobs.get(i).mobPosX;
 					mobY = lstMobs.get(i).mobPosY;
 					
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 25) {
+							playerMP = playerMP - 25;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
 						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
@@ -6174,21 +6300,21 @@ public class GameControl {
 			//RavenBlade
 			if(numSkill == 2) {
 				
-					playerMP = Integer.parseInt(playerInfo.mp_A);
-					if(playerMP >= 20) {
-						playerMP = playerMP - 20;
-						playerInfo.mp_A = String.valueOf(playerMP);
-					}
-					else {
-						return;
-					}
-				
 					for(int i = 0; i < lstMobs.size(); i++) {
 					
 					mobX = lstMobs.get(i).mobPosX;
 					mobY = lstMobs.get(i).mobPosY;
 					
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 20) {
+							playerMP = playerMP - 20;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
 						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
@@ -6375,15 +6501,6 @@ public class GameControl {
 		if(playerInfo.job_A.equals("Thief")) {
 			//Double hit
 			if(numSkill == 1) {
-				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 15) {
-					playerMP = playerMP - 15;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
 
 				for(int i = 0; i < lstMobs.size(); i++) {
 
@@ -6392,6 +6509,15 @@ public class GameControl {
 
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 15) {
+							playerMP = playerMP - 15;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -6451,15 +6577,6 @@ public class GameControl {
 			//Low kick
 			if(numSkill == 2) {
 
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 50) {
-					playerMP = playerMP - 50;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -6467,6 +6584,15 @@ public class GameControl {
 
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 50) {
+							playerMP = playerMP - 50;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -6526,15 +6652,6 @@ public class GameControl {
 			//Steal
 			if(numSkill == 3) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 60) {
-					playerMP = playerMP - 60;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -6542,6 +6659,15 @@ public class GameControl {
 
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 60) {
+							playerMP = playerMP - 60;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -6585,15 +6711,6 @@ public class GameControl {
 			
 			//Poison Hit
 			if(numSkill == 4) {
-				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 50) {
-					playerMP = playerMP - 50;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
 
 				for(int i = 0; i < lstMobs.size(); i++) {
 
@@ -6602,6 +6719,15 @@ public class GameControl {
 
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 50) {
+							playerMP = playerMP - 50;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -6739,6 +6865,7 @@ public class GameControl {
 				playerHP = playerHP + playerAtk;
 				if(playerHP >= playerHPMax) { playerHP = playerHPMax; }
 				playerInfo.hp_A = String.valueOf(playerHP);
+				playerAtk = playerAtk + GetWeaponDamage();
 				heal = String.valueOf(playerAtk);
 				
 				Damage dmg = new Damage();
@@ -6889,6 +7016,7 @@ public class GameControl {
 							playerVit = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 3) + (playerVit * 3)) * 3;
+							playerAtk = playerAtk + GetWeaponDamage();
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -6987,15 +7115,6 @@ public class GameControl {
 			//Fireball
 			if(numSkill == 1) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 20) {
-					playerMP = playerMP - 20;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -7003,6 +7122,15 @@ public class GameControl {
 
 					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 20) {
+							playerMP = playerMP - 20;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7013,6 +7141,7 @@ public class GameControl {
 							playerWis = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + playerWis) * 5;
+							playerAtk = playerAtk + GetWeaponDamage();
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -7063,20 +7192,20 @@ public class GameControl {
 			if(numSkill == 2) {
 				for(int i = 0; i < lstMobs.size(); i++) {
 
-					playerMP = Integer.parseInt(playerInfo.mp_A);
-					if(playerMP >= 50) {
-						playerMP = playerMP - 50;
-						playerInfo.mp_A = String.valueOf(playerMP);
-					}
-					else {
-						return;
-					}
-					
 					mobX = lstMobs.get(i).mobPosX;
 					mobY = lstMobs.get(i).mobPosY;		
 
 					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 50) {
+							playerMP = playerMP - 50;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7089,6 +7218,7 @@ public class GameControl {
 							playerDex = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + playerWis + (playerDex * 2)) * 3;
+							playerAtk = playerAtk + GetWeaponDamage();
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -7140,15 +7270,6 @@ public class GameControl {
 			//thundercloud
 			if(numSkill == 3) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 100) {
-					playerMP = playerMP - 100;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -7156,6 +7277,15 @@ public class GameControl {
 
 					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 100) {
+							playerMP = playerMP - 100;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7170,6 +7300,7 @@ public class GameControl {
 							playerAgi = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 3) + playerDex + (playerAgi *2)) * 5;
+							playerAtk = playerAtk + GetWeaponDamage();
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -7220,15 +7351,6 @@ public class GameControl {
 			//Rockbound
 			if(numSkill == 4) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 35) {
-					playerMP = playerMP - 35;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -7236,6 +7358,15 @@ public class GameControl {
 
 					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 35) {
+							playerMP = playerMP - 35;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7249,6 +7380,7 @@ public class GameControl {
 							playerHP = Integer.parseInt(playerInfo.hp_A);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 2) + playerDex + (playerHP)) * 2;
+							playerAtk = playerAtk + GetWeaponDamage();
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -7299,15 +7431,6 @@ public class GameControl {
 			//Soul Clash
 			if(numSkill == 5) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 25) {
-					playerMP = playerMP - 25;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -7315,6 +7438,15 @@ public class GameControl {
 
 					if((posX + 20) > mobX && (posX - 20) < mobX && (posY + 20) > mobY && (posY - 20) < mobY) {
 
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 25) {
+							playerMP = playerMP - 25;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7328,6 +7460,7 @@ public class GameControl {
 							playerMP = Integer.parseInt(playerInfo.mp_A);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 2) + (playerLuk * 2) + (playerMP)) * 2;
+							playerAtk = playerAtk + GetWeaponDamage();
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -7397,15 +7530,6 @@ public class GameControl {
 			//Fastshot
 			if(numSkill == 1) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 20) {
-					playerMP = playerMP - 20;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -7413,6 +7537,15 @@ public class GameControl {
 
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
 					
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 20) {
+							playerMP = playerMP - 20;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7473,15 +7606,6 @@ public class GameControl {
 			//Bullet Rain
 			if(numSkill == 2) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 50) {
-					playerMP = playerMP - 50;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -7489,6 +7613,15 @@ public class GameControl {
 
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
 					
+					playerMP = Integer.parseInt(playerInfo.mp_A);
+					if(playerMP >= 50) {
+						playerMP = playerMP - 50;
+						playerInfo.mp_A = String.valueOf(playerMP);
+					}
+					else {
+						return;
+					}
+						
 					if(playerCoordsX < mobX) { playerSide = "right"; }
 					if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7586,15 +7719,6 @@ public class GameControl {
 			//LockShot
 			if(numSkill == 4) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 230) {
-					playerMP = playerMP - 230;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -7602,6 +7726,15 @@ public class GameControl {
 					
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
 
+					playerMP = Integer.parseInt(playerInfo.mp_A);
+					if(playerMP >= 230) {
+						playerMP = playerMP - 230;
+						playerInfo.mp_A = String.valueOf(playerMP);
+					}
+					else {
+						return;
+					}
+						
 					if(playerCoordsX < mobX) { playerSide = "right"; }
 					if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7668,15 +7801,6 @@ public class GameControl {
 			//Mine
 			if(numSkill == 5) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 80) {
-					playerMP = playerMP - 80;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 
 					mobX = lstMobs.get(i).mobPosX;
@@ -7684,6 +7808,15 @@ public class GameControl {
 
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
 					
+					playerMP = Integer.parseInt(playerInfo.mp_A);
+					if(playerMP >= 80) {
+						playerMP = playerMP - 80;
+						playerInfo.mp_A = String.valueOf(playerMP);
+					}
+					else {
+						return;
+					}
+						
 					if(playerCoordsX < mobX) { playerSide = "right"; }
 					if(playerCoordsX > mobX) { playerSide = "left"; }
 
@@ -7763,21 +7896,21 @@ public class GameControl {
 			//HammerCrash
 			if(numSkill == 1) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 30) {
-					playerMP = playerMP - 30;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 					
 					mobX = lstMobs.get(i).mobPosX;
 					mobY = lstMobs.get(i).mobPosY;
 					
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 30) {
+							playerMP = playerMP - 30;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
 						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
@@ -7839,21 +7972,21 @@ public class GameControl {
 			//Berserk
 			if(numSkill == 2) {
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 80) {
-					playerMP = playerMP - 80;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 					
 					mobX = lstMobs.get(i).mobPosX;
 					mobY = lstMobs.get(i).mobPosY;
 					
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 80) {
+							playerMP = playerMP - 80;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
 						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
@@ -7962,21 +8095,22 @@ public class GameControl {
 			// Rage Bound
 			if(numSkill == 4){
 				
-				playerMP = Integer.parseInt(playerInfo.mp_A);
-				if(playerMP >= 15) {
-					playerMP = playerMP - 15;
-					playerInfo.mp_A = String.valueOf(playerMP);
-				}
-				else {
-					return;
-				}
-				
 				for(int i = 0; i < lstMobs.size(); i++) {
 					
 					mobX = lstMobs.get(i).mobPosX;
 					mobY = lstMobs.get(i).mobPosY;
 					
 					if(playerRangeXPlus > mobX && playerRangeXMinus < mobX && playerRangeYPlus > mobY && playerRangeYMinus < mobY) {
+						
+						playerMP = Integer.parseInt(playerInfo.mp_A);
+						if(playerMP >= 15) {
+							playerMP = playerMP - 15;
+							playerInfo.mp_A = String.valueOf(playerMP);
+						}
+						else {
+							return;
+						}
+						
 						
 						if(playerCoordsX < mobX) { playerSide = "right"; }
 						if(playerCoordsX > mobX) { playerSide = "left"; }
@@ -8747,10 +8881,203 @@ public class GameControl {
 		boolean levelup = false;
 		int playerExp = Integer.parseInt(playerInfo.exp_A);
 		
-		if(typeExp.equals("normal")) { playerExp = playerExp + mob.exp; } 
-		if(typeExp.equals("partyshared")) { playerExp = playerExp + expShared; }
-		int point = Integer.parseInt(playerInfo.statusPoint_A);
+		if(typeExp.equals("normal")) { 
 			
+			if(playerlvl >= 0 && playerlvl <= 10) {
+				//base 1 - 10
+				if(mob.exp >= 1 && mob.exp <= 300) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 10 - 20
+				if(mob.exp >= 1200 && mob.exp <= 3500) {
+					playerExp = playerExp + (mob.exp / 200); 
+				}
+				//base 20 - 30
+				if(mob.exp >= 10000 && mob.exp <= 25000) {
+					playerExp = playerExp + (mob.exp / 1000); 
+				}
+				//base 30 - 40
+				if(mob.exp >= 50000 && mob.exp <= 130000) {
+					playerExp = playerExp + (mob.exp / 5000); 
+				}
+				//base 40 - 50
+				if(mob.exp >= 200000 && mob.exp <= 310000) {
+					playerExp = playerExp + (mob.exp / 20000); 
+				}
+			}
+			
+			if(playerlvl >= 10 && playerlvl < 20) {
+				//base 1 - 10
+				if(mob.exp >= 1 && mob.exp <= 300) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 10 - 20
+				if(mob.exp >= 1200 && mob.exp <= 3500) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 20 - 30
+				if(mob.exp >= 10000 && mob.exp <= 25000) {
+					playerExp = playerExp + (mob.exp / 1000); 
+				}
+				//base 30 - 40
+				if(mob.exp >= 50000 && mob.exp <= 130000) {
+					playerExp = playerExp + (mob.exp / 5000); 
+				}
+				//base 40 - 50
+				if(mob.exp >= 200000 && mob.exp <= 310000) {
+					playerExp = playerExp + (mob.exp / 20000); 
+				}
+			}
+			
+			if(playerlvl >= 20 && playerlvl < 30) {
+				//base 1 - 10
+				if(mob.exp >= 1 && mob.exp <= 300) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 10 - 20
+				if(mob.exp >= 1200 && mob.exp <= 3500) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 20 - 30
+				if(mob.exp >= 10000 && mob.exp <= 25000) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 30 - 40
+				if(mob.exp >= 50000 && mob.exp <= 130000) {
+					playerExp = playerExp + (mob.exp / 5000); 
+				}
+				//base 40 - 50
+				if(mob.exp >= 200000 && mob.exp <= 310000) {
+					playerExp = playerExp + (mob.exp / 20000); 
+				}
+			}
+			
+			if(playerlvl >= 30 && playerlvl < 40) {
+				//base 1 - 10
+				if(mob.exp >= 1 && mob.exp <= 300) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 10 - 20
+				if(mob.exp >= 1200 && mob.exp <= 3500) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 20 - 30
+				if(mob.exp >= 10000 && mob.exp <= 25000) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 30 - 40
+				if(mob.exp >= 50000 && mob.exp <= 130000) {
+					playerExp = playerExp + mob.exp; 
+				}
+				//base 40 - 50
+				if(mob.exp >= 200000 && mob.exp <= 310000) {
+					playerExp = playerExp + (mob.exp / 20000); 
+				}
+			}	
+			if(playerlvl >= 40 && playerlvl <= 50) {
+				playerExp = playerExp + mob.exp; 
+			}
+		} 
+		
+		if(typeExp.equals("partyshared")) { 
+			if(playerlvl >= 0 && playerlvl <= 10) {
+				//base 1 - 10
+				if(expShared >= 1 && expShared <= 300) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 10 - 20
+				if(expShared >= 1200 && expShared <= 3500) {
+					playerExp = playerExp + (expShared / 200); 
+				}
+				//base 20 - 30
+				if(expShared >= 10000 && expShared <= 25000) {
+					playerExp = playerExp + (expShared / 1000); 
+				}
+				//base 30 - 40
+				if(expShared >= 50000 && expShared <= 130000) {
+					playerExp = playerExp + (expShared / 5000); 
+				}
+				//base 40 - 50
+				if(expShared >= 200000 && expShared <= 310000) {
+					playerExp = playerExp + (expShared / 20000); 
+				}
+			}
+			
+			if(playerlvl >= 10 && playerlvl < 20) {
+				//base 1 - 10
+				if(expShared >= 1 && expShared <= 300) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 10 - 20
+				if(expShared >= 1200 && expShared <= 3500) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 20 - 30
+				if(expShared >= 10000 && expShared <= 25000) {
+					playerExp = playerExp + (expShared / 1000); 
+				}
+				//base 30 - 40
+				if(expShared >= 50000 && expShared <= 130000) {
+					playerExp = playerExp + (expShared / 5000); 
+				}
+				//base 40 - 50
+				if(expShared >= 200000 && expShared <= 310000) {
+					playerExp = playerExp + (expShared / 20000); 
+				}
+			}
+			
+			if(playerlvl >= 20 && playerlvl < 30) {
+				//base 1 - 10
+				if(expShared >= 1 && expShared <= 300) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 10 - 20
+				if(expShared >= 1200 && expShared <= 3500) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 20 - 30
+				if(expShared >= 10000 && expShared <= 25000) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 30 - 40
+				if(expShared >= 50000 && expShared <= 130000) {
+					playerExp = playerExp + (expShared / 5000); 
+				}
+				//base 40 - 50
+				if(expShared >= 200000 && expShared <= 310000) {
+					playerExp = playerExp + (expShared / 20000); 
+				}
+			}
+			
+			if(playerlvl >= 30 && playerlvl < 40) {
+				//base 1 - 10
+				if(expShared >= 1 && expShared <= 300) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 10 - 20
+				if(expShared >= 1200 && expShared <= 3500) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 20 - 30
+				if(expShared >= 10000 && expShared <= 25000) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 30 - 40
+				if(expShared >= 50000 && expShared <= 130000) {
+					playerExp = playerExp + expShared; 
+				}
+				//base 40 - 50
+				if(expShared >= 200000 && expShared <= 310000) {
+					playerExp = playerExp + (expShared / 20000); 
+				}
+			}	
+			if(playerlvl >= 40 && playerlvl <= 50) {
+				playerExp = playerExp + expShared; 
+			}
+		}
+		
+		int point = Integer.parseInt(playerInfo.statusPoint_A);		
+		
 		playerInfo.exp_A = String.valueOf(playerExp);
 		
 		if(playerInfo.level_A.equals("1") && playerExp >= 100) { playerInfo.level_A = "2"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
@@ -8762,46 +9089,46 @@ public class GameControl {
 		if(playerInfo.level_A.equals("7") && playerExp >= 1780) { playerInfo.level_A = "8"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
 		if(playerInfo.level_A.equals("8") && playerExp >= 2420) { playerInfo.level_A = "9"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
 		if(playerInfo.level_A.equals("9") && playerExp >= 3700) { playerInfo.level_A = "10"; playerInfo.exp_A = "0"; levelup = true; point = point + 2; }
-		if(playerInfo.level_A.equals("10") && playerExp >= 10200) { playerInfo.level_A = "11"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("11") && playerExp >= 12500) { playerInfo.level_A = "12"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("12") && playerExp >= 15700) { playerInfo.level_A = "13"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("13") && playerExp >= 19800) { playerInfo.level_A = "14"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("14") && playerExp >= 22500) { playerInfo.level_A = "15"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("15") && playerExp >= 27800) { playerInfo.level_A = "16"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("16") && playerExp >= 32500) { playerInfo.level_A = "17"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("17") && playerExp >= 35900) { playerInfo.level_A = "18"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("18") && playerExp >= 39010) { playerInfo.level_A = "19"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("19") && playerExp >= 45020) { playerInfo.level_A = "20"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("20") && playerExp >= 78000) { playerInfo.level_A = "21"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("21") && playerExp >= 79500) { playerInfo.level_A = "22"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("22") && playerExp >= 83222) { playerInfo.level_A = "23"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
-		if(playerInfo.level_A.equals("23") && playerExp >= 100) { playerInfo.level_A = "24"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("24") && playerExp >= 100) { playerInfo.level_A = "25"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("25") && playerExp >= 100) { playerInfo.level_A = "26"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("26") && playerExp >= 100) { playerInfo.level_A = "27"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("27") && playerExp >= 100) { playerInfo.level_A = "28"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("28") && playerExp >= 100) { playerInfo.level_A = "29"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("29") && playerExp >= 100) { playerInfo.level_A = "30"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("30") && playerExp >= 100) { playerInfo.level_A = "31"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("31") && playerExp >= 100) { playerInfo.level_A = "32"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("32") && playerExp >= 100) { playerInfo.level_A = "33"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("33") && playerExp >= 100) { playerInfo.level_A = "34"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("34") && playerExp >= 100) { playerInfo.level_A = "35"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("35") && playerExp >= 100) { playerInfo.level_A = "36"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("36") && playerExp >= 100) { playerInfo.level_A = "37"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("37") && playerExp >= 100) { playerInfo.level_A = "38"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("38") && playerExp >= 100) { playerInfo.level_A = "39"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("39") && playerExp >= 100) { playerInfo.level_A = "40"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("40") && playerExp >= 100) { playerInfo.level_A = "41"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("41") && playerExp >= 100) { playerInfo.level_A = "42"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("42") && playerExp >= 100) { playerInfo.level_A = "43"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("43") && playerExp >= 100) { playerInfo.level_A = "44"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("44") && playerExp >= 100) { playerInfo.level_A = "45"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("45") && playerExp >= 100) { playerInfo.level_A = "46"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("46") && playerExp >= 100) { playerInfo.level_A = "47"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("47") && playerExp >= 100) { playerInfo.level_A = "48"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("48") && playerExp >= 100) { playerInfo.level_A = "49"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("49") && playerExp >= 100) { playerInfo.level_A = "50"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("10") && playerExp >= 23200) { playerInfo.level_A = "11"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("11") && playerExp >= 26700) { playerInfo.level_A = "12"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("12") && playerExp >= 32152) { playerInfo.level_A = "13"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("13") && playerExp >= 35789) { playerInfo.level_A = "14"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("14") && playerExp >= 42356) { playerInfo.level_A = "15"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("15") && playerExp >= 48542) { playerInfo.level_A = "16"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("16") && playerExp >= 55234) { playerInfo.level_A = "17"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("17") && playerExp >= 58124) { playerInfo.level_A = "18"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("18") && playerExp >= 62124) { playerInfo.level_A = "19"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("19") && playerExp >= 75224) { playerInfo.level_A = "20"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("20") && playerExp >= 79100) { playerInfo.level_A = "21"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("21") && playerExp >= 301255) { playerInfo.level_A = "22"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("22") && playerExp >= 325325) { playerInfo.level_A = "23"; playerInfo.exp_A = "0"; levelup = true; point = point + 3; }
+		if(playerInfo.level_A.equals("23") && playerExp >= 351255) { playerInfo.level_A = "24"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("24") && playerExp >= 381500) { playerInfo.level_A = "25"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("25") && playerExp >= 428200) { playerInfo.level_A = "26"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("26") && playerExp >= 485400) { playerInfo.level_A = "27"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("27") && playerExp >= 512800) { playerInfo.level_A = "28"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("28") && playerExp >= 535400) { playerInfo.level_A = "29"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("29") && playerExp >= 550000) { playerInfo.level_A = "30"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("30") && playerExp >= 1529400) { playerInfo.level_A = "31"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("31") && playerExp >= 1688845) { playerInfo.level_A = "32"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("32") && playerExp >= 1955213) { playerInfo.level_A = "33"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("33") && playerExp >= 2154587) { playerInfo.level_A = "34"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("34") && playerExp >= 2355488) { playerInfo.level_A = "35"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("35") && playerExp >= 2545255) { playerInfo.level_A = "36"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("36") && playerExp >= 2600000) { playerInfo.level_A = "37"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("37") && playerExp >= 2785151) { playerInfo.level_A = "38"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("38") && playerExp >= 2951515) { playerInfo.level_A = "39"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("39") && playerExp >= 3345878) { playerInfo.level_A = "40"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
+		if(playerInfo.level_A.equals("40") && playerExp >= 8054568) { playerInfo.level_A = "41"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("41") && playerExp >= 8575557) { playerInfo.level_A = "42"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("42") && playerExp >= 9551235) { playerInfo.level_A = "43"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("43") && playerExp >= 9851578) { playerInfo.level_A = "44"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("44") && playerExp >= 11502150) { playerInfo.level_A = "45"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("45") && playerExp >= 32545870) { playerInfo.level_A = "46"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("46") && playerExp >= 58789540) { playerInfo.level_A = "47"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("47") && playerExp >= 68515570) { playerInfo.level_A = "48"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("48") && playerExp >= 78515780) { playerInfo.level_A = "49"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("49") && playerExp >= 35000000) { playerInfo.level_A = "50"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
 		
 		if(levelup) {
 			
@@ -8884,11 +9211,68 @@ public class GameControl {
 		
 		if(onlineCheck) { 
 			if(!playerInfo.party_A.equals("None") && typeExp.equals("normal")) {
-				int sharedpart = mob.exp / 2;
+				
+				int sharedpart = 0;
+				sharedpart = mob.exp; 
+				
 				expsharedOnline = String.valueOf(sharedpart);
 				cdExpSharedSend = 15;
 			}
 		}
+	}
+	
+	public String GetExpNeeded() {
+		if(playerInfo.level_A.equals("1")) { return "100"; }
+		if(playerInfo.level_A.equals("2")) { return "230";  }
+		if(playerInfo.level_A.equals("3")) { return "410";  }
+		if(playerInfo.level_A.equals("4")) { return "650";  }
+		if(playerInfo.level_A.equals("5")) { return "810";  }
+		if(playerInfo.level_A.equals("6")) { return "1340";  }
+		if(playerInfo.level_A.equals("7")) { return "1780";  }
+		if(playerInfo.level_A.equals("8")) { return "2420";  }
+		if(playerInfo.level_A.equals("9")) { return "3700";  }
+		if(playerInfo.level_A.equals("10")) { return "23200";  }
+		if(playerInfo.level_A.equals("11")) { return "26700";  }
+		if(playerInfo.level_A.equals("12")) { return "32152";  }
+		if(playerInfo.level_A.equals("13")) { return "35789";  }
+		if(playerInfo.level_A.equals("14")) { return "42356";  }
+		if(playerInfo.level_A.equals("15")) { return "48542";  }
+		if(playerInfo.level_A.equals("16")) { return "55234";  }
+		if(playerInfo.level_A.equals("17")) { return "58124";  }
+		if(playerInfo.level_A.equals("18")) { return "62124";  }
+		if(playerInfo.level_A.equals("19")) { return "75224";  }
+		if(playerInfo.level_A.equals("20")) { return "79100";  }
+		if(playerInfo.level_A.equals("21")) { return "301255"; }
+		if(playerInfo.level_A.equals("22")) { return "325325"; }
+		if(playerInfo.level_A.equals("23")) { return "351255"; }
+		if(playerInfo.level_A.equals("24")) { return "381500"; }
+		if(playerInfo.level_A.equals("25")) { return "428200"; }
+		if(playerInfo.level_A.equals("26")) { return "485400"; }
+		if(playerInfo.level_A.equals("27")) { return "512800"; }
+		if(playerInfo.level_A.equals("28")) { return "535400"; }
+		if(playerInfo.level_A.equals("29")) { return "550000"; }
+		if(playerInfo.level_A.equals("30")) { return "1529400"; }
+		if(playerInfo.level_A.equals("31")) { return "1688845"; }
+		if(playerInfo.level_A.equals("32")) { return "1955213"; }
+		if(playerInfo.level_A.equals("33")) { return "2154587"; }
+		if(playerInfo.level_A.equals("34")) { return "2355488"; }
+		if(playerInfo.level_A.equals("35")) { return "2545255"; }
+		if(playerInfo.level_A.equals("36")) { return "2600000"; }
+		if(playerInfo.level_A.equals("37")) { return "2785151"; }
+		if(playerInfo.level_A.equals("38")) { return "2951515"; }
+		if(playerInfo.level_A.equals("39")) { return "3345878"; }
+		if(playerInfo.level_A.equals("40")) { return "8054568"; }
+		if(playerInfo.level_A.equals("41")) { return "8575557"; }
+		if(playerInfo.level_A.equals("42")) { return "9551235"; }
+		if(playerInfo.level_A.equals("43")) { return "9851578"; }
+		if(playerInfo.level_A.equals("44")) { return "1150215"; }
+		if(playerInfo.level_A.equals("45")) { return "3254587"; }
+		if(playerInfo.level_A.equals("46")) { return "5878954"; }
+		if(playerInfo.level_A.equals("47")) { return "6851557"; }
+		if(playerInfo.level_A.equals("48")) { return "7851578"; }
+		if(playerInfo.level_A.equals("49")) { return "35000000"; }
+		
+		return "";
 	}
 	
 	public Sprite ShowLootItem(float ccX, float ccY) {
@@ -8902,8 +9286,8 @@ public class GameControl {
 			if(lootItemName.equals("POISONLEAf")) { spr_master = atlas_itens.createSprite("lootpoisonleaf"); }
 			if(lootItemName.equals("MUSHROOM")) { spr_master = atlas_itens.createSprite("lootmushroom"); }
 			if(lootItemName.equals("FANG")) { spr_master = atlas_itens.createSprite("lootfang"); }
-			if(lootItemName.equals("STICK")) { spr_master = atlas_itens.createSprite("lootfang"); }			
-			if(lootItemName.equals("HATSLIME")) { spr_master = atlas_itens.createSprite("lootfang"); }
+			if(lootItemName.equals("STICK")) { spr_master = atlas_itens.createSprite("galhos"); }			
+			if(lootItemName.equals("HATSLIME")) { spr_master = atlas_itens.createSprite("hatslime"); }
 			
 			spr_master.setSize(7, 12);
 			spr_master.setPosition(ccX + 15, ccY + 61.5f);

@@ -135,6 +135,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_playerHairOnline;
 		private Sprite spr_TagParty;
 		private Sprite spr_TagPartyHair;
+		private Sprite spr_TagPartyHat;
+		private Sprite spr_playerHatOnline;
 		
 		//Camera
 		private OrthographicCamera camera;
@@ -180,7 +182,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.setUseIntegerPositions(false);	
 			
 			//Initializing Chats & Monsters
-			//lstChats = new ArrayList<String>();
+			lstChats = new ArrayList<String>();
 			//lstMobs = new ArrayList<Monster>();
 			//lstMobs = gameControl.LoadMonsters("Sewers");
 			
@@ -318,12 +320,14 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.09f,0.11f);
 			font_master.setUseIntegerPositions(false);	
-			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 52f,cameraCoordsY + 91.5f);
-			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 54f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 54f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 41f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 43f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX - 39f,cameraCoordsY + 73.2f);
+			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 53f,cameraCoordsY + 91.5f);
+			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 55.8f,cameraCoordsY + 87.8f);
+			font_master.draw(game.batch, activePlayer.maxhp_A, cameraCoordsX - 49f,cameraCoordsY + 87.8f);
+			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 55.8f,cameraCoordsY + 81.8f);
+			font_master.draw(game.batch, activePlayer.maxmp_A, cameraCoordsX - 49f,cameraCoordsY + 81.8f);
+			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39f,cameraCoordsY + 87.8f);
+			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 41f,cameraCoordsY + 81.8f);
+			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX - 41f,cameraCoordsY + 73.2f);
 			
 			playerPosiX = Math.round(playerPosX);
 			playerPosiY = Math.round(playerPosY);
@@ -331,16 +335,25 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
 			
 			
-			if(lstChats != null) {
+			if(!lstChats.isEmpty()) {
 				font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
 				for(count = 0; count < lstChats.size(); count++) {
 					if(count == 0) {
+						if(lstChats.get(count) == null) {
+							return;
+						}
 						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 17.7f);
 					}
 					if(count == 1) {
+						if(lstChats.get(count) == null) {
+							return;
+						}
 						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 22.7f);
 					}
 					if(count == 2) {
+						if(lstChats.get(count) == null) {
+							return;
+						}
 						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
 					}	
 				}
@@ -419,6 +432,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				
 				font_master.draw(game.batch, activePlayer.job_A, cameraCoordsX - 37,cameraCoordsY + 62);
 				font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39,cameraCoordsY + 57);
+				font_master.draw(game.batch, gameControl.GetExpNeeded(), cameraCoordsX - 34,cameraCoordsY + 52);
 
 				//Remain points
 				font_master.draw(game.batch, activePlayer.statusPoint_A, cameraCoordsX - 18,cameraCoordsY - 5);
@@ -482,6 +496,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_playerHair.setSize(12,19);
 				spr_playerHair.setPosition(cameraCoordsX + 18.2f, cameraCoordsY + 40.3f);
 				spr_playerHair.draw(game.batch);
+				
+				font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX - 15,cameraCoordsY + 9);
 				
 				ShowItensBag();
 			}
@@ -1073,7 +1089,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		
-		private void ShowOnlinePlayers() {
+private void ShowOnlinePlayers() {
 			
 			if(network) {			
 				lstChats = gameControl.GetOnlineChats();				
@@ -1086,6 +1102,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					
 					spr_playerHairOnline = gameControl.MovPlayerOnlineHair(lstPlayerOnline.get(i));
 					spr_playerHairOnline.draw(game.batch);
+					
+					if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+					spr_playerHatOnline = gameControl.MovPlayerOnlineHat(lstPlayerOnline.get(i));
+					spr_playerHatOnline.draw(game.batch);
+					}
 					
 					font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX() + 7.5f,spr_playerCharacterOnline.getY() + 5);
 					
@@ -1100,6 +1121,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty1",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
 							spr_TagPartyHair.draw(game.batch);	
 							
+							if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+							spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty1",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
+							spr_TagPartyHat.draw(game.batch);
+							}
 							
 							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 65f);
 							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 60.9f);
@@ -1115,6 +1140,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty2",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
 							spr_TagPartyHair.draw(game.batch);	
 							
+							if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+							spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty2",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
+							spr_TagPartyHat.draw(game.batch);
+							}
 							
 							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 45.8f);
 							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 42);
@@ -1128,8 +1157,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 							spr_TagParty.draw(game.batch);
 							
 							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty3",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
-							spr_TagPartyHair.draw(game.batch);	
+							spr_TagPartyHair.draw(game.batch);	//here
 							
+							if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+							spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty3",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
+							spr_TagPartyHat.draw(game.batch);
+							}
 							
 							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 26.8f);
 							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 23);
@@ -1162,7 +1195,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			for(int i = 0; i < lstMobs.size(); i++) {
 				spr_mob = gameControl.MobAppear(i);
 				spr_mob.draw(game.batch);
-				font_master.draw(game.batch, lstMobs.get(i).name + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
+				font_master.draw(game.batch, lstMobs.get(i).mobID + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
 			}	
 			
 			spr_TargetArrow = gameControl.TargetMobArrow();

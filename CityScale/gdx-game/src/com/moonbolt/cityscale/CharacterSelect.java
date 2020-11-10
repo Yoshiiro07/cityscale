@@ -54,6 +54,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private Sprite spr_boardCreate;
 	private Sprite spr_characterSet;
 	private Sprite spr_hair;
+	private Sprite spr_hat;
 	private Sprite spr_hairLoop;
 	private Sprite spr_light;
 	private Sprite spr_darkLight;
@@ -64,6 +65,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	
 	//fonts
 	private BitmapFont font_master;
+	
+	//Teste Dot
+    private Sprite spr_testeDot;
+    private Texture tex_testeDot;
+	
 		
 	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkState){
 		this.game = gameAlt;
@@ -88,6 +94,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		//Sprites
 		tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
 		spr_Background = new Sprite(tex_Background);
+		
+		//test dot
+		tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+		spr_testeDot = new Sprite(tex_testeDot);
 		
 		gameControl.LoadData();
 	}
@@ -155,6 +165,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(17.1f, 41.2f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_1.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_1,activeplayer.sex_1,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(14.5f, 40.2f);
+						spr_hat.draw(game.batch);
+					}				
 				}
 				
 				if(activeplayer.sex_1.equals("F")) {
@@ -167,6 +184,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(17.1f, 41.4f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_1.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_1,activeplayer.sex_1,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(14.5f, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 			}
 			
@@ -181,6 +205,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(45.6f, 41.2f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_2.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_2,activeplayer.sex_2,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(43.6f, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 				if(activeplayer.sex_2.equals("F")) {
 					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true, "");
@@ -192,6 +223,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(45.6f, 41.2f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_2.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_2,activeplayer.sex_2,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(43.6f, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 			}
 			
@@ -206,6 +244,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(78, 41.2f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_3.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_3,activeplayer.sex_3,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(76, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 				
 				if(activeplayer.sex_3.equals("F")) {
@@ -217,7 +262,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair = gameControl.PlayerHairCharacterSelect(activeplayer.hair_3,activeplayer.sex_3, "front");
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(78, 41.2f);
-					spr_hair.draw(game.batch);					
+					spr_hair.draw(game.batch);	
+					
+					if(!activeplayer.hat_3.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_3,activeplayer.sex_3,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(76, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 			}			
 		}
@@ -253,6 +305,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(17.1f, 41.2f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_1.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_1,activeplayer.sex_1,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(14.5f, 40.2f);
+						spr_hat.draw(game.batch);
+					}	
 				}
 				
 				if(activeplayer.sex_1.equals("F")) {
@@ -265,6 +324,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(17.1f, 41.4f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_1.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_1,activeplayer.sex_1,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(14.5f, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}			
 			}
 			
@@ -287,6 +353,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(45.6f, 41.2f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_2.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_2,activeplayer.sex_2,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(43.6f, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 				if(activeplayer.sex_2.equals("F")) {
 					spr_characterSet = gameControl.MovPlayerCharacter(activeplayer.set_2, activeplayer.sex_2, "stop", "front", true, "");
@@ -298,6 +371,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(45.6f, 41.2f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_2.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_2,activeplayer.sex_2,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(43.6f, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 			}
 
@@ -320,6 +400,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(78, 41.2f);
 					spr_hair.draw(game.batch);
+					
+					if(!activeplayer.hat_3.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_3,activeplayer.sex_3,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(76, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 				
 				if(activeplayer.sex_3.equals("F")) {
@@ -331,7 +418,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_hair = gameControl.PlayerHairCharacterSelect(activeplayer.hair_3,activeplayer.sex_3, "front");
 					spr_hair.setSize(8, 11);
 					spr_hair.setPosition(78, 41.2f);
-					spr_hair.draw(game.batch);					
+					spr_hair.draw(game.batch);	
+					
+					if(!activeplayer.hat_3.equals("none")) {					
+						spr_hat = gameControl.MovPlayerHat(activeplayer.hat_3,activeplayer.sex_3,"front", "Menu-Status", "");
+						spr_hat.setSize(13, 21);
+						spr_hat.setPosition(76, 40.2f);
+						spr_hat.draw(game.batch);
+					}
 				}
 			}		
 		}
@@ -469,6 +563,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		    if(charnum == 2) { game.Switch(activeplayer.map_2); }
 		    if(charnum == 3) { game.Switch(activeplayer.map_3); }			
 		}
+		
+		//spr_testeDot.setPosition(67.2f, 50);
+		//spr_testeDot.draw(game.batch);
+		
+		//spr_testeDot.setPosition(cameraCoordsX, cameraCoordsY);
+		//spr_testeDot.draw(game.batch);
 		
 		game.batch.end();
 	}
@@ -650,7 +750,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				return false;
 			}
 			//Hair5
-			if(coordsTouch.x >= 62 && coordsTouch.x <= 74.0 && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
+			if(coordsTouch.x >= 62 && coordsTouch.x <= 67.2f && coordsTouch.y >= 36.8 && coordsTouch.y <= 47.6) {
 				if(sex.equals("M")) { hair = "hair5"; }
 				if(sex.equals("F")) { hair = "hair5";}
 				return false;
@@ -687,7 +787,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				return false;
 			}
 			//Hair11
-			if(coordsTouch.x >= 62 && coordsTouch.x <= 74.0 && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
+			if(coordsTouch.x >= 62 && coordsTouch.x <= 67.2f && coordsTouch.y >= 25.2 && coordsTouch.y <= 35.7) {
 				if(sex.equals("M")) { hair = "hair11"; }
 				if(sex.equals("F")) { hair = "hair11";}
 				return false;
