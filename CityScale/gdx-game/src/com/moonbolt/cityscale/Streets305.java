@@ -1016,7 +1016,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//JobMaster
 			if(playerPosX > 8f && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
 				int playerlevel = Integer.parseInt(activePlayer.level_A);
-				if(playerlevel == 10 && !activePlayer.job_A.equals("Novice")) { gameControl.PushReset(); }
 				if(!activePlayer.job_A.equals("Novice")) { return; } 
 				if(playerlevel < 10) { return; }
 				if(playerlevel > 10) { return; }

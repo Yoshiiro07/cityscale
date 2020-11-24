@@ -40,7 +40,7 @@
 	$ldamage = $_POST['ldamage'];
 	
 	$lsyncPlayerMob = $_POST['lsyncPlayerMob'];
-	$lMobsHPSync = $_POST['lMobsHPSync'];
+	$lsyncMobInfo = $_POST['lsyncMobInfo'];
 		
 	#Variaveis de chat
 	$lchat = $_POST['lchat'];
@@ -68,7 +68,23 @@
 	}
 	
 	#Sincronizar
-	if ($lrequest == "Sync"){		
+	if ($lrequest == "Sync"){	
+	
+		//Verifica Reset Obrigatório
+		$lAll = '';
+		$sql = "SELECT * FROM Reset where AccountID = '$laccount' ";
+		$result = $conn->query($sql);			
+		if ($result->num_rows < 1) {
+			$lAll = '';
+			$sql = "INSERT INTO Reset (AccountID) VALUES ('$laccount')"; 
+		
+			if ($conn->query($sql) === TRUE) {
+				echo "SYSTEMRESET \n";
+			} else {
+				echo "Error: " . $sql . "<br>" . $conn->error;
+			}
+		}
+		
 		///// Recupera Chat /////
 		$lAll = '';
 		$sql = "SELECT * FROM Chats ORDER BY ChatID DESC LIMIT 3";
@@ -83,21 +99,34 @@
 			echo($lAll);			
 		}
 		
-		/////Recupera Mobs /////
-		$lAll = '';
-		$sql = "SELECT * FROM Mobs where MAP = '$lmap' ";
-		$result = $conn->query($sql);			
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) {
-									
-			$lAll = $lAll . ("SYSTEMMOBS - :MobID=" . $row["MobsID"]. 
-							  ":GameMobID=" .  $row["GameMobID"]. 
-							  ":HPMob=" . $row["HPMob"] . 
-							  ":Map=" . $row["MAP"] .
-							  ": - \n");			
-			}		
+		/////Recupera/Atualiza Mobs /////
+		if($lsyncPlayerMob == "yes"){
+			$sql = "UPDATE Mobs set MobsInfo = '$lsyncMobInfo'
+												where MAP = '$lmap' ";
+			$result = $conn->query($sql);
+			if ($conn->query($sql) === TRUE) { echo nl2br("SYSTEMMOBS \n - Atualizado Mobs - \n"); } else { echo nl2br("\n - Falhou Update Mobs - \n") . $conn->error; }
 		}
-		echo($lAll);
+		if($lsyncPlayerMob == "no"){
+			$lAll = '';
+			$sql = "SELECT * FROM Mobs where MAP = '$lmap' ";
+			$result = $conn->query($sql);			
+			if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {								
+				$lAll = $lAll . ("SYSTEMMOBS - :MobID=" . $row["MobsID"]. 
+								  ":MobHpA=" .  $row["MobHpA"]. 
+								  ":MobHpB=" .  $row["MobHpB"].
+								  ":MobHpC=" .  $row["MobHpC"].
+								  ":MobHpD=" .  $row["MobHpD"].
+								  ":MobHpE=" .  $row["MobHpE"].
+								  ":MobHpF=" .  $row["MobHpF"].
+								  ":MobHpG=" . $row["MobHpG"] . 
+								  ":MobsInfo=" . $row["MobsInfo"] .
+								  ":MAP=" . $row["MAP"] .
+								  ": - \n");			
+				}		
+			}
+			echo($lAll);
+		}
 		
 		//Verifica se já está ativo
 		$sql = "SELECT * FROM Processos where ACCOUNT = '$ldata' ";
@@ -128,8 +157,7 @@
 										 BuffC = '$lbuffC',
 										 Heal = '$lheal',
 										 ExpShared = '$lexpshared',
-										 SyncPlayerMob = '$lsyncPlayerMob',
-										 MobsHPSync = '$lMobsHPSync'
+										 SyncPlayerMob = '$lsyncPlayerMob'
 										 where Account = '$laccount' ";			
 			$result = $conn->query($sql);
 			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado - \n"); } else { echo nl2br("\n - Falhou Update - \n") . $conn->error; }
@@ -138,7 +166,7 @@
 		else
 		{
 			$lAll = '';
-			$sql = "INSERT INTO Processos (Name,Sex,Level,Hp,Mp,CoordsX,CoordsY,Map,Hair,Hat,SetEquip,Party,Job,Damage,Walk,Pos,Weapon,Account,Side,Battle,BuffA,BuffB,BuffC,Heal,ExpShared,SyncPlayerMob,MobsHPSync) VALUES ('$lname','$lsex','$llevel','$lhp','$lmp','$lcoordsX','$lcoordsY','$lmap','$lhair','$lhat','$lsetEquip','$lparty','$ljob','$ldamage','$lwalk','$lpos','$lweapon','$laccount','$lside','$lbattle','$lbuffA','$lbuffB','$lbuffC','$lheal','$lexpshared','$lsyncPlayerMob','$lMobsHPSync')"; 
+			$sql = "INSERT INTO Processos (Name,Sex,Level,Hp,Mp,CoordsX,CoordsY,Map,Hair,Hat,SetEquip,Party,Job,Damage,Walk,Pos,Weapon,Account,Side,Battle,BuffA,BuffB,BuffC,Heal,ExpShared,SyncPlayerMob) VALUES ('$lname','$lsex','$llevel','$lhp','$lmp','$lcoordsX','$lcoordsY','$lmap','$lhair','$lhat','$lsetEquip','$lparty','$ljob','$ldamage','$lwalk','$lpos','$lweapon','$laccount','$lside','$lbattle','$lbuffA','$lbuffB','$lbuffC','$lheal','$lexpshared','$lsyncPlayerMob')"; 
 		
 			if ($conn->query($sql) === TRUE) {
 				echo "SYSTEMINSERT \n";
@@ -181,7 +209,6 @@
 							  ":Heal=" . $row["Heal"] .
 							  ":ExpShared=" . $row["ExpShared"] .							  
 							  ":SyncPlayerMob=" . $row["SyncPlayerMob"] . 
-							  ":MobsHPSync=" . $row["MobsHPSync"] .
 							  ": - \n");
 				echo($lAll);
 			}
