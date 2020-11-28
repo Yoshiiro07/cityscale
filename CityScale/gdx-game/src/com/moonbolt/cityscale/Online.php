@@ -48,7 +48,8 @@
 	#Variaveis de Combate
 	$lmobID = $_POST['lmobID'];
 	$ldmg = $_POST['ldmg'];
-	$ldmg = $_POST['ldmg'];
+	$lmobAtkTargetSync = $_POST['lmobAtkTargetSync'];
+	$ldmgMob = $_POST['ldmgMob'];
 	
 	#Variaveis de uso Global
 	$lAll = '';
@@ -99,34 +100,42 @@
 			echo($lAll);			
 		}
 		
-		/////Recupera/Atualiza Mobs /////
+		/////Atualiza posicoes caso seja o player lead /////
 		if($lsyncPlayerMob == "yes"){
 			$sql = "UPDATE Mobs set MobsInfo = '$lsyncMobInfo'
 												where MAP = '$lmap' ";
 			$result = $conn->query($sql);
-			if ($conn->query($sql) === TRUE) { echo nl2br("SYSTEMMOBS \n - Atualizado Mobs - \n"); } else { echo nl2br("\n - Falhou Update Mobs - \n") . $conn->error; }
+			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado Pos Mobs - \n"); } else { echo nl2br("\n - Falhou Pos Mobs - \n") . $conn->error; }
 		}
-		if($lsyncPlayerMob == "no"){
-			$lAll = '';
-			$sql = "SELECT * FROM Mobs where MAP = '$lmap' ";
-			$result = $conn->query($sql);			
-			if ($result->num_rows > 0) {
-				while($row = $result->fetch_assoc()) {								
-				$lAll = $lAll . ("SYSTEMMOBS - :MobID=" . $row["MobsID"]. 
-								  ":MobHpA=" .  $row["MobHpA"]. 
-								  ":MobHpB=" .  $row["MobHpB"].
-								  ":MobHpC=" .  $row["MobHpC"].
-								  ":MobHpD=" .  $row["MobHpD"].
-								  ":MobHpE=" .  $row["MobHpE"].
-								  ":MobHpF=" .  $row["MobHpF"].
-								  ":MobHpG=" . $row["MobHpG"] . 
-								  ":MobsInfo=" . $row["MobsInfo"] .
-								  ":MAP=" . $row["MAP"] .
-								  ": - \n");			
-				}		
-			}
-			echo($lAll);
+		
+		//Atualização HP/Target dos mobs
+		$lAll = '';
+		$sql = "SELECT * FROM Mobs where MAP = '$lmap' ";
+		$result = $conn->query($sql);			
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {								
+			$lAll = $lAll . ("SYSTEMMOBS - :MobID=" . $row["MobsID"]. 
+							  ":MobHpA=" .  $row["MobHpA"]. 
+							  ":MobHpB=" .  $row["MobHpB"].
+							  ":MobHpC=" .  $row["MobHpC"].
+							  ":MobHpD=" .  $row["MobHpD"].
+							  ":MobHpE=" .  $row["MobHpE"].
+							  ":MobHpF=" .  $row["MobHpF"].
+							  ":MobHpG=" . $row["MobHpG"] . 
+							  ":TargetA=" . $row["TargetA"] . 
+							  ":TargetB=" . $row["TargetB"] . 
+							  ":TargetC=" . $row["TargetC"] . 
+							  ":TargetD=" . $row["TargetD"] .
+							  ":TargetE=" . $row["TargetE"] . 
+							  ":TargetF=" . $row["TargetF"] .
+							  ":TargetG=" . $row["TargetG"] .
+							  ":MobsInfo=" . $row["MobsInfo"] .
+							  ":MAP=" . $row["MAP"] .
+							  ": - \n");			
+			}		
 		}
+		echo($lAll);
+		
 		
 		//Verifica se já está ativo
 		$sql = "SELECT * FROM Processos where ACCOUNT = '$ldata' ";
@@ -219,8 +228,7 @@
 	}
 	
 	#CREATE PARTY 
-	if ($lrequest == "Party"){
-		
+	if ($lrequest == "Party"){	
 		$lAll = '';
 		$sql = "SELECT * FROM Processos where Party = '$lparty' ";	
 		$result = $conn->query($sql);
@@ -235,17 +243,45 @@
 
 	#Atk 
 	if ($lrequest == "Atk"){
-		
 		$lAll = '';
-		$sql = "SELECT * FROM Mobs where GameMobID = '$lmobID' and MAP = '$lmap' ";	
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0) {			
-			$sql = "UPDATE Mobs set HPMob = '$ldmg' where GameMobID = '$lmobID' and MAP = '$lmap' ";			
+		$sql = '';
+		if($lmobAtkTargetSync == "MobA"){
+			$sql = "UPDATE Mobs set TargetA = '$lname', MobHpA = '$ldmgMob' where MAP = '$lmap' ";  
 			$result = $conn->query($sql);
-			if ($conn->query($sql) === TRUE) { echo nl2br("\n - AtualizadoMOB - \n"); } else { echo nl2br("\n - Falhou Update - \n") . $conn->error; }
+			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado MobA - \n"); } else { echo nl2br("\n - Falhou MobsA - \n") . $conn->error; }
+		}
+		if($lmobAtkTargetSync == "MobB"){
+			$sql = "UPDATE Mobs set TargetB = '$lname', MobHpB = '$ldmgMob' where MAP = '$lmap' ";  
+			$result = $conn->query($sql);
+			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado MobB - \n"); } else { echo nl2br("\n - Falhou MobsB - \n") . $conn->error; }
+		}
+		if($lmobAtkTargetSync == "MobC"){
+			$sql = "UPDATE Mobs set TargetC = '$lname', MobHpC = '$ldmgMob' where MAP = '$lmap' ";  
+			$result = $conn->query($sql);
+			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado MobC - \n"); } else { echo nl2br("\n - Falhou MobsC - \n") . $conn->error; }
+		}
+		if($lmobAtkTargetSync == "MobD"){
+			$sql = "UPDATE Mobs set TargetD = '$lname', MobHpD = '$ldmgMob' where MAP = '$lmap' ";  
+			$result = $conn->query($sql);
+			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado MobD - \n"); } else { echo nl2br("\n - Falhou MobsD - \n") . $conn->error; }
+		}
+		if($lmobAtkTargetSync == "MobE"){
+			$sql = "UPDATE Mobs set TargetE = '$lname', MobHpE = '$ldmgMob' where MAP = '$lmap' ";  
+			$result = $conn->query($sql);
+			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado MobE - \n"); } else { echo nl2br("\n - Falhou MobsE - \n") . $conn->error; }
+		}
+		if($lmobAtkTargetSync == "MobF"){
+			$sql = "UPDATE Mobs set TargetF = '$lname', MobHpF = '$ldmgMob' where MAP = '$lmap' ";  
+			$result = $conn->query($sql);
+			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado MobF - \n"); } else { echo nl2br("\n - Falhou MobsF - \n") . $conn->error; }
+		}
+		if($lmobAtkTargetSync == "MobG"){
+			$sql = "UPDATE Mobs set TargetG = '$lname', MobHpG = '$ldmgMob' where MAP = '$lmap' ";  
+			$result = $conn->query($sql);
+			if ($conn->query($sql) === TRUE) { echo nl2br("\n - Atualizado MobG - \n"); } else { echo nl2br("\n - Falhou MobsG - \n") . $conn->error; }
 		}
 		
-		$conn->close();
+		$conn->close(); 
 	}
 	
 	#Chat

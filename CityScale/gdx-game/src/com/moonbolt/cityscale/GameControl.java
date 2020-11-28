@@ -124,7 +124,6 @@ public class GameControl {
 	private String mobStatus = "";
 	private String syncPlayerMob = "yes";
 	private String syncMobInfo = "";
-	private String mobCondition = "";
 	
 	//NPCs
 	private int npcFrame = 1;
@@ -145,13 +144,9 @@ public class GameControl {
 	private String[] dataSplit;
 	private String[] dataSplitExtra;
 	private String[] dataInfoSplit;
-	private int countMobSync = 0;
-	private int countMobLoop = 0;
-	private int countplayerOnline = 0;
 	private int countPartyPlayers = 0;
 	private String expsharedOnline = "0";
 	private int expsharedReceive = 0;
-	private String IDSharedOnline = "0";
 	private int cdExpSharedSend = 0;
 	private int cdExpShared = 0;
 	private int cdHealShared = 0;
@@ -161,52 +156,23 @@ public class GameControl {
 	private String healOnline = "";
 	private String OnlineRequest = "Aguardando..";
 	private int countCleanPlayersOnline = 300;
-	
-	private String MobAPosX = "";
-	private String MobAPosY = "";
-	private String MobAPosTarget = "";
-	
-	private String MobBPosX = "";
-	private String MobBPosY = "";
-	private String MobBPosTarget = "";
-	
-	private String MobCPosX = "";
-	private String MobCPosY = "";
-	private String MobCPosTarget = "";
-	
-	private String MobDPosX = "";
-	private String MobDPosY = "";
-	private String MobDPosTarget = "";
-	
-	private String MobEPosX = "";
-	private String MobEPosY = "";
-	private String MobEPosTarget = "";
-	
-	private String MobFPosX = "";
-	private String MobFPosY = "";
-	private String MobFPosTarget = "";
-	
-	private String MobGPosX = "";
-	private String MobGPosY = "";
-	private String MobGPosTarget = "";
-	
-	
-	//temp online
-	private boolean isResetValid = false;
-	
+	private String mobAtkTargetSync = "none";
+	private String retornoOnline = "retry";
+	private String returnFromServer = "";
+	private String line;
+	private float onlineplayerPosX;
+	private float onlineplayerPosY;
+	private int listonlinesize = 0;
 	
 	//Camera Variables
 	private float cameraCoordsX;
 	private float cameraCoordsY;	
 	
-	//Object Variables
-	
 	//Game Variables
 	private Sprite spr_master;
 	private Sprite spr_targetArrow;
 	private Texture tex_teste;
-	
-	
+
 	//Atlas Section
 	private TextureAtlas atlas_hairs;
 	private TextureAtlas atlas_basicset_m;
@@ -4760,10 +4726,8 @@ public class GameControl {
 		
 		try {
 			if(request.equals("Sync")) {
-			String retornoOnline = "retry";
-			String returnFromServer = "";
-			
-			if(syncPlayerMob.equals("yes")) {
+			syncMobInfo = "";  		
+			if(syncPlayerMob.equals("yes")) {	
 				for(int i = 0; i < lstMobs.size(); i++) {
 					syncMobInfo = syncMobInfo + "@" + lstMobs.get(i).mobPosX + "@" + lstMobs.get(i).mobPosY + "@" + "end";
 				}
@@ -4850,7 +4814,6 @@ public class GameControl {
 	        
 	        // Get the response
 	        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	        String line;
 	        line = "";
 	        returnFromServer = "";
 	        while ((line = rd.readLine()) != null) {
@@ -4876,15 +4839,10 @@ public class GameControl {
 	        
 	        wr.close();
 	        rd.close();
-	        
-	        syncMobInfo = "";
-	        
+	              
 			}
 					
 			if(request.equals("Chat")) {
-				
-				String retornoOnline = "retry";
-				String returnFromServer = "";
 				
 				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Chat", "UTF-8");
@@ -4906,7 +4864,6 @@ public class GameControl {
 		        
 		        // Get the response
 		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        String line;
 		        line = "";
 		        returnFromServer = "";
 		        while ((line = rd.readLine()) != null) {
@@ -4931,7 +4888,9 @@ public class GameControl {
 		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("a1", "UTF-8");
 		        data += "&" + URLEncoder.encode("lmobID", "UTF-8") + "=" + URLEncoder.encode(playerInfo.target_A, "UTF-8");
 		        data += "&" + URLEncoder.encode("lmap", "UTF-8") + "=" + URLEncoder.encode(playerInfo.map_A, "UTF-8");
-		        data += "&" + URLEncoder.encode("ldmg", "UTF-8") + "=" + URLEncoder.encode(subdata, "UTF-8");
+		        data += "&" + URLEncoder.encode("ldmgMob", "UTF-8") + "=" + URLEncoder.encode(subdata, "UTF-8");
+		        data += "&" + URLEncoder.encode("lmobAtkTargetSync", "UTF-8") + "=" + URLEncoder.encode(mobAtkTargetSync, "UTF-8");
+		        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(playerInfo.name_A, "UTF-8");
 		        	        
 		        // Send data
 		        URL url = new URL("http://moonbolt.online/Conector/Online.php");
@@ -4943,14 +4902,12 @@ public class GameControl {
 		        
 		        // Get the response
 		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        
+		  
 		        rd.close();
 		        wr.close();	        
 			}
 			
 			if(request.equals("Download")) {
-				
-				String returnFromServer = "";
 				
 				String data = URLEncoder.encode("laccount", "UTF-8") + "=" + URLEncoder.encode(subdata, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
@@ -4970,7 +4927,6 @@ public class GameControl {
 		        
 		        // Get the response
 		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        String line;
 		        line = "";
 		        returnFromServer = "";
 		        while ((line = rd.readLine()) != null) {
@@ -4988,7 +4944,6 @@ public class GameControl {
 
 			if(request.equals("Upload")) { 
 					
-				String returnFromServer = "";
 				String accountData = LoadDataText();
 				
 				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(accountData, "UTF-8");
@@ -5010,7 +4965,6 @@ public class GameControl {
 			    
 			    // Get the response
 			    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			    String line;
 			    line = "";
 			    returnFromServer = "";
 			    while ((line = rd.readLine()) != null) {
@@ -5157,8 +5111,6 @@ public class GameControl {
 	
 	private void MobsManagerOnline(String data) {
 		
-		if(syncPlayerMob.equals("no")) {
-			
 			dataSplit = data.split(":");	
 			
 			//Sync HP
@@ -5191,38 +5143,62 @@ public class GameControl {
 			dataInfoSplit = dataSplit[8].split("=");			
 			lstMobs.get(6).hp = Integer.parseInt(dataInfoSplit[1]);
 			
+			//Sync Targets
+			dataInfoSplit = dataSplit[9].split("=");			
+			lstMobs.get(0).target = dataInfoSplit[1];
+			
+			dataInfoSplit = dataSplit[10].split("=");			
+			lstMobs.get(1).target = dataInfoSplit[1];
+			
+			dataInfoSplit = dataSplit[11].split("=");			
+			lstMobs.get(2).target = dataInfoSplit[1];
+			
+			dataInfoSplit = dataSplit[12].split("=");			
+			lstMobs.get(3).target = dataInfoSplit[1];
+			
+			dataInfoSplit = dataSplit[13].split("=");			
+			lstMobs.get(4).target = dataInfoSplit[1];
+			
+			dataInfoSplit = dataSplit[14].split("=");			
+			lstMobs.get(5).target = dataInfoSplit[1];
+			
+			dataInfoSplit = dataSplit[15].split("=");			
+			lstMobs.get(6).target = dataInfoSplit[1];
+			
 			//Sync Position and others
-			dataInfoSplit = dataSplit[9].split("=");
+			dataInfoSplit = dataSplit[16].split("=");
 			dataSplitExtra = dataInfoSplit[1].split("@");
 			
-			//A
-			lstMobs.get(0).mobPosX = Float.parseFloat(dataSplitExtra[1]);
-			lstMobs.get(0).mobPosY = Float.parseFloat(dataSplitExtra[2]);
 			
-			//B
-			lstMobs.get(1).mobPosX = Float.parseFloat(dataSplitExtra[4]);
-			lstMobs.get(1).mobPosY = Float.parseFloat(dataSplitExtra[5]);
-			
-			//C
-			lstMobs.get(2).mobPosX = Float.parseFloat(dataSplitExtra[7]);
-			lstMobs.get(2).mobPosY = Float.parseFloat(dataSplitExtra[8]);
-			
-			//D
-			lstMobs.get(3).mobPosX = Float.parseFloat(dataSplitExtra[10]);
-			lstMobs.get(3).mobPosY = Float.parseFloat(dataSplitExtra[11]);
-			
-			//E
-			lstMobs.get(4).mobPosX = Float.parseFloat(dataSplitExtra[13]);
-			lstMobs.get(4).mobPosY = Float.parseFloat(dataSplitExtra[14]);
-			
-			//F
-			lstMobs.get(5).mobPosX = Float.parseFloat(dataSplitExtra[16]);
-			lstMobs.get(5).mobPosY = Float.parseFloat(dataSplitExtra[17]);
-			
-			//G
-			lstMobs.get(6).mobPosX = Float.parseFloat(dataSplitExtra[19]);
-			lstMobs.get(6).mobPosY = Float.parseFloat(dataSplitExtra[20]);
-		}
+			if(syncPlayerMob.equals("no")) {
+				//A
+				lstMobs.get(0).mobPosX = Float.parseFloat(dataSplitExtra[1]);
+				lstMobs.get(0).mobPosY = Float.parseFloat(dataSplitExtra[2]);
+				
+				//B
+				lstMobs.get(1).mobPosX = Float.parseFloat(dataSplitExtra[4]);
+				lstMobs.get(1).mobPosY = Float.parseFloat(dataSplitExtra[5]);
+				
+				//C
+				lstMobs.get(2).mobPosX = Float.parseFloat(dataSplitExtra[7]);
+				lstMobs.get(2).mobPosY = Float.parseFloat(dataSplitExtra[8]);
+				
+				//D
+				lstMobs.get(3).mobPosX = Float.parseFloat(dataSplitExtra[10]);
+				lstMobs.get(3).mobPosY = Float.parseFloat(dataSplitExtra[11]);
+				
+				//E
+				lstMobs.get(4).mobPosX = Float.parseFloat(dataSplitExtra[13]);
+				lstMobs.get(4).mobPosY = Float.parseFloat(dataSplitExtra[14]);
+				
+				//F
+				lstMobs.get(5).mobPosX = Float.parseFloat(dataSplitExtra[16]);
+				lstMobs.get(5).mobPosY = Float.parseFloat(dataSplitExtra[17]);
+				
+				//G
+				lstMobs.get(6).mobPosX = Float.parseFloat(dataSplitExtra[19]);
+				lstMobs.get(6).mobPosY = Float.parseFloat(dataSplitExtra[20]);
+			}
 	}
 	
 	private void ChatManagerOnline(String data) {
@@ -5541,7 +5517,7 @@ public class GameControl {
 			mobG.speed = 0.10f;
 			mobG.status = "none";
 			mobG.mobDirectionOnWalk = "wait";
-			mobG.OnlineID = "MobF";
+			mobG.OnlineID = "MobG";
 			lstMobs.add(mobG);
 		}
 		
@@ -5837,7 +5813,21 @@ public class GameControl {
 					if(mob.mobPosX < playerCoordsX + 9) { mob.mobPosX += 0.15f; }
 					if(mob.mobPosY > playerCoordsY) { mob.mobPosY -= 0.15f; }
 					if(mob.mobPosY < playerCoordsY) { mob.mobPosY += 0.15f; }
-				}	
+				}
+						
+				if(lstPlayersOnline.size() > 0) {
+					for(int i = 0; i < lstPlayersOnline.size(); i++) {
+						if(mob.target.equals(lstPlayersOnline.get(i).name_A)) {
+							onlineplayerPosX = Float.parseFloat(lstPlayersOnline.get(i).coordX_A);
+							onlineplayerPosY = Float.parseFloat(lstPlayersOnline.get(i).coordY_A);
+							
+							if(mob.mobPosX > onlineplayerPosX) { mob.mobPosX -= 0.15f; }
+							if(mob.mobPosX < onlineplayerPosX + 9) { mob.mobPosX += 0.15f; }
+							if(mob.mobPosY > onlineplayerPosY) { mob.mobPosY -= 0.15f; }
+							if(mob.mobPosY < onlineplayerPosY) { mob.mobPosY += 0.15f; }
+						}
+					}
+				}
 		}
 		
 		//See status poison
@@ -5974,6 +5964,7 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 							
 							if(onlineCheck) { 
 								OnlineManager("Atk",String.valueOf(mobHP)); 
@@ -5987,6 +5978,7 @@ public class GameControl {
 								GiveExp(lstMobs.get(i),"normal",0);
 								lstMobs.get(i).dead = true;
 								playerInfo.inBattle_A = "no";
+								mobAtkTargetSync = "none";
 							}
 							
 							Damage dmg = new Damage();
@@ -8968,7 +8960,8 @@ public class GameControl {
 				lstMobs.get(i).mobPosY = 400;
 				lstMobs.get(i).target = "none";
 				lstMobs.get(i).dead = true;
-				lstMobs.get(i).respawnTime = lstMobs.get(i).respawnTime - 1;
+				lstMobs.get(i).respawnTime = lstMobs.get(i).respawnTime - 1;			
+				if(lstMobs.get(i).OnlineID.equals(mobAtkTargetSync)) { mobAtkTargetSync = "none"; }
 			}
 			
 			if(lstMobs.get(i).respawnTime <= 0 && lstMobs.get(i).dead == true) {
