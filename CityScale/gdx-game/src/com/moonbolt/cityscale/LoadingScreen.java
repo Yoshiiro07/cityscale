@@ -19,7 +19,7 @@ public class LoadingScreen implements Screen{
 		this.gameControl = new GameControl();
 		screens = new ArrayList<Screen>();
 		platform = "Mobile";
-		network = "off";
+		network = "on";
 	}
 	
 	public void screenSwitch(String tipo){
@@ -35,7 +35,7 @@ public class LoadingScreen implements Screen{
 		}
 		
 		if(tipo.equals("CharacterSelect")) {
-			CharacterSelect characterScreen = new CharacterSelect(game,gameControl, config, platform,network);
+			CharacterSelect characterScreen = new CharacterSelect(game,gameControl, config, platform);
 			game.setScreen(characterScreen);
 		}
 		
@@ -52,8 +52,7 @@ public class LoadingScreen implements Screen{
 		if(tipo.equals("Sewers")) {
 			Sewers streets305Screen = new Sewers(game,gameControl, config, platform,network);
 			game.setScreen(streets305Screen);
-		}
-		
+		}		
 	}
 	
 	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkAlt){

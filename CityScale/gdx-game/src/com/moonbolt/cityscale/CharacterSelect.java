@@ -22,7 +22,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private Player activeplayer;
 	private String[] config;
 	private String platform;
-	private String networkState; 
 	
 	//Primitives
 	private String systemMsg = "";
@@ -71,12 +70,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
     private Texture tex_testeDot;
 	
 		
-	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkState){
+	public CharacterSelect(MainGame gameAlt,GameControl gameControl, String[] configAlt, String platformAlt){
 		this.game = gameAlt;
 		this.gameControl = gameControl;
 		this.config = configAlt;
 		this.platform = platformAlt;
-		this.networkState = networkState;
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -558,7 +556,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 		//Change Screen
 		if(changeScreen){		
-		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
+		    game.AtualizaElementos(game,gameControl, config, platform, "on");
 		    if(charnum == 1) { game.Switch(activeplayer.map_1); }
 		    if(charnum == 2) { game.Switch(activeplayer.map_2); }
 		    if(charnum == 3) { game.Switch(activeplayer.map_3); }			

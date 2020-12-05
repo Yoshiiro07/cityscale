@@ -68,38 +68,8 @@
 	return;
 	}
 	
-	#Sincronizar
-	if ($lrequest == "Sync"){	
-	
-		//Verifica Reset Obrigatório
-		$lAll = '';
-		$sql = "SELECT * FROM Reset where AccountID = '$laccount' ";
-		$result = $conn->query($sql);			
-		if ($result->num_rows < 1) {
-			$lAll = '';
-			$sql = "INSERT INTO Reset (AccountID) VALUES ('$laccount')"; 
-		
-			if ($conn->query($sql) === TRUE) {
-				echo "SYSTEMRESET \n";
-			} else {
-				echo "Error: " . $sql . "<br>" . $conn->error;
-			}
-		}
-		
-		///// Recupera Chat /////
-		$lAll = '';
-		$sql = "SELECT * FROM Chats ORDER BY ChatID DESC LIMIT 3";
-		$result = $conn->query($sql);
-		
-		if ($result->num_rows > 0) {
-			// output data of each row
-			while($row = $result->fetch_assoc()) {
-				$lAll = $lAll . ("SYSTEMCHAT - :Nome=" . $row["Nome"] . 
-								":Mensagem=" .  $row["Mensagem"]. ":\n");			
-			}
-			echo($lAll);			
-		}
-		
+		#Sincronizar
+		if ($lrequest == "SyncMobs"){
 		/////Atualiza posicoes caso seja o player lead /////
 		if($lsyncPlayerMob == "yes"){
 			$sql = "UPDATE Mobs set MobsInfo = '$lsyncMobInfo'
@@ -134,11 +104,43 @@
 							  ": - \n");			
 			}		
 		}
-		echo($lAll);
+		echo($lAll);	
+	}
+	
+	if ($lrequest == "SyncChat"){
+		///// Recupera Chat /////
+		$lAll = '';
+		$sql = "SELECT * FROM Chats ORDER BY ChatID DESC LIMIT 3";
+		$result = $conn->query($sql);
 		
+		if ($result->num_rows > 0) {
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$lAll = $lAll . ("SYSTEMCHAT - :Nome=" . $row["Nome"] . 
+								":Mensagem=" .  $row["Mensagem"]. ":\n");			
+			}
+			echo($lAll);			
+		}		
+	}
+	
+	if ($lrequest == "SyncProcesso"){	
+		//Verifica Reset Obrigatório
+		$lAll = '';
+		$sql = "SELECT * FROM Reset where AccountID = '$laccount' ";
+		$result = $conn->query($sql);			
+		if ($result->num_rows < 1) {
+			$lAll = '';
+			$sql = "INSERT INTO Reset (AccountID) VALUES ('$laccount')"; 
+		
+			if ($conn->query($sql) === TRUE) {
+				echo "SYSTEMRESET \n";
+			} else {
+				echo "Error: " . $sql . "<br>" . $conn->error;
+			}
+		}
 		
 		//Verifica se já está ativo
-		$sql = "SELECT * FROM Processos where ACCOUNT = '$ldata' ";
+		$sql = "SELECT * FROM Processos where Account = '$ldata' and Name = '$lname' ";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {			
 			$sql = "UPDATE Processos set Name = '$lname',

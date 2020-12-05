@@ -27,7 +27,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private String[] config;
 		private String platform;
 		private boolean network = false;
-		private String networkState = "";
+		private String networkState = "on";
 		
 		//Player
 		private Player activePlayer;
@@ -198,7 +198,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
 			
-			if(networkState.equals("yes")) {
+			if(networkState.equals("on")) {
 				network = true;
 				gameControl.OnlineManager("Sync","");
 				typeDisplay = "Config";
@@ -207,8 +207,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				countDisplay = 200;
 			}		
 		}
-		
-		
+			
 		@Override
 		public void render(float delta) {
 			
@@ -1088,13 +1087,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		
-private void ShowOnlinePlayers() {
+			private void ShowOnlinePlayers() {
 			
 			if(network) {			
 				lstChats = gameControl.GetOnlineChats();				
 				lstPlayerOnline = gameControl.GetOnlinePlayers();	
 				for(int i = 0; i < lstPlayerOnline.size(); i++) {
-					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID)) {
+					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) {
 					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
 					spr_playerCharacterOnline.setSize(22, 34);
 					spr_playerCharacterOnline.draw(game.batch);
@@ -1995,24 +1994,24 @@ private void ShowOnlinePlayers() {
 				
 				//Online Ligar
 				if(coordsTouch.x >= (cameraCoordsX - 36) && coordsTouch.x <= (cameraCoordsX - 23) && coordsTouch.y >= (cameraCoordsY + 35) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					network = true;
-					gameControl.OnlineManager("Sync","");
-					typeDisplay = "Config";
-					msgDisplay = "Online Ligado";
-					isDisplay = true;
-					countDisplay = 200;
-					networkState = "yes";
+					//network = true;
+					//gameControl.OnlineManager("Sync","");
+					//typeDisplay = "Config";
+					//msgDisplay = "Online Ligado";
+					//isDisplay = true;
+					//countDisplay = 200;
+					//networkState = "yes";
 					return false;
 				}
 				
 				//Online Desligar
 				if(coordsTouch.x >= (cameraCoordsX - 17) && coordsTouch.x <= (cameraCoordsX - 3) && coordsTouch.y >= (cameraCoordsY + 35) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					network = true;
-					gameControl.OnlineManager("Desligar","");
-					typeDisplay = "Config";
-					msgDisplay = "Online Desligado";
-					isDisplay = true;
-					countDisplay = 200;
+					//network = true;
+					//gameControl.OnlineManager("Desligar","");
+					//typeDisplay = "Config";
+					//msgDisplay = "Online Desligado";
+					//isDisplay = true;
+					//countDisplay = 200;
 					return false;
 				}
 				
