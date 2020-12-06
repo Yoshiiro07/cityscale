@@ -503,7 +503,7 @@ public class GameControl {
 					
 					player.name_1 = "none";
 					player.name_2 = "none";
-					player.name_3 = "none";
+					player.name_3 = "none"; 
 					
 					file.writeString(Base64Coder.encodeString(json.prettyPrint(player)),false);
 				}
@@ -4780,7 +4780,7 @@ public class GameControl {
 			}
 			
 			String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
-	        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Sync", "UTF-8");
+	        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncProcesso", "UTF-8");
 	        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
 	        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
 	        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
@@ -4840,7 +4840,8 @@ public class GameControl {
 			}
 	        
 	        wr.close();
-	        rd.close();          
+	        rd.close(); 
+	        return;
 			}
 			
 			if(request.equals("SyncMobs")) {
@@ -4852,12 +4853,15 @@ public class GameControl {
 				}
 				
 				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
-		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Sync", "UTF-8");
+		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncMobs", "UTF-8");
 		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
 		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
 		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
 		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode("citybase", "UTF-8");
 		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("a1", "UTF-8");
+		        data += "&" + URLEncoder.encode("lmap", "UTF-8") + "=" + URLEncoder.encode(playerInfo.map_A, "UTF-8");
+		        data += "&" + URLEncoder.encode("lsyncPlayerMob", "UTF-8") + "=" + URLEncoder.encode(syncPlayerMob, "UTF-8");
+		        data += "&" + URLEncoder.encode("lsyncMobInfo", "UTF-8") + "=" + URLEncoder.encode(syncMobInfo, "UTF-8");
 		        
 		        // Send data
 		        URL url = new URL("http://moonbolt.online/Conector/Online.php");
@@ -4880,12 +4884,13 @@ public class GameControl {
 				}
 		        
 		        wr.close();
-		        rd.close();          	        
+		        rd.close(); 
+		        return;
 			}
 			
 			if(request.equals("SyncChat")) {
 				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
-		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Sync", "UTF-8");
+		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncChat", "UTF-8");
 		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
 		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
 		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
@@ -4913,7 +4918,8 @@ public class GameControl {
 				}
 		        
 		        wr.close();
-		        rd.close();          	        
+		        rd.close(); 
+		        return;
 			}
 			
 					
@@ -4951,6 +4957,7 @@ public class GameControl {
 		        
 		        wr.close();
 		        rd.close();
+		        return;
 			}
 					
 			if(request.equals("Atk")) {
@@ -4979,7 +4986,8 @@ public class GameControl {
 		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		  
 		        rd.close();
-		        wr.close();	        
+		        wr.close();	  
+		        return;
 			}
 			
 			if(request.equals("Download")) {
@@ -5015,6 +5023,7 @@ public class GameControl {
 		        
 		        wr.close();
 		        rd.close();
+		        return;
 			}
 
 			if(request.equals("Upload")) { 
@@ -5052,6 +5061,7 @@ public class GameControl {
 			    
 			    wr.close();
 			    rd.close();
+			    return;
 			}
 		}
 		catch(Exception ex) {
@@ -6368,9 +6378,10 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
 							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -6464,9 +6475,10 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP));  }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
+
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
 							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -6540,9 +6552,10 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP));  }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
+
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
 							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -6742,10 +6755,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
@@ -6818,10 +6832,11 @@ public class GameControl {
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
 							lstMobs.get(i).status = "Stun";
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
@@ -6957,9 +6972,10 @@ public class GameControl {
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
 							lstMobs.get(i).status = "Poison";
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
+
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
 							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -7230,9 +7246,10 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
+
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
 							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -7355,10 +7372,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
@@ -7432,10 +7450,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
@@ -7514,10 +7533,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
@@ -7594,10 +7614,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-														
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+						
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
@@ -7674,10 +7695,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
 								GiveExp(lstMobs.get(i),"normal",0);
@@ -7769,10 +7791,11 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));
 								GiveExp(lstMobs.get(i),"normal",0);
@@ -7847,10 +7870,11 @@ public class GameControl {
 						mobHP = mobHP - playerAtk;
 						lstMobs.get(i).target = playerInfo.name_A;
 						lstMobs.get(i).getHit = true;
-						
-						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-						if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+						mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+						if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+						if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+						
 						if(mobHP <= 0) {  
 							GiveLoot(lstMobs.get(i));	
 							GiveExp(lstMobs.get(i),"normal",0);
@@ -7964,10 +7988,11 @@ public class GameControl {
 						mobHP = mobHP - playerAtk;
 						lstMobs.get(i).target = playerInfo.name_A;
 						lstMobs.get(i).getHit = true;
-						
-						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-						if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+						mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+						if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+						if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+						
 						if(mobHP <= 0) {  
 							GiveLoot(lstMobs.get(i));	
 							GiveExp(lstMobs.get(i),"normal",0);
@@ -8042,10 +8067,11 @@ public class GameControl {
 						lstMobs.get(i).target = playerInfo.name_A;
 						lstMobs.get(i).getHit = true;
 						lstMobs.get(i).status = "stun";
-						
-						if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-						if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+						mobAtkTargetSync = lstMobs.get(i).OnlineID;
 
+						if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+						if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
+						
 						if(mobHP <= 0) {  
 							GiveLoot(lstMobs.get(i));	
 							GiveExp(lstMobs.get(i),"normal",0);
@@ -8136,9 +8162,10 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
+
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
 							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -8216,9 +8243,10 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
+
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
 							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -8336,9 +8364,10 @@ public class GameControl {
 							mobHP = mobHP - playerAtk;
 							lstMobs.get(i).target = playerInfo.name_A;
 							lstMobs.get(i).getHit = true;
-							
-							if(onlineCheck) { damageOnline = String.valueOf(playerAtk); OnlineManager("Atk",String.valueOf(mobHP)); }
-							if(!onlineCheck) { lstMobs.get(i).hp = mobHP;  }
+							mobAtkTargetSync = lstMobs.get(i).OnlineID;
+
+							if(onlineCheck) { OnlineManager("Atk",String.valueOf(mobHP)); }
+							if(!onlineCheck) {lstMobs.get(i).hp = mobHP;}
 							
 							if(mobHP <= 0) {  
 								GiveLoot(lstMobs.get(i));	
@@ -9029,7 +9058,7 @@ public class GameControl {
 			//lstMobs.get(i).mobPosY = -26;
 			//lstMobs.get(i).mobPosX = 59;
 			
-			if(lstMobs.get(i).dead == true) {
+			if(lstMobs.get(i).dead == true || lstMobs.get(i).hp <= 0) {
 				
 				lstMobs.get(i).mobPosX = 409;
 				lstMobs.get(i).mobPosY = 400;
