@@ -1086,28 +1086,16 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 		}
 		
-		
 			private void ShowOnlinePlayers() {
 			
 			if(network) {			
 				lstChats = gameControl.GetOnlineChats();				
-				lstPlayerOnline = gameControl.GetOnlinePlayers();	
+				lstPlayerOnline = gameControl.GetOnlinePlayers();					
+				if(lstPlayerOnline.isEmpty()) { return; }
+				if(lstChats.isEmpty()) { return; }
+				
 				for(int i = 0; i < lstPlayerOnline.size(); i++) {
-					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) {
-					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
-					spr_playerCharacterOnline.setSize(22, 34);
-					spr_playerCharacterOnline.draw(game.batch);
-					
-					spr_playerHairOnline = gameControl.MovPlayerOnlineHair(lstPlayerOnline.get(i));
-					spr_playerHairOnline.draw(game.batch);
-					
-					if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
-					spr_playerHatOnline = gameControl.MovPlayerOnlineHat(lstPlayerOnline.get(i));
-					spr_playerHatOnline.draw(game.batch);
-					}
-					
-					font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX() + 7.5f,spr_playerCharacterOnline.getY() + 5);
-					
+					//Verifica Party
 					if(lstPlayerOnline.get(i).party_A.equals(activePlayer.party_A) && !activePlayer.party_A.equals("None")) {
 						countParty++;
 						
@@ -1169,6 +1157,24 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 14.5f);
 						}
 					}
+					
+					//Exibe jogadores do mesmo mapa
+					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) {
+					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
+					spr_playerCharacterOnline.setSize(22, 34);
+					spr_playerCharacterOnline.draw(game.batch);
+					
+					spr_playerHairOnline = gameControl.MovPlayerOnlineHair(lstPlayerOnline.get(i));
+					spr_playerHairOnline.draw(game.batch);
+					
+					if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+					spr_playerHatOnline = gameControl.MovPlayerOnlineHat(lstPlayerOnline.get(i));
+					spr_playerHatOnline.draw(game.batch);
+					}
+					
+					font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX() + 7.5f,spr_playerCharacterOnline.getY() + 5);
+					
+					
 					}
 				}
 				countParty = 0;
