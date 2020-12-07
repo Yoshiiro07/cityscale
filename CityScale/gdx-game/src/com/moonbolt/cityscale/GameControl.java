@@ -4136,36 +4136,17 @@ public class GameControl {
 	
 	private void ThreadsSync() {	
 		new Thread(t1).start();	
-		new Thread(t2).start();
-		new Thread(t3).start();
 	}
 	
 	private Runnable t1 = new Runnable() {
 		public void run() {
 			try{    
 				while(threahCount == 1) {
-					OnlineOperation("SyncProcesso", "");            	
+					OnlineOperation("Sync", "");            	
 				}
 	}
 	catch(Exception ex) {}	}};
 	
-	private Runnable t2 = new Runnable() {
-		public void run() {
-			try{    
-				while(threahCount == 1) {
-					OnlineOperation("SyncChat", "");            	
-				}
-	}
-	catch(Exception ex) {}} };
-	
-	private Runnable t3 = new Runnable() {
-		public void run() {
-			try{    
-				while(threahCount == 1) {
-					OnlineOperation("SyncMobs", "");            	
-				}
-	}
-	catch(Exception ex) {}}};
 	
 	public ArrayList<Player> GetOnlinePlayers() {
 		return lstPlayersOnline;
@@ -4742,7 +4723,15 @@ public class GameControl {
 	public void OnlineOperation(String request, String subdata) throws UnsupportedEncodingException {
 		
 		try {
-			if(request.equals("SyncProcesso")) {
+			if(request.equals("Sync")) {
+			
+			syncMobInfo = "";  		
+			if(syncPlayerMob.equals("yes")) {	
+				for(int i = 0; i < lstMobs.size(); i++) {
+					syncMobInfo = syncMobInfo + "@" + lstMobs.get(i).mobPosX + "@" + lstMobs.get(i).mobPosY + "@" + "end";
+				}
+			}
+			
 			coordsXint = 0;
 			coordsYint = 0;
 			coordsXfloat = 0;
@@ -4780,7 +4769,7 @@ public class GameControl {
 			}
 			
 			String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
-	        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncProcesso", "UTF-8");
+	        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Sync", "UTF-8");
 	        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
 	        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
 	        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
@@ -4833,6 +4822,14 @@ public class GameControl {
 		        	PlayersManagerOnline(returnFromServer);     		
 	            }	
 		        
+		        if(returnFromServer.contains("SYSTEMCHAT")) {
+	        		ChatManagerOnline(returnFromServer); 
+	        	}
+		        
+		        if(returnFromServer.contains("SYSTEMMOBS")) {
+		        	MobsManagerOnline(returnFromServer);
+		        }
+		        
 		        if(returnFromServer.contains("SYSTEMRESET")) {
 		        	PushReset();
 		        	line = "";
@@ -4843,85 +4840,6 @@ public class GameControl {
 	        rd.close(); 
 	        return;
 			}
-			
-			if(request.equals("SyncMobs")) {
-				syncMobInfo = "";  		
-				if(syncPlayerMob.equals("yes")) {	
-					for(int i = 0; i < lstMobs.size(); i++) {
-						syncMobInfo = syncMobInfo + "@" + lstMobs.get(i).mobPosX + "@" + lstMobs.get(i).mobPosY + "@" + "end";
-					}
-				}
-				
-				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
-		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncMobs", "UTF-8");
-		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
-		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
-		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
-		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode("citybase", "UTF-8");
-		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("a1", "UTF-8");
-		        data += "&" + URLEncoder.encode("lmap", "UTF-8") + "=" + URLEncoder.encode(playerInfo.map_A, "UTF-8");
-		        data += "&" + URLEncoder.encode("lsyncPlayerMob", "UTF-8") + "=" + URLEncoder.encode(syncPlayerMob, "UTF-8");
-		        data += "&" + URLEncoder.encode("lsyncMobInfo", "UTF-8") + "=" + URLEncoder.encode(syncMobInfo, "UTF-8");
-		        
-		        // Send data
-		        URL url = new URL("http://moonbolt.online/Conector/Online.php");
-		        URLConnection conn = url.openConnection();
-		        conn.setDoOutput(true);
-		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-		        wr.write(data);
-		        wr.flush();
-		        
-		        // Get the response
-		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        line = "";
-		        returnFromServer = "";
-		        while ((line = rd.readLine()) != null) {
-		        	returnFromServer = line;   
-		        	//Resultado:
-		        	if(returnFromServer.contains("SYSTEMMOBS")) {
-			        	MobsManagerOnline(returnFromServer);
-			        }
-				}
-		        
-		        wr.close();
-		        rd.close(); 
-		        return;
-			}
-			
-			if(request.equals("SyncChat")) {
-				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
-		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncChat", "UTF-8");
-		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode("citybase.mysql.uhserver.com", "UTF-8");
-		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode("citymaster", "UTF-8");
-		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode("City@2020", "UTF-8");
-		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode("citybase", "UTF-8");
-		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("a1", "UTF-8");
-		        
-		        // Send data
-		        URL url = new URL("http://moonbolt.online/Conector/Online.php");
-		        URLConnection conn = url.openConnection();
-		        conn.setDoOutput(true);
-		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-		        wr.write(data);
-		        wr.flush();
-		        
-		        // Get the response
-		        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		        line = "";
-		        returnFromServer = "";
-		        while ((line = rd.readLine()) != null) {
-		        	returnFromServer = line;   
-		        	//Resultado:
-		        	if(returnFromServer.contains("SYSTEMCHAT")) {
-		        		ChatManagerOnline(returnFromServer); 
-		        	}
-				}
-		        
-		        wr.close();
-		        rd.close(); 
-		        return;
-			}
-			
 					
 			if(request.equals("Chat")) {
 				
@@ -4950,9 +4868,7 @@ public class GameControl {
 		        while ((line = rd.readLine()) != null) {
 		        	returnFromServer = line;   
 		        	//Resultado:
-		        	if(returnFromServer.contains("SYSTEMCHAT")) {
-		        		ChatManagerOnline(returnFromServer); 
-		        	}
+		        	
 				}
 		        
 		        wr.close();
