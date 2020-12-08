@@ -1080,7 +1080,7 @@ public class GameControl {
 			}
 		}
 		
-		if(countMembersParty <= 2) {
+		if(countMembersParty <= 4) {
 			playerInfo.party_A = partyName;
 		}
 		
@@ -4576,6 +4576,8 @@ public class GameControl {
 			
 			if(!playerInfo.party_A.equals("None") && playerInfo.map_A.equals(lstPlayersOnline.get(i).map_A)) {
 				
+				if(lstPlayersOnline.get(i).party_A == null){ return; }
+				if(lstPlayersOnline.get(i).accountID == null){ return; }
 				if(lstPlayersOnline.get(i).party_A.equals(playerInfo.party_A) && !lstPlayersOnline.get(i).accountID.equals(playerInfo.accountID)) {
 					countPartyPlayers++;
 					
@@ -4765,7 +4767,7 @@ public class GameControl {
 			}
 			if(countCleanPlayersOnline <= 0) {
 				lstPlayersOnline.clear();
-				countCleanPlayersOnline = 300;
+				countCleanPlayersOnline = 50;
 			}
 			
 			String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");
@@ -9030,7 +9032,7 @@ public class GameControl {
 	public void GiveExp(Monster mob, String typeExp, int expShared) {
 		
 		int playerlvl = Integer.parseInt(playerInfo.level_A);		
-		if(playerlvl >= 20) { return; }
+		if(playerlvl >= 10) { return; }
 		if(playerlvl >= 10 && playerInfo.job_A.equals("Novice")) { return; }
 				
 		boolean levelup = false;
