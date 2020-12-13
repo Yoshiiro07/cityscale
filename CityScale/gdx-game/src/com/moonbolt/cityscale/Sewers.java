@@ -1060,17 +1060,15 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		}
 		
 		
-			private void ShowOnlinePlayers() {
-			
+			private void ShowOnlinePlayers() {		
 			if(network) {			
 				lstChats = gameControl.GetOnlineChats();				
-				lstPlayerOnline = gameControl.GetOnlinePlayers();					
-				
+				lstPlayerOnline = gameControl.GetOnlinePlayers();   		
 				if(lstPlayerOnline.size() == 0) { return; }
-				for(int i = 0; i < lstPlayerOnline.size(); i++) {	
+				for(int i = 0; i < lstPlayerOnline.size(); i++) {  	
 					if(lstPlayerOnline.get(i).accountID == null) { return; }
 					//Exibe jogadores do mesmo mapa
-					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) {
+					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) { 
 					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
 					spr_playerCharacterOnline.setSize(22, 34);
 					spr_playerCharacterOnline.draw(game.batch);
@@ -1078,7 +1076,6 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 					spr_playerHairOnline = gameControl.MovPlayerOnlineHair(lstPlayerOnline.get(i));
 					spr_playerHairOnline.draw(game.batch);
 					
-					if(lstPlayerOnline.get(i).accountID == null) { return; }
 					if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
 					spr_playerHatOnline = gameControl.MovPlayerOnlineHat(lstPlayerOnline.get(i));
 					spr_playerHatOnline.draw(game.batch);

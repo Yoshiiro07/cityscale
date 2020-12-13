@@ -4722,6 +4722,7 @@ public class GameControl {
 		}	
 	}
 	
+	
 	public void OnlineOperation(String request, String subdata) throws UnsupportedEncodingException {
 		
 		try {
@@ -4821,7 +4822,7 @@ public class GameControl {
 	        	returnFromServer = line;   
 	        	//Resultado:
 		        if (returnFromServer.contains("SYSTEMPLAYERS")) {            	
-		        	PlayersManagerOnline(returnFromServer);     		
+		        	PlayersManagerOnline(returnFromServer);        		
 	            }	
 		        
 		        if(returnFromServer.contains("SYSTEMCHAT")) {

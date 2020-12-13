@@ -1,0 +1,348 @@
+mobsBeach.png
+size: 975, 597
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aranarc1_left
+  rotate: false
+  xy: 256, 0
+  size: 60, 54
+  orig: 60, 54
+  offset: 0, 0
+  index: -1
+aranarc1_right
+  rotate: false
+  xy: 316, 0
+  size: 60, 54
+  orig: 60, 54
+  offset: 0, 0
+  index: -1
+aranarc2_left
+  rotate: false
+  xy: 64, 0
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: -1
+aranarc2_right
+  rotate: false
+  xy: 128, 0
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: -1
+aranarc3_left
+  rotate: false
+  xy: 0, 0
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: -1
+aranarc3_right
+  rotate: false
+  xy: 192, 0
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: -1
+aranarc4_left
+  rotate: false
+  xy: 595, 0
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+aranarc4_right
+  rotate: false
+  xy: 522, 0
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+aranarc_damage_left
+  rotate: false
+  xy: 449, 0
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+aranarc_damage_right
+  rotate: false
+  xy: 376, 0
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+dorato1_left
+  rotate: false
+  xy: 708, 129
+  size: 195, 101
+  orig: 195, 101
+  offset: 0, 0
+  index: -1
+dorato1_right
+  rotate: false
+  xy: 0, 230
+  size: 195, 101
+  orig: 195, 101
+  offset: 0, 0
+  index: -1
+dorato2_left
+  rotate: false
+  xy: 0, 331
+  size: 195, 101
+  orig: 195, 101
+  offset: 0, 0
+  index: -1
+dorato2_right
+  rotate: false
+  xy: 195, 331
+  size: 195, 101
+  orig: 195, 101
+  offset: 0, 0
+  index: -1
+dorato3_left
+  rotate: false
+  xy: 780, 230
+  size: 195, 101
+  orig: 195, 101
+  offset: 0, 0
+  index: -1
+dorato3_right
+  rotate: false
+  xy: 585, 230
+  size: 195, 101
+  orig: 195, 101
+  offset: 0, 0
+  index: -1
+dorato4_left
+  rotate: false
+  xy: 560, 455
+  size: 170, 142
+  orig: 170, 142
+  offset: 0, 0
+  index: -1
+dorato4_right
+  rotate: false
+  xy: 730, 455
+  size: 170, 142
+  orig: 170, 142
+  offset: 0, 0
+  index: -1
+dorato_damage_left
+  rotate: false
+  xy: 195, 230
+  size: 195, 101
+  orig: 195, 101
+  offset: 0, 0
+  index: -1
+dorato_damage_right
+  rotate: false
+  xy: 390, 230
+  size: 195, 101
+  orig: 195, 101
+  offset: 0, 0
+  index: -1
+felni1_left
+  rotate: false
+  xy: 280, 61
+  size: 87, 65
+  orig: 87, 65
+  offset: 0, 0
+  index: -1
+felni1_right
+  rotate: false
+  xy: 81, 61
+  size: 87, 65
+  orig: 87, 65
+  offset: 0, 0
+  index: -1
+felni2_left
+  rotate: false
+  xy: 75, 129
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
+felni3_left
+  rotate: false
+  xy: 168, 61
+  size: 112, 65
+  orig: 112, 65
+  offset: 0, 0
+  index: -1
+felni3_right
+  rotate: false
+  xy: 367, 61
+  size: 112, 65
+  orig: 112, 65
+  offset: 0, 0
+  index: -1
+felni4_left
+  rotate: false
+  xy: 569, 129
+  size: 139, 98
+  orig: 139, 98
+  offset: 0, 0
+  index: -1
+felni4_right
+  rotate: false
+  xy: 430, 129
+  size: 139, 98
+  orig: 139, 98
+  offset: 0, 0
+  index: -1
+felni_damage_left
+  rotate: false
+  xy: 0, 129
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
+felni_damage_right
+  rotate: false
+  xy: 899, 61
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
+poyo1_left
+  rotate: false
+  xy: 668, 0
+  size: 81, 61
+  orig: 81, 61
+  offset: 0, 0
+  index: -1
+poyo1_right
+  rotate: false
+  xy: 749, 0
+  size: 81, 61
+  orig: 81, 61
+  offset: 0, 0
+  index: -1
+poyo2_left
+  rotate: false
+  xy: 584, 61
+  size: 105, 67
+  orig: 105, 67
+  offset: 0, 0
+  index: -1
+poyo2_right
+  rotate: false
+  xy: 479, 61
+  size: 105, 67
+  orig: 105, 67
+  offset: 0, 0
+  index: -1
+poyo3_left
+  rotate: false
+  xy: 794, 61
+  size: 105, 67
+  orig: 105, 67
+  offset: 0, 0
+  index: -1
+poyo3_right
+  rotate: false
+  xy: 689, 61
+  size: 105, 67
+  orig: 105, 67
+  offset: 0, 0
+  index: -1
+poyo4_left
+  rotate: false
+  xy: 290, 129
+  size: 140, 73
+  orig: 140, 73
+  offset: 0, 0
+  index: -1
+poyo4_right
+  rotate: false
+  xy: 150, 129
+  size: 140, 73
+  orig: 140, 73
+  offset: 0, 0
+  index: -1
+poyo_damage_left
+  rotate: false
+  xy: 830, 0
+  size: 81, 61
+  orig: 81, 61
+  offset: 0, 0
+  index: -1
+poyo_damage_right
+  rotate: false
+  xy: 0, 61
+  size: 81, 61
+  orig: 81, 61
+  offset: 0, 0
+  index: -1
+tencle1_left
+  rotate: false
+  xy: 224, 455
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle1_right
+  rotate: false
+  xy: 448, 455
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle2_left
+  rotate: false
+  xy: 336, 455
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle2_right
+  rotate: false
+  xy: 0, 455
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle3_left
+  rotate: false
+  xy: 390, 331
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle3_right
+  rotate: false
+  xy: 502, 331
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle4_left
+  rotate: false
+  xy: 614, 331
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle4_right
+  rotate: false
+  xy: 838, 331
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle_damage_left
+  rotate: false
+  xy: 726, 331
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+tencle_damage_right
+  rotate: false
+  xy: 112, 455
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
