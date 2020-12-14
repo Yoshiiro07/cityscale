@@ -52,7 +52,12 @@ public class LoadingScreen implements Screen{
 		if(tipo.equals("Sewers")) {
 			Sewers streets305Screen = new Sewers(game,gameControl, config, platform,network);
 			game.setScreen(streets305Screen);
-		}		
+		}	
+		
+		if(tipo.equals("Streets750")) {
+			Streets750 Streets750Screen = new Streets750(game,gameControl, config, platform,network);
+			game.setScreen(Streets750Screen);
+		}
 	}
 	
 	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkAlt){

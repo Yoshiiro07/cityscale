@@ -1,0 +1,152 @@
+npcbeach.png
+size: 240, 521
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cooker1
+  rotate: false
+  xy: 60, 197
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+cooker2
+  rotate: false
+  xy: 0, 305
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+cooker3
+  rotate: false
+  xy: 60, 305
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+crystalguy1
+  rotate: false
+  xy: 180, 197
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+crystalguy2
+  rotate: false
+  xy: 120, 305
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+crystalguy3
+  rotate: false
+  xy: 180, 305
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+guard1
+  rotate: false
+  xy: 60, 413
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+guard2
+  rotate: false
+  xy: 120, 413
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+guard3
+  rotate: false
+  xy: 0, 413
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+npcstudantmale1
+  rotate: false
+  xy: 32, 0
+  size: 37, 89
+  orig: 37, 89
+  offset: 0, 0
+  index: -1
+npcstudantmale2
+  rotate: false
+  xy: 107, 0
+  size: 38, 89
+  orig: 38, 89
+  offset: 0, 0
+  index: -1
+npcstudantmale3
+  rotate: false
+  xy: 69, 0
+  size: 38, 89
+  orig: 38, 89
+  offset: 0, 0
+  index: -1
+npcwomen1
+  rotate: false
+  xy: 0, 0
+  size: 32, 87
+  orig: 32, 87
+  offset: 0, 0
+  index: -1
+npcwomen2
+  rotate: false
+  xy: 185, 0
+  size: 40, 87
+  orig: 40, 87
+  offset: 0, 0
+  index: -1
+npcwomen3
+  rotate: false
+  xy: 145, 0
+  size: 40, 83
+  orig: 40, 83
+  offset: 0, 0
+  index: -1
+walker1
+  rotate: false
+  xy: 120, 89
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+walker2
+  rotate: false
+  xy: 180, 89
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+walker3
+  rotate: false
+  xy: 60, 89
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+worker1
+  rotate: false
+  xy: 0, 197
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+worker2
+  rotate: false
+  xy: 0, 89
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1
+worker3
+  rotate: false
+  xy: 120, 197
+  size: 60, 108
+  orig: 60, 108
+  offset: 0, 0
+  index: -1

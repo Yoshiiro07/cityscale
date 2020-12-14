@@ -475,6 +475,34 @@ public class GameControl {
 			savetimer = 0;
 		}
 		
+		if(map.equals("Streets305rightbottom")) {
+			playerInfo.map_A = "Streets305";
+			playerInfo.coordX_A = "105";
+			playerInfo.coordY_A = "-116";
+			savetimer = 0;
+		}
+		
+		if(map.equals("Streets305leftbottom")) {
+			playerInfo.map_A = "Streets305";
+			playerInfo.coordX_A = "10";
+			playerInfo.coordY_A = "-119";
+			savetimer = 0;
+		}
+		
+		if(map.equals("Streets750right")) {
+			playerInfo.map_A = "Streets750";
+			playerInfo.coordX_A = "120";
+			playerInfo.coordY_A = "140";
+			savetimer = 0;
+		}
+		
+		if(map.equals("Streets750left")) {
+			playerInfo.map_A = "Streets750";
+			playerInfo.coordX_A = "-7";
+			playerInfo.coordY_A = "140";
+			savetimer = 0;
+		}
+		
 		if(map.equals("Sewers")) {
 			playerInfo.map_A = "Sewers";
 			playerInfo.coordX_A = "49";

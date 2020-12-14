@@ -28,6 +28,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private String platform;
 		private boolean network = false;
 		private String networkState = "on";
+		private String mapSwitchConfig = "";
+		private String mapSwitch = "";
 		
 		//Player
 		private Player activePlayer;
@@ -850,10 +852,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Change Screen
 			if(changeScreen){	
-				gameControl.ScreenChange("Sewers");
+				gameControl.ScreenChange(mapSwitchConfig);
 				gameControl.UpdateDataSave(numPlayerActive);
 			    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-			    game.Switch("Sewers");			
+			    game.Switch(mapSwitch);			
 			}
 			
 			deathCheck = gameControl.VerifyDeath();
@@ -880,6 +882,19 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private void CheckColide() {
 			if(playerPosX > 27 && playerPosX < 30f && playerPosY < -99 && playerPosY > -123) {
 				changeScreen = true;
+				mapSwitch = "Sewers";
+			}
+			
+			if(playerPosX > 97 && playerPosX < 115 && playerPosY < -128) {
+				changeScreen = true;
+				mapSwitchConfig = "Streets750right";
+				mapSwitch = "Streets750";
+			}
+			
+			if(playerPosX > -2 && playerPosX < 19 && playerPosY < -123) {
+				changeScreen = true;
+				mapSwitchConfig = "Streets750left";
+				mapSwitch = "Streets750";
 			}
 			
 			//top end
