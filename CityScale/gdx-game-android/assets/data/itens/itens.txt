@@ -1,5 +1,5 @@
 itens.png
-size: 86, 1892
+size: 215, 860
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -19,595 +19,686 @@ basicaxe
   index: -1
 basicdagger
   rotate: false
-  xy: 0, 43
+  xy: 86, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 basicknife
   rotate: false
-  xy: 43, 43
+  xy: 129, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 basicpistol
   rotate: false
-  xy: 0, 86
+  xy: 172, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 basicset
   rotate: false
-  xy: 43, 86
+  xy: 0, 43
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 basicsetF
   rotate: false
-  xy: 0, 129
+  xy: 43, 43
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 blackdagger
   rotate: false
-  xy: 43, 129
+  xy: 86, 43
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 blackset
   rotate: false
-  xy: 0, 172
+  xy: 129, 43
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 blacksetF
   rotate: false
-  xy: 43, 172
+  xy: 172, 43
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 bloodteethaxe
   rotate: false
-  xy: 0, 215
+  xy: 0, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+boiledEgg
+  rotate: false
+  xy: 43, 86
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 butterflyrod
   rotate: false
-  xy: 43, 215
+  xy: 86, 86
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 cannonpistol
   rotate: false
-  xy: 0, 258
+  xy: 129, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+catset
+  rotate: false
+  xy: 172, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+catsetF
+  rotate: false
+  xy: 0, 129
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 chipz
   rotate: false
-  xy: 43, 258
+  xy: 43, 129
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 clerigrod
   rotate: false
-  xy: 0, 301
+  xy: 86, 129
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 colisseumdagger
   rotate: false
-  xy: 43, 301
+  xy: 129, 129
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 cristalsword
   rotate: false
-  xy: 0, 344
+  xy: 172, 129
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 curvedsword
   rotate: false
-  xy: 43, 344
+  xy: 0, 172
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 deathrod
   rotate: false
-  xy: 0, 387
+  xy: 43, 172
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 doubleedgeknife
   rotate: false
-  xy: 43, 387
+  xy: 86, 172
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 edgedagger
   rotate: false
-  xy: 0, 430
+  xy: 129, 172
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 edgesword
   rotate: false
-  xy: 43, 430
+  xy: 172, 172
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+empty
+  rotate: false
+  xy: 0, 215
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 flamebergdagger
   rotate: false
-  xy: 0, 473
+  xy: 43, 215
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 flamesword
   rotate: false
-  xy: 43, 473
+  xy: 86, 215
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 galhos
   rotate: false
-  xy: 0, 516
+  xy: 129, 215
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 gemrod
   rotate: false
-  xy: 43, 516
+  xy: 172, 215
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 gloomrod
   rotate: false
-  xy: 0, 559
+  xy: 0, 258
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 guitaraxe
   rotate: false
-  xy: 43, 559
+  xy: 43, 258
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hammeraxe
   rotate: false
-  xy: 0, 602
+  xy: 86, 258
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatbanana
   rotate: false
-  xy: 43, 602
+  xy: 129, 258
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatbat
   rotate: false
-  xy: 0, 645
+  xy: 172, 258
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatbear
   rotate: false
-  xy: 43, 645
+  xy: 0, 301
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatbluecold
   rotate: false
-  xy: 0, 688
+  xy: 43, 301
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatbrazilflag
   rotate: false
-  xy: 43, 688
+  xy: 86, 301
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatbunny
   rotate: false
-  xy: 0, 731
+  xy: 129, 301
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatbutterfly
   rotate: false
-  xy: 43, 731
+  xy: 172, 301
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatcapoult
   rotate: false
-  xy: 0, 774
+  xy: 0, 344
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatcooker
   rotate: false
-  xy: 43, 774
+  xy: 43, 344
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hateyepatch
   rotate: false
-  xy: 0, 817
+  xy: 86, 344
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatfashionglasses
   rotate: false
-  xy: 43, 817
+  xy: 129, 344
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatmagician
   rotate: false
-  xy: 0, 860
+  xy: 172, 344
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatpirate
   rotate: false
-  xy: 43, 860
+  xy: 0, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatredcap
   rotate: false
-  xy: 0, 903
+  xy: 43, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatsanta
   rotate: false
-  xy: 43, 903
+  xy: 86, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatslime
   rotate: false
-  xy: 0, 946
+  xy: 129, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hatsunglasses
   rotate: false
-  xy: 43, 946
+  xy: 172, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hattimer
   rotate: false
-  xy: 0, 989
+  xy: 0, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 heavymachinepistol
   rotate: false
-  xy: 43, 989
+  xy: 43, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 hpcan
   rotate: false
-  xy: 0, 1032
+  xy: 86, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 killeraxe
   rotate: false
-  xy: 43, 1032
+  xy: 129, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 knightsword
   rotate: false
-  xy: 0, 1075
+  xy: 172, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 lightpistol
   rotate: false
-  xy: 43, 1075
+  xy: 0, 473
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 lightwieldrod
   rotate: false
-  xy: 0, 1118
+  xy: 43, 473
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 lootblop
   rotate: false
-  xy: 43, 1118
+  xy: 86, 473
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalamarelo
+  rotate: false
+  xy: 129, 473
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalazul
+  rotate: false
+  xy: 172, 473
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalverde
+  rotate: false
+  xy: 0, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalvermelho
+  rotate: false
+  xy: 43, 516
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 lootfang
   rotate: false
-  xy: 0, 1161
+  xy: 86, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentoamarelo
+  rotate: false
+  xy: 129, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentoazul
+  rotate: false
+  xy: 172, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentoverde
+  rotate: false
+  xy: 0, 559
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentovermelho
+  rotate: false
+  xy: 43, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 lootmushroom
   rotate: false
-  xy: 43, 1161
+  xy: 86, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 lootpoisonleaf
   rotate: false
-  xy: 0, 1204
+  xy: 129, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 machinepistol
   rotate: false
-  xy: 43, 1204
+  xy: 172, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 marinedagger
   rotate: false
-  xy: 0, 1247
+  xy: 0, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 mpcan
   rotate: false
-  xy: 43, 1247
+  xy: 43, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 pickaxe
   rotate: false
-  xy: 0, 1290
+  xy: 86, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 poisondagger
   rotate: false
-  xy: 43, 1290
+  xy: 129, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 ragesword
   rotate: false
-  xy: 0, 1333
+  xy: 172, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 revolverpistol
   rotate: false
-  xy: 43, 1333
+  xy: 0, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 riflepistol
   rotate: false
-  xy: 0, 1376
+  xy: 43, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 rougeset
   rotate: false
-  xy: 43, 1376
+  xy: 86, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 rougesetF
   rotate: false
-  xy: 0, 1419
+  xy: 129, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 sabersword
   rotate: false
-  xy: 43, 1419
+  xy: 172, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 sacredrod
   rotate: false
-  xy: 0, 1462
+  xy: 0, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 schoolpridesetF
   rotate: false
-  xy: 43, 1462
+  xy: 43, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 scytheaxe
   rotate: false
-  xy: 0, 1505
+  xy: 86, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 serpentrod
   rotate: false
-  xy: 43, 1505
+  xy: 129, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 serpentsword
   rotate: false
-  xy: 0, 1548
+  xy: 172, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 sharkpistol
   rotate: false
-  xy: 43, 1548
+  xy: 0, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 sharpaxe
   rotate: false
-  xy: 0, 1591
+  xy: 43, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 shooterpistol
   rotate: false
-  xy: 43, 1591
+  xy: 86, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 sportset
   rotate: false
-  xy: 0, 1634
+  xy: 129, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 starrod
   rotate: false
-  xy: 43, 1634
+  xy: 172, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 stcan
   rotate: false
-  xy: 0, 1677
+  xy: 0, 774
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+steak
+  rotate: false
+  xy: 43, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 stickrod
   rotate: false
-  xy: 43, 1677
+  xy: 86, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 thunderdagger
   rotate: false
-  xy: 0, 1720
+  xy: 129, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 triplodagger
   rotate: false
-  xy: 43, 1720
+  xy: 172, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 turretpistol
   rotate: false
-  xy: 0, 1763
+  xy: 0, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 venomsword
   rotate: false
-  xy: 43, 1763
+  xy: 43, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 winddagger
   rotate: false
-  xy: 0, 1806
+  xy: 86, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 woodsword
   rotate: false
-  xy: 43, 1806
+  xy: 129, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 wrenckaxe
   rotate: false
-  xy: 0, 1849
+  xy: 172, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0

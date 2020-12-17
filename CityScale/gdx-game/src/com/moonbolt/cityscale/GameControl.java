@@ -509,6 +509,13 @@ public class GameControl {
 			playerInfo.coordY_A = "133";
 			savetimer = 0;
 		}
+		
+		if(map.equals("Watercave")) {
+			playerInfo.map_A = "Watercave";
+			playerInfo.coordX_A = "49";
+			playerInfo.coordY_A = "133";
+			savetimer = 0;
+		}
 	}
 	
 	public void CreateNewData(){

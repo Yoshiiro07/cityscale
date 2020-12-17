@@ -55,8 +55,13 @@ public class LoadingScreen implements Screen{
 		}	
 		
 		if(tipo.equals("Streets750")) {
-			Streets750 Streets750Screen = new Streets750(game,gameControl, config, platform,network);
-			game.setScreen(Streets750Screen);
+			Streets750 streets750Screen = new Streets750(game,gameControl, config, platform,network);
+			game.setScreen(streets750Screen);
+		}
+		
+		if(tipo.equals("Watercave")) {
+			Watercave watercaveScreen = new Watercave(game,gameControl, config, platform,network);
+			game.setScreen(watercaveScreen);
 		}
 	}
 	
