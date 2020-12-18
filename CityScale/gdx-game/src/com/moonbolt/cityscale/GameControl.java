@@ -186,6 +186,7 @@ public class GameControl {
 	private TextureAtlas atlas_shops;
 	private TextureAtlas atlas_itens;
 	private TextureAtlas atlas_npc;
+	private TextureAtlas atlas_npc750;
 	
 	private TextureAtlas atlas_iconSkills;
 	private TextureAtlas atlas_tripleattack;
@@ -281,6 +282,7 @@ public class GameControl {
 		
 		//NPCs
 		atlas_npc = new TextureAtlas(Gdx.files.internal("data/characters/npcs/npcs.txt"));
+		atlas_npc750 = new TextureAtlas(Gdx.files.internal("data/characters/npcs/npcbeach.txt"));
 		
 		//Itens 
 		atlas_itens = new TextureAtlas(Gdx.files.internal("data/itens/itens.txt"));
@@ -503,6 +505,13 @@ public class GameControl {
 			savetimer = 0;
 		}
 		
+		if(map.equals("Streets750CaveOut")) {
+			playerInfo.map_A = "Streets750";
+			playerInfo.coordX_A = "40";
+			playerInfo.coordY_A = "-118";
+			savetimer = 0;
+		}
+		
 		if(map.equals("Sewers")) {
 			playerInfo.map_A = "Sewers";
 			playerInfo.coordX_A = "49";
@@ -512,8 +521,8 @@ public class GameControl {
 		
 		if(map.equals("Watercave")) {
 			playerInfo.map_A = "Watercave";
-			playerInfo.coordX_A = "49";
-			playerInfo.coordY_A = "133";
+			playerInfo.coordX_A = "-71";
+			playerInfo.coordY_A = "83";
 			savetimer = 0;
 		}
 	}
@@ -1675,6 +1684,24 @@ public class GameControl {
 			spr_master.setPosition(cameraCoordsX + 10,cameraCoordsY - 5);
 			return spr_master;		
 		}
+		if(type.equals("Tropical")) {
+			spr_master = atlas_shops.createSprite("shopTropical");
+			spr_master.setSize(50,80);
+			spr_master.setPosition(cameraCoordsX + 10,cameraCoordsY - 5);
+			return spr_master;		
+		}
+		if(type.equals("750")) {
+			spr_master = atlas_shops.createSprite("shop750");
+			spr_master.setSize(50,80);
+			spr_master.setPosition(cameraCoordsX + 10,cameraCoordsY - 5);
+			return spr_master;		
+		}
+		if(type.equals("Lux")) {
+			spr_master = atlas_shops.createSprite("shopLux");
+			spr_master.setSize(50,80);
+			spr_master.setPosition(cameraCoordsX + 10,cameraCoordsY - 5);
+			return spr_master;		
+		}
 		
 		//innerpad
 		if(type.equals("innerpad") && value.equals("stop")) {
@@ -2812,8 +2839,8 @@ public class GameControl {
 		
 		//Teste
 		int playerMoney = Integer.parseInt(playerInfo.money_A);
-		//playerMoney = playerMoney + 100;
-		//playerInfo.money_A = String.valueOf(playerMoney);
+		playerMoney = playerMoney + 200;
+		playerInfo.money_A = String.valueOf(playerMoney);
 		
 		if(shopName.equals("RefriShop")) {
 			//HPCAN
@@ -5008,7 +5035,7 @@ public class GameControl {
 			    while ((line = rd.readLine()) != null) {
 			    	returnFromServer = line;   
 			    	//Resultado:
-			    	if(returnFromServer.contains("Works")) {
+			    	if(returnFromServer.contains("Sucesso")) {
 			    		OnlineRequest = "Concluido";
 			    	}
 				}
@@ -10107,6 +10134,109 @@ public class GameControl {
 		spr_master.setPosition(23, npcFromBottom);
 		lstNpcs.add(spr_master);
 				
+		
+		
+		return lstNpcs;
+	}
+	
+	public ArrayList<Sprite> GetNpcsStreets750() {
+		
+		lstNpcs.clear();
+		
+		npcFrame++;
+		if(npcFrame > 100) { npcFrame = 1; }
+		
+		//Police			
+		if(npcFrame >= 0 && npcFrame <= 25) { spr_master = atlas_npc750.createSprite("guard1"); }
+		if(npcFrame >= 25 && npcFrame <= 50) { spr_master = atlas_npc750.createSprite("guard2"); }
+		if(npcFrame >= 50 && npcFrame <= 75) { spr_master = atlas_npc750.createSprite("guard3"); }
+		if(npcFrame >= 75 && npcFrame <= 100) { spr_master = atlas_npc750.createSprite("guard1"); }
+		spr_master.setSize(10, 28);
+		spr_master.setPosition(-11, 76);	
+		lstNpcs.add(spr_master);
+		
+		//Cooker			
+		if(npcFrame >= 0 && npcFrame <= 25) { spr_master = atlas_npc750.createSprite("cooker1"); }
+		if(npcFrame >= 25 && npcFrame <= 50) { spr_master = atlas_npc750.createSprite("cooker2"); }
+		if(npcFrame >= 50 && npcFrame <= 75) { spr_master = atlas_npc750.createSprite("cooker3"); }
+		if(npcFrame >= 75 && npcFrame <= 100) { spr_master = atlas_npc750.createSprite("cooker1"); }
+		spr_master.setSize(10, 28);
+		spr_master.setPosition(188, 52);	
+		lstNpcs.add(spr_master);
+		
+		//Crystal Guy			
+		if(npcFrame >= 0 && npcFrame <= 25) { spr_master = atlas_npc750.createSprite("crystalguy1"); }
+		if(npcFrame >= 25 && npcFrame <= 50) { spr_master = atlas_npc750.createSprite("crystalguy2"); }
+		if(npcFrame >= 50 && npcFrame <= 75) { spr_master = atlas_npc750.createSprite("crystalguy3"); }
+		if(npcFrame >= 75 && npcFrame <= 100) { spr_master = atlas_npc750.createSprite("crystalguy1"); }
+		spr_master.setSize(10, 28);
+		spr_master.setPosition(116, 88);	
+		lstNpcs.add(spr_master);
+		
+		//Beach guy			
+		spr_master = atlas_npc.createSprite("NPCQ");
+		spr_master.setSize(7, 24);
+		spr_master.setPosition(-25,-112);	
+		lstNpcs.add(spr_master);
+		
+		//Beach girl			
+		spr_master = atlas_npc.createSprite("NPCY");
+		spr_master.setSize(6, 23);
+		spr_master.setPosition(-15,-112);	
+		lstNpcs.add(spr_master);
+		
+		//Beach guy			
+		spr_master = atlas_npc.createSprite("NPCR");
+		spr_master.setSize(6, 25);
+		spr_master.setPosition(9,-105);	
+		lstNpcs.add(spr_master);
+		
+		//Beach girl			
+		spr_master = atlas_npc.createSprite("NPCZ");
+		spr_master.setSize(6, 23);
+		spr_master.setPosition(18,-105);	
+		lstNpcs.add(spr_master);
+
+		npcFromLeft3 = npcFromLeft3 + 0.3f;
+		if(npcFromLeft3 > 380) { npcFromLeft3 = -110; }
+		
+		npcFromRight = npcFromRight - 0.3f;
+		if(npcFromRight < - 200) { npcFromRight = 249; }
+		
+		//Studant			
+		if(npcFrame >= 0 && npcFrame <= 25) { spr_master = atlas_npc750.createSprite("worker2"); }
+		if(npcFrame >= 25 && npcFrame <= 50) { spr_master = atlas_npc750.createSprite("worker1"); }
+		if(npcFrame >= 50 && npcFrame <= 75) { spr_master = atlas_npc750.createSprite("worker2"); }
+		if(npcFrame >= 75 && npcFrame <= 100) { spr_master = atlas_npc750.createSprite("worker3"); }
+		spr_master.setSize(10, 26);
+		spr_master.setPosition(npcFromLeft3 - 150, 32);	
+		lstNpcs.add(spr_master);
+		
+		//Red Girl			
+		if(npcFrame >= 0 && npcFrame <= 25) { spr_master = atlas_npc750.createSprite("npcwomen2"); }
+		if(npcFrame >= 25 && npcFrame <= 50) { spr_master = atlas_npc750.createSprite("npcwomen1"); }
+		if(npcFrame >= 50 && npcFrame <= 75) { spr_master = atlas_npc750.createSprite("npcwomen2"); }
+		if(npcFrame >= 75 && npcFrame <= 100) { spr_master = atlas_npc750.createSprite("npcwomen3"); }
+		spr_master.setSize(8, 26);
+		spr_master.setPosition(npcFromLeft3 - 45, 35);	
+		lstNpcs.add(spr_master);
+		
+		//Walker
+		if(npcFrame >= 0 && npcFrame <= 25) { spr_master = atlas_npc750.createSprite("walker2"); }
+		if(npcFrame >= 25 && npcFrame <= 50) { spr_master = atlas_npc750.createSprite("walker1"); }
+		if(npcFrame >= 50 && npcFrame <= 75) { spr_master = atlas_npc750.createSprite("walker3"); }
+		if(npcFrame >= 75 && npcFrame <= 100) { spr_master = atlas_npc750.createSprite("walker1"); }	
+		spr_master.setSize(10, 26);
+		spr_master.setPosition(npcFromRight, 32);
+		lstNpcs.add(spr_master);
+		
+		if(npcFrame >= 0 && npcFrame <= 25) { spr_master = atlas_npc750.createSprite("npcstudantmale2"); }
+		if(npcFrame >= 25 && npcFrame <= 50) { spr_master = atlas_npc750.createSprite("npcstudantmale1"); }
+		if(npcFrame >= 50 && npcFrame <= 75) { spr_master = atlas_npc750.createSprite("npcstudantmale3"); }
+		if(npcFrame >= 75 && npcFrame <= 100) { spr_master = atlas_npc750.createSprite("npcstudantmale1"); }	
+		spr_master.setSize(8, 24);
+		spr_master.setPosition(npcFromRight + 30, 35);
+		lstNpcs.add(spr_master);
 		
 		
 		return lstNpcs;

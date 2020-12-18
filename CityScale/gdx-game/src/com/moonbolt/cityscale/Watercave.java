@@ -881,40 +881,19 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 	private void CheckColide() {
 
+		if(playerPosX > -80 && playerPosX < -63 && playerPosY > 101 && playerPosY < 120) {
+			changeScreen = true;
+			mapSwitchConfig = "Streets750CaveOut";
+			mapSwitch = "Streets750";
+			return;
+		}
+		
 		//Wall up
 		if(playerPosY > 159) {
 			breakWalk = "back";
 			return;
 		}
-
-		//Wall left
-		if(playerPosX < -97) {
-			breakWalk = "left";
-			return;
-		}
-
-		//Wall right
-		if(playerPosX > 216) {
-			breakWalk = "right";
-			return;
-		}
-
-		//Wall bottom
-		if(playerPosY < -150) {
-			breakWalk = "front";
-			return;
-		}
-
-		if(playerPosY > 146 && playerPosX > -21 && playerPosX < 9) {
-			//changeScreen = true;
-			//mapSwitchConfig = "Streets305leftbottom";
-			//mapSwitch = "Streets305";
-			return;
-		}
-
-
-
-
+		
 		breakWalk = "";
 	}
 
