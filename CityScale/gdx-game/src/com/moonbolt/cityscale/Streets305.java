@@ -1105,7 +1105,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				lstPlayerOnline = gameControl.GetOnlinePlayers();					
 				
 				for(int i = 0; i < lstPlayerOnline.size(); i++) {	
-					if(lstPlayerOnline.get(i).accountID == null) { return; }
 					//Exibe jogadores do mesmo mapa
 					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) {
 					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));

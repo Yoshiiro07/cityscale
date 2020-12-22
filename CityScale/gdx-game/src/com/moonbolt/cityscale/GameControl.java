@@ -5277,13 +5277,15 @@ public class GameControl {
 		dataInfoSplit = dataSplit[2].split("=");
 		onlineDataReceive = onlineDataReceive + ":" + dataInfoSplit[1];		
 		
-		if(!lstChats.contains(onlineDataReceive)) {
-			lstChats.add(onlineDataReceive);
+		lstChats.add(onlineDataReceive);
+		
+		if(lstChats.size() > 3) {
 			lstChats.remove(0);
-		}
-		if(lstChats.size() < 3) {
-			lstChats.add(onlineDataReceive);
-		}
+		}		
+		
+		if(lstChats.get(0) == null) { lstChats.set(0, ""); }
+		if(lstChats.get(1) == null) { lstChats.set(1, ""); }
+		if(lstChats.get(2) == null) { lstChats.set(2, ""); }
 	}
 	
 	public void LoadDownloadData(String hash) {
