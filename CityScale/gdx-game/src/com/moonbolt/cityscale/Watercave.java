@@ -1096,7 +1096,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 	private void ShowMonsters() {
 		lstMobs = gameControl.GetMonsters();
 		for(int i = 0; i < lstMobs.size(); i++) {
-			spr_mob = gameControl.MobAppear(i);
+			spr_mob = gameControl.MobAppearWatercave(i);
 			spr_mob.draw(game.batch);
 			font_master.draw(game.batch, lstMobs.get(i).mobID + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
 		}	

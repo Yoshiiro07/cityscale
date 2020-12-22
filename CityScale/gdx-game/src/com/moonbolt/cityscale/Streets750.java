@@ -272,9 +272,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			//Show Online Players
 			ShowOnlinePlayers();
 					
-			//Show Monsters
-			ShowMonsters();
-			
 			//Background Over
 			spr_BackgroundOver.setPosition(-100, -150);
 			spr_BackgroundOver.setSize(350, 350);
@@ -1185,20 +1182,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			for(int i = 0; i < lstNPCs.size(); i++) {
 				spr_npc = lstNPCs.get(i);
 				spr_npc.draw(game.batch);
-			}
-		}
-		
-		private void ShowMonsters() {
-			lstMobs = gameControl.GetMonsters();
-			for(int i = 0; i < lstMobs.size(); i++) {
-				spr_mob = gameControl.MobAppear(i);
-				spr_mob.draw(game.batch);
-				font_master.draw(game.batch, lstMobs.get(i).mobID + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
-			}	
-			
-			spr_TargetArrow = gameControl.TargetMobArrow();
-			if(spr_TargetArrow != null) {
-				//spr_TargetArrow.draw(game.batch);
 			}
 		}
 		

@@ -184,7 +184,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			//Initializing Chats & Monsters
 			lstChats = new ArrayList<String>();
 			lstMobs = new ArrayList<Monster>();
-			lstMobs = gameControl.LoadMonsters("Sewers");
+			lstMobs = gameControl.LoadMonstersSewers();
 			
 			//Sprites
 			tex_Background = new Texture(Gdx.files.internal("data/maps/sewers.png"));
@@ -1167,7 +1167,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private void ShowMonsters() {
 			lstMobs = gameControl.GetMonsters();
 			for(int i = 0; i < lstMobs.size(); i++) {
-				spr_mob = gameControl.MobAppear(i);
+				spr_mob = gameControl.MobAppearSewers(i);
 				spr_mob.draw(game.batch);
 				font_master.draw(game.batch, lstMobs.get(i).mobID + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
 			}	

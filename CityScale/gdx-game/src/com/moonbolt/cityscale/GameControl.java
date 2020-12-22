@@ -236,6 +236,7 @@ public class GameControl {
 	private TextureAtlas atlas_axes;
 	
 	private TextureAtlas atlas_MonstersSewer;
+	private TextureAtlas atlas_MonstersWatercave;
 	
 	
 	// CONSTRUCTOR
@@ -343,6 +344,7 @@ public class GameControl {
 		
 		//Monsters
 		atlas_MonstersSewer = new TextureAtlas(Gdx.files.internal("data/monsters/mobsSewers.txt"));
+		atlas_MonstersWatercave = new TextureAtlas(Gdx.files.internal("data/monsters/mobsBeach.txt"));
 	}
 	
 	//TEMP
@@ -454,7 +456,8 @@ public class GameControl {
 	public void ScreenChange(String map) {
 		
 		lstMobs.clear();
-		LoadMonsters(map);
+		if(map.equals("Sewers")) { LoadMonstersSewers();  }
+		if(map.equals("Watercave")) { LoadMonstersWatercave();  }
 		
 		if(map.equals("MetroStation")) { 
 			playerInfo.map_A = "MetroStation";
@@ -5300,12 +5303,11 @@ public class GameControl {
 	/////////////////////////////////////////////////////////ONLINE  ENDS//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//[G] Battle
-	public ArrayList<Monster> LoadMonsters(String map) {
+	public ArrayList<Monster> LoadMonstersSewers() {
 		
 		lstMobs.clear();
 		
 		//Sewers
-		if(map.equals("Sewers")) {
 			Monster mobA = new Monster();
 			mobA.name = "Slime";
 			mobA.mobPosX = 59;
@@ -5585,16 +5587,304 @@ public class GameControl {
 			mobG.mobDirectionOnWalk = "wait";
 			mobG.OnlineID = "MobG";
 			lstMobs.add(mobG);
-		}
 		
 		return lstMobs;
 	}
+	
+	public ArrayList<Monster> LoadMonstersWatercave() {
+
+			lstMobs.clear();
+		
+			//WaterCave
+			Monster mobA = new Monster();
+			mobA.name = "Poyo";
+			mobA.mobPosX = 59;
+			mobA.mobPosY = -26;
+			mobA.mobStartPosX = 59;
+			mobA.mobStartPosY = -26;
+			mobA.mobHeight = 14;
+			mobA.mobWidth = 10;
+			mobA.mobID = "PoyoA";
+			mobA.hp = 300;
+			mobA.mp = 10;
+			mobA.maxHP = 300;
+			mobA.maxMP = 10;
+			mobA.exp = 1200;
+			mobA.inCasting = false;
+			mobA.dead = false;
+			mobA.target = "None";
+			mobA.frame = 1;
+			mobA.atkCount = 0;
+			mobA.atkHit = 30;
+			mobA.getHit = false;
+			mobA.mobCountDown = 250;
+			mobA.mobCountDownMax = 250;
+			mobA.side = "right";
+			mobA.MobSelected = "no";
+			mobA.maxRanged = 20;
+			mobA.minRanged = 40;
+			mobA.loot1 = "HPCAN";
+			mobA.loot2 = "HPCAN";
+			mobA.loot3 = "HPCAN";
+			mobA.respawnTime = 300;
+			mobA.respawnTimeMax = 300;
+			mobA.map = "Watercave";
+			mobA.statusTime = 300;
+			mobA.speed = 0.14f;
+			mobA.status = "none";
+			mobA.mobDirectionOnWalk = "wait";
+			mobA.OnlineID = "MobA";
+			lstMobs.add(mobA);
+
+			Monster mobB = new Monster();
+			mobB.name = "Poyo";
+			mobB.mobPosX = 123;
+			mobB.mobPosY = 31;
+			mobB.mobStartPosX = 123;
+			mobB.mobStartPosY = 31;
+			mobB.mobHeight = 22;
+			mobB.mobWidth = 14;
+			mobB.mobID = "PoyoB";
+			mobB.hp = 300;
+			mobB.mp = 10;
+			mobB.maxHP = 300;
+			mobB.maxMP = 10;
+			mobB.exp = 1200;
+			mobB.inCasting = false;
+			mobB.dead = false;
+			mobB.target = "None";
+			mobB.frame = 1;
+			mobB.atkCount = 0;
+			mobB.atkHit = 30;
+			mobB.getHit = false;
+			mobB.mobCountDown = 250;
+			mobB.mobCountDownMax = 250;
+			mobB.side = "right";
+			mobB.MobSelected = "no";
+			mobB.maxRanged = 20;
+			mobB.minRanged = 40;
+			mobB.loot1 = "HPCAN";
+			mobB.loot2 = "HPCAN";
+			mobB.loot3 = "HPCAN";
+			mobB.respawnTime = 300;
+			mobB.respawnTimeMax = 300;
+			mobB.map = "Watercave";
+			mobB.statusTime = 300;
+			mobB.speed = 0.14f;
+			mobB.status = "none";
+			mobB.mobDirectionOnWalk = "wait";
+			mobB.OnlineID = "MobB";
+			lstMobs.add(mobB);
+
+			Monster mobC = new Monster();
+			mobC.name = "Felni";
+			mobC.mobPosX = -33;
+			mobC.mobPosY = 4;
+			mobC.mobStartPosX = 59;
+			mobC.mobStartPosY = -26;
+			mobC.mobHeight = 14;
+			mobC.mobWidth = 10;
+			mobC.mobID = "FelniA";
+			mobC.hp = 550;
+			mobC.mp = 10;
+			mobC.maxHP = 550;
+			mobC.maxMP = 10;
+			mobC.exp = 1900;
+			mobC.inCasting = false;
+			mobC.dead = false;
+			mobC.target = "None";
+			mobC.frame = 1;
+			mobC.atkCount = 0;
+			mobC.atkHit = 60;
+			mobC.getHit = false;
+			mobC.mobCountDown = 400;
+			mobC.mobCountDownMax = 400;
+			mobC.side = "right";
+			mobC.MobSelected = "no";
+			mobC.maxRanged = 20;
+			mobC.minRanged = 40;
+			mobC.loot1 = "MPCAN";
+			mobC.loot2 = "MPCAN";
+			mobC.loot3 = "MPCAN";
+			mobC.respawnTime = 300;
+			mobC.respawnTimeMax = 300;
+			mobC.map = "Watercave";
+			mobC.statusTime = 300;
+			mobC.speed = 0.10f;
+			mobC.status = "none";
+			mobC.mobDirectionOnWalk = "wait";
+			mobC.OnlineID = "MobC";
+			lstMobs.add(mobC);
+
+			Monster mobD = new Monster();
+			mobD.name = "Aranarc";
+			mobD.mobPosX = 117;
+			mobD.mobPosY = -100;
+			mobD.mobStartPosX = 59;
+			mobD.mobStartPosY = -26;
+			mobD.mobHeight = 14;
+			mobD.mobWidth = 10;
+			mobD.mobID = "AranarcA";
+			mobD.hp = 870;
+			mobD.mp = 10;
+			mobD.maxHP = 870;
+			mobD.maxMP = 10;
+			mobD.exp = 2500;
+			mobD.inCasting = false;
+			mobD.dead = false;
+			mobD.target = "None";
+			mobD.frame = 1;
+			mobD.atkCount = 0;
+			mobD.atkHit = 80;
+			mobD.getHit = false;
+			mobD.mobCountDown = 300;
+			mobD.mobCountDownMax = 300;
+			mobD.side = "right";
+			mobD.MobSelected = "no";
+			mobD.maxRanged = 20;
+			mobD.minRanged = 40;
+			mobD.loot1 = "MPCAN";
+			mobD.loot2 = "MPCAN";
+			mobD.loot3 = "MPCAN";
+			mobD.respawnTime = 300;
+			mobD.respawnTimeMax = 300;
+			mobD.map = "Watercave";
+			mobD.statusTime = 300;
+			mobD.speed = 0.14f;
+			mobD.status = "none";
+			mobD.OnlineID = "MobD";
+			mobD.mobDirectionOnWalk = "wait";
+			lstMobs.add(mobD);
+
+			Monster mobE = new Monster();
+			mobE.name = "Aranarc";
+			mobE.mobPosX = 180;
+			mobE.mobPosY = -3;
+			mobE.mobStartPosX = 59;
+			mobE.mobStartPosY = -26;
+			mobE.mobHeight = 14;
+			mobE.mobWidth = 10;
+			mobE.mobID = "AranarcB";
+			mobE.hp = 870;
+			mobE.mp = 10;
+			mobE.maxHP = 870;
+			mobE.maxMP = 10;
+			mobE.exp = 2500;
+			mobE.inCasting = false;
+			mobE.dead = false;
+			mobE.target = "None";
+			mobE.frame = 1;
+			mobE.atkCount = 0;
+			mobE.atkHit = 80;
+			mobE.getHit = false;
+			mobE.mobCountDown = 300;
+			mobE.mobCountDownMax = 300;
+			mobE.side = "right";
+			mobE.MobSelected = "no";
+			mobE.maxRanged = 20;
+			mobE.minRanged = 40;
+			mobE.loot1 = "MPCAN";
+			mobE.loot2 = "MPCAN";
+			mobE.loot3 = "MPCAN";
+			mobE.respawnTime = 300;
+			mobE.respawnTimeMax = 300;
+			mobE.map = "Watercave";
+			mobE.statusTime = 300;
+			mobE.speed = 0.12f;
+			mobE.status = "none";
+			mobE.mobDirectionOnWalk = "wait";
+			mobE.OnlineID = "MobE";
+			lstMobs.add(mobE);
+
+			Monster mobF = new Monster();
+			mobF.name = "Tencle";
+			mobF.mobPosX = -39;
+			mobF.mobPosY = -106;
+			mobF.mobStartPosX = -39;
+			mobF.mobStartPosY = -106;
+			mobF.mobHeight = 14;
+			mobF.mobWidth = 10;
+			mobF.mobID = "TencleA";
+			mobF.hp = 1200;
+			mobF.mp = 10;
+			mobF.maxHP = 1200;
+			mobF.maxMP = 10;
+			mobF.exp = 2900;
+			mobF.inCasting = false;
+			mobF.dead = false;
+			mobF.target = "None";
+			mobF.frame = 1;
+			mobF.atkCount = 0;
+			mobF.atkHit = 35;
+			mobF.getHit = false;
+			mobF.mobCountDown = 100;
+			mobF.mobCountDownMax = 100;
+			mobF.side = "right";
+			mobF.MobSelected = "no";
+			mobF.maxRanged = 20;
+			mobF.minRanged = 40;
+			mobF.loot1 = "HPCAN";
+			mobF.loot2 = "HPCAN";
+			mobF.loot3 = "HPCAN";
+			mobF.respawnTime = 300;
+			mobF.respawnTimeMax = 300;
+			mobF.map = "Watercave";
+			mobF.statusTime = 300;
+			mobF.speed = 0.19f;
+			mobF.status = "none";
+			mobF.mobDirectionOnWalk = "wait";
+			mobF.OnlineID = "MobF";
+			lstMobs.add(mobF);
+
+			Monster mobG = new Monster();
+			mobG.name = "Dorato";
+			mobG.mobPosX = 191;
+			mobG.mobPosY = -103;
+			mobE.mobStartPosX = 191;
+			mobG.mobStartPosY = -103;
+			mobG.mobHeight = 22;
+			mobG.mobWidth = 14;
+			mobG.mobID = "DoratoA";
+			mobG.hp = 1700;
+			mobG.mp = 10;
+			mobG.maxHP = 1700;
+			mobG.maxMP = 10;
+			mobG.exp = 3500;
+			mobG.inCasting = false;
+			mobG.dead = false;
+			mobG.target = "None";
+			mobG.frame = 1;
+			mobG.atkCount = 0;
+			mobG.atkHit = 100;
+			mobG.getHit = false;
+			mobG.mobCountDown = 400;
+			mobG.mobCountDownMax = 400;
+			mobG.side = "right";
+			mobG.MobSelected = "no";
+			mobG.maxRanged = 20;
+			mobG.minRanged = 40;
+			mobG.loot1 = "MPCAN";
+			mobG.loot2 = "MPCAN";
+			mobG.loot3 = "MPCAN";
+			mobG.respawnTime = 300;
+			mobG.respawnTimeMax = 300;
+			mobG.map = "Watercave";
+			mobG.statusTime = 300;
+			mobG.speed = 0.10f;
+			mobG.status = "none";
+			mobG.mobDirectionOnWalk = "wait";
+			mobG.OnlineID = "MobG";
+			lstMobs.add(mobG);
+
+		return lstMobs;
+	}
+	
 	
 	public ArrayList<Monster> GetMonsters() {
 		return lstMobs;
 	}
 	
-	public Sprite MobAppear(int num) {
+	public Sprite MobAppearSewers(int num) {
 		
 		Monster mob = lstMobs.get(num);
 			
@@ -5830,7 +6120,6 @@ public class GameControl {
 				if(mob.getHit) { spr_master = atlas_MonstersSewer.createSprite("willow1_damage_left"); mob.getHit = false; }
 			}		
 		}
-				
 			
 		//See status stun
 		if(!mob.status.equals("stun")) {			
@@ -5914,6 +6203,325 @@ public class GameControl {
 			spr_targetArrow.setPosition(mob.mobPosX + 1.5f, mob.mobPosY + 25);
 		}
 		return spr_master;
+	}
+	
+	public Sprite MobAppearWatercave(int num) {
+		Monster mob = lstMobs.get(num);
+		
+		if(mob.hp <= 0) { mob.dead = true; }
+
+		//Poyo
+		if(mob.name.equals("Poyo")) {
+			if(mob.name.equals("Poyo") && mob.side.equals("right")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("poyo4_right"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//For move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("poyo1_right"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("poyo2_right"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("poyo3_right"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("poyo1_damage_right"); mob.getHit = false; }
+			}
+			if(mob.name.equals("Poyo") && mob.side.equals("left")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("poyo4_left"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//for move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("poyo1_left"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("poyo2_left"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("poyo3_left"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("poyo1_damage_left"); mob.getHit = false; }
+			}		
+		}
+		
+		//Aranarc
+		if(mob.name.equals("Aranarc")) {
+			if(mob.name.equals("Aranarc") && mob.side.equals("right")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("aranarc4_right"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//For move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("aranarc1_right"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("aranarc2_right"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("aranarc3_right"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("aranarc1_damage_right"); mob.getHit = false; }
+			}
+			if(mob.name.equals("Aranarc") && mob.side.equals("left")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("aranarc4_left"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//for move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("aranarc1_left"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("aranarc2_left"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("aranarc3_left"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("aranarc1_damage_left"); mob.getHit = false; }
+			}		
+		}
+		
+		//Tencle
+		if(mob.name.equals("Tencle")) {
+			if(mob.name.equals("Tencle") && mob.side.equals("right")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("tencle4_right"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//For move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("tencle1_right"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("tencle2_right"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("tencle3_right"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("tencle1_damage_right"); mob.getHit = false; }
+			}
+			if(mob.name.equals("Tencle") && mob.side.equals("left")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("tencle4_left"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//for move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("tencle1_left"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("tencle2_left"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("tencle3_left"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("tencle1_damage_left"); mob.getHit = false; }
+			}		
+		}
+		
+		//Felni
+		if(mob.name.equals("Felni")) {
+			if(mob.name.equals("Felni") && mob.side.equals("right")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("felni4_right"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//For move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("felni1_right"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("felni2_right"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("felni3_right"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("felni1_damage_right"); mob.getHit = false; }
+			}
+			if(mob.name.equals("Felni") && mob.side.equals("left")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("felni4_left"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//for move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("felni1_left"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("felni2_left"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("felni3_left"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("felni1_damage_left"); mob.getHit = false; }
+			}		
+		}
+		
+		//Dorato
+		if(mob.name.equals("Dorato")) {
+			if(mob.name.equals("Dorato") && mob.side.equals("right")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("dorato4_right"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//For move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("dorato1_right"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("dorato2_right"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("dorato3_right"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("dorato1_damage_right"); mob.getHit = false; }
+			}
+			if(mob.name.equals("Dorato") && mob.side.equals("left")) {
+				//for atk
+				if(mob.frame >= 50 && mob.frame < 70) { 
+					spr_master = atlas_MonstersWatercave.createSprite("dorato4_left"); 
+					spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+					spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+					mob.frame++; 
+					return spr_master; 
+				}
+				if(mob.frame >= 70) { 
+					mob.frame = 2; 
+				}
+				
+				//for move
+				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("dorato1_left"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("dorato2_left"); }
+				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("dorato3_left"); }
+				
+				//Getting hit
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("dorato1_damage_left"); mob.getHit = false; }
+			}		
+		}
+		
+		//See status stun
+		if(!mob.status.equals("stun")) {			
+				//Mov X
+				frameMob = randnumber.nextInt(80);
+				if(frameMob >= 0 && frameMob <= 20 && mob.mobDirectionOnWalk.equals("wait")) {
+					walkInDirection = 500;
+					mob.mobDirectionOnWalk = "right";					
+				}
+				if(frameMob >= 20 && frameMob <= 40 && mob.mobDirectionOnWalk.equals("wait")) {
+					walkInDirection = 500;
+					mob.mobDirectionOnWalk = "left";						
+				}			
+				//Mov Y
+				if(frameMob >= 40 && frameMob <= 60 && mob.mobDirectionOnWalk.equals("wait")) {
+					walkInDirection = 500;
+					mob.mobDirectionOnWalk = "back";					
+				}
+				if(frameMob >= 60 && frameMob <= 80 && mob.mobDirectionOnWalk.equals("wait")) {
+					walkInDirection = 500;
+					mob.mobDirectionOnWalk = "front";
+				}
+				
+				if(walkInDirection > 0) {
+					walkInDirection--;
+					if(mob.mobDirectionOnWalk.equals("right")) { mob.mobPosX = mob.mobPosX + mob.speed; }
+					if(mob.mobDirectionOnWalk.equals("left")) { mob.mobPosX = mob.mobPosX - mob.speed;  }
+					if(mob.mobDirectionOnWalk.equals("back")) { mob.mobPosY = mob.mobPosY + mob.speed; }
+					if(mob.mobDirectionOnWalk.equals("front")) { mob.mobPosY = mob.mobPosY - mob.speed;  }
+				}
+				if(walkInDirection <= 0) {
+					walkInDirection = 0;
+					mob.mobDirectionOnWalk = "wait";
+				}
+				
+				if(mob.mobPosX > 237 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+				if(mob.mobPosX < -105 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+				if(mob.mobPosY > 237 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+				if(mob.mobPosY < -161 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+				
+				if(mob.target.equals(playerInfo.name_A)) {
+					playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+					playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+					
+					if(mob.mobPosX > playerCoordsX) { mob.mobPosX -= 0.15f; }
+					if(mob.mobPosX < playerCoordsX + 9) { mob.mobPosX += 0.15f; }
+					if(mob.mobPosY > playerCoordsY) { mob.mobPosY -= 0.15f; }
+					if(mob.mobPosY < playerCoordsY) { mob.mobPosY += 0.15f; }
+				}
+						
+				if(lstPlayersOnline.size() > 0) {
+					for(int i = 0; i < lstPlayersOnline.size(); i++) {
+						if(mob.target.equals(lstPlayersOnline.get(i).name_A)) {
+							onlineplayerPosX = Float.parseFloat(lstPlayersOnline.get(i).coordX_A);
+							onlineplayerPosY = Float.parseFloat(lstPlayersOnline.get(i).coordY_A);
+							
+							if(mob.mobPosX > onlineplayerPosX) { mob.mobPosX -= 0.15f; }
+							if(mob.mobPosX < onlineplayerPosX + 9) { mob.mobPosX += 0.15f; }
+							if(mob.mobPosY > onlineplayerPosY) { mob.mobPosY -= 0.15f; }
+							if(mob.mobPosY < onlineplayerPosY) { mob.mobPosY += 0.15f; }
+						}
+					}
+				}
+		}
+		
+		//See status poison
+		if(mob.status.equals("poison") && mob.frame >= 10 && mob.frame <= 12) {
+			mob.hp = mob.hp--;
+		}
+	
+		spr_master.setPosition(mob.mobPosX, mob.mobPosY);
+		spr_master.setSize(mob.mobWidth, mob.mobHeight);
+					
+		mob.frame++;
+		if(mob.frame >= 33) { mob.frame = 1; }	
+		lstMobs.set(num, mob);
+		
+		if(playerInfo.target_A.equals(mob.mobID)){
+			spr_targetArrow = atlas_InterfaceCreate.createSprite("target");
+			spr_targetArrow.setSize(7,11);
+			spr_targetArrow.setPosition(mob.mobPosX + 1.5f, mob.mobPosY + 25);
+		}
+		return spr_master;		
 	}
 	
 	public void CheckSkillCooldown() {
@@ -9354,7 +9962,7 @@ public class GameControl {
 			
 			CleanBuffEffects();	
 			playerInfo.statusPoint_A = String.valueOf(point);
-			if(playerInfo.job_1.equals("Novice")) {
+			if(playerInfo.job_A.equals("Novice")) {
 				playerAtk = Integer.parseInt(playerInfo.atk_A);  
 				playerAtk = playerAtk + 2;
 				playerInfo.atk_A = String.valueOf(playerAtk);
@@ -9364,7 +9972,7 @@ public class GameControl {
 				levelup = false;
 			}
 			
-			if(playerInfo.job_1.equals("Swordman")) {
+			if(playerInfo.job_A.equals("Swordman")) {
 				playerAtk = Integer.parseInt(playerInfo.atk_A);
 				playerAtk = playerAtk + 2;
 				playerInfo.atk_A = String.valueOf(playerAtk);
@@ -9377,7 +9985,7 @@ public class GameControl {
 				levelup = false;
 			}
 			
-			if(playerInfo.job_1.equals("Mage")) {
+			if(playerInfo.job_A.equals("Mage")) {
 				playerDef = Integer.parseInt(playerInfo.def_A);
 				playerDef = playerDef + 1;
 				playerInfo.atk_A = String.valueOf(playerDef);
@@ -9387,7 +9995,7 @@ public class GameControl {
 				levelup = false;
 			}
 			
-			if(playerInfo.job_1.equals("Thief")) {
+			if(playerInfo.job_A.equals("Thief")) {
 				playerAtk = Integer.parseInt(playerInfo.atk_A);
 				playerAtk = playerAtk + 1;
 				playerInfo.atk_A = String.valueOf(playerAtk);
@@ -9400,7 +10008,7 @@ public class GameControl {
 				levelup = false;
 			}
 			
-			if(playerInfo.job_1.equals("Medic")) {
+			if(playerInfo.job_A.equals("Medic")) {
 				playerDef = Integer.parseInt(playerInfo.def_A);
 				playerDef = playerDef + 2;
 				playerInfo.def_A = String.valueOf(playerDef);
@@ -9409,7 +10017,7 @@ public class GameControl {
 				playerInfo.maxhp_A = String.valueOf(playerHPMax);
 				levelup = false;
 			}
-			if(playerInfo.job_1.equals("Gunner")) {
+			if(playerInfo.job_A.equals("Gunner")) {
 				playerAtk = Integer.parseInt(playerInfo.atk_A);
 				playerAtk = playerAtk + 2;
 				playerInfo.atk_A = String.valueOf(playerAtk);
@@ -9418,7 +10026,7 @@ public class GameControl {
 				playerInfo.maxhp_A = String.valueOf(playerHPMax);
 				levelup = false;
 			}
-			if(playerInfo.job_1.equals("Beater")) {
+			if(playerInfo.job_A.equals("Beater")) {
 				playerAtk = Integer.parseInt(playerInfo.atk_A);
 				playerAtk = playerAtk + 5;
 				playerInfo.atk_A = String.valueOf(playerAtk);
