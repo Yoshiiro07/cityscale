@@ -5065,75 +5065,99 @@ public class GameControl {
 		
 		dataInfoSplit = dataSplit[1].split("=");
 		playerInfoOnline.name_A = dataInfoSplit[1];
+		if(playerInfoOnline.name_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[2].split("=");
 		playerInfoOnline.hp_A = dataInfoSplit[1];
+		if(playerInfoOnline.hp_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[3].split("=");
 		playerInfoOnline.mp_A = dataInfoSplit[1];
+		if(playerInfoOnline.mp_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[4].split("=");
 		playerInfoOnline.coordX_A = dataInfoSplit[1];
+		if(playerInfoOnline.coordX_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[5].split("=");
 		playerInfoOnline.coordY_A = dataInfoSplit[1];
+		if(playerInfoOnline.coordY_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[6].split("=");
 		playerInfoOnline.map_A = dataInfoSplit[1];
+		if(playerInfoOnline.map_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[7].split("=");
 		playerInfoOnline.level_A = dataInfoSplit[1];
+		if(playerInfoOnline.level_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[8].split("=");
 		playerInfoOnline.set_A = dataInfoSplit[1];
+		if(playerInfoOnline.set_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[9].split("=");
 		playerInfoOnline.hair_A = dataInfoSplit[1];
+		if(playerInfoOnline.hair_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[10].split("=");
 		playerInfoOnline.hat_A = dataInfoSplit[1];
+		if(playerInfoOnline.hat_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[11].split("=");
 		playerInfoOnline.weapon_A = dataInfoSplit[1];
+		if(playerInfoOnline.weapon_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[12].split("=");
 		playerInfoOnline.inBattle_A = dataInfoSplit[1];
+		if(playerInfoOnline.inBattle_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[13].split("=");
 		playerInfoOnline.side_A = dataInfoSplit[1];
+		if(playerInfoOnline.side_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[14].split("=");
 		playerInfoOnline.pos_A = dataInfoSplit[1];
+		if(playerInfoOnline.pos_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[15].split("=");
 		playerInfoOnline.walk_A = dataInfoSplit[1];
+		if(playerInfoOnline.walk_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[16].split("=");
 		playerInfoOnline.accountID = dataInfoSplit[1];
+		if(playerInfoOnline.accountID == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[17].split("=");
 		playerInfoOnline.party_A = dataInfoSplit[1];
+		if(playerInfoOnline.party_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[18].split("=");
 		playerInfoOnline.sex_A = dataInfoSplit[1];
+		if(playerInfoOnline.sex_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[19].split("=");
 		playerInfoOnline.job_A = dataInfoSplit[1];
+		if(playerInfoOnline.job_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[21].split("=");
 		playerInfoOnline.buffsA_A = dataInfoSplit[1];
+		if(playerInfoOnline.buffsA_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[22].split("=");
 		playerInfoOnline.buffsB_A = dataInfoSplit[1];
+		if(playerInfoOnline.buffsB_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[23].split("=");
 		playerInfoOnline.buffsC_A = dataInfoSplit[1];
+		if(playerInfoOnline.buffsC_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[24].split("=");
 		playerInfoOnline.heal_A = dataInfoSplit[1];
+		if(playerInfoOnline.heal_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[25].split("=");
 		playerInfoOnline.expshared_A = dataInfoSplit[1]; 
+		if(playerInfoOnline.expshared_A == null) { playerInfoOnline.accountID = ""; } 
 		
 		if(lstPlayersOnline.size() > 0) {
 			if(lstPlayersOnline.get(0).accountID.equals(playerInfo.accountID) && lstPlayersOnline.get(0).map_A.equals(playerInfo.map_A)) {
