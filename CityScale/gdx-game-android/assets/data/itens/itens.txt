@@ -325,394 +325,401 @@ hatfashionglasses
   orig: 43, 43
   offset: 0, 0
   index: -1
-hatmagician
+hatheadset
   rotate: false
   xy: 43, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-hatpirate
+hatmagician
   rotate: false
   xy: 86, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-hatredcap
+hatpirate
   rotate: false
   xy: 129, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-hatsanta
+hatredcap
   rotate: false
   xy: 172, 387
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-hatslime
+hatsanta
   rotate: false
   xy: 0, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-hatsunglasses
+hatslime
   rotate: false
   xy: 43, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-hattimer
+hatsunglasses
   rotate: false
   xy: 86, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-heavymachinepistol
+hattimer
   rotate: false
   xy: 129, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-hpcan
+heavymachinepistol
   rotate: false
   xy: 172, 430
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-killeraxe
+hpcan
   rotate: false
   xy: 0, 473
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-knightsword
+killeraxe
   rotate: false
   xy: 43, 473
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lightpistol
+knightsword
   rotate: false
   xy: 86, 473
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lightwieldrod
+lightpistol
   rotate: false
   xy: 129, 473
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootblop
+lightwieldrod
   rotate: false
   xy: 172, 473
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootcristalamarelo
+lootblop
   rotate: false
   xy: 0, 516
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootcristalazul
+lootcristalamarelo
   rotate: false
   xy: 43, 516
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootcristalverde
+lootcristalazul
   rotate: false
   xy: 86, 516
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootcristalvermelho
+lootcristalverde
   rotate: false
   xy: 129, 516
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootfang
+lootcristalvermelho
   rotate: false
   xy: 172, 516
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootfragmentoamarelo
+lootfang
   rotate: false
   xy: 0, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootfragmentoazul
+lootfragmentoamarelo
   rotate: false
   xy: 43, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootfragmentoverde
+lootfragmentoazul
   rotate: false
   xy: 86, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootfragmentovermelho
+lootfragmentoverde
   rotate: false
   xy: 129, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootmushroom
+lootfragmentovermelho
   rotate: false
   xy: 172, 559
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootpoisonleaf
+lootmushroom
   rotate: false
   xy: 0, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-machinepistol
+lootpoisonleaf
   rotate: false
   xy: 43, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-marinedagger
+machinepistol
   rotate: false
   xy: 86, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-mpcan
+marinedagger
   rotate: false
   xy: 129, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-pickaxe
+mpcan
   rotate: false
   xy: 172, 602
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-poisondagger
+pickaxe
   rotate: false
   xy: 0, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-ragesword
+poisondagger
   rotate: false
   xy: 43, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-revolverpistol
+ragesword
   rotate: false
   xy: 86, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-riflepistol
+revolverpistol
   rotate: false
   xy: 129, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-rougeset
+riflepistol
   rotate: false
   xy: 172, 645
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-rougesetF
+rougeset
   rotate: false
   xy: 0, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-sabersword
+rougesetF
   rotate: false
   xy: 43, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-sacredrod
+sabersword
   rotate: false
   xy: 86, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-schoolpridesetF
+sacredrod
   rotate: false
   xy: 129, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-scytheaxe
+schoolpridesetF
   rotate: false
   xy: 172, 688
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-serpentrod
+scytheaxe
   rotate: false
   xy: 0, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-serpentsword
+serpentrod
   rotate: false
   xy: 43, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-sharkpistol
+serpentsword
   rotate: false
   xy: 86, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-sharpaxe
+sharkpistol
   rotate: false
   xy: 129, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-shooterpistol
+sharpaxe
   rotate: false
   xy: 172, 731
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-sportset
+shooterpistol
   rotate: false
   xy: 0, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-starrod
+sportset
   rotate: false
   xy: 43, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-stcan
+starrod
   rotate: false
   xy: 86, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-steak
+stcan
   rotate: false
   xy: 129, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-stickrod
+steak
   rotate: false
   xy: 172, 774
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-thunderdagger
+stickrod
   rotate: false
   xy: 0, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-triplodagger
+thunderdagger
   rotate: false
   xy: 43, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-turretpistol
+triplodagger
   rotate: false
   xy: 86, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-venomsword
+turretpistol
   rotate: false
   xy: 129, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-winddagger
+venomsword
   rotate: false
   xy: 172, 817
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-woodsword
+winddagger
   rotate: false
   xy: 0, 860
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-wrenckaxe
+woodsword
   rotate: false
   xy: 43, 860
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+wrenckaxe
+  rotate: false
+  xy: 86, 860
   size: 43, 43
   orig: 43, 43
   offset: 0, 0

@@ -1,5 +1,5 @@
 hats.png
-size: 120, 1200
+size: 480, 540
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -19,266 +19,490 @@ HATBANANA_front
   index: -1
 HATBANANA_left
   rotate: false
-  xy: 0, 60
+  xy: 120, 0
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBANANA_right
   rotate: false
-  xy: 60, 60
+  xy: 180, 0
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBAT_back
+  rotate: false
+  xy: 240, 0
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBAT_front
+  rotate: false
+  xy: 300, 0
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBAT_left
+  rotate: false
+  xy: 360, 0
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBAT_right
+  rotate: false
+  xy: 420, 0
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBEAR_back
   rotate: false
-  xy: 0, 120
+  xy: 0, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBEAR_front
   rotate: false
-  xy: 60, 120
+  xy: 60, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBEAR_left
   rotate: false
-  xy: 0, 180
+  xy: 120, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBEAR_right
   rotate: false
-  xy: 60, 180
+  xy: 180, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUNNY_back
+HATBLUECOLD_back
   rotate: false
-  xy: 0, 240
+  xy: 240, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUNNY_front
+HATBLUECOLD_front
   rotate: false
-  xy: 60, 240
+  xy: 300, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUNNY_left
+HATBLUECOLD_left
   rotate: false
-  xy: 0, 300
+  xy: 360, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUNNY_right
+HATBLUECOLD_right
   rotate: false
-  xy: 60, 300
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-HATBUTTERFLY_back
-  rotate: false
-  xy: 0, 360
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-HATBUTTERFLY_front
-  rotate: false
-  xy: 60, 360
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-HATBUTTERFLY_left
-  rotate: false
-  xy: 0, 420
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-HATBUTTERFLY_right
-  rotate: false
-  xy: 60, 420
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-HATFASHIONGLASSES_back
-  rotate: false
-  xy: 0, 480
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-HATFASHIONGLASSES_front
-  rotate: false
-  xy: 60, 480
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-HATFASHIONGLASSES_left
-  rotate: false
-  xy: 0, 540
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-HATFASHIONGLASSES_right
-  rotate: false
-  xy: 60, 540
+  xy: 420, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBRAZILFLAG_back
   rotate: false
-  xy: 0, 600
+  xy: 0, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBRAZILFLAG_front
   rotate: false
-  xy: 60, 600
+  xy: 60, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBRAZILFLAG_left
   rotate: false
-  xy: 0, 660
+  xy: 120, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATBRAZILFLAG_right
   rotate: false
-  xy: 60, 660
+  xy: 180, 120
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBUNNY_back
+  rotate: false
+  xy: 240, 120
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBUNNY_front
+  rotate: false
+  xy: 300, 120
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBUNNY_left
+  rotate: false
+  xy: 360, 120
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBUNNY_right
+  rotate: false
+  xy: 420, 120
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBUTTERFLY_back
+  rotate: false
+  xy: 0, 180
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBUTTERFLY_front
+  rotate: false
+  xy: 60, 180
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBUTTERFLY_left
+  rotate: false
+  xy: 120, 180
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATBUTTERFLY_right
+  rotate: false
+  xy: 180, 180
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATCAPOULT_back
+  rotate: false
+  xy: 240, 180
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATCAPOULT_front
+  rotate: false
+  xy: 300, 180
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATCAPOULT_left
+  rotate: false
+  xy: 360, 180
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATCAPOULT_right
+  rotate: false
+  xy: 420, 180
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATCOOKER_back
+  rotate: false
+  xy: 0, 240
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATCOOKER_front
+  rotate: false
+  xy: 60, 240
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATCOOKER_left
+  rotate: false
+  xy: 120, 240
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATCOOKER_right
+  rotate: false
+  xy: 180, 240
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATFASHIONGLASSES_back
+  rotate: false
+  xy: 240, 240
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATFASHIONGLASSES_front
+  rotate: false
+  xy: 300, 240
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATFASHIONGLASSES_left
+  rotate: false
+  xy: 360, 240
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATFASHIONGLASSES_right
+  rotate: false
+  xy: 420, 240
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATFLAGBRAZIL_back
+  rotate: false
+  xy: 0, 300
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATFLAGBRAZIL_front
+  rotate: false
+  xy: 60, 300
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATFLAGBRAZIL_left
+  rotate: false
+  xy: 120, 300
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATFLAGBRAZIL_right
+  rotate: false
+  xy: 180, 300
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATHEADSET_back
+  rotate: false
+  xy: 240, 300
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATHEADSET_front
+  rotate: false
+  xy: 300, 300
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATHEADSET_left
+  rotate: false
+  xy: 360, 300
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATHEADSET_right
+  rotate: false
+  xy: 420, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATMAGICIAN_back
   rotate: false
-  xy: 0, 720
+  xy: 0, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATMAGICIAN_front
   rotate: false
-  xy: 60, 720
+  xy: 60, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATMAGICIAN_left
   rotate: false
-  xy: 0, 780
+  xy: 120, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATMAGICIAN_right
   rotate: false
-  xy: 60, 780
+  xy: 180, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATPIRATE_back
   rotate: false
-  xy: 0, 840
+  xy: 240, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATPIRATE_front
   rotate: false
-  xy: 60, 840
+  xy: 300, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATPIRATE_left
   rotate: false
-  xy: 0, 900
+  xy: 360, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATPIRATE_right
   rotate: false
-  xy: 60, 900
+  xy: 420, 360
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATREDCAP_back
+  rotate: false
+  xy: 0, 420
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATREDCAP_front
+  rotate: false
+  xy: 60, 420
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATREDCAP_left
+  rotate: false
+  xy: 120, 420
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATREDCAP_right
+  rotate: false
+  xy: 180, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATSANTA_back
   rotate: false
-  xy: 0, 960
+  xy: 240, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATSANTA_front
   rotate: false
-  xy: 60, 960
+  xy: 300, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATSANTA_left
   rotate: false
-  xy: 0, 1020
+  xy: 360, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATSANTA_right
   rotate: false
-  xy: 60, 1020
+  xy: 420, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATSLIME_back
   rotate: false
-  xy: 0, 1080
+  xy: 0, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATSLIME_front
   rotate: false
-  xy: 60, 1080
+  xy: 60, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATSLIME_left
   rotate: false
-  xy: 0, 1140
+  xy: 120, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 HATSLIME_right
   rotate: false
-  xy: 60, 1140
+  xy: 180, 480
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATTIMER_back
+  rotate: false
+  xy: 240, 480
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATTIMER_front
+  rotate: false
+  xy: 300, 480
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATTIMER_left
+  rotate: false
+  xy: 360, 480
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATTIMER_right
+  rotate: false
+  xy: 420, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0

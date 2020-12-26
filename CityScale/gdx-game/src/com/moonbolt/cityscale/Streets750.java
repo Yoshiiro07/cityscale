@@ -337,19 +337,19 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
 				for(count = 0; count < lstChats.size(); count++) {
 					if(count == 0) {
-						if(lstChats.get(count) == null) {
+						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
 							return;
 						}
 						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 17.7f);
 					}
 					if(count == 1) {
-						if(lstChats.get(count) == null) {
+						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
 							return;
 						}
 						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 22.7f);
 					}
 					if(count == 2) {
-						if(lstChats.get(count) == null) {
+						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
 							return;
 						}
 						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
@@ -1092,7 +1092,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				lstPlayerOnline = gameControl.GetOnlinePlayers();					
 				
 				for(int i = 0; i < lstPlayerOnline.size(); i++) {	
-					if(lstPlayerOnline.get(i).accountID == null) { return; }
+					if(lstPlayerOnline.get(i).accountID.equals("")) { return; }
 					//Exibe jogadores do mesmo mapa
 					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) {
 					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
@@ -2091,80 +2091,80 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				//Item 1
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuyStreets305("RefriShop", 1); timeBuyCount = 40; } 
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets305("Tropical", 1); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 1); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 1); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 1); timeBuyCount = 40; } 
 					
 					return false;
 				}
 				//Item 2
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 2); timeBuyCount = 40; }
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets305("Tropical", 2); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 2); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 2); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 2); timeBuyCount = 40; } 
 					return false;
 				}
 				//Item 3
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 3); timeBuyCount = 40; }
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets305("Tropical", 3); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 3); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 3); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 3); timeBuyCount = 40; } 
 					return false;
 				}
 				//Item 4
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 4); timeBuyCount = 40; }
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets305("Tropical", 4); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 4); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 4); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 4); timeBuyCount = 40; } 
 					return false;
 				}
 				
 				//Item 5
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets305("305", 5); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 5); timeBuyCount = 40; }
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("305", 5); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 5); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 6
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 6); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 6); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 6); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 6); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 7
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 7); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 7); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 7); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 7); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 8
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 8); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 8); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 8); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 8); timeBuyCount = 40; }
 					return false;
 				}	
 				
 				//Item 9
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 9); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 9); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 9); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 9); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 10
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 10); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 10); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 10); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 10); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 11
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 11); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 11); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 11); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 11); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 12
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 12); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets305("750", 12); timeBuyCount = 40; }
+					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 12); timeBuyCount = 40; } 
+					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 12); timeBuyCount = 40; }
 					return false;
 				}	
 			}

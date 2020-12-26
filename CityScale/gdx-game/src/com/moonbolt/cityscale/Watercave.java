@@ -340,19 +340,19 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
 			for(count = 0; count < lstChats.size(); count++) {
 				if(count == 0) {
-					if(lstChats.get(count) == null) {
+					if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
 						return;
 					}
 					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 17.7f);
 				}
 				if(count == 1) {
-					if(lstChats.get(count) == null) {
+					if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
 						return;
 					}
 					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 22.7f);
 				}
 				if(count == 2) {
-					if(lstChats.get(count) == null) {
+					if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
 						return;
 					}
 					font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
@@ -995,7 +995,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 			lstPlayerOnline = gameControl.GetOnlinePlayers();					
 
 			for(int i = 0; i < lstPlayerOnline.size(); i++) {	
-				if(lstPlayerOnline.get(i).accountID == null) { return; }
+				if(lstPlayerOnline.get(i).accountID.equals("")) { return; }
 				//Exibe jogadores do mesmo mapa
 				if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) {
 					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
