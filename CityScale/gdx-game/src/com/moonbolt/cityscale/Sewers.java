@@ -882,13 +882,6 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				}
 			}
 					
-			//spr_testeDot.setPosition(cameraCoordsX, cameraCoordsY + 8);
-			//spr_testeDot.draw(game.batch);
-			
-			//spr_testeDot.setPosition(cameraCoordsX, cameraCoordsY);
-			//spr_testeDot.draw(game.batch);
-			//spr_testeDot.setSize(1, 1);
-					
 			game.batch.end();	
 		}
 		

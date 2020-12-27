@@ -3458,6 +3458,153 @@ public class GameControl {
 			}
 		}
 		
+		if(shopName.equals("Lux")) {
+			//HATCOOKER
+			if(numItem == 1) {
+				if(playerMoney >= 30) {
+					playerMoney = playerMoney - 30;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("HATCOOKER"); //HATCOOKER  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//RAGESWORD
+			if(numItem == 2) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("RAGESWORD"); //RAGESWORD  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//MACHINEPISTOL
+			if(numItem == 3) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("MACHINEPISTOL"); //MACHINEPISTOL  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//DEATHROD
+			if(numItem == 4) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("DEATHROD"); //DEATHROD  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//GUITARAXE
+			if(numItem == 5) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("GUITARAXE"); //GUITARAXE  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//BLACKDAGGER
+			if(numItem == 6) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("BLACKDAGGER"); //BLACKDAGGER  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//HATREDCAP
+			if(numItem == 7) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("HATREDCAP"); //HATREDCAP  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//HATTIMER
+			if(numItem == 8) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("HATTIMER"); //HATTIMER  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//CATSET
+			if(numItem == 9) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("CATSET"); //CATSET  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//CATSETF
+			if(numItem == 10) {
+				if(playerMoney >= 2000) {
+					playerMoney = playerMoney - 2000;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("CATSETF"); //CATSETF  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//BASICSET
+			if(numItem == 11) {
+				if(playerMoney >= 20) {
+					playerMoney = playerMoney - 20;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("BASICSET"); //BASICSET  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+			//BASICSETF
+			if(numItem == 12) {
+				if(playerMoney >= 20) {
+					playerMoney = playerMoney - 20;
+					playerInfo.money_A = String.valueOf(playerMoney);
+					AddItemBag("BASICSETF"); //BASICSETF  
+					return "Comprado";
+				} 
+				else {
+					return "Dinheiro Insuficiente";
+				}
+			}
+		}
+		
 		
 		return "";
 	}
@@ -4279,6 +4426,17 @@ public class GameControl {
 		if(item.equals("STEAK")) { spr_master = atlas_itens.createSprite("steak"); return spr_master; }
 		if(item.equals("FLAMINGOSETM")) { spr_master = atlas_itens.createSprite("flamingosetM"); return spr_master; }
 		if(item.equals("FLAMINGOSETF")) { spr_master = atlas_itens.createSprite("flamingosetF"); return spr_master; }
+		
+		if(item.equals("HATCOOKER")) { spr_master = atlas_itens.createSprite("hatheadset"); return spr_master; }
+		if(item.equals("RAGESWORD")) { spr_master = atlas_itens.createSprite("serpentsword"); return spr_master; }
+		if(item.equals("MACHINEPISTOL")) { spr_master = atlas_itens.createSprite("riflepistol"); return spr_master; }
+		if(item.equals("DEATHROD")) { spr_master = atlas_itens.createSprite("butterflyrod"); return spr_master; }
+		if(item.equals("GUITARAXE")) { spr_master = atlas_itens.createSprite("anchoraxe"); return spr_master; }
+		if(item.equals("BLACKDAGGER")) { spr_master = atlas_itens.createSprite("thunderdagger"); return spr_master; }
+		if(item.equals("HATREDCAP")) { spr_master = atlas_itens.createSprite("hatblackglass"); return spr_master; }
+		if(item.equals("HATTIMER")) { spr_master = atlas_itens.createSprite("steak"); return spr_master; }
+		if(item.equals("CATSET")) { spr_master = atlas_itens.createSprite("flamingosetM"); return spr_master; }
+		if(item.equals("CATSETF")) { spr_master = atlas_itens.createSprite("flamingosetF"); return spr_master; }
 		
 		if(item.equals("BLOP")) { spr_master = atlas_itens.createSprite("lootblop"); return spr_master; }
 		if(item.equals("FANG")) { spr_master = atlas_itens.createSprite("lootfang"); return spr_master; }

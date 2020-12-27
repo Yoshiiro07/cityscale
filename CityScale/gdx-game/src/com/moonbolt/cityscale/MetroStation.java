@@ -224,6 +224,14 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		//font_master.draw(game.batch, "Aqui",25.3f, 28.9f);
 		
 		//spr_testeDot.setSize(1, 1);
+		
+		//spr_testeDot.setPosition(cameraCoordsX, cameraCoordsY + 8);
+		//spr_testeDot.draw(game.batch);
+		
+		//spr_testeDot.setPosition(cameraCoordsX, cameraCoordsY);
+		//spr_testeDot.draw(game.batch);
+		//spr_testeDot.setSize(1, 1);
+		
 		CheckColide();
 		
 		//Change Screen

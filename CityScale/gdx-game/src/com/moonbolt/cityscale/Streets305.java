@@ -869,9 +869,15 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					changeScreen = true;
 				}
 			}
+				
+			spr_testeDot.setPosition(180, 85);
+			spr_testeDot.draw(game.batch);
+			spr_testeDot.setSize(1, 1);
 			
-			
-			
+			spr_testeDot.setPosition(194, 65);
+			spr_testeDot.draw(game.batch);
+			spr_testeDot.setSize(1, 1);
+				
 			game.batch.end();	
 		}
 		
@@ -1016,6 +1022,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(playerPosX > -43 && playerPosX < -25 && playerPosY > 55 && playerPosY < 70) {
 				gameState = "Shop";
 				shop = "Classical";
+			}
+			//Shop Lux
+			if(playerPosX > 180 && playerPosX < 194 && playerPosY > 65 && playerPosY < 85) {
+				gameState = "Shop";
+				shop = "Lux";
 			}
 			
 			//Refri Shop
@@ -2111,6 +2122,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuyStreets305("RefriShop", 1); timeBuyCount = 40; } 
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 1); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 1); timeBuyCount = 40; } 
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 1); timeBuyCount = 40; } 
 					
 					return false;
 				}
@@ -2119,6 +2131,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 2); timeBuyCount = 40; }
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 2); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 2); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 2); timeBuyCount = 40; } 
 					return false;
 				}
 				//Item 3
@@ -2126,6 +2139,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 3); timeBuyCount = 40; }
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 3); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 3); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 3); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 4
@@ -2133,6 +2147,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 4); timeBuyCount = 40; }
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 4); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 4); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 4); timeBuyCount = 40; }
 					return false;
 				}
 				
@@ -2140,24 +2155,28 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 5); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 5); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 5); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 6
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 6); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 6); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 6); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 7
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 7); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 7); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 7); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 8
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 8); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 8); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 8); timeBuyCount = 40; }
 					return false;
 				}	
 				
@@ -2165,24 +2184,28 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 9); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 9); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 9); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 10
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 10); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 10); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 10); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 11
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 11); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 11); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 11); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 12
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
 					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets305("305", 12); timeBuyCount = 40; } 
 					if(shop.equals("Classical")) { nameBuy = gameControl.ItemBuyStreets305("Classical", 12); timeBuyCount = 40; }
+					if(shop.equals("Lux")) { nameBuy = gameControl.ItemBuyStreets305("Lux", 12); timeBuyCount = 40; }
 					return false;
 				}	
 			}
