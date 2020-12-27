@@ -1,5 +1,5 @@
 hats.png
-size: 480, 540
+size: 480, 600
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -87,422 +87,478 @@ HATBEAR_right
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBLUECOLD_back
+HATBLACKGLASS_back
   rotate: false
   xy: 240, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBLUECOLD_front
+HATBLACKGLASS_front
   rotate: false
   xy: 300, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBLUECOLD_left
+HATBLACKGLASS_left
   rotate: false
   xy: 360, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBLUECOLD_right
+HATBLACKGLASS_right
   rotate: false
   xy: 420, 60
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBRAZILFLAG_back
+HATBLUECOLD_back
   rotate: false
   xy: 0, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBRAZILFLAG_front
+HATBLUECOLD_front
   rotate: false
   xy: 60, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBRAZILFLAG_left
+HATBLUECOLD_left
   rotate: false
   xy: 120, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBRAZILFLAG_right
+HATBLUECOLD_right
   rotate: false
   xy: 180, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUNNY_back
+HATBRAZILFLAG_back
   rotate: false
   xy: 240, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUNNY_front
+HATBRAZILFLAG_front
   rotate: false
   xy: 300, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUNNY_left
+HATBRAZILFLAG_left
   rotate: false
   xy: 360, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUNNY_right
+HATBRAZILFLAG_right
   rotate: false
   xy: 420, 120
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUTTERFLY_back
+HATBROWN_back
   rotate: false
   xy: 0, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUTTERFLY_front
+HATBROWN_front
   rotate: false
   xy: 60, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUTTERFLY_left
+HATBROWN_left
   rotate: false
   xy: 120, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATBUTTERFLY_right
+HATBROWN_right
   rotate: false
   xy: 180, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATCAPOULT_back
+HATBUNNY_back
   rotate: false
   xy: 240, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATCAPOULT_front
+HATBUNNY_front
   rotate: false
   xy: 300, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATCAPOULT_left
+HATBUNNY_left
   rotate: false
   xy: 360, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATCAPOULT_right
+HATBUNNY_right
   rotate: false
   xy: 420, 180
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATCOOKER_back
+HATBUTTERFLY_back
   rotate: false
   xy: 0, 240
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATCOOKER_front
+HATBUTTERFLY_front
   rotate: false
   xy: 60, 240
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATCOOKER_left
+HATBUTTERFLY_left
   rotate: false
   xy: 120, 240
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATCOOKER_right
+HATBUTTERFLY_right
   rotate: false
   xy: 180, 240
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATFASHIONGLASSES_back
+HATCAPOULT_back
   rotate: false
   xy: 240, 240
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATFASHIONGLASSES_front
+HATCAPOULT_front
   rotate: false
   xy: 300, 240
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATFASHIONGLASSES_left
+HATCAPOULT_left
   rotate: false
   xy: 360, 240
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATFASHIONGLASSES_right
+HATCAPOULT_right
   rotate: false
   xy: 420, 240
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATFLAGBRAZIL_back
+HATCOOKER_back
   rotate: false
   xy: 0, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATFLAGBRAZIL_front
+HATCOOKER_front
   rotate: false
   xy: 60, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATFLAGBRAZIL_left
+HATCOOKER_left
   rotate: false
   xy: 120, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATFLAGBRAZIL_right
+HATCOOKER_right
   rotate: false
   xy: 180, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATHEADSET_back
+HATFASHIONGLASSES_back
   rotate: false
   xy: 240, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATHEADSET_front
+HATFASHIONGLASSES_front
   rotate: false
   xy: 300, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATHEADSET_left
+HATFASHIONGLASSES_left
   rotate: false
   xy: 360, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATHEADSET_right
+HATFASHIONGLASSES_right
   rotate: false
   xy: 420, 300
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATMAGICIAN_back
+HATFLAGBRAZIL_back
   rotate: false
   xy: 0, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATMAGICIAN_front
+HATFLAGBRAZIL_front
   rotate: false
   xy: 60, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATMAGICIAN_left
+HATFLAGBRAZIL_left
   rotate: false
   xy: 120, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATMAGICIAN_right
+HATFLAGBRAZIL_right
   rotate: false
   xy: 180, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATPIRATE_back
+HATHEADSET_back
   rotate: false
   xy: 240, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATPIRATE_front
+HATHEADSET_front
   rotate: false
   xy: 300, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATPIRATE_left
+HATHEADSET_left
   rotate: false
   xy: 360, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATPIRATE_right
+HATHEADSET_right
   rotate: false
   xy: 420, 360
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATREDCAP_back
+HATMAGICIAN_back
   rotate: false
   xy: 0, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATREDCAP_front
+HATMAGICIAN_front
   rotate: false
   xy: 60, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATREDCAP_left
+HATMAGICIAN_left
   rotate: false
   xy: 120, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATREDCAP_right
+HATMAGICIAN_right
   rotate: false
   xy: 180, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATSANTA_back
+HATPIRATE_back
   rotate: false
   xy: 240, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATSANTA_front
+HATPIRATE_front
   rotate: false
   xy: 300, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATSANTA_left
+HATPIRATE_left
   rotate: false
   xy: 360, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATSANTA_right
+HATPIRATE_right
   rotate: false
   xy: 420, 420
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATSLIME_back
+HATREDCAP_back
   rotate: false
   xy: 0, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATSLIME_front
+HATREDCAP_front
   rotate: false
   xy: 60, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATSLIME_left
+HATREDCAP_left
   rotate: false
   xy: 120, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATSLIME_right
+HATREDCAP_right
   rotate: false
   xy: 180, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATTIMER_back
+HATSANTA_back
   rotate: false
   xy: 240, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATTIMER_front
+HATSANTA_front
   rotate: false
   xy: 300, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATTIMER_left
+HATSANTA_left
   rotate: false
   xy: 360, 480
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
-HATTIMER_right
+HATSANTA_right
   rotate: false
   xy: 420, 480
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATSLIME_back
+  rotate: false
+  xy: 0, 540
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATSLIME_front
+  rotate: false
+  xy: 60, 540
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATSLIME_left
+  rotate: false
+  xy: 120, 540
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATSLIME_right
+  rotate: false
+  xy: 180, 540
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATTIMER_back
+  rotate: false
+  xy: 240, 540
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATTIMER_front
+  rotate: false
+  xy: 300, 540
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATTIMER_left
+  rotate: false
+  xy: 360, 540
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+HATTIMER_right
+  rotate: false
+  xy: 420, 540
   size: 60, 60
   orig: 60, 60
   offset: 0, 0

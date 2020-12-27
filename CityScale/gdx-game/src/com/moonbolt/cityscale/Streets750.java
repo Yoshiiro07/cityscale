@@ -2120,50 +2120,50 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				
 				//Item 5
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("305", 5); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 5); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 5); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 6
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 6); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 6); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 6); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 7
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 7); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 7); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 7); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 8
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 8); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 8); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 8); timeBuyCount = 40; }
 					return false;
 				}	
 				
 				//Item 9
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 9); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 9); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 9); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 10
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 10); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 10); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 10); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 11
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 11); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 11); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 11); timeBuyCount = 40; }
 					return false;
 				}
 				//Item 12
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("305")) { nameBuy = gameControl.ItemBuyStreets750("305", 12); timeBuyCount = 40; } 
+					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 12); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 12); timeBuyCount = 40; }
 					return false;
 				}	
