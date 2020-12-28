@@ -1,39 +1,60 @@
 shops.png
-size: 1500, 300
+size: 900, 900
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-shop305
+crystal
   rotate: false
   xy: 0, 0
   size: 300, 300
   orig: 300, 300
   offset: 0, 0
   index: -1
-shop750
+shop305
   rotate: false
   xy: 300, 0
   size: 300, 300
   orig: 300, 300
   offset: 0, 0
   index: -1
-shopClassico
+shop750
   rotate: false
   xy: 600, 0
   size: 300, 300
   orig: 300, 300
   offset: 0, 0
   index: -1
+shopbase
+  rotate: false
+  xy: 0, 300
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+shopClassico
+  rotate: false
+  xy: 300, 300
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
 shopLux
   rotate: false
-  xy: 900, 0
+  xy: 600, 300
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+shopsRefri
+  rotate: false
+  xy: 0, 600
   size: 300, 300
   orig: 300, 300
   offset: 0, 0
   index: -1
 shopTropical
   rotate: false
-  xy: 1200, 0
+  xy: 300, 600
   size: 300, 300
   orig: 300, 300
   offset: 0, 0

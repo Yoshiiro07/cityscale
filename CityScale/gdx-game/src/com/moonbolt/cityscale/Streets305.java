@@ -870,13 +870,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 				
-			spr_testeDot.setPosition(180, 85);
-			spr_testeDot.draw(game.batch);
-			spr_testeDot.setSize(1, 1);
+			//spr_testeDot.setPosition(180, 85);
+			//spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
 			
-			spr_testeDot.setPosition(194, 65);
-			spr_testeDot.draw(game.batch);
-			spr_testeDot.setSize(1, 1);
+			//spr_testeDot.setPosition(194, 65);
+			//spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
 				
 			game.batch.end();	
 		}
@@ -1024,7 +1024,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				shop = "Classical";
 			}
 			//Shop Lux
-			if(playerPosX > 180 && playerPosX < 194 && playerPosY > 65 && playerPosY < 85) {
+			if(playerPosX > 169 && playerPosX < 183 && playerPosY > 51 && playerPosY < 70) {
 				gameState = "Shop";
 				shop = "Lux";
 			}
@@ -1036,7 +1036,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			//JobMaster
-			if(playerPosX > 8f && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
+			if(playerPosX > 8 && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
 				int playerlevel = Integer.parseInt(activePlayer.level_A);
 				if(!activePlayer.job_A.equals("Novice")) { return; } 
 				if(playerlevel < 10) { return; }

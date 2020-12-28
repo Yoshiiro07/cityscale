@@ -865,7 +865,9 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 			
-			
+			//spr_testeDot.setPosition(106, 68);
+			//spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
 			
 			game.batch.end();	
 		}
@@ -1019,6 +1021,11 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			if(playerPosX > 159 && playerPosX < 174 && playerPosY > 41 && playerPosY < 53) {
 				gameState = "Shop";
 				shop = "750";
+			}
+			//Crystal Shop
+			if(playerPosX > 106 && playerPosX < 118 && playerPosY > 60 && playerPosY < 80) {
+				gameState = "Shop";
+				shop = "Crystal";
 			}
 		}
 		
@@ -2088,6 +2095,10 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 					gameState = "Main";
 					return false;
 				}
+				
+				//Crystal Shop
+				//here
+				
 				//Item 1
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuyStreets305("RefriShop", 1); timeBuyCount = 40; } 
