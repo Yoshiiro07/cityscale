@@ -4657,6 +4657,11 @@ public class GameControl {
 		if(item.equals("POISONLEAF")) { spr_master = atlas_itens.createSprite("lootpoisonleaf"); return spr_master; }
 		if(item.equals("MUSHROOM")) { spr_master = atlas_itens.createSprite("lootmushroom"); return spr_master; }
 		
+		if(item.equals("FRAGRED")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		if(item.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
+		if(item.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
+		if(item.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		
 		return spr_master;
 	}
 	
@@ -4727,7 +4732,7 @@ public class GameControl {
 		int playerMPMax = 0;
 		int playerStrenght = 0;
 		int qtd;
-		boolean equipable = false;
+		boolean equipable = false;  
 		
 		item = lstItem[numItem];
 		if(!item.equals("[NONE]")) {
@@ -5780,7 +5785,7 @@ public class GameControl {
 				}				
 			}
 			
-			if(set.equals("CATSET")) { //here
+			if(set.equals("CATSET")) { 
 				
 				//Battle
 				if(inBattle.equals("yes") && walk.equals("stop")) {
@@ -7206,12 +7211,12 @@ public class GameControl {
 			mobA.mobPosY = -26;
 			mobA.mobStartPosX = 59;
 			mobA.mobStartPosY = -26;
-			mobA.mobHeight = 14;
-			mobA.mobWidth = 10;
+			mobA.mobHeight = 16;
+			mobA.mobWidth = 12;
 			mobA.mobID = "PoyoA";
-			mobA.hp = 300;
+			mobA.hp = 450;
 			mobA.mp = 10;
-			mobA.maxHP = 300;
+			mobA.maxHP = 450;
 			mobA.maxMP = 10;
 			mobA.exp = 1200;
 			mobA.inCasting = false;
@@ -7219,7 +7224,7 @@ public class GameControl {
 			mobA.target = "None";
 			mobA.frame = 1;
 			mobA.atkCount = 0;
-			mobA.atkHit = 30;
+			mobA.atkHit = 45;
 			mobA.getHit = false;
 			mobA.mobCountDown = 250;
 			mobA.mobCountDownMax = 250;
@@ -7246,12 +7251,12 @@ public class GameControl {
 			mobB.mobPosY = 31;
 			mobB.mobStartPosX = 123;
 			mobB.mobStartPosY = 31;
-			mobB.mobHeight = 22;
-			mobB.mobWidth = 14;
+			mobB.mobHeight = 16;
+			mobB.mobWidth = 12;
 			mobB.mobID = "PoyoB";
-			mobB.hp = 300;
+			mobB.hp = 450;
 			mobB.mp = 10;
-			mobB.maxHP = 300;
+			mobB.maxHP = 450;
 			mobB.maxMP = 10;
 			mobB.exp = 1200;
 			mobB.inCasting = false;
@@ -7259,7 +7264,7 @@ public class GameControl {
 			mobB.target = "None";
 			mobB.frame = 1;
 			mobB.atkCount = 0;
-			mobB.atkHit = 30;
+			mobB.atkHit = 45;
 			mobB.getHit = false;
 			mobB.mobCountDown = 250;
 			mobB.mobCountDownMax = 250;
@@ -7286,12 +7291,12 @@ public class GameControl {
 			mobC.mobPosY = 4;
 			mobC.mobStartPosX = 59;
 			mobC.mobStartPosY = -26;
-			mobC.mobHeight = 14;
-			mobC.mobWidth = 10;
+			mobC.mobHeight = 16;
+			mobC.mobWidth = 12;
 			mobC.mobID = "FelniA";
-			mobC.hp = 550;
+			mobC.hp = 650;
 			mobC.mp = 10;
-			mobC.maxHP = 550;
+			mobC.maxHP = 650;
 			mobC.maxMP = 10;
 			mobC.exp = 1900;
 			mobC.inCasting = false;
@@ -7301,8 +7306,8 @@ public class GameControl {
 			mobC.atkCount = 0;
 			mobC.atkHit = 60;
 			mobC.getHit = false;
-			mobC.mobCountDown = 400;
-			mobC.mobCountDownMax = 400;
+			mobC.mobCountDown = 350;
+			mobC.mobCountDownMax = 350;
 			mobC.side = "right";
 			mobC.MobSelected = "no";
 			mobC.maxRanged = 20;
@@ -7326,12 +7331,12 @@ public class GameControl {
 			mobD.mobPosY = -100;
 			mobD.mobStartPosX = 59;
 			mobD.mobStartPosY = -26;
-			mobD.mobHeight = 14;
-			mobD.mobWidth = 10;
+			mobD.mobHeight = 18;
+			mobD.mobWidth = 14;
 			mobD.mobID = "AranarcA";
-			mobD.hp = 870;
+			mobD.hp = 900;
 			mobD.mp = 10;
-			mobD.maxHP = 870;
+			mobD.maxHP = 900;
 			mobD.maxMP = 10;
 			mobD.exp = 2500;
 			mobD.inCasting = false;
@@ -7366,12 +7371,12 @@ public class GameControl {
 			mobE.mobPosY = -3;
 			mobE.mobStartPosX = 59;
 			mobE.mobStartPosY = -26;
-			mobE.mobHeight = 14;
-			mobE.mobWidth = 10;
+			mobE.mobHeight = 18;
+			mobE.mobWidth = 14;
 			mobE.mobID = "AranarcB";
-			mobE.hp = 870;
+			mobE.hp = 900;
 			mobE.mp = 10;
-			mobE.maxHP = 870;
+			mobE.maxHP = 900;
 			mobE.maxMP = 10;
 			mobE.exp = 2500;
 			mobE.inCasting = false;
@@ -7406,12 +7411,12 @@ public class GameControl {
 			mobF.mobPosY = -106;
 			mobF.mobStartPosX = -39;
 			mobF.mobStartPosY = -106;
-			mobF.mobHeight = 14;
-			mobF.mobWidth = 10;
+			mobF.mobHeight = 30;
+			mobF.mobWidth = 20;
 			mobF.mobID = "TencleA";
-			mobF.hp = 1200;
+			mobF.hp = 1500;
 			mobF.mp = 10;
-			mobF.maxHP = 1200;
+			mobF.maxHP = 1500;
 			mobF.maxMP = 10;
 			mobF.exp = 2900;
 			mobF.inCasting = false;
@@ -7419,10 +7424,10 @@ public class GameControl {
 			mobF.target = "None";
 			mobF.frame = 1;
 			mobF.atkCount = 0;
-			mobF.atkHit = 35;
+			mobF.atkHit = 50;
 			mobF.getHit = false;
-			mobF.mobCountDown = 100;
-			mobF.mobCountDownMax = 100;
+			mobF.mobCountDown = 150;
+			mobF.mobCountDownMax = 150;
 			mobF.side = "right";
 			mobF.MobSelected = "no";
 			mobF.maxRanged = 20;
@@ -7446,12 +7451,12 @@ public class GameControl {
 			mobG.mobPosY = -103;
 			mobE.mobStartPosX = 191;
 			mobG.mobStartPosY = -103;
-			mobG.mobHeight = 22;
-			mobG.mobWidth = 14;
+			mobG.mobHeight = 40;
+			mobG.mobWidth = 30;
 			mobG.mobID = "DoratoA";
-			mobG.hp = 1700;
+			mobG.hp = 3000;
 			mobG.mp = 10;
-			mobG.maxHP = 1700;
+			mobG.maxHP = 3000;
 			mobG.maxMP = 10;
 			mobG.exp = 3500;
 			mobG.inCasting = false;
@@ -7459,10 +7464,10 @@ public class GameControl {
 			mobG.target = "None";
 			mobG.frame = 1;
 			mobG.atkCount = 0;
-			mobG.atkHit = 100;
+			mobG.atkHit = 150;
 			mobG.getHit = false;
-			mobG.mobCountDown = 400;
-			mobG.mobCountDownMax = 400;
+			mobG.mobCountDown = 500;
+			mobG.mobCountDownMax = 500;
 			mobG.side = "right";
 			mobG.MobSelected = "no";
 			mobG.maxRanged = 20;
@@ -7474,7 +7479,7 @@ public class GameControl {
 			mobG.respawnTimeMax = 300;
 			mobG.map = "Watercave";
 			mobG.statusTime = 300;
-			mobG.speed = 0.10f;
+			mobG.speed = 0.16f;
 			mobG.status = "none";
 			mobG.mobDirectionOnWalk = "wait";
 			mobG.OnlineID = "MobG";
@@ -7835,7 +7840,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("poyo3_right"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("poyo1_damage_right"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("poyo_damage_right"); mob.getHit = false; }
 			}
 			if(mob.name.equals("Poyo") && mob.side.equals("left")) {
 				//for atk
@@ -7856,7 +7861,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("poyo3_left"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("poyo1_damage_left"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("poyo_damage_left"); mob.getHit = false; }
 			}		
 		}
 		
@@ -7881,7 +7886,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("aranarc3_right"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("aranarc1_damage_right"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("aranarc_damage_right"); mob.getHit = false; }
 			}
 			if(mob.name.equals("Aranarc") && mob.side.equals("left")) {
 				//for atk
@@ -7902,7 +7907,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("aranarc3_left"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("aranarc1_damage_left"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("aranarc_damage_left"); mob.getHit = false; }
 			}		
 		}
 		
@@ -7927,7 +7932,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("tencle3_right"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("tencle1_damage_right"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("tencle_damage_right"); mob.getHit = false; }
 			}
 			if(mob.name.equals("Tencle") && mob.side.equals("left")) {
 				//for atk
@@ -7948,7 +7953,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("tencle3_left"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("tencle1_damage_left"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("tencle_damage_left"); mob.getHit = false; }
 			}		
 		}
 		
@@ -7969,11 +7974,11 @@ public class GameControl {
 				
 				//For move
 				if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonstersWatercave.createSprite("felni1_right"); }
-				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("felni2_right"); }
+				if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonstersWatercave.createSprite("felni_damage_right"); }
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("felni3_right"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("felni1_damage_right"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("felni_damage_right"); mob.getHit = false; }
 			}
 			if(mob.name.equals("Felni") && mob.side.equals("left")) {
 				//for atk
@@ -7994,7 +7999,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("felni3_left"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("felni1_damage_left"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("felni_damage_left"); mob.getHit = false; }
 			}		
 		}
 		
@@ -8019,7 +8024,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("dorato3_right"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("dorato1_damage_right"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("dorato_damage_right"); mob.getHit = false; }
 			}
 			if(mob.name.equals("Dorato") && mob.side.equals("left")) {
 				//for atk
@@ -8040,7 +8045,7 @@ public class GameControl {
 				if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonstersWatercave.createSprite("dorato3_left"); }
 				
 				//Getting hit
-				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("dorato1_damage_left"); mob.getHit = false; }
+				if(mob.getHit) { spr_master = atlas_MonstersWatercave.createSprite("dorato_damage_left"); mob.getHit = false; }
 			}		
 		}
 		
@@ -8305,7 +8310,27 @@ public class GameControl {
 		if(playerInfo.weapon_A.equals("WRENCKAXE")) { return 15; }
 		if(playerInfo.weapon_A.equals("POISONDAGGER")) { return 5; }
 		
-				
+		//level 3
+		if(playerInfo.weapon_A.equals("CURVEDSWORD")) { return 15; }
+		if(playerInfo.weapon_A.equals("LIGHTPISTOL")) { return 8; }
+		if(playerInfo.weapon_A.equals("GEMROD")) { return 6; }
+		if(playerInfo.weapon_A.equals("KILLERAXE")) { return 25; }
+		if(playerInfo.weapon_A.equals("MARINEDAGGER")) { return 8; }
+		
+		//level 4
+		if(playerInfo.weapon_A.equals("SERPENTSWORD")) { return 22; }
+		if(playerInfo.weapon_A.equals("RIFLEPISTOL")) { return 12; }
+		if(playerInfo.weapon_A.equals("BUTTERFLYROD")) { return 10; }
+		if(playerInfo.weapon_A.equals("ANCHORAXE")) { return 33; }
+		if(playerInfo.weapon_A.equals("THUNDERDAGGER")) { return 12; }
+		
+		//level 5
+		if(playerInfo.weapon_A.equals("RAGESWORD")) { return 35; }
+		if(playerInfo.weapon_A.equals("HEAVYMACHINEPISTOL")) { return 20; }
+		if(playerInfo.weapon_A.equals("DEATHROD")) { return 22; }
+		if(playerInfo.weapon_A.equals("GUITARAXE")) { return 45; }
+		if(playerInfo.weapon_A.equals("BLACKDAGGER")) { return 25; }
+		
 	    return 0;
 	}
 	
@@ -8663,6 +8688,8 @@ public class GameControl {
 							playerStr = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + playerStr) * 4;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -8740,6 +8767,8 @@ public class GameControl {
 							playerDex = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerDex * 2)) * 3;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -8943,6 +8972,8 @@ public class GameControl {
 							playerLuk = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerLuk * 2)) * 4;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9019,6 +9050,8 @@ public class GameControl {
 							playerAgi = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + 50 + (playerLuk) + (playerAgi * 3)) * 2;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9159,6 +9192,8 @@ public class GameControl {
 							playerStr = Integer.parseInt(playerStatusNumber[1]);				
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerLuk * 2) + (playerAgi * 2) + (playerStr * 2)) * 2;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9276,6 +9311,8 @@ public class GameControl {
 				playerWis = Integer.parseInt(playerStatusNumber[1]);
 				playerAtk = Integer.parseInt(playerInfo.atk_A);
 				playerAtk = (playerAtk + playerWis * 2) * 2;
+				weapondmg = GetWeaponDamage();
+				playerAtk = playerAtk + weapondmg;
 				if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 				playerHP = Integer.parseInt(playerInfo.hp_A);
 				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
@@ -9433,7 +9470,8 @@ public class GameControl {
 							playerVit = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 3) + (playerVit * 3)) * 3;
-							playerAtk = playerAtk + GetWeaponDamage();
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9559,7 +9597,8 @@ public class GameControl {
 							playerWis = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + playerWis) * 5;
-							playerAtk = playerAtk + GetWeaponDamage();
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9637,7 +9676,8 @@ public class GameControl {
 							playerDex = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + playerWis + (playerDex * 2)) * 3;
-							playerAtk = playerAtk + GetWeaponDamage();
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9720,7 +9760,8 @@ public class GameControl {
 							playerAgi = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 3) + playerDex + (playerAgi *2)) * 5;
-							playerAtk = playerAtk + GetWeaponDamage();
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9801,7 +9842,8 @@ public class GameControl {
 							playerHP = Integer.parseInt(playerInfo.hp_A);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 2) + playerDex + (playerHP)) * 2;
-							playerAtk = playerAtk + GetWeaponDamage();
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9882,7 +9924,8 @@ public class GameControl {
 							playerMP = Integer.parseInt(playerInfo.mp_A);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 2) + (playerLuk * 2) + (playerMP)) * 2;
-							playerAtk = playerAtk + GetWeaponDamage();
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -9979,6 +10022,8 @@ public class GameControl {
 							playerLuk = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + playerLuk) * 2;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -10058,6 +10103,8 @@ public class GameControl {
 						playerDex = Integer.parseInt(playerStatusNumber[1]);
 						playerAtk = Integer.parseInt(playerInfo.atk_A);
 						playerAtk = (playerAtk + playerAgi) + (playerDex * 3) * 4;
+						weapondmg = GetWeaponDamage();
+						playerAtk = playerAtk + weapondmg;
 						if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 						mobHP = lstMobs.get(i).hp;
 						mobHP = mobHP - playerAtk;
@@ -10176,6 +10223,8 @@ public class GameControl {
 						playerLuk = Integer.parseInt(playerStatusNumber[1]);
 						playerAtk = Integer.parseInt(playerInfo.atk_A);
 						playerAtk = ((playerAtk * 3) + (playerWis * 2) + (playerDex * 2) + (playerLuk * 3)) * 4;
+						weapondmg = GetWeaponDamage();
+						playerAtk = playerAtk + weapondmg;
 						if(playerInfo.stamina_A.equals("0")) { playerAtk = 30; }
 						mobHP = lstMobs.get(i).hp;
 						mobHP = mobHP - playerAtk;
@@ -10254,6 +10303,8 @@ public class GameControl {
 						playerMP = Integer.parseInt(playerInfo.mp_A);
 						playerAtk = Integer.parseInt(playerInfo.atk_A);
 						playerAtk = (playerAtk + playerStr + playerMP) * 2;
+						weapondmg = GetWeaponDamage();
+						playerAtk = playerAtk + weapondmg;
 						if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 						mobHP = lstMobs.get(i).hp;
 						mobHP = mobHP - playerAtk;
@@ -10350,6 +10401,8 @@ public class GameControl {
 							playerStr = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerStr * 2)) * 3;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -10431,6 +10484,8 @@ public class GameControl {
 							playerLuk = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerStr * 5) + (playerLuk * 2) + (playerDex)) * 6;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -10552,6 +10607,8 @@ public class GameControl {
 							playerWis = Integer.parseInt(playerStatusNumber[1]);
 							playerAtk = Integer.parseInt(playerInfo.atk_A);
 							playerAtk = (playerAtk + (playerWis * 4)) * 2;
+							weapondmg = GetWeaponDamage();
+							playerAtk = playerAtk + weapondmg;
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 10; }
 							mobHP = lstMobs.get(i).hp;
 							mobHP = mobHP - playerAtk;
@@ -10688,7 +10745,7 @@ public class GameControl {
 			}
 			//Regen 
 			if(skillNum == 5) {
-				return 50;
+				return 100;
 			}
 		}
 		

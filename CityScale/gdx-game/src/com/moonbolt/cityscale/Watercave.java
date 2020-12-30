@@ -185,8 +185,8 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 		//Initializing Chats & Monsters
 		lstChats = new ArrayList<String>();
-		//lstMobs = new ArrayList<Monster>();
-		//lstMobs = gameControl.LoadMonsters("Sewers");
+		lstMobs = new ArrayList<Monster>();
+		lstMobs = gameControl.LoadMonstersWatercave();
 
 		//Sprites
 		tex_Background = new Texture(Gdx.files.internal("data/maps/watercave.png"));
