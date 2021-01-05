@@ -4036,6 +4036,27 @@ public class GameControl {
 		return ""; 
 	}
 	
+	public String GetCrystal(int numItem) {  //here
+		
+		
+		//AddItemBag
+		
+		//Green Crystal
+		if(numItem == 1) {
+			if(playerMoney >= 30) {
+				playerMoney = playerMoney - 30;
+				playerInfo.money_A = String.valueOf(playerMoney);
+				AddItemBag("HATBLUECOLD");
+				return "Comprado";
+			} 
+			else {
+				return "Dinheiro Insuficiente";
+			}
+		}
+		
+		return "";
+	}
+	
 	public String ShowQuantityItem(int num) {
 		//Structure: [HPCAN#3]
 		String qtd = "";
@@ -4657,10 +4678,16 @@ public class GameControl {
 		if(item.equals("POISONLEAF")) { spr_master = atlas_itens.createSprite("lootpoisonleaf"); return spr_master; }
 		if(item.equals("MUSHROOM")) { spr_master = atlas_itens.createSprite("lootmushroom"); return spr_master; }
 		
-		if(item.equals("FRAGRED")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
-		if(item.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
-		if(item.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
-		if(item.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("FRAGRED")) { spr_master = atlas_itens.createSprite("lootfragmentovermelho"); return spr_master; }
+		if(item.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootfragmentoazul"); return spr_master; }
+		if(item.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootfragmentoamarelo"); return spr_master; }
+		if(item.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootfragmentoverde"); return spr_master; }
+		
+		if(item.equals("CRYSTALYELLOW")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
+		if(item.equals("CRYSTALAZUL")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
+		if(item.equals("CRYSTALVERDE")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALVERMELHO")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		
 		
 		return spr_master;
 	}
@@ -11780,7 +11807,7 @@ public class GameControl {
 			if(lootItemName.equals("FRAGRED")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); }
 			if(lootItemName.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootcristalazul"); }
 			if(lootItemName.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
-			if(lootItemName.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootcristalverde           "); }
+			if(lootItemName.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootcristalverde"); }
 			
 			spr_master.setSize(7, 12);
 			spr_master.setPosition(ccX + 15, ccY + 61.5f);
@@ -11974,6 +12001,101 @@ public class GameControl {
 					}
 				}			
 			}
+			if(playerWeapon.equals("CURVEDSWORD")) {			
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_swords.createSprite("curved_sword_left"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_swords.createSprite("curved_sword_attack_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_swords.createSprite("curved_sword_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 4.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_swords.createSprite("curved_sword_attack_left");  
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 5, pY + 4);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("SERPENTSWORD")) {			
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_swords.createSprite("serpent_sword_left"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_swords.createSprite("serpent_sword_attack_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_swords.createSprite("serpent_sword_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 4.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_swords.createSprite("serpent_sword_attack_left");  
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 5, pY + 4);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("RAGESWORD")) {			
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_swords.createSprite("rage_sword_left"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_swords.createSprite("rage_sword_attack_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_swords.createSprite("rage_sword_right"); 
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX + 4.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_swords.createSprite("rage_sword_attack_left");  
+						spr_master.setSize(20, 25);
+						spr_master.setPosition(pX - 5, pY + 4);
+						return spr_master;
+					}
+				}			
+			}
 		}
 		
 		return null;
@@ -12045,6 +12167,105 @@ public class GameControl {
 					}
 					if(exitAnimationFrame > 0) { 
 						spr_master = atlas_guns.createSprite("machine_pistol_attack_right");  
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 2, pY + 9);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("LIGHTPISTOL")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_guns.createSprite("light_pistol_attack_right"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX - 2, pY + 9);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_guns.createSprite("light_pistol_attack_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 6, pY + 8);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_guns.createSprite("light_pistol_attack_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 8.4f, pY + 9);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_guns.createSprite("light_pistol_attack_right");  
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 2, pY + 9);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("RIFLEPISTOL")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_guns.createSprite("rifle_pistol_attack_right"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX - 2, pY + 9);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_guns.createSprite("rifle_pistol_attack_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 6, pY + 8);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_guns.createSprite("rifle_pistol_attack_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 8.4f, pY + 9);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_guns.createSprite("rifle_pistol_attack_right");  
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 2, pY + 9);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("HEAVYMACHINEPISTOL")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_guns.createSprite("heavymachine_pistol_attack_right"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX - 2, pY + 9);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_guns.createSprite("heavymachine_pistol_attack_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 6, pY + 8);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_guns.createSprite("heavymachine_pistol_attack_left"); 
+						spr_master.setSize(15, 20);
+						spr_master.setPosition(pX + 8.4f, pY + 9);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_guns.createSprite("heavymachine_pistol_attack_right");  
 						spr_master.setSize(13, 17);
 						spr_master.setPosition(pX + 2, pY + 9);
 						return spr_master;
@@ -12129,6 +12350,105 @@ public class GameControl {
 					}
 				}			
 			}
+			
+			if(playerWeapon.equals("BLACKDAGGER")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_daggers.createSprite("blackdagger_left"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 2, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_daggers.createSprite("blackdagger_attack_right"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 8, pY + 8);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_daggers.createSprite("blackdagger_right"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 10f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_daggers.createSprite("blackdagger_side_right");  
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 2, pY + 9);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("MARINEDAGGER")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_daggers.createSprite("marinedagger_left"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 2, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_daggers.createSprite("marinedagger_attack_right"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 8, pY + 8);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_daggers.createSprite("marinedagger_right"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 10f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_daggers.createSprite("marinedagger_side_right");  
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 2, pY + 9);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("THUNDERDAGGER")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_daggers.createSprite("thunderdagger_left"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 2, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_daggers.createSprite("thunderdagger_attack_right"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 8, pY + 8);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_daggers.createSprite("thunderdagger_right"); 
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 10f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_daggers.createSprite("thunderdagger_side_right");  
+						spr_master.setSize(10, 16);
+						spr_master.setPosition(pX + 2, pY + 9);
+						return spr_master;
+					}
+				}			
+			}
 		}
 		
 		return null;
@@ -12206,6 +12526,107 @@ public class GameControl {
 					}
 				}				
 			}
+			
+			if(playerWeapon.equals("ANCHORAXE")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_axes.createSprite("anchor_axe_left"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX - 0.5f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_axes.createSprite("anchor_axe_right_attack"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_axes.createSprite("anchor_axe_right"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX + 6f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_axes.createSprite("anchor_axe_attack_left");  
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX - 1, pY + 4);
+						return spr_master;
+					}
+				}				
+			}
+			
+			if(playerWeapon.equals("KILLERAXE")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_axes.createSprite("killer_axe_left"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX - 0.5f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_axes.createSprite("killer_axe_right_attack"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_axes.createSprite("killer_axe_right"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX + 6f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_axes.createSprite("killer_axe_attack_left");  
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX - 1, pY + 4);
+						return spr_master;
+					}
+				}				
+			}
+			
+			if(playerWeapon.equals("GUITARAXE")) {
+				
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_axes.createSprite("guitar_axe_left"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX - 0.5f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_axes.createSprite("guitar_axe_right_attack"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX + 7, pY + 4);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_axes.createSprite("guitar_axe_right"); 
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX + 6f, pY + 15);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_axes.createSprite("guitar_axe_attack_left");  
+						spr_master.setSize(15, 22);
+						spr_master.setPosition(pX - 1, pY + 4);
+						return spr_master;
+					}
+				}				
+			}
+			
+			
 		}
 		
 		return null;
@@ -12275,6 +12696,102 @@ public class GameControl {
 					}
 					if(exitAnimationFrame > 0) { 
 						spr_master = atlas_rods.createSprite("star_rod_left");  
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX - 3, pY + 20);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("DEATHROD")) {
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_rods.createSprite("death_rod_left"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_rods.createSprite("death_rod_right"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 9, pY + 20);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_rods.createSprite("death_rod_right"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 8.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_rods.createSprite("death_rod_left");  
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX - 3, pY + 20);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("GEMROD")) {
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_rods.createSprite("gem_rod_left"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_rods.createSprite("gem_rod_right"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 9, pY + 20);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_rods.createSprite("gem_rod_right"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 8.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_rods.createSprite("gem_rod_left");  
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX - 3, pY + 20);
+						return spr_master;
+					}
+				}			
+			}
+			
+			if(playerWeapon.equals("BUTTERFLYROD")) {
+				if(playerSide.equals("right")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_rods.createSprite("butterfly_rod_left"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX - 2.5f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_rods.createSprite("butterfly_rod_right"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 9, pY + 20);
+						return spr_master;
+					}
+				}
+				
+				if(playerSide.equals("left")) {
+					if(exitAnimationFrame == 0) { 
+						spr_master = atlas_rods.createSprite("butterfly_rod_right"); 
+						spr_master.setSize(13, 17);
+						spr_master.setPosition(pX + 8.4f, pY + 13);
+						return spr_master;
+					}
+					if(exitAnimationFrame > 0) { 
+						spr_master = atlas_rods.createSprite("butterfly_rod_left");  
 						spr_master.setSize(13, 17);
 						spr_master.setPosition(pX - 3, pY + 20);
 						return spr_master;

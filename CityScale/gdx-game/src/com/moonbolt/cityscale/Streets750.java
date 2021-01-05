@@ -827,8 +827,8 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 			
-			if(gameState.equals("Shop")) {
-				font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX + 12,cameraCoordsY + 3);
+			if(gameState.equals("Shop")) {		
+				if(!shop.equals("Crystal")) { font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX + 12,cameraCoordsY + 3); }
 				font_master.draw(game.batch, nameBuy, cameraCoordsX + 27,cameraCoordsY + 3);
 				if(timeBuyCount > 0) {
 					timeBuyCount--;
@@ -2104,6 +2104,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuyStreets305("RefriShop", 1); timeBuyCount = 40; } 
 					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 1); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 1); timeBuyCount = 40; } 
+					if(shop.equals("Crystal")) { nameBuy = gameControl.ItemBuyStreets750("750", 1); timeBuyCount = 40; } 
 					
 					return false;
 				}
