@@ -11777,6 +11777,10 @@ public class GameControl {
 			if(lootItemName.equals("FANG")) { spr_master = atlas_itens.createSprite("lootfang"); }
 			if(lootItemName.equals("STICK")) { spr_master = atlas_itens.createSprite("galhos"); }			
 			if(lootItemName.equals("HATSLIME")) { spr_master = atlas_itens.createSprite("hatslime"); }
+			if(lootItemName.equals("FRAGRED")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); }
+			if(lootItemName.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootcristalazul"); }
+			if(lootItemName.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
+			if(lootItemName.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootcristalverde           "); }
 			
 			spr_master.setSize(7, 12);
 			spr_master.setPosition(ccX + 15, ccY + 61.5f);
@@ -11790,7 +11794,6 @@ public class GameControl {
 			lootItemName = "none";
 			return null;
 		}
-	
 	}
 	
 	public String GetLootName() {

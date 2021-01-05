@@ -1,0 +1,26 @@
+KingSlime.png
+size: 573, 192
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+KingSlime1
+  rotate: false
+  xy: 0, 0
+  size: 191, 192
+  orig: 191, 192
+  offset: 0, 0
+  index: -1
+KingSlime2
+  rotate: false
+  xy: 191, 0
+  size: 191, 192
+  orig: 191, 192
+  offset: 0, 0
+  index: -1
+KingSlime4
+  rotate: false
+  xy: 382, 0
+  size: 191, 192
+  orig: 191, 192
+  offset: 0, 0
+  index: -1

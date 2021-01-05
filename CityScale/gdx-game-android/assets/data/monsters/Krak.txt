@@ -1,0 +1,26 @@
+Krak.png
+size: 579, 1550
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Krak
+  rotate: false
+  xy: 0, 0
+  size: 579, 536
+  orig: 579, 536
+  offset: 0, 0
+  index: -1
+Krak2
+  rotate: false
+  xy: 0, 536
+  size: 563, 517
+  orig: 563, 517
+  offset: 0, 0
+  index: -1
+Krak4
+  rotate: false
+  xy: 0, 1053
+  size: 546, 497
+  orig: 546, 497
+  offset: 0, 0
+  index: -1
