@@ -2104,7 +2104,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuyStreets305("RefriShop", 1); timeBuyCount = 40; } 
 					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 1); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 1); timeBuyCount = 40; } 
-					if(shop.equals("Crystal")) { nameBuy = gameControl.ItemBuyStreets750("750", 1); timeBuyCount = 40; } 
+					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(1); timeBuyCount = 40; } 
 					
 					return false;
 				}
@@ -2112,21 +2112,21 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 2); timeBuyCount = 40; }
 					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 2); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 2); timeBuyCount = 40; } 
+					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(2); timeBuyCount = 40; } 
 					return false;
 				}
 				//Item 3
 				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 3); timeBuyCount = 40; }
 					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 3); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 3); timeBuyCount = 40; } 
+					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(3); timeBuyCount = 40; } 
 					return false;
 				}
 				//Item 4
 				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 4); timeBuyCount = 40; }
 					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 4); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 4); timeBuyCount = 40; } 
+					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(4); timeBuyCount = 40; } 
 					return false;
 				}
 				

@@ -4037,22 +4037,41 @@ public class GameControl {
 	}
 	
 	public String GetCrystal(int numItem) {  //here
-		
-		
-		//AddItemBag
-		
-		//Green Crystal
-		if(numItem == 1) {
-			if(playerMoney >= 30) {
-				playerMoney = playerMoney - 30;
-				playerInfo.money_A = String.valueOf(playerMoney);
-				AddItemBag("HATBLUECOLD");
-				return "Comprado";
-			} 
-			else {
-				return "Dinheiro Insuficiente";
+			
+		//AddItemBag 
+		String[] lstItem = playerInfo.itens_A.split("-");
+		for(int i = 0; i < lstItem.length; i++) {
+			
+			if(lstItem[i].contains("FRAGRED") && numItem == 1) {
+				
+			}
+			
+			if(lstItem[i].contains("FRAGBLUE") && numItem == 2) {
+				
+			}
+			
+			if(lstItem[i].contains("FRAGRED") && numItem == 3) {
+				
+			}
+			
+			if(lstItem[i].contains("FRAGRED") && numItem == 4) {
+				
 			}
 		}
+		
+		
+		//Green Crystal
+		//if(numItem == 1) {
+		//	if(playerMoney >= 30) {
+		//		playerMoney = playerMoney - 30;
+		//		playerInfo.money_A = String.valueOf(playerMoney);
+		//		AddItemBag("HATBLUECOLD");
+		//		return "Comprado";
+		//	} 
+		//	else {
+		//		return "Dinheiro Insuficiente";
+		//	}
+		//}
 		
 		return "";
 	}
