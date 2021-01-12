@@ -4122,6 +4122,43 @@ public class GameControl {
 	
 	public String GetCrystalType(String fragmentColor) {
 		
+		int num = randnumber.nextInt(4);
+		
+		if(fragmentColor.equals("RED")) {
+			if(num == 0) { return "CRYSTALHPPLUS1"; }
+			
+			if(num == 1) { return "CRYSTALHPPLUS1"; }
+			if(num == 2) { return "CRYSTALHPPLUS2"; }
+			if(num == 3) { return "CRYSTALSTR1"; }
+			if(num == 4) { return "CRYSTALSTR2"; }			
+		}
+		
+		if(fragmentColor.equals("BLUE")) {
+			if(num == 0) { return "CRYSTALMPPLUS1"; }
+			
+			if(num == 1) { return "CRYSTALMPPLUS1"; }
+			if(num == 2) { return "CRYSTALMPPLUS2"; }
+			if(num == 3) { return "CRYSTALWIS1"; }
+			if(num == 4) { return "CRYSTALWIS2"; }			
+		}
+		
+		if(fragmentColor.equals("GREEN")) {
+			if(num == 0) { return "CRYSTALRES1"; }
+			
+			if(num == 1) { return "CRYSTALRES1"; }
+			if(num == 2) { return "CRYSTALRES1"; }
+			if(num == 3) { return "CRYSTALVIT1"; }
+			if(num == 4) { return "CRYSTALVIT2"; }			
+		}
+		
+		if(fragmentColor.equals("YELLOW")) {
+			if(num == 0) { return "CRYSTALAGIPLUS1"; }
+			
+			if(num == 1) { return "CRYSTALAGIPLUS1"; }
+			if(num == 2) { return "CRYSTALAGIPLUS1"; }
+			if(num == 3) { return "CRYSTALAGIPLUS2"; }
+			if(num == 4) { return "CRYSTALAGIPLUS2"; }			
+		}
 		
 		return "";
 	}
@@ -4756,6 +4793,32 @@ public class GameControl {
 		if(item.equals("CRYSTALAZUL")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
 		if(item.equals("CRYSTALVERDE")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
 		if(item.equals("CRYSTALVERMELHO")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		
+		
+		//CRYSTALS 
+		//blue
+		if(item.equals("CRYSTALHPPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		if(item.equals("CRYSTALHPPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		if(item.equals("CRYSTALSTR1")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		if(item.equals("CRYSTALSTR2")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		
+		//blue
+		if(item.equals("CRYSTALMPPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
+		if(item.equals("CRYSTALMPPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
+		if(item.equals("CRYSTALWIS1")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
+		if(item.equals("CRYSTALWIS2")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
+		
+		//green
+		if(item.equals("CRYSTALRES1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALRES1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALSOR1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALSOR2")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		
+		//yellow
+		if(item.equals("CRYSTALAGIPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
+		if(item.equals("CRYSTALAGIPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
+		if(item.equals("CRYSTALDES1")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
+		if(item.equals("CRYSTALDES2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; } 
 		
 		
 		return spr_master;
