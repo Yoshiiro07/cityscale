@@ -4039,39 +4039,89 @@ public class GameControl {
 	public String GetCrystal(int numItem) {  //here
 			
 		//AddItemBag 
+		String qtd = "";
+		String item = "";
+		String crystalType = "";
 		String[] lstItem = playerInfo.itens_A.split("-");
+		String[] itemSplit;
+		int qtdDef = 0;
+		
 		for(int i = 0; i < lstItem.length; i++) {
 			
 			if(lstItem[i].contains("FRAGRED") && numItem == 1) {
-				
+				item = lstItem[i];
+				if(!item.equals("[NONE]")) {
+					itemSplit = item.split("#");
+					item = itemSplit[1].replace("]", "");		
+					qtd = item;
+					qtdDef = Integer.parseInt(qtd);
+					if(qtdDef >= 15) { 
+						crystalType = GetCrystalType("RED");
+						AddItemBag(crystalType); 
+					}
+				}
+				else {
+					return "Quantidade insuficiente";
+				}		
 			}
 			
 			if(lstItem[i].contains("FRAGBLUE") && numItem == 2) {
-				
+				item = lstItem[i];
+				if(!item.equals("[NONE]")) {
+					itemSplit = item.split("#");
+					item = itemSplit[1].replace("]", "");		
+					qtd = item;
+					qtdDef = Integer.parseInt(qtd);
+					if(qtdDef >= 15) { 
+						crystalType = GetCrystalType("BLUE");
+						AddItemBag(crystalType); 
+					}
+				}
+				else {
+					return "Quantidade insuficiente";
+				}
 			}
 			
-			if(lstItem[i].contains("FRAGRED") && numItem == 3) {
-				
+			if(lstItem[i].contains("FRAGGREEN") && numItem == 3) {
+				item = lstItem[i];
+				if(!item.equals("[NONE]")) {
+					itemSplit = item.split("#");
+					item = itemSplit[1].replace("]", "");		
+					qtd = item;
+					qtdDef = Integer.parseInt(qtd);
+					if(qtdDef >= 15) { 
+						crystalType = GetCrystalType("GREEN");
+						AddItemBag(crystalType); 
+					}
+				}
+				else {
+					return "Quantidade insuficiente";
+				}
 			}
 			
-			if(lstItem[i].contains("FRAGRED") && numItem == 4) {
-				
+			if(lstItem[i].contains("FRAGYELLOW") && numItem == 4) {
+				item = lstItem[i];
+				if(!item.equals("[NONE]")) {
+					itemSplit = item.split("#");
+					item = itemSplit[1].replace("]", "");		
+					qtd = item;
+					qtdDef = Integer.parseInt(qtd);
+					if(qtdDef >= 15) { 
+						crystalType = GetCrystalType("YELLOW");
+						AddItemBag(crystalType); 
+					}
+				}
+				else {
+					return "Quantidade insuficiente";
+				}
 			}
 		}
+			
+		return "";
+	}
+	
+	public String GetCrystalType(String fragmentColor) {
 		
-		
-		//Green Crystal
-		//if(numItem == 1) {
-		//	if(playerMoney >= 30) {
-		//		playerMoney = playerMoney - 30;
-		//		playerInfo.money_A = String.valueOf(playerMoney);
-		//		AddItemBag("HATBLUECOLD");
-		//		return "Comprado";
-		//	} 
-		//	else {
-		//		return "Dinheiro Insuficiente";
-		//	}
-		//}
 		
 		return "";
 	}
@@ -8336,7 +8386,7 @@ public class GameControl {
 		}	
 	}
 	
-	public int GetWeaponDamage() {  //here
+	public int GetWeaponDamage() { 
 		
 		//novice
 		if(playerInfo.weapon_A.equals("BASICKNIFE")) { return 0; } 
