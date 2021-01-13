@@ -157,7 +157,6 @@ public class Player {
 	public String itensHousingC_3;
 	public String HousingItens_3;
 	
-	
 	public String name_A;
 	public String sex_A;
 	public String job_A;

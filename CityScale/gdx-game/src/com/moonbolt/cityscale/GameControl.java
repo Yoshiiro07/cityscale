@@ -4052,7 +4052,7 @@ public class GameControl {
 				item = lstItem[i];
 				if(!item.equals("[NONE]")) {
 					itemSplit = item.split("#");
-					item = itemSplit[1].replace("]", "");		
+					item = itemSplit[1].replace("]", "");	
 					qtd = item;
 					qtdDef = Integer.parseInt(qtd);
 					if(qtdDef >= 15) { 
@@ -4129,8 +4129,8 @@ public class GameControl {
 			
 			if(num == 1) { return "CRYSTALHPPLUS1"; }
 			if(num == 2) { return "CRYSTALHPPLUS2"; }
-			if(num == 3) { return "CRYSTALSTR1"; }
-			if(num == 4) { return "CRYSTALSTR2"; }			
+			if(num == 3) { return "CRYSTALSTRPLUS1"; }
+			if(num == 4) { return "CRYSTALSTRPLUS2"; }			
 		}
 		
 		if(fragmentColor.equals("BLUE")) {
@@ -4138,26 +4138,26 @@ public class GameControl {
 			
 			if(num == 1) { return "CRYSTALMPPLUS1"; }
 			if(num == 2) { return "CRYSTALMPPLUS2"; }
-			if(num == 3) { return "CRYSTALWIS1"; }
-			if(num == 4) { return "CRYSTALWIS2"; }			
+			if(num == 3) { return "CRYSTALWISPLUS1"; }
+			if(num == 4) { return "CRYSTALWISPLUS2"; }			
 		}
 		
 		if(fragmentColor.equals("GREEN")) {
-			if(num == 0) { return "CRYSTALRES1"; }
+			if(num == 0) { return "CRYSTALRESPLUS1"; }
 			
-			if(num == 1) { return "CRYSTALRES1"; }
-			if(num == 2) { return "CRYSTALRES1"; }
-			if(num == 3) { return "CRYSTALVIT1"; }
-			if(num == 4) { return "CRYSTALVIT2"; }			
+			if(num == 1) { return "CRYSTALRESPLUS1"; }
+			if(num == 2) { return "CRYSTALRESPLUS2"; }
+			if(num == 3) { return "CRYSTALSORPLUS1"; }
+			if(num == 4) { return "CRYSTALSORPLUS2"; }			
 		}
 		
 		if(fragmentColor.equals("YELLOW")) {
 			if(num == 0) { return "CRYSTALAGIPLUS1"; }
 			
 			if(num == 1) { return "CRYSTALAGIPLUS1"; }
-			if(num == 2) { return "CRYSTALAGIPLUS1"; }
-			if(num == 3) { return "CRYSTALAGIPLUS2"; }
-			if(num == 4) { return "CRYSTALAGIPLUS2"; }			
+			if(num == 2) { return "CRYSTALAGIPLUS2"; }
+			if(num == 3) { return "CRYSTALDESPLUS1"; }
+			if(num == 4) { return "CRYSTALDESPLUS2"; }			
 		}
 		
 		return "";
@@ -4799,26 +4799,26 @@ public class GameControl {
 		//blue
 		if(item.equals("CRYSTALHPPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
 		if(item.equals("CRYSTALHPPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
-		if(item.equals("CRYSTALSTR1")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
-		if(item.equals("CRYSTALSTR2")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		if(item.equals("CRYSTALSTRPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		if(item.equals("CRYSTALSTRPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
 		
 		//blue
 		if(item.equals("CRYSTALMPPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
 		if(item.equals("CRYSTALMPPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
-		if(item.equals("CRYSTALWIS1")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
-		if(item.equals("CRYSTALWIS2")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
+		if(item.equals("CRYSTALWISPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
+		if(item.equals("CRYSTALWISPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
 		
 		//green
-		if(item.equals("CRYSTALRES1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
-		if(item.equals("CRYSTALRES2")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
-		if(item.equals("CRYSTALSOR1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
-		if(item.equals("CRYSTALSOR2")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALRESPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALRESPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALSORPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALSORPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
 		
 		//yellow
 		if(item.equals("CRYSTALAGIPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
 		if(item.equals("CRYSTALAGIPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
-		if(item.equals("CRYSTALDES1")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
-		if(item.equals("CRYSTALDES2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; } 
+		if(item.equals("CRYSTALDESPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
+		if(item.equals("CRYSTALDESPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; } 
 		
 		return spr_master;
 	}
@@ -4891,6 +4891,7 @@ public class GameControl {
 		int playerStrenght = 0;
 		int qtd;
 		boolean equipable = false;  
+		boolean crystalUse = false;
 		
 		item = lstItem[numItem];
 		if(!item.equals("[NONE]")) {
@@ -4903,7 +4904,34 @@ public class GameControl {
 			if(itemName.equals("POISONLEAF")) { return; }
 			if(itemName.equals("MUSHROOM")) { return; }
 			
-			
+			//Crystals
+			if(itemName.equals("CRYSTALHPPLUS1") || itemName.equals("CRYSTALHPPLUS2") || itemName.equals("CRYSTALSTRPLUS1") || itemName.equals("CRYSTALSTRPLUS2")) {
+				
+				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
+				equipable = false;
+			}
+			if(itemName.equals("CRYSTALMPPLUS1") || itemName.equals("CRYSTALMPPLUS2") || itemName.equals("CRYSTALWISPLUS1") || itemName.equals("CRYSTALWISPLUS2")) {
+				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
+				equipable = false;
+			}
+			if(itemName.equals("CRYSTALRESPLUS1") || itemName.equals("CRYSTALRESPLUS2") || itemName.equals("CRYSTALSORPLUS1") || itemName.equals("CRYSTALSORPLUS2")) {
+				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
+				equipable = false;
+			}
+			if(itemName.equals("CRYSTALAGIPLUS1") || itemName.equals("CRYSTALAGIPLUS2") || itemName.equals("CRYSTALDESPLUS1") || itemName.equals("CRYSTALDESPLUS2")) {
+				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
+				equipable = false;
+			}
+					
+			//Consumable
 			if(itemName.equals("HPCAN")) {
 				playerHP = Integer.parseInt(playerInfo.hp_A);
 				playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
@@ -4968,15 +4996,6 @@ public class GameControl {
 				if(playerStamina > playerStaminaMax) { playerStamina = playerStaminaMax; }
 				playerInfo.stamina_A = String.valueOf(playerStamina);
 				equipable = false;
-			}
-			
-			if(itemName.equals("CRYSTALHPPLUS1")) {	
-				if(itemName.equals(playerInfo.weapon_A)) { return; }
-				if(!playerInfo.job_A.equals("Novice")) { return; }
-				AddItemBag(playerInfo.weapon_A);
-				playerInfo.weapon_A = itemName;
-				lstItem = playerInfo.itens_A.split("-");			
-				equipable = true;
 			}
 			
 			if(itemName.equals("BASICKNIFE")) {	
