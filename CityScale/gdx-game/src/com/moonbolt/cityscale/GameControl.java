@@ -4810,7 +4810,7 @@ public class GameControl {
 		
 		//green
 		if(item.equals("CRYSTALRES1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
-		if(item.equals("CRYSTALRES1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
+		if(item.equals("CRYSTALRES2")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
 		if(item.equals("CRYSTALSOR1")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
 		if(item.equals("CRYSTALSOR2")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
 		
@@ -4819,7 +4819,6 @@ public class GameControl {
 		if(item.equals("CRYSTALAGIPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
 		if(item.equals("CRYSTALDES1")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
 		if(item.equals("CRYSTALDES2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; } 
-		
 		
 		return spr_master;
 	}
@@ -4969,6 +4968,15 @@ public class GameControl {
 				if(playerStamina > playerStaminaMax) { playerStamina = playerStaminaMax; }
 				playerInfo.stamina_A = String.valueOf(playerStamina);
 				equipable = false;
+			}
+			
+			if(itemName.equals("CRYSTALHPPLUS1")) {	
+				if(itemName.equals(playerInfo.weapon_A)) { return; }
+				if(!playerInfo.job_A.equals("Novice")) { return; }
+				AddItemBag(playerInfo.weapon_A);
+				playerInfo.weapon_A = itemName;
+				lstItem = playerInfo.itens_A.split("-");			
+				equipable = true;
 			}
 			
 			if(itemName.equals("BASICKNIFE")) {	
