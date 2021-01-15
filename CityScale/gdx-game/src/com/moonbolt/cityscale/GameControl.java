@@ -4036,7 +4036,7 @@ public class GameControl {
 		return ""; 
 	}
 	
-	public String GetCrystal(int numItem) {  //here
+	public String GetCrystal(int numItem) {  
 			
 		//AddItemBag 
 		String qtd = "";
@@ -4286,7 +4286,7 @@ public class GameControl {
 				}
 		}
 		
-		spr_master = null;
+		spr_master = ItemLog("HPCAN");
 		return spr_master;
 	}
 	
@@ -4628,8 +4628,16 @@ public class GameControl {
 			}
 		}
 		
-		return spr_master;
-		
+		return spr_master;	
+	}
+	
+	public Sprite ShowCrystalItem(int num, float coordsX, float coordsY) {
+		if(playerInfo.set_A.equals("ROUGESET")) {  
+			spr_master = atlas_itens.createSprite("rougeset"); 
+			spr_master.setPosition(coordsX -1.5f, coordsY + 26.8f); 
+			spr_master.setSize(9, 14); 
+			return spr_master; 
+		}
 	}
 	
 	public Sprite ShowItemHotKey(int numItem,float coordsX, float coordsY) {
@@ -4906,7 +4914,6 @@ public class GameControl {
 			
 			//Crystals
 			if(itemName.equals("CRYSTALHPPLUS1") || itemName.equals("CRYSTALHPPLUS2") || itemName.equals("CRYSTALSTRPLUS1") || itemName.equals("CRYSTALSTRPLUS2")) {
-				
 				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
 				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
 				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
@@ -4998,6 +5005,7 @@ public class GameControl {
 				equipable = false;
 			}
 			
+			//WEAPONS
 			if(itemName.equals("BASICKNIFE")) {	
 				if(itemName.equals(playerInfo.weapon_A)) { return; }
 				if(!playerInfo.job_A.equals("Novice")) { return; }
@@ -5241,6 +5249,7 @@ public class GameControl {
 				equipable = true;
 			}
 			
+			//HATS
 			if(itemName.equals("HATBLUECOLD")) {
 				if(itemName.equals(playerInfo.hat_A)) { return; }
 				if(!playerInfo.hat_A.equals("none")) { AddItemBag(playerInfo.hat_A); }
@@ -5382,7 +5391,7 @@ public class GameControl {
 				equipable = true;
 			}
 			
-			
+			//SETS
 			if(itemName.equals("BASICSET")) {
 				if(playerInfo.sex_A.equals("F")) { return; }
 				if(itemName.equals(playerInfo.set_A)) { return; }
@@ -5509,6 +5518,360 @@ public class GameControl {
 			}	
 		}
 	}
+	
+	public void GiveCrystalAtribute(String typeUse, String crystalItem) {
+		
+		int playerAtribute;   //here
+		int playerAtk;
+		String[] playerStatus = playerInfo.stats_A.split("#"); 
+		String[] playerStatusNumber;
+		
+		
+		if(typeUse.equals("RemoveEffect")) {
+			if(crystalItem.equals("CRYSTALHPPLUS1")) {
+				playerAtribute = Integer.parseInt(playerInfo.maxhp_A);
+				playerAtribute = playerAtribute - 50;
+				if(playerAtribute < 100) { playerAtribute = 100; }
+				playerInfo.maxhp_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALHPPLUS2")) {
+				playerAtribute = Integer.parseInt(playerInfo.maxhp_A);
+				playerAtribute = playerAtribute - 150;
+				if(playerAtribute < 100) { playerAtribute = 100; } 
+				playerInfo.maxhp_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALSTRPLUS1")) {
+				playerStatusNumber = playerStatus[0].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 2;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[0] = "str:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk - 2;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				
+				return;
+			}
+			if(crystalItem.equals("CRYSTALSTRPLUS2")) {
+				playerStatusNumber = playerStatus[0].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 4;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[0] = "str:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk - 4;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				
+				return;
+			}
+			if(crystalItem.equals("CRYSTALMPPLUS1")) {
+				playerAtribute = Integer.parseInt(playerInfo.maxmp_A);
+				playerAtribute = playerAtribute - 50;
+				if(playerAtribute < 100) { playerAtribute = 100; }
+				playerInfo.maxmp_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALMPPLUS2")) {
+				playerAtribute = Integer.parseInt(playerInfo.maxmp_A);
+				playerAtribute = playerAtribute - 150;
+				if(playerAtribute < 100) { playerAtribute = 100; } 
+				playerInfo.maxmp_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALWISPLUS1")) {
+				playerStatusNumber = playerStatus[2].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 2;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[2] = "wis:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALWISPLUS2")) {
+				playerStatusNumber = playerStatus[2].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 4;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[2] = "wis:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALRESPLUS1")) {
+				playerStatusNumber = playerStatus[6].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 2;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[6] = "res:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				
+				playerAtribute = Integer.parseInt(playerInfo.stamina_A);
+				playerAtribute = playerAtribute - 20;
+				if(playerAtribute < 100) { playerAtribute = 100; } 
+				playerInfo.stamina_A = String.valueOf(playerAtribute);
+				
+				return;
+			}
+			if(crystalItem.equals("CRYSTALRESPLUS2")) {
+				playerStatusNumber = playerStatus[6].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 4;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[6] = "res:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				
+				playerAtribute = Integer.parseInt(playerInfo.stamina_A);
+				playerAtribute = playerAtribute - 40;
+				if(playerAtribute < 100) { playerAtribute = 100; } 
+				playerInfo.stamina_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALSORPLUS1")) {
+				playerStatusNumber = playerStatus[5].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 2;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[5] = "sor:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALSORPLUS2")) {
+				playerStatusNumber = playerStatus[5].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 4;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[5] = "sor:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALAGIPLUS1")) {
+				playerStatusNumber = playerStatus[1].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 2;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[1] = "agi:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALAGIPLUS2")) {
+				playerStatusNumber = playerStatus[1].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 4;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[1] = "agi:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALDESPLUS1")) {
+				playerStatusNumber = playerStatus[4].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 2;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[4] = "des:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALDESPLUS2")) {
+				playerStatusNumber = playerStatus[4].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute - 4;
+				if(playerAtribute < 1) { playerAtribute = 1; }
+				playerStatus[4] = "des:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+		}
+		
+		if(typeUse.equals("AddEffect")) {
+			if(crystalItem.equals("CRYSTALHPPLUS1")) {
+				playerAtribute = Integer.parseInt(playerInfo.maxhp_A);
+				playerAtribute = playerAtribute + 50;
+				if(playerAtribute < 100) { playerAtribute = 100; }
+				playerInfo.maxhp_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALHPPLUS2")) {
+				playerAtribute = Integer.parseInt(playerInfo.maxhp_A);
+				playerAtribute = playerAtribute + 150;
+				if(playerAtribute < 100) { playerAtribute = 100; } 
+				playerInfo.maxhp_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALSTRPLUS1")) {
+				playerStatusNumber = playerStatus[0].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 2;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[0] = "str:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk + 2;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				
+				return;
+			}
+			if(crystalItem.equals("CRYSTALSTRPLUS2")) {
+				playerStatusNumber = playerStatus[0].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 4;
+				if(playerAtribute > 99) { playerAtribute = 99; }
+				playerStatus[0] = "str:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				
+				playerAtk = Integer.parseInt(playerInfo.atk_A);
+				playerAtk = playerAtk + 4;
+				playerInfo.atk_A = String.valueOf(playerAtk);
+				
+				return;
+			}
+			if(crystalItem.equals("CRYSTALMPPLUS1")) {
+				playerAtribute = Integer.parseInt(playerInfo.maxmp_A);
+				playerAtribute = playerAtribute + 50;
+				if(playerAtribute < 100) { playerAtribute = 100; }
+				playerInfo.maxmp_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALMPPLUS2")) {
+				playerAtribute = Integer.parseInt(playerInfo.maxmp_A);
+				playerAtribute = playerAtribute + 150;
+				if(playerAtribute < 100) { playerAtribute = 100; } 
+				playerInfo.maxmp_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALWISPLUS1")) {
+				playerStatusNumber = playerStatus[2].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 2;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[2] = "wis:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALWISPLUS2")) {
+				playerStatusNumber = playerStatus[2].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 4;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[2] = "wis:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALRESPLUS1")) {
+				playerStatusNumber = playerStatus[6].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 2;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[6] = "res:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				
+				playerAtribute = Integer.parseInt(playerInfo.stamina_A);
+				playerAtribute = playerAtribute + 20;
+				if(playerAtribute < 100) { playerAtribute = 100; } 
+				playerInfo.stamina_A = String.valueOf(playerAtribute);
+				
+				return;
+			}
+			if(crystalItem.equals("CRYSTALRESPLUS2")) {
+				playerStatusNumber = playerStatus[6].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 4;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[6] = "res:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				
+				playerAtribute = Integer.parseInt(playerInfo.stamina_A);
+				playerAtribute = playerAtribute + 40;
+				if(playerAtribute < 100) { playerAtribute = 100; } 
+				playerInfo.stamina_A = String.valueOf(playerAtribute);
+				return;
+			}
+			if(crystalItem.equals("CRYSTALSORPLUS1")) {
+				playerStatusNumber = playerStatus[5].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 2;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[5] = "sor:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALSORPLUS2")) {
+				playerStatusNumber = playerStatus[5].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 4;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[5] = "sor:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALAGIPLUS1")) {
+				playerStatusNumber = playerStatus[5].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 2;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[5] = "agi:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALAGIPLUS2")) {
+				playerStatusNumber = playerStatus[1].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 4;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[1] = "agi:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALDESPLUS1")) {
+				playerStatusNumber = playerStatus[4].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 2;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[4] = "des:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+			if(crystalItem.equals("CRYSTALDESPLUS2")) {
+				playerStatusNumber = playerStatus[4].split(":");
+				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
+				playerAtribute = playerAtribute + 4;
+				if(playerAtribute >= 99) { playerAtribute = 99; }
+				playerStatus[4] = "des:" + String.valueOf(playerAtribute);
+				playerInfo.stats_A = playerStatus[0] + "#" + playerStatus[1] + "#" + playerStatus[2] + "#" + playerStatus[3] + "#" +
+						 playerStatus[4] + "#" + playerStatus[5] + "#" + playerStatus[6];
+				return;
+			}
+		}
+	}
+	
 	
 	public void UseItemHotbar(int num) {
 		String item = "";

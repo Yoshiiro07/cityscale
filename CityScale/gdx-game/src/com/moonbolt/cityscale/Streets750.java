@@ -1039,6 +1039,14 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}	
 			
+			//Crystal Itens
+			spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
+			spr_item.draw(game.batch);
+			spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
+			spr_item.draw(game.batch);
+			spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
+			spr_item.draw(game.batch);
+			
 			//Equipament Itens
 			spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
 			spr_item.draw(game.batch);
