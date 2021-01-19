@@ -50,10 +50,13 @@ public class Player {
 	public String crystalA_1;
 	public String crystalB_1;
 	public String crystalC_1;
+	public String crystalD_1;
 	public String itensHousingA_1;
 	public String itensHousingB_1;
 	public String itensHousingC_1;
 	public String HousingItens_1;
+	public String HousingPosition_1;
+	public String HouseSize_1;
 	
 	public String name_2;
 	public String sex_2;
@@ -101,10 +104,13 @@ public class Player {
 	public String crystalA_2;
 	public String crystalB_2;
 	public String crystalC_2;
+	public String crystalD_2;
 	public String itensHousingA_2;
 	public String itensHousingB_2;
 	public String itensHousingC_2;
 	public String HousingItens_2;
+	public String HousingPosition_2;
+	public String HouseSize_2;
 	
 	public String name_3;
 	public String sex_3;
@@ -152,10 +158,13 @@ public class Player {
 	public String crystalA_3;
 	public String crystalB_3;
 	public String crystalC_3;
+	public String crystalD_3;
 	public String itensHousingA_3;
 	public String itensHousingB_3;
 	public String itensHousingC_3;
 	public String HousingItens_3;
+	public String HousingPosition_3;
+	public String HouseSize_3;
 	
 	public String name_A;
 	public String sex_A;
@@ -203,8 +212,11 @@ public class Player {
 	public String crystalA_A;
 	public String crystalB_A;
 	public String crystalC_A;
+	public String crystalD_A;
 	public String itensHousingA_A;
 	public String itensHousingB_A;
 	public String itensHousingC_A;
 	public String HousingItens_A;
+	public String HousingPosition_A;
+	public String HouseSize_A;
 }

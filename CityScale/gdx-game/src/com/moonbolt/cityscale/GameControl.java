@@ -636,6 +636,10 @@ public class GameControl {
 			playerInfo.hotkey2_1 = "none";
 			playerInfo.heal_1 = "0";
 			playerInfo.expshared_1 = "0";
+			playerInfo.crystalA_1 = "CRYSTALHPPLUS1";
+			playerInfo.crystalB_1 = "CRYSTALSTRPLUS1";
+			playerInfo.crystalC_1 = "CRYSTALMPPLUS1";
+			playerInfo.crystalD_1 = "CRYSTALMPPLUS1";
 					
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
@@ -689,6 +693,10 @@ public class GameControl {
 			playerInfo.hotkey2_2 = "none";
 			playerInfo.heal_2 = "0";
 			playerInfo.expshared_2 = "0";
+			playerInfo.crystalA_2 = "none";
+			playerInfo.crystalB_2 = "none";
+			playerInfo.crystalC_2 = "none";
+			playerInfo.crystalD_2 = "CRYSTALMPPLUS1";
 			
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
@@ -742,6 +750,10 @@ public class GameControl {
 			playerInfo.hotkey2_3 = "none";
 			playerInfo.heal_3 = "0";
 			playerInfo.expshared_3 = "0";
+			playerInfo.crystalA_3 = "none";
+			playerInfo.crystalB_3 = "none";
+			playerInfo.crystalC_3 = "none";
+			playerInfo.crystalD_3 = "CRYSTALMPPLUS1";
 			
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
@@ -816,6 +828,10 @@ public class GameControl {
 				playerInfo.hotkey2_1 = playerInfo.hotkey2_A;
 				playerInfo.heal_1 = playerInfo.heal_A;
 				playerInfo.expshared_1 = playerInfo.expshared_A;
+				playerInfo.crystalA_1 = playerInfo.crystalA_A;
+				playerInfo.crystalB_1 = playerInfo.crystalB_A;
+				playerInfo.crystalC_1 = playerInfo.crystalC_A;
+				playerInfo.crystalD_1 = playerInfo.crystalD_A;
 			}
 			if(num == 2) {
 				playerInfo.name_2 = playerInfo.name_A;
@@ -862,6 +878,10 @@ public class GameControl {
 				playerInfo.hotkey2_2 = playerInfo.hotkey2_A;
 				playerInfo.heal_2 = playerInfo.heal_A;
 				playerInfo.expshared_2 = playerInfo.expshared_A;
+				playerInfo.crystalA_2 = playerInfo.crystalA_A;
+				playerInfo.crystalB_2 = playerInfo.crystalB_A;
+				playerInfo.crystalC_2 = playerInfo.crystalC_A;
+				playerInfo.crystalD_2 = playerInfo.crystalD_A;
 			}
 			if(num == 3) {
 				playerInfo.name_3 = playerInfo.name_A;
@@ -908,6 +928,10 @@ public class GameControl {
 				playerInfo.hotkey2_3 = playerInfo.hotkey2_A;
 				playerInfo.heal_3 = playerInfo.heal_A;
 				playerInfo.expshared_3 = playerInfo.expshared_A;
+				playerInfo.crystalA_3 = playerInfo.crystalA_A;
+				playerInfo.crystalB_3 = playerInfo.crystalB_A;
+				playerInfo.crystalC_3 = playerInfo.crystalC_A;
+				playerInfo.crystalD_3 = playerInfo.crystalD_A;
 			}
 			SaveData(playerInfo);
 			savetimer = 800;
@@ -965,6 +989,10 @@ public class GameControl {
 			playerInfo.buffsC_A = playerInfo.buffsC_1;
 			playerInfo.heal_A = playerInfo.heal_1;
 			playerInfo.expshared_A = playerInfo.expshared_1;
+			playerInfo.crystalA_A = playerInfo.crystalA_1;
+			playerInfo.crystalB_A = playerInfo.crystalB_1;
+			playerInfo.crystalC_A = playerInfo.crystalC_1;
+			playerInfo.crystalD_A = playerInfo.crystalD_1;
 			
 			CleanBuffEffectsLog();
 		}
@@ -1012,7 +1040,11 @@ public class GameControl {
 			playerInfo.hotkey1_A = playerInfo.hotkey1_2;
 			playerInfo.hotkey2_A = playerInfo.hotkey2_2;
 			playerInfo.heal_2 = playerInfo.heal_A;
-			playerInfo.expshared_2 = playerInfo.expshared_A;
+			playerInfo.expshared_2 = playerInfo.expshared_2;
+			playerInfo.crystalA_A = playerInfo.crystalA_2;
+			playerInfo.crystalB_A = playerInfo.crystalB_2;
+			playerInfo.crystalC_A = playerInfo.crystalC_2;
+			playerInfo.crystalD_A = playerInfo.crystalD_2;
 			
 			CleanBuffEffectsLog();
 		}
@@ -1061,6 +1093,10 @@ public class GameControl {
 			playerInfo.hotkey2_A = playerInfo.hotkey2_3;
 			playerInfo.heal_3 = playerInfo.heal_A;
 			playerInfo.expshared_3 = playerInfo.expshared_A;
+			playerInfo.crystalA_3 = playerInfo.crystalA_A;
+			playerInfo.crystalB_3 = playerInfo.crystalB_A;
+			playerInfo.crystalC_3 = playerInfo.crystalC_A;
+			playerInfo.crystalD_3 = playerInfo.crystalD_A;
 			
 			CleanBuffEffectsLog();
 		}
@@ -4632,12 +4668,43 @@ public class GameControl {
 	}
 	
 	public Sprite ShowCrystalItem(int num, float coordsX, float coordsY) {
-		if(playerInfo.set_A.equals("ROUGESET")) {  
-			spr_master = atlas_itens.createSprite("rougeset"); 
-			spr_master.setPosition(coordsX -1.5f, coordsY + 26.8f); 
-			spr_master.setSize(9, 14); 
-			return spr_master; 
-		}
+		String crystalEquipped = "";    //here
+		
+		if(num == 1) { crystalEquipped = playerInfo.crystalA_A; } 
+		if(num == 2) { crystalEquipped = playerInfo.crystalB_A; } 
+		if(num == 3) { crystalEquipped = playerInfo.crystalC_A; } 
+		if(num == 4) { crystalEquipped = playerInfo.crystalD_A; } 
+
+		if(crystalEquipped.equals("CRYSTALHPPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalvermelho"); }
+		if(crystalEquipped.equals("CRYSTALHPPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalvermelho"); }
+		if(crystalEquipped.equals("CRYSTALSTRPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalvermelho"); }
+		if(crystalEquipped.equals("CRYSTALSTRPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalvermelho"); }
+		
+		if(crystalEquipped.equals("CRYSTALMPPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalazul"); }
+		if(crystalEquipped.equals("CRYSTALMPPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalazul"); }
+		if(crystalEquipped.equals("CRYSTALWISPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalazul"); }
+		if(crystalEquipped.equals("CRYSTALWISPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalazul"); }
+		
+		if(crystalEquipped.equals("CRYSTALRESPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalverde"); }
+		if(crystalEquipped.equals("CRYSTALRESPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalverde"); }
+		if(crystalEquipped.equals("CRYSTALSORPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalverde"); }
+		if(crystalEquipped.equals("CRYSTALSORPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalverde"); }
+		
+		if(crystalEquipped.equals("CRYSTALAGIPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
+		if(crystalEquipped.equals("CRYSTALAGIPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
+		if(crystalEquipped.equals("CRYSTALDESPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
+		if(crystalEquipped.equals("CRYSTALDESPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
+				
+		if(num == 1) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 9.7f, coordsY - 11f);  }
+		if(num == 2) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 19.4f, coordsY - 11f);  }
+		if(num == 3) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 28.9f, coordsY - 11f);  }
+		if(num == 4) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 38.5f, coordsY - 11f);  }
+		
+		return spr_master;
+	}
+	
+	public void RemoveCrystal(int num) {
+		
 	}
 	
 	public Sprite ShowItemHotKey(int numItem,float coordsX, float coordsY) {
