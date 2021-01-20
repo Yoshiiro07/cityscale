@@ -4094,6 +4094,8 @@ public class GameControl {
 					if(qtdDef >= 15) { 
 						crystalType = GetCrystalType("RED");
 						AddItemBag(crystalType); 
+						lstItem[i] = "[NONE]-"; 					
+						playerInfo.itens_A = lstItem;
 					}
 				}
 				else {
@@ -4705,6 +4707,17 @@ public class GameControl {
 	
 	public void RemoveCrystal(int num) {
 		
+		String crystalEquiped = "none";
+		
+		if(num == 1) { crystalEquiped = playerInfo.crystalA_A; playerInfo.crystalA_A = "none"; }
+		if(num == 2) { crystalEquiped = playerInfo.crystalB_A; playerInfo.crystalB_A = "none"; }
+		if(num == 3) { crystalEquiped = playerInfo.crystalC_A; playerInfo.crystalC_A = "none"; }
+		if(num == 4) { crystalEquiped = playerInfo.crystalD_A; playerInfo.crystalD_A = "none"; }
+		
+		AddItemBag(crystalEquiped);
+		
+		GiveCrystalAtribute("RemoveEffect",crystalEquiped);
+		
 	}
 	
 	public Sprite ShowItemHotKey(int numItem,float coordsX, float coordsY) {
@@ -4981,27 +4994,31 @@ public class GameControl {
 			
 			//Crystals
 			if(itemName.equals("CRYSTALHPPLUS1") || itemName.equals("CRYSTALHPPLUS2") || itemName.equals("CRYSTALSTRPLUS1") || itemName.equals("CRYSTALSTRPLUS2")) {
-				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
-				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
-				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalD_A.equals("none") && !crystalUse) { playerInfo.crystalD_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALMPPLUS1") || itemName.equals("CRYSTALMPPLUS2") || itemName.equals("CRYSTALWISPLUS1") || itemName.equals("CRYSTALWISPLUS2")) {
-				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
-				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
-				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalD_A.equals("none") && !crystalUse) { playerInfo.crystalD_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALRESPLUS1") || itemName.equals("CRYSTALRESPLUS2") || itemName.equals("CRYSTALSORPLUS1") || itemName.equals("CRYSTALSORPLUS2")) {
-				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
-				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
-				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalD_A.equals("none") && !crystalUse) { playerInfo.crystalD_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALAGIPLUS1") || itemName.equals("CRYSTALAGIPLUS2") || itemName.equals("CRYSTALDESPLUS1") || itemName.equals("CRYSTALDESPLUS2")) {
-				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; crystalUse = true; }
-				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; crystalUse = true; }
-				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; crystalUse = true; }
+				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalD_A.equals("none") && !crystalUse) { playerInfo.crystalD_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
 				equipable = false;
 			}
 					
@@ -5592,7 +5609,6 @@ public class GameControl {
 		int playerAtk;
 		String[] playerStatus = playerInfo.stats_A.split("#"); 
 		String[] playerStatusNumber;
-		
 		
 		if(typeUse.equals("RemoveEffect")) {
 			if(crystalItem.equals("CRYSTALHPPLUS1")) {
@@ -7561,8 +7577,8 @@ public class GameControl {
 			mobA.maxRanged = 20;
 			mobA.minRanged = 40;
 			mobA.loot1 = "BLOP";
-			mobA.loot2 = "HPCAN";
-			mobA.loot3 = "HATSLIME";
+			mobA.loot2 = "HATSLIME";
+			mobA.loot3 = "FRAGBLUE";  
 			mobA.respawnTime = 300;
 			mobA.respawnTimeMax = 300;
 			mobA.map = "Sewers";
@@ -7601,8 +7617,8 @@ public class GameControl {
 			mobB.maxRanged = 20;
 			mobB.minRanged = 40;
 			mobB.loot1 = "POISONLEAF";
-			mobB.loot2 = "HPCAN";
-			mobB.loot3 = "HPCAN";
+			mobB.loot2 = "MPCAN";
+			mobB.loot3 = "FRAGGREEN";
 			mobB.respawnTime = 300;
 			mobB.respawnTimeMax = 300;
 			mobB.map = "Sewers";
@@ -7642,7 +7658,7 @@ public class GameControl {
 			mobC.minRanged = 40;
 			mobC.loot1 = "MUSHROOM";
 			mobC.loot2 = "HPCAN";
-			mobC.loot3 = "HPCAN";
+			mobC.loot3 = "FRAGYELLOW";
 			mobC.respawnTime = 300;
 			mobC.respawnTimeMax = 300;
 			mobC.map = "Sewers";
@@ -7682,7 +7698,7 @@ public class GameControl {
 			mobD.minRanged = 40;
 			mobD.loot1 = "MUSHROOM";
 			mobD.loot2 = "HPCAN";
-			mobD.loot3 = "HPCAN";
+			mobD.loot3 = "FRAGRED";
 			mobD.respawnTime = 300;
 			mobD.respawnTimeMax = 300;
 			mobD.map = "Sewers";
@@ -7721,8 +7737,8 @@ public class GameControl {
 			mobE.maxRanged = 20;
 			mobE.minRanged = 40;
 			mobE.loot1 = "BLOP";
-			mobE.loot2 = "HPCAN";
-			mobE.loot3 = "HATSLIME";
+			mobE.loot2 = "HATSLIME";
+			mobE.loot3 = "FRAGGREEN"; 
 			mobE.respawnTime = 300;
 			mobE.respawnTimeMax = 300;
 			mobE.map = "Sewers";
@@ -7762,7 +7778,7 @@ public class GameControl {
 			mobF.minRanged = 40;
 			mobF.loot1 = "FANG";
 			mobF.loot2 = "HPCAN";
-			mobF.loot3 = "MPCAN";
+			mobF.loot3 = "FRAGYELLOW";
 			mobF.respawnTime = 300;
 			mobF.respawnTimeMax = 300;
 			mobF.map = "Sewers";
@@ -7802,7 +7818,7 @@ public class GameControl {
 			mobG.minRanged = 40;
 			mobG.loot1 = "HPCAN";
 			mobG.loot2 = "MPCAN";
-			mobG.loot3 = "MPCAN";
+			mobG.loot3 = "FRAGRED";
 			mobG.respawnTime = 300;
 			mobG.respawnTimeMax = 300;
 			mobG.map = "Sewers";
@@ -7850,7 +7866,7 @@ public class GameControl {
 			mobA.minRanged = 40;
 			mobA.loot1 = "HPCAN";
 			mobA.loot2 = "HPCAN";
-			mobA.loot3 = "HPCAN";
+			mobA.loot3 = "FRAGRED";
 			mobA.respawnTime = 300;
 			mobA.respawnTimeMax = 300;
 			mobA.map = "Watercave";
@@ -7890,7 +7906,7 @@ public class GameControl {
 			mobB.minRanged = 40;
 			mobB.loot1 = "HPCAN";
 			mobB.loot2 = "HPCAN";
-			mobB.loot3 = "HPCAN";
+			mobB.loot3 = "FRAGBLUE";
 			mobB.respawnTime = 300;
 			mobB.respawnTimeMax = 300;
 			mobB.map = "Watercave";
@@ -7930,7 +7946,7 @@ public class GameControl {
 			mobC.minRanged = 40;
 			mobC.loot1 = "MPCAN";
 			mobC.loot2 = "MPCAN";
-			mobC.loot3 = "MPCAN";
+			mobC.loot3 = "FRAGGREEN";
 			mobC.respawnTime = 300;
 			mobC.respawnTimeMax = 300;
 			mobC.map = "Watercave";
@@ -7970,7 +7986,7 @@ public class GameControl {
 			mobD.minRanged = 40;
 			mobD.loot1 = "MPCAN";
 			mobD.loot2 = "MPCAN";
-			mobD.loot3 = "MPCAN";
+			mobD.loot3 = "FRAGBLUE";
 			mobD.respawnTime = 300;
 			mobD.respawnTimeMax = 300;
 			mobD.map = "Watercave";
@@ -8010,7 +8026,7 @@ public class GameControl {
 			mobE.minRanged = 40;
 			mobE.loot1 = "MPCAN";
 			mobE.loot2 = "MPCAN";
-			mobE.loot3 = "MPCAN";
+			mobE.loot3 = "FRAGRED";
 			mobE.respawnTime = 300;
 			mobE.respawnTimeMax = 300;
 			mobE.map = "Watercave";
@@ -8050,7 +8066,7 @@ public class GameControl {
 			mobF.minRanged = 40;
 			mobF.loot1 = "HPCAN";
 			mobF.loot2 = "HPCAN";
-			mobF.loot3 = "HPCAN";
+			mobF.loot3 = "FRAGYELLOW";
 			mobF.respawnTime = 300;
 			mobF.respawnTimeMax = 300;
 			mobF.map = "Watercave";
@@ -8090,7 +8106,7 @@ public class GameControl {
 			mobG.minRanged = 40;
 			mobG.loot1 = "MPCAN";
 			mobG.loot2 = "MPCAN";
-			mobG.loot3 = "MPCAN";
+			mobG.loot3 = "FRAGBLUE";
 			mobG.respawnTime = 300;
 			mobG.respawnTimeMax = 300;
 			mobG.map = "Watercave";

@@ -1175,7 +1175,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 							spr_TagParty.draw(game.batch);
 							
 							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty3",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
-							spr_TagPartyHair.draw(game.batch);	//here
+							spr_TagPartyHair.draw(game.batch);	
 							
 							if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
 							spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty3",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);

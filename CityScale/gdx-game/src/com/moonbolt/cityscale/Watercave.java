@@ -934,6 +934,16 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 				font_master.draw(game.batch, gameControl.ShowQuantityItem(count), spr_item.getX() + 7,spr_item.getY() + 3);
 			}
 		}	
+		
+		//Crystal Itens
+		spr_item = gameControl.ShowCrystalItem(1,cameraCoordsX, cameraCoordsY); // Crystal 1
+		spr_item.draw(game.batch);
+		spr_item = gameControl.ShowCrystalItem(2,cameraCoordsX, cameraCoordsY); // Crystal 2
+		spr_item.draw(game.batch);
+		spr_item = gameControl.ShowCrystalItem(3,cameraCoordsX, cameraCoordsY); // Crystal 3
+		spr_item.draw(game.batch);
+		spr_item = gameControl.ShowCrystalItem(4,cameraCoordsX, cameraCoordsY); // Crystal 4
+		spr_item.draw(game.batch);
 
 		//Equipament Itens
 		spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
@@ -1494,6 +1504,30 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 			//Tab 4
 			if(coordsTouch.x >= (cameraCoordsX - 33) && coordsTouch.x <= (cameraCoordsX - 27) && coordsTouch.y >= (cameraCoordsY + 1) && coordsTouch.y <= (cameraCoordsY + 9)) {
 				menuItemTab = 4;
+				return false;
+			}
+			
+			//Crystal 1 Remove
+			if(coordsTouch.x >= (cameraCoordsX + 9) && coordsTouch.x <= (cameraCoordsX + 18) && coordsTouch.y >= (cameraCoordsY - 12) && coordsTouch.y <= (cameraCoordsY + 3)) {
+				gameControl.RemoveCrystal(1);
+				return false;
+			}
+			
+			//Crystal 2 Remove
+			if(coordsTouch.x >= (cameraCoordsX + 19) && coordsTouch.x <= (cameraCoordsX + 28) && coordsTouch.y >= (cameraCoordsY - 12) && coordsTouch.y <= (cameraCoordsY + 3)) {
+				gameControl.RemoveCrystal(2);
+				return false;
+			}
+			
+			//Crystal 3 Remove
+			if(coordsTouch.x >= (cameraCoordsX + 28.5f) && coordsTouch.x <= (cameraCoordsX + 37) && coordsTouch.y >= (cameraCoordsY - 12) && coordsTouch.y <= (cameraCoordsY + 3)) {
+				gameControl.RemoveCrystal(3);
+				return false;
+			}
+			
+			//Crystal 4 Remove
+			if(coordsTouch.x >= (cameraCoordsX + 38) && coordsTouch.x <= (cameraCoordsX + 47) && coordsTouch.y >= (cameraCoordsY - 12) && coordsTouch.y <= (cameraCoordsY + 3)) {
+				gameControl.RemoveCrystal(4);
 				return false;
 			}
 
