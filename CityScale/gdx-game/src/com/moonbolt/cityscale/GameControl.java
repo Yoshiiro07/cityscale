@@ -4077,10 +4077,12 @@ public class GameControl {
 		//AddItemBag 
 		String qtd = "";
 		String item = "";
+		String lstitensFinal = "";
 		String crystalType = "";
 		String[] lstItem = playerInfo.itens_A.split("-");
 		String[] itemSplit;
 		int qtdDef = 0;
+		boolean itemHasAdded = false;
 		
 		for(int i = 0; i < lstItem.length; i++) {
 			
@@ -4094,8 +4096,9 @@ public class GameControl {
 					if(qtdDef >= 15) { 
 						crystalType = GetCrystalType("RED");
 						AddItemBag(crystalType); 
-						lstItem[i] = "[NONE]-"; 					
-						playerInfo.itens_A = lstItem;
+						qtdDef = qtdDef - 15;
+						if(qtdDef < 0) { qtdDef = 0; }
+						itemHasAdded = true;
 					}
 				}
 				else {
@@ -4113,6 +4116,9 @@ public class GameControl {
 					if(qtdDef >= 15) { 
 						crystalType = GetCrystalType("BLUE");
 						AddItemBag(crystalType); 
+						qtdDef = qtdDef - 15;
+						if(qtdDef < 0) { qtdDef = 0; }
+						itemHasAdded = true;
 					}
 				}
 				else {
@@ -4130,6 +4136,9 @@ public class GameControl {
 					if(qtdDef >= 15) { 
 						crystalType = GetCrystalType("GREEN");
 						AddItemBag(crystalType); 
+						qtdDef = qtdDef - 15;
+						if(qtdDef < 0) { qtdDef = 0; }
+						itemHasAdded = true;
 					}
 				}
 				else {
@@ -4147,12 +4156,32 @@ public class GameControl {
 					if(qtdDef >= 15) { 
 						crystalType = GetCrystalType("YELLOW");
 						AddItemBag(crystalType); 
+						qtdDef = qtdDef - 15;
+						if(qtdDef < 0) { qtdDef = 0; }
+						itemHasAdded = true;
 					}
 				}
 				else {
 					return "Quantidade insuficiente";
 				}
 			}
+		}
+		
+		if(itemHasAdded) {
+			if(qtdDef == 0) {
+				item = "[NONE]";
+				lstItem[numItem] = item;
+				lstitensFinal = Arrays.toString(lstItem).replace(", ","-");
+				lstitensFinal = lstitensFinal.substring(1, lstitensFinal.length() -1);
+				playerInfo.itens_A = lstitensFinal;
+			}
+			else {
+				item = "[" + crystalType + "#" + qtd + "]"; 
+				lstItem[numItem] = item;
+				lstitensFinal = Arrays.toString(lstItem).replace(", ","-");
+				lstitensFinal = lstitensFinal.substring(1, lstitensFinal.length() -1);
+				playerInfo.itens_A = lstitensFinal;
+			}		
 		}
 			
 		return "";
