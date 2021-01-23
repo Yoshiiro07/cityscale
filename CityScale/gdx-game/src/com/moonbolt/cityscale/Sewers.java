@@ -853,6 +853,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			if(changeScreen){	
 				
 				if(mapChange.equals("Streets305FromSewers")) {
+					gameControl.OnlineManager("Desligar", "");
 					gameControl.ScreenChange("Streets305FromSewers");
 					gameControl.UpdateDataSave(numPlayerActive);
 				    game.AtualizaElementos(game,gameControl, config, platform, networkState);
@@ -860,6 +861,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				}
 				
 				if(mapChange.equals("MetroStation")) {
+					gameControl.OnlineManager("Desligar", "");
 					gameControl.ScreenChange("MetroStation");
 					gameControl.UpdateDataSave(numPlayerActive);
 				    game.AtualizaElementos(game,gameControl, config, platform, networkState);
@@ -883,6 +885,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			}
 					
 			game.batch.end();	
+			
 		}
 		
 		

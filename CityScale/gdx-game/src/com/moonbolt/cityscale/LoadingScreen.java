@@ -14,13 +14,6 @@ public class LoadingScreen implements Screen{
 	private String platform;
 	private String network;
 	
-	private CharacterSelect characterScreen;
-	private MetroStation metroScreen;
-	private Streets305 streets305Screen;
-	private Sewers sewersScreen;
-	private Streets750 streets750Screen;
-	private Watercave watercaveScreen;
-	
 	public LoadingScreen(MainGame game){
 		this.game = game;
 		this.gameControl = new GameControl();
@@ -49,31 +42,26 @@ public class LoadingScreen implements Screen{
 		if(tipo.equals("MetroStation")) {
 			MetroStation metroScreen = new MetroStation(game,gameControl, config, platform,network);
 			game.setScreen(metroScreen);
-			metroScreen.dispose();
 		}
 		
 		if(tipo.equals("Streets305")) {
 			Streets305 streets305Screen = new Streets305(game,gameControl, config, platform,network);
 			game.setScreen(streets305Screen);
-			streets305Screen.dispose();
 		}
 		
 		if(tipo.equals("Sewers")) {
 			Sewers sewersScreen = new Sewers(game,gameControl, config, platform,network);
 			game.setScreen(sewersScreen);
-			sewersScreen.dispose();
 		}	
 		
 		if(tipo.equals("Streets750")) {
 			Streets750 streets750Screen = new Streets750(game,gameControl, config, platform,network);
 			game.setScreen(streets750Screen);
-			streets750Screen.dispose();
 		}
 		
 		if(tipo.equals("Watercave")) {
 			Watercave watercaveScreen = new Watercave(game,gameControl, config, platform,network);
 			game.setScreen(watercaveScreen);
-			watercaveScreen.dispose();
 		}
 	}
 	

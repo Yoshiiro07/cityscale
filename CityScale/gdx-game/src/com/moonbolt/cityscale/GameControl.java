@@ -6134,7 +6134,7 @@ public class GameControl {
 	//[F] Online
 	public void OnlineManager(String operation, String subData) {
 		try {
-			if(operation.equals("Upload")) {
+			if(operation.equals("Upload")) {  //here
 				OnlineOperation("Upload", subData);
 			}
 			if(operation.equals("Download")) {
@@ -6164,10 +6164,9 @@ public class GameControl {
 			
 		}
 		
-		catch(Exception ex) {
-			
-		}
+		catch(Exception ex) {}
 	}
+	
 	
 	private void ThreadsSync() {	
 		new Thread(t1).start();	

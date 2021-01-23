@@ -185,8 +185,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Initializing Chats & Monsters
 			lstChats = new ArrayList<String>();
-			//lstMobs = new ArrayList<Monster>();
-			//lstMobs = gameControl.LoadMonsters("Sewers");
 			
 			//Sprites
 			tex_Background = new Texture(Gdx.files.internal("data/maps/streets305.png"));
@@ -207,7 +205,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				msgDisplay = "Online Ligado";
 				isDisplay = true;
 				countDisplay = 200;
-			}		
+			}
 		}
 			
 		@Override
@@ -848,7 +846,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			CheckColide();
 			
 			//Change Screen
-			if(changeScreen){	
+			if(changeScreen){   
+				gameControl.OnlineManager("Desligar", "");
 				gameControl.ScreenChange(mapSwitchConfig);
 				gameControl.UpdateDataSave(numPlayerActive);
 			    game.AtualizaElementos(game,gameControl, config, platform, networkState);
@@ -886,6 +885,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(playerPosX > 27 && playerPosX < 30f && playerPosY < -99 && playerPosY > -123) {
 				changeScreen = true;
 				mapSwitch = "Sewers";
+				mapSwitchConfig = "Sewers";
 			}
 			
 			if(playerPosX > 97 && playerPosX < 115 && playerPosY < -128) {
