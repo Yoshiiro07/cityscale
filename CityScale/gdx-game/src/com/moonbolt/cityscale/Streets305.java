@@ -31,6 +31,14 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private String mapSwitchConfig = "";
 		private String mapSwitch = "";
 		
+		//Loading Variables
+		private boolean loading = false;
+		private int loadingDownCurtain = 0;
+		private Sprite spr_loadingText;
+		private Sprite spr_loadingBlack;
+		private Texture tex_loadingText;
+		private Texture tex_loadingBlack;
+		
 		//Player
 		private Player activePlayer;
 		private int numPlayerActive;
@@ -187,6 +195,15 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			lstChats = new ArrayList<String>();
 			
 			//Sprites
+			tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
+			tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/blackscreen.png"));
+			
+			spr_loadingText = new Sprite(tex_loadingText);
+			spr_loadingText.setSize(100, 100);
+			
+			spr_loadingBlack = new Sprite(tex_loadingBlack);
+			spr_loadingBlack.setSize(100, 100);
+			
 			tex_Background = new Texture(Gdx.files.internal("data/maps/streets305.png"));
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
@@ -846,6 +863,24 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			CheckColide();
 			
 			//Change Screen
+			if(loading) {
+				loadingDownCurtain--;
+				spr_loadingBlack.setSize(200, 200);
+				spr_loadingBlack.setPosition(0, 0);
+				spr_loadingBlack.draw(game.batch);
+				spr_loadingText.setSize(25, 15);
+				spr_loadingText.setPosition(75, 2);
+				spr_loadingText.draw(game.batch);
+				gameControl.OnlineManager("Desligar", "");
+				
+				if(loadingDownCurtain < 0) {
+					loading = false;
+					loadingDownCurtain = 0;
+					changeScreen = true;
+				}
+			}
+			
+			//Change Screen
 			if(changeScreen){   
 				gameControl.OnlineManager("Desligar", "");
 				gameControl.ScreenChange(mapSwitchConfig);
@@ -869,13 +904,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 				
-			spr_testeDot.setPosition(cameraCoordsX + 38, cameraCoordsY + 3);  //here
-			spr_testeDot.draw(game.batch);
-			spr_testeDot.setSize(1, 1);
+			//spr_testeDot.setPosition(cameraCoordsX + 38, cameraCoordsY + 3);  //here
+			//spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
 			
-			spr_testeDot.setPosition(cameraCoordsX + 47, cameraCoordsY - 12);
-			spr_testeDot.draw(game.batch);
-			spr_testeDot.setSize(1, 1);
+			//spr_testeDot.setPosition(cameraCoordsX + 47, cameraCoordsY - 12);
+			//spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
 				
 			game.batch.end();	
 		}
@@ -883,7 +918,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		private void CheckColide() {
 			if(playerPosX > 27 && playerPosX < 30f && playerPosY < -99 && playerPosY > -123) {
-				changeScreen = true;
+				loading = true;
+				loadingDownCurtain = 100;
 				mapSwitch = "Sewers";
 				mapSwitchConfig = "Sewers";
 			}

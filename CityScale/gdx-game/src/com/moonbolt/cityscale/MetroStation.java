@@ -29,8 +29,11 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	
 	//Loading Variables
 	private boolean loading = false;
-	private int loadingTime = 0;
 	private int loadingDownCurtain = 0;
+	private Sprite spr_loadingText;
+	private Sprite spr_loadingBlack;
+	private Texture tex_loadingText;
+	private Texture tex_loadingBlack;
 	
 	//Player
 	private Player activePlayer;
@@ -47,10 +50,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private Sprite spr_Background;
 	private Texture tex_Background;
 	
-	private Sprite spr_loadingText;
-	private Sprite spr_loadingBlack;
-	private Texture tex_loadingText;
-	private Texture tex_loadingBlack;
+	
 	
 	private Sprite spr_metro;
 	private Texture tex_metro;
@@ -161,9 +161,10 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		//Save Data
 		gameControl.UpdateDataSave(numPlayerActive);
 		
-		
 		//Background
 		spr_Background.draw(game.batch);
+		
+		//font_master.draw(game.batch, "O HP DO CARA", 10, 60);
 		
 		//Elements
 		MoveTrain();
@@ -285,7 +286,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		
 		if(!loading) {
 		
-			if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
+			if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {  //here
 				loading = true;
 				loadingDownCurtain = 100;
 			}

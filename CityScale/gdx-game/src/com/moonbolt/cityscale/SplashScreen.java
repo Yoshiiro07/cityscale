@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class SplashScreen implements Screen, ApplicationListener, InputProcessor {
 	private MainGame game;
-	private LoadingScreen screen;
+	private ManagerScreen screen;
 	private OrthographicCamera camera;
     private Viewport viewport;
 	private Sprite spr_Logo;
@@ -24,7 +24,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 	private boolean interpolation;
 	private int countEffect;
 	
-	public SplashScreen(MainGame game, LoadingScreen screen){
+	public SplashScreen(MainGame game, ManagerScreen screen){
 		this.screen = screen;
 		this.game = game;
 		

@@ -7,13 +7,13 @@ public class MainGame extends Game {
 public MainGame(){};
 	
 	SpriteBatch batch;	
-	public LoadingScreen loadingmanager;
+	public ManagerScreen loadingmanager;
 	
 	@Override
 	public void create()
 	{
 		batch = new SpriteBatch();  
-		loadingmanager = new LoadingScreen(this);
+		loadingmanager = new ManagerScreen(this);
 		this.Switch("SplashScreen");
 		//this.Switch("MetroStation");
 	}
