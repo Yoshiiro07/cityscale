@@ -27,6 +27,11 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private String platform;
 	private String networkState;
 	
+	//Loading Variables
+	private boolean loading = false;
+	private int loadingTime = 0;
+	private int loadingDownCurtain = 0;
+	
 	//Player
 	private Player activePlayer;
 	private int numPlayerActive;
@@ -41,6 +46,11 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	//Sprites
 	private Sprite spr_Background;
 	private Texture tex_Background;
+	
+	private Sprite spr_loadingText;
+	private Sprite spr_loadingBlack;
+	private Texture tex_loadingText;
+	private Texture tex_loadingBlack;
 	
 	private Sprite spr_metro;
 	private Texture tex_metro;
@@ -104,6 +114,15 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		font_master.setUseIntegerPositions(false);	
 		
 		//Sprites
+		tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
+		tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/blackscreen.png"));
+		
+		spr_loadingText = new Sprite(tex_loadingText);
+		spr_loadingText.setSize(100, 100);
+		
+		spr_loadingBlack = new Sprite(tex_loadingBlack);
+		spr_loadingBlack.setSize(100, 100);
+			
 		tex_Background = new Texture(Gdx.files.internal("data/maps/metrostation.png"));
 		spr_Background = new Sprite(tex_Background);
 		spr_Background.setSize(100, 100);
@@ -235,6 +254,23 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		CheckColide();
 		
 		//Change Screen
+		if(loading) {
+			loadingDownCurtain--;
+			spr_loadingBlack.setSize(200, 200);
+			spr_loadingBlack.setPosition(0, 0);
+			spr_loadingBlack.draw(game.batch);
+			spr_loadingText.setSize(25, 15);
+			spr_loadingText.setPosition(75, 2);
+			spr_loadingText.draw(game.batch);
+			gameControl.OnlineManager("Desligar", "");
+			
+			if(loadingDownCurtain < 0) {
+				loading = false;
+				loadingDownCurtain = 0;
+				changeScreen = true;
+			}
+		}
+		
 		if(changeScreen){	
 			gameControl.ScreenChange("Streets305");
 			gameControl.UpdateDataSave(numPlayerActive);
@@ -246,27 +282,32 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	}
 	
 	private void CheckColide() {
-		if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
-			changeScreen = true;
-		}
 		
-		if(playerPosX < -8) {
-			breakWalk = "left";
-		}
+		if(!loading) {
 		
-		if(playerPosY > 58) {
-			breakWalk = "back";
+			if(playerPosX > 70 && playerPosY > -12.5f && playerPosY < 14) {
+				loading = true;
+				loadingDownCurtain = 100;
+			}
+			
+			if(playerPosX < -8) {
+				breakWalk = "left";
+			}
+			
+			if(playerPosY > 58) {
+				breakWalk = "back";
+			}
+			
+			if(playerPosX > 7 && playerPosY > 15.5f) {
+				breakWalk = "right";
+			}
+			
+			if(playerPosY < -7) {
+				breakWalk = "front";
+			}
+			
+			breakWalk = "";
 		}
-		
-		if(playerPosX > 7 && playerPosY > 15.5f) {
-			breakWalk = "right";
-		}
-		
-		if(playerPosY < -7) {
-			breakWalk = "front";
-		}
-		
-		breakWalk = "";
 	}
 	
 	private void MoveTrain() {
@@ -286,6 +327,8 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 
 	@Override
 	public boolean keyDown(int keycode) {
+		if(loading) { return false; }
+		
 		movement = true;
 		downKeys.add(keycode);
         if (downKeys.size >= 2){
@@ -331,11 +374,13 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 
 	@Override
 	public boolean touchDown(int p1, int p2, int pointer, int button) {
+		
+		if(loading) { return false; }
+		
 		// TODO Auto-generated method stub	
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 		movement = true;	
-		
-		
+				
 		posTouchX = coordsTouch.x;
 		posTouchY = coordsTouch.y;
 		
@@ -350,6 +395,9 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		
+		if(loading) { return false; }
+		
 		if(movement == true){
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 				

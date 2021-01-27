@@ -1,5 +1,4 @@
 package com.moonbolt.cityscale;
-
 import java.util.ArrayList;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -7,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.Screen;
 
 public class LoadingScreen implements Screen{
-	ArrayList<Screen> screens;
 	private MainGame game;
 	private GameControl gameControl;
 	private String config[];
@@ -17,7 +15,6 @@ public class LoadingScreen implements Screen{
 	public LoadingScreen(MainGame game){
 		this.game = game;
 		this.gameControl = new GameControl();
-		screens = new ArrayList<Screen>();
 		platform = "Mobile";
 		network = "on";
 	}
@@ -37,31 +34,37 @@ public class LoadingScreen implements Screen{
 		if(tipo.equals("CharacterSelect")) {
 			CharacterSelect characterScreen = new CharacterSelect(game,gameControl, config, platform);
 			game.setScreen(characterScreen);
+			//characterScreen.dispose();
 		}
 		
 		if(tipo.equals("MetroStation")) {
 			MetroStation metroScreen = new MetroStation(game,gameControl, config, platform,network);
 			game.setScreen(metroScreen);
+			//metroScreen.dispose();
 		}
 		
 		if(tipo.equals("Streets305")) {
 			Streets305 streets305Screen = new Streets305(game,gameControl, config, platform,network);
 			game.setScreen(streets305Screen);
+			//streets305Screen.dispose();
 		}
 		
 		if(tipo.equals("Sewers")) {
 			Sewers sewersScreen = new Sewers(game,gameControl, config, platform,network);
 			game.setScreen(sewersScreen);
+			//sewersScreen.dispose();
 		}	
 		
 		if(tipo.equals("Streets750")) {
 			Streets750 streets750Screen = new Streets750(game,gameControl, config, platform,network);
 			game.setScreen(streets750Screen);
+			//streets750Screen.dispose();
 		}
 		
 		if(tipo.equals("Watercave")) {
 			Watercave watercaveScreen = new Watercave(game,gameControl, config, platform,network);
 			game.setScreen(watercaveScreen);
+			//watercaveScreen.dispose();
 		}
 	}
 	

@@ -42,6 +42,7 @@ public class GameControl {
 	private ArrayList<Monster> lstMobs;
 	private ArrayList<Damage> lstDanos;
 	private ArrayList<Skill> lstSkill;
+	private Thread thrOnline;
 	
 	//Primitive Variable
 	private int activeCharNumber;
@@ -6146,7 +6147,7 @@ public class GameControl {
 			if(operation.equals("Sync")) {
 				onlineCheck = true;
 				threahCount = 1;
-				ThreadsSync();				
+				ThreadsSyncStart();				
 			}
 			if(operation.equals("Desligar")) {
 				onlineCheck = false;
@@ -6168,8 +6169,9 @@ public class GameControl {
 	}
 	
 	
-	private void ThreadsSync() {	
-		new Thread(t1).start();	
+	private void ThreadsSyncStart() {
+		thrOnline = new Thread(t1);
+		thrOnline.start();
 	}
 	
 	private Runnable t1 = new Runnable() {
@@ -6178,8 +6180,12 @@ public class GameControl {
 				while(threahCount == 1) {
 					OnlineOperation("Sync", "");            	
 				}
-	}
-	catch(Exception ex) {}	}};
+			}
+			catch(Exception ex) {
+				Thread.currentThread().interrupt();	
+			}	
+		}
+	};
 	
 	
 	public ArrayList<Player> GetOnlinePlayers() {
