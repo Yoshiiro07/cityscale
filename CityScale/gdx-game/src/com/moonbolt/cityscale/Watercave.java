@@ -30,6 +30,14 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 	private String networkState = "on";
 	private String mapSwitchConfig = "";
 	private String mapSwitch = "";
+	
+	//Loading Variables
+	private boolean loading = false;
+	private int loadingDownCurtain = 0;
+	private Sprite spr_loadingText;
+	private Sprite spr_loadingBlack;
+	private Texture tex_loadingText;
+	private Texture tex_loadingBlack;
 
 	//Player
 	private Player activePlayer;
@@ -189,6 +197,15 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		lstMobs = gameControl.LoadMonstersWatercave();
 
 		//Sprites
+		tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
+		tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/blackscreen.png"));
+		
+		spr_loadingText = new Sprite(tex_loadingText);
+		spr_loadingText.setSize(100, 100);
+		
+		spr_loadingBlack = new Sprite(tex_loadingBlack);
+		spr_loadingBlack.setSize(100, 100);
+		
 		tex_Background = new Texture(Gdx.files.internal("data/maps/watercave.png"));
 		spr_Background = new Sprite(tex_Background);
 		spr_Background.setSize(100, 100);
@@ -851,6 +868,23 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		CheckColide();
 
 		//Change Screen
+		if(loading) {
+			loadingDownCurtain--;
+			spr_loadingBlack.setSize(200, 200);
+			spr_loadingBlack.setPosition(0, 0);
+			spr_loadingBlack.draw(game.batch);
+			spr_loadingText.setSize(25, 15);
+			spr_loadingText.setPosition(75, 2);
+			spr_loadingText.draw(game.batch);
+			gameControl.OnlineManager("Desligar", "");
+			
+			if(loadingDownCurtain < 0) {
+				loading = false;
+				loadingDownCurtain = 0;
+				changeScreen = true;
+			}
+		}
+		
 		if(changeScreen){	
 			gameControl.ScreenChange(mapSwitchConfig);
 			gameControl.UpdateDataSave(numPlayerActive);
@@ -873,16 +907,17 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 			}
 		}
 
-
-
 		game.batch.end();	
 	}
 
 
 	private void CheckColide() {
+		
+		if(!loading) {
 
 		if(playerPosX > -80 && playerPosX < -63 && playerPosY > 101 && playerPosY < 120) {
-			changeScreen = true;
+			loading = true;
+			loadingDownCurtain = 100;
 			mapSwitchConfig = "Streets750CaveOut";
 			mapSwitch = "Streets750";
 			return;
@@ -895,6 +930,8 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		}
 		
 		breakWalk = "";
+		
+		}
 	}
 
 	private void ActionVerify() {
@@ -1205,7 +1242,8 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 	@Override
 	public boolean keyDown(int keycode) {
 
-		if(deathCheck) { return false; }
+		if(deathCheck) { return false; }		
+		if(loading) { return false; }
 
 		if(gameState.equals("Main")) {		
 			movement = true;
@@ -1256,7 +1294,8 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 	public boolean touchDown(int p1, int p2, int pointer, int button) {
 		// TODO Auto-generated method stub
 
-		if(deathCheck) { return false; }
+		if(deathCheck) { return false; }		
+		if(loading) { return false; }
 
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 		if(gameState.equals("Main")) {
@@ -2139,6 +2178,10 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		
+		if(deathCheck) { return false; }		
+		if(loading) { return false; }
+		
 		if(movement == true){
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 
@@ -2202,6 +2245,10 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 	}
 
 	private void onMultipleKeysDown (int mostRecentKeycode){
+		
+		if(deathCheck) { return; }		
+		if(loading) { return; }
+		
 		//For multiple key presses
 		if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 			if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
@@ -2282,8 +2329,6 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		// TODO Auto-generated method stub
 
 	}
-
-
 
 	@Override
 	public void resize(int p1, int p2)

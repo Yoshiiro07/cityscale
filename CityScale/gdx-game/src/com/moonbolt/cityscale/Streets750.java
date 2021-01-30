@@ -31,6 +31,14 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private String mapSwitchConfig = "";
 		private String mapSwitch = "";
 		
+		//Loading Variables
+		private boolean loading = false;
+		private int loadingDownCurtain = 0;
+		private Sprite spr_loadingText;
+		private Sprite spr_loadingBlack;
+		private Texture tex_loadingText;
+		private Texture tex_loadingBlack;
+		
 		//Player
 		private Player activePlayer;
 		private int numPlayerActive;
@@ -189,6 +197,15 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			//lstMobs = gameControl.LoadMonsters("Sewers");
 			
 			//Sprites
+			tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
+			tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/blackscreen.png"));
+			
+			spr_loadingText = new Sprite(tex_loadingText);
+			spr_loadingText.setSize(100, 100);
+			
+			spr_loadingBlack = new Sprite(tex_loadingBlack);
+			spr_loadingBlack.setSize(100, 100);
+			
 			tex_Background = new Texture(Gdx.files.internal("data/maps/streets750.png"));
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
@@ -843,6 +860,24 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			CheckColide();
 			
 			//Change Screen
+			if(loading) {
+				loadingDownCurtain--;
+				spr_loadingBlack.setSize(200, 200);
+				spr_loadingBlack.setPosition(cameraCoordsX - 70, cameraCoordsY - 40);
+				spr_loadingBlack.draw(game.batch);
+				spr_loadingText.setSize(25, 15);
+				spr_loadingText.setPosition(cameraCoordsX + 45, cameraCoordsY - 38);
+				spr_loadingText.draw(game.batch);
+				gameControl.OnlineManager("Desligar", "");
+				
+				if(loadingDownCurtain < 0) {
+					loading = false;
+					loadingDownCurtain = 0;
+					changeScreen = true;
+				}
+			}
+			
+			//Change Screen
 			if(changeScreen){	
 				gameControl.ScreenChange(mapSwitchConfig);
 				gameControl.UpdateDataSave(numPlayerActive);
@@ -874,9 +909,11 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		
 		
 		private void CheckColide() {
-			
+			if(!loading) {
+					
 			if(playerPosX > 47 && playerPosX < 69 && playerPosY > -121 && playerPosY < -107) {
-				changeScreen = true;
+				loading = true;
+				loadingDownCurtain = 100;
 				mapSwitchConfig = "Watercave";
 				mapSwitch = "Watercave";
 				return;
@@ -1004,6 +1041,8 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			breakWalk = "";
+			
+			}
 		}
 		
 		private void ActionVerify() {
@@ -1290,7 +1329,8 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		@Override
 		public boolean keyDown(int keycode) {
 			
-			if(deathCheck) { return false; }
+			if(deathCheck) { return false; }		
+			if(loading) { return false; }
 			
 			if(gameState.equals("Main")) {		
 				movement = true;
@@ -1341,7 +1381,8 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
 			// TODO Auto-generated method stub
 			
-			if(deathCheck) { return false; }
+			if(deathCheck) { return false; }		
+			if(loading) { return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			if(gameState.equals("Main")) {
@@ -2229,6 +2270,10 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
+			
+			if(deathCheck) { return false; }		
+			if(loading) { return false; }
+			
 			if(movement == true){
 				Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 					
@@ -2292,6 +2337,10 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		private void onMultipleKeysDown (int mostRecentKeycode){
+			
+			if(deathCheck) { return; }		
+			if(loading) { return; }
+			
 		    //For multiple key presses
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
@@ -2372,8 +2421,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			// TODO Auto-generated method stub
 			
 		}
-
-		
 
 		@Override
 		public void resize(int p1, int p2)

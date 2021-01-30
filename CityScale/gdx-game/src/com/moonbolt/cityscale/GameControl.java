@@ -474,6 +474,8 @@ public class GameControl {
 		lstMobs.clear();
 		if(map.equals("Sewers")) { LoadMonstersSewers();  }
 		if(map.equals("Watercave")) { LoadMonstersWatercave();  }
+		if(map.equals("Watercave")) { LoadMonstersWatercave();  }
+		if(map.equals("SewersBoss")) { LoadMonstersSewersBoss(); }
 		
 		if(map.equals("MetroStation")) { 
 			playerInfo.map_A = "MetroStation";
@@ -533,6 +535,13 @@ public class GameControl {
 		
 		if(map.equals("Sewers")) {
 			playerInfo.map_A = "Sewers";
+			playerInfo.coordX_A = "49";
+			playerInfo.coordY_A = "133";
+			savetimer = 0;
+		}
+		
+		if(map.equals("SewersBoss")) {
+			playerInfo.map_A = "SewersBoss";
 			playerInfo.coordX_A = "49";
 			playerInfo.coordY_A = "133";
 			savetimer = 0;
@@ -8152,6 +8161,55 @@ public class GameControl {
 			lstMobs.add(mobG);
 
 		return lstMobs;
+	}
+	
+	
+	public ArrayList<Monster> LoadMonstersSewersBoss() {
+		
+		lstMobs.clear();
+		
+		Monster mobA = new Monster();
+		mobA.name = "KingSlime";
+		mobA.mobPosX = 59;
+		mobA.mobPosY = -26;
+		mobA.mobStartPosX = 59;
+		mobA.mobStartPosY = -26;
+		mobA.mobHeight = 14;
+		mobA.mobWidth = 10;
+		mobA.mobID = "KingSlimeA";
+		mobA.hp = 15000;
+		mobA.mp = 10;
+		mobA.maxHP = 15000;
+		mobA.maxMP = 10;
+		mobA.exp = 4;
+		mobA.inCasting = false;
+		mobA.dead = false;
+		mobA.target = "None";
+		mobA.frame = 1;
+		mobA.atkCount = 0;
+		mobA.atkHit = 120;
+		mobA.getHit = false;
+		mobA.mobCountDown = 300;
+		mobA.mobCountDownMax = 300;
+		mobA.side = "right";
+		mobA.MobSelected = "no";
+		mobA.maxRanged = 20;
+		mobA.minRanged = 40;
+		mobA.loot1 = "BLOP";
+		mobA.loot2 = "HATSLIME";
+		mobA.loot3 = "FRAGBLUE";  
+		mobA.respawnTime = 300;
+		mobA.respawnTimeMax = 300;
+		mobA.map = "SewersBoss";
+		mobA.statusTime = 300;
+		mobA.speed = 0.12f;
+		mobA.status = "none";
+		mobA.mobDirectionOnWalk = "wait";
+		mobA.OnlineID = "MobA";
+		lstMobs.add(mobA);
+		
+		return lstMobs;
+		
 	}
 	
 	

@@ -866,10 +866,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(loading) {
 				loadingDownCurtain--;
 				spr_loadingBlack.setSize(200, 200);
-				spr_loadingBlack.setPosition(0, 0);
+				spr_loadingBlack.setPosition(cameraCoordsX - 70, cameraCoordsY - 40);
 				spr_loadingBlack.draw(game.batch);
 				spr_loadingText.setSize(25, 15);
-				spr_loadingText.setPosition(75, 2);
+				spr_loadingText.setPosition(cameraCoordsX + 45, cameraCoordsY - 38);
 				spr_loadingText.draw(game.batch);
 				gameControl.OnlineManager("Desligar", "");
 				
@@ -917,6 +917,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		
 		private void CheckColide() {
+			if(!loading) {
 			if(playerPosX > 27 && playerPosX < 30f && playerPosY < -99 && playerPosY > -123) {
 				loading = true;
 				loadingDownCurtain = 100;
@@ -925,13 +926,15 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			if(playerPosX > 97 && playerPosX < 115 && playerPosY < -128) {
-				changeScreen = true;
+				loading = true;
+				loadingDownCurtain = 100;
 				mapSwitchConfig = "Streets750right";
 				mapSwitch = "Streets750";
 			}
 			
 			if(playerPosX > -2 && playerPosX < 19 && playerPosY < -123) {
-				changeScreen = true;
+				loading = true;
+				loadingDownCurtain = 100;
 				mapSwitchConfig = "Streets750left";
 				mapSwitch = "Streets750";
 			}
@@ -1044,8 +1047,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				return;
 			}
 			
-			
 			breakWalk = "";
+			}
 		}
 		
 		private void ActionVerify() {
@@ -1348,7 +1351,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		@Override
 		public boolean keyDown(int keycode) {
 			
-			if(deathCheck) { return false; }
+			if(deathCheck) { return false; }		
+			if(loading) { return false; }
 			
 			if(gameState.equals("Main")) {		
 				movement = true;
@@ -1399,7 +1403,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
 			// TODO Auto-generated method stub
 			
-			if(deathCheck) { return false; }
+			if(deathCheck) { return false; }		
+			if(loading) { return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			if(gameState.equals("Main")) {
@@ -2294,6 +2299,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
+			
+			if(deathCheck) { return false; }		
+			if(loading) { return false; }
+			
 			if(movement == true){
 				Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 					
@@ -2357,6 +2366,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		private void onMultipleKeysDown (int mostRecentKeycode){
+			
+			if(deathCheck) { return; }		
+			if(loading) { return; }
+			
 		    //For multiple key presses
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){

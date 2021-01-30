@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Sewers implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class SewersBoss implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 		//Objects
 		private MainGame game;
 		private GameControl gameControl;
@@ -159,7 +159,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);
 		
-		public Sewers(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt, String networkState) {
+		public SewersBoss(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt, String networkState) {
 			this.game = gameAlt;
 			this.gameControl = gameControl;
 			this.config = configAlt;
@@ -192,7 +192,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			//Initializing Chats & Monsters
 			lstChats = new ArrayList<String>();
 			lstMobs = new ArrayList<Monster>();
-			lstMobs = gameControl.LoadMonstersSewers();
+			lstMobs = gameControl.LoadMonstersSewersBoss();
 			
 			//Sprites
 			tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
@@ -204,7 +204,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			spr_loadingBlack = new Sprite(tex_loadingBlack);
 			spr_loadingBlack.setSize(100, 100);
 			
-			tex_Background = new Texture(Gdx.files.internal("data/maps/sewers.png"));
+			tex_Background = new Texture(Gdx.files.internal("data/maps/watercaveboss.png"));
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
 			
