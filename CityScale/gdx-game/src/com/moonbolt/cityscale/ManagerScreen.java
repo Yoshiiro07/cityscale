@@ -51,6 +51,11 @@ public class ManagerScreen implements Screen{
 			game.setScreen(sewersScreen);
 		}	
 		
+		if(tipo.equals("SewersBoss")) {
+			SewersBoss sewersBossScreen = new SewersBoss(game, gameControl, config, platform, network);
+			game.setScreen(sewersBossScreen);
+		}
+		
 		if(tipo.equals("Streets750")) {
 			Streets750 streets750Screen = new Streets750(game,gameControl, config, platform,network);
 			game.setScreen(streets750Screen);
@@ -59,6 +64,11 @@ public class ManagerScreen implements Screen{
 		if(tipo.equals("Watercave")) {
 			Watercave watercaveScreen = new Watercave(game,gameControl, config, platform,network);
 			game.setScreen(watercaveScreen);
+		}
+		
+		if(tipo.equals("WatercaveBoss")) {
+			WatercaveBoss watercaveBossScreen = new WatercaveBoss(game,gameControl, config, platform,network);
+			game.setScreen(watercaveBossScreen);
 		}
 	}
 	

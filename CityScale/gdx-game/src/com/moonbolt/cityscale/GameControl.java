@@ -190,6 +190,7 @@ public class GameControl {
 	private TextureAtlas atlas_catsetf;
 	private TextureAtlas atlas_hat;
 	private TextureAtlas atlas_InterfaceCreate;
+	private TextureAtlas atlas_InterfaceAux;
 	private TextureAtlas atlas_shops;
 	private TextureAtlas atlas_itens;
 	private TextureAtlas atlas_npc;
@@ -244,6 +245,8 @@ public class GameControl {
 	
 	private TextureAtlas atlas_MonstersSewer;
 	private TextureAtlas atlas_MonstersWatercave;
+	private TextureAtlas atlas_MonsterBossSewer;
+	private TextureAtlas atlas_MonsterBossWatercave;
 	
 	
 	// CONSTRUCTOR
@@ -269,7 +272,8 @@ public class GameControl {
 		
 		//Atlas Section
 		//InterfaceCreate
-		atlas_InterfaceCreate = new TextureAtlas(Gdx.files.internal("data/assets/interfaceCreate.txt"));	
+		atlas_InterfaceCreate = new TextureAtlas(Gdx.files.internal("data/assets/interfaceCreate.txt"));
+		atlas_InterfaceAux = new TextureAtlas(Gdx.files.internal("data/assets/interfaceAux.txt"));
 		atlas_shops = new TextureAtlas(Gdx.files.internal("data/assets/shops.txt"));	
 		
 		//Character Hairs
@@ -361,92 +365,96 @@ public class GameControl {
 		//Monsters
 		atlas_MonstersSewer = new TextureAtlas(Gdx.files.internal("data/monsters/mobsSewers.txt"));
 		atlas_MonstersWatercave = new TextureAtlas(Gdx.files.internal("data/monsters/mobsBeach.txt"));
+		
+		//Boss
+		atlas_MonsterBossSewer = new TextureAtlas(Gdx.files.internal("data/monsters/KingSlime.txt"));
+		atlas_MonsterBossWatercave = new TextureAtlas(Gdx.files.internal("data/monsters/Krak.txt"));
 	}
 	
 	//TEMP
 	public void PushReset() {
 		
-			if(!playerInfo.name_1.equals("none")) {
-				playerInfo.stats_1 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
-				playerInfo.mp_1 = "100";
-				playerInfo.maxmp_1 = "100";				
-				playerInfo.def_1 = "0";
-				playerInfo.exp_1 = "0";
-				playerInfo.stamina_1 = "100";
-				if(playerInfo.level_1.equals("1")){ playerInfo.statusPoint_1 = "0"; playerInfo.hp_1 = "100"; playerInfo.maxhp_1 = "100"; playerInfo.atk_1 = "3";}
-				if(playerInfo.level_1.equals("2")){ playerInfo.statusPoint_1 = "2"; playerInfo.hp_1 = "110"; playerInfo.maxhp_1 = "110"; playerInfo.atk_1 = "5";}
-				if(playerInfo.level_1.equals("3")){ playerInfo.statusPoint_1 = "4"; playerInfo.hp_1 = "120"; playerInfo.maxhp_1 = "120"; playerInfo.atk_1 = "7";}
-				if(playerInfo.level_1.equals("4")){ playerInfo.statusPoint_1 = "6"; playerInfo.hp_1 = "130"; playerInfo.maxhp_1 = "130"; playerInfo.atk_1 = "9";}
-				if(playerInfo.level_1.equals("5")){ playerInfo.statusPoint_1 = "8"; playerInfo.hp_1 = "140"; playerInfo.maxhp_1 = "140"; playerInfo.atk_1 = "11";}
-				if(playerInfo.level_1.equals("6")){ playerInfo.statusPoint_1 = "10"; playerInfo.hp_1 = "150"; playerInfo.maxhp_1 = "150"; playerInfo.atk_1 = "13";}
-				if(playerInfo.level_1.equals("7")){ playerInfo.statusPoint_1 = "12"; playerInfo.hp_1 = "160"; playerInfo.maxhp_1 = "160"; playerInfo.atk_1 = "15";}
-				if(playerInfo.level_1.equals("8")){ playerInfo.statusPoint_1 = "14"; playerInfo.hp_1 = "170"; playerInfo.maxhp_1 = "170"; playerInfo.atk_1 = "17";}
-				if(playerInfo.level_1.equals("9")){ playerInfo.statusPoint_1 = "16"; playerInfo.hp_1 = "180"; playerInfo.maxhp_1 = "180"; playerInfo.atk_1 = "19";}
-				if(playerInfo.level_1.equals("10")){ playerInfo.statusPoint_1 = "18"; playerInfo.hp_1 = "190"; playerInfo.maxhp_1 = "190"; playerInfo.atk_1 = "21";}
-				playerInfo.job_1 = "Novice";	
-			}
-			
-			if(!playerInfo.name_2.equals("none")) {
-				playerInfo.stats_2 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
-				playerInfo.mp_2 = "100";
-				playerInfo.maxmp_2 = "100";				
-				playerInfo.def_2 = "0";
-				playerInfo.exp_2 = "0";
-				playerInfo.stamina_2 = "100";
-				if(playerInfo.level_2.equals("1")){ playerInfo.statusPoint_2 = "0"; playerInfo.hp_2 = "100"; playerInfo.maxhp_2 = "100"; playerInfo.atk_2 = "3";}
-				if(playerInfo.level_2.equals("2")){ playerInfo.statusPoint_2 = "2"; playerInfo.hp_2 = "110"; playerInfo.maxhp_2 = "110"; playerInfo.atk_2 = "5";}
-				if(playerInfo.level_2.equals("3")){ playerInfo.statusPoint_2 = "4"; playerInfo.hp_2 = "120"; playerInfo.maxhp_2 = "120"; playerInfo.atk_2 = "7";}
-				if(playerInfo.level_2.equals("4")){ playerInfo.statusPoint_2 = "6"; playerInfo.hp_2 = "130"; playerInfo.maxhp_2 = "130"; playerInfo.atk_2 = "9";}
-				if(playerInfo.level_2.equals("5")){ playerInfo.statusPoint_2 = "8"; playerInfo.hp_2 = "140"; playerInfo.maxhp_2 = "140"; playerInfo.atk_2 = "11";}
-				if(playerInfo.level_2.equals("6")){ playerInfo.statusPoint_2 = "10"; playerInfo.hp_2 = "150"; playerInfo.maxhp_2 = "150"; playerInfo.atk_2 = "13";}
-				if(playerInfo.level_2.equals("7")){ playerInfo.statusPoint_2 = "12"; playerInfo.hp_2 = "160"; playerInfo.maxhp_2 = "160"; playerInfo.atk_2 = "15";}
-				if(playerInfo.level_2.equals("8")){ playerInfo.statusPoint_2= "14"; playerInfo.hp_2 = "170"; playerInfo.maxhp_2 = "170"; playerInfo.atk_2 = "17";}
-				if(playerInfo.level_2.equals("9")){ playerInfo.statusPoint_2 = "16"; playerInfo.hp_2 = "180"; playerInfo.maxhp_2 = "180"; playerInfo.atk_2 = "19";}
-				if(playerInfo.level_2.equals("10")){ playerInfo.statusPoint_2 = "18"; playerInfo.hp_2 = "190"; playerInfo.maxhp_2 = "190"; playerInfo.atk_2 = "21";}
-				playerInfo.job_2 = "Novice";	
-			}
-			
-			if(!playerInfo.name_3.equals("none")) {
-				playerInfo.stats_3 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
-				playerInfo.mp_3 = "100";
-				playerInfo.maxmp_3 = "100";				
-				playerInfo.def_3 = "0";
-				playerInfo.exp_3 = "0";
-				playerInfo.stamina_3 = "100";
-				if(playerInfo.level_3.equals("1")){ playerInfo.statusPoint_3 = "0"; playerInfo.hp_3 = "100"; playerInfo.maxhp_3 = "100"; playerInfo.atk_3 = "3";}
-				if(playerInfo.level_3.equals("2")){ playerInfo.statusPoint_3 = "2"; playerInfo.hp_3 = "110"; playerInfo.maxhp_3 = "110"; playerInfo.atk_3 = "5";}
-				if(playerInfo.level_3.equals("3")){ playerInfo.statusPoint_3 = "4"; playerInfo.hp_3 = "120"; playerInfo.maxhp_3 = "120"; playerInfo.atk_3 = "7";}
-				if(playerInfo.level_3.equals("4")){ playerInfo.statusPoint_3 = "6"; playerInfo.hp_3 = "130"; playerInfo.maxhp_3 = "130"; playerInfo.atk_3 = "9";}
-				if(playerInfo.level_3.equals("5")){ playerInfo.statusPoint_3 = "8"; playerInfo.hp_3 = "140"; playerInfo.maxhp_3 = "140"; playerInfo.atk_3 = "11";}
-				if(playerInfo.level_3.equals("6")){ playerInfo.statusPoint_3 = "10"; playerInfo.hp_3 = "150"; playerInfo.maxhp_3 = "150"; playerInfo.atk_3 = "13";}
-				if(playerInfo.level_3.equals("7")){ playerInfo.statusPoint_3 = "12"; playerInfo.hp_3 = "160"; playerInfo.maxhp_3 = "160"; playerInfo.atk_3 = "15";}
-				if(playerInfo.level_3.equals("8")){ playerInfo.statusPoint_3 = "14"; playerInfo.hp_3 = "170"; playerInfo.maxhp_3 = "170"; playerInfo.atk_3 = "17";}
-				if(playerInfo.level_3.equals("9")){ playerInfo.statusPoint_3 = "16"; playerInfo.hp_3 = "180"; playerInfo.maxhp_3 = "180"; playerInfo.atk_3 = "19";}
-				if(playerInfo.level_3.equals("10")){ playerInfo.statusPoint_3 = "18"; playerInfo.hp_3 = "190"; playerInfo.maxhp_3 = "190"; playerInfo.atk_3 = "21";}
-				playerInfo.job_3 = "Novice";	
-			}
-			
-			if(!playerInfo.name_A.equals("none")) {
-				playerInfo.stats_A = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
-				playerInfo.mp_A = "100";
-				playerInfo.maxmp_A = "100";				
-				playerInfo.def_A = "0";
-				playerInfo.exp_A = "0";
-				playerInfo.stamina_A = "100";
-				if(playerInfo.level_A.equals("1")){ playerInfo.statusPoint_A = "0"; playerInfo.hp_A = "100"; playerInfo.maxhp_A = "100"; playerInfo.atk_A = "3";}
-				if(playerInfo.level_A.equals("2")){ playerInfo.statusPoint_A = "2"; playerInfo.hp_A = "110"; playerInfo.maxhp_A = "110"; playerInfo.atk_A = "5";}
-				if(playerInfo.level_A.equals("3")){ playerInfo.statusPoint_A = "4"; playerInfo.hp_A = "120"; playerInfo.maxhp_A = "120"; playerInfo.atk_A = "7";}
-				if(playerInfo.level_A.equals("4")){ playerInfo.statusPoint_A = "6"; playerInfo.hp_A = "1A0"; playerInfo.maxhp_A = "1A0"; playerInfo.atk_A = "9";}
-				if(playerInfo.level_A.equals("5")){ playerInfo.statusPoint_A = "8"; playerInfo.hp_A = "140"; playerInfo.maxhp_A = "140"; playerInfo.atk_A = "11";}
-				if(playerInfo.level_A.equals("6")){ playerInfo.statusPoint_A = "10"; playerInfo.hp_A = "150"; playerInfo.maxhp_A = "150"; playerInfo.atk_A = "1A";}
-				if(playerInfo.level_A.equals("7")){ playerInfo.statusPoint_A = "12"; playerInfo.hp_A = "160"; playerInfo.maxhp_A = "160"; playerInfo.atk_A = "15";}
-				if(playerInfo.level_A.equals("8")){ playerInfo.statusPoint_A = "14"; playerInfo.hp_A = "170"; playerInfo.maxhp_A = "170"; playerInfo.atk_A = "17";}
-				if(playerInfo.level_A.equals("9")){ playerInfo.statusPoint_A = "16"; playerInfo.hp_A = "180"; playerInfo.maxhp_A = "180"; playerInfo.atk_A = "19";}
-				if(playerInfo.level_A.equals("10")){ playerInfo.statusPoint_A = "18"; playerInfo.hp_A = "190"; playerInfo.maxhp_A = "190"; playerInfo.atk_A = "21";}
-				playerInfo.job_A = "Novice";	
-			}
-			
-			savetimer = 1;
+		if(!playerInfo.name_1.equals("none")) {
+			playerInfo.stats_1 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
+			playerInfo.mp_1 = "100";
+			playerInfo.maxmp_1 = "100";				
+			playerInfo.def_1 = "0";
+			playerInfo.exp_1 = "0";
+			playerInfo.stamina_1 = "100";
+			if(playerInfo.level_1.equals("1")){ playerInfo.statusPoint_1 = "0"; playerInfo.hp_1 = "100"; playerInfo.maxhp_1 = "100"; playerInfo.atk_1 = "3";}
+			if(playerInfo.level_1.equals("2")){ playerInfo.statusPoint_1 = "2"; playerInfo.hp_1 = "110"; playerInfo.maxhp_1 = "110"; playerInfo.atk_1 = "5";}
+			if(playerInfo.level_1.equals("3")){ playerInfo.statusPoint_1 = "4"; playerInfo.hp_1 = "120"; playerInfo.maxhp_1 = "120"; playerInfo.atk_1 = "7";}
+			if(playerInfo.level_1.equals("4")){ playerInfo.statusPoint_1 = "6"; playerInfo.hp_1 = "130"; playerInfo.maxhp_1 = "130"; playerInfo.atk_1 = "9";}
+			if(playerInfo.level_1.equals("5")){ playerInfo.statusPoint_1 = "8"; playerInfo.hp_1 = "140"; playerInfo.maxhp_1 = "140"; playerInfo.atk_1 = "11";}
+			if(playerInfo.level_1.equals("6")){ playerInfo.statusPoint_1 = "10"; playerInfo.hp_1 = "150"; playerInfo.maxhp_1 = "150"; playerInfo.atk_1 = "13";}
+			if(playerInfo.level_1.equals("7")){ playerInfo.statusPoint_1 = "12"; playerInfo.hp_1 = "160"; playerInfo.maxhp_1 = "160"; playerInfo.atk_1 = "15";}
+			if(playerInfo.level_1.equals("8")){ playerInfo.statusPoint_1 = "14"; playerInfo.hp_1 = "170"; playerInfo.maxhp_1 = "170"; playerInfo.atk_1 = "17";}
+			if(playerInfo.level_1.equals("9")){ playerInfo.statusPoint_1 = "16"; playerInfo.hp_1 = "180"; playerInfo.maxhp_1 = "180"; playerInfo.atk_1 = "19";}
+			if(playerInfo.level_1.equals("10")){ playerInfo.statusPoint_1 = "18"; playerInfo.hp_1 = "190"; playerInfo.maxhp_1 = "190"; playerInfo.atk_1 = "21";}
+			playerInfo.job_1 = "Novice";	
+		}
+		
+		if(!playerInfo.name_2.equals("none")) {
+			playerInfo.stats_2 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
+			playerInfo.mp_2 = "100";
+			playerInfo.maxmp_2 = "100";				
+			playerInfo.def_2 = "0";
+			playerInfo.exp_2 = "0";
+			playerInfo.stamina_2 = "100";
+			if(playerInfo.level_2.equals("1")){ playerInfo.statusPoint_2 = "0"; playerInfo.hp_2 = "100"; playerInfo.maxhp_2 = "100"; playerInfo.atk_2 = "3";}
+			if(playerInfo.level_2.equals("2")){ playerInfo.statusPoint_2 = "2"; playerInfo.hp_2 = "110"; playerInfo.maxhp_2 = "110"; playerInfo.atk_2 = "5";}
+			if(playerInfo.level_2.equals("3")){ playerInfo.statusPoint_2 = "4"; playerInfo.hp_2 = "120"; playerInfo.maxhp_2 = "120"; playerInfo.atk_2 = "7";}
+			if(playerInfo.level_2.equals("4")){ playerInfo.statusPoint_2 = "6"; playerInfo.hp_2 = "130"; playerInfo.maxhp_2 = "130"; playerInfo.atk_2 = "9";}
+			if(playerInfo.level_2.equals("5")){ playerInfo.statusPoint_2 = "8"; playerInfo.hp_2 = "140"; playerInfo.maxhp_2 = "140"; playerInfo.atk_2 = "11";}
+			if(playerInfo.level_2.equals("6")){ playerInfo.statusPoint_2 = "10"; playerInfo.hp_2 = "150"; playerInfo.maxhp_2 = "150"; playerInfo.atk_2 = "13";}
+			if(playerInfo.level_2.equals("7")){ playerInfo.statusPoint_2 = "12"; playerInfo.hp_2 = "160"; playerInfo.maxhp_2 = "160"; playerInfo.atk_2 = "15";}
+			if(playerInfo.level_2.equals("8")){ playerInfo.statusPoint_2= "14"; playerInfo.hp_2 = "170"; playerInfo.maxhp_2 = "170"; playerInfo.atk_2 = "17";}
+			if(playerInfo.level_2.equals("9")){ playerInfo.statusPoint_2 = "16"; playerInfo.hp_2 = "180"; playerInfo.maxhp_2 = "180"; playerInfo.atk_2 = "19";}
+			if(playerInfo.level_2.equals("10")){ playerInfo.statusPoint_2 = "18"; playerInfo.hp_2 = "190"; playerInfo.maxhp_2 = "190"; playerInfo.atk_2 = "21";}
+			playerInfo.job_2 = "Novice";	
+		}
+		
+		if(!playerInfo.name_3.equals("none")) {
+			playerInfo.stats_3 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
+			playerInfo.mp_3 = "100";
+			playerInfo.maxmp_3 = "100";				
+			playerInfo.def_3 = "0";
+			playerInfo.exp_3 = "0";
+			playerInfo.stamina_3 = "100";
+			if(playerInfo.level_3.equals("1")){ playerInfo.statusPoint_3 = "0"; playerInfo.hp_3 = "100"; playerInfo.maxhp_3 = "100"; playerInfo.atk_3 = "3";}
+			if(playerInfo.level_3.equals("2")){ playerInfo.statusPoint_3 = "2"; playerInfo.hp_3 = "110"; playerInfo.maxhp_3 = "110"; playerInfo.atk_3 = "5";}
+			if(playerInfo.level_3.equals("3")){ playerInfo.statusPoint_3 = "4"; playerInfo.hp_3 = "120"; playerInfo.maxhp_3 = "120"; playerInfo.atk_3 = "7";}
+			if(playerInfo.level_3.equals("4")){ playerInfo.statusPoint_3 = "6"; playerInfo.hp_3 = "130"; playerInfo.maxhp_3 = "130"; playerInfo.atk_3 = "9";}
+			if(playerInfo.level_3.equals("5")){ playerInfo.statusPoint_3 = "8"; playerInfo.hp_3 = "140"; playerInfo.maxhp_3 = "140"; playerInfo.atk_3 = "11";}
+			if(playerInfo.level_3.equals("6")){ playerInfo.statusPoint_3 = "10"; playerInfo.hp_3 = "150"; playerInfo.maxhp_3 = "150"; playerInfo.atk_3 = "13";}
+			if(playerInfo.level_3.equals("7")){ playerInfo.statusPoint_3 = "12"; playerInfo.hp_3 = "160"; playerInfo.maxhp_3 = "160"; playerInfo.atk_3 = "15";}
+			if(playerInfo.level_3.equals("8")){ playerInfo.statusPoint_3 = "14"; playerInfo.hp_3 = "170"; playerInfo.maxhp_3 = "170"; playerInfo.atk_3 = "17";}
+			if(playerInfo.level_3.equals("9")){ playerInfo.statusPoint_3 = "16"; playerInfo.hp_3 = "180"; playerInfo.maxhp_3 = "180"; playerInfo.atk_3 = "19";}
+			if(playerInfo.level_3.equals("10")){ playerInfo.statusPoint_3 = "18"; playerInfo.hp_3 = "190"; playerInfo.maxhp_3 = "190"; playerInfo.atk_3 = "21";}
+			playerInfo.job_3 = "Novice";	
+		}
+		
+		if(!playerInfo.name_A.equals("none")) {
+			playerInfo.stats_A = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
+			playerInfo.mp_A = "100";
+			playerInfo.maxmp_A = "100";				
+			playerInfo.def_A = "0";
+			playerInfo.exp_A = "0";
+			playerInfo.stamina_A = "100";
+			if(playerInfo.level_A.equals("1")){ playerInfo.statusPoint_A = "0"; playerInfo.hp_A = "100"; playerInfo.maxhp_A = "100"; playerInfo.atk_A = "3";}
+			if(playerInfo.level_A.equals("2")){ playerInfo.statusPoint_A = "2"; playerInfo.hp_A = "110"; playerInfo.maxhp_A = "110"; playerInfo.atk_A = "5";}
+			if(playerInfo.level_A.equals("3")){ playerInfo.statusPoint_A = "4"; playerInfo.hp_A = "120"; playerInfo.maxhp_A = "120"; playerInfo.atk_A = "7";}
+			if(playerInfo.level_A.equals("4")){ playerInfo.statusPoint_A = "6"; playerInfo.hp_A = "1A0"; playerInfo.maxhp_A = "1A0"; playerInfo.atk_A = "9";}
+			if(playerInfo.level_A.equals("5")){ playerInfo.statusPoint_A = "8"; playerInfo.hp_A = "140"; playerInfo.maxhp_A = "140"; playerInfo.atk_A = "11";}
+			if(playerInfo.level_A.equals("6")){ playerInfo.statusPoint_A = "10"; playerInfo.hp_A = "150"; playerInfo.maxhp_A = "150"; playerInfo.atk_A = "1A";}
+			if(playerInfo.level_A.equals("7")){ playerInfo.statusPoint_A = "12"; playerInfo.hp_A = "160"; playerInfo.maxhp_A = "160"; playerInfo.atk_A = "15";}
+			if(playerInfo.level_A.equals("8")){ playerInfo.statusPoint_A = "14"; playerInfo.hp_A = "170"; playerInfo.maxhp_A = "170"; playerInfo.atk_A = "17";}
+			if(playerInfo.level_A.equals("9")){ playerInfo.statusPoint_A = "16"; playerInfo.hp_A = "180"; playerInfo.maxhp_A = "180"; playerInfo.atk_A = "19";}
+			if(playerInfo.level_A.equals("10")){ playerInfo.statusPoint_A = "18"; playerInfo.hp_A = "190"; playerInfo.maxhp_A = "190"; playerInfo.atk_A = "21";}
+			playerInfo.job_A = "Novice";	
+		}
+		
+		savetimer = 1;
 	}
 	
 	//[A] DATA MANAGER
@@ -476,6 +484,7 @@ public class GameControl {
 		if(map.equals("Watercave")) { LoadMonstersWatercave();  }
 		if(map.equals("Watercave")) { LoadMonstersWatercave();  }
 		if(map.equals("SewersBoss")) { LoadMonstersSewersBoss(); }
+		if(map.equals("WatercaveBoss")) { LoadMonstersWaterCaveBoss(); }
 		
 		if(map.equals("MetroStation")) { 
 			playerInfo.map_A = "MetroStation";
@@ -542,13 +551,34 @@ public class GameControl {
 		
 		if(map.equals("SewersBoss")) {
 			playerInfo.map_A = "SewersBoss";
-			playerInfo.coordX_A = "49";
-			playerInfo.coordY_A = "133";
+			playerInfo.coordX_A = "194";
+			playerInfo.coordY_A = "130";
+			savetimer = 0;
+		}
+		
+		if(map.equals("SewersFromBoss")) {
+			playerInfo.map_A = "SewersFromBoss";
+			playerInfo.coordX_A = "-60";
+			playerInfo.coordY_A = "-106";
 			savetimer = 0;
 		}
 		
 		if(map.equals("Watercave")) {
 			playerInfo.map_A = "Watercave";
+			playerInfo.coordX_A = "-71";
+			playerInfo.coordY_A = "83";
+			savetimer = 0;
+		}
+		
+		if(map.equals("WatercaveFromBoss")) {
+			playerInfo.map_A = "Watercave";
+			playerInfo.coordX_A = "206";
+			playerInfo.coordY_A = "86";
+			savetimer = 0;
+		}
+		
+		if(map.equals("WatercaveBoss")) {
+			playerInfo.map_A = "WatercaveBoss";
 			playerInfo.coordX_A = "-71";
 			playerInfo.coordY_A = "83";
 			savetimer = 0;
@@ -1581,8 +1611,6 @@ public class GameControl {
 			spr_master.setPosition(cameraCoordsX - 69.5f,cameraCoordsY + 18);
 			return spr_master;			
 		}
-		
-		
 		
 		//Area Select Skill
 		if(type.equals("areaSelect")) {
@@ -4709,7 +4737,7 @@ public class GameControl {
 	}
 	
 	public Sprite ShowCrystalItem(int num, float coordsX, float coordsY) {
-		String crystalEquipped = "";    //here
+		String crystalEquipped = "";    
 		
 		if(num == 1) { crystalEquipped = playerInfo.crystalA_A; } 
 		if(num == 2) { crystalEquipped = playerInfo.crystalB_A; } 
@@ -5644,7 +5672,7 @@ public class GameControl {
 	
 	public void GiveCrystalAtribute(String typeUse, String crystalItem) {
 		
-		int playerAtribute;   //here
+		int playerAtribute;   
 		int playerAtk;
 		String[] playerStatus = playerInfo.stats_A.split("#"); 
 		String[] playerStatusNumber;
@@ -6144,7 +6172,7 @@ public class GameControl {
 	//[F] Online
 	public void OnlineManager(String operation, String subData) {
 		try {
-			if(operation.equals("Upload")) {  //here
+			if(operation.equals("Upload")) {  
 				OnlineOperation("Upload", subData);
 			}
 			if(operation.equals("Download")) {
@@ -8174,8 +8202,8 @@ public class GameControl {
 		mobA.mobPosY = -26;
 		mobA.mobStartPosX = 59;
 		mobA.mobStartPosY = -26;
-		mobA.mobHeight = 14;
-		mobA.mobWidth = 10;
+		mobA.mobHeight = 65;
+		mobA.mobWidth = 55;
 		mobA.mobID = "KingSlimeA";
 		mobA.hp = 15000;
 		mobA.mp = 10;
@@ -8201,6 +8229,54 @@ public class GameControl {
 		mobA.respawnTime = 300;
 		mobA.respawnTimeMax = 300;
 		mobA.map = "SewersBoss";
+		mobA.statusTime = 300;
+		mobA.speed = 0.12f;
+		mobA.status = "none";
+		mobA.mobDirectionOnWalk = "wait";
+		mobA.OnlineID = "MobA";
+		lstMobs.add(mobA);
+		
+		return lstMobs;
+		
+	}
+	
+public ArrayList<Monster> LoadMonstersWaterCaveBoss() {
+		
+		lstMobs.clear();
+		
+		Monster mobA = new Monster();
+		mobA.name = "Krak";
+		mobA.mobPosX = 59;
+		mobA.mobPosY = -26;
+		mobA.mobStartPosX = 59;
+		mobA.mobStartPosY = -26;
+		mobA.mobHeight = 65;
+		mobA.mobWidth = 55;
+		mobA.mobID = "KrakA";
+		mobA.hp = 35000;
+		mobA.mp = 10;
+		mobA.maxHP = 35000;
+		mobA.maxMP = 10;
+		mobA.exp = 4;
+		mobA.inCasting = false;
+		mobA.dead = false;
+		mobA.target = "None";
+		mobA.frame = 1;
+		mobA.atkCount = 0;
+		mobA.atkHit = 200;
+		mobA.getHit = false;
+		mobA.mobCountDown = 300;
+		mobA.mobCountDownMax = 300;
+		mobA.side = "right";
+		mobA.MobSelected = "no";
+		mobA.maxRanged = 20;
+		mobA.minRanged = 40;
+		mobA.loot1 = "BLOP";
+		mobA.loot2 = "HATSLIME";
+		mobA.loot3 = "FRAGBLUE";  
+		mobA.respawnTime = 300;
+		mobA.respawnTimeMax = 300;
+		mobA.map = "WatercaveBoss";
 		mobA.statusTime = 300;
 		mobA.speed = 0.12f;
 		mobA.status = "none";
@@ -8855,6 +8931,228 @@ public class GameControl {
 			spr_targetArrow.setPosition(mob.mobPosX + 1.5f, mob.mobPosY + 25);
 		}
 		return spr_master;		
+	}
+	
+	public Sprite MVPSewers(int num) {
+		Monster mob = lstMobs.get(num);
+		if(mob.hp <= 0) { mob.dead = true; }
+		
+		if(mob.name.equals("KingSlime")) {
+			//for atk
+			if(mob.frame >= 50 && mob.frame < 70) { 
+				spr_master = atlas_MonsterBossSewer.createSprite("KingSlime4");   //here
+				spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+				spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+				mob.frame++; 
+				return spr_master; 
+			}
+			if(mob.frame >= 70) { 
+				mob.frame = 2; 
+			}
+			
+			//For move
+			if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonsterBossSewer.createSprite("KingSlime1"); }
+			if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonsterBossSewer.createSprite("KingSlime2"); }
+			if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonsterBossSewer.createSprite("KingSlime1"); }
+			
+			//Getting hit
+			if(mob.getHit) { spr_master = atlas_MonsterBossSewer.createSprite("KingSlime1"); mob.getHit = false; }
+		}
+		
+		//See status stun
+		if(!mob.status.equals("stun")) {			
+			//Mov X
+			frameMob = randnumber.nextInt(80);
+			if(frameMob >= 0 && frameMob <= 20 && mob.mobDirectionOnWalk.equals("wait")) {
+				walkInDirection = 500;
+				mob.mobDirectionOnWalk = "right";					
+			}
+			if(frameMob >= 20 && frameMob <= 40 && mob.mobDirectionOnWalk.equals("wait")) {
+				walkInDirection = 500;
+				mob.mobDirectionOnWalk = "left";						
+			}			
+			//Mov Y
+			if(frameMob >= 40 && frameMob <= 60 && mob.mobDirectionOnWalk.equals("wait")) {
+				walkInDirection = 500;
+				mob.mobDirectionOnWalk = "back";					
+			}
+			if(frameMob >= 60 && frameMob <= 80 && mob.mobDirectionOnWalk.equals("wait")) {
+				walkInDirection = 500;
+				mob.mobDirectionOnWalk = "front";
+			}
+			
+			if(walkInDirection > 0) {
+				walkInDirection--;
+				if(mob.mobDirectionOnWalk.equals("right")) { mob.mobPosX = mob.mobPosX + mob.speed; }
+				if(mob.mobDirectionOnWalk.equals("left")) { mob.mobPosX = mob.mobPosX - mob.speed;  }
+				if(mob.mobDirectionOnWalk.equals("back")) { mob.mobPosY = mob.mobPosY + mob.speed; }
+				if(mob.mobDirectionOnWalk.equals("front")) { mob.mobPosY = mob.mobPosY - mob.speed;  }
+			}
+			if(walkInDirection <= 0) {
+				walkInDirection = 0;
+				mob.mobDirectionOnWalk = "wait";
+			}
+			
+			if(mob.mobPosX > 237 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+			if(mob.mobPosX < -105 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+			if(mob.mobPosY > 237 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+			if(mob.mobPosY < -161 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+			
+			if(mob.target.equals(playerInfo.name_A)) {
+				playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+				playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+				
+				if(mob.mobPosX > playerCoordsX) { mob.mobPosX -= 0.15f; }
+				if(mob.mobPosX < playerCoordsX + 9) { mob.mobPosX += 0.15f; }
+				if(mob.mobPosY > playerCoordsY) { mob.mobPosY -= 0.15f; }
+				if(mob.mobPosY < playerCoordsY) { mob.mobPosY += 0.15f; }
+			}
+					
+			if(lstPlayersOnline.size() > 0) {
+				for(int i = 0; i < lstPlayersOnline.size(); i++) {
+					if(mob.target.equals(lstPlayersOnline.get(i).name_A)) {
+						onlineplayerPosX = Float.parseFloat(lstPlayersOnline.get(i).coordX_A);
+						onlineplayerPosY = Float.parseFloat(lstPlayersOnline.get(i).coordY_A);
+						
+						if(mob.mobPosX > onlineplayerPosX) { mob.mobPosX -= 0.15f; }
+						if(mob.mobPosX < onlineplayerPosX + 9) { mob.mobPosX += 0.15f; }
+						if(mob.mobPosY > onlineplayerPosY) { mob.mobPosY -= 0.15f; }
+						if(mob.mobPosY < onlineplayerPosY) { mob.mobPosY += 0.15f; }
+					}
+				}
+			}
+		}
+		
+		//See status poison
+		if(mob.status.equals("poison") && mob.frame >= 10 && mob.frame <= 12) {
+			mob.hp = mob.hp--;
+		}
+	
+		spr_master.setPosition(mob.mobPosX, mob.mobPosY);
+		spr_master.setSize(mob.mobWidth, mob.mobHeight);
+					
+		mob.frame++;
+		if(mob.frame >= 33) { mob.frame = 1; }	
+		lstMobs.set(num, mob);
+		
+		if(playerInfo.target_A.equals(mob.mobID)){
+			spr_targetArrow = atlas_InterfaceCreate.createSprite("target");
+			spr_targetArrow.setSize(7,11);
+			spr_targetArrow.setPosition(mob.mobPosX + 1.5f, mob.mobPosY + 25);
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite MVPWaterCave(int num) {
+		Monster mob = lstMobs.get(num);
+		if(mob.hp <= 0) { mob.dead = true; }
+		
+		if(mob.name.equals("Krak")) {  
+			//for atk
+			if(mob.frame >= 50 && mob.frame < 70) { 
+				spr_master = atlas_MonsterBossWatercave.createSprite("Krak4");   
+				spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
+				spr_master.setSize(mob.mobWidth, mob.mobHeight); 
+				mob.frame++; 
+				return spr_master; 
+			}
+			if(mob.frame >= 70) { 
+				mob.frame = 2; 
+			}
+			
+			//For move
+			if(mob.frame >= 1 && mob.frame <= 10) { spr_master = atlas_MonsterBossWatercave.createSprite("Krak"); }
+			if(mob.frame >= 11 && mob.frame <= 21) { spr_master = atlas_MonsterBossWatercave.createSprite("Krak2"); }
+			if(mob.frame >= 22 && mob.frame <= 33) { spr_master = atlas_MonsterBossWatercave.createSprite("Krak"); }
+			
+			//Getting hit
+			if(mob.getHit) { spr_master = atlas_MonsterBossWatercave.createSprite("Krak"); mob.getHit = false; }
+		}
+		
+		//See status stun
+		if(!mob.status.equals("stun")) {			
+			//Mov X
+			frameMob = randnumber.nextInt(80);
+			if(frameMob >= 0 && frameMob <= 20 && mob.mobDirectionOnWalk.equals("wait")) {
+				walkInDirection = 500;
+				mob.mobDirectionOnWalk = "right";					
+			}
+			if(frameMob >= 20 && frameMob <= 40 && mob.mobDirectionOnWalk.equals("wait")) {
+				walkInDirection = 500;
+				mob.mobDirectionOnWalk = "left";						
+			}			
+			//Mov Y
+			if(frameMob >= 40 && frameMob <= 60 && mob.mobDirectionOnWalk.equals("wait")) {
+				walkInDirection = 500;
+				mob.mobDirectionOnWalk = "back";					
+			}
+			if(frameMob >= 60 && frameMob <= 80 && mob.mobDirectionOnWalk.equals("wait")) {
+				walkInDirection = 500;
+				mob.mobDirectionOnWalk = "front";
+			}
+			
+			if(walkInDirection > 0) {
+				walkInDirection--;
+				if(mob.mobDirectionOnWalk.equals("right")) { mob.mobPosX = mob.mobPosX + mob.speed; }
+				if(mob.mobDirectionOnWalk.equals("left")) { mob.mobPosX = mob.mobPosX - mob.speed;  }
+				if(mob.mobDirectionOnWalk.equals("back")) { mob.mobPosY = mob.mobPosY + mob.speed; }
+				if(mob.mobDirectionOnWalk.equals("front")) { mob.mobPosY = mob.mobPosY - mob.speed;  }
+			}
+			if(walkInDirection <= 0) {
+				walkInDirection = 0;
+				mob.mobDirectionOnWalk = "wait";
+			}
+			
+			if(mob.mobPosX > 237 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+			if(mob.mobPosX < -105 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+			if(mob.mobPosY > 237 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+			if(mob.mobPosY < -161 && !mob.dead) { mob.mobPosX = mob.mobStartPosX; mob.mobPosY = mob.mobStartPosY; }
+			
+			if(mob.target.equals(playerInfo.name_A)) {
+				playerCoordsX = Float.parseFloat(playerInfo.coordX_A);
+				playerCoordsY = Float.parseFloat(playerInfo.coordY_A);
+				
+				if(mob.mobPosX > playerCoordsX) { mob.mobPosX -= 0.15f; }
+				if(mob.mobPosX < playerCoordsX + 9) { mob.mobPosX += 0.15f; }
+				if(mob.mobPosY > playerCoordsY) { mob.mobPosY -= 0.15f; }
+				if(mob.mobPosY < playerCoordsY) { mob.mobPosY += 0.15f; }
+			}
+					
+			if(lstPlayersOnline.size() > 0) {
+				for(int i = 0; i < lstPlayersOnline.size(); i++) {
+					if(mob.target.equals(lstPlayersOnline.get(i).name_A)) {
+						onlineplayerPosX = Float.parseFloat(lstPlayersOnline.get(i).coordX_A);
+						onlineplayerPosY = Float.parseFloat(lstPlayersOnline.get(i).coordY_A);
+						
+						if(mob.mobPosX > onlineplayerPosX) { mob.mobPosX -= 0.15f; }
+						if(mob.mobPosX < onlineplayerPosX + 9) { mob.mobPosX += 0.15f; }
+						if(mob.mobPosY > onlineplayerPosY) { mob.mobPosY -= 0.15f; }
+						if(mob.mobPosY < onlineplayerPosY) { mob.mobPosY += 0.15f; }
+					}
+				}
+			}
+		}
+		
+		//See status poison
+		if(mob.status.equals("poison") && mob.frame >= 10 && mob.frame <= 12) {
+			mob.hp = mob.hp--;
+		}
+	
+		spr_master.setPosition(mob.mobPosX, mob.mobPosY);
+		spr_master.setSize(mob.mobWidth, mob.mobHeight);
+					
+		mob.frame++;
+		if(mob.frame >= 33) { mob.frame = 1; }	
+		lstMobs.set(num, mob);
+		
+		if(playerInfo.target_A.equals(mob.mobID)){
+			spr_targetArrow = atlas_InterfaceCreate.createSprite("target");
+			spr_targetArrow.setSize(7,11);
+			spr_targetArrow.setPosition(mob.mobPosX + 1.5f, mob.mobPosY + 25);
+		}
+		
+		return spr_master;
 	}
 	
 	public void CheckSkillCooldown() {

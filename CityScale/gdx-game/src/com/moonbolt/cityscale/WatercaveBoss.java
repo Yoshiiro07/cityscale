@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Watercave implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class WatercaveBoss implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 	//Objects
 	private MainGame game;
 	private GameControl gameControl;
@@ -161,7 +161,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 	//Controller
 	private final IntSet downKeys = new IntSet(20);
 
-	public Watercave(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt, String networkState) {
+	public WatercaveBoss(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt, String networkState) {
 		this.game = gameAlt;
 		this.gameControl = gameControl;
 		this.config = configAlt;
@@ -194,7 +194,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		//Initializing Chats & Monsters
 		lstChats = new ArrayList<String>();
 		lstMobs = new ArrayList<Monster>();
-		lstMobs = gameControl.LoadMonstersWatercave();
+		lstMobs = gameControl.LoadMonstersWaterCaveBoss();
 
 		//Sprites
 		tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
@@ -206,7 +206,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		spr_loadingBlack = new Sprite(tex_loadingBlack);
 		spr_loadingBlack.setSize(100, 100);
 		
-		tex_Background = new Texture(Gdx.files.internal("data/maps/watercave.png"));
+		tex_Background = new Texture(Gdx.files.internal("data/maps/watercaveboss.png"));
 		spr_Background = new Sprite(tex_Background);
 		spr_Background.setSize(100, 100);
 
@@ -221,7 +221,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 			network = true;
 			gameControl.OnlineManager("Sync","");
 			typeDisplay = "Config";
-			msgDisplay = "Online Ligado";
+			//msgDisplay = "Online Ligado";
 			isDisplay = true;
 			countDisplay = 200;
 		}		
@@ -918,16 +918,8 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		if(playerPosX > -80 && playerPosX < -63 && playerPosY > 101 && playerPosY < 120) {
 			loading = true;
 			loadingDownCurtain = 100;
-			mapSwitchConfig = "Streets750CaveOut";
-			mapSwitch = "Streets750";
-			return;
-		}
-		
-		if(playerPosX > 194 && playerPosX < 217 && playerPosY > 104 && playerPosY < 119) {
-			loading = true;
-			loadingDownCurtain = 100;
-			mapSwitchConfig = "WatercaveBoss";
-			mapSwitch = "WatercaveBoss";
+			mapSwitchConfig = "WatercaveFromBoss";
+			mapSwitch = "Watercave";
 			return;
 		}
 		
@@ -1151,7 +1143,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 	private void ShowMonsters() {
 		lstMobs = gameControl.GetMonsters();
 		for(int i = 0; i < lstMobs.size(); i++) {
-			spr_mob = gameControl.MobAppearWatercave(i);
+			spr_mob = gameControl.MVPWaterCave(i);
 			spr_mob.draw(game.batch);
 			font_master.draw(game.batch, lstMobs.get(i).mobID + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
 		}	

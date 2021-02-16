@@ -204,7 +204,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			spr_loadingBlack = new Sprite(tex_loadingBlack);
 			spr_loadingBlack.setSize(100, 100);
 			
-			tex_Background = new Texture(Gdx.files.internal("data/maps/watercaveboss.png"));
+			tex_Background = new Texture(Gdx.files.internal("data/maps/sewersboss.png"));
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
 			
@@ -219,7 +219,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 				network = true;
 				gameControl.OnlineManager("Sync","");
 				typeDisplay = "Config";
-				msgDisplay = "Online Ligado";
+				//msgDisplay = "Online Ligado";
 				isDisplay = true;
 				countDisplay = 200;
 			}
@@ -881,20 +881,12 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Change Screen
 			if(changeScreen){			
-				if(mapChange.equals("Streets305FromSewers")) {
+				if(mapChange.equals("SewersFromBoss")) {
 					gameControl.OnlineManager("Desligar", "");
-					gameControl.ScreenChange("Streets305FromSewers");
+					gameControl.ScreenChange("SewersFromBoss");
 					gameControl.UpdateDataSave(numPlayerActive);
 				    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-				    game.Switch("Streets305");			
-				}
-				
-				if(mapChange.equals("MetroStation")) {
-					gameControl.OnlineManager("Desligar", "");
-					gameControl.ScreenChange("MetroStation");
-					gameControl.UpdateDataSave(numPlayerActive);
-				    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-				    game.Switch("MetroStation");		
+				    game.Switch("Sewers");			
 				}
 			}
 			
@@ -920,82 +912,10 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 		
 		private void CheckColide() {
 			if(!loading) {
-			if(playerPosX > 47 && playerPosX < 53 && playerPosY > 156) {
+			if(playerPosX > 212 && playerPosX < 290 && playerPosY > 131 && playerPosY < 181) {
 				loading = true;
 				loadingDownCurtain = 100;
-				mapChange = "Streets305FromSewers";
-			}
-			
-			//top wall left
-			if(playerPosX > -98 && playerPosX < 41 && playerPosY > 143) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//top wall right
-			if(playerPosX > 57 && playerPosX < 231 && playerPosY > 143) {
-				breakWalk = "back";
-				return;
-			}
-			 
-			//top wall down left
-			if(playerPosX > -98 && playerPosX < -79 &&  playerPosY > 51 && playerPosY < 95) {
-				breakWalk = "front";
-				return;
-			}
-			
-			//top wall down center
-			if(playerPosX > -65 && playerPosX < 188 &&  playerPosY > 51 && playerPosY < 95) {
-				breakWalk = "front";
-				return;
-			}
-			
-			//top wall down right
-			if(playerPosX > 201 && playerPosX < 235 &&  playerPosY > 51 && playerPosY < 95) {
-				breakWalk = "front";
-				return;
-			}
-			
-			//bottom wall down left
-			if(playerPosX > -100 && playerPosX < -79 &&  playerPosY > 50 && playerPosY < 95) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//bottom wall down center
-			if(playerPosX > -65 && playerPosX < 188 &&  playerPosY > 50 && playerPosY < 95) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//bottom wall down right
-			if(playerPosX > 201 && playerPosX < 235 &&  playerPosY > 50 && playerPosY < 95) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//bottom water down right
-			if(playerPosX > 32 && playerPosX < 235 &&  playerPosY > -71 && playerPosY < -33) {
-				breakWalk = "front";
-				return;
-			}
-			
-			//bottom water down left
-			if(playerPosX > -100 && playerPosX < 5 &&  playerPosY > -71 && playerPosY < -33) {
-				breakWalk = "front";
-				return;
-			}
-			
-			//up water down left
-			if(playerPosX > -100 && playerPosX < 5 &&  playerPosY > -73 && playerPosY < -33) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//up water down right
-			if(playerPosX > 32 && playerPosX < 235 &&  playerPosY > -73 && playerPosY < -33) {
-				breakWalk = "back";
-				return;
+				mapChange = "SewersFromBoss";
 			}
 					
 			//down
@@ -1205,7 +1125,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 		private void ShowMonsters() {
 			lstMobs = gameControl.GetMonsters();
 			for(int i = 0; i < lstMobs.size(); i++) {
-				spr_mob = gameControl.MobAppearSewers(i);
+				spr_mob = gameControl.MVPSewers(i);
 				spr_mob.draw(game.batch);
 				font_master.draw(game.batch, lstMobs.get(i).mobID + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
 			}	

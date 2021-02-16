@@ -889,6 +889,14 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				    game.Switch("Streets305");			
 				}
 				
+				if(mapChange.equals("SewersBoss")) {
+					gameControl.OnlineManager("Desligar", "");
+					gameControl.ScreenChange("SewersBoss");
+					gameControl.UpdateDataSave(numPlayerActive);
+				    game.AtualizaElementos(game,gameControl, config, platform, networkState);
+				    game.Switch("SewersBoss");			
+				}
+				
 				if(mapChange.equals("MetroStation")) {
 					gameControl.OnlineManager("Desligar", "");
 					gameControl.ScreenChange("MetroStation");
@@ -924,6 +932,12 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				loading = true;
 				loadingDownCurtain = 100;
 				mapChange = "Streets305FromSewers";
+			}
+			
+			if(playerPosX > -100 && playerPosX < -75 && playerPosY > -127 && playerPosY < -72) {
+				loading = true;
+				loadingDownCurtain = 100;
+				mapChange = "SewersBoss";
 			}
 			
 			//top wall left

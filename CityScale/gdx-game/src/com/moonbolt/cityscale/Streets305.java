@@ -926,17 +926,17 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			if(playerPosX > 97 && playerPosX < 115 && playerPosY < -128) {
-				//loading = true;
-				//loadingDownCurtain = 100;
-				//mapSwitchConfig = "Streets750right";
-				//mapSwitch = "Streets750";
+				loading = true;
+				loadingDownCurtain = 100;
+				mapSwitchConfig = "Streets750right";
+				mapSwitch = "Streets750";
 			}
 			
 			if(playerPosX > -2 && playerPosX < 19 && playerPosY < -123) {
-				//loading = true;
-				//loadingDownCurtain = 100;
-				//mapSwitchConfig = "Streets750left";
-				//mapSwitch = "Streets750";
+				loading = true;
+				loadingDownCurtain = 100;
+				mapSwitchConfig = "Streets750left";
+				mapSwitch = "Streets750";
 			}
 			
 			//top end
