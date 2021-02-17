@@ -1,0 +1,26 @@
+effect.png
+size: 508, 191
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+paw
+  rotate: false
+  xy: 0, 0
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+stonedrop
+  rotate: false
+  xy: 120, 0
+  size: 220, 191
+  orig: 220, 191
+  offset: 0, 0
+  index: -1
+waterfloor
+  rotate: false
+  xy: 340, 0
+  size: 168, 170
+  orig: 168, 170
+  offset: 0, 0
+  index: -1
