@@ -8240,7 +8240,7 @@ public class GameControl {
 		
 	}
 	
-public ArrayList<Monster> LoadMonstersWaterCaveBoss() {
+	public ArrayList<Monster> LoadMonstersWaterCaveBoss() {
 		
 		lstMobs.clear();
 		

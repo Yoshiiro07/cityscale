@@ -19,10 +19,10 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
     private Viewport viewport;
 	private Sprite spr_Logo;
 	private Texture tex_logo;
-	private int fadeInCount;
-	private int fadeOutCount;
 	private boolean interpolation;
 	private int countEffect;
+	private int fadeInCount;
+	private int fadeOutCount;
 	
 	public SplashScreen(MainGame game, ManagerScreen screen){
 		this.screen = screen;
@@ -36,7 +36,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		fadeOutCount = 1;
 		interpolation = false;
 		countEffect = 0;
-		tex_logo = new Texture(Gdx.files.internal("data/assets/logo.png"));
+		tex_logo = new Texture(Gdx.files.internal("data/assets/title.png"));
 		spr_Logo = new Sprite(tex_logo);
 		spr_Logo.setPosition(35,34);
 		spr_Logo.setSize(30,40);

@@ -924,10 +924,10 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		}
 		
 		if(playerPosX > 194 && playerPosX < 217 && playerPosY > 104 && playerPosY < 119) {
-			loading = true;
-			loadingDownCurtain = 100;
-			mapSwitchConfig = "WatercaveBoss";
-			mapSwitch = "WatercaveBoss";
+			//loading = true;
+			//loadingDownCurtain = 100;
+			//mapSwitchConfig = "WatercaveBoss";
+			//mapSwitch = "WatercaveBoss";
 			return;
 		}
 		

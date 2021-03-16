@@ -48,7 +48,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	private Sprite spr_testeDot;
     private Texture tex_testeDot;
     
-	
 	//fonts
 	private BitmapFont font_master;
 	
