@@ -39,6 +39,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 		
 		//Player
 		private Player activePlayer;
+		private Player onlinePlayer;
 		private int numPlayerActive;
 		private int framePlayer = 1;
 		private String state = "front";
@@ -193,6 +194,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			lstChats = new ArrayList<String>();
 			lstMobs = new ArrayList<Monster>();
 			lstMobs = gameControl.LoadMonstersSewersBoss();
+			onlinePlayer = new Player();
 			
 			//Sprites
 			tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
@@ -214,15 +216,6 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
-			
-			if(networkState.equals("on")) {
-				network = true;
-				gameControl.OnlineManager("Sync","");
-				typeDisplay = "Config";
-				//msgDisplay = "Online Ligado";
-				isDisplay = true;
-				countDisplay = 200;
-			}
 		}
 		
 		
@@ -347,29 +340,16 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
 			
 			
-			if(!lstChats.isEmpty()) {
-				font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
-				for(count = 0; count < lstChats.size(); count++) {
-					if(count == 0) {
-						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
-							return;
-						}
-						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 17.7f);
-					}
-					if(count == 1) {
-						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
-							return;
-						}
-						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 22.7f);
-					}
-					if(count == 2) {
-						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
-							return;
-						}
-						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
-					}	
+			//Verifica e Exibi chat
+			lstChats = gameControl.GetOnlineChats();
+			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
+			if(lstChats.size() >= 2) {
+				for(count = 0; count <= 2; count++) {
+					if(count == 0) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 17.7f); }
+					if(count == 1) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 22.7f); }
+					if(count == 2) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 27.7f); }					
 				}
-			}
+			}	
 			
 			//Hotkey Itens
 			spr_item = gameControl.ShowItemBar(1, cameraCoordsX, cameraCoordsY);
@@ -1018,13 +998,16 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		
-			private void ShowOnlinePlayers() {		
+		private void ShowOnlinePlayers() {		
 			if(network) {			
-				lstChats = gameControl.GetOnlineChats();				
 				lstPlayerOnline = gameControl.GetOnlinePlayers();   		
-				if(lstPlayerOnline.size() == 0) { return; }
-				for(int i = 0; i < lstPlayerOnline.size(); i++) {  	
-					if(lstPlayerOnline.get(i).accountID.equals("")) { return; }
+				
+				for(int i = 0; i < lstPlayerOnline.size(); i++) {
+					
+					onlinePlayer = lstPlayerOnline.get(i);
+					if(onlinePlayer == null) { return; }
+					if(onlinePlayer.accountID.equals("")) { return; }
+					
 					//Exibe jogadores do mesmo mapa
 					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) { 
 					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));

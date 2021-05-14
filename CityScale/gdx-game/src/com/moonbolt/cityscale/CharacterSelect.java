@@ -98,6 +98,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		spr_testeDot = new Sprite(tex_testeDot);
 		
 		gameControl.LoadData();
+		gameControl.OnlineManager("Sync","");
 	}
 
 	@Override

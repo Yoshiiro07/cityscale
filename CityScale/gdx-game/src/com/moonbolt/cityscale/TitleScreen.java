@@ -105,9 +105,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		spr_titleBackground.setSize(100, 120);
 		spr_titleBackground.draw(game.batch);
 		
-		spr_logo.setPosition(5, 55);
-		spr_logo.setSize(30, 30);
-		spr_logo.draw(game.batch);
+		//spr_logo.setPosition(5, 55);
+		//spr_logo.setSize(30, 30);
+		//spr_logo.draw(game.batch);
 		
 		if(state.equals("Main")) {
 			//Sprites

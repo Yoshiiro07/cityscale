@@ -36,7 +36,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		fadeOutCount = 1;
 		interpolation = false;
 		countEffect = 0;
-		tex_logo = new Texture(Gdx.files.internal("data/assets/title.png"));
+		tex_logo = new Texture(Gdx.files.internal("data/assets/logo.png"));
 		spr_Logo = new Sprite(tex_logo);
 		spr_Logo.setPosition(35,34);
 		spr_Logo.setSize(30,40);

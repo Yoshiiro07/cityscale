@@ -141,7 +141,7 @@ public class GameControl {
 	private boolean onlineCheck = false; 
 	private ArrayList<String> lstChats;
 	private ArrayList<Player> lstPlayersOnline;
-	private String onlineDataReceive = "";
+	private String onlineDataChat = "";
 	private String[] dataSplit;
 	private String[] dataSplitExtra;
 	private String[] dataInfoSplit;
@@ -163,7 +163,6 @@ public class GameControl {
 	private String line;
 	private float onlineplayerPosX;
 	private float onlineplayerPosY;
-	private int listonlinesize = 0;
 	
 	//Camera Variables
 	private float cameraCoordsX;
@@ -6224,13 +6223,12 @@ public class GameControl {
 		}
 	};
 	
-	
-	public ArrayList<Player> GetOnlinePlayers() {
-		return lstPlayersOnline;
-	}
-	
 	public ArrayList<String> GetOnlineChats(){
 		return lstChats;
+	}
+	
+	public ArrayList<Player> GetOnlinePlayers(){
+		return lstPlayersOnline;
 	}
 	
 	public Sprite MovPlayerOnline(Player playerOnline) {  
@@ -7169,6 +7167,7 @@ public class GameControl {
 	        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        line = "";
 	        returnFromServer = "";
+	        lstChats.clear();
 	        while ((line = rd.readLine()) != null) {
 	        	returnFromServer = line;   
 	        	//Resultado:
@@ -7346,104 +7345,127 @@ public class GameControl {
 	private void PlayersManagerOnline(String data) {
 		//lstPlayersOnline	
 		dataSplit = data.split(":");
-		
 		playerInfoOnline = new Player();
 		
 		dataInfoSplit = dataSplit[1].split("=");
 		playerInfoOnline.name_A = dataInfoSplit[1];
 		if(playerInfoOnline.name_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.name_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[2].split("=");
 		playerInfoOnline.hp_A = dataInfoSplit[1];
 		if(playerInfoOnline.hp_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.hp_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[3].split("=");
 		playerInfoOnline.mp_A = dataInfoSplit[1];
 		if(playerInfoOnline.mp_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.mp_A.equals("")) { playerInfoOnline.accountID = ""; }
 		
 		dataInfoSplit = dataSplit[4].split("=");
 		playerInfoOnline.coordX_A = dataInfoSplit[1];
 		if(playerInfoOnline.coordX_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.coordX_A.equals("")) { playerInfoOnline.accountID = ""; }
 		
 		dataInfoSplit = dataSplit[5].split("=");
 		playerInfoOnline.coordY_A = dataInfoSplit[1];
 		if(playerInfoOnline.coordY_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.coordY_A.equals("")) { playerInfoOnline.accountID = ""; }
 		
 		dataInfoSplit = dataSplit[6].split("=");
 		playerInfoOnline.map_A = dataInfoSplit[1];
-		if(playerInfoOnline.map_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.map_A == null) { playerInfoOnline.accountID = ""; }
+		if(playerInfoOnline.map_A.equals("")) { playerInfoOnline.accountID = ""; }
 		
 		dataInfoSplit = dataSplit[7].split("=");
 		playerInfoOnline.level_A = dataInfoSplit[1];
 		if(playerInfoOnline.level_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.level_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[8].split("=");
 		playerInfoOnline.set_A = dataInfoSplit[1];
 		if(playerInfoOnline.set_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.set_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[9].split("=");
 		playerInfoOnline.hair_A = dataInfoSplit[1];
 		if(playerInfoOnline.hair_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.hair_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[10].split("=");
 		playerInfoOnline.hat_A = dataInfoSplit[1];
 		if(playerInfoOnline.hat_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.hat_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[11].split("=");
 		playerInfoOnline.weapon_A = dataInfoSplit[1];
 		if(playerInfoOnline.weapon_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.weapon_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[12].split("=");
 		playerInfoOnline.inBattle_A = dataInfoSplit[1];
-		if(playerInfoOnline.inBattle_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.inBattle_A == null) { playerInfoOnline.accountID = ""; }
+		if(playerInfoOnline.inBattle_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[13].split("=");
 		playerInfoOnline.side_A = dataInfoSplit[1];
 		if(playerInfoOnline.side_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.side_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[14].split("=");
 		playerInfoOnline.pos_A = dataInfoSplit[1];
 		if(playerInfoOnline.pos_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.pos_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[15].split("=");
 		playerInfoOnline.walk_A = dataInfoSplit[1];
 		if(playerInfoOnline.walk_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.walk_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[16].split("=");
 		playerInfoOnline.accountID = dataInfoSplit[1];
 		if(playerInfoOnline.accountID == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.accountID.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[17].split("=");
 		playerInfoOnline.party_A = dataInfoSplit[1];
 		if(playerInfoOnline.party_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.party_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[18].split("=");
 		playerInfoOnline.sex_A = dataInfoSplit[1];
 		if(playerInfoOnline.sex_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.sex_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[19].split("=");
 		playerInfoOnline.job_A = dataInfoSplit[1];
 		if(playerInfoOnline.job_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.job_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[21].split("=");
 		playerInfoOnline.buffsA_A = dataInfoSplit[1];
 		if(playerInfoOnline.buffsA_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.buffsA_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[22].split("=");
 		playerInfoOnline.buffsB_A = dataInfoSplit[1];
 		if(playerInfoOnline.buffsB_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.buffsB_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[23].split("=");
 		playerInfoOnline.buffsC_A = dataInfoSplit[1];
 		if(playerInfoOnline.buffsC_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.buffsC_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[24].split("=");
 		playerInfoOnline.heal_A = dataInfoSplit[1];
 		if(playerInfoOnline.heal_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.heal_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		dataInfoSplit = dataSplit[25].split("=");
 		playerInfoOnline.expshared_A = dataInfoSplit[1]; 
 		if(playerInfoOnline.expshared_A == null) { playerInfoOnline.accountID = ""; } 
+		if(playerInfoOnline.expshared_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
 		if(lstPlayersOnline.size() > 0) {
 			if(lstPlayersOnline.get(0).accountID.equals(playerInfo.accountID) && lstPlayersOnline.get(0).map_A.equals(playerInfo.map_A)) {
@@ -7463,6 +7485,7 @@ public class GameControl {
 				lstPlayersOnline.get(i).coordX_A = playerInfoOnline.coordX_A; 
 				lstPlayersOnline.get(i).coordY_A = playerInfoOnline.coordY_A; 
 				lstPlayersOnline.get(i).level_A = playerInfoOnline.level_A; 
+				lstPlayersOnline.get(i).map_A = playerInfoOnline.map_A;
 				lstPlayersOnline.get(i).set_A = playerInfoOnline.set_A; 
 				lstPlayersOnline.get(i).hair_A = playerInfoOnline.hair_A; 
 				lstPlayersOnline.get(i).hat_A = playerInfoOnline.hat_A;
@@ -7581,21 +7604,10 @@ public class GameControl {
 	}
 	
 	private void ChatManagerOnline(String data) {
-		dataSplit = data.split(":");	
-		dataInfoSplit = dataSplit[1].split("=");
-		onlineDataReceive = dataInfoSplit[1];
-		dataInfoSplit = dataSplit[2].split("=");
-		onlineDataReceive = onlineDataReceive + ":" + dataInfoSplit[1];		
-		
-		lstChats.add(onlineDataReceive);
-		
-		if(lstChats.size() > 3) {
-			lstChats.remove(0);
-		}		
-		
-		if(lstChats.get(0) == null) { lstChats.set(0, ""); }
-		if(lstChats.get(1) == null) { lstChats.set(1, ""); }
-		if(lstChats.get(2) == null) { lstChats.set(2, ""); }
+		onlineDataChat = data.replace("SYSTEMCHAT - :Nome=", "");
+		onlineDataChat = onlineDataChat.replace(":Mensagem=", "-");
+		onlineDataChat = onlineDataChat.replace(":","");
+		lstChats.add(onlineDataChat);
 	}
 	
 	public void LoadDownloadData(String hash) {

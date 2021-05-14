@@ -39,6 +39,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		
 		//Player
 		private Player activePlayer;
+		private Player onlinePlayer;
 		private int numPlayerActive;
 		private int framePlayer = 1;
 		private String state = "front";
@@ -105,6 +106,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private Sprite spr_MenuConfig;
 			
 		//Primitives
+		private int flopBackground = 0;
 		private float posTouchX = 0;
 		private float posTouchY = 0;
 		private boolean changeScreen = false;
@@ -193,6 +195,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			lstChats = new ArrayList<String>();
 			lstMobs = new ArrayList<Monster>();
 			lstMobs = gameControl.LoadMonstersSewers();
+			onlinePlayer = new Player();
 			
 			//Sprites
 			tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
@@ -208,21 +211,12 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
 			
-			tex_BackgroundOver = new Texture(Gdx.files.internal("data/maps/streets305over.png"));
+			tex_BackgroundOver = new Texture(Gdx.files.internal("data/maps/sewersmov.png"));
 			spr_BackgroundOver = new Sprite(tex_BackgroundOver);
 			spr_BackgroundOver.setSize(100, 100);
 			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
-			
-			if(networkState.equals("on")) {
-				network = true;
-				gameControl.OnlineManager("Sync","");
-				typeDisplay = "Config";
-				msgDisplay = "Online Ligado";
-				isDisplay = true;
-				countDisplay = 200;
-			}
 		}
 		
 		
@@ -264,9 +258,19 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			gameControl.AtualizaCamera(cameraCoordsX, cameraCoordsY);
 			
 			//Background
+			if(flopBackground >= 0 || 30 <= flopBackground) {
+			flopBackground++;
 			spr_Background.setPosition(-100, -150);
 			spr_Background.setSize(350, 350);
-			spr_Background.draw(game.batch);
+			spr_Background.draw(game.batch);			
+			}
+			if(flopBackground >= 30 || 60 <= flopBackground) {
+			flopBackground++;
+			spr_BackgroundOver.setPosition(-100, -150);
+			spr_BackgroundOver.setSize(350, 350);
+			spr_BackgroundOver.draw(game.batch);			
+			}
+			if(flopBackground >= 60) { flopBackground = 0; }
 			
 			//Show NPC
 			//ShowNPCs();
@@ -346,30 +350,16 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 34f, cameraCoordsY + 75f);
 			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
 			
-			
-			if(!lstChats.isEmpty()) {
-				font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
-				for(count = 0; count < lstChats.size(); count++) {
-					if(count == 0) {
-						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
-							return;
-						}
-						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 17.7f);
-					}
-					if(count == 1) {
-						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
-							return;
-						}
-						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 22.7f);
-					}
-					if(count == 2) {
-						if(lstChats.get(count) == null || lstChats.get(count).equals("")) {
-							return;
-						}
-						font_master.draw(game.batch, lstChats.get(count), cameraCoordsX - 37f, cameraCoordsY - 27.7f);
-					}	
+			//Verifica e Exibi chat
+			lstChats = gameControl.GetOnlineChats();
+			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
+			if(lstChats.size() >= 2) {
+				for(count = 0; count <= 2; count++) {
+					if(count == 0) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 17.7f); }
+					if(count == 1) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 22.7f); }
+					if(count == 2) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 27.7f); }					
 				}
-			}
+			}	
 			
 			//Hotkey Itens
 			spr_item = gameControl.ShowItemBar(1, cameraCoordsX, cameraCoordsY);
@@ -1112,13 +1102,16 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		}
 		
 		
-			private void ShowOnlinePlayers() {		
+		private void ShowOnlinePlayers() {		
 			if(network) {			
-				lstChats = gameControl.GetOnlineChats();				
 				lstPlayerOnline = gameControl.GetOnlinePlayers();   		
-				if(lstPlayerOnline.size() == 0) { return; }
-				for(int i = 0; i < lstPlayerOnline.size(); i++) {  	
-					if(lstPlayerOnline.get(i).accountID.equals("")) { return; }
+				
+				for(int i = 0; i < lstPlayerOnline.size(); i++) {
+					
+					onlinePlayer = lstPlayerOnline.get(i);
+					if(onlinePlayer == null) { return; }
+					if(onlinePlayer.accountID.equals("")) { return; }
+					
 					//Exibe jogadores do mesmo mapa
 					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) { 
 					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
