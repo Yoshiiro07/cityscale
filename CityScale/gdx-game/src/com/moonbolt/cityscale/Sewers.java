@@ -211,7 +211,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
 			
-			tex_BackgroundOver = new Texture(Gdx.files.internal("data/maps/sewersmov.png"));
+			tex_BackgroundOver = new Texture(Gdx.files.internal("data/maps/sewers.png"));
 			spr_BackgroundOver = new Sprite(tex_BackgroundOver);
 			spr_BackgroundOver.setSize(100, 100);
 			
@@ -257,20 +257,24 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			//Update Camera for UI elements
 			gameControl.AtualizaCamera(cameraCoordsX, cameraCoordsY);
 			
-			//Background
-			if(flopBackground >= 0 || 30 <= flopBackground) {
-			flopBackground++;
 			spr_Background.setPosition(-100, -150);
 			spr_Background.setSize(350, 350);
-			spr_Background.draw(game.batch);			
-			}
-			if(flopBackground >= 30 || 60 <= flopBackground) {
-			flopBackground++;
-			spr_BackgroundOver.setPosition(-100, -150);
-			spr_BackgroundOver.setSize(350, 350);
-			spr_BackgroundOver.draw(game.batch);			
-			}
-			if(flopBackground >= 60) { flopBackground = 0; }
+			spr_Background.draw(game.batch);	
+			
+			//Background
+			//if(flopBackground >= 0 || 30 <= flopBackground) {
+			//flopBackground++;
+			//spr_Background.setPosition(-100, -150);
+			//spr_Background.setSize(350, 350);
+			//spr_Background.draw(game.batch);			
+			//}
+			//if(flopBackground >= 30 || 60 <= flopBackground) {
+			//flopBackground++;
+			//spr_BackgroundOver.setPosition(-100, -150);
+			//spr_BackgroundOver.setSize(350, 350);
+			//spr_BackgroundOver.draw(game.batch);			
+			//}
+			//if(flopBackground >= 60) { flopBackground = 0; }
 			
 			//Show NPC
 			//ShowNPCs();
@@ -353,7 +357,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			//Verifica e Exibi chat
 			lstChats = gameControl.GetOnlineChats();
 			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
-			if(lstChats.size() >= 2) {
+			if(lstChats.size() >= 2 && lstChats != null) {
 				for(count = 0; count <= 2; count++) {
 					if(count == 0) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 17.7f); }
 					if(count == 1) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 22.7f); }
@@ -1027,7 +1031,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		
 		}
 		
-		private void ShowItensBag() {
+private void ShowItensBag() {
 			
 			//Common Itens
 			for(count = 0; count <= 47; count++) {
@@ -1036,7 +1040,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 					spr_item.draw(game.batch);
 					font_master.draw(game.batch, gameControl.ShowQuantityItem(count), spr_item.getX() + 7,spr_item.getY() + 3);
 				}
-			}
+			}	
 			
 			//Crystal Itens
 			spr_item = gameControl.ShowCrystalItem(1,cameraCoordsX, cameraCoordsY); // Crystal 1

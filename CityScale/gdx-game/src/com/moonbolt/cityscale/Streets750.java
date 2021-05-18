@@ -825,8 +825,13 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			if(gameState.equals("Shop")) {		
-				if(!shop.equals("Crystal")) { font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX + 12,cameraCoordsY + 3); }
-				font_master.draw(game.batch, nameBuy, cameraCoordsX + 27,cameraCoordsY + 3);
+				if(!shop.equals("Crystal")) { 
+					font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX + 12,cameraCoordsY + 3); 
+					font_master.draw(game.batch, nameBuy, cameraCoordsX + 27,cameraCoordsY + 3);
+				}
+				
+				if(shop.equals("Crystal")) { font_master.draw(game.batch, nameBuy, cameraCoordsX + 10,cameraCoordsY - 8); } //here
+				
 				if(timeBuyCount > 0) {
 					timeBuyCount--;
 					
@@ -1048,7 +1053,8 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			}
 		}
 		
-		private void ShowItensBag() {		
+		private void ShowItensBag() {
+			
 			//Common Itens
 			for(count = 0; count <= 47; count++) {
 				spr_item = gameControl.ShowItem(count,menuItemTab,cameraCoordsX, cameraCoordsY);
@@ -2154,15 +2160,12 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				
 				//Crystal Shop
-				//here
-				
 				//Item 1
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
 					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuyStreets305("RefriShop", 1); timeBuyCount = 40; } 
 					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 1); timeBuyCount = 40; } 
 					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 1); timeBuyCount = 40; } 
-					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(1); timeBuyCount = 40; } 
-					
+					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(1); timeBuyCount = 40; } 				
 					return false;
 				}
 				//Item 2

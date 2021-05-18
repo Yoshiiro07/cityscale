@@ -4123,27 +4123,7 @@ public class GameControl {
 		
 		for(int i = 0; i < lstItem.length; i++) {
 			
-			if(lstItem[i].contains("FRAGRED") && numItem == 1) {
-				item = lstItem[i];
-				if(!item.equals("[NONE]")) {
-					itemSplit = item.split("#");
-					item = itemSplit[1].replace("]", "");	
-					qtd = item;
-					qtdDef = Integer.parseInt(qtd);
-					if(qtdDef >= 15) { 
-						crystalType = GetCrystalType("RED");
-						AddItemBag(crystalType); 
-						qtdDef = qtdDef - 15;
-						if(qtdDef < 0) { qtdDef = 0; }
-						itemHasAdded = true;
-					}
-				}
-				else {
-					return "Quantidade insuficiente";
-				}		
-			}
-			
-			if(lstItem[i].contains("FRAGBLUE") && numItem == 2) {
+			if(lstItem[i].contains("FRAGBLUE") && numItem == 1) {
 				item = lstItem[i];
 				if(!item.equals("[NONE]")) {
 					itemSplit = item.split("#");
@@ -4157,13 +4137,16 @@ public class GameControl {
 						if(qtdDef < 0) { qtdDef = 0; }
 						itemHasAdded = true;
 					}
+					else {
+						return "Quantidade insuficiente";
+					}
 				}
 				else {
 					return "Quantidade insuficiente";
 				}
 			}
 			
-			if(lstItem[i].contains("FRAGGREEN") && numItem == 3) {
+			if(lstItem[i].contains("FRAGGREEN") && numItem == 2) {
 				item = lstItem[i];
 				if(!item.equals("[NONE]")) {
 					itemSplit = item.split("#");
@@ -4177,13 +4160,16 @@ public class GameControl {
 						if(qtdDef < 0) { qtdDef = 0; }
 						itemHasAdded = true;
 					}
+					else {
+						return "Quantidade insuficiente";
+					}
 				}
 				else {
 					return "Quantidade insuficiente";
 				}
 			}
 			
-			if(lstItem[i].contains("FRAGYELLOW") && numItem == 4) {
+			if(lstItem[i].contains("FRAGYELLOW") && numItem == 3) {
 				item = lstItem[i];
 				if(!item.equals("[NONE]")) {
 					itemSplit = item.split("#");
@@ -4197,11 +4183,37 @@ public class GameControl {
 						if(qtdDef < 0) { qtdDef = 0; }
 						itemHasAdded = true;
 					}
+					else {
+						return "Quantidade insuficiente";
+					}
 				}
 				else {
 					return "Quantidade insuficiente";
 				}
 			}
+			
+			if(lstItem[i].contains("FRAGRED") && numItem == 4) {
+				item = lstItem[i];
+				if(!item.equals("[NONE]")) {
+					itemSplit = item.split("#");
+					item = itemSplit[1].replace("]", "");	
+					qtd = item;
+					qtdDef = Integer.parseInt(qtd);
+					if(qtdDef >= 15) { 
+						crystalType = GetCrystalType("RED");
+						AddItemBag(crystalType); 
+						qtdDef = qtdDef - 15;
+						if(qtdDef < 0) { qtdDef = 0; }
+						itemHasAdded = true;
+					}
+					else {
+						return "Quantidade insuficiente";
+					}
+				}
+				else {
+					return "Quantidade insuficiente";
+				}		
+			}		
 		}
 		
 		if(itemHasAdded) {
@@ -4768,6 +4780,8 @@ public class GameControl {
 		if(num == 3) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 28.9f, coordsY - 11f);  }
 		if(num == 4) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 38.5f, coordsY - 11f);  }
 		
+		if(crystalEquipped.equals("none")) { spr_master = atlas_itens.createSprite("none");  }
+		
 		return spr_master;
 	}
 	
@@ -4780,8 +4794,8 @@ public class GameControl {
 		if(num == 3) { crystalEquiped = playerInfo.crystalC_A; playerInfo.crystalC_A = "none"; }
 		if(num == 4) { crystalEquiped = playerInfo.crystalD_A; playerInfo.crystalD_A = "none"; }
 		
+		if(crystalEquiped.equals("none")) { return; }
 		AddItemBag(crystalEquiped);
-		
 		GiveCrystalAtribute("RemoveEffect",crystalEquiped);
 		
 	}
@@ -5045,7 +5059,7 @@ public class GameControl {
 		int playerStrenght = 0;
 		int qtd;
 		boolean equipable = false;  
-		boolean crystalUse = false;
+		String crystalUse = "no";
 		
 		item = lstItem[numItem];
 		if(!item.equals("[NONE]")) {
@@ -5060,31 +5074,31 @@ public class GameControl {
 			
 			//Crystals
 			if(itemName.equals("CRYSTALHPPLUS1") || itemName.equals("CRYSTALHPPLUS2") || itemName.equals("CRYSTALSTRPLUS1") || itemName.equals("CRYSTALSTRPLUS2")) {
-				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalD_A.equals("none") && !crystalUse) { playerInfo.crystalD_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalD_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalD_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALMPPLUS1") || itemName.equals("CRYSTALMPPLUS2") || itemName.equals("CRYSTALWISPLUS1") || itemName.equals("CRYSTALWISPLUS2")) {
-				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalD_A.equals("none") && !crystalUse) { playerInfo.crystalD_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalD_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalD_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALRESPLUS1") || itemName.equals("CRYSTALRESPLUS2") || itemName.equals("CRYSTALSORPLUS1") || itemName.equals("CRYSTALSORPLUS2")) {
-				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalD_A.equals("none") && !crystalUse) { playerInfo.crystalD_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalD_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalD_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALAGIPLUS1") || itemName.equals("CRYSTALAGIPLUS2") || itemName.equals("CRYSTALDESPLUS1") || itemName.equals("CRYSTALDESPLUS2")) {
-				if(playerInfo.crystalA_A.equals("none") && !crystalUse) { playerInfo.crystalA_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalB_A.equals("none") && !crystalUse) { playerInfo.crystalB_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalC_A.equals("none") && !crystalUse) { playerInfo.crystalC_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
-				if(playerInfo.crystalD_A.equals("none") && !crystalUse) { playerInfo.crystalD_A = "itemName"; GiveCrystalAtribute("AddEffect",itemName); crystalUse = true; }
+				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalD_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalD_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				equipable = false;
 			}
 					
@@ -7659,8 +7673,8 @@ public class GameControl {
 			mobA.MobSelected = "no";
 			mobA.maxRanged = 20;
 			mobA.minRanged = 40;
-			mobA.loot1 = "BLOP";
-			mobA.loot2 = "HATSLIME";
+			mobA.loot1 = "FRAGBLUE"; //BLOP
+			mobA.loot2 = "FRAGBLUE"; //HATSLIME
 			mobA.loot3 = "FRAGBLUE";  
 			mobA.respawnTime = 300;
 			mobA.respawnTimeMax = 300;
@@ -8214,14 +8228,14 @@ public class GameControl {
 		mobA.mobPosY = -26;
 		mobA.mobStartPosX = 59;
 		mobA.mobStartPosY = -26;
-		mobA.mobHeight = 65;
+		mobA.mobHeight = 75;
 		mobA.mobWidth = 55;
 		mobA.mobID = "KingSlimeA";
-		mobA.hp = 15000;
+		mobA.hp = 25000;
 		mobA.mp = 10;
-		mobA.maxHP = 15000;
+		mobA.maxHP = 25000;
 		mobA.maxMP = 10;
-		mobA.exp = 4;
+		mobA.exp = 5000;
 		mobA.inCasting = false;
 		mobA.dead = false;
 		mobA.target = "None";
@@ -8238,8 +8252,8 @@ public class GameControl {
 		mobA.loot1 = "BLOP";
 		mobA.loot2 = "HATSLIME";
 		mobA.loot3 = "FRAGBLUE";  
-		mobA.respawnTime = 300;
-		mobA.respawnTimeMax = 300;
+		mobA.respawnTime = 2500;
+		mobA.respawnTimeMax = 2500;
 		mobA.map = "SewersBoss";
 		mobA.statusTime = 300;
 		mobA.speed = 0.12f;
@@ -12811,10 +12825,10 @@ public class GameControl {
 			if(lootItemName.equals("FANG")) { spr_master = atlas_itens.createSprite("lootfang"); }
 			if(lootItemName.equals("STICK")) { spr_master = atlas_itens.createSprite("galhos"); }			
 			if(lootItemName.equals("HATSLIME")) { spr_master = atlas_itens.createSprite("hatslime"); }
-			if(lootItemName.equals("FRAGRED")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); }
-			if(lootItemName.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootcristalazul"); }
-			if(lootItemName.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
-			if(lootItemName.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootcristalverde"); }
+			if(lootItemName.equals("FRAGRED")) { spr_master = atlas_itens.createSprite("lootfragmentovermelho"); }
+			if(lootItemName.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootfragmentoazul"); }
+			if(lootItemName.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootfragmentoamarelo"); }
+			if(lootItemName.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootfragmentoverde"); }
 			
 			spr_master.setSize(7, 12);
 			spr_master.setPosition(ccX + 15, ccY + 61.5f);

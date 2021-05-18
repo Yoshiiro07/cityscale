@@ -263,7 +263,10 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Show NPC
 			//ShowNPCs();
-				
+		
+			//Show Monsters
+			ShowMonsters();
+		
 			//Player Character
 			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false, breakWalk);
 			spr_playerCharacter.setSize(22, 34);
@@ -280,10 +283,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Show Online Players
 			ShowOnlinePlayers();
-					
-			//Show Monsters
-			ShowMonsters();
-				
+							
 			//UI Elements
 			spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","","");
 			spr_playerTag.draw(game.batch);
@@ -932,7 +932,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 					spr_item.draw(game.batch);
 					font_master.draw(game.batch, gameControl.ShowQuantityItem(count), spr_item.getX() + 7,spr_item.getY() + 3);
 				}
-			}
+			}	
 			
 			//Crystal Itens
 			spr_item = gameControl.ShowCrystalItem(1,cameraCoordsX, cameraCoordsY); // Crystal 1

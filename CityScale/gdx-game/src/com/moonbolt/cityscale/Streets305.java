@@ -350,7 +350,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//Verifica e Exibi chat
 			lstChats = gameControl.GetOnlineChats();
 			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
-			if(lstChats.size() >= 2) {
+			if(lstChats.size() >= 2 && lstChats != null) {
 				for(count = 0; count <= 2; count++) {
 					if(count == 0) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 17.7f); }
 					if(count == 1) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 22.7f); }
@@ -1669,17 +1669,17 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				
 				//Item 1
 				if(coordsTouch.x >= (cameraCoordsX - 47) && coordsTouch.x <= (cameraCoordsX - 39) && coordsTouch.y >= (cameraCoordsY + 43) && coordsTouch.y <= (cameraCoordsY + 56)) {
-					if(menuItemTab == 1 && discart) { gameControl.DiscartItem(0); discart = false; return false; }
+					if(menuItemTab == 1 && discart) { gameControl.DiscartItem(0);  discart = false; return false; }
 					if(menuItemTab == 2 && discart) { gameControl.DiscartItem(12); discart = false; return false; }
 					if(menuItemTab == 3 && discart) { gameControl.DiscartItem(24); discart = false; return false; }
 					if(menuItemTab == 4 && discart) { gameControl.DiscartItem(36); discart = false; return false; }
 					
-					if(menuItemTab == 1 && hotkey) { gameControl.HotKeyItem(0); hotkey = false; return false; }
+					if(menuItemTab == 1 && hotkey) { gameControl.HotKeyItem(0);  hotkey = false; return false; }
 					if(menuItemTab == 2 && hotkey) { gameControl.HotKeyItem(12); hotkey = false; return false; }
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(24); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(36); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(0); description = false; return false; }
+					if(menuItemTab == 1 && description) { gameControl.Decription(0);  description = false; return false; }
 					if(menuItemTab == 2 && description) { gameControl.Decription(12); description = false; return false; }
 					if(menuItemTab == 3 && description) { gameControl.Decription(24); description = false; return false; }
 					if(menuItemTab == 4 && description) { gameControl.Decription(36); description = false; return false; }
