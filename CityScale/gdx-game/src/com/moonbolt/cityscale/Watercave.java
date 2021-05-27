@@ -347,15 +347,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 
 		//Verifica e Exibi chat
-		lstChats = gameControl.GetOnlineChats();
-		font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
-		if(lstChats.size() >= 2) {
-			for(count = 0; count <= 2; count++) {
-				if(count == 0) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 17.7f); }
-				if(count == 1) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 22.7f); }
-				if(count == 2) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 27.7f); }					
-			}
-		}	
+		
 
 		//Hotkey Itens
 		spr_item = gameControl.ShowItemBar(1, cameraCoordsX, cameraCoordsY);

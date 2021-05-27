@@ -138,6 +138,8 @@ public class GameControl {
 	
 	//Online
 	private int threahCount = 0;
+	private int orderChat = 0;
+	private String verificaChat = "";
 	private boolean onlineCheck = false; 
 	private ArrayList<String> lstChats;
 	private ArrayList<Player> lstPlayersOnline;
@@ -250,8 +252,7 @@ public class GameControl {
 	
 	// CONSTRUCTOR
 	public GameControl() {
-		this.playerInfo = new Player();
-		
+		this.playerInfo = new Player();	
 		this.tex_teste = new Texture(Gdx.files.internal("data/assets/testdot.png"));
 		this.spr_master = new Sprite(tex_teste);
 		
@@ -5071,6 +5072,10 @@ public class GameControl {
 			if(itemName.equals("FANG")) { return; }
 			if(itemName.equals("POISONLEAF")) { return; }
 			if(itemName.equals("MUSHROOM")) { return; }
+			if(itemName.equals("FRAGBLUE")) { return; }
+			if(itemName.equals("FRAGGREEN")) { return; }
+			if(itemName.equals("FRAGRED")) { return; }
+			if(itemName.equals("FRAGYELLOW")) { return; }
 			
 			//Crystals
 			if(itemName.equals("CRYSTALHPPLUS1") || itemName.equals("CRYSTALHPPLUS2") || itemName.equals("CRYSTALSTRPLUS1") || itemName.equals("CRYSTALSTRPLUS2")) {
@@ -6237,7 +6242,7 @@ public class GameControl {
 		}
 	};
 	
-	public ArrayList<String> GetOnlineChats(){
+	public ArrayList<String> GetChatsOnline(){
 		return lstChats;
 	}
 	
@@ -7129,6 +7134,7 @@ public class GameControl {
 			if(countCleanPlayersOnline > 0) {
 				countCleanPlayersOnline--;
 			}
+			
 			if(countCleanPlayersOnline <= 0) {
 				lstPlayersOnline.clear();
 				countCleanPlayersOnline = 50;
@@ -7181,7 +7187,7 @@ public class GameControl {
 	        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        line = "";
 	        returnFromServer = "";
-	        lstChats.clear();
+	        
 	        while ((line = rd.readLine()) != null) {
 	        	returnFromServer = line;   
 	        	//Resultado:
@@ -7189,12 +7195,12 @@ public class GameControl {
 		        	PlayersManagerOnline(returnFromServer);        		
 	            }	
 		        
-		        if(returnFromServer.contains("SYSTEMCHAT")) {
-	        		ChatManagerOnline(returnFromServer); 
+		        if(returnFromServer.contains("SYSTEMCHAT")) {		        	
+		       		ChatManagerOnline(returnFromServer);   	        	
 	        	}
 		        
 		        if(returnFromServer.contains("SYSTEMMOBS")) {
-		        	MobsManagerOnline(returnFromServer);
+		        	MobsManagerOnline(returnFromServer); 
 		        }
 		        
 		        if(returnFromServer.contains("SYSTEMRESET")) {
@@ -7621,7 +7627,30 @@ public class GameControl {
 		onlineDataChat = data.replace("SYSTEMCHAT - :Nome=", "");
 		onlineDataChat = onlineDataChat.replace(":Mensagem=", "-");
 		onlineDataChat = onlineDataChat.replace(":","");
-		lstChats.add(onlineDataChat);
+		
+		if(lstChats.size() == 3) {
+			
+			if(!(onlineDataChat.equals(lstChats.get(0)) || onlineDataChat.equals(lstChats.get(1)) || onlineDataChat.equals(lstChats.get(2)))){
+				
+				verificaChat = lstChats.get(1);
+				lstChats.set(2, verificaChat);
+				
+				verificaChat = lstChats.get(0);
+				lstChats.set(1, verificaChat);
+				
+				lstChats.set(0, onlineDataChat);				
+			}	
+			else {
+				if(orderChat == 1) { lstChats.set(0, onlineDataChat); orderChat++; return; }
+				if(orderChat == 2) { lstChats.set(1, onlineDataChat); orderChat++; return; }
+				if(orderChat == 3) { lstChats.set(2, onlineDataChat); orderChat = 1; return; }
+			}
+		}
+		
+		else {
+			lstChats.add(onlineDataChat);
+		}
+		//here			
 	}
 	
 	public void LoadDownloadData(String hash) {
@@ -8966,7 +8995,7 @@ public class GameControl {
 		if(mob.name.equals("KingSlime")) {
 			//for atk
 			if(mob.frame >= 50 && mob.frame < 70) { 
-				spr_master = atlas_MonsterBossSewer.createSprite("KingSlime4");   //here
+				spr_master = atlas_MonsterBossSewer.createSprite("KingSlime4");  
 				spr_master.setPosition(mob.mobPosX, mob.mobPosY); 
 				spr_master.setSize(mob.mobWidth, mob.mobHeight); 
 				mob.frame++; 

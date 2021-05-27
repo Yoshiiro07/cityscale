@@ -141,8 +141,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private BitmapFont font_master;
 		
 		//Online
-		private ArrayList<String> lstChats;
 		private int qtdOnline = 0;
+		private ArrayList<String> lstChats;
 		private Sprite spr_playerCharacterOnline;
 		private Sprite spr_playerHairOnline;
 		private Sprite spr_TagParty;
@@ -194,9 +194,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.setUseIntegerPositions(false);	
 			
 			//Initializing Chats & Monsters
-			lstChats = new ArrayList<String>();
 			lstPlayerOnline = new ArrayList<Player>();
 			onlinePlayer = new Player();
+			lstChats = new ArrayList<String>();
 			
 			//Sprites
 			tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
@@ -348,16 +348,14 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			
 			//Verifica e Exibi chat
-			lstChats = gameControl.GetOnlineChats();
-			font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 12.7f);
-			if(lstChats.size() >= 2 && lstChats != null) {
-				for(count = 0; count <= 2; count++) {
-					if(count == 0) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 17.7f); }
-					if(count == 1) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 22.7f); }
-					if(count == 2) { font_master.draw(game.batch,lstChats.get(count),cameraCoordsX - 37f, cameraCoordsY - 27.7f); }					
-				}
-			}	
-			
+			lstChats = gameControl.GetChatsOnline();  //here			
+			for(int i = 0; i < lstChats.size(); i++) {
+				font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 10.7f);
+				if(i == 0) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 37f, cameraCoordsY - 14.7f); }
+				if(i == 1) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 37f, cameraCoordsY - 18.7f); }
+				if(i == 2) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 37f, cameraCoordsY - 22.7f); }
+			}
+				
 			//Hotkey Itens
 			spr_item = gameControl.ShowItemBar(1, cameraCoordsX, cameraCoordsY);
 			if(spr_item != null) { spr_item.draw(game.batch); }
@@ -1325,10 +1323,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-			}
-			else {
-				lstChats.add(input);
-			}		
+			}	
 		}
 
 		@Override

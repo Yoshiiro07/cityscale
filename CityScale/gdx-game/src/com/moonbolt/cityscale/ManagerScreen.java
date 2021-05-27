@@ -56,6 +56,11 @@ public class ManagerScreen implements Screen{
 			game.setScreen(sewersBossScreen);
 		}
 		
+		if(tipo.equals("SewersFromBoss")) {
+			Sewers sewersScreen = new Sewers(game,gameControl, config, platform,network);
+			game.setScreen(sewersScreen);
+		}
+		
 		if(tipo.equals("Streets750")) {
 			Streets750 streets750Screen = new Streets750(game,gameControl, config, platform,network);
 			game.setScreen(streets750Screen);
