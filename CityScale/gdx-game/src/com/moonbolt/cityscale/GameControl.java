@@ -158,7 +158,7 @@ public class GameControl {
 	private int healStop = 0;
 	private String healOnline = "";
 	private String OnlineRequest = "Aguardando..";
-	private int countCleanPlayersOnline = 300;
+	private int countCleanPlayersOnline = 1000;
 	private String mobAtkTargetSync = "none";
 	private String retornoOnline = "retry";
 	private String returnFromServer = "";
@@ -6101,7 +6101,17 @@ public class GameControl {
 		
 	}
 	
-	public String Decription(int numItem) {
+	public String Decription(int itemNum) {
+		String[] lstItem = playerInfo.itens_A.split("-");
+		String[] itemSplit = lstItem[itemNum].split("#");
+		String item = "";
+					
+		item = itemSplit[0].replace("[", "");
+		
+		if(item.equals("HPCAN")) { return "Restaura 50 de HP"; }
+		if(item.equals("MPCAN")) { return "Restaura 30 de MP"; }
+		
+		
 		return "";
 	}
 	
@@ -7137,7 +7147,7 @@ public class GameControl {
 			
 			if(countCleanPlayersOnline <= 0) {
 				lstPlayersOnline.clear();
-				countCleanPlayersOnline = 50;
+				countCleanPlayersOnline = 1000;
 			}
 			
 			String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(playerInfo.accountID, "UTF-8");

@@ -88,6 +88,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_Skill;
 		private Sprite spr_Shop;
 		private Sprite spr_item;
+		private Sprite spr_barItemDescription;
 		private Sprite spr_mob;
 		private Sprite spr_npc;
 		private Sprite spr_lootItem;
@@ -115,6 +116,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private boolean discart = false;
 		private boolean hotkey = false;
 		private boolean description = false;
+		private boolean showDescription = false;
 		private boolean typeParty = false;
 		private String detailItem = "";
 		private String gameState = "Main";
@@ -348,7 +350,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			
 			//Verifica e Exibi chat
-			lstChats = gameControl.GetChatsOnline();  //here			
+			lstChats = gameControl.GetChatsOnline();  			
 			for(int i = 0; i < lstChats.size(); i++) {
 				font_master.draw(game.batch, "Chats:", cameraCoordsX - 37f, cameraCoordsY - 10.7f);
 				if(i == 0) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 37f, cameraCoordsY - 14.7f); }
@@ -497,6 +499,15 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX - 15,cameraCoordsY + 9);
 				
 				ShowItensBag();
+				
+				if(showDescription) {
+					spr_barItemDescription = gameControl.LoadInterfaceGamePlay("lootbar","","");
+					spr_barItemDescription.setPosition(cameraCoordsX - 50, cameraCoordsY - 29);
+					spr_barItemDescription.setSize(100, 15);
+					spr_barItemDescription.draw(game.batch);  //here
+					
+					font_master.draw(game.batch, detailItem, cameraCoordsX - 47, cameraCoordsY - 20);
+				}		
 			}
 			
 			if(gameState.equals("Menu-Skills")) {
@@ -1150,6 +1161,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					
 					onlinePlayer = lstPlayerOnline.get(i);
 					if(onlinePlayer == null) { return; }
+					if(onlinePlayer.accountID == null) { return; }
 					if(onlinePlayer.accountID.equals("")) { return; }
 					
 					//Exibe jogadores do mesmo mapa
@@ -1674,10 +1686,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(24); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(36); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(0);  description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(12); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(24); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(36); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(0);  description = false; showDescription = true; return false; }  
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(12); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(24); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(36); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(0);  }
 					if(menuItemTab == 2) { gameControl.UseItem(12); }
