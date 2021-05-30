@@ -6108,9 +6108,28 @@ public class GameControl {
 					
 		item = itemSplit[0].replace("[", "");
 		
-		if(item.equals("HPCAN")) { return "Restaura 50 de HP"; }
-		if(item.equals("MPCAN")) { return "Restaura 30 de MP"; }
-		
+		if(item.equals("HPCAN")) { return "Restaura 10 de HP"; }
+		if(item.equals("MPCAN")) { return "Restaura 25 de MP"; }
+		if(item.equals("STCAN")) { return "Restaura 5 de Energia"; }
+		if(item.equals("BOILEDEGG")) { return "Restaura 4 de Energia"; }
+		if(item.equals("STEAK")) { return "Restaura 40 de Energia"; }
+		if(item.equals("CHIPZ")) { return "Restaura 23 de Energia"; }
+		if(item.equals("CRYSTALHPPLUS1")) { return "Restaura 50 de HP max"; }
+		if(item.equals("CRYSTALHPPLUS2")) { return "Restaura 150 de HP max"; }
+		if(item.equals("CRYSTALSTRPLUS1")) { return "Restaura 2 de Força"; }
+		if(item.equals("CRYSTALSTRPLUS2")) { return "Restaura 4 de Força"; }
+		if(item.equals("CRYSTALMPPLUS1")) { return "Restaura 50 de MP max"; }
+		if(item.equals("CRYSTALMPPLUS2")) { return "Restaura 150 de MP max"; }
+		if(item.equals("CRYSTALWISPLUS1")) { return "Restaura 2 de Sabedoria"; }
+		if(item.equals("CRYSTALWISPLUS2")) { return "Restaura 4 de Sabedoria"; }
+		if(item.equals("CRYSTALRESPLUS1")) { return "Restaura 2 de Resistencia e 20 de Energia"; }
+		if(item.equals("CRYSTALRESPLUS2")) { return "Restaura 4 de Resistencia e 40 de Energia"; }
+		if(item.equals("CRYSTALSORPLUS1")) { return "Restaura 2 de Sorte"; }
+		if(item.equals("CRYSTALSORPLUS2")) { return "Restaura 4 de Sorte"; }
+		if(item.equals("CRYSTALAGIPLUS1")) { return "Restaura 2 de Agi"; }
+		if(item.equals("CRYSTALAGIPLUS2")) { return "Restaura 4 de Agi"; }
+		if(item.equals("CRYSTALDESPLUS1")) { return "Restaura 2 de Destreza"; }
+		if(item.equals("CRYSTALDESPLUS2")) { return "Restaura 4 de Destreza"; }
 		
 		return "";
 	}
@@ -7712,8 +7731,8 @@ public class GameControl {
 			mobA.MobSelected = "no";
 			mobA.maxRanged = 20;
 			mobA.minRanged = 40;
-			mobA.loot1 = "FRAGBLUE"; //BLOP
-			mobA.loot2 = "FRAGBLUE"; //HATSLIME
+			mobA.loot1 = "BLOP"; //BLOP
+			mobA.loot2 = "HATSLIME"; //HATSLIME
 			mobA.loot3 = "FRAGBLUE";  
 			mobA.respawnTime = 300;
 			mobA.respawnTimeMax = 300;
@@ -12423,20 +12442,20 @@ public class GameControl {
 	
 	public void GiveLoot(Monster mob) {
 		
-		randomCount = randnumber.nextInt(100);
+		randomCount = randnumber.nextInt(200);
 		
 		if(randomCount > 0) {			
-			if(randomCount >= 0 && randomCount <= 70) {
+			if(randomCount >= 0 && randomCount <= 100) {
 				lootItemName = mob.loot1;
 				countLootShowing = 200;
 				AddItemBag(lootItemName);
 			}
-			if(randomCount >= 70 && randomCount <= 99) {
+			if(randomCount >= 101 && randomCount <= 190) {
 				lootItemName = mob.loot2;
 				countLootShowing = 200;
 				AddItemBag(lootItemName);
 			}
-			if(randomCount >= 99 && randomCount <= 100) {
+			if(randomCount >= 190 && randomCount <= 200) {
 				lootItemName = mob.loot3;
 				countLootShowing = 200;
 				AddItemBag(lootItemName);
@@ -12451,7 +12470,7 @@ public class GameControl {
 	public void GiveExp(Monster mob, String typeExp, int expShared) {
 		
 		int playerlvl = Integer.parseInt(playerInfo.level_A);		
-		if(playerlvl >= 10) { return; }
+		if(playerlvl >= 20) { return; }
 		if(playerlvl >= 10 && playerInfo.job_A.equals("Novice")) { return; }
 				
 		boolean levelup = false;

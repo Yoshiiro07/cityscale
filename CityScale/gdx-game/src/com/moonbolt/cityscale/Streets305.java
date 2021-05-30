@@ -306,11 +306,14 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Hotbar = gameControl.LoadInterfaceGamePlay("hotbar", "","");
 			spr_Hotbar.draw(game.batch);
 			
-			spr_BackController = gameControl.LoadInterfaceGamePlay("outerpad", "","");
-			spr_BackController.draw(game.batch);
 			
-			spr_Controller = gameControl.LoadInterfaceGamePlay("innerpad", walk,state);
-			spr_Controller.draw(game.batch);
+			if(platform.equals("Mobile")) {
+				spr_BackController = gameControl.LoadInterfaceGamePlay("outerpad", "","");
+				spr_BackController.draw(game.batch);
+				
+				spr_Controller = gameControl.LoadInterfaceGamePlay("innerpad", walk,state);
+				spr_Controller.draw(game.batch);
+			}
 			
 			
 			if(autoAtk.equals("yes")) {
@@ -1711,10 +1714,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(25); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(37); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(1); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(13); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(25); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(37); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(1); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(13); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(25); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(37); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(1); }
 					if(menuItemTab == 2) { gameControl.UseItem(13); }
@@ -1735,10 +1738,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(26); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(38); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(2); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(14); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(26); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(38); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(2); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(14); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(26); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(38); description = false; showDescription = true; return false; }
 					 
 					if(menuItemTab == 1) { gameControl.UseItem(2); }
 					if(menuItemTab == 2) { gameControl.UseItem(14); }
@@ -1759,10 +1762,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(27); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(39); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(3); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(15); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(27); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(39); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(3); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(15); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(27); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(39); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(3); }
 					if(menuItemTab == 2) { gameControl.UseItem(15); }
@@ -1783,10 +1786,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(28); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(40); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(4); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(16); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(28); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(40); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(4); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(16); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(28); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(40); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(4); }
 					if(menuItemTab == 2) { gameControl.UseItem(16); }
@@ -1808,10 +1811,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(29); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(41); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(5); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(17); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(29); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(41); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(5); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(17); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(29); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(41); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(5); }
 					if(menuItemTab == 2) { gameControl.UseItem(17); }
@@ -1832,10 +1835,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(30); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(42); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(6); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(18); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(30); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(42); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(6); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(18); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(30); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(42); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(6); }
 					if(menuItemTab == 2) { gameControl.UseItem(18); }
@@ -1856,10 +1859,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(31); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(43); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(7); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(19); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(31); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(43); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(7); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(19); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(31); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(43); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(7); }
 					if(menuItemTab == 2) { gameControl.UseItem(19); }
@@ -1880,10 +1883,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(32); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(44); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(8); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(20); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(32); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(44); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(8); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(20); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(32); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(44); description = false; showDescription = true; return false; }
 					 
 					if(menuItemTab == 1) { gameControl.UseItem(8); }
 					if(menuItemTab == 2) { gameControl.UseItem(20); }
@@ -1905,10 +1908,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(33); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(45); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(9); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(21); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(33); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(45); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(9); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(21); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(33); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(45); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(9); }
 					if(menuItemTab == 2) { gameControl.UseItem(21); }
@@ -1929,10 +1932,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(34); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(46); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(10); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(22); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(34); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(46); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(10); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(22); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(34); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(46); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(10); }
 					if(menuItemTab == 2) { gameControl.UseItem(22); }
@@ -1953,10 +1956,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					if(menuItemTab == 3 && hotkey) { gameControl.HotKeyItem(35); hotkey = false; return false; }
 					if(menuItemTab == 4 && hotkey) { gameControl.HotKeyItem(47); hotkey = false; return false; }
 					
-					if(menuItemTab == 1 && description) { gameControl.Decription(11); description = false; return false; }
-					if(menuItemTab == 2 && description) { gameControl.Decription(23); description = false; return false; }
-					if(menuItemTab == 3 && description) { gameControl.Decription(35); description = false; return false; }
-					if(menuItemTab == 4 && description) { gameControl.Decription(47); description = false; return false; }
+					if(menuItemTab == 1 && description) { detailItem = gameControl.Decription(11); description = false; showDescription = true; return false; }
+					if(menuItemTab == 2 && description) { detailItem = gameControl.Decription(23); description = false; showDescription = true; return false; }
+					if(menuItemTab == 3 && description) { detailItem = gameControl.Decription(35); description = false; showDescription = true; return false; }
+					if(menuItemTab == 4 && description) { detailItem = gameControl.Decription(47); description = false; showDescription = true; return false; }
 					
 					if(menuItemTab == 1) { gameControl.UseItem(11); }
 					if(menuItemTab == 2) { gameControl.UseItem(23); }
