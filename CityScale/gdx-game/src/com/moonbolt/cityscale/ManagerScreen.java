@@ -15,7 +15,7 @@ public class ManagerScreen implements Screen{
 	public ManagerScreen(MainGame game){
 		this.game = game;
 		this.gameControl = new GameControl();
-		platform = "Mobile";
+		platform = "PC";
 		network = "on";
 	}
 	

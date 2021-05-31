@@ -3321,8 +3321,8 @@ public class GameControl {
 	public String ItemBuyStreets305(String shopName, int numItem) {
 		
 		//Teste
+		//playerMoney = playerMoney + 200;
 		int playerMoney = Integer.parseInt(playerInfo.money_A);
-		playerMoney = playerMoney + 200;
 		playerInfo.money_A = String.valueOf(playerMoney);
 		
 		if(shopName.equals("RefriShop")) {
@@ -3832,8 +3832,8 @@ public class GameControl {
 	public String ItemBuyStreets750(String shopName, int numItem) {
 		
 		//Teste
+		//playerMoney = playerMoney + 200;
 		int playerMoney = Integer.parseInt(playerInfo.money_A);
-		playerMoney = playerMoney + 200;
 		playerInfo.money_A = String.valueOf(playerMoney);
 		
 		if(shopName.equals("Tropical")) {
@@ -6097,7 +6097,7 @@ public class GameControl {
 		
 		//Give Money
 		money = Integer.parseInt(playerInfo.money_A);
-		if(money > 1000) { return; }
+		if(money > 3000) { return; }
 		money = money + (qtd * 2);
 		playerInfo.money_A = String.valueOf(money);
 		
