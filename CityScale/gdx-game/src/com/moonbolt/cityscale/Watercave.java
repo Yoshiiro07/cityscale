@@ -942,30 +942,30 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 	private void ActionVerify() {
 		//Shop 305
-		if(playerPosX > 119 && playerPosX < 136 && playerPosY > 51 && playerPosY < 70) {
-			gameState = "Shop";
-			shop = "305";
-		}
+		//if(playerPosX > 119 && playerPosX < 136 && playerPosY > 51 && playerPosY < 70) {
+		//	gameState = "Shop";
+		//	shop = "305";
+		//}
 		//Shop Classico
-		if(playerPosX > -43 && playerPosX < -25 && playerPosY > 55 && playerPosY < 70) {
-			gameState = "Shop";
-			shop = "Classical";
-		}
+		//if(playerPosX > -43 && playerPosX < -25 && playerPosY > 55 && playerPosY < 70) {
+		//	gameState = "Shop";
+		//	shop = "Classical";
+		//}
 
 		//Refri Shop
-		if(playerPosX > -9.7f && playerPosX < 5.4f && playerPosY > 54f && playerPosY < 70.2f) {
-			gameState = "Shop";
-			shop = "RefriShop";
-		}
+		//if(playerPosX > -9.7f && playerPosX < 5.4f && playerPosY > 54f && playerPosY < 70.2f) {
+		//	gameState = "Shop";
+		//	shop = "RefriShop";
+		//}
 
 		//JobMaster
-		if(playerPosX > 8f && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
-			int playerlevel = Integer.parseInt(activePlayer.level_A);
-			if(!activePlayer.job_A.equals("Novice")) { return; } 
-			if(playerlevel < 10) { return; }
-			if(playerlevel > 10) { return; }
-			gameState = "jobpost";
-		}
+		//if(playerPosX > 8f && playerPosX < 23 && playerPosY > -69f && playerPosY < -47) {
+		//	int playerlevel = Integer.parseInt(activePlayer.level_A);
+		//	if(!activePlayer.job_A.equals("Novice")) { return; } 
+		//	if(playerlevel < 10) { return; }
+		//	if(playerlevel > 10) { return; }
+		//	gameState = "jobpost";
+		//}
 	}
 
 	 private void ShowItensBag() {

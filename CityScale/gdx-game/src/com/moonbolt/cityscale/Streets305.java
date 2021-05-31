@@ -895,13 +895,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 				
-			spr_testeDot.setPosition(180, -68);  //here
-			spr_testeDot.draw(game.batch);
-			spr_testeDot.setSize(1, 1);
+			//spr_testeDot.setPosition(180, -68);  //here
+			//spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
 			
-			spr_testeDot.setPosition(200, -50);
-			spr_testeDot.draw(game.batch);
-			spr_testeDot.setSize(1, 1);
+			//spr_testeDot.setPosition(200, -50);
+			//spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
 				
 			game.batch.end();
 		}

@@ -564,7 +564,7 @@ public class GameControl {
 		}
 		
 		if(map.equals("SewersFromBoss")) {
-			playerInfo.map_A = "SewersFromBoss";
+			playerInfo.map_A = "Sewers";
 			playerInfo.coordX_A = "-60";
 			playerInfo.coordY_A = "-106";
 			savetimer = 0;
