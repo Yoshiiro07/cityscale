@@ -960,75 +960,75 @@ public class WatercaveBoss implements Screen, ApplicationListener, InputProcesso
 
 	   private void ShowItensBag() {
 		
-		//Common Itens
-		for(count = 0; count <= 47; count++) {
-			spr_item = gameControl.ShowItem(count,menuItemTab,cameraCoordsX, cameraCoordsY);
-			if(spr_item != null) {
-				spr_item.draw(game.batch);
-				font_master.draw(game.batch, gameControl.ShowQuantityItem(count), spr_item.getX() + 7,spr_item.getY() + 3);
+		 //Common Itens
+			for(count = 0; count <= 47; count++) {  
+				spr_item = gameControl.ShowItem(count,menuItemTab,cameraCoordsX, cameraCoordsY);
+				if(spr_item != null) {
+					spr_item.draw(game.batch);
+					font_master.draw(game.batch, gameControl.ShowQuantityItem(count), spr_item.getX() + 7,spr_item.getY() + 3);
+				}
 			}
-		}	
-		
-		//Crystal Itens
-		spr_item = gameControl.ShowCrystalItem(1,cameraCoordsX, cameraCoordsY); // Crystal 1
-		spr_item.draw(game.batch);
-		spr_item = gameControl.ShowCrystalItem(2,cameraCoordsX, cameraCoordsY); // Crystal 2
-		spr_item.draw(game.batch);
-		spr_item = gameControl.ShowCrystalItem(3,cameraCoordsX, cameraCoordsY); // Crystal 3
-		spr_item.draw(game.batch);
-		spr_item = gameControl.ShowCrystalItem(4,cameraCoordsX, cameraCoordsY); // Crystal 4
-		spr_item.draw(game.batch);
-		
-		//Equipament Itens
-		spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
-		spr_item.draw(game.batch);
-		spr_item = gameControl.ShowEquippedItens(2,cameraCoordsX, cameraCoordsY); // Set
-		spr_item.draw(game.batch);
-		spr_item = gameControl.ShowEquippedItens(3,cameraCoordsX, cameraCoordsY); // Hat
-		if(spr_item != null) { spr_item.draw(game.batch); }
-				
-		//HotKey Itens
-		spr_item = gameControl.ShowItemHotKey(1,cameraCoordsX,cameraCoordsY);
-		if(spr_item != null) { spr_item.draw(game.batch); }
-		
-		spr_item = gameControl.ShowItemHotKey(2,cameraCoordsX,cameraCoordsY);
-		if(spr_item != null) { spr_item.draw(game.batch); }
-		
-		//Case Selected
-		if(discart) {
-			spr_item = gameControl.SelectedSprites("Discart", cameraCoordsX, cameraCoordsY);
+			
+			//Crystal Itens
+			spr_item = gameControl.ShowCrystalItem(1,cameraCoordsX, cameraCoordsY); // Crystal 1
+			if(spr_item != null) { spr_item.draw(game.batch); }
+			spr_item = gameControl.ShowCrystalItem(2,cameraCoordsX, cameraCoordsY); // Crystal 2
+			if(spr_item != null) { spr_item.draw(game.batch); }
+			spr_item = gameControl.ShowCrystalItem(3,cameraCoordsX, cameraCoordsY); // Crystal 3
+			if(spr_item != null) { spr_item.draw(game.batch); }
+			spr_item = gameControl.ShowCrystalItem(4,cameraCoordsX, cameraCoordsY); // Crystal 4
+			if(spr_item != null) { spr_item.draw(game.batch); }
+			
+			//Equipament Itens
+			spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
 			spr_item.draw(game.batch);
-		}
-		
-		if(description) {
-			spr_item = gameControl.SelectedSprites("Description", cameraCoordsX, cameraCoordsY);
+			spr_item = gameControl.ShowEquippedItens(2,cameraCoordsX, cameraCoordsY); // Set
 			spr_item.draw(game.batch);
-		}
-		
-		if(hotkey) {
-			spr_item = gameControl.SelectedSprites("Hotkey", cameraCoordsX, cameraCoordsY);
-			spr_item.draw(game.batch);
-		}
-		
-		if(menuItemTab == 1) {
-			spr_item = gameControl.SelectedSprites("Menu1", cameraCoordsX, cameraCoordsY);
-			spr_item.draw(game.batch);
-		}
-		
-		if(menuItemTab == 2) {
-			spr_item = gameControl.SelectedSprites("Menu2", cameraCoordsX, cameraCoordsY);
-			spr_item.draw(game.batch);
-		}
-		
-		if(menuItemTab == 3) {
-			spr_item = gameControl.SelectedSprites("Menu3", cameraCoordsX, cameraCoordsY);
-			spr_item.draw(game.batch);
-		}
-		
-		if(menuItemTab == 4) {
-			spr_item = gameControl.SelectedSprites("Menu4", cameraCoordsX, cameraCoordsY);
-			spr_item.draw(game.batch);
-		}
+			spr_item = gameControl.ShowEquippedItens(3,cameraCoordsX, cameraCoordsY); // Hat
+			if(spr_item != null) { spr_item.draw(game.batch); }
+					
+			//HotKey Itens
+			spr_item = gameControl.ShowItemHotKey(1,cameraCoordsX,cameraCoordsY);
+			if(spr_item != null) { spr_item.draw(game.batch); }
+			
+			spr_item = gameControl.ShowItemHotKey(2,cameraCoordsX,cameraCoordsY);
+			if(spr_item != null) { spr_item.draw(game.batch); }
+			
+			//Case Selected
+			if(discart) {
+				spr_item = gameControl.SelectedSprites("Discart", cameraCoordsX, cameraCoordsY);
+				spr_item.draw(game.batch);
+			}
+			
+			if(description) {
+				spr_item = gameControl.SelectedSprites("Description", cameraCoordsX, cameraCoordsY);
+				spr_item.draw(game.batch);
+			}
+			
+			if(hotkey) {
+				spr_item = gameControl.SelectedSprites("Hotkey", cameraCoordsX, cameraCoordsY);
+				spr_item.draw(game.batch);
+			}
+			
+			if(menuItemTab == 1) {
+				spr_item = gameControl.SelectedSprites("Menu1", cameraCoordsX, cameraCoordsY);
+				spr_item.draw(game.batch);
+			}
+			
+			if(menuItemTab == 2) {
+				spr_item = gameControl.SelectedSprites("Menu2", cameraCoordsX, cameraCoordsY);
+				spr_item.draw(game.batch);
+			}
+			
+			if(menuItemTab == 3) {
+				spr_item = gameControl.SelectedSprites("Menu3", cameraCoordsX, cameraCoordsY);
+				spr_item.draw(game.batch);
+			}
+			
+			if(menuItemTab == 4) {
+				spr_item = gameControl.SelectedSprites("Menu4", cameraCoordsX, cameraCoordsY);
+				spr_item.draw(game.batch);
+			}
 		
 	}
 

@@ -44,27 +44,24 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Player onlinePlayer;
 		private ArrayList<Player> lstPlayerOnline;
 		private int numPlayerActive;
-		private int framePlayer = 1;
 		private String state = "front";
 		private String walk = "stop";
 		private String shop = "";
 		private String[] stats;
 		private String[] statsPoint;
 		private String breakWalk = "";
-		private boolean movement;
-		private float playerPosX;
-		private float playerPosY;
-		private int playerPosiX;
-		private int playerPosiY;
+		private int deathCount = 200;
 		private int numSkillCast = 0;
-		private int castTime = 0;
+		private int castTime = 0;	
 		private String autoAtk = "no";
 		private boolean isAreaSkill = false;
 		private boolean areaSkillSelected = false;
+		private boolean movement;
 		private float skillTouchX;
 		private float skillTouchY;
-		private int deathCount = 300;
-		private String mapChange = "";
+		private float playerPosX;
+		private float playerPosY;
+		
 		
 		//Sprites
 		private Sprite spr_Background;
@@ -83,13 +80,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_Controller;
 		private Sprite spr_autoAtk;
 		private Sprite spr_switchTarget;
-		private Sprite spr_TargetArrow;
 		private Sprite spr_Weapon;
 		private Sprite spr_Skill;
 		private Sprite spr_Shop;
 		private Sprite spr_item;
 		private Sprite spr_barItemDescription;
-		private Sprite spr_mob;
 		private Sprite spr_npc;
 		private Sprite spr_lootItem;
 		private Sprite spr_lootBar;
@@ -111,40 +106,37 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_MenuConfig;
 			
 		//Primitives
-		private float posTouchX = 0;
-		private float posTouchY = 0;
 		private boolean changeScreen = false;
 		private boolean discart = false;
 		private boolean hotkey = false;
 		private boolean description = false;
 		private boolean showDescription = false;
 		private boolean typeParty = false;
+		private boolean isDisplay = false;
+		private boolean deathCheck = false;
 		private String detailItem = "";
 		private String gameState = "Main";
 		private String text = "";
+		private String nameBuy = "";
+		private String typeDisplay = "";
+		private String msgDisplay = "";
+		private String job = "";
+		private String questCall = "";
+		private String questProgress = "";
 		private int count = 0;
 		private int menuItemTab = 1;
 		private int countDisplay = 0;
 		private int countParty = 0;
-		private int timeBuyCount = 0;
-		private String nameBuy = "";
-		private float walkNPC = 0;
-		private boolean isDisplay = false;
-		private String typeDisplay = "";
-		private String msgDisplay = "";
-		private String[] logItens;
-		private String job = "";
-		private ArrayList<Monster> lstMobs;
+		private int timeBuyCount = 0;		
 		private ArrayList<Damage> lstDano;
 		private ArrayList<Skill> lstSkill;
 		private ArrayList<Sprite> lstNPCs;
-		private boolean deathCheck = false;
+		
 			
 		//fonts
 		private BitmapFont font_master;
 		
 		//Online
-		private int qtdOnline = 0;
 		private ArrayList<String> lstChats;
 		private Sprite spr_playerCharacterOnline;
 		private Sprite spr_playerHairOnline;
@@ -346,9 +338,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39f,cameraCoordsY + 87.8f);
 			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 41f,cameraCoordsY + 81.8f);
 			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX - 41f,cameraCoordsY + 73.2f);
-			
-			playerPosiX = Math.round(playerPosX);
-			playerPosiY = Math.round(playerPosY);
 			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 34f, cameraCoordsY + 75f);
 			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
 			
@@ -508,7 +497,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					spr_barItemDescription = gameControl.LoadInterfaceGamePlay("lootbar","","");
 					spr_barItemDescription.setPosition(cameraCoordsX - 50, cameraCoordsY - 29);
 					spr_barItemDescription.setSize(100, 15);
-					spr_barItemDescription.draw(game.batch);  //here
+					spr_barItemDescription.draw(game.batch);  
 					
 					font_master.draw(game.batch, detailItem, cameraCoordsX - 47, cameraCoordsY - 20);
 				}		
@@ -901,7 +890,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					activePlayer.hp_A = "1";
 					activePlayer.mp_A = "1";
 					activePlayer.inBattle_A = "no";
-					mapChange = "MetroStation";
+					mapSwitch = "MetroStation";
 					changeScreen = true;
 				}
 			}
@@ -919,10 +908,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		
 		private void ShowQuest() {
 			
+			//Boxes
 			spr_quest = gameControl.LoadInterfaceGamePlay("barQuest", "", "");
 			spr_quest.setPosition(184, -34);
 			spr_quest.draw(game.batch);
 			
+			//here
 			
 		}
 		
@@ -1066,7 +1057,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Flower Quest
 			if(playerPosX > 180 && playerPosX < 200 && playerPosY > -68 && playerPosY < -50) {
-				gameControl.CheckQuestStatus("FlowerQuest");   //boxtext
+				questCall = "FlowerGirl";
+				questProgress = gameControl.CheckQuestStatus("FlowerQuest");   //here
 			}
 			
 			//Shop 305
@@ -1104,23 +1096,23 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private void ShowItensBag() {
 			
 			//Common Itens
-			for(count = 0; count <= 47; count++) {
+			for(count = 0; count <= 47; count++) {  
 				spr_item = gameControl.ShowItem(count,menuItemTab,cameraCoordsX, cameraCoordsY);
 				if(spr_item != null) {
 					spr_item.draw(game.batch);
 					font_master.draw(game.batch, gameControl.ShowQuantityItem(count), spr_item.getX() + 7,spr_item.getY() + 3);
 				}
-			}	
+			}
 			
 			//Crystal Itens
 			spr_item = gameControl.ShowCrystalItem(1,cameraCoordsX, cameraCoordsY); // Crystal 1
-			spr_item.draw(game.batch);
+			if(spr_item != null) { spr_item.draw(game.batch); }
 			spr_item = gameControl.ShowCrystalItem(2,cameraCoordsX, cameraCoordsY); // Crystal 2
-			spr_item.draw(game.batch);
+			if(spr_item != null) { spr_item.draw(game.batch); }
 			spr_item = gameControl.ShowCrystalItem(3,cameraCoordsX, cameraCoordsY); // Crystal 3
-			spr_item.draw(game.batch);
+			if(spr_item != null) { spr_item.draw(game.batch); }
 			spr_item = gameControl.ShowCrystalItem(4,cameraCoordsX, cameraCoordsY); // Crystal 4
-			spr_item.draw(game.batch);
+			if(spr_item != null) { spr_item.draw(game.batch); }
 			
 			//Equipament Itens
 			spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
@@ -1172,7 +1164,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_item = gameControl.SelectedSprites("Menu4", cameraCoordsX, cameraCoordsY);
 				spr_item.draw(game.batch);
 			}
-			
 		}
 		
 		private void ShowOnlinePlayers() {		
@@ -2301,9 +2292,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}	
 			}
-						
-			posTouchX = coordsTouch.x;
-			posTouchY = coordsTouch.y;
 				
 			return false;
 		}

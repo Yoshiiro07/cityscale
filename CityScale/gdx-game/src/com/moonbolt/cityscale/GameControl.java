@@ -250,6 +250,9 @@ public class GameControl {
 	private TextureAtlas atlas_MonsterBossSewer;
 	private TextureAtlas atlas_MonsterBossWatercave;
 	
+	private Texture tex_testeDot;
+	private Sprite spr_testeDot;
+	
 	
 	// CONSTRUCTOR
 	public GameControl() {
@@ -270,6 +273,9 @@ public class GameControl {
 		lstSkill = new ArrayList<Skill>();
 		lstNpcs = new ArrayList<Sprite>();
 		CheckData();
+		
+		tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+		spr_testeDot = new Sprite(tex_testeDot);
 		
 		//Atlas Section
 		//InterfaceCreate
@@ -4307,6 +4313,8 @@ public class GameControl {
 		return qtd;
 	}
 	
+	
+	
 	public Sprite ShowItem(int num, int tab, float coordsX, float coordsY) {
 		//Structure: [HPCAN#3]
 		String[] lstItem = playerInfo.itens_A.split("-");
@@ -4410,8 +4418,11 @@ public class GameControl {
 				spr_master.setPosition(coordsX - 18f, coordsY + 11.5f); spr_master.setSize(9, 14); return spr_master;
 				}
 		}
+		else {
+			spr_testeDot.setPosition(800, 800);
+			return spr_testeDot;
+		}
 		
-		spr_master = ItemLog("HPCAN");
 		return spr_master;
 	}
 	
@@ -4789,7 +4800,7 @@ public class GameControl {
 		if(num == 3) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 28.9f, coordsY - 11f);  }
 		if(num == 4) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 38.5f, coordsY - 11f);  }
 		
-		if(crystalEquipped.equals("none")) { spr_master = atlas_itens.createSprite("none");  }
+		if(crystalEquipped.equals("none")) { return null;  } //here 
 		
 		return spr_master;
 	}
@@ -4886,6 +4897,8 @@ public class GameControl {
 	
 	
 	public Sprite ItemLog(String item) {
+		
+		if(item.equals("NONE")) { spr_master = atlas_itens.createSprite("none"); return spr_master; }
 		if(item.equals("HPCAN")) { spr_master = atlas_itens.createSprite("hpcan"); return spr_master; }
 		if(item.equals("MPCAN")) { spr_master = atlas_itens.createSprite("mpcan"); return spr_master; }
 		if(item.equals("STCAN")) { spr_master = atlas_itens.createSprite("stcan"); return spr_master; }
@@ -6289,6 +6302,7 @@ public class GameControl {
 	
 	public Sprite MovPlayerOnline(Player playerOnline) {  
 	
+		try {
 		String state = playerOnline.side_A;
 		String set = playerOnline.set_A;
 		String walk = playerOnline.walk_A;
@@ -6851,10 +6865,15 @@ public class GameControl {
 		}
 		
 		return spr_master;
+		}
+		
+		catch(Exception ex) {
+			return spr_testeDot;
+		}
 	}
 	
 	public Sprite MovPlayerOnlineHair(Player playerOnline) {
-		
+		try {
 		String sex = playerOnline.sex_A;
 		String state = playerOnline.side_A;
 		int frame = Integer.parseInt(playerOnline.pos_A);
@@ -6909,10 +6928,16 @@ public class GameControl {
 		}
 		
 		return spr_master;
+		}
+		
+		catch(Exception ex) {
+			return spr_testeDot;
+		}
 	}
 	
 	public Sprite MovPlayerOnlineHat(Player playerOnline) {
 		
+		try {
 		String sex = playerOnline.sex_A;
 		String state = playerOnline.side_A;
 		int frame = Integer.parseInt(playerOnline.pos_A);
@@ -6965,6 +6990,11 @@ public class GameControl {
 		if((state.equals("right") || state.equals("right-front") || state.equals("right-back")) && frame == 3) { spr_master = atlas_hat.createSprite(hat + "_right"); spr_master.setSize(11, 21); spr_master.setPosition(coordsX + 6f, coordsY + 21); return spr_master; }
 
 		return spr_master;
+		}
+		
+		catch(Exception ex) {
+			return spr_testeDot;
+		}
 	}
 	
 	public void MetaInfoOnline() {
@@ -12886,7 +12916,7 @@ public class GameControl {
 			if(lootItemName.equals("STCAN")) { spr_master = atlas_itens.createSprite("stcan"); }
 			if(lootItemName.equals("CHIPZ")) { spr_master = atlas_itens.createSprite("chipz"); }
 			if(lootItemName.equals("BLOP")) { spr_master = atlas_itens.createSprite("lootblop"); }
-			if(lootItemName.equals("POISONLEAf")) { spr_master = atlas_itens.createSprite("lootpoisonleaf"); }
+			if(lootItemName.equals("POISONLEAF")) { spr_master = atlas_itens.createSprite("lootpoisonleaf"); }
 			if(lootItemName.equals("MUSHROOM")) { spr_master = atlas_itens.createSprite("lootmushroom"); }
 			if(lootItemName.equals("FANG")) { spr_master = atlas_itens.createSprite("lootfang"); }
 			if(lootItemName.equals("STICK")) { spr_master = atlas_itens.createSprite("galhos"); }			
@@ -14155,11 +14185,26 @@ public class GameControl {
 	
 	
 	//[Q] Quest System
-	public void CheckQuestStatus(String quest) {
+	public String CheckQuestStatus(String quest) {
 		
+		String quests = playerInfo.quest_A;
+		String pass = "";
+		if(quests.contains("FlowerGirl")) {
+			String[] lstQuest = playerInfo.itens_A.split("-");
+			for(int i = 0; i < lstQuest.length; i++) {
+				
+				if(lstQuest[i].contains("FlowerGirl")) {
+					String[] itemSplit = lstQuest[i].split("#");
+					String item = itemSplit[0].replace("]", "");
+					return item;
+				}
+			}		
+		}
+		else {
+			playerInfo.quest_A = quests + "-[FlowerGirl#1]";
+			return "1";
+		}
 		
-		
+		return "0";
 	}
-	
-	
 }

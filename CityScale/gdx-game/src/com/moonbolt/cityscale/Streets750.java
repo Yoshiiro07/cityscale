@@ -1070,23 +1070,23 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private void ShowItensBag() {
 			
 			//Common Itens
-			for(count = 0; count <= 47; count++) {
+			for(count = 0; count <= 47; count++) {  
 				spr_item = gameControl.ShowItem(count,menuItemTab,cameraCoordsX, cameraCoordsY);
 				if(spr_item != null) {
 					spr_item.draw(game.batch);
 					font_master.draw(game.batch, gameControl.ShowQuantityItem(count), spr_item.getX() + 7,spr_item.getY() + 3);
 				}
-			}	
+			}
 			
 			//Crystal Itens
 			spr_item = gameControl.ShowCrystalItem(1,cameraCoordsX, cameraCoordsY); // Crystal 1
-			spr_item.draw(game.batch);
+			if(spr_item != null) { spr_item.draw(game.batch); }
 			spr_item = gameControl.ShowCrystalItem(2,cameraCoordsX, cameraCoordsY); // Crystal 2
-			spr_item.draw(game.batch);
+			if(spr_item != null) { spr_item.draw(game.batch); }
 			spr_item = gameControl.ShowCrystalItem(3,cameraCoordsX, cameraCoordsY); // Crystal 3
-			spr_item.draw(game.batch);
+			if(spr_item != null) { spr_item.draw(game.batch); }
 			spr_item = gameControl.ShowCrystalItem(4,cameraCoordsX, cameraCoordsY); // Crystal 4
-			spr_item.draw(game.batch);
+			if(spr_item != null) { spr_item.draw(game.batch); }
 			
 			//Equipament Itens
 			spr_item = gameControl.ShowEquippedItens(1,cameraCoordsX, cameraCoordsY); // Weapon
