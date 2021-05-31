@@ -7687,7 +7687,7 @@ public class GameControl {
 		else {
 			lstChats.add(onlineDataChat);
 		}
-		//here			
+					
 	}
 	
 	public void LoadDownloadData(String hash) {
