@@ -88,7 +88,7 @@
 		
 		///// Recupera Chat /////
 		$lAll = '';
-		$sql = "SELECT * FROM Chats ORDER BY ChatID DESC LIMIT 3";
+		$sql = "SELECT * FROM Chats ORDER BY ChatID DESC LIMIT 3";      
 		$result = $conn->query($sql);
 		
 		if ($result->num_rows > 0) {

@@ -219,6 +219,10 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
+			
+			networkState = "on";
+			network = true;
+			gameControl.OnlineManager("Sync","");
 		}
 		
 		
@@ -1120,99 +1124,100 @@ private void ShowItensBag() {
 		}
 		
 		
-		private void ShowOnlinePlayers() {		
-			if(network) {			
-				lstPlayerOnline = gameControl.GetOnlinePlayers();   		
-				
-				for(int i = 0; i < lstPlayerOnline.size(); i++) {
+			private void ShowOnlinePlayers() {		
+				if(network) {			
+					lstPlayerOnline = gameControl.GetOnlinePlayers();   		
 					
-					onlinePlayer = lstPlayerOnline.get(i);
-					if(onlinePlayer == null) { return; }
-					if(onlinePlayer.accountID.equals("")) { return; }
-					
-					//Exibe jogadores do mesmo mapa
-					if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) { 
-					spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
-					spr_playerCharacterOnline.setSize(22, 34);
-					spr_playerCharacterOnline.draw(game.batch);
-					
-					spr_playerHairOnline = gameControl.MovPlayerOnlineHair(lstPlayerOnline.get(i));
-					spr_playerHairOnline.draw(game.batch);
-					
-					if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
-					spr_playerHatOnline = gameControl.MovPlayerOnlineHat(lstPlayerOnline.get(i));
-					spr_playerHatOnline.draw(game.batch);
-					}
-					
-					font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX() + 7.5f,spr_playerCharacterOnline.getY() + 5);				
-					}
-					
-					//Verifica Party
-					if(lstPlayerOnline.get(i).party_A.equals(activePlayer.party_A) && !activePlayer.party_A.equals("None") && !lstPlayerOnline.get(i).name_A.equals(activePlayer.name_A)) {
-						countParty++;
+					for(int i = 0; i < lstPlayerOnline.size(); i++) {
 						
-						if(countParty == 1) {
-							
-							spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "1", "");
-							spr_TagParty.draw(game.batch);
-							
-							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty1",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
-							spr_TagPartyHair.draw(game.batch);	
-							
-							if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
-							spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty1",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
-							spr_TagPartyHat.draw(game.batch);
-							}
-							
-							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 65f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 60.9f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 60.9f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 57f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 52.7f);										
+						onlinePlayer = lstPlayerOnline.get(i);
+						if(onlinePlayer == null) { return; }
+						if(onlinePlayer.accountID == null) { return; }
+						if(onlinePlayer.accountID.equals("")) { return; }
+						
+						//Exibe jogadores do mesmo mapa
+						if(!lstPlayerOnline.get(i).accountID.equals(activePlayer.accountID) && lstPlayerOnline.get(i).map_A.equals(activePlayer.map_A)) { 
+						spr_playerCharacterOnline = gameControl.MovPlayerOnline(lstPlayerOnline.get(i));
+						spr_playerCharacterOnline.setSize(22, 34);
+						spr_playerCharacterOnline.draw(game.batch);
+						
+						spr_playerHairOnline = gameControl.MovPlayerOnlineHair(lstPlayerOnline.get(i));
+						spr_playerHairOnline.draw(game.batch);
+						
+						if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+						spr_playerHatOnline = gameControl.MovPlayerOnlineHat(lstPlayerOnline.get(i));
+						spr_playerHatOnline.draw(game.batch);
 						}
 						
-						if(countParty == 2) {
-							spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "2", "");
-							spr_TagParty.draw(game.batch);
-							
-							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty2",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
-							spr_TagPartyHair.draw(game.batch);	
-							
-							if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
-							spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty2",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
-							spr_TagPartyHat.draw(game.batch);
-							}
-							
-							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 45.8f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 42);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 42);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 38);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 33.5f);
+						font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, spr_playerCharacterOnline.getX() + 7.5f,spr_playerCharacterOnline.getY() + 5);				
 						}
 						
-						if(countParty == 3) {
-							spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "3", "");
-							spr_TagParty.draw(game.batch);
+						//Verifica Party
+						if(lstPlayerOnline.get(i).party_A.equals(activePlayer.party_A) && !activePlayer.party_A.equals("None") && !lstPlayerOnline.get(i).name_A.equals(activePlayer.name_A)) {
+							countParty++;
 							
-							spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty3",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
-							spr_TagPartyHair.draw(game.batch);	
-							
-							if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
-							spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty3",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
-							spr_TagPartyHat.draw(game.batch);
+							if(countParty == 1) {
+								
+								spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "1", "");
+								spr_TagParty.draw(game.batch);
+								
+								spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty1",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
+								spr_TagPartyHair.draw(game.batch);	
+								
+								if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+								spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty1",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
+								spr_TagPartyHat.draw(game.batch);
+								}
+								
+								font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 65f);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 60.9f);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 60.9f);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 57f);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 52.7f);										
 							}
 							
-							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 26.8f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 23);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 23);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 19);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 14.5f);
-						}	
+							if(countParty == 2) {
+								spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "2", "");
+								spr_TagParty.draw(game.batch);
+								
+								spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty2",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
+								spr_TagPartyHair.draw(game.batch);	
+								
+								if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+								spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty2",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
+								spr_TagPartyHat.draw(game.batch);
+								}
+								
+								font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 45.8f);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 42);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 42);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 38);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 33.5f);
+							}
+							
+							if(countParty == 3) {
+								spr_TagParty = gameControl.LoadInterfaceGamePlay("tagParty", "3", "");
+								spr_TagParty.draw(game.batch);
+								
+								spr_TagPartyHair = gameControl.LoadInterfaceGamePlay("hairTagParty3",lstPlayerOnline.get(i).hair_A,lstPlayerOnline.get(i).sex_A);
+								spr_TagPartyHair.draw(game.batch);	
+								
+								if(!lstPlayerOnline.get(i).hat_A.equals("none")) {
+								spr_TagPartyHat = gameControl.LoadInterfaceGamePlay("hatTagParty3",lstPlayerOnline.get(i).hat_A,lstPlayerOnline.get(i).sex_A);
+								spr_TagPartyHat.draw(game.batch);
+								}
+								
+								font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 26.8f);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 23);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 23);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 19);
+								font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 14.5f);
+							}	
+						}
 					}
+					countParty = 0;	
 				}
-				countParty = 0;	
 			}
-		}
 		
 		private void ShowNPCs() {		
 			//JOB NPC

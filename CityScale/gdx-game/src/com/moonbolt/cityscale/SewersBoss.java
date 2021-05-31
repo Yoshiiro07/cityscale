@@ -218,6 +218,10 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
+			
+			networkState = "on";
+			network = true;
+			gameControl.OnlineManager("Sync","");
 		}
 		
 		
@@ -1017,6 +1021,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 					
 					onlinePlayer = lstPlayerOnline.get(i);
 					if(onlinePlayer == null) { return; }
+					if(onlinePlayer.accountID == null) { return; }
 					if(onlinePlayer.accountID.equals("")) { return; }
 					
 					//Exibe jogadores do mesmo mapa

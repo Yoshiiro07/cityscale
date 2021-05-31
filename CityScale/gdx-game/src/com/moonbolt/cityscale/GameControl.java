@@ -32,6 +32,7 @@ public class GameControl {
 	//[G] Battle
 	//[H] Npcs
 	//[I] Auxiliary
+	//[Q] Quest
 	
 	//Data Manager Variables
 	private Json json;
@@ -676,10 +677,10 @@ public class GameControl {
 			playerInfo.hotkey2_1 = "none";
 			playerInfo.heal_1 = "0";
 			playerInfo.expshared_1 = "0";
-			playerInfo.crystalA_1 = "CRYSTALHPPLUS1";
-			playerInfo.crystalB_1 = "CRYSTALSTRPLUS1";
-			playerInfo.crystalC_1 = "CRYSTALMPPLUS1";
-			playerInfo.crystalD_1 = "CRYSTALMPPLUS1";
+			playerInfo.crystalA_1 = "none";
+			playerInfo.crystalB_1 = "none";
+			playerInfo.crystalC_1 = "none";
+			playerInfo.crystalD_1 = "none";
 					
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
@@ -736,7 +737,7 @@ public class GameControl {
 			playerInfo.crystalA_2 = "none";
 			playerInfo.crystalB_2 = "none";
 			playerInfo.crystalC_2 = "none";
-			playerInfo.crystalD_2 = "CRYSTALMPPLUS1";
+			playerInfo.crystalD_2 = "none";
 			
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
@@ -793,7 +794,7 @@ public class GameControl {
 			playerInfo.crystalA_3 = "none";
 			playerInfo.crystalB_3 = "none";
 			playerInfo.crystalC_3 = "none";
-			playerInfo.crystalD_3 = "CRYSTALMPPLUS1";
+			playerInfo.crystalD_3 = "none";
 			
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
@@ -1698,6 +1699,13 @@ public class GameControl {
 			spr_master = atlas_InterfaceCreate.createSprite("barloot");
 			spr_master.setSize(50,15);
 			spr_master.setPosition(cameraCoordsX - 25,cameraCoordsY + 60);
+			return spr_master;
+		}
+		
+		//Quest Bar
+		if(type.equals("barQuest")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnMissao");
+			spr_master.setSize(10,14);
 			return spr_master;
 		}
 		
@@ -14143,4 +14151,15 @@ public class GameControl {
 	public void UpdateJob(String job) {
 		playerInfo.job_A = job;
 	}
+	
+	
+	
+	//[Q] Quest System
+	public void CheckQuestStatus(String quest) {
+		
+		
+		
+	}
+	
+	
 }

@@ -100,6 +100,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_boardJob;
 		private Sprite spr_iconSkillMenu;
 		private Sprite spr_death;
+		private Sprite spr_quest;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -790,6 +791,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			ShowSkillUsed();
 			ShowBuffs();
 			
+			//Quest
+			ShowQuest();
+			
 			//Verify Combate
 			gameControl.CheckSkillCooldown();
 			if(autoAtk.equals("yes")) {
@@ -902,15 +906,24 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 				
-			//spr_testeDot.setPosition(cameraCoordsX + 38, cameraCoordsY + 3);  //here
-			//spr_testeDot.draw(game.batch);
-			//spr_testeDot.setSize(1, 1);
+			spr_testeDot.setPosition(180, -68);  //here
+			spr_testeDot.draw(game.batch);
+			spr_testeDot.setSize(1, 1);
 			
-			//spr_testeDot.setPosition(cameraCoordsX + 47, cameraCoordsY - 12);
-			//spr_testeDot.draw(game.batch);
-			//spr_testeDot.setSize(1, 1);
+			spr_testeDot.setPosition(200, -50);
+			spr_testeDot.draw(game.batch);
+			spr_testeDot.setSize(1, 1);
 				
 			game.batch.end();
+		}
+		
+		private void ShowQuest() {
+			
+			spr_quest = gameControl.LoadInterfaceGamePlay("barQuest", "", "");
+			spr_quest.setPosition(184, -34);
+			spr_quest.draw(game.batch);
+			
+			
 		}
 		
 		
@@ -1050,6 +1063,12 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		}
 		
 		private void ActionVerify() {
+			
+			//Flower Quest
+			if(playerPosX > 180 && playerPosX < 200 && playerPosY > -68 && playerPosY < -50) {
+				gameControl.CheckQuestStatus("FlowerQuest");   //boxtext
+			}
+			
 			//Shop 305
 			if(playerPosX > 119 && playerPosX < 136 && playerPosY > 51 && playerPosY < 70) {
 				gameState = "Shop";
