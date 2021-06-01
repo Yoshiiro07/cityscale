@@ -261,7 +261,7 @@ public class GameControl {
 		this.spr_master = new Sprite(tex_teste);
 		
 		randnumber = new Random();
-				
+		
 		//Data Manager
 		json = new Json();
 		playerInfo = new Player();
@@ -7396,11 +7396,11 @@ public class GameControl {
 			    
 			    // Send data
 			    URL url = new URL("http://moonbolt.online/Conector/Online.php");
-			    URLConnection conn = url.openConnection();
-			    conn.setDoOutput(true);
-			    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			    wr.write(data);
-			    wr.flush();
+		        URLConnection conn = url.openConnection();
+		        conn.setDoOutput(true);
+		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+		        wr.write(data);
+		        wr.flush();
 			    
 			    // Get the response
 			    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -9382,7 +9382,7 @@ public class GameControl {
 						if(playerInfo.weapon_A.equals("DOUBLEEDGEKNIFE")) { atkHitRandom = 1; playerAtk = (playerAtk / 2); if(playerAtk <= 0) { playerAtk = 0; } }
 						if(playerInfo.target_A.equals("SlimeA")) { atkHitRandom = 1; }
 						if(playerInfo.target_A.equals("SlimeB")) { atkHitRandom = 1; }
-						if(playerInfo.target_A.equals("Oikplant")) { atkHitRandom = 1; }
+						if(playerInfo.target_A.equals("OikplantA")) { atkHitRandom = 1; }
 						if(playerInfo.target_A.equals("PoroA")) { atkHitRandom = 1; }
 						if(playerInfo.target_A.equals("PoroB")) { atkHitRandom = 1; } 
 						if(playerInfo.target_A.equals("PoyoA")) { atkHitRandom = 1; }

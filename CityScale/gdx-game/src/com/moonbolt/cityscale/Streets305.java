@@ -916,7 +916,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//here
 			if(questMode) {
-				
+				movement = false;
 			}
 		}
 		

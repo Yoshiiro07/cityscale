@@ -22,6 +22,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private Player activeplayer;
 	private String[] config;
 	private String platform;
+	private boolean network = false;
+	private String networkState = "on";
 	
 	//Primitives
 	private String systemMsg = "";
@@ -35,9 +37,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private int num = 0;
 	private int charnum = 0;
 	private String accountid;
-	
-	private float posTouchX = 0;
-	private float posTouchY = 0;
 	
 	//Camera
 	private OrthographicCamera camera;
@@ -99,6 +98,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		gameControl.LoadData();
 		gameControl.OnlineManager("Sync","");
+		networkState = "on";
+		network = true;
 	}
 
 	@Override
@@ -825,9 +826,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				return false;
 			}			
 		}
-		
-		posTouchX = coordsTouch.x;
-		posTouchY = coordsTouch.y;
 		
 		return false;
 	}
