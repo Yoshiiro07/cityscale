@@ -1160,7 +1160,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 		spr_TargetArrow = gameControl.TargetMobArrow();
 		if(spr_TargetArrow != null) {
-			//spr_TargetArrow.draw(game.batch);
+			spr_TargetArrow.draw(game.batch);
 		}
 	}
 

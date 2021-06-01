@@ -489,7 +489,6 @@ public class GameControl {
 		lstMobs.clear();
 		if(map.equals("Sewers")) { LoadMonstersSewers();  }
 		if(map.equals("Watercave")) { LoadMonstersWatercave();  }
-		if(map.equals("Watercave")) { LoadMonstersWatercave();  }
 		if(map.equals("SewersBoss")) { LoadMonstersSewersBoss(); }
 		if(map.equals("WatercaveBoss")) { LoadMonstersWaterCaveBoss(); }
 		
@@ -6110,7 +6109,7 @@ public class GameControl {
 		
 		//Give Money
 		money = Integer.parseInt(playerInfo.money_A);
-		if(money > 3000) { return; }
+		if(money > 5000) { return; }
 		money = money + (qtd * 2);
 		playerInfo.money_A = String.valueOf(money);
 		
@@ -7761,7 +7760,7 @@ public class GameControl {
 			mobA.target = "None";
 			mobA.frame = 1;
 			mobA.atkCount = 0;
-			mobA.atkHit = 5;
+			mobA.atkHit = 2;
 			mobA.getHit = false;
 			mobA.mobCountDown = 300;
 			mobA.mobCountDownMax = 300;
@@ -7801,7 +7800,7 @@ public class GameControl {
 			mobB.target = "None";
 			mobB.frame = 1;
 			mobB.atkCount = 0;
-			mobB.atkHit = 22;
+			mobB.atkHit = 5;
 			mobB.getHit = false;
 			mobB.mobCountDown = 300;
 			mobB.mobCountDownMax = 300;
@@ -7841,7 +7840,7 @@ public class GameControl {
 			mobC.target = "None";
 			mobC.frame = 1;
 			mobC.atkCount = 0;
-			mobC.atkHit = 22;
+			mobC.atkHit = 10;
 			mobC.getHit = false;
 			mobC.mobCountDown = 300;
 			mobC.mobCountDownMax = 300;
@@ -7881,7 +7880,7 @@ public class GameControl {
 			mobD.target = "None";
 			mobD.frame = 1;
 			mobD.atkCount = 0;
-			mobD.atkHit = 22;
+			mobD.atkHit = 10;
 			mobD.getHit = false;
 			mobD.mobCountDown = 300;
 			mobD.mobCountDownMax = 300;
@@ -7921,7 +7920,7 @@ public class GameControl {
 			mobE.target = "None";
 			mobE.frame = 1;
 			mobE.atkCount = 0;
-			mobE.atkHit = 5;
+			mobE.atkHit = 2;
 			mobE.getHit = false;
 			mobE.mobCountDown = 300;
 			mobE.mobCountDownMax = 300;
@@ -8049,7 +8048,7 @@ public class GameControl {
 			mobA.target = "None";
 			mobA.frame = 1;
 			mobA.atkCount = 0;
-			mobA.atkHit = 45;
+			mobA.atkHit = 25;
 			mobA.getHit = false;
 			mobA.mobCountDown = 250;
 			mobA.mobCountDownMax = 250;
@@ -8089,7 +8088,7 @@ public class GameControl {
 			mobB.target = "None";
 			mobB.frame = 1;
 			mobB.atkCount = 0;
-			mobB.atkHit = 45;
+			mobB.atkHit = 25;
 			mobB.getHit = false;
 			mobB.mobCountDown = 250;
 			mobB.mobCountDownMax = 250;
@@ -9383,6 +9382,11 @@ public class GameControl {
 						if(playerInfo.weapon_A.equals("DOUBLEEDGEKNIFE")) { atkHitRandom = 1; playerAtk = (playerAtk / 2); if(playerAtk <= 0) { playerAtk = 0; } }
 						if(playerInfo.target_A.equals("SlimeA")) { atkHitRandom = 1; }
 						if(playerInfo.target_A.equals("SlimeB")) { atkHitRandom = 1; }
+						if(playerInfo.target_A.equals("Oikplant")) { atkHitRandom = 1; }
+						if(playerInfo.target_A.equals("PoroA")) { atkHitRandom = 1; }
+						if(playerInfo.target_A.equals("PoroB")) { atkHitRandom = 1; } 
+						if(playerInfo.target_A.equals("PoyoA")) { atkHitRandom = 1; }
+						if(playerInfo.target_A.equals("PoyoB")) { atkHitRandom = 1; }
 						if(atkHitRandom <= (50 + playerDex)) {
 							if(playerInfo.stamina_A.equals("0")) { playerAtk = 2; }
 							if(playerInfo.target_A.equals("SlimeA") && playerInfo.stamina_A.equals("0")) { playerAtk = 5; }

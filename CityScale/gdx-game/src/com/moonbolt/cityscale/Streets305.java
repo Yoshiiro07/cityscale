@@ -114,6 +114,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private boolean typeParty = false;
 		private boolean isDisplay = false;
 		private boolean deathCheck = false;
+		private boolean questMode = false;
 		private String detailItem = "";
 		private String gameState = "Main";
 		private String text = "";
@@ -914,7 +915,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			spr_quest.draw(game.batch);
 			
 			//here
-			
+			if(questMode) {
+				
+			}
 		}
 		
 		
@@ -1059,6 +1062,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(playerPosX > 180 && playerPosX < 200 && playerPosY > -68 && playerPosY < -50) {
 				questCall = "FlowerGirl";
 				questProgress = gameControl.CheckQuestStatus("FlowerQuest");   //here
+				questMode = true;
 			}
 			
 			//Shop 305
