@@ -659,7 +659,7 @@ public class GameControl {
 			playerInfo.side_1 = "front";
 			playerInfo.maxhp_1 = "100";
 			playerInfo.maxmp_1 = "100";
-			playerInfo.money_1 = "50";
+			playerInfo.money_1 = "100";
 			playerInfo.atk_1 = "3";
 			playerInfo.def_1 = "0";
 			playerInfo.cooldown_1 = "";
@@ -687,11 +687,7 @@ public class GameControl {
 					
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
-				if(i == 1) { itensList = itensList + "[MPCAN#10]-"; } 
-				if(i == 1) { itensList = itensList + "[FRAGBLUE#20]-"; }
-				if(i == 2) { itensList = itensList + "[FRAGYELLOW#40]-"; }
-				if(i == 3) { itensList = itensList + "[FRAGGREEN#20]-"; }
-				if(i == 4) { itensList = itensList + "[FRAGRED#20]-"; }
+				if(i == 1) { itensList = itensList + "[MPCAN#50]-"; } 
 				else { itensList = itensList + "[NONE]-"; }
 			}			
 			playerInfo.itens_1 = itensList;
@@ -721,7 +717,7 @@ public class GameControl {
 			playerInfo.maxmp_2 = "100";
 			playerInfo.atk_2 = "3";
 			playerInfo.def_2 = "0";
-			playerInfo.money_2 = "50";
+			playerInfo.money_2 = "100";
 			playerInfo.cooldown_2 = "";
 			playerInfo.statusPoint_2 = "0";
 			playerInfo.skillPoint_2 = "0";
@@ -748,7 +744,7 @@ public class GameControl {
 			
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
-				if(i == 1) { itensList = itensList + "[MPCAN#10]-"; }
+				if(i == 1) { itensList = itensList + "[MPCAN#50]-"; }
 				else { itensList = itensList + "[NONE]-"; }
 			}			
 			playerInfo.itens_2 = itensList;
@@ -778,7 +774,7 @@ public class GameControl {
 			playerInfo.maxmp_3 = "100";
 			playerInfo.atk_3 = "3";
 			playerInfo.def_3 = "0";
-			playerInfo.money_3 = "50";
+			playerInfo.money_3 = "100";
 			playerInfo.cooldown_3 = "";
 			playerInfo.statusPoint_3 = "0";
 			playerInfo.skillPoint_3 = "0";
@@ -805,7 +801,7 @@ public class GameControl {
 			
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
-				if(i == 1) { itensList = itensList + "[MPCAN#10]-"; }
+				if(i == 1) { itensList = itensList + "[MPCAN#50]-"; }
 				else { itensList = itensList + "[NONE]-"; }
 			}			
 			playerInfo.itens_3 = itensList;
@@ -4170,6 +4166,7 @@ public class GameControl {
 		boolean itemHasAdded = false;
 		boolean crystalexist = false;
 		
+	
 		for(int i = 0; i < 48; i++) {
 			if(!lstItem[i].equals("[NONE]")) {
 			

@@ -281,8 +281,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 			spr_playerHat.draw(game.batch);
 		}
 
-		//Show Online Players
-		ShowOnlinePlayers();
+		
 
 		//Show Monsters
 		ShowMonsters();
@@ -291,6 +290,9 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		//spr_BackgroundOver.setPosition(-100, -150);
 		//spr_BackgroundOver.setSize(350, 350);
 		//spr_BackgroundOver.draw(game.batch);
+		
+		//Show Online Players
+		ShowOnlinePlayers();
 
 		//UI Elements
 		spr_playerTag = gameControl.LoadInterfaceGamePlay("playerTag","","");
@@ -1049,7 +1051,10 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 	 private void ShowOnlinePlayers() {		
 			if(network) {			
-				lstPlayerOnline = gameControl.GetOnlinePlayers();   		
+				lstPlayerOnline = gameControl.GetOnlinePlayers(); 
+				
+				if(lstPlayerOnline == null) { return; }
+				if(lstPlayerOnline.size() == 0) { return; }
 				
 				for(int i = 0; i < lstPlayerOnline.size(); i++) {
 					
@@ -1092,11 +1097,10 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 							spr_TagPartyHat.draw(game.batch);
 							}
 							
-							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 65f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 60.9f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 60.9f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 57f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 52.7f);										
+							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 52,cameraCoordsY + 66f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 54.7f,cameraCoordsY + 61.9f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 54.7f,cameraCoordsY + 58f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 44.5f,cameraCoordsY + 53f);										
 						}
 						
 						if(countParty == 2) {
@@ -1111,11 +1115,10 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 							spr_TagPartyHat.draw(game.batch);
 							}
 							
-							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 45.8f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 42);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 42);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 38);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 33.5f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 52,cameraCoordsY + 46.5f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 54.7f,cameraCoordsY + 42);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 54.7f,cameraCoordsY + 38.5f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 44.5f,cameraCoordsY + 34);
 						}
 						
 						if(countParty == 3) {
@@ -1130,11 +1133,10 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 							spr_TagPartyHat.draw(game.batch);
 							}
 							
-							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 54,cameraCoordsY + 26.8f);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 56.7f,cameraCoordsY + 23);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 47.9f,cameraCoordsY + 23);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 54.5f,cameraCoordsY + 19);
-							font_master.draw(game.batch, lstPlayerOnline.get(i).map_A, cameraCoordsX - 60.3f,cameraCoordsY + 14.5f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).name_A, cameraCoordsX - 52,cameraCoordsY + 27.5f);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).hp_A, cameraCoordsX - 54.7f,cameraCoordsY + 23);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).mp_A, cameraCoordsX - 54.7f,cameraCoordsY + 19);
+							font_master.draw(game.batch, lstPlayerOnline.get(i).level_A, cameraCoordsX - 44.5f,cameraCoordsY + 15);
 						}	
 					}
 				}
