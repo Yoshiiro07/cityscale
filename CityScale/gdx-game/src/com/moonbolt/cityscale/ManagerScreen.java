@@ -14,7 +14,7 @@ public class ManagerScreen implements Screen{
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
-		this.gameControl = new GameControl();
+		this.gameControl = new GameControl(); 
 		platform = "Mobile";
 		network = "on";
 	}
@@ -56,11 +56,6 @@ public class ManagerScreen implements Screen{
 			game.setScreen(sewersBossScreen);
 		}
 		
-		if(tipo.equals("SewersFromBoss")) {
-			SewersBoss sewersBossScreen = new SewersBoss(game,gameControl, config, platform,network);
-			game.setScreen(sewersBossScreen);
-		}
-		
 		if(tipo.equals("Streets750")) {
 			Streets750 streets750Screen = new Streets750(game,gameControl, config, platform,network);
 			game.setScreen(streets750Screen);
@@ -86,43 +81,23 @@ public class ManagerScreen implements Screen{
 	}
 
 	@Override
-	public void show()
-	{
-		// TODO: Implement this method
-	}
+	public void show(){}
 
 	@Override
-	public void render(float p1)
-	{
-		// TODO: Implement this method
-	}
+	public void render(float p1){}
 
 	@Override
-	public void resize(int p1, int p2)
-	{
-		// TODO: Implement this method
-	}
+	public void resize(int p1, int p2){}
 
 	@Override
-	public void pause()
-	{
-		// TODO: Implement this method
-	}
+	public void pause(){}
 
 	@Override
-	public void resume()
-	{
-		// TODO: Implement this method
-	}
+	public void resume(){}
 
 	@Override
-	public void hide()
-	{
-	}
+	public void hide(){}
 
 	@Override
-	public void dispose()
-	{
-		// TODO: Implement this method
-	}
+	public void dispose(){}
 }

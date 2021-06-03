@@ -192,7 +192,6 @@ public class GameControl {
 	private TextureAtlas atlas_catsetf;
 	private TextureAtlas atlas_hat;
 	private TextureAtlas atlas_InterfaceCreate;
-	private TextureAtlas atlas_InterfaceAux;
 	private TextureAtlas atlas_shops;
 	private TextureAtlas atlas_itens;
 	private TextureAtlas atlas_npc;
@@ -280,7 +279,6 @@ public class GameControl {
 		//Atlas Section
 		//InterfaceCreate
 		atlas_InterfaceCreate = new TextureAtlas(Gdx.files.internal("data/assets/interfaceCreate.txt"));
-		atlas_InterfaceAux = new TextureAtlas(Gdx.files.internal("data/assets/interfaceAux.txt"));
 		atlas_shops = new TextureAtlas(Gdx.files.internal("data/assets/shops.txt"));	
 		
 		//Character Hairs
@@ -689,7 +687,11 @@ public class GameControl {
 					
 			for(int i = 0; i < 48; i++) {
 				if(i == 0) { itensList = itensList + "[HPCAN#50]-"; }
-				if(i == 1) { itensList = itensList + "[MPCAN#10]-"; }
+				if(i == 1) { itensList = itensList + "[MPCAN#10]-"; } 
+				if(i == 1) { itensList = itensList + "[FRAGBLUE#20]-"; }
+				if(i == 2) { itensList = itensList + "[FRAGYELLOW#40]-"; }
+				if(i == 3) { itensList = itensList + "[FRAGGREEN#20]-"; }
+				if(i == 4) { itensList = itensList + "[FRAGRED#20]-"; }
 				else { itensList = itensList + "[NONE]-"; }
 			}			
 			playerInfo.itens_1 = itensList;
@@ -1514,8 +1516,32 @@ public class GameControl {
 		//Player Tag
 		if(type.equals("playerTag")) {
 			spr_master = atlas_InterfaceCreate.createSprite("tagPlayer");
-			spr_master.setSize(33,27);
-			spr_master.setPosition(cameraCoordsX - 66,cameraCoordsY + 68);
+			spr_master.setSize(30,18);
+			spr_master.setPosition(cameraCoordsX - 66.5f,cameraCoordsY + 76);
+			return spr_master;
+		}
+		
+		//Menu button
+		if(type.equals("menubutton")) {
+			spr_master = atlas_InterfaceCreate.createSprite("menu");
+			spr_master.setSize(9,15);
+			spr_master.setPosition(cameraCoordsX + 58,cameraCoordsY + 82);
+			return spr_master;
+		}
+		
+		//Chat button
+		if(type.equals("chatbutton")) {
+			spr_master = atlas_InterfaceCreate.createSprite("chat");
+			spr_master.setSize(9,15);
+			spr_master.setPosition(cameraCoordsX + 49f,cameraCoordsY + 82);
+			return spr_master;
+		}
+		
+		//Energy button
+		if(type.equals("energybutton")) {
+			spr_master = atlas_InterfaceCreate.createSprite("energia");
+			spr_master.setSize(9,15);
+			spr_master.setPosition(cameraCoordsX + 40f,cameraCoordsY + 82);
 			return spr_master;
 		}
 		
@@ -1708,6 +1734,13 @@ public class GameControl {
 		}
 		
 		//Quest Bar
+		if(type.equals("barQuest")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnMissao");
+			spr_master.setSize(10,14);
+			return spr_master;
+		}
+		
+		//Quest Text bar
 		if(type.equals("barQuest")) {
 			spr_master = atlas_InterfaceCreate.createSprite("btnMissao");
 			spr_master.setSize(10,14);
@@ -4123,131 +4156,133 @@ public class GameControl {
 		return ""; 
 	}
 	
-	public String GetCrystal(int numItem) {  
+	public String GetCrystal(int numItem) {   //here 
 			
 		//AddItemBag 
-		String qtd = "";
 		String item = "";
+		String itemName = "";
 		String lstitensFinal = "";
 		String crystalType = "";
 		String[] lstItem = playerInfo.itens_A.split("-");
 		String[] itemSplit;
-		int qtdDef = 0;
+		String listaItemFinal;
+		int qtd = 0;
 		boolean itemHasAdded = false;
+		boolean crystalexist = false;
 		
-		for(int i = 0; i < lstItem.length; i++) {
+		for(int i = 0; i < 48; i++) {
+			if(!lstItem[i].equals("[NONE]")) {
 			
-			if(lstItem[i].contains("FRAGBLUE") && numItem == 1) {
-				item = lstItem[i];
-				if(!item.equals("[NONE]")) {
-					itemSplit = item.split("#");
-					item = itemSplit[1].replace("]", "");		
-					qtd = item;
-					qtdDef = Integer.parseInt(qtd);
-					if(qtdDef >= 15) { 
-						crystalType = GetCrystalType("BLUE");
-						AddItemBag(crystalType); 
-						qtdDef = qtdDef - 15;
-						if(qtdDef < 0) { qtdDef = 0; }
-						itemHasAdded = true;
-					}
-					else {
-						return "Quantidade insuficiente";
-					}
-				}
-				else {
-					return "Quantidade insuficiente";
-				}
+			item = lstItem[i];		
+			itemSplit = item.split("#");
+			itemName = itemSplit[0].replace("[", "");
+			qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+			
+			if(itemName.equals("FRAGBLUE") && qtd >= 20 && numItem == 1) {
+				crystalType = GetCrystalType("BLUE");
+				AddItemBag(crystalType); 
+				itemHasAdded = true;
+				
+				qtd = qtd - 20;
+				if(qtd > 0) { lstItem[i] = "[FRAGBLUE#" + qtd + "]"; }
+				if(qtd <= 0) { lstItem[i] = "[NONE]"; }
+				
+				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+				playerInfo.itens_A = listaItemFinal;
+				
+				
 			}
 			
-			if(lstItem[i].contains("FRAGGREEN") && numItem == 2) {
-				item = lstItem[i];
-				if(!item.equals("[NONE]")) {
-					itemSplit = item.split("#");
-					item = itemSplit[1].replace("]", "");		
-					qtd = item;
-					qtdDef = Integer.parseInt(qtd);
-					if(qtdDef >= 15) { 
-						crystalType = GetCrystalType("GREEN");
-						AddItemBag(crystalType); 
-						qtdDef = qtdDef - 15;
-						if(qtdDef < 0) { qtdDef = 0; }
-						itemHasAdded = true;
-					}
-					else {
-						return "Quantidade insuficiente";
-					}
-				}
-				else {
-					return "Quantidade insuficiente";
-				}
+			if(itemName.equals("FRAGGREEN") && qtd >= 20 && numItem == 2) {
+				crystalType = GetCrystalType("GREEN");
+				AddItemBag(crystalType); 
+				itemHasAdded = true;
+				
+				qtd = qtd - 20;
+				if(qtd > 0) { lstItem[i] = "[FRAGGREEN#" + qtd + "]"; }
+				if(qtd <= 0) { lstItem[i] = "[NONE]"; }
+				
+				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+				playerInfo.itens_A = listaItemFinal;
+				
+				
 			}
 			
-			if(lstItem[i].contains("FRAGYELLOW") && numItem == 3) {
-				item = lstItem[i];
-				if(!item.equals("[NONE]")) {
-					itemSplit = item.split("#");
-					item = itemSplit[1].replace("]", "");		
-					qtd = item;
-					qtdDef = Integer.parseInt(qtd);
-					if(qtdDef >= 15) { 
-						crystalType = GetCrystalType("YELLOW");
-						AddItemBag(crystalType); 
-						qtdDef = qtdDef - 15;
-						if(qtdDef < 0) { qtdDef = 0; }
-						itemHasAdded = true;
-					}
-					else {
-						return "Quantidade insuficiente";
-					}
-				}
-				else {
-					return "Quantidade insuficiente";
-				}
+			if(itemName.equals("FRAGYELLOW") && qtd >= 20 && numItem == 3) {
+				crystalType = GetCrystalType("YELLOW");
+				AddItemBag(crystalType); 
+				itemHasAdded = true;
+				
+				qtd = qtd - 20;
+				if(qtd > 0) { lstItem[i] = "[FRAGYELLOW#" + qtd + "]"; }
+				if(qtd <= 0) { lstItem[i] = "[NONE]"; }
+				
+				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+				playerInfo.itens_A = listaItemFinal;
+				
+				
 			}
 			
-			if(lstItem[i].contains("FRAGRED") && numItem == 4) {
-				item = lstItem[i];
-				if(!item.equals("[NONE]")) {
-					itemSplit = item.split("#");
-					item = itemSplit[1].replace("]", "");	
-					qtd = item;
-					qtdDef = Integer.parseInt(qtd);
-					if(qtdDef >= 15) { 
-						crystalType = GetCrystalType("RED");
-						AddItemBag(crystalType); 
-						qtdDef = qtdDef - 15;
-						if(qtdDef < 0) { qtdDef = 0; }
-						itemHasAdded = true;
-					}
-					else {
-						return "Quantidade insuficiente";
-					}
-				}
-				else {
-					return "Quantidade insuficiente";
-				}		
-			}		
+			if(itemName.equals("FRAGRED") && qtd >= 20 && numItem == 4) {
+				crystalType = GetCrystalType("RED");
+				AddItemBag(crystalType); 
+				itemHasAdded = true;
+				
+				qtd = qtd - 20;
+				if(qtd > 0) { lstItem[i] = "[FRAGRED#" + qtd + "]"; }
+				if(qtd <= 0) { lstItem[i] = "[NONE]"; }
+				
+				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+				playerInfo.itens_A = listaItemFinal;		
+			}	
+			}
+				
 		}
 		
 		if(itemHasAdded) {
-			if(qtdDef == 0) {
-				item = "[NONE]";
-				lstItem[numItem] = item;
-				lstitensFinal = Arrays.toString(lstItem).replace(", ","-");
-				lstitensFinal = lstitensFinal.substring(1, lstitensFinal.length() -1);
-				playerInfo.itens_A = lstitensFinal;
+			
+			for(int i = 0; i < 48; i++) {
+				if(!lstItem[i].equals("[NONE]")) {
+					item = lstItem[i];		
+					itemSplit = item.split("#");
+					itemName = itemSplit[0].replace("[", "");
+					qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+					
+					if(itemName.equals(crystalType)) {
+						item = "[" + crystalType + "#" + qtd + "]"; 
+						lstItem[numItem] = item;
+						lstitensFinal = Arrays.toString(lstItem).replace(", ","-");
+						lstitensFinal = lstitensFinal.substring(1, lstitensFinal.length() -1);
+						playerInfo.itens_A = lstitensFinal;	
+						crystalexist = true;
+					}		
+				}
 			}
-			else {
-				item = "[" + crystalType + "#" + qtd + "]"; 
-				lstItem[numItem] = item;
-				lstitensFinal = Arrays.toString(lstItem).replace(", ","-");
-				lstitensFinal = lstitensFinal.substring(1, lstitensFinal.length() -1);
-				playerInfo.itens_A = lstitensFinal;
-			}		
+			
+			if(!crystalexist) {
+				for(int i = 0; i < 48; i++) {			
+					if(lstItem[i].equals("[NONE]")) {
+					item = "[" + crystalType + "#" + 1 + "]"; 
+					lstItem[i] = item;
+					lstitensFinal = Arrays.toString(lstItem).replace(", ","-");
+					lstitensFinal = lstitensFinal.substring(1, lstitensFinal.length() -1);
+					playerInfo.itens_A = lstitensFinal;	
+					crystalexist = false;
+					return "Trocado com sucesso!"; 
+					}
+				}
+			}
+			
+			return "Trocado com sucesso!";
+		}
+		else {
+			return "Quantidade insuficiente!";
 		}
 			
-		return "";
 	}
 	
 	public String GetCrystalType(String fragmentColor) {
@@ -6266,7 +6301,6 @@ public class GameControl {
 			if(operation.equals("ExpSharedUpdate")) {
 				OnlineOperation("ExpSharedUpdate",subData);
 			}
-			
 		}
 		
 		catch(Exception ex) {}

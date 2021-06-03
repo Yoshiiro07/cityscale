@@ -26,7 +26,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private GameControl gameControl;
 		private String[] config;
 		private String platform;
-		private boolean network = false;
+		private boolean network = true;
 		private String networkState = "on";
 		private String mapSwitchConfig = "";
 		private String mapSwitch = "";
@@ -76,6 +76,9 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_playerHairTag;
 		private Sprite spr_Minibar;
 		private Sprite spr_Hotbar;
+		private Sprite spr_MenuButton;
+		private Sprite spr_ChatButton;
+		private Sprite spr_EnergyButton;
 		private Sprite spr_BackController;
 		private Sprite spr_Controller;
 		private Sprite spr_autoAtk;
@@ -96,6 +99,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_iconSkillMenu;
 		private Sprite spr_death;
 		private Sprite spr_quest;
+		private Sprite spr_questText;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -183,6 +187,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 			Gdx.input.setInputProcessor(this);
 			
+			//Online
+			gameControl.OnlineManager("Sync","");
+			networkState = "on";
+			network = true;
+			
 			//font
 			font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 			font_master.setColor(Color.RED);
@@ -214,10 +223,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
-			
-			networkState = "on";
-			network = true;
-			gameControl.OnlineManager("Sync","");
 		}
 			
 		@Override
@@ -331,17 +336,28 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.09f,0.11f);
 			font_master.setUseIntegerPositions(false);	
-			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 53f,cameraCoordsY + 91.5f);
-			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 55.8f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.maxhp_A, cameraCoordsX - 49f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 55.8f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.maxmp_A, cameraCoordsX - 49f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 41f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX - 41f,cameraCoordsY + 73.2f);
-			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 34f, cameraCoordsY + 75f);
-			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
+			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 66f,cameraCoordsY + 97f);
+			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 53.8f,cameraCoordsY + 92.8f);
+			font_master.draw(game.batch,"/  " + activePlayer.maxhp_A, cameraCoordsX - 48f,cameraCoordsY + 92.8f);
+			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 53.8f,cameraCoordsY + 88.5f);
+			font_master.draw(game.batch,"/  " + activePlayer.maxmp_A, cameraCoordsX - 48f,cameraCoordsY + 88.5f);
+			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 51f,cameraCoordsY + 80.2f);
+			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 52f,cameraCoordsY + 84.5f);
 			
+			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 62f, cameraCoordsY + 75f);
+			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 53f, cameraCoordsY + 75f);
+			
+			//Menu buttons
+			spr_MenuButton = gameControl.LoadInterfaceGamePlay("menubutton", "", "");
+			spr_MenuButton.draw(game.batch);
+			
+			spr_ChatButton = gameControl.LoadInterfaceGamePlay("chatbutton", "", "");
+			spr_ChatButton.draw(game.batch);
+			
+			spr_EnergyButton = gameControl.LoadInterfaceGamePlay("energybutton", "", "");
+			spr_EnergyButton.draw(game.batch);
+			
+			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX + 43f,cameraCoordsY + 89f);
 			
 			//Verifica e Exibi chat
 			lstChats = gameControl.GetChatsOnline();  			
@@ -873,12 +889,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			//Change Screen
-			if(changeScreen){   
+			if(changeScreen){  
+				changeScreen = false;
 				gameControl.OnlineManager("Desligar", "");
 				gameControl.ScreenChange(mapSwitchConfig);
 				gameControl.UpdateDataSave(numPlayerActive);
 			    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-			    game.Switch(mapSwitch);			
+			    game.Switch(mapSwitch);				    
 			}
 			
 			deathCheck = gameControl.VerifyDeath();
@@ -896,13 +913,14 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 				
-			//spr_testeDot.setPosition(180, -68);  //here
-			//spr_testeDot.draw(game.batch);
-			//spr_testeDot.setSize(1, 1);
+			spr_testeDot.setPosition(cameraCoordsX + 58, cameraCoordsY + 82); 
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
+					
+			spr_testeDot.setPosition(cameraCoordsX + 67, cameraCoordsY + 96); 
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 			
-			//spr_testeDot.setPosition(200, -50);
-			//spr_testeDot.draw(game.batch);
-			//spr_testeDot.setSize(1, 1);
 				
 			game.batch.end();
 		}
@@ -917,6 +935,10 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			//here
 			if(questMode) {
 				movement = false;
+				
+				spr_questText = gameControl.LoadInterfaceGamePlay("","","");
+				
+				
 			}
 		}
 		
@@ -1440,7 +1462,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				
 				//Menu button
-				if(coordsTouch.x >= (cameraCoordsX - 66.5f) && coordsTouch.x <= (cameraCoordsX - 57.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 58) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY + 82) && coordsTouch.y <= (cameraCoordsY + 96)) {
 					gameState = "Menu";
 					return false;
 				}		
@@ -1465,7 +1487,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				
 				//Chat Button
-				if(coordsTouch.x >= (cameraCoordsX - 56.5f) && coordsTouch.x <= (cameraCoordsX - 47.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 49) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 82) && coordsTouch.y <= (cameraCoordsY + 96)) {
 					Gdx.input.getTextInput(this,"Mensagem","","");
 					return false;
 				}

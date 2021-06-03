@@ -26,8 +26,8 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private GameControl gameControl;
 		private String[] config;
 		private String platform;
-		private boolean network = false;
-		private String networkState = "off";
+		private boolean network = true;
+		private String networkState = "on";
 		private String mapSwitchConfig = "";
 		private String mapSwitch = "";
 		
@@ -53,8 +53,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private boolean movement;
 		private float playerPosX;
 		private float playerPosY;
-		private int playerPosiX;
-		private int playerPosiY;
 		private int numSkillCast = 0;
 		private int castTime = 0;
 		private String autoAtk = "no";
@@ -63,7 +61,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private float skillTouchX;
 		private float skillTouchY;
 		private int deathCount = 300;
-		private String mapChange = "";
 		
 		//Sprites
 		private Sprite spr_Background;
@@ -82,13 +79,11 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_Controller;
 		private Sprite spr_autoAtk;
 		private Sprite spr_switchTarget;
-		private Sprite spr_TargetArrow;
 		private Sprite spr_Weapon;
 		private Sprite spr_Skill;
 		private Sprite spr_Shop;
 		private Sprite spr_item;
 		private Sprite spr_barItemDescription;
-		private Sprite spr_mob;
 		private Sprite spr_npc;
 		private Sprite spr_lootItem;
 		private Sprite spr_lootBar;
@@ -96,9 +91,11 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_buff;
 		private Sprite spr_areaSelect;
 		private Sprite spr_areaSkillTarget;
-		private Sprite spr_boardJob;
 		private Sprite spr_iconSkillMenu;
 		private Sprite spr_death;
+		private Sprite spr_MenuButton;
+		private Sprite spr_ChatButton;
+		private Sprite spr_EnergyButton;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -109,8 +106,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_MenuConfig;
 			
 		//Primitives
-		private float posTouchX = 0;
-		private float posTouchY = 0;
 		private boolean changeScreen = false;
 		private boolean discart = false;
 		private boolean hotkey = false;
@@ -335,19 +330,27 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.09f,0.11f);
 			font_master.setUseIntegerPositions(false);	
-			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 53f,cameraCoordsY + 91.5f);
-			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 55.8f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.maxhp_A, cameraCoordsX - 49f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 55.8f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.maxmp_A, cameraCoordsX - 49f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 41f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX - 41f,cameraCoordsY + 73.2f);
+			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 66f,cameraCoordsY + 97f);
+			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 53.8f,cameraCoordsY + 92.8f);
+			font_master.draw(game.batch,"/  " + activePlayer.maxhp_A, cameraCoordsX - 48f,cameraCoordsY + 92.8f);
+			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 53.8f,cameraCoordsY + 88.5f);
+			font_master.draw(game.batch,"/  " + activePlayer.maxmp_A, cameraCoordsX - 48f,cameraCoordsY + 88.5f);
+			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 51f,cameraCoordsY + 80.2f);
+			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 52f,cameraCoordsY + 84.5f);	
+			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 62f, cameraCoordsY + 75f);
+			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 53f, cameraCoordsY + 75f);
 			
-			playerPosiX = Math.round(playerPosX);
-			playerPosiY = Math.round(playerPosY);
-			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 34f, cameraCoordsY + 75f);
-			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
+			//Menu buttons
+			spr_MenuButton = gameControl.LoadInterfaceGamePlay("menubutton", "", "");
+			spr_MenuButton.draw(game.batch);
+			
+			spr_ChatButton = gameControl.LoadInterfaceGamePlay("chatbutton", "", "");
+			spr_ChatButton.draw(game.batch);
+			
+			spr_EnergyButton = gameControl.LoadInterfaceGamePlay("energybutton", "", "");
+			spr_EnergyButton.draw(game.batch);
+			
+			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX + 43f,cameraCoordsY + 89f);
 			
 			
 			//Verifica e Exibi chat
@@ -878,6 +881,8 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Change Screen
 			if(changeScreen){	
+				changeScreen = false;
+				gameControl.OnlineManager("Desligar", "");
 				gameControl.ScreenChange(mapSwitchConfig);
 				gameControl.UpdateDataSave(numPlayerActive);
 			    game.AtualizaElementos(game,gameControl, config, platform, networkState);
@@ -894,7 +899,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 					activePlayer.hp_A = "1";
 					activePlayer.mp_A = "1";
 					activePlayer.inBattle_A = "no";
-					mapChange = "MetroStation";
 					changeScreen = true;
 				}
 			}
@@ -1409,7 +1413,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				
 				//Menu button
-				if(coordsTouch.x >= (cameraCoordsX - 66.5f) && coordsTouch.x <= (cameraCoordsX - 57.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 58) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY + 82) && coordsTouch.y <= (cameraCoordsY + 96)) {
 					gameState = "Menu";
 					return false;
 				}		
@@ -1434,7 +1438,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				
 				//Chat Button
-				if(coordsTouch.x >= (cameraCoordsX - 56.5f) && coordsTouch.x <= (cameraCoordsX - 47.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 49) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 82) && coordsTouch.y <= (cameraCoordsY + 96)) {
 					Gdx.input.getTextInput(this,"Mensagem","","");
 					return false;
 				}
@@ -2255,9 +2259,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 					return false;
 				}	
 			}
-						
-			posTouchX = coordsTouch.x;
-			posTouchY = coordsTouch.y;
 				
 			return false;
 		}

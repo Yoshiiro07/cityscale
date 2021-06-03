@@ -26,7 +26,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private GameControl gameControl;
 		private String[] config;
 		private String platform;
-		private boolean network = false;
+		private boolean network = true;
 		private String networkState = "on";
 		
 		//Loading Variables
@@ -51,8 +51,6 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private boolean movement;
 		private float playerPosX;
 		private float playerPosY;
-		private int playerPosiX;
-		private int playerPosiY;
 		private int numSkillCast = 0;
 		private int castTime = 0;
 		private String autoAtk = "no";
@@ -87,7 +85,6 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private Sprite spr_item;
 		private Sprite spr_barItemDescription;
 		private Sprite spr_mob;
-		private Sprite spr_npc;
 		private Sprite spr_lootItem;
 		private Sprite spr_lootBar;
 		private Sprite spr_skill;
@@ -97,6 +94,9 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private Sprite spr_boardJob;
 		private Sprite spr_iconSkillMenu;
 		private Sprite spr_death;
+		private Sprite spr_MenuButton;
+		private Sprite spr_ChatButton;
+		private Sprite spr_EnergyButton;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -108,8 +108,6 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 		//Primitives
 		private int flopBackground = 0;
-		private float posTouchX = 0;
-		private float posTouchY = 0;
 		private boolean changeScreen = false;
 		private boolean discart = false;
 		private boolean hotkey = false;
@@ -126,7 +124,6 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private int countParty = 0;
 		private int timeBuyCount = 0;
 		private String nameBuy = "";
-		private float walkNPC = 0;
 		private boolean isDisplay = false;
 		private String typeDisplay = "";
 		private String msgDisplay = "";
@@ -135,8 +132,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		private ArrayList<Monster> lstMobs;
 		private ArrayList<Damage> lstDano;
 		private ArrayList<Skill> lstSkill;
-		private ArrayList<Sprite> lstNPCs;
-			
+		
 		//fonts
 		private BitmapFont font_master;
 		
@@ -220,6 +216,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
 			
+			//Online
 			networkState = "on";
 			network = true;
 			gameControl.OnlineManager("Sync","");
@@ -349,19 +346,27 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.09f,0.11f);
 			font_master.setUseIntegerPositions(false);	
-			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 53f,cameraCoordsY + 91.5f);
-			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 55.8f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.maxhp_A, cameraCoordsX - 49f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 55.8f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.maxmp_A, cameraCoordsX - 49f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 41f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX - 41f,cameraCoordsY + 73.2f);
+			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 66f,cameraCoordsY + 97f);
+			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 53.8f,cameraCoordsY + 92.8f);
+			font_master.draw(game.batch,"/  " + activePlayer.maxhp_A, cameraCoordsX - 48f,cameraCoordsY + 92.8f);
+			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 53.8f,cameraCoordsY + 88.5f);
+			font_master.draw(game.batch,"/  " + activePlayer.maxmp_A, cameraCoordsX - 48f,cameraCoordsY + 88.5f);
+			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 51f,cameraCoordsY + 80.2f);
+			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 52f,cameraCoordsY + 84.5f);	
+			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 62f, cameraCoordsY + 75f);
+			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 53f, cameraCoordsY + 75f);
 			
-			playerPosiX = Math.round(playerPosX);
-			playerPosiY = Math.round(playerPosY);
-			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 34f, cameraCoordsY + 75f);
-			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
+			//Menu buttons
+			spr_MenuButton = gameControl.LoadInterfaceGamePlay("menubutton", "", "");
+			spr_MenuButton.draw(game.batch);
+			
+			spr_ChatButton = gameControl.LoadInterfaceGamePlay("chatbutton", "", "");
+			spr_ChatButton.draw(game.batch);
+			
+			spr_EnergyButton = gameControl.LoadInterfaceGamePlay("energybutton", "", "");
+			spr_EnergyButton.draw(game.batch);
+			
+			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX + 43f,cameraCoordsY + 89f);
 			
 			//Verifica e Exibi chat
 			lstChats = gameControl.GetChatsOnline();  			
@@ -894,6 +899,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			//Change Screen
 			if(changeScreen){			
 				if(mapChange.equals("Streets305FromSewers")) {
+					changeScreen = false;
 					gameControl.OnlineManager("Desligar", "");
 					gameControl.ScreenChange("Streets305FromSewers");
 					gameControl.UpdateDataSave(numPlayerActive);
@@ -902,6 +908,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				}
 				
 				if(mapChange.equals("SewersBoss")) {
+					changeScreen = false;
 					gameControl.OnlineManager("Desligar", "");
 					gameControl.ScreenChange("SewersBoss");
 					gameControl.UpdateDataSave(numPlayerActive);
@@ -910,6 +917,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				}
 				
 				if(mapChange.equals("MetroStation")) {
+					changeScreen = false;
 					gameControl.OnlineManager("Desligar", "");
 					gameControl.ScreenChange("MetroStation");
 					gameControl.UpdateDataSave(numPlayerActive);
@@ -1398,7 +1406,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				}
 				
 				//Menu button
-				if(coordsTouch.x >= (cameraCoordsX - 66.5f) && coordsTouch.x <= (cameraCoordsX - 57.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 58) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY + 82) && coordsTouch.y <= (cameraCoordsY + 96)) {
 					gameState = "Menu";
 					return false;
 				}		
@@ -1423,7 +1431,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 				}
 				
 				//Chat Button
-				if(coordsTouch.x >= (cameraCoordsX - 56.5f) && coordsTouch.x <= (cameraCoordsX - 47.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 49) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 82) && coordsTouch.y <= (cameraCoordsY + 96)) {
 					Gdx.input.getTextInput(this,"Mensagem","","");
 					return false;
 				}
@@ -2162,10 +2170,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 					return false;
 				}
 			}
-						
-			posTouchX = coordsTouch.x;
-			posTouchY = coordsTouch.y;
-				
+			
 			return false;
 		}
 

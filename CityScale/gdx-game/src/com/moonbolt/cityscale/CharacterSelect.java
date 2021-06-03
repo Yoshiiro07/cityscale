@@ -96,7 +96,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		tex_testeDot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
 		spr_testeDot = new Sprite(tex_testeDot);
 		
+		//Load Data
 		gameControl.LoadData();
+		
+		//Online
 		gameControl.OnlineManager("Sync","");
 		networkState = "on";
 		network = true;
@@ -557,8 +560,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		}
 			
 		//Change Screen
-		if(changeScreen){		
-		    game.AtualizaElementos(game,gameControl, config, platform, "on");
+		if(changeScreen){
+			changeScreen = false;
+			gameControl.OnlineManager("Desligar", "");
+		    game.AtualizaElementos(game,gameControl, config, platform, networkState);
 		    if(charnum == 1) { game.Switch(activeplayer.map_1); }
 		    if(charnum == 2) { game.Switch(activeplayer.map_2); }
 		    if(charnum == 3) { game.Switch(activeplayer.map_3); }			

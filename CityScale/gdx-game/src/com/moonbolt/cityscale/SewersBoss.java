@@ -97,6 +97,9 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_boardJob;
 		private Sprite spr_iconSkillMenu;
 		private Sprite spr_death;
+		private Sprite spr_MenuButton;
+		private Sprite spr_ChatButton;
+		private Sprite spr_EnergyButton;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -332,19 +335,27 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.09f,0.11f);
 			font_master.setUseIntegerPositions(false);	
-			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 53f,cameraCoordsY + 91.5f);
-			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 55.8f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.maxhp_A, cameraCoordsX - 49f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 55.8f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.maxmp_A, cameraCoordsX - 49f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 39f,cameraCoordsY + 87.8f);
-			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 41f,cameraCoordsY + 81.8f);
-			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX - 41f,cameraCoordsY + 73.2f);
+			font_master.draw(game.batch, activePlayer.name_A, cameraCoordsX - 66f,cameraCoordsY + 97f);
+			font_master.draw(game.batch, activePlayer.hp_A, cameraCoordsX - 53.8f,cameraCoordsY + 92.8f);
+			font_master.draw(game.batch,"/  " + activePlayer.maxhp_A, cameraCoordsX - 48f,cameraCoordsY + 92.8f);
+			font_master.draw(game.batch, activePlayer.mp_A, cameraCoordsX - 53.8f,cameraCoordsY + 88.5f);
+			font_master.draw(game.batch,"/  " + activePlayer.maxmp_A, cameraCoordsX - 48f,cameraCoordsY + 88.5f);
+			font_master.draw(game.batch, activePlayer.level_A, cameraCoordsX - 51f,cameraCoordsY + 80.2f);
+			font_master.draw(game.batch, activePlayer.exp_A, cameraCoordsX - 52f,cameraCoordsY + 84.5f);	
+			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 62f, cameraCoordsY + 75f);
+			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 53f, cameraCoordsY + 75f);
 			
-			playerPosiX = Math.round(playerPosX);
-			playerPosiY = Math.round(playerPosY);
-			font_master.draw(game.batch, "X:" + Math.round(playerPosX), cameraCoordsX - 34f, cameraCoordsY + 75f);
-			font_master.draw(game.batch, "Y:" + Math.round(playerPosY), cameraCoordsX - 34f, cameraCoordsY + 70f);
+			//Menu buttons
+			spr_MenuButton = gameControl.LoadInterfaceGamePlay("menubutton", "", "");
+			spr_MenuButton.draw(game.batch);
+			
+			spr_ChatButton = gameControl.LoadInterfaceGamePlay("chatbutton", "", "");
+			spr_ChatButton.draw(game.batch);
+			
+			spr_EnergyButton = gameControl.LoadInterfaceGamePlay("energybutton", "", "");
+			spr_EnergyButton.draw(game.batch);
+			
+			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX + 43f,cameraCoordsY + 89f);
 			
 			
 			//Verifica e Exibi chat
@@ -1300,7 +1311,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 				}
 				
 				//Menu button
-				if(coordsTouch.x >= (cameraCoordsX - 66.5f) && coordsTouch.x <= (cameraCoordsX - 57.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 58) && coordsTouch.x <= (cameraCoordsX + 67) && coordsTouch.y >= (cameraCoordsY + 82) && coordsTouch.y <= (cameraCoordsY + 96)) {
 					gameState = "Menu";
 					return false;
 				}		
@@ -1325,7 +1336,7 @@ public class SewersBoss implements Screen, ApplicationListener, InputProcessor, 
 				}
 				
 				//Chat Button
-				if(coordsTouch.x >= (cameraCoordsX - 56.5f) && coordsTouch.x <= (cameraCoordsX - 47.5f) && coordsTouch.y >= (cameraCoordsY + 68) && coordsTouch.y <= (cameraCoordsY + 75)) {
+				if(coordsTouch.x >= (cameraCoordsX + 49) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 82) && coordsTouch.y <= (cameraCoordsY + 96)) {
 					Gdx.input.getTextInput(this,"Mensagem","","");
 					return false;
 				}
