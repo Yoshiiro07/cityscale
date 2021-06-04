@@ -128,6 +128,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private String job = "";
 		private String questCall = "";
 		private String questProgress = "";
+		private String questStep = "0";
 		private int count = 0;
 		private int menuItemTab = 1;
 		private int countDisplay = 0;
@@ -136,8 +137,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		private ArrayList<Damage> lstDano;
 		private ArrayList<Skill> lstSkill;
 		private ArrayList<Sprite> lstNPCs;
-		
-			
+				
 		//fonts
 		private BitmapFont font_master;
 		
@@ -1072,7 +1072,8 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(questMode) {
 				movement = false;			
 				spr_questText = gameControl.LoadInterfaceGamePlay("boxtext","","");
-				spr_questText.draw(game.batch);			
+				spr_questText.draw(game.batch);	  //here
+				questStep = gameControl.CheckQuestStatus(questCall);	
 			}
 		}
 		

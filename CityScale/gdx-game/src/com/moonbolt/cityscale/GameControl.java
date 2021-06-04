@@ -4811,10 +4811,6 @@ public class GameControl {
 	public Sprite ShowCrystalItem(int num, float coordsX, float coordsY) {
 		String crystalEquipped = "";    
 		
-		playerInfo.money_A = "50";
-		
-		
-		
 		if(num == 1) { crystalEquipped = playerInfo.crystalA_A; } 
 		if(num == 2) { crystalEquipped = playerInfo.crystalB_A; } 
 		if(num == 3) { crystalEquipped = playerInfo.crystalC_A; } 
@@ -14255,5 +14251,10 @@ public class GameControl {
 		}
 		
 		return "0";
+	}
+	
+	public String QuestChat(String quest, String step) {
+		
+		return "";
 	}
 }
