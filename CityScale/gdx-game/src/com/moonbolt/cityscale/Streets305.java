@@ -925,23 +925,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			game.batch.end();
 		}
 		
-		private void ShowQuest() {
-			
-			//Boxes
-			spr_quest = gameControl.LoadInterfaceGamePlay("barQuest", "", "");
-			spr_quest.setPosition(184, -34);
-			spr_quest.draw(game.batch);
-			
-			//here
-			if(questMode) {
-				movement = false;
-				
-				spr_questText = gameControl.LoadInterfaceGamePlay("","","");
-				
-				
-			}
-		}
-		
 		
 		private void CheckColide() {
 			if(!loading) {
@@ -1078,10 +1061,27 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			}
 		}
 		
+			private void ShowQuest() {
+			
+			//Boxes
+			spr_quest = gameControl.LoadInterfaceGamePlay("barQuest", "", "");
+			spr_quest.setPosition(184, -34);
+			spr_quest.draw(game.batch);
+			
+			//here
+			if(questMode) {
+				movement = false;			
+				spr_questText = gameControl.LoadInterfaceGamePlay("boxtext","","");
+				spr_questText.draw(game.batch);			
+			}
+		}
+		
+		
+		
 		private void ActionVerify() {
 			
 			//Flower Quest
-			if(playerPosX > 180 && playerPosX < 200 && playerPosY > -68 && playerPosY < -50) {
+			if(playerPosX > 168 && playerPosX < 190 && playerPosY > -84 && playerPosY < -71) {
 				questCall = "FlowerGirl";
 				questProgress = gameControl.CheckQuestStatus("FlowerQuest");   //here
 				questMode = true;
@@ -1387,9 +1387,11 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
+			if(gameState.equals("casting")) { return false; }
+			if(questMode) { return false; }
 			
 			if(gameState.equals("Main")) {		
-				movement = true;
+				movement = true;		
 				downKeys.add(keycode);
 		        if (downKeys.size >= 2){
 		            onMultipleKeysDown(keycode);

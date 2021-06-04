@@ -1737,9 +1737,10 @@ public class GameControl {
 		}
 		
 		//Quest Text bar
-		if(type.equals("barQuest")) {
-			spr_master = atlas_InterfaceCreate.createSprite("btnMissao");
-			spr_master.setSize(10,14);
+		if(type.equals("boxtext")) {
+			spr_master = atlas_InterfaceCreate.createSprite("boxtext");
+			spr_master.setPosition(cameraCoordsX - 65,cameraCoordsY - 35);
+			spr_master.setSize(130,35);
 			return spr_master;
 		}
 		
@@ -4152,7 +4153,7 @@ public class GameControl {
 		return ""; 
 	}
 	
-	public String GetCrystal(int numItem) {   //here 
+	public String GetCrystal(int numItem) {   
 			
 		//AddItemBag 
 		String item = "";
@@ -4165,6 +4166,8 @@ public class GameControl {
 		int qtd = 0;
 		boolean itemHasAdded = false;
 		boolean crystalexist = false;
+		
+		
 		
 	
 		for(int i = 0; i < 48; i++) {
@@ -4563,6 +4566,13 @@ public class GameControl {
 				return spr_master; 
 			}
 			
+			if(playerInfo.weapon_A.equals("GLOOMROD")) { 
+				spr_master = atlas_itens.createSprite("gloomrod"); 
+				spr_master.setPosition(coordsX -1.5f, coordsY + 11f); 
+				spr_master.setSize(9, 14); 
+				return spr_master; 
+			}
+			
 			if(playerInfo.weapon_A.equals("WRENCKAXE")) { 
 				spr_master = atlas_itens.createSprite("wrenckaxe"); 
 				spr_master.setPosition(coordsX -1.5f, coordsY + 11f); 
@@ -4800,6 +4810,10 @@ public class GameControl {
 	
 	public Sprite ShowCrystalItem(int num, float coordsX, float coordsY) {
 		String crystalEquipped = "";    
+		
+		playerInfo.money_A = "50";
+		
+		
 		
 		if(num == 1) { crystalEquipped = playerInfo.crystalA_A; } 
 		if(num == 2) { crystalEquipped = playerInfo.crystalB_A; } 
