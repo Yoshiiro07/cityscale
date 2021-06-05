@@ -223,7 +223,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 		@Override
 		public void render(float delta) {
-			
+			try {
 			Gdx.gl.glClearColor(1,1,1,1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			
@@ -907,7 +907,14 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			//spr_testeDot.draw(game.batch);
 			//spr_testeDot.setSize(1, 1);
 			
-			game.batch.end();	
+			game.batch.end();
+			
+			}
+			
+			catch(Exception ex) {
+				Gdx.app.exit();
+				System.exit(0);
+			}
 		}
 		
 		
@@ -1338,6 +1345,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
+			if(gameState.equals("casting")) { return false; }
 			
 			if(gameState.equals("Main")) {		
 				movement = true;
@@ -1390,6 +1398,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
+			if(gameState.equals("casting")) { return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			if(gameState.equals("Main")) {
@@ -2274,6 +2283,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
+			if(gameState.equals("casting")) { return false; }
 			
 			if(movement == true){
 				Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));

@@ -377,8 +377,12 @@ public class GameControl {
 	}
 	
 	//TEMP
-	public void PushReset() {
+	public void PushReset() {   //here
 		
+		int level = 0;
+		int attribute = 0;
+		
+		CleanBuffEffects();	
 		if(!playerInfo.name_1.equals("none")) {
 			playerInfo.stats_1 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
 			playerInfo.mp_1 = "100";
@@ -386,17 +390,65 @@ public class GameControl {
 			playerInfo.def_1 = "0";
 			playerInfo.exp_1 = "0";
 			playerInfo.stamina_1 = "100";
-			if(playerInfo.level_1.equals("1")){ playerInfo.statusPoint_1 = "0"; playerInfo.hp_1 = "100"; playerInfo.maxhp_1 = "100"; playerInfo.atk_1 = "3";}
-			if(playerInfo.level_1.equals("2")){ playerInfo.statusPoint_1 = "2"; playerInfo.hp_1 = "110"; playerInfo.maxhp_1 = "110"; playerInfo.atk_1 = "5";}
-			if(playerInfo.level_1.equals("3")){ playerInfo.statusPoint_1 = "4"; playerInfo.hp_1 = "120"; playerInfo.maxhp_1 = "120"; playerInfo.atk_1 = "7";}
-			if(playerInfo.level_1.equals("4")){ playerInfo.statusPoint_1 = "6"; playerInfo.hp_1 = "130"; playerInfo.maxhp_1 = "130"; playerInfo.atk_1 = "9";}
-			if(playerInfo.level_1.equals("5")){ playerInfo.statusPoint_1 = "8"; playerInfo.hp_1 = "140"; playerInfo.maxhp_1 = "140"; playerInfo.atk_1 = "11";}
-			if(playerInfo.level_1.equals("6")){ playerInfo.statusPoint_1 = "10"; playerInfo.hp_1 = "150"; playerInfo.maxhp_1 = "150"; playerInfo.atk_1 = "13";}
-			if(playerInfo.level_1.equals("7")){ playerInfo.statusPoint_1 = "12"; playerInfo.hp_1 = "160"; playerInfo.maxhp_1 = "160"; playerInfo.atk_1 = "15";}
-			if(playerInfo.level_1.equals("8")){ playerInfo.statusPoint_1 = "14"; playerInfo.hp_1 = "170"; playerInfo.maxhp_1 = "170"; playerInfo.atk_1 = "17";}
-			if(playerInfo.level_1.equals("9")){ playerInfo.statusPoint_1 = "16"; playerInfo.hp_1 = "180"; playerInfo.maxhp_1 = "180"; playerInfo.atk_1 = "19";}
-			if(playerInfo.level_1.equals("10")){ playerInfo.statusPoint_1 = "18"; playerInfo.hp_1 = "190"; playerInfo.maxhp_1 = "190"; playerInfo.atk_1 = "21";}
-			playerInfo.job_1 = "Novice";	
+			if(playerInfo.level_1.equals("1")){ playerInfo.statusPoint_1 = "0"; playerInfo.hp_1 = "100"; playerInfo.stamina_1 = "100"; playerInfo.maxhp_1 = "100"; playerInfo.atk_1 = "3";}
+			if(playerInfo.level_1.equals("2")){ playerInfo.statusPoint_1 = "2"; playerInfo.hp_1 = "110"; playerInfo.stamina_1 = "103"; playerInfo.maxhp_1 = "110"; playerInfo.atk_1 = "5";}
+			if(playerInfo.level_1.equals("3")){ playerInfo.statusPoint_1 = "4"; playerInfo.hp_1 = "120"; playerInfo.stamina_1 = "106"; playerInfo.maxhp_1 = "120"; playerInfo.atk_1 = "7";}
+			if(playerInfo.level_1.equals("4")){ playerInfo.statusPoint_1 = "6"; playerInfo.hp_1 = "130"; playerInfo.stamina_1 = "109"; playerInfo.maxhp_1 = "130"; playerInfo.atk_1 = "9";}
+			if(playerInfo.level_1.equals("5")){ playerInfo.statusPoint_1 = "8"; playerInfo.hp_1 = "140"; playerInfo.stamina_1 = "112"; playerInfo.maxhp_1 = "140"; playerInfo.atk_1 = "11";}
+			if(playerInfo.level_1.equals("6")){ playerInfo.statusPoint_1 = "10"; playerInfo.hp_1 = "150"; playerInfo.stamina_1 = "115"; playerInfo.maxhp_1 = "150"; playerInfo.atk_1 = "13";}
+			if(playerInfo.level_1.equals("7")){ playerInfo.statusPoint_1 = "12"; playerInfo.hp_1 = "160"; playerInfo.stamina_1 = "118"; playerInfo.maxhp_1 = "160"; playerInfo.atk_1 = "15";}
+			if(playerInfo.level_1.equals("8")){ playerInfo.statusPoint_1 = "14"; playerInfo.hp_1 = "170"; playerInfo.stamina_1 = "121"; playerInfo.maxhp_1 = "170"; playerInfo.atk_1 = "17";}
+			if(playerInfo.level_1.equals("9")){ playerInfo.statusPoint_1 = "16"; playerInfo.hp_1 = "180"; playerInfo.stamina_1 = "124"; playerInfo.maxhp_1 = "180"; playerInfo.atk_1 = "19";}
+			if(playerInfo.level_1.equals("10")){ playerInfo.statusPoint_1 = "18"; playerInfo.hp_1 = "190"; playerInfo.stamina_1 = "127"; playerInfo.maxhp_1 = "190"; playerInfo.atk_1 = "21";}
+			if(playerInfo.level_1.equals("11")){ playerInfo.statusPoint_1 = "21"; playerInfo.hp_1 = "200"; playerInfo.stamina_1 = "130"; playerInfo.maxhp_1 = "200"; playerInfo.atk_1 = "23";}
+			if(playerInfo.level_1.equals("12")){ playerInfo.statusPoint_1 = "24"; playerInfo.hp_1 = "210"; playerInfo.stamina_1 = "133"; playerInfo.maxhp_1 = "210"; playerInfo.atk_1 = "25";}
+			if(playerInfo.level_1.equals("13")){ playerInfo.statusPoint_1 = "27"; playerInfo.hp_1 = "220"; playerInfo.stamina_1 = "136"; playerInfo.maxhp_1 = "220"; playerInfo.atk_1 = "27";}
+			if(playerInfo.level_1.equals("14")){ playerInfo.statusPoint_1 = "30"; playerInfo.hp_1 = "230"; playerInfo.stamina_1 = "139"; playerInfo.maxhp_1 = "230"; playerInfo.atk_1 = "29";}
+			if(playerInfo.level_1.equals("15")){ playerInfo.statusPoint_1 = "33"; playerInfo.hp_1 = "240"; playerInfo.stamina_1 = "142"; playerInfo.maxhp_1 = "240"; playerInfo.atk_1 = "31";}
+			if(playerInfo.level_1.equals("16")){ playerInfo.statusPoint_1 = "36"; playerInfo.hp_1 = "250"; playerInfo.stamina_1 = "145"; playerInfo.maxhp_1 = "250"; playerInfo.atk_1 = "33";}
+			if(playerInfo.level_1.equals("17")){ playerInfo.statusPoint_1 = "39"; playerInfo.hp_1 = "260"; playerInfo.stamina_1 = "148"; playerInfo.maxhp_1 = "260"; playerInfo.atk_1 = "35";}
+			if(playerInfo.level_1.equals("18")){ playerInfo.statusPoint_1 = "42"; playerInfo.hp_1 = "270"; playerInfo.stamina_1 = "151"; playerInfo.maxhp_1 = "270"; playerInfo.atk_1 = "37";}
+			if(playerInfo.level_1.equals("19")){ playerInfo.statusPoint_1 = "45"; playerInfo.hp_1 = "280"; playerInfo.stamina_1 = "154"; playerInfo.maxhp_1 = "280"; playerInfo.atk_1 = "39";}
+			if(playerInfo.level_1.equals("20")){ playerInfo.statusPoint_1 = "48"; playerInfo.hp_1 = "290"; playerInfo.stamina_1 = "157"; playerInfo.maxhp_1 = "290"; playerInfo.atk_1 = "41";}
+			
+			level = Integer.parseInt(playerInfo.level_1);
+			if(level > 10 && playerInfo.job_1.equals("Swordman")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_1); attribute = attribute + (level * 2); playerInfo.atk_1 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.def_1);  attribute = attribute + (level * 2); playerInfo.def_1 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_1);  attribute = attribute + (level * 10); playerInfo.maxhp_1 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_1.equals("Mage")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.def_1); attribute = attribute + (level * 2); playerInfo.def_1 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxmp_1);  attribute = attribute + (level * 2); playerInfo.maxmp_1 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_1.equals("Thief")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_1); attribute = attribute + (level * 1); playerInfo.atk_1 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.def_1);  attribute = attribute + (level * 1); playerInfo.def_1 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_1);  attribute = attribute + (level * 10); playerInfo.maxhp_1 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_1.equals("Medic")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.def_1);  attribute = attribute + (level * 2); playerInfo.def_1 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_1);  attribute = attribute + (level * 10); playerInfo.maxhp_1 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_1.equals("Gunner")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_1);  attribute = attribute + (level * 2); playerInfo.def_1 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_1);  attribute = attribute + (level * 20); playerInfo.maxhp_1 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_1.equals("Beater")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_1);  attribute = attribute + (level * 5); playerInfo.def_1 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_1);  attribute = attribute + (level * 5); playerInfo.maxhp_1 = String.valueOf(attribute);
+			}		
 		}
 		
 		if(!playerInfo.name_2.equals("none")) {
@@ -406,17 +458,65 @@ public class GameControl {
 			playerInfo.def_2 = "0";
 			playerInfo.exp_2 = "0";
 			playerInfo.stamina_2 = "100";
-			if(playerInfo.level_2.equals("1")){ playerInfo.statusPoint_2 = "0"; playerInfo.hp_2 = "100"; playerInfo.maxhp_2 = "100"; playerInfo.atk_2 = "3";}
-			if(playerInfo.level_2.equals("2")){ playerInfo.statusPoint_2 = "2"; playerInfo.hp_2 = "110"; playerInfo.maxhp_2 = "110"; playerInfo.atk_2 = "5";}
-			if(playerInfo.level_2.equals("3")){ playerInfo.statusPoint_2 = "4"; playerInfo.hp_2 = "120"; playerInfo.maxhp_2 = "120"; playerInfo.atk_2 = "7";}
-			if(playerInfo.level_2.equals("4")){ playerInfo.statusPoint_2 = "6"; playerInfo.hp_2 = "130"; playerInfo.maxhp_2 = "130"; playerInfo.atk_2 = "9";}
-			if(playerInfo.level_2.equals("5")){ playerInfo.statusPoint_2 = "8"; playerInfo.hp_2 = "140"; playerInfo.maxhp_2 = "140"; playerInfo.atk_2 = "11";}
-			if(playerInfo.level_2.equals("6")){ playerInfo.statusPoint_2 = "10"; playerInfo.hp_2 = "150"; playerInfo.maxhp_2 = "150"; playerInfo.atk_2 = "13";}
-			if(playerInfo.level_2.equals("7")){ playerInfo.statusPoint_2 = "12"; playerInfo.hp_2 = "160"; playerInfo.maxhp_2 = "160"; playerInfo.atk_2 = "15";}
-			if(playerInfo.level_2.equals("8")){ playerInfo.statusPoint_2= "14"; playerInfo.hp_2 = "170"; playerInfo.maxhp_2 = "170"; playerInfo.atk_2 = "17";}
-			if(playerInfo.level_2.equals("9")){ playerInfo.statusPoint_2 = "16"; playerInfo.hp_2 = "180"; playerInfo.maxhp_2 = "180"; playerInfo.atk_2 = "19";}
-			if(playerInfo.level_2.equals("10")){ playerInfo.statusPoint_2 = "18"; playerInfo.hp_2 = "190"; playerInfo.maxhp_2 = "190"; playerInfo.atk_2 = "21";}
-			playerInfo.job_2 = "Novice";	
+			if(playerInfo.level_2.equals("1")){ playerInfo.statusPoint_2 = "0"; playerInfo.hp_2 = "100"; playerInfo.stamina_2 = "100"; playerInfo.maxhp_2 = "100"; playerInfo.atk_2 = "3";}
+			if(playerInfo.level_2.equals("2")){ playerInfo.statusPoint_2 = "2"; playerInfo.hp_2 = "110"; playerInfo.stamina_2 = "103"; playerInfo.maxhp_2 = "110"; playerInfo.atk_2 = "5";}
+			if(playerInfo.level_2.equals("3")){ playerInfo.statusPoint_2 = "4"; playerInfo.hp_2 = "120"; playerInfo.stamina_2 = "106"; playerInfo.maxhp_2 = "120"; playerInfo.atk_2 = "7";}
+			if(playerInfo.level_2.equals("4")){ playerInfo.statusPoint_2 = "6"; playerInfo.hp_2 = "130"; playerInfo.stamina_2 = "109"; playerInfo.maxhp_2 = "130"; playerInfo.atk_2 = "9";}
+			if(playerInfo.level_2.equals("5")){ playerInfo.statusPoint_2 = "8"; playerInfo.hp_2 = "140"; playerInfo.stamina_2 = "112"; playerInfo.maxhp_2 = "140"; playerInfo.atk_2 = "11";}
+			if(playerInfo.level_2.equals("6")){ playerInfo.statusPoint_2 = "10"; playerInfo.hp_2 = "150"; playerInfo.stamina_2 = "115"; playerInfo.maxhp_2 = "150"; playerInfo.atk_2 = "13";}
+			if(playerInfo.level_2.equals("7")){ playerInfo.statusPoint_2 = "12"; playerInfo.hp_2 = "160"; playerInfo.stamina_2 = "118"; playerInfo.maxhp_2 = "160"; playerInfo.atk_2 = "15";}
+			if(playerInfo.level_2.equals("8")){ playerInfo.statusPoint_2 = "14"; playerInfo.hp_2 = "170"; playerInfo.stamina_2 = "121"; playerInfo.maxhp_2 = "170"; playerInfo.atk_2 = "17";}
+			if(playerInfo.level_2.equals("9")){ playerInfo.statusPoint_2 = "16"; playerInfo.hp_2 = "180"; playerInfo.stamina_2 = "124"; playerInfo.maxhp_2 = "180"; playerInfo.atk_2 = "19";}
+			if(playerInfo.level_2.equals("10")){ playerInfo.statusPoint_2 = "18"; playerInfo.hp_2 = "190"; playerInfo.stamina_2 = "127"; playerInfo.maxhp_2 = "190"; playerInfo.atk_2 = "21";}
+			if(playerInfo.level_2.equals("11")){ playerInfo.statusPoint_2 = "21"; playerInfo.hp_2 = "200"; playerInfo.stamina_2 = "130"; playerInfo.maxhp_2 = "200"; playerInfo.atk_2 = "23";}
+			if(playerInfo.level_2.equals("12")){ playerInfo.statusPoint_2 = "24"; playerInfo.hp_2 = "210"; playerInfo.stamina_2 = "133"; playerInfo.maxhp_2 = "210"; playerInfo.atk_2 = "25";}
+			if(playerInfo.level_2.equals("13")){ playerInfo.statusPoint_2 = "27"; playerInfo.hp_2 = "220"; playerInfo.stamina_2 = "136"; playerInfo.maxhp_2 = "220"; playerInfo.atk_2 = "27";}
+			if(playerInfo.level_2.equals("14")){ playerInfo.statusPoint_2 = "30"; playerInfo.hp_2 = "230"; playerInfo.stamina_2 = "139"; playerInfo.maxhp_2 = "230"; playerInfo.atk_2 = "29";}
+			if(playerInfo.level_2.equals("15")){ playerInfo.statusPoint_2 = "33"; playerInfo.hp_2 = "240"; playerInfo.stamina_2 = "142"; playerInfo.maxhp_2 = "240"; playerInfo.atk_2 = "31";}
+			if(playerInfo.level_2.equals("16")){ playerInfo.statusPoint_2 = "36"; playerInfo.hp_2 = "250"; playerInfo.stamina_2 = "145"; playerInfo.maxhp_2 = "250"; playerInfo.atk_2 = "33";}
+			if(playerInfo.level_2.equals("17")){ playerInfo.statusPoint_2 = "39"; playerInfo.hp_2 = "260"; playerInfo.stamina_2 = "148"; playerInfo.maxhp_2 = "260"; playerInfo.atk_2 = "35";}
+			if(playerInfo.level_2.equals("18")){ playerInfo.statusPoint_2 = "42"; playerInfo.hp_2 = "270"; playerInfo.stamina_2 = "151"; playerInfo.maxhp_2 = "270"; playerInfo.atk_2 = "37";}
+			if(playerInfo.level_2.equals("19")){ playerInfo.statusPoint_2 = "45"; playerInfo.hp_2 = "280"; playerInfo.stamina_2 = "154"; playerInfo.maxhp_2 = "280"; playerInfo.atk_2 = "39";}
+			if(playerInfo.level_2.equals("20")){ playerInfo.statusPoint_2 = "48"; playerInfo.hp_2 = "290"; playerInfo.stamina_2 = "157"; playerInfo.maxhp_2 = "290"; playerInfo.atk_2 = "41";}
+			
+			level = Integer.parseInt(playerInfo.level_2);
+			if(level > 10 && playerInfo.job_2.equals("Swordman")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_2); attribute = attribute + (level * 2); playerInfo.atk_2 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.def_2);  attribute = attribute + (level * 2); playerInfo.def_2 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_2);  attribute = attribute + (level * 10); playerInfo.maxhp_2 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_2.equals("Mage")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.def_2); attribute = attribute + (level * 2); playerInfo.def_2 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxmp_2);  attribute = attribute + (level * 2); playerInfo.maxmp_2 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_2.equals("Thief")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_2); attribute = attribute + (level * 1); playerInfo.atk_2 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.def_2);  attribute = attribute + (level * 1); playerInfo.def_2 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_2);  attribute = attribute + (level * 10); playerInfo.maxhp_2 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_2.equals("Medic")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.def_2);  attribute = attribute + (level * 2); playerInfo.def_2 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_2);  attribute = attribute + (level * 10); playerInfo.maxhp_2 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_2.equals("Gunner")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_2);  attribute = attribute + (level * 2); playerInfo.def_2 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_2);  attribute = attribute + (level * 20); playerInfo.maxhp_2 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_2.equals("Beater")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_2);  attribute = attribute + (level * 5); playerInfo.def_2 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_2);  attribute = attribute + (level * 5); playerInfo.maxhp_2 = String.valueOf(attribute);
+			}	
 		}
 		
 		if(!playerInfo.name_3.equals("none")) {
@@ -426,17 +526,65 @@ public class GameControl {
 			playerInfo.def_3 = "0";
 			playerInfo.exp_3 = "0";
 			playerInfo.stamina_3 = "100";
-			if(playerInfo.level_3.equals("1")){ playerInfo.statusPoint_3 = "0"; playerInfo.hp_3 = "100"; playerInfo.maxhp_3 = "100"; playerInfo.atk_3 = "3";}
-			if(playerInfo.level_3.equals("2")){ playerInfo.statusPoint_3 = "2"; playerInfo.hp_3 = "110"; playerInfo.maxhp_3 = "110"; playerInfo.atk_3 = "5";}
-			if(playerInfo.level_3.equals("3")){ playerInfo.statusPoint_3 = "4"; playerInfo.hp_3 = "120"; playerInfo.maxhp_3 = "120"; playerInfo.atk_3 = "7";}
-			if(playerInfo.level_3.equals("4")){ playerInfo.statusPoint_3 = "6"; playerInfo.hp_3 = "130"; playerInfo.maxhp_3 = "130"; playerInfo.atk_3 = "9";}
-			if(playerInfo.level_3.equals("5")){ playerInfo.statusPoint_3 = "8"; playerInfo.hp_3 = "140"; playerInfo.maxhp_3 = "140"; playerInfo.atk_3 = "11";}
-			if(playerInfo.level_3.equals("6")){ playerInfo.statusPoint_3 = "10"; playerInfo.hp_3 = "150"; playerInfo.maxhp_3 = "150"; playerInfo.atk_3 = "13";}
-			if(playerInfo.level_3.equals("7")){ playerInfo.statusPoint_3 = "12"; playerInfo.hp_3 = "160"; playerInfo.maxhp_3 = "160"; playerInfo.atk_3 = "15";}
-			if(playerInfo.level_3.equals("8")){ playerInfo.statusPoint_3 = "14"; playerInfo.hp_3 = "170"; playerInfo.maxhp_3 = "170"; playerInfo.atk_3 = "17";}
-			if(playerInfo.level_3.equals("9")){ playerInfo.statusPoint_3 = "16"; playerInfo.hp_3 = "180"; playerInfo.maxhp_3 = "180"; playerInfo.atk_3 = "19";}
-			if(playerInfo.level_3.equals("10")){ playerInfo.statusPoint_3 = "18"; playerInfo.hp_3 = "190"; playerInfo.maxhp_3 = "190"; playerInfo.atk_3 = "21";}
-			playerInfo.job_3 = "Novice";	
+			if(playerInfo.level_3.equals("1")){ playerInfo.statusPoint_3 = "0"; playerInfo.hp_3 = "100"; playerInfo.stamina_3 = "100"; playerInfo.maxhp_3 = "100"; playerInfo.atk_3 = "3";}
+			if(playerInfo.level_3.equals("2")){ playerInfo.statusPoint_3 = "2"; playerInfo.hp_3 = "110"; playerInfo.stamina_3 = "103"; playerInfo.maxhp_3 = "110"; playerInfo.atk_3 = "5";}
+			if(playerInfo.level_3.equals("3")){ playerInfo.statusPoint_3 = "4"; playerInfo.hp_3 = "120"; playerInfo.stamina_3 = "106"; playerInfo.maxhp_3 = "120"; playerInfo.atk_3 = "7";}
+			if(playerInfo.level_3.equals("4")){ playerInfo.statusPoint_3 = "6"; playerInfo.hp_3 = "130"; playerInfo.stamina_3 = "109"; playerInfo.maxhp_3 = "130"; playerInfo.atk_3 = "9";}
+			if(playerInfo.level_3.equals("5")){ playerInfo.statusPoint_3 = "8"; playerInfo.hp_3 = "140"; playerInfo.stamina_3 = "112"; playerInfo.maxhp_3 = "140"; playerInfo.atk_3 = "11";}
+			if(playerInfo.level_3.equals("6")){ playerInfo.statusPoint_3 = "10"; playerInfo.hp_3 = "150"; playerInfo.stamina_3 = "115"; playerInfo.maxhp_3 = "150"; playerInfo.atk_3 = "13";}
+			if(playerInfo.level_3.equals("7")){ playerInfo.statusPoint_3 = "12"; playerInfo.hp_3 = "160"; playerInfo.stamina_3 = "118"; playerInfo.maxhp_3 = "160"; playerInfo.atk_3 = "15";}
+			if(playerInfo.level_3.equals("8")){ playerInfo.statusPoint_3 = "14"; playerInfo.hp_3 = "170"; playerInfo.stamina_3 = "121"; playerInfo.maxhp_3 = "170"; playerInfo.atk_3 = "17";}
+			if(playerInfo.level_3.equals("9")){ playerInfo.statusPoint_3 = "16"; playerInfo.hp_3 = "180"; playerInfo.stamina_3 = "124"; playerInfo.maxhp_3 = "180"; playerInfo.atk_3 = "19";}
+			if(playerInfo.level_3.equals("10")){ playerInfo.statusPoint_3 = "18"; playerInfo.hp_3 = "190"; playerInfo.stamina_3 = "127"; playerInfo.maxhp_3 = "190"; playerInfo.atk_3 = "21";}
+			if(playerInfo.level_3.equals("11")){ playerInfo.statusPoint_3 = "21"; playerInfo.hp_3 = "200"; playerInfo.stamina_3 = "130"; playerInfo.maxhp_3 = "200"; playerInfo.atk_3 = "23";}
+			if(playerInfo.level_3.equals("12")){ playerInfo.statusPoint_3 = "24"; playerInfo.hp_3 = "210"; playerInfo.stamina_3 = "133"; playerInfo.maxhp_3 = "210"; playerInfo.atk_3 = "25";}
+			if(playerInfo.level_3.equals("13")){ playerInfo.statusPoint_3 = "27"; playerInfo.hp_3 = "220"; playerInfo.stamina_3 = "136"; playerInfo.maxhp_3 = "220"; playerInfo.atk_3 = "27";}
+			if(playerInfo.level_3.equals("14")){ playerInfo.statusPoint_3 = "30"; playerInfo.hp_3 = "230"; playerInfo.stamina_3 = "139"; playerInfo.maxhp_3 = "230"; playerInfo.atk_3 = "29";}
+			if(playerInfo.level_3.equals("15")){ playerInfo.statusPoint_3 = "33"; playerInfo.hp_3 = "240"; playerInfo.stamina_3 = "142"; playerInfo.maxhp_3 = "240"; playerInfo.atk_3 = "31";}
+			if(playerInfo.level_3.equals("16")){ playerInfo.statusPoint_3 = "36"; playerInfo.hp_3 = "250"; playerInfo.stamina_3 = "145"; playerInfo.maxhp_3 = "250"; playerInfo.atk_3 = "33";}
+			if(playerInfo.level_3.equals("17")){ playerInfo.statusPoint_3 = "39"; playerInfo.hp_3 = "260"; playerInfo.stamina_3 = "148"; playerInfo.maxhp_3 = "260"; playerInfo.atk_3 = "35";}
+			if(playerInfo.level_3.equals("18")){ playerInfo.statusPoint_3 = "42"; playerInfo.hp_3 = "270"; playerInfo.stamina_3 = "151"; playerInfo.maxhp_3 = "270"; playerInfo.atk_3 = "37";}
+			if(playerInfo.level_3.equals("19")){ playerInfo.statusPoint_3 = "45"; playerInfo.hp_3 = "280"; playerInfo.stamina_3 = "154"; playerInfo.maxhp_3 = "280"; playerInfo.atk_3 = "39";}
+			if(playerInfo.level_3.equals("20")){ playerInfo.statusPoint_3 = "48"; playerInfo.hp_3 = "290"; playerInfo.stamina_3 = "157"; playerInfo.maxhp_3 = "290"; playerInfo.atk_3 = "41";}
+			
+			level = Integer.parseInt(playerInfo.level_3);
+			if(level > 10 && playerInfo.job_3.equals("Swordman")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_3); attribute = attribute + (level * 2); playerInfo.atk_3 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.def_3);  attribute = attribute + (level * 2); playerInfo.def_3 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_3);  attribute = attribute + (level * 10); playerInfo.maxhp_3 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_3.equals("Mage")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.def_3); attribute = attribute + (level * 2); playerInfo.def_3 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxmp_3);  attribute = attribute + (level * 2); playerInfo.maxmp_3 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_3.equals("Thief")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_3); attribute = attribute + (level * 1); playerInfo.atk_3 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.def_3);  attribute = attribute + (level * 1); playerInfo.def_3 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_3);  attribute = attribute + (level * 10); playerInfo.maxhp_3 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_3.equals("Medic")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.def_3);  attribute = attribute + (level * 2); playerInfo.def_3 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_3);  attribute = attribute + (level * 10); playerInfo.maxhp_3 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_3.equals("Gunner")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_3);  attribute = attribute + (level * 2); playerInfo.def_3 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_3);  attribute = attribute + (level * 20); playerInfo.maxhp_3 = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_3.equals("Beater")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_3);  attribute = attribute + (level * 5); playerInfo.def_3 = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_3);  attribute = attribute + (level * 5); playerInfo.maxhp_3 = String.valueOf(attribute);
+			}	
 		}
 		
 		if(!playerInfo.name_A.equals("none")) {
@@ -446,17 +594,65 @@ public class GameControl {
 			playerInfo.def_A = "0";
 			playerInfo.exp_A = "0";
 			playerInfo.stamina_A = "100";
-			if(playerInfo.level_A.equals("1")){ playerInfo.statusPoint_A = "0"; playerInfo.hp_A = "100"; playerInfo.maxhp_A = "100"; playerInfo.atk_A = "3";}
-			if(playerInfo.level_A.equals("2")){ playerInfo.statusPoint_A = "2"; playerInfo.hp_A = "110"; playerInfo.maxhp_A = "110"; playerInfo.atk_A = "5";}
-			if(playerInfo.level_A.equals("3")){ playerInfo.statusPoint_A = "4"; playerInfo.hp_A = "120"; playerInfo.maxhp_A = "120"; playerInfo.atk_A = "7";}
-			if(playerInfo.level_A.equals("4")){ playerInfo.statusPoint_A = "6"; playerInfo.hp_A = "1A0"; playerInfo.maxhp_A = "1A0"; playerInfo.atk_A = "9";}
-			if(playerInfo.level_A.equals("5")){ playerInfo.statusPoint_A = "8"; playerInfo.hp_A = "140"; playerInfo.maxhp_A = "140"; playerInfo.atk_A = "11";}
-			if(playerInfo.level_A.equals("6")){ playerInfo.statusPoint_A = "10"; playerInfo.hp_A = "150"; playerInfo.maxhp_A = "150"; playerInfo.atk_A = "1A";}
-			if(playerInfo.level_A.equals("7")){ playerInfo.statusPoint_A = "12"; playerInfo.hp_A = "160"; playerInfo.maxhp_A = "160"; playerInfo.atk_A = "15";}
-			if(playerInfo.level_A.equals("8")){ playerInfo.statusPoint_A = "14"; playerInfo.hp_A = "170"; playerInfo.maxhp_A = "170"; playerInfo.atk_A = "17";}
-			if(playerInfo.level_A.equals("9")){ playerInfo.statusPoint_A = "16"; playerInfo.hp_A = "180"; playerInfo.maxhp_A = "180"; playerInfo.atk_A = "19";}
-			if(playerInfo.level_A.equals("10")){ playerInfo.statusPoint_A = "18"; playerInfo.hp_A = "190"; playerInfo.maxhp_A = "190"; playerInfo.atk_A = "21";}
-			playerInfo.job_A = "Novice";	
+			if(playerInfo.level_A.equals("1")){ playerInfo.statusPoint_A = "0"; playerInfo.hp_A = "100"; playerInfo.stamina_A = "100"; playerInfo.maxhp_A = "100"; playerInfo.atk_A = "3";}
+			if(playerInfo.level_A.equals("2")){ playerInfo.statusPoint_A = "2"; playerInfo.hp_A = "110"; playerInfo.stamina_A = "103"; playerInfo.maxhp_A = "110"; playerInfo.atk_A = "5";}
+			if(playerInfo.level_A.equals("3")){ playerInfo.statusPoint_A = "4"; playerInfo.hp_A = "120"; playerInfo.stamina_A = "106"; playerInfo.maxhp_A = "120"; playerInfo.atk_A = "7";}
+			if(playerInfo.level_A.equals("4")){ playerInfo.statusPoint_A = "6"; playerInfo.hp_A = "130"; playerInfo.stamina_A = "109"; playerInfo.maxhp_A = "130"; playerInfo.atk_A = "9";}
+			if(playerInfo.level_A.equals("5")){ playerInfo.statusPoint_A = "8"; playerInfo.hp_A = "140"; playerInfo.stamina_A = "112"; playerInfo.maxhp_A = "140"; playerInfo.atk_A = "11";}
+			if(playerInfo.level_A.equals("6")){ playerInfo.statusPoint_A = "10"; playerInfo.hp_A = "150"; playerInfo.stamina_A = "115"; playerInfo.maxhp_A = "150"; playerInfo.atk_A = "13";}
+			if(playerInfo.level_A.equals("7")){ playerInfo.statusPoint_A = "12"; playerInfo.hp_A = "160"; playerInfo.stamina_A = "118"; playerInfo.maxhp_A = "160"; playerInfo.atk_A = "15";}
+			if(playerInfo.level_A.equals("8")){ playerInfo.statusPoint_A = "14"; playerInfo.hp_A = "170"; playerInfo.stamina_A = "121"; playerInfo.maxhp_A = "170"; playerInfo.atk_A = "17";}
+			if(playerInfo.level_A.equals("9")){ playerInfo.statusPoint_A = "16"; playerInfo.hp_A = "180"; playerInfo.stamina_A = "124"; playerInfo.maxhp_A = "180"; playerInfo.atk_A = "19";}
+			if(playerInfo.level_A.equals("10")){ playerInfo.statusPoint_A = "18"; playerInfo.hp_A = "190"; playerInfo.stamina_A = "127"; playerInfo.maxhp_A = "190"; playerInfo.atk_A = "21";}
+			if(playerInfo.level_A.equals("11")){ playerInfo.statusPoint_A = "21"; playerInfo.hp_A = "200"; playerInfo.stamina_A = "130"; playerInfo.maxhp_A = "200"; playerInfo.atk_A = "23";}
+			if(playerInfo.level_A.equals("12")){ playerInfo.statusPoint_A = "24"; playerInfo.hp_A = "210"; playerInfo.stamina_A = "133"; playerInfo.maxhp_A = "210"; playerInfo.atk_A = "25";}
+			if(playerInfo.level_A.equals("13")){ playerInfo.statusPoint_A = "27"; playerInfo.hp_A = "220"; playerInfo.stamina_A = "136"; playerInfo.maxhp_A = "220"; playerInfo.atk_A = "27";}
+			if(playerInfo.level_A.equals("14")){ playerInfo.statusPoint_A = "30"; playerInfo.hp_A = "230"; playerInfo.stamina_A = "139"; playerInfo.maxhp_A = "230"; playerInfo.atk_A = "29";}
+			if(playerInfo.level_A.equals("15")){ playerInfo.statusPoint_A = "33"; playerInfo.hp_A = "240"; playerInfo.stamina_A = "142"; playerInfo.maxhp_A = "240"; playerInfo.atk_A = "31";}
+			if(playerInfo.level_A.equals("16")){ playerInfo.statusPoint_A = "36"; playerInfo.hp_A = "250"; playerInfo.stamina_A = "145"; playerInfo.maxhp_A = "250"; playerInfo.atk_A = "33";}
+			if(playerInfo.level_A.equals("17")){ playerInfo.statusPoint_A = "39"; playerInfo.hp_A = "260"; playerInfo.stamina_A = "148"; playerInfo.maxhp_A = "260"; playerInfo.atk_A = "35";}
+			if(playerInfo.level_A.equals("18")){ playerInfo.statusPoint_A = "42"; playerInfo.hp_A = "270"; playerInfo.stamina_A = "151"; playerInfo.maxhp_A = "270"; playerInfo.atk_A = "37";}
+			if(playerInfo.level_A.equals("19")){ playerInfo.statusPoint_A = "45"; playerInfo.hp_A = "280"; playerInfo.stamina_A = "154"; playerInfo.maxhp_A = "280"; playerInfo.atk_A = "39";}
+			if(playerInfo.level_A.equals("20")){ playerInfo.statusPoint_A = "48"; playerInfo.hp_A = "290"; playerInfo.stamina_A = "157"; playerInfo.maxhp_A = "290"; playerInfo.atk_A = "41";}
+			
+			level = Integer.parseInt(playerInfo.level_A);
+			if(level > 10 && playerInfo.job_A.equals("Swordman")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_A); attribute = attribute + (level * 2); playerInfo.atk_A = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.def_A);  attribute = attribute + (level * 2); playerInfo.def_A = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_A);  attribute = attribute + (level * 10); playerInfo.maxhp_A = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_A.equals("Mage")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.def_A); attribute = attribute + (level * 2); playerInfo.def_A = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxmp_A);  attribute = attribute + (level * 2); playerInfo.maxmp_A = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_A.equals("Thief")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_A); attribute = attribute + (level * 1); playerInfo.atk_A = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.def_A);  attribute = attribute + (level * 1); playerInfo.def_A = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_A);  attribute = attribute + (level * 10); playerInfo.maxhp_A = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_A.equals("Medic")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.def_A);  attribute = attribute + (level * 2); playerInfo.def_A = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_A);  attribute = attribute + (level * 10); playerInfo.maxhp_A = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_A.equals("Gunner")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_A);  attribute = attribute + (level * 2); playerInfo.def_A = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_A);  attribute = attribute + (level * 20); playerInfo.maxhp_A = String.valueOf(attribute);
+			}
+			
+			if(level > 10 && playerInfo.job_A.equals("Beater")) { 
+				level = level - 10;
+				attribute = Integer.parseInt(playerInfo.atk_A);  attribute = attribute + (level * 5); playerInfo.def_A = String.valueOf(attribute);
+				attribute = Integer.parseInt(playerInfo.maxhp_A);  attribute = attribute + (level * 5); playerInfo.maxhp_A = String.valueOf(attribute);
+			}	
 		}
 		
 		savetimer = 1;
@@ -4166,9 +4362,6 @@ public class GameControl {
 		int qtd = 0;
 		boolean itemHasAdded = false;
 		boolean crystalexist = false;
-		
-		
-		
 	
 		for(int i = 0; i < 48; i++) {
 			if(!lstItem[i].equals("[NONE]")) {
@@ -4354,7 +4547,7 @@ public class GameControl {
 		String[] lstItem = playerInfo.itens_A.split("-");
 		String[] itemSplit;
 		String item;
-		
+
 		item = lstItem[num];
 		if(!item.equals("[NONE]")) {
 			itemSplit = item.split("#");
@@ -7049,6 +7242,7 @@ public class GameControl {
 		//Check All Shared Meta Infos
 		for(int i = 0; i < lstPlayersOnline.size(); i++) {
 			
+			if(lstPlayersOnline.get(i).expshared_A == null) { return; }
 			if(!playerInfo.party_A.equals("None") && playerInfo.map_A.equals(lstPlayersOnline.get(i).map_A)) {
 				
 				if(lstPlayersOnline.get(i).party_A == null){ return; }
@@ -7473,6 +7667,7 @@ public class GameControl {
 		//lstPlayersOnline	
 		dataSplit = data.split(":");
 		playerInfoOnline = new Player();
+		int databot = 0;
 		
 		dataInfoSplit = dataSplit[1].split("=");
 		playerInfoOnline.name_A = dataInfoSplit[1];
@@ -7594,13 +7789,26 @@ public class GameControl {
 		if(playerInfoOnline.expshared_A == null) { playerInfoOnline.accountID = ""; } 
 		if(playerInfoOnline.expshared_A.equals("")) { playerInfoOnline.accountID = ""; } 
 		
-		if(lstPlayersOnline.size() > 0) {
-			if(lstPlayersOnline.get(0).accountID.equals(playerInfo.accountID) && lstPlayersOnline.get(0).map_A.equals(playerInfo.map_A)) {
+		if(lstPlayersOnline.size() > 0) {	
+			for(int i = 0; i < lstPlayersOnline.size(); i++) {
+				if(lstPlayersOnline.get(i).name_A.equals("DataBot")) {
+					syncPlayerMob = "no";
+					databot = 1;
+				}
+			}
+			
+			if(playerInfo.name_A.equals("DataBot")) {
 				syncPlayerMob = "yes";
 			}
-			else {
-				syncPlayerMob = "no"; 
-			}	
+			
+			if(databot == 0) {
+				if(lstPlayersOnline.get(0).accountID.equals(playerInfo.accountID) && lstPlayersOnline.get(0).map_A.equals(playerInfo.map_A)) {
+					syncPlayerMob = "yes";
+				}
+				else {
+					syncPlayerMob = "no"; 
+				}	
+			}
 		}
 		
 		boolean check = false;
@@ -12797,16 +13005,16 @@ public class GameControl {
 		if(playerInfo.level_A.equals("37") && playerExp >= 2785151) { playerInfo.level_A = "38"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
 		if(playerInfo.level_A.equals("38") && playerExp >= 2951515) { playerInfo.level_A = "39"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
 		if(playerInfo.level_A.equals("39") && playerExp >= 3345878) { playerInfo.level_A = "40"; playerInfo.exp_A = "0"; levelup = true; point = point + 4; }
-		if(playerInfo.level_A.equals("40") && playerExp >= 8054568) { playerInfo.level_A = "41"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("41") && playerExp >= 8575557) { playerInfo.level_A = "42"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("42") && playerExp >= 9551235) { playerInfo.level_A = "43"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("43") && playerExp >= 9851578) { playerInfo.level_A = "44"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("44") && playerExp >= 11502150) { playerInfo.level_A = "45"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("45") && playerExp >= 32545870) { playerInfo.level_A = "46"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("46") && playerExp >= 58789540) { playerInfo.level_A = "47"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("47") && playerExp >= 68515570) { playerInfo.level_A = "48"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("48") && playerExp >= 78515780) { playerInfo.level_A = "49"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
-		if(playerInfo.level_A.equals("49") && playerExp >= 35000000) { playerInfo.level_A = "50"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("40") && playerExp >= 9654568) { playerInfo.level_A = "41"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("41") && playerExp >= 13575557) { playerInfo.level_A = "42"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("42") && playerExp >= 18551235) { playerInfo.level_A = "43"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("43") && playerExp >= 24851578) { playerInfo.level_A = "44"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("44") && playerExp >= 31502150) { playerInfo.level_A = "45"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("45") && playerExp >= 362545870) { playerInfo.level_A = "46"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("46") && playerExp >= 438789540) { playerInfo.level_A = "47"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("47") && playerExp >= 628515570) { playerInfo.level_A = "48"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("48") && playerExp >= 758515780) { playerInfo.level_A = "49"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
+		if(playerInfo.level_A.equals("49") && playerExp >= 990000000) { playerInfo.level_A = "50"; playerInfo.exp_A = "0"; levelup = true; point = point + 5; }
 		
 		if(levelup) {
 			
@@ -12838,7 +13046,7 @@ public class GameControl {
 			if(playerInfo.job_A.equals("Mage")) {
 				playerDef = Integer.parseInt(playerInfo.def_A);
 				playerDef = playerDef + 1;
-				playerInfo.atk_A = String.valueOf(playerDef);
+				playerInfo.def_A = String.valueOf(playerDef);
 				playerMPMax = Integer.parseInt(playerInfo.maxmp_A);
 				playerMPMax = playerMPMax + 40;
 				playerInfo.maxhp_A = String.valueOf(playerHPMax);
@@ -12867,6 +13075,7 @@ public class GameControl {
 				playerInfo.maxhp_A = String.valueOf(playerHPMax);
 				levelup = false;
 			}
+			
 			if(playerInfo.job_A.equals("Gunner")) {
 				playerAtk = Integer.parseInt(playerInfo.atk_A);
 				playerAtk = playerAtk + 2;
@@ -12876,6 +13085,7 @@ public class GameControl {
 				playerInfo.maxhp_A = String.valueOf(playerHPMax);
 				levelup = false;
 			}
+			
 			if(playerInfo.job_A.equals("Beater")) {
 				playerAtk = Integer.parseInt(playerInfo.atk_A);
 				playerAtk = playerAtk + 5;

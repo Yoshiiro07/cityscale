@@ -225,7 +225,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 		
 		@Override
 		public void render(float delta) {
-			
+			try {
 			Gdx.gl.glClearColor(1,1,1,1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			
@@ -942,7 +942,12 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			}
 					
 			game.batch.end();	
+			}
 			
+			catch(Exception ex) {
+				Gdx.app.exit();
+				System.exit(0);
+			}
 		}
 		
 		
@@ -1331,6 +1336,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
+			if(gameState.equals("casting")) { return false; }
+			
 			
 			if(gameState.equals("Main")) {		
 				movement = true;
@@ -1383,6 +1390,8 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
+			if(gameState.equals("casting")) { return false; }
+			
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			if(gameState.equals("Main")) {
@@ -2185,6 +2194,7 @@ public class Sewers implements Screen, ApplicationListener, InputProcessor, Text
 			
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
+			if(gameState.equals("casting")) { return false; }
 			
 			if(movement == true){
 				Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));

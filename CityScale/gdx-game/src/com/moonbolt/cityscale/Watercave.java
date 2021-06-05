@@ -225,6 +225,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 	@Override
 	public void render(float delta) {
 
+		try {
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -908,11 +909,18 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 				activePlayer.hp_A = "1";
 				activePlayer.mp_A = "1";
 				activePlayer.inBattle_A = "no";
+				mapSwitch = "MetroStation";
 				changeScreen = true;
 			}
 		}
 
 		game.batch.end();	
+		}
+		
+		catch(Exception ex) {
+			Gdx.app.exit();
+			System.exit(0);
+		}
 	}
 
 
@@ -1261,6 +1269,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 		if(deathCheck) { return false; }		
 		if(loading) { return false; }
+		if(gameState.equals("casting")) { return false; }
 
 		if(gameState.equals("Main")) {		
 			movement = true;
@@ -1313,6 +1322,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 
 		if(deathCheck) { return false; }		
 		if(loading) { return false; }
+		if(gameState.equals("casting")) { return false; }
 
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 		if(gameState.equals("Main")) {
@@ -2195,6 +2205,7 @@ public class Watercave implements Screen, ApplicationListener, InputProcessor, T
 		
 		if(deathCheck) { return false; }		
 		if(loading) { return false; }
+		if(gameState.equals("casting")) { return false; }
 		
 		if(movement == true){
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
