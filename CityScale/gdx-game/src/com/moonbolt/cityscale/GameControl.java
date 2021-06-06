@@ -377,11 +377,11 @@ public class GameControl {
 	}
 	
 	//TEMP
-	public void PushReset() {   //here
+	public void PushReset() {   
 		
 		int level = 0;
 		int attribute = 0;
-		
+	
 		CleanBuffEffects();	
 		if(!playerInfo.name_1.equals("none")) {
 			playerInfo.stats_1 = "str:1#agi:1#wis:1#vit:1#des:1#sor:1#res:1";			
@@ -390,6 +390,10 @@ public class GameControl {
 			playerInfo.def_1 = "0";
 			playerInfo.exp_1 = "0";
 			playerInfo.stamina_1 = "100";
+			if(!playerInfo.crystalA_1.equals("none")) { RemoveCrystal(1); } 
+			if(!playerInfo.crystalB_1.equals("none")) { RemoveCrystal(2); }
+			if(!playerInfo.crystalC_1.equals("none")) { RemoveCrystal(3); }
+			if(!playerInfo.crystalD_1.equals("none")) { RemoveCrystal(4); }
 			if(playerInfo.level_1.equals("1")){ playerInfo.statusPoint_1 = "0"; playerInfo.hp_1 = "100"; playerInfo.stamina_1 = "100"; playerInfo.maxhp_1 = "100"; playerInfo.atk_1 = "3";}
 			if(playerInfo.level_1.equals("2")){ playerInfo.statusPoint_1 = "2"; playerInfo.hp_1 = "110"; playerInfo.stamina_1 = "103"; playerInfo.maxhp_1 = "110"; playerInfo.atk_1 = "5";}
 			if(playerInfo.level_1.equals("3")){ playerInfo.statusPoint_1 = "4"; playerInfo.hp_1 = "120"; playerInfo.stamina_1 = "106"; playerInfo.maxhp_1 = "120"; playerInfo.atk_1 = "7";}
@@ -458,6 +462,10 @@ public class GameControl {
 			playerInfo.def_2 = "0";
 			playerInfo.exp_2 = "0";
 			playerInfo.stamina_2 = "100";
+			if(!playerInfo.crystalA_2.equals("none")) { RemoveCrystal(1); } 
+			if(!playerInfo.crystalB_2.equals("none")) { RemoveCrystal(2); }
+			if(!playerInfo.crystalC_2.equals("none")) { RemoveCrystal(3); }
+			if(!playerInfo.crystalD_2.equals("none")) { RemoveCrystal(4); }
 			if(playerInfo.level_2.equals("1")){ playerInfo.statusPoint_2 = "0"; playerInfo.hp_2 = "100"; playerInfo.stamina_2 = "100"; playerInfo.maxhp_2 = "100"; playerInfo.atk_2 = "3";}
 			if(playerInfo.level_2.equals("2")){ playerInfo.statusPoint_2 = "2"; playerInfo.hp_2 = "110"; playerInfo.stamina_2 = "103"; playerInfo.maxhp_2 = "110"; playerInfo.atk_2 = "5";}
 			if(playerInfo.level_2.equals("3")){ playerInfo.statusPoint_2 = "4"; playerInfo.hp_2 = "120"; playerInfo.stamina_2 = "106"; playerInfo.maxhp_2 = "120"; playerInfo.atk_2 = "7";}
@@ -526,6 +534,10 @@ public class GameControl {
 			playerInfo.def_3 = "0";
 			playerInfo.exp_3 = "0";
 			playerInfo.stamina_3 = "100";
+			if(!playerInfo.crystalA_3.equals("none")) { RemoveCrystal(1); } 
+			if(!playerInfo.crystalB_3.equals("none")) { RemoveCrystal(2); }
+			if(!playerInfo.crystalC_3.equals("none")) { RemoveCrystal(3); }
+			if(!playerInfo.crystalD_3.equals("none")) { RemoveCrystal(4); }
 			if(playerInfo.level_3.equals("1")){ playerInfo.statusPoint_3 = "0"; playerInfo.hp_3 = "100"; playerInfo.stamina_3 = "100"; playerInfo.maxhp_3 = "100"; playerInfo.atk_3 = "3";}
 			if(playerInfo.level_3.equals("2")){ playerInfo.statusPoint_3 = "2"; playerInfo.hp_3 = "110"; playerInfo.stamina_3 = "103"; playerInfo.maxhp_3 = "110"; playerInfo.atk_3 = "5";}
 			if(playerInfo.level_3.equals("3")){ playerInfo.statusPoint_3 = "4"; playerInfo.hp_3 = "120"; playerInfo.stamina_3 = "106"; playerInfo.maxhp_3 = "120"; playerInfo.atk_3 = "7";}
@@ -594,6 +606,10 @@ public class GameControl {
 			playerInfo.def_A = "0";
 			playerInfo.exp_A = "0";
 			playerInfo.stamina_A = "100";
+			if(!playerInfo.crystalA_A.equals("none")) { RemoveCrystal(1); } 
+			if(!playerInfo.crystalB_A.equals("none")) { RemoveCrystal(2); }
+			if(!playerInfo.crystalC_A.equals("none")) { RemoveCrystal(3); }
+			if(!playerInfo.crystalD_A.equals("none")) { RemoveCrystal(4); }
 			if(playerInfo.level_A.equals("1")){ playerInfo.statusPoint_A = "0"; playerInfo.hp_A = "100"; playerInfo.stamina_A = "100"; playerInfo.maxhp_A = "100"; playerInfo.atk_A = "3";}
 			if(playerInfo.level_A.equals("2")){ playerInfo.statusPoint_A = "2"; playerInfo.hp_A = "110"; playerInfo.stamina_A = "103"; playerInfo.maxhp_A = "110"; playerInfo.atk_A = "5";}
 			if(playerInfo.level_A.equals("3")){ playerInfo.statusPoint_A = "4"; playerInfo.hp_A = "120"; playerInfo.stamina_A = "106"; playerInfo.maxhp_A = "120"; playerInfo.atk_A = "7";}
@@ -1734,6 +1750,14 @@ public class GameControl {
 			spr_master = atlas_InterfaceCreate.createSprite("energia");
 			spr_master.setSize(9,15);
 			spr_master.setPosition(cameraCoordsX + 40f,cameraCoordsY + 82);
+			return spr_master;
+		}
+		
+		//Reset box
+		if(type.equals("resetbox")) {
+			spr_master = atlas_InterfaceCreate.createSprite("btnreset");
+			spr_master.setSize(9,15);
+			spr_master.setPosition(-11, 105);
 			return spr_master;
 		}
 		
@@ -5332,8 +5356,10 @@ public class GameControl {
 			if(itemName.equals("FRAGRED")) { return; }
 			if(itemName.equals("FRAGYELLOW")) { return; }
 			
+			
 			//Crystals
 			if(itemName.equals("CRYSTALHPPLUS1") || itemName.equals("CRYSTALHPPLUS2") || itemName.equals("CRYSTALSTRPLUS1") || itemName.equals("CRYSTALSTRPLUS2")) {
+				if(!playerInfo.crystalA_A.equals("none") && !playerInfo.crystalB_A.equals("none") && !playerInfo.crystalC_A.equals("none") && !playerInfo.crystalD_A.equals("none")) { return; }				
 				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
@@ -5341,6 +5367,7 @@ public class GameControl {
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALMPPLUS1") || itemName.equals("CRYSTALMPPLUS2") || itemName.equals("CRYSTALWISPLUS1") || itemName.equals("CRYSTALWISPLUS2")) {
+				if(!playerInfo.crystalA_A.equals("none") && !playerInfo.crystalB_A.equals("none") && !playerInfo.crystalC_A.equals("none") && !playerInfo.crystalD_A.equals("none")) { return; }
 				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
@@ -5348,6 +5375,7 @@ public class GameControl {
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALRESPLUS1") || itemName.equals("CRYSTALRESPLUS2") || itemName.equals("CRYSTALSORPLUS1") || itemName.equals("CRYSTALSORPLUS2")) {
+				if(!playerInfo.crystalA_A.equals("none") && !playerInfo.crystalB_A.equals("none") && !playerInfo.crystalC_A.equals("none") && !playerInfo.crystalD_A.equals("none")) { return; }
 				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
@@ -5355,6 +5383,7 @@ public class GameControl {
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALAGIPLUS1") || itemName.equals("CRYSTALAGIPLUS2") || itemName.equals("CRYSTALDESPLUS1") || itemName.equals("CRYSTALDESPLUS2")) {
+				if(!playerInfo.crystalA_A.equals("none") && !playerInfo.crystalB_A.equals("none") && !playerInfo.crystalC_A.equals("none") && !playerInfo.crystalD_A.equals("none")) { return; }
 				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
@@ -6369,22 +6398,22 @@ public class GameControl {
 		if(item.equals("BOILEDEGG")) { return "Restaura 4 de Energia"; }
 		if(item.equals("STEAK")) { return "Restaura 40 de Energia"; }
 		if(item.equals("CHIPZ")) { return "Restaura 23 de Energia"; }
-		if(item.equals("CRYSTALHPPLUS1")) { return "Restaura 50 de HP max"; }
-		if(item.equals("CRYSTALHPPLUS2")) { return "Restaura 150 de HP max"; }
-		if(item.equals("CRYSTALSTRPLUS1")) { return "Restaura 2 de Força"; }
-		if(item.equals("CRYSTALSTRPLUS2")) { return "Restaura 4 de Força"; }
-		if(item.equals("CRYSTALMPPLUS1")) { return "Restaura 50 de MP max"; }
-		if(item.equals("CRYSTALMPPLUS2")) { return "Restaura 150 de MP max"; }
-		if(item.equals("CRYSTALWISPLUS1")) { return "Restaura 2 de Sabedoria"; }
-		if(item.equals("CRYSTALWISPLUS2")) { return "Restaura 4 de Sabedoria"; }
-		if(item.equals("CRYSTALRESPLUS1")) { return "Restaura 2 de Resistencia e 20 de Energia"; }
-		if(item.equals("CRYSTALRESPLUS2")) { return "Restaura 4 de Resistencia e 40 de Energia"; }
-		if(item.equals("CRYSTALSORPLUS1")) { return "Restaura 2 de Sorte"; }
-		if(item.equals("CRYSTALSORPLUS2")) { return "Restaura 4 de Sorte"; }
-		if(item.equals("CRYSTALAGIPLUS1")) { return "Restaura 2 de Agi"; }
-		if(item.equals("CRYSTALAGIPLUS2")) { return "Restaura 4 de Agi"; }
-		if(item.equals("CRYSTALDESPLUS1")) { return "Restaura 2 de Destreza"; }
-		if(item.equals("CRYSTALDESPLUS2")) { return "Restaura 4 de Destreza"; }
+		if(item.equals("CRYSTALHPPLUS1")) { return "Aumenta 50 de HP max"; }
+		if(item.equals("CRYSTALHPPLUS2")) { return "Aumenta 150 de HP max"; }
+		if(item.equals("CRYSTALSTRPLUS1")) { return "Aumenta 2 de Força"; }
+		if(item.equals("CRYSTALSTRPLUS2")) { return "Aumenta 4 de Força"; }
+		if(item.equals("CRYSTALMPPLUS1")) { return "Aumenta 50 de MP max"; }
+		if(item.equals("CRYSTALMPPLUS2")) { return "Aumenta 150 de MP max"; }
+		if(item.equals("CRYSTALWISPLUS1")) { return "Aumenta 2 de Sabedoria"; }
+		if(item.equals("CRYSTALWISPLUS2")) { return "Aumenta 4 de Sabedoria"; }
+		if(item.equals("CRYSTALRESPLUS1")) { return "Aumenta 2 de Resistencia e 20 de Energia"; }
+		if(item.equals("CRYSTALRESPLUS2")) { return "Aumenta 4 de Resistencia e 40 de Energia"; }
+		if(item.equals("CRYSTALSORPLUS1")) { return "Aumenta 2 de Sorte"; }
+		if(item.equals("CRYSTALSORPLUS2")) { return "Aumenta 4 de Sorte"; }
+		if(item.equals("CRYSTALAGIPLUS1")) { return "Aumenta 2 de Agi"; }
+		if(item.equals("CRYSTALAGIPLUS2")) { return "Aumenta 4 de Agi"; }
+		if(item.equals("CRYSTALDESPLUS1")) { return "Aumenta 2 de Destreza"; }
+		if(item.equals("CRYSTALDESPLUS2")) { return "Aumenta 4 de Destreza"; }
 		
 		return "";
 	}

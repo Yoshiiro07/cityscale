@@ -96,6 +96,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_MenuButton;
 		private Sprite spr_ChatButton;
 		private Sprite spr_EnergyButton;
+		private Sprite spr_resetBox;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -352,7 +353,10 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX + 43f,cameraCoordsY + 89f);
 			
-			
+			//Reset box
+			spr_resetBox = gameControl.LoadInterfaceGamePlay("resetbox", "", "");
+			spr_resetBox.draw(game.batch);
+				
 			//Verifica e Exibi chat
 			lstChats = gameControl.GetChatsOnline();  			
 			for(int i = 0; i < lstChats.size(); i++) {
@@ -903,6 +907,10 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 			
+			//spr_testeDot.setPosition(-7, 68);
+			//spr_testeDot.draw(game.batch);
+			//spr_testeDot.setSize(1, 1);
+			
 			//spr_testeDot.setPosition(106, 68);
 			//spr_testeDot.draw(game.batch);
 			//spr_testeDot.setSize(1, 1);
@@ -1075,6 +1083,11 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			if(playerPosX > 106 && playerPosX < 118 && playerPosY > 60 && playerPosY < 80) {
 				gameState = "Shop";
 				shop = "Crystal";
+			}
+			
+			//Reset NPC
+			if(playerPosX > 106 && playerPosX < 118 && playerPosY > 60 && playerPosY < 80) {
+				gameControl.PushReset();  //here
 			}
 		}
 		
