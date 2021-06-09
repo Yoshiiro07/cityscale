@@ -1283,7 +1283,79 @@ public class WatercaveBoss implements Screen, ApplicationListener, InputProcesso
 				if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 					state = "right";
 					walk = "walk";	   			
-				} 		
+				} 	
+				
+				if (keycode == Input.Keys.NUM_1) {
+	    			isAreaSkill = gameControl.CheckSkillType(1);
+	    			numSkillCast = 1;
+	    			if(!isAreaSkill) {
+	    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(1); }
+	    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(1); }	
+	    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(1); }
+	    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(1); }
+	    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(1); }
+	    			}	   		   			
+	            } 
+	    		
+	    		if (keycode == Input.Keys.NUM_2) {
+	    			isAreaSkill = gameControl.CheckSkillType(2);
+	    			numSkillCast = 2;
+	    			if(!isAreaSkill) {
+	    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(2); }
+	    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(2); }	
+	    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(2); }
+	    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(2); }
+	    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(2); }
+	    			}	   	   			
+	            } 
+	    		
+	    		if (keycode == Input.Keys.NUM_3) {
+	    			isAreaSkill = gameControl.CheckSkillType(3);
+	    			numSkillCast = 3;
+	    			if(!isAreaSkill) {
+	    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(3); }
+	    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(3); }	
+	    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(3); }
+	    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(3); }
+	    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(3); }
+	    			}	  			
+	            } 
+	    		
+	    		if (keycode == Input.Keys.NUM_4) {
+	    			isAreaSkill = gameControl.CheckSkillType(4);
+	    			numSkillCast = 4;
+	    			if(!isAreaSkill) {
+	    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(4); }
+	    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(4); }	
+	    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(4); }
+	    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(4); }
+	    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(4); }
+	    			}	  	  			
+	            } 
+	    		
+	    		if (keycode == Input.Keys.NUM_5) {
+	    			isAreaSkill = gameControl.CheckSkillType(5);
+	    			numSkillCast = 5;
+	    			if(!isAreaSkill) {
+	    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(5); }
+	    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(5); }	
+	    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(5); }
+	    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(5); }
+	    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(5); }
+	    			}	  	  			
+	            } 
+	    		
+	    		if (keycode == Input.Keys.NUM_6) {
+	    			isAreaSkill = gameControl.CheckSkillType(6);
+	    			numSkillCast = 6;
+	    			if(!isAreaSkill) {
+	    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(6); }
+	    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(6); }	
+	    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(6); }
+	    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(6); }
+	    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(6); }
+	    			}	  		   			
+	            }
 			}      
 		}
 		return false;

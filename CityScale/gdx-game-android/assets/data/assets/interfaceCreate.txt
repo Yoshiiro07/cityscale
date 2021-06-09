@@ -1,11 +1,11 @@
 interfaceCreate.png
-size: 1801, 1493
+size: 1842, 1632
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 accmanager
   rotate: false
-  xy: 350, 169
+  xy: 0, 169
   size: 350, 78
   orig: 350, 78
   offset: 0, 0
@@ -26,28 +26,28 @@ barAccess
   index: -1
 barcreatechar
   rotate: false
-  xy: 660, 1079
+  xy: 330, 1218
   size: 890, 414
   orig: 890, 414
   offset: 0, 0
   index: -1
 barDeath
   rotate: false
-  xy: 0, 269
+  xy: 1292, 169
   size: 250, 100
   orig: 250, 100
   offset: 0, 0
   index: -1
 barloot
   rotate: false
-  xy: 762, 0
+  xy: 1162, 0
   size: 297, 41
   orig: 297, 41
   offset: 0, 0
   index: -1
 barMenu
   rotate: false
-  xy: 221, 479
+  xy: 1678, 269
   size: 80, 299
   orig: 80, 299
   offset: 0, 0
@@ -61,7 +61,7 @@ blackscreen
   index: -1
 boxtext
   rotate: false
-  xy: 700, 169
+  xy: 350, 169
   size: 350, 78
   orig: 350, 78
   offset: 0, 0
@@ -75,56 +75,56 @@ btnacao
   index: -1
 btnAutoAttackOFF
   rotate: false
-  xy: 404, 94
+  xy: 338, 94
   size: 66, 58
   orig: 66, 58
   offset: 0, 0
   index: -1
 btnAutoAttackON
   rotate: false
-  xy: 338, 94
+  xy: 470, 94
   size: 66, 58
   orig: 66, 58
   offset: 0, 0
   index: -1
 btnCriarNovo
   rotate: false
-  xy: 1426, 94
+  xy: 1362, 94
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 btnDeletar
   rotate: false
-  xy: 1362, 94
+  xy: 1426, 94
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 btnMestreClasses
   rotate: false
-  xy: 602, 94
+  xy: 668, 94
   size: 66, 58
   orig: 66, 58
   offset: 0, 0
   index: -1
 btnMissao
   rotate: false
-  xy: 668, 94
+  xy: 404, 94
   size: 66, 58
   orig: 66, 58
   offset: 0, 0
   index: -1
 btnreset
   rotate: false
-  xy: 470, 94
+  xy: 536, 94
   size: 66, 58
   orig: 66, 58
   offset: 0, 0
   index: -1
 btnTrocarAlvo
   rotate: false
-  xy: 536, 94
+  xy: 602, 94
   size: 66, 58
   orig: 66, 58
   offset: 0, 0
@@ -145,7 +145,7 @@ carregando
   index: -1
 chat
   rotate: false
-  xy: 1399, 43
+  xy: 1293, 43
   size: 53, 47
   orig: 53, 47
   offset: 0, 0
@@ -173,14 +173,21 @@ conta
   index: -1
 criandopersonagem
   rotate: false
-  xy: 1059, 0
+  xy: 762, 0
   size: 400, 41
   orig: 400, 41
   offset: 0, 0
   index: -1
+crystal
+  rotate: false
+  xy: 0, 568
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
 CrystalBoard
   rotate: false
-  xy: 330, 1079
+  xy: 1500, 868
   size: 330, 350
   orig: 330, 350
   offset: 0, 0
@@ -194,14 +201,14 @@ deletandopersonagem
   index: -1
 energia
   rotate: false
-  xy: 1293, 43
+  xy: 1399, 43
   size: 53, 47
   orig: 53, 47
   offset: 0, 0
   index: -1
 hicon
   rotate: false
-  xy: 1171, 269
+  xy: 921, 269
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
@@ -215,14 +222,14 @@ hotbar
   index: -1
 innerpad
   rotate: false
-  xy: 1492, 169
+  xy: 1542, 169
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 interfaceAux
   rotate: false
-  xy: 0, 169
+  xy: 700, 169
   size: 350, 78
   orig: 350, 78
   offset: 0, 0
@@ -236,21 +243,21 @@ item
   index: -1
 JobBoard
   rotate: false
-  xy: 0, 1079
+  xy: 0, 1218
   size: 330, 350
   orig: 330, 350
   offset: 0, 0
   index: -1
 luzclara
   rotate: false
-  xy: 1371, 269
+  xy: 1121, 269
   size: 168, 210
   orig: 168, 210
   offset: 0, 0
   index: -1
 luzescura
   rotate: false
-  xy: 1539, 269
+  xy: 1289, 269
   size: 168, 210
   orig: 168, 210
   offset: 0, 0
@@ -264,49 +271,49 @@ menu
   index: -1
 menuConfig
   rotate: false
-  xy: 0, 779
+  xy: 800, 568
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuItens
   rotate: false
-  xy: 500, 779
+  xy: 0, 868
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuPet
   rotate: false
-  xy: 1000, 779
+  xy: 500, 868
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuSkills
   rotate: false
-  xy: 1301, 479
+  xy: 1000, 868
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuSocial
   rotate: false
-  xy: 801, 479
+  xy: 1300, 568
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 menuStatus
   rotate: false
-  xy: 301, 479
+  xy: 300, 568
   size: 500, 300
   orig: 500, 300
   offset: 0, 0
   index: -1
 metro
   rotate: false
-  xy: 250, 269
+  xy: 0, 269
   size: 581, 122
   orig: 581, 122
   offset: 0, 0
@@ -320,7 +327,7 @@ minibar
   index: -1
 outerpad
   rotate: false
-  xy: 831, 269
+  xy: 581, 269
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
@@ -348,7 +355,7 @@ personagem3
   index: -1
 personagembar
   rotate: false
-  xy: 0, 479
+  xy: 1457, 269
   size: 221, 239
   orig: 221, 239
   offset: 0, 0
@@ -376,7 +383,7 @@ selected
   index: -1
 skillareatarget
   rotate: false
-  xy: 971, 269
+  xy: 721, 269
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
@@ -397,7 +404,7 @@ tagPlayer
   index: -1
 tagStart
   rotate: false
-  xy: 1292, 169
+  xy: 1642, 169
   size: 200, 100
   orig: 200, 100
   offset: 0, 0

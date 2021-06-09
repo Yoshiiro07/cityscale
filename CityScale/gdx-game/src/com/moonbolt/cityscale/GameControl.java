@@ -159,6 +159,7 @@ public class GameControl {
 	private int healStop = 0;
 	private String healOnline = "";
 	private String OnlineRequest = "Aguardando..";
+	private int questTextShow = 1;
 	private int countCleanPlayersOnline = 1000;
 	private String mobAtkTargetSync = "none";
 	private String retornoOnline = "retry";
@@ -2194,8 +2195,19 @@ public class GameControl {
 			playerHPMax = Integer.parseInt(playerInfo.maxhp_A);
 			playerMPMax = Integer.parseInt(playerInfo.maxmp_A);
 			
-			playerHP = playerHP + 20;
-			playerMP = playerMP + 20;
+			//Normal Regen
+			playerHP = playerHP + 30; playerMP = playerMP + 30;
+			
+			//Aumento da quantidade de Regen com cristal
+			if(playerInfo.crystalA_A.equals("CRYSTALREGENBOOSTPLUS1")) { playerHP = playerHP + 20; playerMP = playerMP + 20; }
+			if(playerInfo.crystalB_A.equals("CRYSTALREGENBOOSTPLUS1")) { playerHP = playerHP + 20; playerMP = playerMP + 20; }
+			if(playerInfo.crystalC_A.equals("CRYSTALREGENBOOSTPLUS1")) { playerHP = playerHP + 20; playerMP = playerMP + 20; }
+			if(playerInfo.crystalD_A.equals("CRYSTALREGENBOOSTPLUS1")) { playerHP = playerHP + 20; playerMP = playerMP + 20; }
+			
+			if(playerInfo.crystalA_A.equals("CRYSTALREGENBOOSTPLUS2")) { playerHP = playerHP + 40; playerMP = playerMP + 40; }
+			if(playerInfo.crystalB_A.equals("CRYSTALREGENBOOSTPLUS2")) { playerHP = playerHP + 40; playerMP = playerMP + 40; }
+			if(playerInfo.crystalC_A.equals("CRYSTALREGENBOOSTPLUS2")) { playerHP = playerHP + 40; playerMP = playerMP + 40; }
+			if(playerInfo.crystalD_A.equals("CRYSTALREGENBOOSTPLUS2")) { playerHP = playerHP + 40; playerMP = playerMP + 40; }
 			
 			if(playerHP >= playerHPMax) { playerHP = playerHPMax; }
 			if(playerMP >= playerMPMax) { playerMP = playerMPMax; }
@@ -2203,11 +2215,23 @@ public class GameControl {
 			playerInfo.hp_A = String.valueOf(playerHP);
 			playerInfo.mp_A = String.valueOf(playerMP);
 			
-			if(playerInfo.buffsA_A.contains("regen")) { recoverytimer = 500; return; }
-			if(playerInfo.buffsB_A.contains("regen")) { recoverytimer = 500; return; }
-			if(playerInfo.buffsC_A.contains("regen")) { recoverytimer = 500; return; }
+			if(playerInfo.buffsA_A.contains("regen")) { recoverytimer = 800; return; }
+			if(playerInfo.buffsB_A.contains("regen")) { recoverytimer = 800; return; }
+			if(playerInfo.buffsC_A.contains("regen")) { recoverytimer = 800; return; }
 			
-			recoverytimer = 6500;
+			//Tempo Padrão de Regen
+			recoverytimer = 6000;
+			
+			//Diminui o tempo padrão de regen com cristal
+			if(playerInfo.crystalA_A.equals("CRYSTALREGENPLUS1")) { recoverytimer = recoverytimer - 350; }
+			if(playerInfo.crystalB_A.equals("CRYSTALREGENPLUS1")) { recoverytimer = recoverytimer - 350; }
+			if(playerInfo.crystalC_A.equals("CRYSTALREGENPLUS1")) { recoverytimer = recoverytimer - 350; }
+			if(playerInfo.crystalD_A.equals("CRYSTALREGENPLUS1")) { recoverytimer = recoverytimer - 350; }
+			
+			if(playerInfo.crystalA_A.equals("CRYSTALREGENPLUS2")) { recoverytimer = recoverytimer - 500; }
+			if(playerInfo.crystalB_A.equals("CRYSTALREGENPLUS2")) { recoverytimer = recoverytimer - 500; }
+			if(playerInfo.crystalC_A.equals("CRYSTALREGENPLUS2")) { recoverytimer = recoverytimer - 500; }
+			if(playerInfo.crystalD_A.equals("CRYSTALREGENPLUS2")) { recoverytimer = recoverytimer - 500; }
 		}
 	}
 	
@@ -4443,6 +4467,22 @@ public class GameControl {
 				
 			}
 			
+			if(itemName.equals("FRAGPURPLE") && qtd >= 20 && numItem == 3) {
+				crystalType = GetCrystalType("PURPLE");
+				AddItemBag(crystalType); 
+				itemHasAdded = true;
+				
+				qtd = qtd - 20;
+				if(qtd > 0) { lstItem[i] = "[FRAGPURPLE#" + qtd + "]"; }
+				if(qtd <= 0) { lstItem[i] = "[NONE]"; }
+				
+				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+				playerInfo.itens_A = listaItemFinal;
+				
+				
+			}
+			
 			if(itemName.equals("FRAGRED") && qtd >= 20 && numItem == 4) {
 				crystalType = GetCrystalType("RED");
 				AddItemBag(crystalType); 
@@ -4540,6 +4580,15 @@ public class GameControl {
 			if(num == 2) { return "CRYSTALAGIPLUS2"; }
 			if(num == 3) { return "CRYSTALDESPLUS1"; }
 			if(num == 4) { return "CRYSTALDESPLUS2"; }			
+		}
+		
+		if(fragmentColor.equals("PURPLE")) {
+			if(num == 0) { return "CRYSTALREGENPLUS1"; }
+			
+			if(num == 1) { return "CRYSTALREGENPLUS1"; }
+			if(num == 2) { return "CRYSTALREGENPLUS2"; }
+			if(num == 3) { return "CRYSTALREGENBOOSTPLUS1"; }
+			if(num == 4) { return "CRYSTALREGENBOOSTPLUS2"; } 		
 		}
 		
 		return "";
@@ -5026,7 +5075,7 @@ public class GameControl {
 	}
 	
 	public Sprite ShowCrystalItem(int num, float coordsX, float coordsY) {
-		String crystalEquipped = "";    
+		String crystalEquipped = "";  
 		
 		if(num == 1) { crystalEquipped = playerInfo.crystalA_A; } 
 		if(num == 2) { crystalEquipped = playerInfo.crystalB_A; } 
@@ -5052,6 +5101,11 @@ public class GameControl {
 		if(crystalEquipped.equals("CRYSTALAGIPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
 		if(crystalEquipped.equals("CRYSTALDESPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
 		if(crystalEquipped.equals("CRYSTALDESPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalamarelo"); }
+		
+		if(crystalEquipped.equals("CRYSTALREGENPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalroxo"); }
+		if(crystalEquipped.equals("CRYSTALREGENPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalroxo"); }
+		if(crystalEquipped.equals("CRYSTALREGENBOOSTPLUS1")) {  spr_master = atlas_itens.createSprite("lootcristalroxo"); }
+		if(crystalEquipped.equals("CRYSTALREGENBOOSTPLUS2")) {  spr_master = atlas_itens.createSprite("lootcristalroxo"); }
 				
 		if(num == 1) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 9.7f, coordsY - 11f);  }
 		if(num == 2) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 19.4f, coordsY - 11f);  }
@@ -5236,11 +5290,13 @@ public class GameControl {
 		if(item.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootfragmentoazul"); return spr_master; }
 		if(item.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootfragmentoamarelo"); return spr_master; }
 		if(item.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootfragmentoverde"); return spr_master; }
+		if(item.equals("FRAGPURPLE")) { spr_master = atlas_itens.createSprite("lootfragmentoroxo"); return spr_master; }
 		
 		if(item.equals("CRYSTALYELLOW")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
 		if(item.equals("CRYSTALAZUL")) { spr_master = atlas_itens.createSprite("lootcristalazul"); return spr_master; }
 		if(item.equals("CRYSTALVERDE")) { spr_master = atlas_itens.createSprite("lootcristalverde"); return spr_master; }
 		if(item.equals("CRYSTALVERMELHO")) { spr_master = atlas_itens.createSprite("lootcristalvermelho"); return spr_master; }
+		if(item.equals("CRYSTALROXO")) { spr_master = atlas_itens.createSprite("lootcristalroxo"); return spr_master; }
 		
 		
 		//CRYSTALS 
@@ -5267,6 +5323,12 @@ public class GameControl {
 		if(item.equals("CRYSTALAGIPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
 		if(item.equals("CRYSTALDESPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; }
 		if(item.equals("CRYSTALDESPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalamarelo"); return spr_master; } 
+		
+		//purple
+		if(item.equals("CRYSTALREGENPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalroxo"); return spr_master; }
+		if(item.equals("CRYSTALREGENPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalroxo"); return spr_master; }
+		if(item.equals("CRYSTALREGENBOOSTPLUS1")) { spr_master = atlas_itens.createSprite("lootcristalroxo"); return spr_master; }
+		if(item.equals("CRYSTALREGENBOOSTPLUS2")) { spr_master = atlas_itens.createSprite("lootcristalroxo"); return spr_master; } 
 		
 		return spr_master;
 	}
@@ -5355,6 +5417,7 @@ public class GameControl {
 			if(itemName.equals("FRAGGREEN")) { return; }
 			if(itemName.equals("FRAGRED")) { return; }
 			if(itemName.equals("FRAGYELLOW")) { return; }
+			if(itemName.equals("FRAGPURPLE")) { return; }
 			
 			
 			//Crystals
@@ -5383,6 +5446,14 @@ public class GameControl {
 				equipable = false;
 			}
 			if(itemName.equals("CRYSTALAGIPLUS1") || itemName.equals("CRYSTALAGIPLUS2") || itemName.equals("CRYSTALDESPLUS1") || itemName.equals("CRYSTALDESPLUS2")) {
+				if(!playerInfo.crystalA_A.equals("none") && !playerInfo.crystalB_A.equals("none") && !playerInfo.crystalC_A.equals("none") && !playerInfo.crystalD_A.equals("none")) { return; }
+				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalC_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalC_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				if(playerInfo.crystalD_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalD_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
+				equipable = false;
+			}
+			if(itemName.equals("CRYSTALREGENPLUS1") || itemName.equals("CRYSTALREGENPLUS2") || itemName.equals("CRYSTALREGENBOOSTPLUS1") || itemName.equals("CRYSTALREGENBOOSTPLUS2")) {
 				if(!playerInfo.crystalA_A.equals("none") && !playerInfo.crystalB_A.equals("none") && !playerInfo.crystalC_A.equals("none") && !playerInfo.crystalD_A.equals("none")) { return; }
 				if(playerInfo.crystalA_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalA_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
 				if(playerInfo.crystalB_A.equals("none") && crystalUse.equals("no")) { playerInfo.crystalB_A = itemName; GiveCrystalAtribute("AddEffect",itemName); crystalUse = "Yes"; }
@@ -6210,7 +6281,7 @@ public class GameControl {
 				playerInfo.maxmp_A = String.valueOf(playerAtribute);
 				return;
 			}
-			if(crystalItem.equals("CRYSTALWISPLUS1")) {
+			if(crystalItem.equals("CRYSTALWISPLUS1")) {	
 				playerStatusNumber = playerStatus[2].split(":");
 				playerAtribute = Integer.parseInt(playerStatusNumber[1]);
 				playerAtribute = playerAtribute + 2;
@@ -6414,6 +6485,10 @@ public class GameControl {
 		if(item.equals("CRYSTALAGIPLUS2")) { return "Aumenta 4 de Agi"; }
 		if(item.equals("CRYSTALDESPLUS1")) { return "Aumenta 2 de Destreza"; }
 		if(item.equals("CRYSTALDESPLUS2")) { return "Aumenta 4 de Destreza"; }
+		if(item.equals("CRYSTALREGENPLUS1")) { return "Diminui o tempo de Regeneracao de HP/MP (1)"; }
+		if(item.equals("CRYSTALREGENPLUS2")) { return "Diminui ainda mais o tempo de Regeneracao de HP/MP (2)"; }
+		if(item.equals("CRYSTALREGENBOOSTPLUS1")) { return "Regeneracao de HP/MP Aumentada"; }
+		if(item.equals("CRYSTALREGENBOOSTPLUS2")) { return "Regeneracao de HP/MP Aumentada ainda mais"; }
 		
 		return "";
 	}
@@ -13178,16 +13253,16 @@ public class GameControl {
 		if(playerInfo.level_A.equals("37")) { return "2785151"; }
 		if(playerInfo.level_A.equals("38")) { return "2951515"; }
 		if(playerInfo.level_A.equals("39")) { return "3345878"; }
-		if(playerInfo.level_A.equals("40")) { return "8054568"; }
-		if(playerInfo.level_A.equals("41")) { return "8575557"; }
-		if(playerInfo.level_A.equals("42")) { return "9551235"; }
-		if(playerInfo.level_A.equals("43")) { return "9851578"; }
-		if(playerInfo.level_A.equals("44")) { return "1150215"; }
-		if(playerInfo.level_A.equals("45")) { return "3254587"; }
-		if(playerInfo.level_A.equals("46")) { return "5878954"; }
-		if(playerInfo.level_A.equals("47")) { return "6851557"; }
-		if(playerInfo.level_A.equals("48")) { return "7851578"; }
-		if(playerInfo.level_A.equals("49")) { return "35000000"; }
+		if(playerInfo.level_A.equals("40")) { return "9654568"; }
+		if(playerInfo.level_A.equals("41")) { return "13575557"; }
+		if(playerInfo.level_A.equals("42")) { return "18551235"; }
+		if(playerInfo.level_A.equals("43")) { return "24851578"; }
+		if(playerInfo.level_A.equals("44")) { return "31502150"; }
+		if(playerInfo.level_A.equals("45")) { return "362545870"; }
+		if(playerInfo.level_A.equals("46")) { return "438789540"; }
+		if(playerInfo.level_A.equals("47")) { return "628515570"; }
+		if(playerInfo.level_A.equals("48")) { return "758515780"; }
+		if(playerInfo.level_A.equals("49")) { return "990000000"; }
 		
 		return "";
 	}
@@ -13209,6 +13284,7 @@ public class GameControl {
 			if(lootItemName.equals("FRAGBLUE")) { spr_master = atlas_itens.createSprite("lootfragmentoazul"); }
 			if(lootItemName.equals("FRAGYELLOW")) { spr_master = atlas_itens.createSprite("lootfragmentoamarelo"); }
 			if(lootItemName.equals("FRAGGREEN")) { spr_master = atlas_itens.createSprite("lootfragmentoverde"); }
+			if(lootItemName.equals("FRAGPURPLE")) { spr_master = atlas_itens.createSprite("lootfragmentoroxo"); }
 			
 			spr_master.setSize(7, 12);
 			spr_master.setPosition(ccX + 15, ccY + 61.5f);
@@ -14492,8 +14568,57 @@ public class GameControl {
 		return "0";
 	}
 	
-	public String QuestChat(String quest, String step) {
+	public String QuestChat(String quest) {
+		String quests = playerInfo.quest_A;
+		String pass = "";
+		String step = "0";
+		String[] lstQuest = playerInfo.itens_A.split("-");
+		if(quests.contains("FlowerGirl")) {
+			for(int i = 0; i < lstQuest.length; i++) {
+				
+				if(lstQuest[i].contains("FlowerGirl")) {
+					String[] itemSplit = lstQuest[i].split("#");
+					step = itemSplit[0].replace("]", "");
+					
+				}
+			}		
+		}
+		
+		
+		if(quest.equals("FlowerGirl") && step.equals("1") && questTextShow == 1) {
+			return "Ola, poderia conversar com voce um pouco";
+		}
+		if(quest.equals("FlowerGirl") && step.equals("1") && questTextShow == 2) {
+			return "Estava observando as pessoas entrando e saido da estacao, esperando alguem que pudesse me ajudar...";
+		}
+		if(quest.equals("FlowerGirl") && step.equals("1") && questTextShow == 3) {
+			return "sabe, eu vendo flores proximo as estacios, mas ultimamente tem sido dificil cultivar";
+		}
+		if(quest.equals("FlowerGirl") && step.equals("1") && questTextShow == 4) {
+			return "ouvir rumores de que algumas gosmas deixadas por uma criatura que vive no esgoto";
+		}
+		if(quest.equals("FlowerGirl") && step.equals("1") && questTextShow == 5) {
+			return "seria capaz de fazer crescer quase que o dobro do tempo as flores, acredita?";
+		}
+		if(quest.equals("FlowerGirl") && step.equals("1") && questTextShow == 6) {
+			return "Caso voce encontre algo do tipo, poderia trazer pra min? ficaria muito agradecida..";
+		}
+		if(quest.equals("FlowerGirl") && step.equals("1") && questTextShow == 7) {
+			for(int i = 0; i < lstQuest.length; i++) {
+				
+				if(lstQuest[i].contains("FlowerGirl")) {
+					String[] itemSplit = lstQuest[i].split("#");
+					step = itemSplit[0].replace("]", "");
+					
+				}
+			}
+			return "finish";
+		}
 		
 		return "";
+	}
+	
+	public void NextStepQuest() {
+		questTextShow++;
 	}
 }

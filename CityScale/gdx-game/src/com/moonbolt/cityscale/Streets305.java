@@ -915,24 +915,22 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 				
-			//spr_testeDot.setPosition(cameraCoordsX + 58, cameraCoordsY + 82); 
-			//spr_testeDot.setSize(1, 1);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 40, cameraCoordsY - 20); 
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 					
-			//spr_testeDot.setPosition(cameraCoordsX + 67, cameraCoordsY + 96); 
-			//spr_testeDot.setSize(1, 1);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 63, cameraCoordsY - 35); 
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 				
 			game.batch.end();
 			}
-			
-			
+					
 			catch(Exception ex) {
 				Gdx.app.exit();
 				System.exit(0);
 			}
 		}
-		
 		
 		private void CheckColide() {
 			if(!loading) {
@@ -1082,6 +1080,7 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				spr_questText = gameControl.LoadInterfaceGamePlay("boxtext","","");
 				spr_questText.draw(game.batch);	  //here
 				questStep = gameControl.CheckQuestStatus(questCall);	
+				font_master.draw(game.batch, gameControl.QuestChat("questCall"), cameraCoordsX + 12,cameraCoordsY + 3);
 			}
 		}
 		
@@ -1423,8 +1422,81 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 		    		
 		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 		    			state = "right";
-		    			walk = "walk";	   			
-		            } 		
+		    			walk = "walk";	   			 
+		            } 
+		    		
+		    		if (keycode == Input.Keys.NUM_1) {
+		    			isAreaSkill = gameControl.CheckSkillType(1);
+		    			numSkillCast = 1;
+		    			if(!isAreaSkill) {
+		    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(1); }
+		    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(1); }	
+		    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(1); }
+		    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(1); }
+		    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(1); }
+		    			}	   		   			
+		            } 
+		    		
+		    		if (keycode == Input.Keys.NUM_2) {
+		    			isAreaSkill = gameControl.CheckSkillType(2);
+		    			numSkillCast = 2;
+		    			if(!isAreaSkill) {
+		    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(2); }
+		    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(2); }	
+		    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(2); }
+		    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(2); }
+		    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(2); }
+		    			}	   	   			
+		            } 
+		    		
+		    		if (keycode == Input.Keys.NUM_3) {
+		    			isAreaSkill = gameControl.CheckSkillType(3);
+		    			numSkillCast = 3;
+		    			if(!isAreaSkill) {
+		    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(3); }
+		    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(3); }	
+		    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(3); }
+		    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(3); }
+		    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(3); }
+		    			}	  			
+		            } 
+		    		
+		    		if (keycode == Input.Keys.NUM_4) {
+		    			isAreaSkill = gameControl.CheckSkillType(4);
+		    			numSkillCast = 4;
+		    			if(!isAreaSkill) {
+		    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(4); }
+		    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(4); }	
+		    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(4); }
+		    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(4); }
+		    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(4); }
+		    			}	  	  			
+		            } 
+		    		
+		    		if (keycode == Input.Keys.NUM_5) {
+		    			isAreaSkill = gameControl.CheckSkillType(5);
+		    			numSkillCast = 5;
+		    			if(!isAreaSkill) {
+		    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(5); }
+		    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(5); }	
+		    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(5); }
+		    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(5); }
+		    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(5); }
+		    			}	  	  			
+		            } 
+		    		
+		    		if (keycode == Input.Keys.NUM_6) {
+		    			isAreaSkill = gameControl.CheckSkillType(6);
+		    			numSkillCast = 6;
+		    			if(!isAreaSkill) {
+		    				if(activePlayer.job_A.equals("Novice")) { gameControl.SkillAtkNovice(6); }
+		    				if(activePlayer.job_A.equals("Swordman")) { gameControl.SkillAtkSwordman(6); }	
+		    				if(activePlayer.job_A.equals("Thief")) { gameControl.SkillAtkThief(6); }
+		    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(6); }
+		    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(6); }
+		    			}	  		   			
+		            }
+		    		
 		        }      
 			}
 			return false;
@@ -1451,7 +1523,6 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
 			if(gameState.equals("casting")) { return false; }
-			if(questMode) { return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			if(gameState.equals("Main")) {
@@ -1466,6 +1537,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				}
 				else {
 					movement = true;
+				}
+				
+				if(questMode) {
+					if(coordsTouch.x >= (cameraCoordsX + 40) && coordsTouch.x <= (cameraCoordsX + 63) && coordsTouch.y >= (cameraCoordsY - 20) && coordsTouch.y <= (cameraCoordsY - 35)) {
+						//here
+						return false;
+					}
 				}
 				
 				//Action Button
