@@ -710,6 +710,13 @@ public class GameControl {
 			savetimer = 0;
 		}
 		
+		if(map.equals("Streets920down")) { 
+			playerInfo.map_A = "Streets920";
+			playerInfo.coordX_A = "191";
+			playerInfo.coordY_A = "-113";
+			savetimer = 0;
+		}
+		
 		if(map.equals("Streets305FromSewers")) {
 			playerInfo.map_A = "Streets305";
 			playerInfo.coordX_A = "41";
@@ -721,6 +728,20 @@ public class GameControl {
 			playerInfo.map_A = "Streets305";
 			playerInfo.coordX_A = "181";
 			playerInfo.coordY_A = "-130";
+			savetimer = 0;
+		}
+		
+		if(map.equals("Streets305up")) {
+			playerInfo.map_A = "Streets305";
+			playerInfo.coordX_A = "-72";
+			playerInfo.coordY_A = "60";
+			savetimer = 0;
+		}
+		
+		if(map.equals("Streets305down")) {
+			playerInfo.map_A = "Streets305";
+			playerInfo.coordX_A = "-70";
+			playerInfo.coordY_A = "-88";
 			savetimer = 0;
 		}
 		
@@ -800,6 +821,22 @@ public class GameControl {
 			playerInfo.coordY_A = "83";
 			savetimer = 0;
 		}
+		
+		if(map.equals("Mines")) { 
+			playerInfo.map_A = "Mines";
+			playerInfo.coordX_A = "206";
+			playerInfo.coordY_A = "124";
+			savetimer = 0;
+		}
+		
+		//Streets920Mines
+		if(map.equals("Streets920Mines")) { 
+			playerInfo.map_A = "Streets920";
+			playerInfo.coordX_A = "206";
+			playerInfo.coordY_A = "124";
+			savetimer = 0;
+		}
+		
 	}
 	
 	public void CreateNewData(){
@@ -5112,7 +5149,7 @@ public class GameControl {
 		if(num == 3) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 28.9f, coordsY - 11f);  }
 		if(num == 4) { spr_master.setSize(9, 14);  spr_master.setPosition(coordsX + 38.5f, coordsY - 11f);  }
 		
-		if(crystalEquipped.equals("none")) { return null;  } //here 
+		if(crystalEquipped.equals("none")) { return null;  }  
 		
 		return spr_master;
 	}
@@ -6435,8 +6472,7 @@ public class GameControl {
 		//Get Item
 		item = lstItem[itemNum];
 		if(item.equals("[NONE]")) { return; }
-		
-		
+			
 		//Check quantity
 		itemSplit = item.split("#");
 		itemName = itemSplit[0].replace("[", "");
@@ -6445,7 +6481,9 @@ public class GameControl {
 		//Give Money
 		money = Integer.parseInt(playerInfo.money_A);
 		if(money > 5000) { return; }
-		money = money + (qtd * 2);
+		int moneygave = randnumber.nextInt(5);
+		while(moneygave < 2) { moneygave = randnumber.nextInt(5); }
+		money = money + (moneygave * 2);
 		playerInfo.money_A = String.valueOf(money);
 		
 		//Clean Item placebox
@@ -6453,7 +6491,6 @@ public class GameControl {
 		listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
 		listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
 		playerInfo.itens_A = listaItemFinal;	
-		
 	}
 	
 	public String Decription(int itemNum) {
@@ -14584,7 +14621,6 @@ public class GameControl {
 			}		
 		}
 		
-		
 		if(quest.equals("FlowerGirl") && step.equals("1") && questTextShow == 1) {
 			return "Ola, poderia conversar com voce um pouco";
 		}
@@ -14608,8 +14644,7 @@ public class GameControl {
 				
 				if(lstQuest[i].contains("FlowerGirl")) {
 					String[] itemSplit = lstQuest[i].split("#");
-					step = itemSplit[0].replace("]", "");
-					
+					step = itemSplit[0].replace("]", "");		
 				}
 			}
 			return "finish";

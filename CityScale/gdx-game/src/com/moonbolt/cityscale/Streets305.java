@@ -941,6 +941,13 @@ public class Streets305 implements Screen, ApplicationListener, InputProcessor, 
 				mapSwitchConfig = "Sewers";
 			}
 			
+			if(playerPosX < -82 && playerPosY > -103 && playerPosY < -71) {
+				loading = true;
+				loadingDownCurtain = 100;
+				mapSwitchConfig = "Streets920down";
+				mapSwitch = "Streets920";
+			}
+			
 			if(playerPosX > 97 && playerPosX < 115 && playerPosY < -128) {
 				loading = true;
 				loadingDownCurtain = 100;

@@ -70,6 +70,16 @@ public class ManagerScreen implements Screen{
 			WatercaveBoss watercaveBossScreen = new WatercaveBoss(game,gameControl, config, platform,network);
 			game.setScreen(watercaveBossScreen);
 		}
+		
+		if(tipo.equals("Streets920")) {
+			Streets920 streets920Screen = new Streets920(game,gameControl, config, platform,network);
+			game.setScreen(streets920Screen);
+		}
+		
+		if(tipo.equals("Mines")) {
+			Mines MinesScreen = new Mines(game,gameControl, config, platform,network);
+			game.setScreen(MinesScreen);
+		}
 	}
 	
 	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControl, String[] configAlt, String platformAlt, String networkAlt){

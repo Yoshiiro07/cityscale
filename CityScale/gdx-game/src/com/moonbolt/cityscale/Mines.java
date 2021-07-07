@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Streets750 implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class Mines implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 		//Objects
 		private MainGame game;
 		private GameControl gameControl;
@@ -61,12 +61,15 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private float skillTouchX;
 		private float skillTouchY;
 		private int deathCount = 300;
+		private String mapChange = "";
 		
 		//Sprites
 		private Sprite spr_Background;
 		private Texture tex_Background;
 		private Sprite spr_BackgroundOver;
 		private Texture tex_BackgroundOver;
+		private Sprite spr_BackgroundUpper;
+		private Texture tex_BackgroundUpper;
 		
 		private Sprite spr_playerCharacter;
 		private Sprite spr_playerHair;
@@ -79,24 +82,25 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_Controller;
 		private Sprite spr_autoAtk;
 		private Sprite spr_switchTarget;
+		private Sprite spr_TargetArrow;
 		private Sprite spr_Weapon;
 		private Sprite spr_Skill;
 		private Sprite spr_Shop;
 		private Sprite spr_item;
 		private Sprite spr_barItemDescription;
-		private Sprite spr_npc;
+		private Sprite spr_mob;
 		private Sprite spr_lootItem;
 		private Sprite spr_lootBar;
 		private Sprite spr_skill;
 		private Sprite spr_buff;
 		private Sprite spr_areaSelect;
 		private Sprite spr_areaSkillTarget;
+		private Sprite spr_boardJob;
 		private Sprite spr_iconSkillMenu;
 		private Sprite spr_death;
 		private Sprite spr_MenuButton;
 		private Sprite spr_ChatButton;
 		private Sprite spr_EnergyButton;
-		private Sprite spr_resetBox;
 		
 		private Sprite spr_Menubar;
 		private Sprite spr_MenuStatus;
@@ -107,12 +111,14 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private Sprite spr_MenuConfig;
 			
 		//Primitives
+		private int flopBackground = 0;
 		private boolean changeScreen = false;
 		private boolean discart = false;
 		private boolean hotkey = false;
 		private boolean description = false;
 		private boolean showDescription = false;
 		private boolean typeParty = false;
+		private boolean deathCheck = false;
 		private String detailItem = "";
 		private String gameState = "Main";
 		private String text = "";
@@ -122,7 +128,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private int countParty = 0;
 		private int timeBuyCount = 0;
 		private String nameBuy = "";
-		private float walkNPC = 0;
 		private boolean isDisplay = false;
 		private String typeDisplay = "";
 		private String msgDisplay = "";
@@ -131,9 +136,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private ArrayList<Monster> lstMobs;
 		private ArrayList<Damage> lstDano;
 		private ArrayList<Skill> lstSkill;
-		private ArrayList<Sprite> lstNPCs;
-		private boolean deathCheck = false;
-			
+		
 		//fonts
 		private BitmapFont font_master;
 		
@@ -142,10 +145,10 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		private ArrayList<Player> lstPlayerOnline;
 		private Sprite spr_playerCharacterOnline;
 		private Sprite spr_playerHairOnline;
+		private Sprite spr_playerHatOnline;
 		private Sprite spr_TagParty;
 		private Sprite spr_TagPartyHair;
 		private Sprite spr_TagPartyHat;
-		private Sprite spr_playerHatOnline;
 		
 		//Camera
 		private OrthographicCamera camera;
@@ -160,7 +163,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);
 		
-		public Streets750(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt, String networkState) {
+		public Mines(MainGame gameAlt, GameControl gameControl,String[] configAlt,String platformAlt, String networkState) {
 			this.game = gameAlt;
 			this.gameControl = gameControl;
 			this.config = configAlt;
@@ -192,9 +195,9 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Initializing Chats & Monsters
 			lstChats = new ArrayList<String>();
+			lstMobs = new ArrayList<Monster>();
+			lstMobs = gameControl.LoadMonstersSewers();
 			onlinePlayer = new Player();
-			//lstMobs = new ArrayList<Monster>();
-			//lstMobs = gameControl.LoadMonsters("Sewers");
 			
 			//Sprites
 			tex_loadingText = new Texture(Gdx.files.internal("data/assets/carregando.png"));
@@ -206,22 +209,28 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			spr_loadingBlack = new Sprite(tex_loadingBlack);
 			spr_loadingBlack.setSize(100, 100);
 			
-			tex_Background = new Texture(Gdx.files.internal("data/maps/streets750.png"));
+			tex_Background = new Texture(Gdx.files.internal("data/maps/cave.png"));
 			spr_Background = new Sprite(tex_Background);
 			spr_Background.setSize(100, 100);
 			
-			tex_BackgroundOver = new Texture(Gdx.files.internal("data/maps/streets750over.png"));
+			tex_BackgroundOver = new Texture(Gdx.files.internal("data/maps/caveover.png"));
 			spr_BackgroundOver = new Sprite(tex_BackgroundOver);
 			spr_BackgroundOver.setSize(100, 100);
+			
+			//tex_BackgroundUpper = new Texture(Gdx.files.internal("data/maps/caveupper.png"));
+			//spr_BackgroundUpper = new Sprite(tex_BackgroundUpper);
+			//spr_BackgroundUpper.setSize(100, 100);
 			
 			spr_Skill = new Sprite(tex_testeDot);
 			spr_Shop = new Sprite(tex_testeDot);
 			
+			//Online
 			networkState = "on";
 			network = true;
 			gameControl.OnlineManager("Sync","");
 		}
-			
+		
+		
 		@Override
 		public void render(float delta) {
 			try {
@@ -259,13 +268,27 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			//Update Camera for UI elements
 			gameControl.AtualizaCamera(cameraCoordsX, cameraCoordsY);
 			
-			//Background
 			spr_Background.setPosition(-100, -150);
 			spr_Background.setSize(350, 350);
-			spr_Background.draw(game.batch);
+			spr_Background.draw(game.batch);	
+			
+			//Background
+			if(flopBackground >= 0 || 30 <= flopBackground) {
+			flopBackground++;
+			spr_Background.setPosition(-100, -150);
+			spr_Background.setSize(350, 350);
+			spr_Background.draw(game.batch);			
+			}
+			if(flopBackground >= 30 || 60 <= flopBackground) {
+			flopBackground++;
+			spr_BackgroundOver.setPosition(-100, -150);
+			spr_BackgroundOver.setSize(350, 350);
+			spr_BackgroundOver.draw(game.batch);			
+			}
+			if(flopBackground >= 60) { flopBackground = 0; }
 			
 			//Show NPC
-			ShowNPCs();
+			//ShowNPCs();
 				
 			//Player Character
 			spr_playerCharacter = gameControl.MovPlayerCharacter(activePlayer.set_A,activePlayer.sex_A,walk,state, false, breakWalk);
@@ -280,11 +303,9 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				spr_playerHat = gameControl.MovPlayerHat(activePlayer.hat_A,activePlayer.sex_A,state, "Main", walk);
 				spr_playerHat.draw(game.batch);
 			}
-							
-			//Background Over
-			spr_BackgroundOver.setPosition(-100, -150);
-			spr_BackgroundOver.setSize(350, 350);
-			spr_BackgroundOver.draw(game.batch);
+			
+			//Show Monsters
+			ShowMonsters();
 			
 			//Show Online Players
 			ShowOnlinePlayers();
@@ -303,11 +324,13 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			spr_Hotbar.draw(game.batch);
 			
 			if(platform.equals("Mobile")) {
+			
 			spr_BackController = gameControl.LoadInterfaceGamePlay("outerpad", "","");
 			spr_BackController.draw(game.batch);
 			
 			spr_Controller = gameControl.LoadInterfaceGamePlay("innerpad", walk,state);
 			spr_Controller.draw(game.batch);
+			
 			}
 			
 			if(autoAtk.equals("yes")) {
@@ -353,10 +376,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 			font_master.draw(game.batch, activePlayer.stamina_A, cameraCoordsX + 43f,cameraCoordsY + 89f);
 			
-			//Reset box
-			spr_resetBox = gameControl.LoadInterfaceGamePlay("resetbox", "", "");
-			spr_resetBox.draw(game.batch);
-				
 			//Verifica e Exibi chat
 			lstChats = gameControl.GetChatsOnline();  			
 			for(int i = 0; i < lstChats.size(); i++) {
@@ -365,6 +384,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				if(i == 1) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 37f, cameraCoordsY - 18.7f); }
 				if(i == 2) { font_master.draw(game.batch,lstChats.get(i),cameraCoordsX - 37f, cameraCoordsY - 22.7f); }
 			}
+			
 			
 			//Hotkey Itens
 			spr_item = gameControl.ShowItemBar(1, cameraCoordsX, cameraCoordsY);
@@ -424,7 +444,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				spr_Skill = gameControl.SkillHotbar("Gunner","lockshot"); spr_Skill.draw(game.batch);
 				spr_Skill = gameControl.SkillHotbar("Gunner","mine"); spr_Skill.draw(game.batch);			
 			}
-							
+			
 			//Calculate MetaInfo From Online
 			gameControl.MetaInfoOnline();
 					
@@ -516,6 +536,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 					
 					font_master.draw(game.batch, detailItem, cameraCoordsX - 47, cameraCoordsY - 20);
 				}		
+				
 			}
 			
 			if(gameState.equals("Menu-Skills")) {
@@ -790,6 +811,11 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 			
+			//Shadow
+			//spr_BackgroundUpper.setPosition(-100, -150);
+			//spr_BackgroundUpper.setSize(350, 350);
+			//spr_BackgroundUpper.draw(game.batch);
+			
 			//Show Damage
 			ShowDamage();
 			ShowSkillUsed();
@@ -845,14 +871,14 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				}
 			}
 			
-			if(gameState.equals("Shop")) {		
-				if(!shop.equals("Crystal")) { 
-					font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX + 12,cameraCoordsY + 3); 
-					font_master.draw(game.batch, nameBuy, cameraCoordsX + 27,cameraCoordsY + 3);
-				}
-				
-				if(shop.equals("Crystal")) { font_master.draw(game.batch, nameBuy, cameraCoordsX + 10,cameraCoordsY - 8); } //here
-				
+			if(gameState.equals("jobpost")) {
+				spr_boardJob = gameControl.LoadInterfaceGamePlay("boardJob", "", "");
+				spr_boardJob.draw(game.batch);
+			}
+			
+			if(gameState.equals("Shop")) {
+				font_master.draw(game.batch, activePlayer.money_A, cameraCoordsX + 12,cameraCoordsY + 3);
+				font_master.draw(game.batch, nameBuy, cameraCoordsX + 27,cameraCoordsY + 3);
 				if(timeBuyCount > 0) {
 					timeBuyCount--;
 					
@@ -867,7 +893,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 			//Change Screen
 			if(loading) {
-				loadingDownCurtain--;
+				loadingDownCurtain--;			
 				spr_loadingBlack.setSize(200, 200);
 				spr_loadingBlack.setPosition(cameraCoordsX - 70, cameraCoordsY - 40);
 				spr_loadingBlack.draw(game.batch);
@@ -884,13 +910,13 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			}
 			
 			//Change Screen
-			if(changeScreen){	
+			if(changeScreen){  
 				changeScreen = false;
 				gameControl.OnlineManager("Desligar", "");
 				gameControl.ScreenChange(mapSwitchConfig);
 				gameControl.UpdateDataSave(numPlayerActive);
 			    game.AtualizaElementos(game,gameControl, config, platform, networkState);
-			    game.Switch(mapSwitch);			
+			    game.Switch(mapSwitch);				    
 			}
 			
 			deathCheck = gameControl.VerifyDeath();
@@ -900,23 +926,15 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				spr_death.draw(game.batch);
 				
 				if(deathCount <= 0) {
-					activePlayer.hp_A = "1";
-					activePlayer.mp_A = "1";
+					activePlayer.hp_A = "35";
+					activePlayer.mp_A = "35";
 					activePlayer.inBattle_A = "no";
+					mapChange = "MetroStation";
 					changeScreen = true;
 				}
 			}
-			
-			spr_testeDot.setPosition(-7, 68);
-			spr_testeDot.draw(game.batch);
-			spr_testeDot.setSize(1, 1);
-			
-			spr_testeDot.setPosition(106, 68);
-			spr_testeDot.draw(game.batch);
-			spr_testeDot.setSize(1, 1);
-			
-			game.batch.end();
-			
+					
+			game.batch.end();	
 			}
 			
 			catch(Exception ex) {
@@ -928,166 +946,25 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		
 		private void CheckColide() {
 			if(!loading) {
-					
-			if(playerPosX > 47 && playerPosX < 69 && playerPosY > -121 && playerPosY < -107) {
+			if(playerPosX > 47 && playerPosX < 53 && playerPosY > 156) {
 				loading = true;
 				loadingDownCurtain = 100;
-				mapSwitchConfig = "Watercave";
-				mapSwitch = "Watercave";
-				return;
+				mapChange = "Streets305FromSewers";
 			}
 			
-			//Wall up
-			if(playerPosY > 159) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//Wall left
-			if(playerPosX < -97) {
-				breakWalk = "left";
-				return;
-			}
-			
-			//Wall right
-			if(playerPosX > 216) {
-				breakWalk = "right";
-				return;
-			}
-			
-			//Wall bottom
-			if(playerPosY < -150) {
-				breakWalk = "front";
-				return;
-			}
-			
-			//builds right
-			if(playerPosX >= 137 && playerPosX <= 139 && playerPosY > 54 && playerPosY < 170) {
-				breakWalk = "right";
-				return;
-			}
-			
-			if(playerPosX >= 140 && playerPosX <= 230 && playerPosY > 50 && playerPosY < 60) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//Builds left
-			if(playerPosX >= -97 && playerPosX <= -25 && playerPosY > 56) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//left bar
-			if(playerPosX >= -120 && playerPosX <= -2 && playerPosY > 14 && playerPosY < 16) {
-				breakWalk = "front";
-				return;
-			}
-			
-			//Pedestrian left
-			if(playerPosX <= -0 && playerPosY > -77 && playerPosY < 14) {
-				breakWalk = "left";
-				return;
-			}
-			
-			//right bar
-			if(playerPosX >= 119 && playerPosX <= 217 && playerPosY > 16 && playerPosY < 18) {
-				breakWalk = "front";
-				return;
-			}
-			if(playerPosX >= 115 && playerPosX <= 120 && playerPosY > -78 && playerPosY < 17) {
-				breakWalk = "right";
-				return;
-			}
-			
-			//left bar
-			if(playerPosX <= 0 && playerPosY == 13) {
-				breakWalk = "left";
-				return;
-			}
-			
-			//left bar
-			if(playerPosX >= -119 && playerPosX <= -120 && playerPosX >= -2 && playerPosY < 16) {
-				breakWalk = "front";
-				return;
-			}
-			
-			//sand walk up
-			if(playerPosX >= -98 && playerPosX <= -3 && playerPosY > -79 && playerPosY < -75) {
-				breakWalk = "back";
-				return;
-			}
-			
-			if(playerPosX >= 118 && playerPosX <= 260 && playerPosY > -79 && playerPosY < -75) {
-				breakWalk = "back";
-				return;
-			}
-			
-			if(playerPosX >= -79 && playerPosX <= 231 && playerPosY > -88 && playerPosY < -84) {
-				breakWalk = "front";
-				return;
-			}
-			
-			if(playerPosX >= -79 && playerPosX <= -75 && playerPosY > -106 && playerPosY < -87) {
-				breakWalk = "right";
-				return;
-			}
-			
-			if(playerPosX >= -79 && playerPosX <= 231 && playerPosY > -110 && playerPosY < -104) {
-				breakWalk = "back";
-				return;
-			}
-			
-			//builds left
-			if(playerPosX <= -21 && playerPosY > 60 && playerPosY < 160) {
-				breakWalk = "left";
-				return;
-			}
-			
-			if(playerPosY > 146 && playerPosX > 107 && playerPosX < 136) {
-				changeScreen = true;
-				mapSwitchConfig = "Streets305rightbottom";
-				mapSwitch = "Streets305";
-				return;
-			}
-			
-			if(playerPosY > 146 && playerPosX > -21 && playerPosX < 9) {
-				changeScreen = true;
-				mapSwitchConfig = "Streets305leftbottom";
-				mapSwitch = "Streets305";
-				return;
+			if(playerPosX > 213 && playerPosX < 230 && playerPosY > -91 && playerPosY < 155) {
+				loading = true;
+				loadingDownCurtain = 100;
+				mapSwitchConfig = "Streets920down";
+				mapSwitch = "Streets920";
 			}
 			
 			breakWalk = "";
-			
 			}
 		}
 		
 		private void ActionVerify() {
-			//Shop Refrigerante
-			if(playerPosX > -78 && playerPosX < -68 && playerPosY > 46 && playerPosY < 58) {
-				gameState = "Shop";
-				shop = "RefriShop";
-			}
-			//Shop Tropical
-			if(playerPosX > -60 && playerPosX < -41 && playerPosY > 45 && playerPosY < 58) {
-				gameState = "Shop";
-				shop = "Tropical";
-			}
-			//Shop 750
-			if(playerPosX > 159 && playerPosX < 174 && playerPosY > 41 && playerPosY < 53) {
-				gameState = "Shop";
-				shop = "750";
-			}
-			//Crystal Shop
-			if(playerPosX > 106 && playerPosX < 118 && playerPosY > 60 && playerPosY < 80) {
-				gameState = "Shop";
-				shop = "Crystal";
-			}			
-			//Reset NPC
-			if(playerPosX > -21 && playerPosX < -12 && playerPosY > 60 && playerPosY < 97) {
-				gameControl.PushReset();
-			}
+		
 		}
 		
 		private void ShowItensBag() {
@@ -1164,9 +1041,10 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			
 		}
 		
+		
 		private void ShowOnlinePlayers() {		
 			if(network) {			
-				lstPlayerOnline = gameControl.GetOnlinePlayers();  
+				lstPlayerOnline = gameControl.GetOnlinePlayers(); 
 				
 				if(lstPlayerOnline == null) { return; }
 				if(lstPlayerOnline.size() == 0) { return; }
@@ -1259,11 +1137,17 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			}
 		}
 		
-		private void ShowNPCs() {		
-			lstNPCs = gameControl.GetNpcsStreets750();
-			for(int i = 0; i < lstNPCs.size(); i++) {
-				spr_npc = lstNPCs.get(i);
-				spr_npc.draw(game.batch);
+		private void ShowMonsters() {
+			lstMobs = gameControl.GetMonsters();
+			for(int i = 0; i < lstMobs.size(); i++) {
+				spr_mob = gameControl.MobAppearSewers(i);
+				spr_mob.draw(game.batch);
+				font_master.draw(game.batch, lstMobs.get(i).mobID + ":" + lstMobs.get(i).hp + "/" + lstMobs.get(i).maxHP, spr_mob.getX(), spr_mob.getY());
+			}	
+			
+			spr_TargetArrow = gameControl.TargetMobArrow();
+			if(spr_TargetArrow != null) {
+				spr_TargetArrow.draw(game.batch);
 			}
 		}
 		
@@ -1359,6 +1243,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			if(loading) { return false; }
 			if(gameState.equals("casting")) { return false; }
 			
+			
 			if(gameState.equals("Main")) {		
 				movement = true;
 				downKeys.add(keycode);
@@ -1384,7 +1269,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 		    			state = "right";
 		    			walk = "walk";	   			
-		            } 
+		            } 	
 		    		
 		    		if (keycode == Input.Keys.NUM_1) {
 		    			isAreaSkill = gameControl.CheckSkillType(1);
@@ -1456,8 +1341,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 		    				if(activePlayer.job_A.equals("Gunner")) { gameControl.SkillAtkGunner(6); }
 		    				if(activePlayer.job_A.equals("Beater")) { gameControl.SkillAtkBeater(6); }
 		    			}	  		   			
-		            } 
-		    		
+		            }
 		        }      
 			}
 			return false;
@@ -1484,6 +1368,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 			if(deathCheck) { return false; }		
 			if(loading) { return false; }
 			if(gameState.equals("casting")) { return false; }
+			
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			if(gameState.equals("Main")) {
@@ -2166,7 +2051,6 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 					//msgDisplay = "Online Ligado";
 					//isDisplay = true;
 					//countDisplay = 200;
-					//networkState = "yes";
 					return false;
 				}
 				
@@ -2198,7 +2082,7 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 				
 				//Upload Save
 				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 33) && coordsTouch.y <= (cameraCoordsY + 45)) {
-					network = true;  
+					network = true; 
 					gameControl.OnlineManager("Sync","");
 					typeDisplay = "Config";
 					isDisplay = true;
@@ -2271,89 +2155,8 @@ public class Streets750 implements Screen, ApplicationListener, InputProcessor, 
 					gameState = "Main";
 					return false;
 				}
-				
-				//Crystal Shop
-				//Item 1
-				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { nameBuy = gameControl.ItemBuyStreets305("RefriShop", 1); timeBuyCount = 40; } 
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 1); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 1); timeBuyCount = 40; } 
-					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(1); timeBuyCount = 40; } 				
-					return false;
-				}
-				//Item 2
-				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 2); timeBuyCount = 40; }
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 2); timeBuyCount = 40; } 
-					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(2); timeBuyCount = 40; } 
-					return false;
-				}
-				//Item 3
-				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 3); timeBuyCount = 40; }
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 3); timeBuyCount = 40; } 
-					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(3); timeBuyCount = 40; } 
-					return false;
-				}
-				//Item 4
-				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 44) && coordsTouch.y <= (cameraCoordsY + 59)) {
-					if(shop.equals("RefriShop")) { nameBuy =  gameControl.ItemBuyStreets305("RefriShop", 4); timeBuyCount = 40; }
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 4); timeBuyCount = 40; } 
-					if(shop.equals("Crystal")) { nameBuy = gameControl.GetCrystal(4); timeBuyCount = 40; } 
-					return false;
-				}
-				
-				//Item 5
-				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 5); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 5); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 6
-				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 6); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 6); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 7
-				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 7); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 7); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 8
-				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 27) && coordsTouch.y <= (cameraCoordsY + 42)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 8); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 8); timeBuyCount = 40; }
-					return false;
-				}	
-				
-				//Item 9
-				if(coordsTouch.x >= (cameraCoordsX + 11) && coordsTouch.x <= (cameraCoordsX + 22) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 9); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 9); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 10
-				if(coordsTouch.x >= (cameraCoordsX + 23) && coordsTouch.x <= (cameraCoordsX + 33) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 10); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 10); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 11
-				if(coordsTouch.x >= (cameraCoordsX + 35) && coordsTouch.x <= (cameraCoordsX + 45) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 11); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 11); timeBuyCount = 40; }
-					return false;
-				}
-				//Item 12
-				if(coordsTouch.x >= (cameraCoordsX + 46) && coordsTouch.x <= (cameraCoordsX + 57) && coordsTouch.y >= (cameraCoordsY + 11) && coordsTouch.y <= (cameraCoordsY + 26)) {
-					if(shop.equals("Tropical")) { nameBuy = gameControl.ItemBuyStreets750("Tropical", 12); timeBuyCount = 40; } 
-					if(shop.equals("750")) { nameBuy = gameControl.ItemBuyStreets750("750", 12); timeBuyCount = 40; }
-					return false;
-				}	
 			}
-				
+			
 			return false;
 		}
 
