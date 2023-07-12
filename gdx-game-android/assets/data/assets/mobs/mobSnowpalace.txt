@@ -1,0 +1,229 @@
+mobSnowpalace.png
+size: 910, 553
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+goblin1L
+  rotate: false
+  xy: 688, 0
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+goblin1R
+  rotate: false
+  xy: 779, 0
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+goblin2L
+  rotate: false
+  xy: 0, 98
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+goblin2R
+  rotate: false
+  xy: 91, 98
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+goblin3L
+  rotate: false
+  xy: 182, 98
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+goblin3R
+  rotate: false
+  xy: 273, 98
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+goblinAL
+  rotate: false
+  xy: 364, 98
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+goblinAR
+  rotate: false
+  xy: 455, 98
+  size: 91, 96
+  orig: 91, 96
+  offset: 0, 0
+  index: -1
+icewolf1L
+  rotate: false
+  xy: 364, 215
+  size: 182, 169
+  orig: 182, 169
+  offset: 0, 0
+  index: -1
+icewolf1R
+  rotate: false
+  xy: 546, 215
+  size: 182, 169
+  orig: 182, 169
+  offset: 0, 0
+  index: -1
+icewolf2L
+  rotate: false
+  xy: 728, 215
+  size: 182, 169
+  orig: 182, 169
+  offset: 0, 0
+  index: -1
+icewolf2R
+  rotate: false
+  xy: 0, 384
+  size: 182, 169
+  orig: 182, 169
+  offset: 0, 0
+  index: -1
+icewolf3L
+  rotate: false
+  xy: 182, 384
+  size: 182, 169
+  orig: 182, 169
+  offset: 0, 0
+  index: -1
+icewolf3R
+  rotate: false
+  xy: 364, 384
+  size: 182, 169
+  orig: 182, 169
+  offset: 0, 0
+  index: -1
+icewolfAL
+  rotate: false
+  xy: 546, 384
+  size: 182, 169
+  orig: 182, 169
+  offset: 0, 0
+  index: -1
+icewolfAR
+  rotate: false
+  xy: 728, 384
+  size: 182, 169
+  orig: 182, 169
+  offset: 0, 0
+  index: -1
+pinguim1L
+  rotate: false
+  xy: 0, 0
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+pinguim1R
+  rotate: false
+  xy: 86, 0
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+pinguim2L
+  rotate: false
+  xy: 172, 0
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+pinguim2R
+  rotate: false
+  xy: 258, 0
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+pinguim3L
+  rotate: false
+  xy: 344, 0
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+pinguim3R
+  rotate: false
+  xy: 430, 0
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+pinguimAL
+  rotate: false
+  xy: 516, 0
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+pinguimAR
+  rotate: false
+  xy: 602, 0
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+snowman1L
+  rotate: false
+  xy: 546, 98
+  size: 91, 117
+  orig: 91, 117
+  offset: 0, 0
+  index: -1
+snowman1R
+  rotate: false
+  xy: 637, 98
+  size: 91, 117
+  orig: 91, 117
+  offset: 0, 0
+  index: -1
+snowman2L
+  rotate: false
+  xy: 728, 98
+  size: 91, 117
+  orig: 91, 117
+  offset: 0, 0
+  index: -1
+snowman2R
+  rotate: false
+  xy: 819, 98
+  size: 91, 117
+  orig: 91, 117
+  offset: 0, 0
+  index: -1
+snowman3L
+  rotate: false
+  xy: 0, 215
+  size: 91, 117
+  orig: 91, 117
+  offset: 0, 0
+  index: -1
+snowman3R
+  rotate: false
+  xy: 91, 215
+  size: 91, 117
+  orig: 91, 117
+  offset: 0, 0
+  index: -1
+snowmanAL
+  rotate: false
+  xy: 182, 215
+  size: 91, 117
+  orig: 91, 117
+  offset: 0, 0
+  index: -1
+snowmanAR
+  rotate: false
+  xy: 273, 215
+  size: 91, 117
+  orig: 91, 117
+  offset: 0, 0
+  index: -1
