@@ -1,5 +1,5 @@
 UI.png
-size: 877, 1275
+size: 975, 1275
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -94,9 +94,16 @@ target
   orig: 37, 43
   offset: 0, 0
   index: -1
-titlemenu
+titlead
   rotate: false
   xy: 413, 82
+  size: 281, 164
+  orig: 281, 164
+  offset: 0, 0
+  index: -1
+titlemenu
+  rotate: false
+  xy: 694, 82
   size: 281, 164
   orig: 281, 164
   offset: 0, 0

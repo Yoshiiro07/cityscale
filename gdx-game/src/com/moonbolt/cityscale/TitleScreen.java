@@ -2,8 +2,11 @@ package com.moonbolt.cityscale;
 
 import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -98,6 +101,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    
 	    private TextureAtlas atlas_hairs1;
 	    private TextureAtlas atlas_hairs2;
+	    private TextureAtlas atlas_hairs3;
 	    
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
@@ -134,8 +138,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			//Atlas
 			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/UI/UI.txt"));
 			atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/chars/basicset.txt"));
-			atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/hair1.txt"));
-			atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/chars/hair2.txt"));		
+			atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/hairs1.txt"));
+			atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/chars/hairs2.txt"));		
+			atlas_hairs3 = new TextureAtlas(Gdx.files.internal("data/assets/chars/hairs3.txt"));
 		}
 			
 		@Override
@@ -219,7 +224,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 						spr_hair = atlas_hairs2.createSprite("hair" + 2 + color + "MFront");
 						spr_hair.setSize(12, 19);
 						spr_hair.setPosition(-18.5f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(-08f, -16); spr_hair.draw(game.batch); 
+						
+						spr_hair = atlas_hairs3.createSprite("hair" + 3 + color + "MFront");
+						spr_hair.setSize(12, 19);
+						spr_hair.setPosition(-08f, -16); spr_hair.draw(game.batch); 
+						
 						//spr_hair.setPosition( 2f, -16); spr_hair.draw(game.batch); 
 						//spr_hair.setPosition(12.6f, -16); spr_hair.draw(game.batch); 
 						//spr_hair.setPosition(22.9f, -16); spr_hair.draw(game.batch); 
@@ -235,7 +244,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 						spr_hair.setSize(12, 19);
 						spr_hair.setPosition(-18.5f, -16); spr_hair.draw(game.batch); 
 						
-						//spr_hair.setPosition(-08f, -16); spr_hair.draw(game.batch); 
+						spr_hair = atlas_hairs3.createSprite("hair" + 3 + color + "FFront");
+						spr_hair.setSize(12, 19);
+						spr_hair.setPosition(-08f, -16); spr_hair.draw(game.batch); 
+						
 						//spr_hair.setPosition( 2f, -16); spr_hair.draw(game.batch); 
 						//spr_hair.setPosition(12.6f, -16); spr_hair.draw(game.batch); 
 						//spr_hair.setPosition(22.9f, -16); spr_hair.draw(game.batch); 
@@ -268,15 +280,15 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				font_master.getData().setScale(0.07f,0.12f);
 				font_master.setUseIntegerPositions(false);	
 						
-				font_master.draw(game.batch, "Versao: 1A" , -60 , -58);
+				font_master.draw(game.batch, "Versao: 1B" , -60 , -58);
 						
-				spr_testeDot.setPosition(-57,-36);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+				//spr_testeDot.setPosition(-57,-36);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(-1, -55);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+				//spr_testeDot.setPosition(-1, -55);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 					
 				game.batch.end();
 			
@@ -376,14 +388,22 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 			String itensList = "";
             for(int i = 0; i < 16; i++) {
-                if(i == 0) { itensList = itensList + "[hpcan#30]-"; } 
+                if(i == 0) { itensList = itensList + "[blue_crystal_intextra_3#4]-"; } 
                 if(i == 1) {  if(sex.equals("M")) {itensList = itensList + "[basicset_m#1]-"; } else { itensList = itensList + "[basicset_f#1]-"; }}
                 if(i == 2) {  itensList = itensList + "[basicknife#1]-"; } 
-                if(i > 2) { itensList = itensList + "[NONE]-"; }
-                
+                if(i > 2) { itensList = itensList + "[NONE]-"; }          
             }
             player.Itens = itensList;
-			
+            
+            //String itensList = "";
+            //for(int i = 0; i < 16; i++) {
+            //    if(i == 0) { itensList = itensList + "[hpcan#30]-"; } 
+            //    if(i == 1) {  if(sex.equals("M")) {itensList = itensList + "[basicset_m#1]-"; } else { itensList = itensList + "[basicset_f#1]-"; }}
+            //    if(i == 2) {  itensList = itensList + "[basicknife#1]-"; } 
+            //    if(i > 2) { itensList = itensList + "[NONE]-"; }          
+            //}
+            //player.Itens = itensList;
+            
 			SaveData(player);		
 			state = "change";
 		}

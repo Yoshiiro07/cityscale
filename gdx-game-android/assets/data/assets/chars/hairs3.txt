@@ -1,590 +1,590 @@
-hairs2.png
+hairs3.png
 size: 250, 850
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-hair2brownFBack
+hair3brownFBack
   rotate: false
   xy: 0, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownFBattle1
+hair3brownFBattle1
   rotate: false
   xy: 50, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownFBattle2
+hair3brownFBattle2
   rotate: false
   xy: 100, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownFDamage
+hair3brownFDamage
   rotate: false
   xy: 150, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownFFront
+hair3brownFFront
   rotate: false
   xy: 200, 0
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownFLeft
+hair3brownFLeft
   rotate: false
   xy: 0, 50
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownFRight
+hair3brownFRight
   rotate: false
   xy: 50, 50
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownMBack
+hair3brownMBack
   rotate: false
   xy: 100, 50
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownMBattle1
+hair3brownMBattle1
   rotate: false
   xy: 150, 50
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownMBattle2
+hair3brownMBattle2
   rotate: false
   xy: 200, 50
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownMDamage
+hair3brownMDamage
   rotate: false
   xy: 0, 100
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownMFront
+hair3brownMFront
   rotate: false
   xy: 50, 100
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownMLeft
+hair3brownMLeft
   rotate: false
   xy: 100, 100
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2brownMRight
+hair3brownMRight
   rotate: false
   xy: 150, 100
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenFBack
+hair3greenFBack
   rotate: false
   xy: 200, 100
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenFBattle1
+hair3greenFBattle1
   rotate: false
   xy: 0, 150
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenFBattle2
+hair3greenFBattle2
   rotate: false
   xy: 50, 150
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenFDamage
+hair3greenFDamage
   rotate: false
   xy: 100, 150
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenFFront
+hair3greenFFront
   rotate: false
   xy: 150, 150
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenFLeft
+hair3greenFLeft
   rotate: false
   xy: 200, 150
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenFRight
+hair3greenFRight
   rotate: false
   xy: 0, 200
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenMBack
+hair3greenMBack
   rotate: false
   xy: 50, 200
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenMBattle1
+hair3greenMBattle1
   rotate: false
   xy: 100, 200
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenMBattle2
+hair3greenMBattle2
   rotate: false
   xy: 150, 200
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenMDamage
+hair3greenMDamage
   rotate: false
   xy: 200, 200
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenMFront
+hair3greenMFront
   rotate: false
   xy: 0, 250
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenMLeft
+hair3greenMLeft
   rotate: false
   xy: 50, 250
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2greenMRight
+hair3greenMRight
   rotate: false
   xy: 100, 250
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeFBack
+hair3orangeFBack
   rotate: false
   xy: 150, 250
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeFBattle1
+hair3orangeFBattle1
   rotate: false
   xy: 200, 250
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeFBattle2
+hair3orangeFBattle2
   rotate: false
   xy: 0, 300
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeFDamage
+hair3orangeFDamage
   rotate: false
   xy: 50, 300
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeFFront
+hair3orangeFFront
   rotate: false
   xy: 100, 300
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeFLeft
+hair3orangeFLeft
   rotate: false
   xy: 150, 300
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeFRight
+hair3orangeFRight
   rotate: false
   xy: 200, 300
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeMBack
+hair3orangeMBack
   rotate: false
   xy: 0, 350
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeMBattle1
+hair3orangeMBattle1
   rotate: false
   xy: 50, 350
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeMBattle2
+hair3orangeMBattle2
   rotate: false
   xy: 100, 350
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeMDamage
+hair3orangeMDamage
   rotate: false
   xy: 150, 350
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeMFront
+hair3orangeMFront
   rotate: false
   xy: 200, 350
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeMLeft
+hair3orangeMLeft
   rotate: false
   xy: 0, 400
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2orangeMRight
+hair3orangeMRight
   rotate: false
   xy: 50, 400
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkFBack
+hair3pinkFBack
   rotate: false
   xy: 100, 400
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkFBattle1
+hair3pinkFBattle1
   rotate: false
   xy: 150, 400
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkFBattle2
+hair3pinkFBattle2
   rotate: false
   xy: 200, 400
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkFDamage
+hair3pinkFDamage
   rotate: false
   xy: 0, 450
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkFFront
+hair3pinkFFront
   rotate: false
   xy: 50, 450
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkFLeft
+hair3pinkFLeft
   rotate: false
   xy: 100, 450
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkFRight
+hair3pinkFRight
   rotate: false
   xy: 150, 450
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkMBack
+hair3pinkMBack
   rotate: false
   xy: 200, 450
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkMBattle1
+hair3pinkMBattle1
   rotate: false
   xy: 0, 500
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkMBattle2
+hair3pinkMBattle2
   rotate: false
   xy: 50, 500
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkMDamage
+hair3pinkMDamage
   rotate: false
   xy: 100, 500
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkMFront
+hair3pinkMFront
   rotate: false
   xy: 150, 500
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkMLeft
+hair3pinkMLeft
   rotate: false
   xy: 200, 500
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2pinkMRight
+hair3pinkMRight
   rotate: false
   xy: 0, 550
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redFBack
+hair3redFBack
   rotate: false
   xy: 50, 550
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redFBattle1
+hair3redFBattle1
   rotate: false
   xy: 100, 550
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redFBattle2
+hair3redFBattle2
   rotate: false
   xy: 150, 550
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redFDamage
+hair3redFDamage
   rotate: false
   xy: 200, 550
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redFFront
+hair3redFFront
   rotate: false
   xy: 0, 600
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redFLeft
+hair3redFLeft
   rotate: false
   xy: 50, 600
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redFRight
+hair3redFRight
   rotate: false
   xy: 100, 600
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redMBack
+hair3redMBack
   rotate: false
   xy: 150, 600
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redMBattle1
+hair3redMBattle1
   rotate: false
   xy: 200, 600
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redMBattle2
+hair3redMBattle2
   rotate: false
   xy: 0, 650
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redMDamage
+hair3redMDamage
   rotate: false
   xy: 50, 650
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redMFront
+hair3redMFront
   rotate: false
   xy: 100, 650
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redMLeft
+hair3redMLeft
   rotate: false
   xy: 150, 650
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2redMRight
+hair3redMRight
   rotate: false
   xy: 200, 650
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowFBack
+hair3yellowFBack
   rotate: false
   xy: 0, 700
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowFBattle1
+hair3yellowFBattle1
   rotate: false
   xy: 50, 700
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowFBattle2
+hair3yellowFBattle2
   rotate: false
   xy: 100, 700
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowFDamage
+hair3yellowFDamage
   rotate: false
   xy: 150, 700
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowFFront
+hair3yellowFFront
   rotate: false
   xy: 200, 700
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowFLeft
+hair3yellowFLeft
   rotate: false
   xy: 0, 750
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowFRight
+hair3yellowFRight
   rotate: false
   xy: 50, 750
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowMBack
+hair3yellowMBack
   rotate: false
   xy: 100, 750
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowMBattle1
+hair3yellowMBattle1
   rotate: false
   xy: 150, 750
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowMBattle2
+hair3yellowMBattle2
   rotate: false
   xy: 200, 750
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowMDamage
+hair3yellowMDamage
   rotate: false
   xy: 0, 800
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowMFront
+hair3yellowMFront
   rotate: false
   xy: 50, 800
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowMLeft
+hair3yellowMLeft
   rotate: false
   xy: 100, 800
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-hair2yellowMRight
+hair3yellowMRight
   rotate: false
   xy: 150, 800
   size: 50, 50
