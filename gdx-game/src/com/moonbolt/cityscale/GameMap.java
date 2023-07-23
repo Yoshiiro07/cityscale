@@ -393,6 +393,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player.playerInAttack = "no";
 			player.playerInBattle = "no";
 			player.playerInCast = "no";
+			
+			AddItemBag("purple_crystal_vitextra_1");
+			AddItemBag("purple_crystal_vitextra_2");
+			AddItemBag("purple_crystal_vitextra_3");
 		}
 			
 		@Override
@@ -2630,7 +2634,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									playerDead = true;
 								}
 						}
-					}				
+					  }				
+					}
 				}
 			}
 		}
