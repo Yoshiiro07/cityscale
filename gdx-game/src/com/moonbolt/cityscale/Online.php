@@ -9,32 +9,79 @@
 	
 	#Variaveis de Atualizacao
 	$lnome = $_POST['lnome'];
-	$lversion = $_POST['lversion'];
-	
-	$lAccountID = $_POST['lAccountID'];
-	$lName = $_POST['lName'];
-	$lLevel = $_POST['lLevel'];
-	$lMap = $_POST['lMap'];
-	$lHp = $_POST['lHp'];
-	$lMp = $_POST['lMp'];
-	$lPosX = $_POST['lPosX'];
-	$lPosY = $_POST['lPosY'];
-	$lWalk = $_POST['lWalk'];
-	$lWeapon = $_POST['lWeapon'];
-	$lFrame = $_POST['lFrame'];
-	$lExp = $_POST['lExp'];
-	$lParty = $_POST['lParty'];
+	$lversion = $_POST['lversion'];	
 	$lSyncPlayerMob = $_POST['lSyncPlayerMob'];
-	$lPlayerSet = $_POST['lPlayerSet'];
-	$lHair = $_POST['lHair'];
-	$lSex = $_POST['lSex'];
-	$lColor = $_POST['lColor'];
-	$lHat = $_POST['lHat'];
-	$lSide = $_POST['lSide'];
-	$lJob = $_POST['lJob'];
-	$lplayerInBattle = $_POST['lplayerInBattle'];
-	$lplayerInAttack = $_POST['lplayerInAttack'];
-	$lplayerInCast = $_POST['lplayerInCast'];
+	
+	
+	#Variaveis de player
+	$AccountID	= $_POST['lAccountID'];
+	$Name = $_POST['lName'];
+	$Sex = $_POST['lSex'];
+	$Level = $_POST['lLevel'];
+	$Map = $_POST['lMap'];
+	$Exp = $_POST['lExp'];
+	$Job = $_POST['lJob'];
+	$Hp	= $_POST['lHp'];
+	$Mp	= $_POST['lMp'];
+	$Money = $_POST['lMoney'];
+	$HpMax = $_POST['lHpMax'];
+	$MpMax = $_POST['lMpMax'];
+	$regenTime = $_POST['lregenTime'];
+	$regenTimeMax = $_POST['lregenTimeMax'];
+	$PosX = $_POST['lPosX'];
+	$PosY = $_POST['lPosY'];
+	$Walk = $_POST['lWalk'];
+	$Frame = $_POST['lFrame'];
+	$Target	= $_POST['lTarget'];
+	$AtkTime = $_POST['lAtkTimer'];
+	$AtkTimerMax = $_POST['lAtkTimerMax'];
+	$Casting = $_POST['lCasting'];
+	$Atk = $_POST['lAtk'];
+	$Def = $_POST['lDef'];
+	$Evasion = $_POST['lEvasion'];
+	$Side = $_POST['lSide'];
+	$Set = $_POST['lSet'];
+	$Hair = $_POST['lHair'];
+	$Color = $_POST['lColor'];
+	$Hat = $_POST['lHat'];
+	$Weapon	= $_POST['lWeapon'];
+	$Crystal1 = $_POST['lCrystal1'];
+	$Crystal2 = $_POST['lCrystal2'];
+	$Crystal3 = $_POST['lCrystal3'];
+	$Crystal4 = $_POST['lCrystal4'];
+	$Crystal5 = $_POST['lCrystal5'];
+	$StatusPoint = $_POST['lStatusPoint'];
+	$Str = $_POST['lStr'];
+	$Agi = $_POST['lAgi'];
+	$Vit = $_POST['lVit'];
+	$Dex = $_POST['lDex'];
+	$Wis = $_POST['lWis'];
+	$Luk = $_POST['lLuk'];
+	$Res = $_POST['lRes'];
+	$Stamina = $_POST['lStamina'];
+	$StaminaMax	= $_POST['lStaminaMax'];
+	$StaminaTimer = $_POST['lStaminaTimer'];
+	$Itens = $_POST['lItens'];
+	$Quests	= $_POST['lQuests'];
+	$hotkey1 = $_POST['lhotkey1'];
+	$hotkey2 = $_POST['lhotkey2'];
+	$buffA = $_POST['lbuffA'];
+	$BuffTimeA = $_POST['lBuffTimeA'];
+	$buffB = $_POST['lbuffB'];
+	$BuffTimeB = $_POST['lBuffTimeB'];
+	$buffC = $_POST['lbuffC'];
+	$BuffTimeC = $_POST['lBuffTimeC'];
+	$party = $_POST['lparty'];
+	$playerInBattle	= $_POST['lplayerInBattle'];
+	$playerInAttack	= $_POST['lplayerInAttack'];
+	$playerInCast = $_POST['lplayerInCast'];
+	
+	$lpet = $_POST['lpet'];
+	$lpethungry = $_POST['lpethungry'];
+	$lpetcare = $_POST['lpetcare'];
+	$lpetTraining = $_POST['lpetTraining'];
+	$lpetBath = $_POST['lpetBath'];
+	$lpetLevel = $_POST['lpetLevel'];
 	
 	$lMobA = $_POST['lMobA'];
 	$lMobAPosX = $_POST['lMobAPosX'];
@@ -245,6 +292,14 @@
 	
 	##UPLOAD
 	if ($lrequest == "Upload"){
+		$sql = "REPLACE INTO SaveData (AccountID,Name,Sex,Level,Map,Exp,Job,Hp,Mp,Money,HpMax,MpMax,regenTime,regenTimeMax,PosX,PosY,Walk,Frame,Target,AtkTimer,Casting,Atk,Def,Evasion,Side,Set,Hair,Color,Hat,Weapon,Crystal1,Crystal2,Crystal3,Crystal4,Crystal5,StatusPoint,Str,Agi,Vit,Dex,Wis,Luk,Res,Stamina,StaminaMax,StaminaTimer,Itens,Quests,hotkey1,hotkey2,buffA,BuffTimeA,buffB,BuffTimeB,buffC,BuffTimeC,party,playerInBattle,playerInAttack,playerInCast) VALUES ('$lAccountID','$lName','$lSex','$l'$lMap','$lExp','$lJob','$lHp','$lMp','$lMoney','$lHpMax','$lMpMax','$lregenTime','$lregenTimeMax','$lPosX','$lPosY','$lWalk','$lFrame','$lTarget','$lAtkTimer','$lAtkTimerMax','$lCasting','$lAtk','$lDef','$lEvasion','$lSide','$lSet','$lHair','$lColor','$lHat','$lWeapon','$lCrystal1','$lCrystal2','$lCrystal3','$lCrystal4','$lCrystal5','$lStatusPoint','$lStr','$lAgi','$lVit','$lDex','$lWis','$lLuk','$lRes','$lStamina','$lStaminaMax','$lStaminaTimer','$lItens','$lQuests','$lhotkey1','$lhotkey2','$lbuffA','$lBuffTimeA','$lbuffB','$lBuffTimeB','$lbuffC','$lBuffTimeC','$lparty','$lplayerInBattle','$lplayerInAttack','$lplayerInCast');";
+		$result = $conn->query($sql);
+		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Salvo - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou - \n") . $conn->error;}
+		
+	}
+	
+	
+	if ($lrequest == "UploadFile"){
 		
 		$arquivo = $lAccountID + '.txt';
 		$file = fopen($arquivo, 'w');	
