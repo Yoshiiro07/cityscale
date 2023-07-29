@@ -6182,13 +6182,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    	
 			String linhaLida = "";
 			
-			countCleanOnline--;
-			if(countCleanOnline < 0) {
-				countCleanOnline = 500;
-				lstOnlinePlayers.clear();
-				lstOnlinePlayers.add(player);
-				countCleanOnline = 800;
-			}
+			//countCleanOnline--;
+			//if(countCleanOnline < 0) {
+			//	countCleanOnline = 500;
+			//	lstOnlinePlayers.clear();
+			//	lstOnlinePlayers.add(player);
+			//	countCleanOnline = 800;
+			//}
 			
 			
 			try {
@@ -6206,7 +6206,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("1A", "UTF-8");
 		        
 		        // Send data
-		        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+		        URL url = new URL("http://moonboltprojects.online/Online.php");
 		        //URL url = new URL("http://localhost/default.php");
 		        URLConnection conn = url.openConnection();
 		        conn.setDoOutput(true);
@@ -6251,7 +6251,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        data += "&" + URLEncoder.encode("lChat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
 		        
 		        // Send data
-		        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+		        URL url = new URL("http://moonboltprojects.online/Online.php");
 		        URLConnection conn = url.openConnection();
 		        conn.setDoOutput(true);
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -6296,7 +6296,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        data += "&" + URLEncoder.encode("lMobLetter", "UTF-8") + "=" + URLEncoder.encode(mobLetter, "UTF-8");
 		        
 		        // Send data
-		        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+		        URL url = new URL("http://moonboltprojects.online/Online.php");
 		        URLConnection conn = url.openConnection();
 		        conn.setDoOutput(true);
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -6332,7 +6332,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        data += "&" + URLEncoder.encode("lChat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
 		        
 		        // Send data
-		        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+		        URL url = new URL("http://moonboltprojects.online/Online.php");
 		        URLConnection conn = url.openConnection();
 		        conn.setDoOutput(true);
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -6397,7 +6397,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        data += "&" + URLEncoder.encode("lplayerInCast", "UTF-8") + "=" + URLEncoder.encode(player.playerInCast, "UTF-8"); 
 		        
 		        // Send data
-		        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+		        URL url = new URL("http://moonboltprojects.online/Online.php");
 		        URLConnection conn = url.openConnection();
 		        conn.setDoOutput(true);
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -6457,7 +6457,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        if(!playerMobSync) { data += "&" + URLEncoder.encode("lplayersync", "UTF-8") + "=" + URLEncoder.encode("playerMobSyncNot", "UTF-8");  }
 		        		        
 		        // Send data
-		        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+		        URL url = new URL("http://moonboltprojects.online/Online.php");
 		        URLConnection conn = url.openConnection();
 		        conn.setDoOutput(true);
 		        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -6473,7 +6473,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        if(playerMobSync) {  
 		        	retornoOnline = "retry";
 		        }
-		        while ((line = rd.readLine()) != null) {  //heremob
+		        while ((line = rd.readLine()) != null) {
 		        	linhaLida = line;  
 		        	//Resultado: - Logado -. <br>done
 		        	if (linhaLida.contains("SYSTEMMOB")) {
@@ -6487,109 +6487,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			if(tipoRequisicao.equals("Upload")) {
-				try {					
-			        // Construct data
-					//Instrucoes para Conexao
-			        String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
-			        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-			        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Upload", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
-			        data += "&" + URLEncoder.encode("lSex", "UTF-8") + "=" + URLEncoder.encode(player.Sex, "UTF-8");
-			        data += "&" + URLEncoder.encode("lLevel", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Level), "UTF-8");
-			        data += "&" + URLEncoder.encode("lMap", "UTF-8") + "=" + URLEncoder.encode(player.Map, "UTF-8");
-			        data += "&" + URLEncoder.encode("lExp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Exp), "UTF-8");
-			        data += "&" + URLEncoder.encode("lJob", "UTF-8") + "=" + URLEncoder.encode(player.Job, "UTF-8");
-			        data += "&" + URLEncoder.encode("lHp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Hp), "UTF-8");
-			        data += "&" + URLEncoder.encode("lMp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Mp), "UTF-8");
-			        data += "&" + URLEncoder.encode("lMoney", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Money), "UTF-8");
-			        data += "&" + URLEncoder.encode("lHpMax", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.HpMax), "UTF-8");
-			        data += "&" + URLEncoder.encode("lMpMax", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.MpMax), "UTF-8");
-			        data += "&" + URLEncoder.encode("lregenTime", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.regenTime), "UTF-8");
-			        data += "&" + URLEncoder.encode("lregenTimeMax", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.regenTimeMax), "UTF-8");
-			        data += "&" + URLEncoder.encode("lPosX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosX), "UTF-8");
-			        data += "&" + URLEncoder.encode("lPosY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosY), "UTF-8");
-			        data += "&" + URLEncoder.encode("lWalk", "UTF-8") + "=" + URLEncoder.encode(player.Walk, "UTF-8");
-			        data += "&" + URLEncoder.encode("lFrame", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Frame), "UTF-8");
-			        data += "&" + URLEncoder.encode("lTarget", "UTF-8") + "=" + URLEncoder.encode(player.Target, "UTF-8");
-			        data += "&" + URLEncoder.encode("lAtkTimer", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.AtkTimer), "UTF-8");
-			        data += "&" + URLEncoder.encode("lAtkTimerMax", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.AtkTimerMax), "UTF-8");
-			        data += "&" + URLEncoder.encode("lCasting", "UTF-8") + "=" + URLEncoder.encode(player.Casting, "UTF-8");
-			        data += "&" + URLEncoder.encode("lAtk", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Atk), "UTF-8");
-			        data += "&" + URLEncoder.encode("lDef", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Def), "UTF-8");
-			        data += "&" + URLEncoder.encode("lEvasion", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Evasion), "UTF-8");
-			        data += "&" + URLEncoder.encode("lSide", "UTF-8") + "=" + URLEncoder.encode(player.Side, "UTF-8");
-			        data += "&" + URLEncoder.encode("lSet", "UTF-8") + "=" + URLEncoder.encode(player.Set, "UTF-8");
-			        data += "&" + URLEncoder.encode("lHair", "UTF-8") + "=" + URLEncoder.encode(player.Hair, "UTF-8");
-			        data += "&" + URLEncoder.encode("lColor", "UTF-8") + "=" + URLEncoder.encode(player.Color, "UTF-8");
-			        data += "&" + URLEncoder.encode("lHat", "UTF-8") + "=" + URLEncoder.encode(player.Hat, "UTF-8");
-			        data += "&" + URLEncoder.encode("lWeapon", "UTF-8") + "=" + URLEncoder.encode(player.Weapon, "UTF-8");
-			        data += "&" + URLEncoder.encode("lCrystal1", "UTF-8") + "=" + URLEncoder.encode(player.Crystal1, "UTF-8");
-			        data += "&" + URLEncoder.encode("lCrystal2", "UTF-8") + "=" + URLEncoder.encode(player.Crystal2, "UTF-8");
-			        data += "&" + URLEncoder.encode("lCrystal3", "UTF-8") + "=" + URLEncoder.encode(player.Crystal3, "UTF-8");
-			        data += "&" + URLEncoder.encode("lCrystal4", "UTF-8") + "=" + URLEncoder.encode(player.Crystal4, "UTF-8");
-			        data += "&" + URLEncoder.encode("lCrystal5", "UTF-8") + "=" + URLEncoder.encode(player.Crystal5, "UTF-8");
-			        data += "&" + URLEncoder.encode("lStatusPoint", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.StatusPoint), "UTF-8");
-			        data += "&" + URLEncoder.encode("lStr", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Str), "UTF-8");
-			        data += "&" + URLEncoder.encode("lAgi", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Agi), "UTF-8");
-			        data += "&" + URLEncoder.encode("lVit", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Vit), "UTF-8");
-			        data += "&" + URLEncoder.encode("lDex", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Dex), "UTF-8");
-			        data += "&" + URLEncoder.encode("lWis", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Wis), "UTF-8");
-			        data += "&" + URLEncoder.encode("lLuk", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Luk), "UTF-8");
-			        data += "&" + URLEncoder.encode("lRes", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Res), "UTF-8");
-			        data += "&" + URLEncoder.encode("lStamina", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Stamina), "UTF-8");
-			        data += "&" + URLEncoder.encode("lStaminaMax", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.StaminaMax), "UTF-8");
-			        data += "&" + URLEncoder.encode("lStaminaTimer", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.StaminaTimer), "UTF-8");
-			        data += "&" + URLEncoder.encode("lItens", "UTF-8") + "=" + URLEncoder.encode(player.Itens, "UTF-8");
-			        data += "&" + URLEncoder.encode("lQuests", "UTF-8") + "=" + URLEncoder.encode(player.Quests, "UTF-8");
-			        data += "&" + URLEncoder.encode("lhotkey1", "UTF-8") + "=" + URLEncoder.encode(player.hotkey1, "UTF-8");
-			        data += "&" + URLEncoder.encode("lhotkey2", "UTF-8") + "=" + URLEncoder.encode(player.hotkey1, "UTF-8");
-			        data += "&" + URLEncoder.encode("lbuffA", "UTF-8") + "=" + URLEncoder.encode(player.buffA, "UTF-8");
-			        data += "&" + URLEncoder.encode("lBuffTimeA", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.BuffTimeA), "UTF-8");
-			        data += "&" + URLEncoder.encode("lbuffB", "UTF-8") + "=" + URLEncoder.encode(player.buffB, "UTF-8");
-			        data += "&" + URLEncoder.encode("lBuffTimeB", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.BuffTimeB), "UTF-8");
-			        data += "&" + URLEncoder.encode("lbuffC", "UTF-8") + "=" + URLEncoder.encode(player.buffC, "UTF-8");
-			        data += "&" + URLEncoder.encode("lparty", "UTF-8") + "=" + URLEncoder.encode(player.party, "UTF-8");
-			        data += "&" + URLEncoder.encode("lplayerInBattle", "UTF-8") + "=" + URLEncoder.encode(player.playerInBattle, "UTF-8");
-			        data += "&" + URLEncoder.encode("lplayerInAttack", "UTF-8") + "=" + URLEncoder.encode(player.playerInAttack, "UTF-8");
-			        data += "&" + URLEncoder.encode("lplayerInCast", "UTF-8") + "=" + URLEncoder.encode(player.playerInCast, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpet", "UTF-8") + "=" + URLEncoder.encode(player.pet, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpethungry", "UTF-8") + "=" + URLEncoder.encode(player.pethungry, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpetcare", "UTF-8") + "=" + URLEncoder.encode(player.petcare, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpetTraining", "UTF-8") + "=" + URLEncoder.encode(player.petTraining, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpetBath", "UTF-8") + "=" + URLEncoder.encode(player.petBath, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpetLevel", "UTF-8") + "=" + URLEncoder.encode(player.petLevel, "UTF-8");
-			   	        
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			 
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        while ((line = rd.readLine()) != null) {
-			            if(line.contains("Sucesso")){
-			            	uploadDone = true;
-			            	SysMsg = "Upload feito com sucesso";
-			            	SysMsgCount = 200;
-			            }
-			        	//System.out.println(line);
-			        }		        
-			        wr.close();
-			        rd.close();
-			        return retornoOnline;
-			    } 
-				
-				catch (Exception e) { return "retry";}
-			}
-			
-			if(tipoRequisicao.equals("UploadFile")) {
 				try {
 					
 					//Edite dada
@@ -6607,7 +6504,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 			   	        
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        URL url = new URL("http://moonboltprojects.online/Online.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -6651,7 +6548,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 			   	        
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        URL url = new URL("http://moonboltprojects.online/Online.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
