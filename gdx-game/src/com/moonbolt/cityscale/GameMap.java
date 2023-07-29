@@ -394,9 +394,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player.playerInBattle = "no";
 			player.playerInCast = "no";
 			
-			AddItemBag("purple_crystal_vitextra_1");
-			AddItemBag("purple_crystal_vitextra_2");
-			AddItemBag("purple_crystal_vitextra_3");
+			AddItemBag("orange_crystal_resextra_1");
+			AddItemBag("orange_crystal_resextra_2");
+			AddItemBag("orange_crystal_resextra_3");
+			
+			AddItemBag("orange_crystal_resextra_1");
+			AddItemBag("orange_crystal_resextra_1");
+			AddItemBag("orange_crystal_resextra_1");
 		}
 			
 		@Override
@@ -597,11 +601,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Bars
 				if(player.Map.equals("StreetsA")) {
-				//spr_master = atlas_gameUI.createSprite("bardescription");
-				//spr_master.setPosition(-17, -7);
-				//spr_master.setSize(10, 8);
-				//spr_master.draw(game.batch);
-				//font_master.draw(game.batch, "Cristais",-16, -2);
+				spr_master = atlas_gameUI.createSprite("bardescription");
+				spr_master.setPosition(-17, -7);
+				spr_master.setSize(10, 8);
+				spr_master.draw(game.batch);
+				font_master.draw(game.batch, "Cristais",-16, -2);
 				
 				
 				spr_master = atlas_gameUI.createSprite("bardescription");
@@ -2429,8 +2433,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				if(player.PosX > -24 && player.PosX < -12 && player.PosY > -43 && player.PosY < -24) {
-					//state = "shop";
-					//shop = "shopCrytal";
+					state = "shop";
+					shop = "shopCrytal";
 				}
 				
 				if(player.PosX > -35.5f && player.PosX < -26.5f && player.PosY > 11.5 && player.PosY < 19) {
@@ -2539,6 +2543,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									    autoattack = false;
 									    
 									    ItemDrop(lstMobs.get(i).MobName);
+									    if(player.Money > 5000) { return; }
 									    player.Money = player.Money + 2;
 									    GiveExp(lstMobs.get(i).MobExp);
 									    return;
@@ -2571,6 +2576,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									    autoattack = false;
 									    
 									    ItemDrop(lstMobs.get(i).MobName);
+									    if(player.Money > 5000) { return; }
 									    player.Money = player.Money + 2;
 									    GiveExp(lstMobs.get(i).MobExp);
 									    return;
@@ -3016,9 +3022,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(item.equals("green_crystal_lukextra_2")) { player.Luk = player.Luk + 5;  }
 			if(item.equals("green_crystal_lukextra_3")) { player.Luk = player.Luk + 10; }
 			
-			if(item.equals("purple_crystal_vitextra_1")) { player.Vit = player.Vit + 2; player.MpMax = player.HpMax + 20; }	
-			if(item.equals("purple_crystal_vitextra_2")) { player.Vit = player.Vit + 5; player.MpMax = player.HpMax + 50; }
-			if(item.equals("purple_crystal_vitextra_3")) { player.Vit = player.Vit + 10; player.MpMax = player.HpMax + 100; }
+			if(item.equals("purple_crystal_vitextra_1")) { player.Vit = player.Vit + 2; player.HpMax = player.HpMax + 20; }	
+			if(item.equals("purple_crystal_vitextra_2")) { player.Vit = player.Vit + 5; player.HpMax = player.HpMax + 50; }
+			if(item.equals("purple_crystal_vitextra_3")) { player.Vit = player.Vit + 10; player.HpMax = player.HpMax + 100; }
 			
 			if(item.equals("yellow_crystal_agiextra_1")) { player.Agi = player.Agi + 2; player.AtkTimerMax = player.AtkTimerMax - 2; }	
 			if(item.equals("yellow_crystal_agiextra_2")) { player.Agi = player.Agi + 5; player.AtkTimerMax = player.AtkTimerMax - 4; }
@@ -3070,20 +3076,20 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(num == 3 && player.Crystal3.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk = player.Luk - 10; player.Crystal3 = "none"; return; }	
 			if(num == 4 && player.Crystal4.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk = player.Luk - 10; player.Crystal4 = "none"; return; }
 			
-			if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit = player.Vit - 2; player.Crystal1 = "none"; player.MpMax = player.HpMax - 20; return; }	
-			if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit = player.Vit - 2; player.Crystal2 = "none";  player.MpMax = player.HpMax - 20; return; }	
-			if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit = player.Vit - 2; player.Crystal3 = "none";  player.MpMax = player.HpMax - 20; return; }	
-			if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit = player.Vit - 2; player.Crystal4 = "none";  player.MpMax = player.HpMax - 20; return; }	
+			if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit = player.Vit - 2; player.Crystal1 = "none"; player.HpMax = player.HpMax - 20; return; }	
+			if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit = player.Vit - 2; player.Crystal2 = "none";  player.HpMax = player.HpMax - 20; return; }	
+			if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit = player.Vit - 2; player.Crystal3 = "none";  player.HpMax = player.HpMax - 20; return; }	
+			if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit = player.Vit - 2; player.Crystal4 = "none";  player.HpMax = player.HpMax - 20; return; }	
 			
-			if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit = player.Vit - 5; player.Crystal1 = "none";  player.MpMax = player.HpMax - 50; return; }	
-			if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit = player.Vit - 5; player.Crystal2 = "none";  player.MpMax = player.HpMax - 50; return; }	
-			if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit = player.Vit - 5; player.Crystal3 = "none";  player.MpMax = player.HpMax - 50; return; }	
-			if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit = player.Vit - 5; player.Crystal4 = "none";  player.MpMax = player.HpMax - 50; return; }
+			if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit = player.Vit - 5; player.Crystal1 = "none";  player.HpMax = player.HpMax - 50; return; }	
+			if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit = player.Vit - 5; player.Crystal2 = "none";  player.HpMax = player.HpMax - 50; return; }	
+			if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit = player.Vit - 5; player.Crystal3 = "none";  player.HpMax = player.HpMax - 50; return; }	
+			if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit = player.Vit - 5; player.Crystal4 = "none";  player.HpMax = player.HpMax - 50; return; }
 			
-			if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit = player.Vit - 10; player.Crystal1 = "none";  player.MpMax = player.HpMax - 100; return; }	
-			if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit = player.Vit - 10; player.Crystal2 = "none";  player.MpMax = player.HpMax - 100; return; }	
-			if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit = player.Vit - 10; player.Crystal3 = "none";  player.MpMax = player.HpMax - 100; return; }	
-			if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit = player.Vit - 10; player.Crystal4 = "none";  player.MpMax = player.HpMax - 100; return; }
+			if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit = player.Vit - 10; player.Crystal1 = "none";  player.HpMax = player.HpMax - 100; return; }	
+			if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit = player.Vit - 10; player.Crystal2 = "none";  player.HpMax = player.HpMax - 100; return; }	
+			if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit = player.Vit - 10; player.Crystal3 = "none";  player.HpMax = player.HpMax - 100; return; }	
+			if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit = player.Vit - 10; player.Crystal4 = "none";  player.HpMax = player.HpMax - 100; return; }
 			
 			if(num == 1 && player.Crystal1.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi = player.Agi - 2; player.Crystal1 = "none";  player.AtkTimerMax = player.AtkTimerMax + 2; return; }	
 			if(num == 2 && player.Crystal2.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi = player.Agi - 2; player.Crystal2 = "none";  player.AtkTimerMax = player.AtkTimerMax + 2; return; }	
@@ -3135,15 +3141,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res = player.Res - 2; player.StaminaMax = player.StaminaMax - 10; player.regenTimeMax = player.regenTimeMax + 300; player.Crystal3 = "none";  return; }	
 			if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res = player.Res - 2; player.StaminaMax = player.StaminaMax - 10; player.regenTimeMax = player.regenTimeMax + 300; player.Crystal4 = "none";  return; }	
 			
-			if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_2"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 500; player.Crystal1 = "none";  return; }	
-			if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_2"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 500; player.Crystal2 = "none";  return; }	
-			if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_2"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 500; player.Crystal3 = "none";  return; }	
-			if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_2"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 500; player.Crystal4 = "none";  return; }
+			if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 500; player.Crystal1 = "none";  return; }	
+			if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 500; player.Crystal2 = "none";  return; }	
+			if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 500; player.Crystal3 = "none";  return; }	
+			if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 500; player.Crystal4 = "none";  return; }
 			
-			if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 700; player.Crystal1 = "none";  return; }	
-			if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 700; player.Crystal2 = "none";  return; }	
-			if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 700; player.Crystal3 = "none";  return; }	
-			if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 700; player.Crystal4 = "none";  return; }
+			if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 700; player.Crystal1 = "none";  return; }	
+			if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 700; player.Crystal2 = "none";  return; }	
+			if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 700; player.Crystal3 = "none";  return; }	
+			if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 700; player.Crystal4 = "none";  return; }
 		}
 		
 		
@@ -3849,6 +3855,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			    
 			    ItemDrop(mob.MobName);
 			    GiveExp(mob.MobExp);
+			    if(player.Money > 5000) { return; }
 			    player.Money = 1;
 			    return;
 			}
@@ -3865,6 +3872,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			    
 			    ItemDrop(mob.MobName);
 			    GiveExp(mob.MobExp);
+			    if(player.Money > 5000) { return; }
 			    player.Money = 1;
 			    return;
 			}
@@ -5082,6 +5090,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			itemSplit = item.split("#");
 			itemName = itemSplit[0].replace("[", "");
 			qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+			
+			if(itemName.equals(player.Set)) { return;  }
+			if(itemName.equals(player.Weapon)) { return;  }
 			
 			//Give Money
 			money = player.Money;
