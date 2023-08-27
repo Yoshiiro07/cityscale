@@ -17,21 +17,28 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class SplashScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class MainScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 	private MainGame game;
 	private ManagerScreen screen;
 	private OrthographicCamera camera;
     private Viewport viewport;
-    private boolean skip = false;
+    private GameControl gameControl;
+    private Player player;
     
     private String state = "Main";
     
+    private Sprite spr_background;
+	private Texture tex_background;
+	
 	private Sprite spr_master;
 	private Texture tex_master;
 	
+	private Sprite spr_testdot;
+	private Texture tex_testdot;
+	
 	private BitmapFont font_master;
 	
-	public SplashScreen(MainGame game, ManagerScreen screen){
+	public MainScreen(MainGame game, ManagerScreen screen){
 		this.screen = screen;
 		this.game = game;
 		
@@ -40,10 +47,16 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		viewport.apply();
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
+		
+		gameControl = new GameControl();
+		player = new Player();
 				
-		tex_master = new Texture(Gdx.files.internal("data/assets/icons/logo.png"));
-		spr_master = new Sprite(tex_master);
+		tex_background = new Texture(Gdx.files.internal("data/assets/title.png"));
+		spr_background = new Sprite(tex_background);
 
+		tex_testdot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+		spr_testdot = new Sprite(tex_testdot);
+		
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 		font_master.setColor(Color.RED);
@@ -64,13 +77,17 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 			
 		game.batch.begin();
 		
-		spr_master.setPosition(0,0);
-		spr_master.setSize(100,100);
-		spr_master.draw(game.batch);
+		spr_background.setPosition(0,0);
+		spr_background.setSize(100,100);
+		spr_background.draw(game.batch);
 			
-		if(skip) {
-			game.Switch("MainScreen");
-		}
+		spr_testdot.setPosition(50,57);
+		spr_testdot.setSize(1,1);
+		spr_testdot.draw(game.batch);
+		
+		spr_testdot.setPosition(67,44);
+		spr_testdot.setSize(1,1);
+		spr_testdot.draw(game.batch);
 			
 		game.batch.end();
 	}
@@ -82,9 +99,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 
 		if(state.equals("Main")) {
-			//Skip
-			if(coordsTouch.x >= 0 && coordsTouch.x <= 100 && coordsTouch.y >= 0 && coordsTouch.y <= 100){
-				skip = true;
+			if(coordsTouch.x >= 70 && coordsTouch.x <= 99 && coordsTouch.y >= 12 && coordsTouch.y <= 27){
 			}
 		}
 			
