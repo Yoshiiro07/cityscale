@@ -7,62 +7,61 @@ import com.badlogic.gdx.Screen;
 
 public class ManagerScreen implements Screen{
 	private MainGame game;
-	private GameControl gameControl;
+	private GameObject gameObject;
+	private boolean network;
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
-		this.gameControl = new GameControl();	
+		this.gameObject = new GameObject(); 
 	}
 	
-	public void screenSwitch(String tipo){
+	public void screenSwitch(String tipo, boolean network){
 		
-		if(tipo.equals("MainScreen")){	
-			MainScreen mainScreen = new MainScreen(game, this);
-			game.setScreen(mainScreen);
+		if(tipo.equals("SplashScreen")){	
+			SplashScreen splashScreen = new SplashScreen(game, this);
+			game.setScreen(splashScreen);
+		}
+		
+		if(tipo.equals("TitleScreen")){	
+			TitleScreen titleScreen = new TitleScreen(game,this);
+			game.setScreen(titleScreen);
+		}
+		
+		if(tipo.equals("LoadingScreen")){	
+			LoadingScreen loadingScreen = new LoadingScreen(game,network);
+			game.setScreen(loadingScreen);
+		}
+		
+		if(tipo.equals("GameMap")) {
+			GameMap gameMapScreen = new GameMap(game,this, network);
+			game.setScreen(gameMapScreen);
 		}
 	}
 	
-	public void atualizaComponentes(){
+	public void atualizaComponentes(MainGame maingameAlt,GameObject gameObject, boolean network){
+		this.game = maingameAlt;
+		this.gameObject = gameObject;
+		this.network = network;
 	}
 
 	@Override
-	public void show()
-	{
-		// TODO: Implement this method
-	}
+	public void show(){}
 
 	@Override
-	public void render(float p1)
-	{
-		// TODO: Implement this method
-	}
+	public void render(float p1){}
 
 	@Override
-	public void resize(int p1, int p2)
-	{
-		// TODO: Implement this method
-	}
+	public void resize(int p1, int p2){}
 
 	@Override
-	public void pause()
-	{
-		// TODO: Implement this method
-	}
+	public void pause(){}
 
 	@Override
-	public void resume()
-	{
-		// TODO: Implement this method
-	}
+	public void resume(){}
 
 	@Override
-	public void hide()
-	{
-	}
+	public void hide(){}
 
 	@Override
-	public void dispose()
-	{
-		// TODO: Implement this method
-	}
+	public void dispose(){}
 }

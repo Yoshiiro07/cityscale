@@ -1,0 +1,264 @@
+itensUtil.png
+size: 234, 289
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blue_crystal
+  rotate: false
+  xy: 0, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+blue_orb
+  rotate: false
+  xy: 39, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+cake
+  rotate: false
+  xy: 39, 117
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cheesebread
+  rotate: false
+  xy: 82, 117
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+chipz
+  rotate: false
+  xy: 125, 117
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+egg
+  rotate: false
+  xy: 168, 117
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+fries
+  rotate: false
+  xy: 0, 160
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+garrafadrink
+  rotate: false
+  xy: 78, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+garrafamagica
+  rotate: false
+  xy: 117, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+garrafasuco
+  rotate: false
+  xy: 156, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+gray_crystal
+  rotate: false
+  xy: 195, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+gray_orb
+  rotate: false
+  xy: 0, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+green_crystal
+  rotate: false
+  xy: 39, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+green_orb
+  rotate: false
+  xy: 78, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+hamburguer
+  rotate: false
+  xy: 43, 160
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hotdog
+  rotate: false
+  xy: 86, 160
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hpcan
+  rotate: false
+  xy: 129, 160
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+icecreamorange
+  rotate: false
+  xy: 172, 160
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+icecreampurple
+  rotate: false
+  xy: 0, 203
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+meatball
+  rotate: false
+  xy: 43, 203
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+mpcan
+  rotate: false
+  xy: 86, 203
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+orange_crystal
+  rotate: false
+  xy: 117, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+orange_orb
+  rotate: false
+  xy: 156, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+pink_crystal
+  rotate: false
+  xy: 195, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+pink_orb
+  rotate: false
+  xy: 0, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+pizza
+  rotate: false
+  xy: 129, 203
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+purple_crystal
+  rotate: false
+  xy: 39, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+purple_orb
+  rotate: false
+  xy: 78, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+red_crystal
+  rotate: false
+  xy: 117, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+red_orb
+  rotate: false
+  xy: 156, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+spaghetti
+  rotate: false
+  xy: 172, 203
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+stcan
+  rotate: false
+  xy: 0, 246
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+steak
+  rotate: false
+  xy: 43, 246
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+stjar
+  rotate: false
+  xy: 86, 246
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sushi
+  rotate: false
+  xy: 129, 246
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+yellow_crystal
+  rotate: false
+  xy: 195, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+yellow_orb
+  rotate: false
+  xy: 0, 117
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
