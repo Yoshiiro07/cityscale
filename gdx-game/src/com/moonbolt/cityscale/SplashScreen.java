@@ -1,35 +1,29 @@
 package com.moonbolt.cityscale;
 
-import java.io.UnsupportedEncodingException;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class SplashScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class SplashScreen implements Screen, ApplicationListener, InputProcessor {
 	private MainGame game;
 	private ManagerScreen screen;
 	private OrthographicCamera camera;
     private Viewport viewport;
-    private boolean skip = false;
-    
-    private String state = "Main";
-    
-	private Sprite spr_master;
-	private Texture tex_master;
-	
-	private BitmapFont font_master;
+	private Sprite spr_Logo;
+	private Texture tex_logo;
+	private boolean interpolation;
+	private int countEffect;
+	private int fadeInCount;
+	private int fadeOutCount;
+	private boolean network = false;
 	
 	public SplashScreen(MainGame game, ManagerScreen screen){
 		this.screen = screen;
@@ -39,17 +33,14 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		viewport = new StretchViewport(100,100,camera);
 		viewport.apply();
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
-		Gdx.input.setInputProcessor(this);
-				
-		tex_master = new Texture(Gdx.files.internal("data/assets/icons/logo.png"));
-		spr_master = new Sprite(tex_master);
-
-		//font
-		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
-		font_master.setColor(Color.RED);
-		font_master.getData().setScale(0.13f,0.08f);
-		font_master.setUseIntegerPositions(false);	
-			
+		fadeInCount = 1;
+		fadeOutCount = 1;
+		interpolation = false;
+		countEffect = 0;
+		tex_logo = new Texture(Gdx.files.internal("data/assets/logo.png"));
+		spr_Logo = new Sprite(tex_logo);
+		spr_Logo.setPosition(35,34);
+		spr_Logo.setSize(30,40);
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -61,41 +52,33 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		
 		camera.update();
 	    game.batch.setProjectionMatrix(camera.combined);
-			
-		game.batch.begin();
 		
-		spr_master.setPosition(0,0);
-		spr_master.setSize(100,100);
-		spr_master.draw(game.batch);
-			
-		if(skip) {
-			game.Switch("MainScreen");
+		if(countEffect < 250 && interpolation == false){
+			spr_Logo.setAlpha(fadeInCount);
+			fadeInCount -= 1.5f;
+			countEffect += 1.5f;
 		}
-			
+		if(countEffect >= 250 && interpolation == false){
+			interpolation = true;
+			countEffect = 0;
+		}
+		
+		if(countEffect < 250 && interpolation == true){
+			spr_Logo.setAlpha(fadeOutCount);
+			fadeOutCount += 1.5f;
+		    countEffect += 1.5f;
+		}
+		
+		if(countEffect >= 250 && interpolation == true){
+			this.screen.screenSwitch("TitleScreen", network);
+			dispose();
+		}
+		
+		game.batch.begin();
+		spr_Logo.draw(game.batch);
 		game.batch.end();
+		
 	}
-	
-	@Override
-	public boolean touchDown(int p1, int p2, int p3, int p4)
-	{
-		// TODO: Implement this method
-		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
-
-		if(state.equals("Main")) {
-			//Skip
-			if(coordsTouch.x >= 0 && coordsTouch.x <= 100 && coordsTouch.y >= 0 && coordsTouch.y <= 100){
-				skip = true;
-			}
-		}
-			
-		return false;
-	}
-	
-	@Override
-	public void input(String input) {
-				
-	}
-	
 	
 	@Override
 	public void resize(int p1, int p2)
@@ -131,6 +114,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 	public void dispose()
 	{
 		game.dispose();
+		tex_logo.dispose();
 	}
 	
 	@Override
@@ -165,7 +149,20 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		// TODO: Implement this method
 		return false;
 	}
-	
+
+	@Override
+	public boolean touchDown(int p1, int p2, int p3, int p4)
+	{
+		// TODO: Implement this method
+		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+
+			if(coordsTouch.x >= 0 && coordsTouch.x <= 100 && coordsTouch.y >= 0 && coordsTouch.y <= 100){
+			    this.screen.screenSwitch("TitleScreen",network);
+				dispose();
+			}
+		return false;
+	}
+
 	@Override
 	public boolean touchUp(int p1, int p2, int p3, int p4)
 	{
@@ -193,12 +190,4 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		// TODO: Implement this method
 		return false;
 	}
-
-	@Override
-	public void canceled() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }

@@ -1,0 +1,425 @@
+itens.png
+size: 117, 780
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+banana_hat
+  rotate: false
+  xy: 0, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+basicset_f
+  rotate: false
+  xy: 39, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+basicset_m
+  rotate: false
+  xy: 78, 0
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+beachglass_hat
+  rotate: false
+  xy: 0, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+bear_hat
+  rotate: false
+  xy: 39, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+blackset_f
+  rotate: false
+  xy: 78, 39
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+blackset_m
+  rotate: false
+  xy: 0, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+blizzardcap_hat
+  rotate: false
+  xy: 39, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+blue_crystal
+  rotate: false
+  xy: 78, 78
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+blue_orb
+  rotate: false
+  xy: 0, 117
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+brazilflag_hat
+  rotate: false
+  xy: 39, 117
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+bunny_hat
+  rotate: false
+  xy: 78, 117
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+butterfly_hat
+  rotate: false
+  xy: 0, 156
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+capred_hat
+  rotate: false
+  xy: 39, 156
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+catset_f
+  rotate: false
+  xy: 78, 156
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+catset_m
+  rotate: false
+  xy: 0, 195
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+clay_hat
+  rotate: false
+  xy: 39, 195
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+clock_hat
+  rotate: false
+  xy: 78, 195
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+cooking_hat
+  rotate: false
+  xy: 0, 234
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+eyepatch_hat
+  rotate: false
+  xy: 39, 234
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+flamingoset_f
+  rotate: false
+  xy: 78, 234
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+flamingoset_m
+  rotate: false
+  xy: 0, 273
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+florroxa
+  rotate: false
+  xy: 39, 273
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+garrafadrink
+  rotate: false
+  xy: 78, 273
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+garrafamagica
+  rotate: false
+  xy: 0, 312
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+garrafasuco
+  rotate: false
+  xy: 39, 312
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+gosma
+  rotate: false
+  xy: 78, 312
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+gray_crystal
+  rotate: false
+  xy: 0, 351
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+gray_orb
+  rotate: false
+  xy: 39, 351
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+green_crystal
+  rotate: false
+  xy: 78, 351
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+green_orb
+  rotate: false
+  xy: 0, 390
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+headphone_hat
+  rotate: false
+  xy: 39, 390
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+hpcan
+  rotate: false
+  xy: 78, 390
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+magician_hat
+  rotate: false
+  xy: 0, 429
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+miner_hat
+  rotate: false
+  xy: 39, 429
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+mpcan
+  rotate: false
+  xy: 78, 429
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+oldbuffon_hat
+  rotate: false
+  xy: 0, 468
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+orange_crystal
+  rotate: false
+  xy: 39, 468
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+orange_orb
+  rotate: false
+  xy: 78, 468
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+pink_crystal
+  rotate: false
+  xy: 0, 507
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+pink_orb
+  rotate: false
+  xy: 39, 507
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+pirate_hat
+  rotate: false
+  xy: 78, 507
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+poyobat_hat
+  rotate: false
+  xy: 0, 546
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+presas
+  rotate: false
+  xy: 39, 546
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+purple_crystal
+  rotate: false
+  xy: 78, 546
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+purple_orb
+  rotate: false
+  xy: 0, 585
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+red_crystal
+  rotate: false
+  xy: 39, 585
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+red_orb
+  rotate: false
+  xy: 78, 585
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+rougeset_f
+  rotate: false
+  xy: 0, 624
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+rougeset_m
+  rotate: false
+  xy: 39, 624
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+sacos_grande
+  rotate: false
+  xy: 78, 624
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+sacos_pequeno
+  rotate: false
+  xy: 0, 663
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+santa_hat
+  rotate: false
+  xy: 39, 663
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+schoolset_f
+  rotate: false
+  xy: 78, 663
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+schoolset_m
+  rotate: false
+  xy: 0, 702
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+slime_hat
+  rotate: false
+  xy: 39, 702
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+sportset_m
+  rotate: false
+  xy: 78, 702
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+sunglass_hat
+  rotate: false
+  xy: 0, 741
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+yellow_crystal
+  rotate: false
+  xy: 39, 741
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+yellow_orb
+  rotate: false
+  xy: 78, 741
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1

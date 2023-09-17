@@ -1,0 +1,250 @@
+hairs.png
+size: 250, 350
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hair1brownFBack
+  rotate: false
+  xy: 0, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownFBattle1
+  rotate: false
+  xy: 50, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownFBattle2
+  rotate: false
+  xy: 100, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownFDamage
+  rotate: false
+  xy: 150, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownFFront
+  rotate: false
+  xy: 200, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownFLeft
+  rotate: false
+  xy: 0, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownFRight
+  rotate: false
+  xy: 50, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownMBack
+  rotate: false
+  xy: 100, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownMBattle1
+  rotate: false
+  xy: 150, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownMBattle2
+  rotate: false
+  xy: 200, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownMDamage
+  rotate: false
+  xy: 0, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownMFront
+  rotate: false
+  xy: 50, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownMLeft
+  rotate: false
+  xy: 100, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1brownMRight
+  rotate: false
+  xy: 150, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1greenMBack
+  rotate: false
+  xy: 200, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1greenMBattle1
+  rotate: false
+  xy: 0, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1greenMBattle2
+  rotate: false
+  xy: 50, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1greenMDamage
+  rotate: false
+  xy: 100, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1greenMFront
+  rotate: false
+  xy: 150, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1greenMLeft
+  rotate: false
+  xy: 200, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1greenMRight
+  rotate: false
+  xy: 0, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1orangeMBack
+  rotate: false
+  xy: 50, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1orangeMBattle1
+  rotate: false
+  xy: 100, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1orangeMBattle2
+  rotate: false
+  xy: 150, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1orangeMDamage
+  rotate: false
+  xy: 200, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1orangeMFront
+  rotate: false
+  xy: 0, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1orangeMLeft
+  rotate: false
+  xy: 50, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1orangeMRight
+  rotate: false
+  xy: 100, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1yellowMBack
+  rotate: false
+  xy: 150, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1yellowMBattle1
+  rotate: false
+  xy: 200, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1yellowMBattle2
+  rotate: false
+  xy: 0, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1yellowMDamage
+  rotate: false
+  xy: 50, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1yellowMFront
+  rotate: false
+  xy: 100, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1yellowMLeft
+  rotate: false
+  xy: 150, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+hair1yellowMRight
+  rotate: false
+  xy: 200, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
