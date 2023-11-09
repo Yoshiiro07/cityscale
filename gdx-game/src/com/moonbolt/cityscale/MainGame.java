@@ -1,13 +1,10 @@
-package com.moonbolt.cityscale;
+package com.moonbolt.citymanager;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
 
 public class MainGame extends Game {
-	
-	private boolean network = false;
-	
-	public MainGame(){};
+public MainGame(){};
 	
 	SpriteBatch batch;	
 	public ManagerScreen loadingmanager;
@@ -17,29 +14,44 @@ public class MainGame extends Game {
 	{
 		batch = new SpriteBatch();  
 		loadingmanager = new ManagerScreen(this);
-		this.Switch("SplashScreen",network);
+		this.Switch("MainScreen");
 	}
 	
-	public void Switch(String screenName, boolean network) {
-		loadingmanager.screenSwitch(screenName, network);
+	public void Switch(String screenName) {
+		loadingmanager.screenSwitch(screenName);
 	}
 	
-	public void AtualizaElementos(MainGame mainGameAlt,GameObject gameObjectAlt, boolean networkAlt) {
-		loadingmanager.atualizaComponentes(mainGameAlt,gameObjectAlt, networkAlt);
+	public void AtualizaElementos() {
+		
 	}
 
 	@Override
-	public void render() { super.render(); }
+	public void render()
+	{   
+	    super.render();
+	}
 
 	@Override
-	public void dispose() { super.dispose(); }
+	public void dispose()
+	{
+		super.dispose();
+	}
 
 	@Override
-	public void resize(int width, int height) { super.resize(width, height); }
+	public void resize(int width, int height)
+	{
+		super.resize(width, height);
+	}
 
 	@Override
-	public void pause() { super.pause(); }
+	public void pause()
+	{
+		super.pause();
+	}
 
 	@Override
-	public void resume() { super.resume(); }
+	public void resume()
+	{
+		super.resume();
+	}
 }
