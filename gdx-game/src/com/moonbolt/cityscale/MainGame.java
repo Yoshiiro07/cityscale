@@ -1,4 +1,4 @@
-package com.moonbolt.citymanager;
+package com.moonbolt.cityscale;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;

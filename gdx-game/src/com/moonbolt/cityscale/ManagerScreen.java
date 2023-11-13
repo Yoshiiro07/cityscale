@@ -1,4 +1,4 @@
-package com.moonbolt.citymanager;
+package com.moonbolt.cityscale;
 import java.util.ArrayList;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -17,7 +17,7 @@ public class ManagerScreen implements Screen{
 	public void screenSwitch(String tipo){
 		
 		if(tipo.equals("MainScreen")){	
-			MainScreen mainScreen = new MainScreen(game, this);
+			MapScreen mainScreen = new MapScreen(game, this);
 			game.setScreen(mainScreen);
 		}
 	}
