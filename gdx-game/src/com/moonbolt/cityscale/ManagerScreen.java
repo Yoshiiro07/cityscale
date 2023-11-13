@@ -20,16 +20,17 @@ public class ManagerScreen implements Screen{
 			MapScreen mainScreen = new MapScreen(game, this);
 			game.setScreen(mainScreen);
 		}
+		if(tipo.equals("TitleScreen")) {
+			TitleScreen titleScreen = new TitleScreen(game, this);
+			game.setScreen(titleScreen);
+		}
 	}
 	
-	public void atualizaComponentes(){
+	public void AtualizaComponentes(){
 	}
 
 	@Override
-	public void show()
-	{
-		// TODO: Implement this method
-	}
+	public void show(){}
 
 	@Override
 	public void render(float p1)

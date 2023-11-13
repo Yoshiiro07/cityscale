@@ -24,9 +24,15 @@ public class MapScreen implements Screen, ApplicationListener, InputProcessor, T
     private Viewport viewport;
     private GameControl gameControl; 
     private BitmapFont font_master;
-   
-	
-	
+    
+    private String state = "";
+    
+    private Texture tex_testdot;
+    private Sprite spr_testdot;
+    
+    private Texture tex_background;
+    private Sprite spr_background;
+    
 	public MapScreen(MainGame game, ManagerScreen screen){
 		this.screen = screen;
 		this.game = game;
@@ -46,7 +52,7 @@ public class MapScreen implements Screen, ApplicationListener, InputProcessor, T
 		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 		font_master.setColor(Color.RED);
 		font_master.getData().setScale(0.13f,0.08f);
-		font_master.setUseIntegerPositions(false);	
+		font_master.setUseIntegerPositions(false);
 			
 		Gdx.input.setInputProcessor(this);
 	}
@@ -81,7 +87,7 @@ public class MapScreen implements Screen, ApplicationListener, InputProcessor, T
 	@Override
 	public boolean touchDown(int p1, int p2, int p3, int p4)
 	{
-		// TODO: Implement this method
+		
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 
 		if(state.equals("MainMenu")) {
@@ -96,7 +102,7 @@ public class MapScreen implements Screen, ApplicationListener, InputProcessor, T
 	
 	@Override
 	public void input(String input) {
-		accountNumber = input;			
+		//accountNumber = input;			
 	}
 	
 	
@@ -108,100 +114,47 @@ public class MapScreen implements Screen, ApplicationListener, InputProcessor, T
 	}
 
 	@Override
-	public void hide()
-	{
-	}
+	public void hide() {}
 
 	@Override
-	public void show()
-	{
-		
-	}
+	public void show() {}
 
 	@Override
-	public void resume()
-	{
-		// TODO: Implement this method
-	}
+	public void resume(){}
 
 	@Override
-	public void pause()
-	{
-		// TODO: Implement this method
-	}
+	public void pause(){}
 
 	@Override
-	public void dispose()
-	{
-		game.dispose();
-	}
+	public void dispose(){ game.dispose(); }
 	
 	@Override
-	public void create()
-	{
-		// TODO: Implement this method
-	}
+	public void create(){}
 
 	@Override
-	public void render()
-	{
-		// TODO: Implement this method
-	}
+	public void render(){	}
 	
 	@Override
-	public boolean keyDown(int p1)
-	{
-		// TODO: Implement this method
-		return false;
-	}
+	public boolean keyDown(int p1){	return false;}
 
 	@Override
-	public boolean keyUp(int p1)
-	{
-		// TODO: Implement this method
-		return false;
-	}
+	public boolean keyUp(int p1){ return false;}
 
 	@Override
-	public boolean keyTyped(char p1)
-	{
-		// TODO: Implement this method
-		return false;
-	}
+	public boolean keyTyped(char p1) { return false; }
 	
 	@Override
-	public boolean touchUp(int p1, int p2, int p3, int p4)
-	{
-		// TODO: Implement this method
-		return false;
-	}
+	public boolean touchUp(int p1, int p2, int p3, int p4){	return false; }
 
 	@Override
-	public boolean touchDragged(int p1, int p2, int p3)
-	{
-		// TODO: Implement this method
-		return false;
-	}
+	public boolean touchDragged(int p1, int p2, int p3){ return false; }
 
 	@Override
-	public boolean mouseMoved(int p1, int p2)
-	{
-		// TODO: Implement this method
-		return false;
-	}
+	public boolean mouseMoved(int p1, int p2){ return false; }
 
 	@Override
-	public boolean scrolled(int p1)
-	{
-		// TODO: Implement this method
-		return false;
-	}
+	public boolean scrolled(int p1){ return false; }
 
 	@Override
-	public void canceled() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
+	public void canceled() { }
 }
