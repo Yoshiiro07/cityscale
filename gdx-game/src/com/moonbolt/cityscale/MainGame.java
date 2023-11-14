@@ -14,7 +14,7 @@ public MainGame(){};
 	{
 		batch = new SpriteBatch();  
 		loadingmanager = new ManagerScreen(this);
-		this.Switch("MainScreen");
+		this.Switch("TitleScreen");
 	}
 	
 	public void Switch(String screenName) {
