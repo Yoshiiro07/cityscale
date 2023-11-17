@@ -7,7 +7,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -18,16 +20,24 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
     private Viewport viewport;
     private GameControl gameControl; 
     private BitmapFont font_master;
-    
-    
     private String state = "Splash";
+    
+    private Sprite spr_background;
+    private Texture tex_background;
 	
 	public TitleScreen(MainGame game, ManagerScreen screen) {
+		this.screen = screen;
+		this.game = game;
+		
 		camera = new OrthographicCamera();
 		viewport = new StretchViewport(100,100,camera);
 		viewport.apply();
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
+		
+		tex_background = new Texture(Gdx.files.internal("data/assets/misc/test.png"));
+		spr_background = new Sprite(tex_background);
+		
 	}
 	
 	@Override
@@ -41,17 +51,15 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 		game.batch.begin();
 		
+		spr_background.setPosition(0,0);
+		spr_background.setSize(100,100);
+		spr_background.draw(game.batch);
 		
-		if(state.equals("Splash")) {
+		//spr_testdot.setPosition(67,44);
+		//spr_testdot.setSize(1,1);
+		//spr_testdot.draw(game.batch);
 			
-		}
-		
-		
-		if(state.equals("TitleScreen")) {
-			
-		}
-		
-		
+		game.batch.end();	
 	}
 	
 	

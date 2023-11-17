@@ -17,7 +17,7 @@ public class GameControl {
 	//Variables
 	private Json json;
 	private FileHandle file;
-	private Player playerInfo;
+	private GameObject playerInfo;
 	private String request;
 	private String line;
 	private String returnFromServer;
@@ -26,7 +26,7 @@ public class GameControl {
 	
 	public GameControl() {	
 		json = new Json();
-		playerInfo = new Player();
+		playerInfo = new GameObject();
 	}
 	
 	//[A] DATA MANAGER
@@ -39,21 +39,21 @@ public class GameControl {
 	
 	public void LoadData() {
 		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
-		playerInfo = json.fromJson(Player.class,Base64Coder.decodeString(file.readString()));	
+		playerInfo = json.fromJson(GameObject.class,Base64Coder.decodeString(file.readString()));	
 	}
 	
-	public void SaveData(Player playerInfo) {		
+	public void SaveData(GameObject playerInfo) {		
 		file = Gdx.files.local("SaveData/SvDT.json");
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(playerInfo)),false);
 	}
 	
-	public Player RetornaPlayer() {
+	public GameObject RetornaPlayer() {
 		return playerInfo;
 	}
 
 	public void LoadDownloadData(String hash) {
 		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
-		playerInfo = json.fromJson(Player.class,Base64Coder.decodeString(hash));			
+		playerInfo = json.fromJson(GameObject.class,Base64Coder.decodeString(hash));			
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(playerInfo)),false);
 	}
 	
