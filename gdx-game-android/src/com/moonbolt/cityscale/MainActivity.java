@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+//import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 public class MainActivity extends AndroidApplication {
     @Override

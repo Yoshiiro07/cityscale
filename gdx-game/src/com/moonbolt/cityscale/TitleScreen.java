@@ -22,12 +22,29 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
     private BitmapFont font_master;
     private String state = "Splash";
     
+    //Splash Variables
+    private boolean interpolation;
+	private int countEffect;
+	private int fadeInCount;
+	private int fadeOutCount;
+    
     private Sprite spr_background;
     private Texture tex_background;
+    
+    private Sprite spr_logoBackground;
+    private Texture tex_logoBackground;
+    
+    private Sprite spr_logo;
+    private Texture tex_logo;
 	
 	public TitleScreen(MainGame game, ManagerScreen screen) {
 		this.screen = screen;
 		this.game = game;
+		
+		fadeInCount = 1;
+		fadeOutCount = 1;
+		interpolation = false;
+		countEffect = 0;
 		
 		camera = new OrthographicCamera();
 		viewport = new StretchViewport(100,100,camera);
@@ -35,8 +52,14 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
 		
-		tex_background = new Texture(Gdx.files.internal("data/assets/misc/test.png"));
+		tex_background = new Texture(Gdx.files.internal("data/assets/maps/subway.png"));
 		spr_background = new Sprite(tex_background);
+		
+		tex_logoBackground = new Texture(Gdx.files.internal("data/assets/misc/whitebg.png"));
+		spr_logoBackground = new Sprite(tex_logoBackground);
+		
+		tex_logo = new Texture(Gdx.files.internal("data/assets/misc/logo.png"));
+		spr_logo = new Sprite(tex_logo);
 		
 	}
 	
@@ -51,9 +74,43 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 		game.batch.begin();
 		
-		spr_background.setPosition(0,0);
-		spr_background.setSize(100,100);
-		spr_background.draw(game.batch);
+		if(state.equals("Splash"))
+		{
+			spr_logoBackground.setPosition(0,0);
+			spr_logoBackground.setSize(100,100);
+			spr_logoBackground.draw(game.batch);
+			
+			spr_logo.setPosition(30,29);
+			spr_logo.setSize(40,44);
+			spr_logo.draw(game.batch);
+			
+			if(countEffect < 250 && interpolation == false){
+				spr_logo.setAlpha(fadeInCount);
+				fadeInCount -= 1.5f;
+				countEffect += 1.5f;
+			}
+			if(countEffect >= 250 && interpolation == false){
+				interpolation = true;
+				countEffect = 0;
+			}
+			
+			if(countEffect < 250 && interpolation == true){
+				spr_logo.setAlpha(fadeOutCount);
+				fadeOutCount += 1.5f;
+			    countEffect += 1.5f;
+			}
+			
+			if(countEffect >= 250 && interpolation == true){
+				state = "Title";
+			}
+		}
+		
+		if(state.equals("Title")) 
+		{
+			spr_background.setPosition(0,0);
+			spr_background.setSize(100,100);
+			spr_background.draw(game.batch);
+		}
 		
 		//spr_testdot.setPosition(67,44);
 		//spr_testdot.setSize(1,1);
