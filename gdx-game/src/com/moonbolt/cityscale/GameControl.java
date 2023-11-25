@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -23,17 +24,33 @@ public class GameControl {
 	private String returnFromServer;
 	private String subdata;
 	private String OnlineRequest;
+	private Random randnumber;
 	
 	public GameControl() {	
 		json = new Json();
 		playerInfo = new GameObject();
+		randnumber = new Random();
 	}
 	
 	//[A] DATA MANAGER
-	public void CheckData() {
+	public String CheckData() {
 		file = Gdx.files.local("SaveData/save.json");		
 		if(!file.exists()) { 
-			//CreateNewData(); 
+			try {
+				GameObject player = new GameObject();
+				int accNumber = randnumber.nextInt(999999);
+				player.accountID = String.valueOf(accNumber);
+				player.Name = "none";
+				file.writeString(Base64Coder.encodeString(json.prettyPrint(player)), false);
+				return "CreateNew";
+				
+			} catch (Exception e) 
+			{
+				return "Error";
+			}
+		}
+		else {
+			return "HasData";
 		}
 	}
 	

@@ -8,6 +8,10 @@ import com.badlogic.gdx.Screen;
 public class ManagerScreen implements Screen{
 	private MainGame game;
 	private GameControl gameControl;
+	private String lservername = "cityserver.mysql.uhserver.com";
+	private String lusername = "citymaster";
+	private String lpassword = "City@key90";
+	private String ldbname = "cityserver";
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;

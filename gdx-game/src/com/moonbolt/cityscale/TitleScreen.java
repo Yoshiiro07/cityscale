@@ -5,11 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.TextInputListener;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -21,12 +24,18 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
     private GameControl gameControl; 
     private BitmapFont font_master;
     private String state = "Splash";
+    private String Msg = "";
+    private int countMsg = 300;
     
     //Splash Variables
     private boolean interpolation;
 	private int countEffect;
 	private int fadeInCount;
 	private int fadeOutCount;
+	
+	private TextureAtlas atlas_gameui;
+	
+	private Sprite spr_master;
     
     private Sprite spr_background;
     private Texture tex_background;
@@ -36,6 +45,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
     
     private Sprite spr_logo;
     private Texture tex_logo;
+    
+    private Sprite spr_testdot;
+    private Texture tex_testdot;
 	
 	public TitleScreen(MainGame game, ManagerScreen screen) {
 		this.screen = screen;
@@ -52,14 +64,24 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
 		
+		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+		font_master.setColor(Color.WHITE);
+		font_master.getData().setScale(0.07f,0.12f);
+		font_master.setUseIntegerPositions(false);
+		
 		tex_background = new Texture(Gdx.files.internal("data/assets/maps/subway.png"));
 		spr_background = new Sprite(tex_background);
 		
 		tex_logoBackground = new Texture(Gdx.files.internal("data/assets/misc/whitebg.png"));
 		spr_logoBackground = new Sprite(tex_logoBackground);
 		
+		atlas_gameui = new TextureAtlas(Gdx.files.internal("data/assets/misc/gameui.txt"));
+		
 		tex_logo = new Texture(Gdx.files.internal("data/assets/misc/logo.png"));
 		spr_logo = new Sprite(tex_logo);
+		
+		tex_testdot = new Texture(Gdx.files.internal("data/assets/misc/test.png"));
+		spr_testdot = new Sprite(tex_testdot);
 		
 	}
 	
@@ -110,13 +132,38 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			spr_background.setPosition(0,0);
 			spr_background.setSize(100,100);
 			spr_background.draw(game.batch);
+			
+			spr_master = atlas_gameui.createSprite("mainmenu");
+			spr_master.setPosition(68, 5);
+			spr_master.setSize(30, 30);
+			spr_master.draw(game.batch);
 		}
 		
-		//spr_testdot.setPosition(67,44);
-		//spr_testdot.setSize(1,1);
-		//spr_testdot.draw(game.batch);
+		spr_testdot.setPosition(95,24);
+		spr_testdot.setSize(1,1);
+		spr_testdot.draw(game.batch);
+		
+		CheckMessage();
 			
 		game.batch.end();	
+	}
+	
+	public void CheckMessage() {
+		if(!Msg.equals("")) {
+			countMsg--;
+			spr_master = atlas_gameui.createSprite("barlootmagic");
+			
+			font_master.setColor(Color.WHITE);
+			font_master.getData().setScale(0.07f,0.12f);
+			font_master.setUseIntegerPositions(false);
+					
+			font_master.draw(game.batch, Msg , -60 , -58);
+			
+			if(countMsg < 0) {
+				countMsg = 300;
+				Msg = "";
+			}
+		}
 	}
 	
 	
@@ -195,8 +242,30 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 
 
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+	public boolean touchDown(int p1, int p2, int pointer, int button) {
+		
+		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+		
+		if(state.equals("Splash")) {
+			//Skip Splash
+			if(coordsTouch.x >= -100 && coordsTouch.x <= 200 && coordsTouch.y >= -100 && coordsTouch.y <= 200) {
+				state = "Title";
+				return false;
+			}
+		}
+		if(state.equals("Title")) {
+			//Online play
+			if(coordsTouch.x >= 69 && coordsTouch.x <= 95 && coordsTouch.y >= 24 && coordsTouch.y <= 31) {
+				String datastatus = gameControl.CheckData();
+				
+				if(datastatus.equals("CreateNew")) { state = "CreateNew"; } 
+				if(datastatus.equals("HasData")) { state = "SelectChar"; }
+				if(datastatus.equals("Error")) { Msg = "Erro encontrado"; }
+				
+				return false;
+			}
+		}
+		
 		return false;
 	}
 
