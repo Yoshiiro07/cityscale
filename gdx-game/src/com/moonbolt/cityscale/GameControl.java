@@ -39,7 +39,7 @@ public class GameControl {
 			try {
 				GameObject player = new GameObject();
 				int accNumber = randnumber.nextInt(999999);
-				player.accountID = String.valueOf(accNumber);
+				player.AccountID = String.valueOf(accNumber);
 				player.Name = "none";
 				file.writeString(Base64Coder.encodeString(json.prettyPrint(player)), false);
 				return "CreateNew";

@@ -4,7 +4,10 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
 
 public class MainGame extends Game {
-public MainGame(){};
+	
+	private boolean network = false;
+	
+	public MainGame(){};
 	
 	SpriteBatch batch;	
 	public ManagerScreen loadingmanager;
@@ -14,44 +17,29 @@ public MainGame(){};
 	{
 		batch = new SpriteBatch();  
 		loadingmanager = new ManagerScreen(this);
-		this.Switch("TitleScreen");
+		this.Switch("SplashScreen",network);
 	}
 	
-	public void Switch(String screenName) {
-		loadingmanager.screenSwitch(screenName);
+	public void Switch(String screenName, boolean network) {
+		loadingmanager.screenSwitch(screenName, network);
 	}
 	
-	public void AtualizaElementos() {
-		
+	public void AtualizaElementos(MainGame mainGameAlt,GameObject gameObjectAlt, boolean networkAlt) {
+		loadingmanager.atualizaComponentes(mainGameAlt,gameObjectAlt, networkAlt);
 	}
 
 	@Override
-	public void render()
-	{   
-	    super.render();
-	}
+	public void render() { super.render(); }
 
 	@Override
-	public void dispose()
-	{
-		super.dispose();
-	}
+	public void dispose() { super.dispose(); }
 
 	@Override
-	public void resize(int width, int height)
-	{
-		super.resize(width, height);
-	}
+	public void resize(int width, int height) { super.resize(width, height); }
 
 	@Override
-	public void pause()
-	{
-		super.pause();
-	}
+	public void pause() { super.pause(); }
 
 	@Override
-	public void resume()
-	{
-		super.resume();
-	}
+	public void resume() { super.resume(); }
 }

@@ -1,0 +1,229 @@
+mobMines.png
+size: 445, 1500
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+death1L
+  rotate: false
+  xy: 0, 928
+  size: 181, 143
+  orig: 181, 143
+  offset: 0, 0
+  index: -1
+death1R
+  rotate: false
+  xy: 181, 928
+  size: 181, 143
+  orig: 181, 143
+  offset: 0, 0
+  index: -1
+death2L
+  rotate: false
+  xy: 0, 1071
+  size: 181, 143
+  orig: 181, 143
+  offset: 0, 0
+  index: -1
+death2R
+  rotate: false
+  xy: 181, 1071
+  size: 181, 143
+  orig: 181, 143
+  offset: 0, 0
+  index: -1
+death3L
+  rotate: false
+  xy: 0, 1214
+  size: 181, 143
+  orig: 181, 143
+  offset: 0, 0
+  index: -1
+death3R
+  rotate: false
+  xy: 181, 1214
+  size: 181, 143
+  orig: 181, 143
+  offset: 0, 0
+  index: -1
+deathAL
+  rotate: false
+  xy: 0, 1357
+  size: 181, 143
+  orig: 181, 143
+  offset: 0, 0
+  index: -1
+deathAR
+  rotate: false
+  xy: 181, 1357
+  size: 181, 143
+  orig: 181, 143
+  offset: 0, 0
+  index: -1
+fire1L
+  rotate: false
+  xy: 0, 0
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+fire1R
+  rotate: false
+  xy: 89, 0
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+fire2L
+  rotate: false
+  xy: 178, 0
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+fire2R
+  rotate: false
+  xy: 267, 0
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+fire3L
+  rotate: false
+  xy: 356, 0
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+fire3R
+  rotate: false
+  xy: 0, 85
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+fireAL
+  rotate: false
+  xy: 89, 85
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+fireAR
+  rotate: false
+  xy: 178, 85
+  size: 89, 85
+  orig: 89, 85
+  offset: 0, 0
+  index: -1
+golem1L
+  rotate: false
+  xy: 130, 505
+  size: 122, 141
+  orig: 122, 141
+  offset: 0, 0
+  index: -1
+golem1R
+  rotate: false
+  xy: 252, 505
+  size: 122, 141
+  orig: 122, 141
+  offset: 0, 0
+  index: -1
+golem2L
+  rotate: false
+  xy: 0, 646
+  size: 140, 141
+  orig: 140, 141
+  offset: 0, 0
+  index: -1
+golem2R
+  rotate: false
+  xy: 140, 646
+  size: 140, 141
+  orig: 140, 141
+  offset: 0, 0
+  index: -1
+golem3L
+  rotate: false
+  xy: 280, 646
+  size: 140, 141
+  orig: 140, 141
+  offset: 0, 0
+  index: -1
+golem3R
+  rotate: false
+  xy: 0, 787
+  size: 140, 141
+  orig: 140, 141
+  offset: 0, 0
+  index: -1
+golemAL
+  rotate: false
+  xy: 140, 787
+  size: 140, 141
+  orig: 140, 141
+  offset: 0, 0
+  index: -1
+golemAR
+  rotate: false
+  xy: 280, 787
+  size: 140, 141
+  orig: 140, 141
+  offset: 0, 0
+  index: -1
+worm1L
+  rotate: false
+  xy: 267, 85
+  size: 130, 140
+  orig: 130, 140
+  offset: 0, 0
+  index: -1
+worm1R
+  rotate: false
+  xy: 0, 225
+  size: 130, 140
+  orig: 130, 140
+  offset: 0, 0
+  index: -1
+worm2L
+  rotate: false
+  xy: 130, 225
+  size: 130, 140
+  orig: 130, 140
+  offset: 0, 0
+  index: -1
+worm2R
+  rotate: false
+  xy: 260, 225
+  size: 130, 140
+  orig: 130, 140
+  offset: 0, 0
+  index: -1
+worm3L
+  rotate: false
+  xy: 0, 365
+  size: 130, 140
+  orig: 130, 140
+  offset: 0, 0
+  index: -1
+worm3R
+  rotate: false
+  xy: 130, 365
+  size: 130, 140
+  orig: 130, 140
+  offset: 0, 0
+  index: -1
+wormAL
+  rotate: false
+  xy: 260, 365
+  size: 130, 140
+  orig: 130, 140
+  offset: 0, 0
+  index: -1
+wormAR
+  rotate: false
+  xy: 0, 505
+  size: 130, 140
+  orig: 130, 140
+  offset: 0, 0
+  index: -1
