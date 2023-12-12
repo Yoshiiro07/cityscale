@@ -53,5 +53,4 @@ public class Player {
 	public String crystalC;
 	public String crystalD;
 	public String itensHousing;
-	
 }
