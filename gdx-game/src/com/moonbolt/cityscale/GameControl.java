@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -18,10 +19,12 @@ public class GameControl {
 	private Json json;
 	private FileHandle file;
 	private Player player;
+	private Random random;
 	
 	public GameControl() {	
 		json = new Json();
 		player = new Player();
+		random = new Random();
 	}
 	
 	//[A] [ DATA MANAGER ] //
@@ -34,56 +37,11 @@ public class GameControl {
 	
 	public void CreateNewData() {
 		player = new Player();
-		player.accountID = "";
-		player.charnumber = 1;	
-		player.name = "";
-		player.sex = "";
-		 job;
-		 weapon;
-		 level;
-		 stats;
-		 stamina;
-		 staminamax;
-		 set;
-		 hair;
-		 hat;
-		 exp;
-		 hp;
-		 mp;
-		 maxhp;
-		 maxmp;
-		 atk;
-		 def;
-		 money;
-		 cooldown;
-		 statusPoint;
-		 skillPoint;
-		 skills;
-		 buffsA;
-		 buffsB;
-		 buffsC;
-		 coordX;
-		 coordY;
-		 pos;
-		 side;
-		 walk;
-		 inBattle;
-		 target;
-		 itens;
-		 map;
-		 party;
-		 inCasting;
-		 quest;
-		 state;
-		 hotkey1;
-		 hotkey2;
-		 heal;
-		 expshared;
-		 crystalA;
-		 crystalB;
-		 crystalC;
-		 crystalD;
-		 itensHousing;
+		int accountnumber = random.nextInt(999999);
+		while (accountnumber < 100000) {
+			accountnumber = random.nextInt(999999);
+		}
+		player.accountID = String.valueOf(accountnumber);
 	}
 	
 	public void SaveData(Player playerInfo) {		
