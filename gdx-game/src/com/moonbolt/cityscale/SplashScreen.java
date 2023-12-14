@@ -41,11 +41,11 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
 				
-		tex_master = new Texture(Gdx.files.internal("data/assets/icons/logo.png"));
+		tex_master = new Texture(Gdx.files.internal("data/assets/misc/etc/logo.png"));
 		spr_master = new Sprite(tex_master);
 
 		//font
-		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
+		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 		font_master.setColor(Color.RED);
 		font_master.getData().setScale(0.13f,0.08f);
 		font_master.setUseIntegerPositions(false);	
@@ -64,8 +64,8 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 			
 		game.batch.begin();
 		
-		spr_master.setPosition(0,0);
-		spr_master.setSize(100,100);
+		spr_master.setPosition(37,30);
+		spr_master.setSize(25,40);
 		spr_master.draw(game.batch);
 			
 		if(skip) {

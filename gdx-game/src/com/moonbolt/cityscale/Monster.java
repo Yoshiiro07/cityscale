@@ -16,5 +16,7 @@ public class Monster {
 	public int money;
 	public int respawn;
 	public boolean dead;
+	public String target;
+	public String status;
 
 }

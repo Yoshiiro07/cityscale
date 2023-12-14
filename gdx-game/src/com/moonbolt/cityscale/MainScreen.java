@@ -51,10 +51,10 @@ public class MainScreen implements Screen, ApplicationListener, InputProcessor, 
 		gameControl = new GameControl();
 		player = new Player();
 				
-		tex_background = new Texture(Gdx.files.internal("data/assets/title.png"));
+		tex_background = new Texture(Gdx.files.internal("data/assets/misc/title.png"));
 		spr_background = new Sprite(tex_background);
 
-		tex_testdot = new Texture(Gdx.files.internal("data/assets/testdot.png"));
+		tex_testdot = new Texture(Gdx.files.internal("data/assets/misc/testdot.png"));
 		spr_testdot = new Sprite(tex_testdot);
 		
 		//font

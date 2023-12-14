@@ -16,9 +16,16 @@ public class ManagerScreen implements Screen{
 	
 	public void screenSwitch(String tipo){
 		
-		if(tipo.equals("MainScreen")){	
+		if(tipo.equals("MainScreen"))
+		{	
 			MainScreen mainScreen = new MainScreen(game, this);
 			game.setScreen(mainScreen);
+		}
+		
+		if(tipo.equals("SplashScreen"))
+		{	
+			SplashScreen splashScreen = new SplashScreen(game, this);
+			game.setScreen(splashScreen);
 		}
 	}
 	
