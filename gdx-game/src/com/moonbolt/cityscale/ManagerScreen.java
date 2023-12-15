@@ -27,9 +27,17 @@ public class ManagerScreen implements Screen{
 			SplashScreen splashScreen = new SplashScreen(game, this);
 			game.setScreen(splashScreen);
 		}
+		
+		if(tipo.equals("CharacterSelect"))
+		{	
+			CharacterSelect characterSelect = new CharacterSelect(game, this, gameControl);
+			game.setScreen(characterSelect);
+		}
 	}
 	
-	public void atualizaComponentes(){
+	public void AtualizaComponentes(GameControl gameobj)
+	{
+		this.gameControl = gameobj;
 	}
 
 	@Override

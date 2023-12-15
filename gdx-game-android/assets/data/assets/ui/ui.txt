@@ -1,34 +1,62 @@
 ui.png
-size: 951, 1191
+size: 902, 1276
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 bartext
   rotate: false
-  xy: 593, 0
+  xy: 0, 441
   size: 358, 56
   orig: 358, 56
   offset: 0, 0
   index: -1
+btncriar
+  rotate: false
+  xy: 175, 0
+  size: 119, 36
+  orig: 119, 36
+  offset: 0, 0
+  index: -1
+btnexcluir
+  rotate: false
+  xy: 294, 0
+  size: 119, 36
+  orig: 119, 36
+  offset: 0, 0
+  index: -1
 charmenu
   rotate: false
-  xy: 0, 441
+  xy: 0, 526
   size: 660, 375
   orig: 660, 375
   offset: 0, 0
   index: -1
 createmenu
   rotate: false
-  xy: 0, 816
+  xy: 0, 901
   size: 660, 375
   orig: 660, 375
   offset: 0, 0
   index: -1
+criandopersonagem
+  rotate: false
+  xy: 358, 441
+  size: 358, 29
+  orig: 358, 29
+  offset: 0, 0
+  index: -1
 cristaljobmenu
   rotate: false
-  xy: 350, 66
+  xy: 0, 66
   size: 276, 375
   orig: 276, 375
+  offset: 0, 0
+  index: -1
+excluindopersonagem
+  rotate: false
+  xy: 0, 497
+  size: 358, 29
+  orig: 358, 29
   offset: 0, 0
   index: -1
 flagbutton
@@ -61,28 +89,35 @@ icoTemp
   index: -1
 lojamenu
   rotate: false
-  xy: 626, 66
+  xy: 276, 66
   size: 276, 375
   orig: 276, 375
   offset: 0, 0
   index: -1
 mainmenu
   rotate: false
-  xy: 0, 66
+  xy: 552, 66
   size: 350, 200
   orig: 350, 200
   offset: 0, 0
   index: -1
+selecionepersonagem
+  rotate: false
+  xy: 358, 497
+  size: 358, 29
+  orig: 358, 29
+  offset: 0, 0
+  index: -1
 tagparty
   rotate: false
-  xy: 175, 0
+  xy: 413, 0
   size: 168, 64
   orig: 168, 64
   offset: 0, 0
   index: -1
 tagplayer
   rotate: false
-  xy: 343, 0
+  xy: 581, 0
   size: 250, 66
   orig: 250, 66
   offset: 0, 0

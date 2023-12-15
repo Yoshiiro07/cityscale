@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -29,6 +30,9 @@ public class MainScreen implements Screen, ApplicationListener, InputProcessor, 
     
     private Sprite spr_background;
 	private Texture tex_background;
+	
+	private TextureAtlas atlas_ui;
+	private Sprite spr_mainmenu;
 	
 	private Sprite spr_master;
 	private Texture tex_master;
@@ -51,17 +55,21 @@ public class MainScreen implements Screen, ApplicationListener, InputProcessor, 
 		gameControl = new GameControl();
 		player = new Player();
 				
-		tex_background = new Texture(Gdx.files.internal("data/assets/misc/title.png"));
+		tex_background = new Texture(Gdx.files.internal("data/assets/maps/titlescreen.png"));
 		spr_background = new Sprite(tex_background);
 
-		tex_testdot = new Texture(Gdx.files.internal("data/assets/misc/testdot.png"));
+		tex_testdot = new Texture(Gdx.files.internal("data/assets/misc/etc/testdot.png"));
 		spr_testdot = new Sprite(tex_testdot);
 		
 		//font
-		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
+		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 		font_master.setColor(Color.RED);
 		font_master.getData().setScale(0.13f,0.08f);
-		font_master.setUseIntegerPositions(false);	
+		font_master.setUseIntegerPositions(false);
+		
+		//Atlas
+		atlas_ui = new TextureAtlas(Gdx.files.internal("data/assets/ui/ui.txt"));
+		spr_mainmenu = new Sprite(tex_testdot);
 			
 		Gdx.input.setInputProcessor(this);
 	}
@@ -80,12 +88,21 @@ public class MainScreen implements Screen, ApplicationListener, InputProcessor, 
 		spr_background.setPosition(0,0);
 		spr_background.setSize(100,100);
 		spr_background.draw(game.batch);
+		
+		
+		if(state.equals("Main")) {
+			spr_mainmenu = atlas_ui.createSprite("mainmenu");
+			spr_mainmenu.setPosition(62, 0);
+			spr_mainmenu.setSize(40,42);
+			spr_mainmenu.draw(game.batch);
+		}
+		
 			
-		spr_testdot.setPosition(50,57);
+		spr_testdot.setPosition(93,28);
 		spr_testdot.setSize(1,1);
 		spr_testdot.draw(game.batch);
 		
-		spr_testdot.setPosition(67,44);
+		spr_testdot.setPosition(69,37);
 		spr_testdot.setSize(1,1);
 		spr_testdot.draw(game.batch);
 			
@@ -99,7 +116,9 @@ public class MainScreen implements Screen, ApplicationListener, InputProcessor, 
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 
 		if(state.equals("Main")) {
-			if(coordsTouch.x >= 70 && coordsTouch.x <= 99 && coordsTouch.y >= 12 && coordsTouch.y <= 27){
+			if(coordsTouch.x >= 69 && coordsTouch.x <= 93 && coordsTouch.y >= 28 && coordsTouch.y <= 37){
+				//Offline Mode
+				game.Switch("CharacterSelect");
 			}
 		}
 			
