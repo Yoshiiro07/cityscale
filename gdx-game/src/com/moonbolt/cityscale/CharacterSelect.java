@@ -30,6 +30,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
     
     private Sprite spr_background;
 	private Texture tex_background;
+	private float posbackground = 0;
 	
 	private TextureAtlas atlas_ui;
 	private Sprite spr_mainmenu;
@@ -85,25 +86,55 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 		game.batch.begin();
 		
-		spr_background.setPosition(0,0);
-		spr_background.setSize(100,100);
-		spr_background.draw(game.batch);
-		
+		TrainMove();
 		
 		if(state.equals("Main")) {
+			spr_master = atlas_ui.createSprite("btncriar");
+			spr_master.setPosition(5, 4);
+			spr_master.setSize(17,10);
+			spr_master.draw(game.batch);
 			
+			spr_master = atlas_ui.createSprite("btnexcluir");
+			spr_master.setPosition(80, 4);
+			spr_master.setSize(17,10);
+			spr_master.draw(game.batch);
+			
+			spr_master = atlas_ui.createSprite("selecionepersonagem");
+			spr_master.setPosition(5, 85);
+			spr_master.setSize(45,8);
+			spr_master.draw(game.batch);
+		}
+		
+		if(state.equals("Create")) {
+			spr_master = atlas_ui.createSprite("createmenu");
+			spr_master.setPosition(5, 10);
+			spr_master.setSize(17,80);
+			spr_master.draw(game.batch);
 		}
 		
 			
-		spr_testdot.setPosition(93,28);
+		spr_testdot.setPosition(5,13);
 		spr_testdot.setSize(1,1);
 		spr_testdot.draw(game.batch);
 		
-		spr_testdot.setPosition(69,37);
+		spr_testdot.setPosition(21,4);
 		spr_testdot.setSize(1,1);
 		spr_testdot.draw(game.batch);
 			
 		game.batch.end();
+	}
+	
+	public void TrainMove() {
+		posbackground += 0.02f;
+		
+		if(posbackground >= 1) {
+			posbackground = -1f;
+		}
+		
+		spr_background.setPosition(0,posbackground);
+		spr_background.setSize(100,100);
+		spr_background.draw(game.batch);
+		
 	}
 	
 	@Override
@@ -113,9 +144,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 
 		if(state.equals("Main")) {
-			if(coordsTouch.x >= 69 && coordsTouch.x <= 93 && coordsTouch.y >= 28 && coordsTouch.y <= 37){
-				//Offline Mode
-				game.Switch("CharacterSelect");
+			if(coordsTouch.x >= 5 && coordsTouch.x <= 21 && coordsTouch.y >= 4 && coordsTouch.y <= 13){
+				//Criar
+				state = "Create";
 			}
 		}
 			
