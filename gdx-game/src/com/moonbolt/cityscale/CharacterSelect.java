@@ -25,6 +25,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private OrthographicCamera camera;
     private Viewport viewport;
     private Player player;
+    private String charname;
     
     private String state = "Main";
     
@@ -71,8 +72,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		//Atlas
 		atlas_ui = new TextureAtlas(Gdx.files.internal("data/assets/ui/ui.txt"));
 		spr_mainmenu = new Sprite(tex_testdot);
-			
-		Gdx.input.setInputProcessor(this);
 	}
 
 	@Override
@@ -107,17 +106,17 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(state.equals("Create")) {
 			spr_master = atlas_ui.createSprite("createmenu");
-			spr_master.setPosition(5, 10);
-			spr_master.setSize(17,80);
+			spr_master.setPosition(11, 10);
+			spr_master.setSize(80,80);
 			spr_master.draw(game.batch);
 		}
 		
 			
-		spr_testdot.setPosition(5,13);
+		spr_testdot.setPosition(37,72);
 		spr_testdot.setSize(1,1);
 		spr_testdot.draw(game.batch);
 		
-		spr_testdot.setPosition(21,4);
+		spr_testdot.setPosition(63,63);
 		spr_testdot.setSize(1,1);
 		spr_testdot.draw(game.batch);
 			
@@ -149,13 +148,23 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				state = "Create";
 			}
 		}
+		
+		if(state.equals("Create")) {
+			if(coordsTouch.x >= 5 && coordsTouch.x <= 21 && coordsTouch.y >= 4 && coordsTouch.y <= 13){
+				//Nome
+				Gdx.input.getTextInput(this,"Digite o nome","","");
+				return false;
+			}
+		}
 			
 		return false;
 	}
 	
 	@Override
 	public void input(String input) {
-				
+		if(state.equals("Create")) {
+			charname = input;
+		}	
 	}
 	
 	
