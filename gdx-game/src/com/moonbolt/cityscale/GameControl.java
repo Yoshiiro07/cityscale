@@ -10,6 +10,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 
@@ -20,6 +21,8 @@ public class GameControl {
 	private FileHandle file;
 	private Player player;
 	private Random random;
+	
+	private Sprite spr_master;
 	
 	public GameControl() {	
 		json = new Json();
@@ -52,5 +55,23 @@ public class GameControl {
 	public void LoadData() {
 		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
 		player = json.fromJson(Player.class,Base64Coder.decodeString(file.readString()));	
-	}	
+	}
+	
+	
+	
+	//[Char Mov] //
+	public Sprite LoadCharUp(String Side, ) {
+		
+	}
+	public Sprite LoadCharBottom() {
+		
+	}
+	public Sprite LoadCharHair() {
+		
+	}
+	public Sprite LoadCharHat() {
+		
+	}
+	
+	
 }

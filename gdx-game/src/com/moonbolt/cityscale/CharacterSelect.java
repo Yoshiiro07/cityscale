@@ -25,7 +25,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private OrthographicCamera camera;
     private Viewport viewport;
     private Player player;
-    private String charname;
+    private String charname = "";
+    private String systemMsg = "";
     
     private String state = "Main";
     
@@ -65,7 +66,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
-		font_master.setColor(Color.RED);
+		font_master.setColor(Color.WHITE);
 		font_master.getData().setScale(0.13f,0.08f);
 		font_master.setUseIntegerPositions(false);
 		
@@ -109,6 +110,16 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			spr_master.setPosition(11, 10);
 			spr_master.setSize(80,80);
 			spr_master.draw(game.batch);
+			
+			if(!charname.equals("")){
+				font_master.setColor(Color.WHITE);
+				font_master.getData().setScale(0.09f,0.16f);
+				font_master.setUseIntegerPositions(false);
+				font_master.draw(game.batch, charname , 39, 70);
+			}
+			
+			
+			font_master.draw(game.batch, charname , 39, 70);		
 		}
 		
 			
@@ -146,11 +157,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			if(coordsTouch.x >= 5 && coordsTouch.x <= 21 && coordsTouch.y >= 4 && coordsTouch.y <= 13){
 				//Criar
 				state = "Create";
+				return false;
 			}
 		}
 		
 		if(state.equals("Create")) {
-			if(coordsTouch.x >= 5 && coordsTouch.x <= 21 && coordsTouch.y >= 4 && coordsTouch.y <= 13){
+			if(coordsTouch.x >= 37 && coordsTouch.x <= 63 && coordsTouch.y >= 63 && coordsTouch.y <= 72){
 				//Nome
 				Gdx.input.getTextInput(this,"Digite o nome","","");
 				return false;
@@ -160,10 +172,45 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		return false;
 	}
 	
+	public boolean CheckName() {
+		
+		if(charname.equals("none")){ systemMsg = "Insira um nome"; return false;}
+		if(charname.equals("")) { systemMsg = "Insira um nome"; return false; }
+		if(charname.contains(".")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains(";")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("'")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("~")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains(":")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("?")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("!")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("*")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("@")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("#")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("$")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("%")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("&")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("(")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains(")")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("/")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("\\")){ systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains("<")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.contains(">")) { systemMsg = "Nome com caracters especiais"; return false; }
+		if(charname.length() > 10) { systemMsg = "Ate 10 letras"; return false; }
+		if(charname.length() < 2) { systemMsg = "Menos de 2 letras"; return false; }
+		
+		return false;
+	}
+	
 	@Override
 	public void input(String input) {
 		if(state.equals("Create")) {
-			charname = input;
+			if(CheckName()) {
+				charname = input;
+			}	
 		}	
 	}
 	
