@@ -33,6 +33,7 @@ public class Player {
 	public String coordX_1;
 	public String coordY_1;
 	public String pos_1;
+	public String frame_1;
 	public String walk_1;
 	public String inBattle_1;
 	public String target_1;
@@ -81,6 +82,7 @@ public class Player {
 	public String coordX_2;
 	public String coordY_2;
 	public String pos_2;
+	public String frame_2;
 	public String walk_2;
 	public String inBattle_2;
 	public String target_2;
@@ -129,6 +131,7 @@ public class Player {
 	public String coordX_3;
 	public String coordY_3;
 	public String pos_3;
+	public String frame_3;
 	public String walk_3;
 	public String inBattle_3;
 	public String target_3;
@@ -177,6 +180,7 @@ public class Player {
 	public String coordX_A;
 	public String coordY_A;
 	public String pos_A;
+	public String frame_A;
 	public String walk_A;
 	public String inBattle_A;
 	public String target_A;

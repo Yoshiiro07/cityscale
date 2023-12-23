@@ -27,6 +27,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
     private Player player;
     private String charname = "";
     private String systemMsg = "";
+    private String sex = "M";
     
     private String state = "Main";
     
@@ -118,6 +119,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				font_master.draw(game.batch, charname , 39, 70);
 			}
 			
+			if(sex.equals("M")) { spr_master = gameControl.LoadCharUp(player, "malecreate"); spr_master.draw(game.batch); }
+			if(sex.equals("F")) { spr_master = gameControl.LoadCharUp(player, "femalecreate"); spr_master.draw(game.batch); }
 			
 			font_master.draw(game.batch, charname , 39, 70);		
 		}
