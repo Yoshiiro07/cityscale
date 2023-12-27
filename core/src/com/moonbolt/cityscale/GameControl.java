@@ -95,6 +95,10 @@ public class GameControl {
 		SaveData(player);	
 	}
 	
+	public void SetCharSelected() {
+		
+	}
+	
 	public Player GetPlayer() {
 		return player;
 	}

@@ -216,6 +216,8 @@ public class Player {
 			name_1 = name;
 			sex_1 = sex;
 			hair_1 = hair;
+			job_1 = "Aprendiz";
+			level_1 = "1";
 			hat_1 = "none";
 			set_1 = "basic";
 			statusPoint_1 = "0";
@@ -260,6 +262,8 @@ public class Player {
 			name_2 = name;
 			sex_2 = sex;
 			hair_2 = hair;
+			job_2 = "Aprendiz";
+			level_2 = "1";
 			hat_2 = "none";
 			set_2 = "basic";
 			statusPoint_2 = "0";
@@ -304,6 +308,8 @@ public class Player {
 			name_3 = name;
 			sex_3 = sex;
 			hair_3 = hair;
+			job_3 = "Aprendiz";
+			level_3 = "1";
 			hat_3 = "none";
 			set_3 = "basic";
 			statusPoint_3 = "0";
@@ -354,6 +360,139 @@ public class Player {
 		}
 		if(num == 3) {
 			name_3 = "none";
+		}
+	}
+	
+	
+	public void SetSelectedChar(int num) {
+		if(num == 1) {
+			name_A = name_1;
+			sex_A = sex_1;
+			hair_A = hair_1;
+			job_A = job_1;
+			level_A = level_1;
+			hat_A = hat_1;
+			set_A = set_1;
+			statusPoint_A = statusPoint_1;
+			atk_A = atk_1;
+			def_A = def_1;
+			money_A = money_1;
+			frame_A = frame_1;
+			exp_A = exp_1;
+			str_A = str_1;
+			vit_A = vit_1;
+			agi_A = agi_1;
+			wis_A = wis_1;
+			res_A = res_1;
+			coordX_A = coordX_1;
+			coordY_A = coordY_1;
+			hp_A = hp_1;
+			maxhp_A = maxhp_1;
+			mp_A = mp_1;
+			maxmp_A = maxmp_1;
+			hat_A = hat_1;
+			level_A = level_1;
+			party_A = party_1;
+			buffsA_A = buffsA_1;
+			buffsB_A = buffsB_1;
+			buffsC_A = buffsC_1;
+			map_A = map_1;
+			target_A = target_1;
+			inBattle_A = inBattle_1;
+			inCasting_A = inCasting_1;
+			crystalA_A = crystalA_1;
+			crystalB_A = crystalB_1;
+			crystalC_A = crystalC_1;
+			crystalD_A = crystalD_1;
+			hotkey1_A = hotkey1_1;
+			hotkey2_A = hotkey2_1;
+			itens_A = itens_1;
+		}
+		if(num == 2) {
+			name_A = name_2;
+			sex_A = sex_2;
+			hair_A = hair_2;
+			job_A = job_2;
+			level_A = level_2;
+			hat_A = hat_2;
+			set_A = set_2;
+			statusPoint_A = statusPoint_2;
+			atk_A = atk_2;
+			def_A = def_2;
+			money_A = money_2;
+			frame_A = frame_2;
+			exp_A = exp_2;
+			str_A = str_2;
+			vit_A = vit_2;
+			agi_A = agi_2;
+			wis_A = wis_2;
+			res_A = res_2;
+			coordX_A = coordX_2;
+			coordY_A = coordY_2;
+			hp_A = hp_2;
+			maxhp_A = maxhp_2;
+			mp_A = mp_2;
+			maxmp_A = maxmp_2;
+			hat_A = hat_2;
+			level_A = level_2;
+			party_A = party_2;
+			buffsA_A = buffsA_2;
+			buffsB_A = buffsB_2;
+			buffsC_A = buffsC_2;
+			map_A = map_2;
+			target_A = target_2;
+			inBattle_A = inBattle_2;
+			inCasting_A = inCasting_2;
+			crystalA_A = crystalA_2;
+			crystalB_A = crystalB_2;
+			crystalC_A = crystalC_2;
+			crystalD_A = crystalD_2;
+			hotkey1_A = hotkey1_2;
+			hotkey2_A = hotkey2_2;
+			itens_A = itens_2;
+		}
+		if(num == 3) {
+			name_A = name_3;
+			sex_A = sex_3;
+			hair_A = hair_3;
+			job_A = job_3;
+			level_A = level_3;
+			hat_A = hat_3;
+			set_A = set_3;
+			statusPoint_A = statusPoint_3;
+			atk_A = atk_3;
+			def_A = def_3;
+			money_A = money_3;
+			frame_A = frame_3;
+			exp_A = exp_3;
+			str_A = str_3;
+			vit_A = vit_3;
+			agi_A = agi_3;
+			wis_A = wis_3;
+			res_A = res_3;
+			coordX_A = coordX_3;
+			coordY_A = coordY_3;
+			hp_A = hp_3;
+			maxhp_A = maxhp_3;
+			mp_A = mp_3;
+			maxmp_A = maxmp_3;
+			hat_A = hat_3;
+			level_A = level_3;
+			party_A = party_3;
+			buffsA_A = buffsA_3;
+			buffsB_A = buffsB_3;
+			buffsC_A = buffsC_3;
+			map_A = map_3;
+			target_A = target_3;
+			inBattle_A = inBattle_3;
+			inCasting_A = inCasting_3;
+			crystalA_A = crystalA_3;
+			crystalB_A = crystalB_3;
+			crystalC_A = crystalC_3;
+			crystalD_A = crystalD_3;
+			hotkey1_A = hotkey1_3;
+			hotkey2_A = hotkey2_3;
+			itens_A = itens_3;
 		}
 	}
 	

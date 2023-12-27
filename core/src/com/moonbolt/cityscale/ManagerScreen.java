@@ -33,6 +33,14 @@ public class ManagerScreen implements Screen{
 			CharacterSelect characterSelect = new CharacterSelect(game, this, gameControl);
 			game.setScreen(characterSelect);
 		}
+		
+		if(tipo.equals("MetroStation"))
+		{	
+			MetroStation metroScreen = new MetroStation(game, this);
+			game.setScreen(metroScreen);
+		}
+		
+		
 	}
 	
 	public void AtualizaComponentes(GameControl gameobj)

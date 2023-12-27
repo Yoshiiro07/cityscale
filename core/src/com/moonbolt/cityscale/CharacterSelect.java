@@ -32,6 +32,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
     private String hair = "hair1";
     
     private String state = "Main";
+    private int charselect = 0;
     
     private Sprite spr_background;
 	private Texture tex_background;
@@ -95,6 +96,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		TrainMove();
 		
 		if(state.equals("Main")) {
+			
 			spr_master = atlas_ui.createSprite("btncriar");
 			spr_master.setPosition(5, 4);
 			spr_master.setSize(17,10);
@@ -165,6 +167,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		
 		if(state.equals("Delete")) {
 			
+			spr_master = atlas_ui.createSprite("btnvoltar");
+			spr_master.setPosition(41, 5);
+			spr_master.setSize(14,8);
+			spr_master.draw(game.batch);
+			
 			spr_master = atlas_ui.createSprite("excluindopersonagem");
 			spr_master.setPosition(5, 85);
 			spr_master.setSize(45,8);
@@ -219,6 +226,94 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_master.setPosition(75f, 43.9f);
 				spr_master.setSize(6, 11);
 				spr_master.draw(game.batch);
+			}
+		}
+		
+		if(state.equals("Selected")) {
+			
+			font_master.setColor(Color.WHITE);
+			font_master.getData().setScale(0.06f,0.08f);
+			font_master.setUseIntegerPositions(false);
+			
+			spr_master = atlas_ui.createSprite("btnvoltar");
+			spr_master.setPosition(41, 5);
+			spr_master.setSize(14,8);
+			spr_master.draw(game.batch);
+			
+			spr_master = atlas_ui.createSprite("selecionepersonagem");
+			spr_master.setPosition(5, 85);
+			spr_master.setSize(45,8);
+			spr_master.draw(game.batch);
+			
+			if(!player.name_1.equals("none") && charselect == 1) {
+				spr_master = gameControl.LoadCharUp(player, "yes", 1);
+				spr_master.setPosition(15, 34);
+				spr_master.setSize(8, 15);
+				spr_master.draw(game.batch);	
+				
+				spr_master = gameControl.LoadCharBottom(player, "yes", 1);
+				spr_master.setPosition(15.2f, 24.4f);
+				spr_master.setSize(8, 15);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.LoadCharHair(player, "yes", 1);
+				spr_master.setPosition(16f, 43.9f);
+				spr_master.setSize(6, 11);
+				spr_master.draw(game.batch);
+				
+				spr_master = atlas_ui.createSprite("charmenuselect");
+				spr_master.setPosition(70, 65);
+				spr_master.setSize(30,30);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, player.name_1 , 78, 87.5f);
+				font_master.draw(game.batch, player.level_1 , 78, 84);
+				font_master.draw(game.batch, player.job_1 , 78, 77);
+				font_master.draw(game.batch, player.map_1 , 78, 80.5f);
+			}	
+			
+			if(!player.name_2.equals("none") && charselect == 2) {
+				spr_master = gameControl.LoadCharUp(player, "yes", 2);
+				spr_master.setPosition(45, 34);
+				spr_master.setSize(8, 15);
+				spr_master.draw(game.batch);	
+				
+				spr_master = gameControl.LoadCharBottom(player, "yes", 2);
+				spr_master.setPosition(45.2f, 24.4f);
+				spr_master.setSize(8, 15);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.LoadCharHair(player, "yes", 2);
+				spr_master.setPosition(46, 43.9f);
+				spr_master.setSize(6, 11);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, player.name_2 , 78, 87.5f);
+				font_master.draw(game.batch, player.level_2 , 78, 84);
+				font_master.draw(game.batch, player.job_2 , 78, 77);
+				font_master.draw(game.batch, player.map_2 , 78, 80.5f);
+			}
+			
+			if(!player.name_3.equals("none") && charselect == 3) {
+				spr_master = gameControl.LoadCharUp(player, "yes", 3);
+				spr_master.setPosition(74, 34);
+				spr_master.setSize(8, 15);
+				spr_master.draw(game.batch);	
+				
+				spr_master = gameControl.LoadCharBottom(player, "yes", 3);
+				spr_master.setPosition(74.2f, 24.4f);
+				spr_master.setSize(8, 15);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.LoadCharHair(player, "yes", 3);
+				spr_master.setPosition(75f, 43.9f);
+				spr_master.setSize(6, 11);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, player.name_3 , 78, 87.5f);
+				font_master.draw(game.batch, player.level_3 , 78, 84);
+				font_master.draw(game.batch, player.job_3 , 78, 77);
+				font_master.draw(game.batch, player.map_3 , 78, 80.5f);
 			}
 		}
 		
@@ -280,11 +375,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		}
 		
 		
-		spr_testdot.setPosition(10f,59f);
+		spr_testdot.setPosition(83,73f);
 		spr_testdot.setSize(1,1);
 		spr_testdot.draw(game.batch);
 		
-		spr_testdot.setPosition(27,20);
+		spr_testdot.setPosition(97,67);
 		spr_testdot.setSize(1,1);
 		spr_testdot.draw(game.batch);
 			
@@ -321,15 +416,74 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				state = "Delete";
 				return false;
 			}
+			// char 1
+			if(coordsTouch.x >= 10f && coordsTouch.x <= 27 && coordsTouch.y >= 20 && coordsTouch.y <= 59f){
+				if(!player.name_1.equals("none")) {
+					charselect = 1;
+					state = "Selected";
+				}
+				return false;
+			}
+			// char 2
+			if(coordsTouch.x >= 38 && coordsTouch.x <= 60 && coordsTouch.y >= 20 && coordsTouch.y <= 59f){
+				if(!player.name_2.equals("none")) {
+					charselect = 2;
+					state = "Selected";
+				}
+				return false;
+			}
+			// char 3
+			if(coordsTouch.x >= 67 && coordsTouch.x <= 90 && coordsTouch.y >= 20 && coordsTouch.y <= 59f){
+				if(!player.name_3.equals("none")) {
+					charselect = 3;
+					state = "Selected";
+				}
+				return false;
+			}
 		}
 		
 		if(state.equals("Delete")) {
+			//Voltar
+			if(coordsTouch.x >= 40 && coordsTouch.x <= 55 && coordsTouch.y >= 5 && coordsTouch.y <= 12f){
+				state = "Main";
+				return false;
+			}
+			
 			//delete char 1
 			if(coordsTouch.x >= 10f && coordsTouch.x <= 27 && coordsTouch.y >= 20 && coordsTouch.y <= 59f){
 				//Delete
 				gameControl.DeleteChar(1);
 				player = gameControl.GetPlayer();
 				state = "Main";
+				return false;
+			}
+			//delete char 2
+			if(coordsTouch.x >= 38 && coordsTouch.x <= 60 && coordsTouch.y >= 20 && coordsTouch.y <= 59f){
+				//Delete
+				gameControl.DeleteChar(2);
+				player = gameControl.GetPlayer();
+				state = "Main";
+				return false;
+			}
+			//delete char 3
+			if(coordsTouch.x >= 67 && coordsTouch.x <= 90 && coordsTouch.y >= 20 && coordsTouch.y <= 59f){
+				//Delete
+				gameControl.DeleteChar(3);
+				player = gameControl.GetPlayer();
+				state = "Main";
+				return false;
+			}
+		}
+		
+		if(state.equals("Selected")) {
+			//Voltar
+			if(coordsTouch.x >= 40 && coordsTouch.x <= 55 && coordsTouch.y >= 5 && coordsTouch.y <= 12f){
+				state = "Main";
+				return false;
+			}
+			//iniciar
+			if(coordsTouch.x >= 83 && coordsTouch.x <= 97 && coordsTouch.y >= 67 && coordsTouch.y <= 73f){
+				game.Switch("MetroStation");
 				return false;
 			}
 		}
