@@ -3,11 +3,15 @@ package com.moonbolt.cityscale;
 import java.util.Random;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.TextInputListener;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -24,25 +28,28 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
     private BitmapFont font_master;
 	
 	private Sprite spr_master;
-	private Texture tex_master;
 	
-	private Sprite spr_testdot;
+	private Sprite spr_background;
+	private Texture tex_background;
+	
 	private Texture tex_testdot;
+	private Sprite spr_testdot;
 	
-	public MetroStation(MainGame gameAlt,ManagerScreen screenAlt, boolean network) {
+	public MetroStation(MainGame gameAlt,ManagerScreen screenAlt,GameControl gameControl, boolean network) {
 		this.game = gameAlt;	
 		this.screen = screenAlt;
-		this.json = new Json();
-		this.randnumber = new Random();
-		this.network = network;
+		this.gameControl = gameControl;
 		
 		//test dot
-		tex_testeDot = new Texture(Gdx.files.internal("data/assets/selected.png"));
-		spr_testeDot = new Sprite(tex_testeDot);
+		tex_testdot = new Texture(Gdx.files.internal("data/assets/misc/etc/testdot.png"));
+		spr_testdot = new Sprite(tex_testdot);
+		
+		//background
+		tex_background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));
+		spr_background = new Sprite(tex_background);
 		
 		//Load Player Data
-		file = Gdx.files.local("SaveData/save.json");		
-		player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
+		player = gameControl.GetPlayer();
 		
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -62,7 +69,33 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+		try 
+		{
+			Gdx.gl.glClearColor(1,1,1,1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			
+			camera.update();
+		    game.batch.setProjectionMatrix(camera.combined);
+				
+			game.batch.begin(); 
+			
+			spr_background.setPosition(0, 0);
+			spr_background.setSize(140,140);
+			spr_background.draw(game.batch);
+			
+			
+			
+			//Show Char
+			spr_master = gameControl.LoadCharUp(player,)
+			
+			
+			game.batch.end();
+			
+		}
+		
+		catch(Exception ex) {
+			Gdx.app.exit();
+		}
 		
 	}
 

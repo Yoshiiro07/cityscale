@@ -8,10 +8,10 @@ import com.badlogic.gdx.Screen;
 public class ManagerScreen implements Screen{
 	private MainGame game;
 	private GameControl gameControl;
+	private boolean network = false;
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
-		this.gameControl = new GameControl();	
 	}
 	
 	public void screenSwitch(String tipo){
@@ -30,21 +30,20 @@ public class ManagerScreen implements Screen{
 		
 		if(tipo.equals("CharacterSelect"))
 		{	
-			CharacterSelect characterSelect = new CharacterSelect(game, this, gameControl);
+			CharacterSelect characterSelect = new CharacterSelect(game, this);
 			game.setScreen(characterSelect);
 		}
 		
 		if(tipo.equals("MetroStation"))
 		{	
-			MetroStation metroScreen = new MetroStation(game, this);
+			MetroStation metroScreen = new MetroStation(game, this, gameControl, network);
 			game.setScreen(metroScreen);
 		}
-		
-		
 	}
 	
-	public void AtualizaComponentes(GameControl gameobj)
+	public void UpdateComponents(GameControl gameobj, boolean network)
 	{
+		this.network = network;
 		this.gameControl = gameobj;
 	}
 

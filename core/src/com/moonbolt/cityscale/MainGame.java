@@ -4,6 +4,10 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
 
 public class MainGame extends Game {
+	
+	private boolean network = false;
+	private GameControl gameControl;
+	
 public MainGame(){};
 	
 	SpriteBatch batch;	
@@ -18,11 +22,13 @@ public MainGame(){};
 	}
 	
 	public void Switch(String screenName) {
+		loadingmanager.UpdateComponents(gameControl, network);
 		loadingmanager.screenSwitch(screenName);
 	}
 	
-	public void AtualizaElementos() {
-		
+	public void UpdateComponents(GameControl gameObject, boolean netwrk) {
+		this.gameControl = gameObject;
+		this.network = netwrk;
 	}
 
 	@Override

@@ -31,6 +31,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
     private String sex = "M";
     private String hair = "hair1";
     
+    
     private String state = "Main";
     private int charselect = 0;
     
@@ -49,7 +50,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	
 	private BitmapFont font_master;
 	
-	public CharacterSelect(MainGame game, ManagerScreen screen, GameControl gameControl){
+	public CharacterSelect(MainGame game, ManagerScreen screen){
 		this.screen = screen;
 		this.game = game;
 		this.gameControl = gameControl;
@@ -60,6 +61,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
 		
+		
+		gameControl = new GameControl();
 		gameControl.LoadData();
 		
 		player = new Player();
@@ -483,6 +486,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			}
 			//iniciar
 			if(coordsTouch.x >= 83 && coordsTouch.x <= 97 && coordsTouch.y >= 67 && coordsTouch.y <= 73f){
+				gameControl.SetCharSelected(charselect);
+				game.UpdateComponents(gameControl, false);
 				game.Switch("MetroStation");
 				return false;
 			}
