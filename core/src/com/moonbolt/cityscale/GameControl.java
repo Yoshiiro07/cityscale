@@ -23,6 +23,11 @@ public class GameControl {
 	private Player player;
 	private Random random;
 	
+	float coordsX = 0;
+	float coordsY = 0;
+	private float posX = 0;
+	private float posY = 0;
+	
 	//Player
 	private int countFrame = 1;
 	private String breakwalk = "";
@@ -101,6 +106,10 @@ public class GameControl {
 	
 	public Player GetPlayer() {
 		return player;
+	}
+	
+	public void SetPlayer(Player player) {
+		this.player = player;
 	}
 	
 	
@@ -204,7 +213,7 @@ public class GameControl {
 			
 			if(set.equals("basic")) { atlas_genericset = atlas_basicset; }
 			
-			if(sex.equals("M")) { spr_master = atlas_genericset.createSprite("u_male_front1"); }
+			if(sex.equals("M")) { spr_master = atlas_genericset.createSprite("u_male_front1");   }
 			if(sex.equals("F")) { spr_master = atlas_genericset.createSprite("u_female_front1"); }
 			
 			return spr_master;
@@ -212,41 +221,68 @@ public class GameControl {
 		
 		if(player.set_A.equals("basic")) { atlas_genericset = atlas_basicset; }
 		
+		
+		coordsX = Float.parseFloat(player.coordX_A);
+		coordsY = Float.parseFloat(player.coordY_A);
+		if(!player.walk_A.equals("no") && player.side_A.equals("right")) { coordsX = coordsX + 0.2f; }
+		if(!player.walk_A.equals("no") && player.side_A.equals("left")) { coordsX = coordsX - 0.2f; }
+		if(!player.walk_A.equals("no") && player.side_A.equals("front")) { coordsY = coordsY - 0.2f; }
+		if(!player.walk_A.equals("no") && player.side_A.equals("back")) { coordsY = coordsY + 0.2f; }
+			
+		player.coordX_A = String.valueOf(coordsX);
+		player.coordY_A = String.valueOf(coordsY);
+				
 		int frame = Integer.parseInt(player.frame_A);
 		
-		if(!player.Walk.equals("no")) { countFrame++; }
-		if(player.Walk.equals("no")) { player.Frame = 1; }
-		if(countFrame > 1 && countFrame <= 15) { player.Frame = 2; }
-		if(countFrame >= 15 && countFrame <= 30) { player.Frame = 1; }
-		if(countFrame >= 30 && countFrame <= 45) { player.Frame = 3; }
-		if(countFrame >= 45 && countFrame <= 60) { player.Frame = 1; }
+		if(!player.walk_A.equals("no")) { countFrame++; }
+		if(player.walk_A.equals("no")) { frame = 1; }
+		if(countFrame >= 1 && countFrame <= 15) { frame = 2;   }
+		if(countFrame >= 15 && countFrame <= 30) { frame = 1; }
+		if(countFrame >= 30 && countFrame <= 45) { frame = 3; }
+		if(countFrame >= 45 && countFrame <= 60) { frame = 1; }
 		if(countFrame >= 60) { countFrame = 1; }
 		
+		String sex = "";
+		if(player.sex_A.equals("M")) { sex = "male"; }
+		if(player.sex_A.equals("F")) { sex = "female"; }
+		
+		
 		//Create Sprite
-		int frame = 
-		if(player.Walk.equals("no")) {
-			if(player.Side.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("front1" + player.Sex);}
-			if(player.Side.equals("back") && frame == 1)  { spr_master = atlas_genericset.createSprite("back1" + player.Sex); }
-			if(player.Side.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("right1" + player.Sex);}
-			if(player.Side.equals("left") && frame == 1)  { spr_master = atlas_genericset.createSprite("left1" + player.Sex); }
+		if(player.walk_A.equals("no")) {
+			if(player.side_A.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("u_" + sex + "_front1");}
+			if(player.side_A.equals("back") && frame == 1)  { spr_master = atlas_genericset.createSprite("u_" + sex + "_back1");}
+			if(player.side_A.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("u_" + sex + "_right1");}
+			if(player.side_A.equals("left") && frame == 1)  { spr_master = atlas_genericset.createSprite("u_" + sex + "_left1");}
 		}
-		if(player.Walk.equals("walk")) {
-			if(player.Side_A.equals("front")) { spr_master = atlas_genericset.createSprite("front"+ player.Frame + player.Sex);}
-			if(player.Side.equals("back")) { spr_master = atlas_genericset.createSprite("back"+ player.Frame + player.Sex);  }
-			if(player.Side.equals("left")) { spr_master = atlas_genericset.createSprite("left"+ player.Frame + player.Sex);  }
-			if(player.Side.equals("right")) { spr_master = atlas_genericset.createSprite("right"+ player.Frame + player.Sex);}
+		if(player.walk_A.equals("walk")) {
+			if(player.side_A.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("u_" + sex + "_front" + frame);}
+			if(player.side_A.equals("front") && frame == 2) { spr_master = atlas_genericset.createSprite("u_" + sex + "_front" + frame);}
+			if(player.side_A.equals("front") && frame == 3) { spr_master = atlas_genericset.createSprite("u_" + sex + "_front" + frame);}
 			
-			if(player.Side.equals("left-front") ) {spr_master = atlas_genericset.createSprite("front"+ 1 + player.Sex);  }
-			if(player.Side.equals("left-back") ) {spr_master = atlas_genericset.createSprite("front"+ 1 + player.Sex);   }
-			if(player.Side.equals("right-back") ) {spr_master = atlas_genericset.createSprite("front"+ 1 + player.Sex);  }
-			if(player.Side.equals("right-front") ) {spr_master = atlas_genericset.createSprite("front"+ 1 + player.Sex); }
-			if(player.Side.equals("back-right") ) {spr_master = atlas_genericset.createSprite("front"+ 1 + player.Sex);  }
-			if(player.Side.equals("back-left") ) {spr_master = atlas_genericset.createSprite("front"+ 1 + player.Sex);   }
-			if(player.Side.equals("front-right") ) {spr_master = atlas_genericset.createSprite("front"+ 1 + player.Sex); }
-			if(player.Side.equals("front-left") ) {spr_master = atlas_genericset.createSprite("front"+ 1 + player.Sex);  }			
+			if(player.side_A.equals("back") && frame == 1) { spr_master = atlas_genericset.createSprite("u_" + sex + "_back" + frame);  }
+			if(player.side_A.equals("back") && frame == 2) { spr_master = atlas_genericset.createSprite("u_" + sex + "_back" + frame);  }
+			if(player.side_A.equals("back") && frame == 3) { spr_master = atlas_genericset.createSprite("u_" + sex + "_back" + frame);  }
+			
+			if(player.side_A.equals("left") && frame == 1) { spr_master = atlas_genericset.createSprite("u_" + sex + "_left" + frame);  }
+			if(player.side_A.equals("left") && frame == 2) { spr_master = atlas_genericset.createSprite("u_" + sex + "_left" + frame);  }
+			if(player.side_A.equals("left") && frame == 3) { spr_master = atlas_genericset.createSprite("u_" + sex + "_left" + frame);  }
+			
+			if(player.side_A.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("u_" + sex + "_right" + frame);  }
+			if(player.side_A.equals("right") && frame == 2) { spr_master = atlas_genericset.createSprite("u_" + sex + "_right" + frame);  }
+			if(player.side_A.equals("right") && frame == 3) { spr_master = atlas_genericset.createSprite("u_" + sex + "_right" + frame);  }
+			
+			if(player.side_A.equals("left-front") ) {spr_master = atlas_genericset.createSprite("u_" + sex + "_front1");  }
+			if(player.side_A.equals("left-back") ) {spr_master = atlas_genericset.createSprite("u_" + sex + "_front1");   }
+			if(player.side_A.equals("right-back") ) {spr_master = atlas_genericset.createSprite("u_" + sex + "_front1");  }
+			if(player.side_A.equals("right-front") ) {spr_master = atlas_genericset.createSprite("u_" + sex + "_front1"); }
+			if(player.side_A.equals("back-right") ) {spr_master = atlas_genericset.createSprite("u_" + sex + "_front1");  }
+			if(player.side_A.equals("back-left") ) {spr_master = atlas_genericset.createSprite("u_" + sex + "_front1");   }
+			if(player.side_A.equals("front-right") ) {spr_master = atlas_genericset.createSprite("u_" + sex + "_front1"); }
+			if(player.side_A.equals("front-left") ) {spr_master = atlas_genericset.createSprite("u_" + sex + "_front1");  }			
 		}
-		
-		
+				
+		spr_master.setPosition(coordsX+9.8f, coordsY+92);
+		spr_master.setSize(10, 20);
 		
 		return spr_master;
 	}
@@ -268,6 +304,61 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		if(player.set_A.equals("basic")) { atlas_genericset = atlas_basicset; }
+		
+		int frame = Integer.parseInt(player.frame_A);
+		
+		if(!player.walk_A.equals("no")) { countFrame++; }
+		if(player.walk_A.equals("no")) { frame = 1; }
+		if(countFrame >= 1 && countFrame <= 15) { frame = 2;   }
+		if(countFrame >= 15 && countFrame <= 30) { frame = 1; }
+		if(countFrame >= 30 && countFrame <= 45) { frame = 3; }
+		if(countFrame >= 45 && countFrame <= 60) { frame = 1; }
+		if(countFrame >= 60) { countFrame = 1; }
+		
+		String sex = "";
+		if(player.sex_A.equals("M")) { sex = "male"; }
+		if(player.sex_A.equals("F")) { sex = "female"; }
+		
+		
+		//Create Sprite
+		if(player.walk_A.equals("no")) {
+			if(player.side_A.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");}
+			if(player.side_A.equals("back") && frame == 1)  { spr_master = atlas_genericset.createSprite("b_" + sex + "_back1");}
+			if(player.side_A.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right1");}
+			if(player.side_A.equals("left") && frame == 1)  { spr_master = atlas_genericset.createSprite("b_" + sex + "_left1");}
+		}
+		if(player.walk_A.equals("walk")) {
+			if(player.side_A.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame);}
+			if(player.side_A.equals("front") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame);}
+			if(player.side_A.equals("front") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame);}
+			
+			if(player.side_A.equals("back") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame);  }
+			if(player.side_A.equals("back") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame);  }
+			if(player.side_A.equals("back") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame);  }
+			
+			if(player.side_A.equals("left") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame);  }
+			if(player.side_A.equals("left") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame);  }
+			if(player.side_A.equals("left") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame);  }
+			
+			if(player.side_A.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame);  }
+			if(player.side_A.equals("right") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame);  }
+			if(player.side_A.equals("right") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame);  }
+			
+			if(player.side_A.equals("left-front") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");  }
+			if(player.side_A.equals("left-back") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");   }
+			if(player.side_A.equals("right-back") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");  }
+			if(player.side_A.equals("right-front") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1"); }
+			if(player.side_A.equals("back-right") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");  }
+			if(player.side_A.equals("back-left") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");   }
+			if(player.side_A.equals("front-right") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1"); }
+			if(player.side_A.equals("front-left") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");  }		
+		}
+		
+		
+		spr_master.setPosition(coordsX+10, coordsY+79);
+		spr_master.setSize(10, 20);
+		
 		return spr_master;
 	}
 	
@@ -288,6 +379,28 @@ public class GameControl {
 			
 			return spr_master;
 		}
+		
+		String sex = "";
+		if(player.sex_A.equals("M")) { sex = "M"; }
+		if(player.sex_A.equals("F")) { sex = "F"; }
+		
+		if(sex.equals("M")) {
+			if(player.side_A.equals("front")) { spr_master = atlas_hairs.createSprite(player.hair_A);}
+			if(player.side_A.equals("back")) { spr_master = atlas_hairs.createSprite(player.hair_A + "back");}
+			if(player.side_A.equals("right")) { spr_master = atlas_hairs.createSprite(player.hair_A + "right");}
+			if(player.side_A.equals("left")) { spr_master = atlas_hairs.createSprite(player.hair_A + "left");}
+		}
+		
+		if(sex.equals("F")) {
+			if(player.side_A.equals("front")) { spr_master = atlas_hairs.createSprite(player.hair_A + "_f");}
+			if(player.side_A.equals("back")) { spr_master = atlas_hairs.createSprite(player.hair_A + "back_f");}
+			if(player.side_A.equals("right")) { spr_master = atlas_hairs.createSprite(player.hair_A + "right_f");}
+			if(player.side_A.equals("left")) { spr_master = atlas_hairs.createSprite(player.hair_A + "left_f");}
+		}
+		
+		spr_master.setPosition(coordsX + 10.8f, coordsY +105.4f);
+		spr_master.setSize(8,13);
+		
 		
 		return spr_master;
 	}

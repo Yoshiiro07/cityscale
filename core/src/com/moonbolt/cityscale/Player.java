@@ -37,6 +37,7 @@ public class Player {
 	public String coordY_1;
 	public String pos_1;
 	public String frame_1;
+	public String side_1;
 	public String walk_1;
 	public String inBattle_1;
 	public String target_1;
@@ -89,6 +90,7 @@ public class Player {
 	public String coordY_2;
 	public String pos_2;
 	public String frame_2;
+	public String side_2;
 	public String walk_2;
 	public String inBattle_2;
 	public String target_2;
@@ -141,6 +143,7 @@ public class Player {
 	public String coordY_3;
 	public String pos_3;
 	public String frame_3;
+	public String side_3;
 	public String walk_3;
 	public String inBattle_3;
 	public String target_3;
@@ -192,6 +195,7 @@ public class Player {
 	public String coordY_A;
 	public String pos_A;
 	public String frame_A;
+	public String side_A;
 	public String walk_A;
 	public String inBattle_A;
 	public String target_A;
@@ -238,6 +242,8 @@ public class Player {
 			mp_1 = "20";
 			maxmp_1 = "20";
 			hat_1 = "none";
+			side_1 = "front";
+			walk_1 = "no";
 			level_1 = "1";
 			party_1 = "none";
 			buffsA_1 = "none";
@@ -284,6 +290,8 @@ public class Player {
 			mp_2 = "20";
 			maxmp_2 = "20";
 			hat_2 = "none";
+			side_2 = "front";
+			walk_2 = "no";
 			level_2 = "1";
 			party_2 = "none";
 			buffsA_2 = "none";
@@ -330,6 +338,7 @@ public class Player {
 			mp_3 = "20";
 			maxmp_3 = "20";
 			hat_3 = "none";
+			walk_3 = "no";
 			level_3 = "1";
 			party_3 = "none";
 			buffsA_3 = "none";
@@ -391,6 +400,8 @@ public class Player {
 			mp_A = mp_1;
 			maxmp_A = maxmp_1;
 			hat_A = hat_1;
+			walk_A = walk_1;
+			side_A = side_1;
 			level_A = level_1;
 			party_A = party_1;
 			buffsA_A = buffsA_1;
@@ -434,6 +445,8 @@ public class Player {
 			mp_A = mp_2;
 			maxmp_A = maxmp_2;
 			hat_A = hat_2;
+			walk_A = walk_2;
+			side_A = side_2;
 			level_A = level_2;
 			party_A = party_2;
 			buffsA_A = buffsA_2;
@@ -477,6 +490,8 @@ public class Player {
 			mp_A = mp_3;
 			maxmp_A = maxmp_3;
 			hat_A = hat_3;
+			walk_A = walk_3;
+			side_A = side_3;
 			level_A = level_3;
 			party_A = party_3;
 			buffsA_A = buffsA_3;
