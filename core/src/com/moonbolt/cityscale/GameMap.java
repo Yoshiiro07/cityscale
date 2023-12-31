@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
-public class MetroStation implements Screen, ApplicationListener, InputProcessor, TextInputListener  {
+public class GameMap implements Screen, ApplicationListener, InputProcessor, TextInputListener  {
 
 	private MainGame game;
 	private ManagerScreen screen;
@@ -49,15 +49,13 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	private Sprite spr_background;
 	private Texture tex_background;
 	
-	private Sprite spr_pad;
-	
 	private Texture tex_testdot;
 	private Sprite spr_testdot;
 	
 	//Controller
     private final IntSet downKeys = new IntSet(20);	
 	
-	public MetroStation(MainGame gameAlt,ManagerScreen screenAlt,GameControl gameControl, boolean network) {
+	public GameMap(MainGame gameAlt,ManagerScreen screenAlt,GameControl gameControl, boolean network) {
 		this.game = gameAlt;	
 		this.screen = screenAlt;
 		this.gameControl = gameControl;
