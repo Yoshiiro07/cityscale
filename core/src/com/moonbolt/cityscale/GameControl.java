@@ -319,7 +319,7 @@ public class GameControl {
 		}
 				
 		spr_master.setPosition(coordsX+9.8f, coordsY+92);
-		spr_master.setSize(10, 20);
+		spr_master.setSize(9, 15);
 		
 		return spr_master;
 	}
@@ -348,30 +348,32 @@ public class GameControl {
 		if(player.sex_A.equals("F")) { sex = "female"; }
 		
 		
+		
+		//frame = 2;
 		//Create Sprite
 		if(sex.equals("male")) {
 			if(player.walk_A.equals("no")) {
-				if(player.side_A.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front1"); spr_master.setPosition(coordsX+10, coordsY+79);}
-				if(player.side_A.equals("back") && frame == 1)  { spr_master = atlas_genericset.createSprite("b_" + sex + "_back1"); spr_master.setPosition(coordsX+10, coordsY+79);}
-				if(player.side_A.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right1"); spr_master.setPosition(coordsX+10, coordsY+80);}
-				if(player.side_A.equals("left") && frame == 1)  { spr_master = atlas_genericset.createSprite("b_" + sex + "_left1"); spr_master.setPosition(coordsX+10, coordsY+80);}
+				if(player.side_A.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front1"); spr_master.setPosition(coordsX+10, coordsY+82.2f);}
+				if(player.side_A.equals("back") && frame == 1)  { spr_master = atlas_genericset.createSprite("b_" + sex + "_back1"); spr_master.setPosition(coordsX+10, coordsY+82.2f);}
+				if(player.side_A.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right1"); spr_master.setPosition(coordsX+10, coordsY+82.7f);}
+				if(player.side_A.equals("left") && frame == 1)  { spr_master = atlas_genericset.createSprite("b_" + sex + "_left1"); spr_master.setPosition(coordsX+10, coordsY+82.7f);}
 			}
 			if(player.walk_A.equals("yes")) {
-				if(player.side_A.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame); spr_master.setPosition(coordsX+10, coordsY+79);}
-				if(player.side_A.equals("front") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame); spr_master.setPosition(coordsX+9.8f, coordsY+80.5f);}
-				if(player.side_A.equals("front") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame); spr_master.setPosition(coordsX+9.8f, coordsY+80.5f);}
+				if(player.side_A.equals("front") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame); spr_master.setPosition(coordsX+10, coordsY+82.2f);}
+				if(player.side_A.equals("front") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame); spr_master.setPosition(coordsX+9.8f, coordsY+83.2f);}
+				if(player.side_A.equals("front") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_front" + frame); spr_master.setPosition(coordsX+9.8f, coordsY+83.2f);}
 				
-				if(player.side_A.equals("back") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame); spr_master.setPosition(coordsX+10, coordsY+79);  }
-				if(player.side_A.equals("back") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame); spr_master.setPosition(coordsX+10, coordsY+79);  }
-				if(player.side_A.equals("back") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame); spr_master.setPosition(coordsX+10, coordsY+79);  }
+				if(player.side_A.equals("back") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame); spr_master.setPosition(coordsX+10, coordsY+82.2f);  }
+				if(player.side_A.equals("back") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame); spr_master.setPosition(coordsX+10, coordsY+82.2f);  }
+				if(player.side_A.equals("back") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_back" + frame); spr_master.setPosition(coordsX+10, coordsY+82.2f);  }
 				
-				if(player.side_A.equals("left") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame); spr_master.setPosition(coordsX+10, coordsY+80);  }
-				if(player.side_A.equals("left") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame); spr_master.setPosition(coordsX+10, coordsY+80); }
-				if(player.side_A.equals("left") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame); spr_master.setPosition(coordsX+10, coordsY+80); }
+				if(player.side_A.equals("left") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame); spr_master.setPosition(coordsX+10, coordsY+82.8f);  }
+				if(player.side_A.equals("left") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame); spr_master.setPosition(coordsX+10, coordsY+82.8f); }
+				if(player.side_A.equals("left") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_left" + frame); spr_master.setPosition(coordsX+10, coordsY+82.8f); }
 				
-				if(player.side_A.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame); spr_master.setPosition(coordsX+10, coordsY+80); }
-				if(player.side_A.equals("right") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame); spr_master.setPosition(coordsX+10, coordsY+80); }
-				if(player.side_A.equals("right") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame); spr_master.setPosition(coordsX+10, coordsY+80); }
+				if(player.side_A.equals("right") && frame == 1) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame); spr_master.setPosition(coordsX+10, coordsY+82.8f); }
+				if(player.side_A.equals("right") && frame == 2) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame); spr_master.setPosition(coordsX+10, coordsY+82.8f); }
+				if(player.side_A.equals("right") && frame == 3) { spr_master = atlas_genericset.createSprite("b_" + sex + "_right" + frame); spr_master.setPosition(coordsX+10, coordsY+82.8f); }
 				
 				if(player.side_A.equals("left-front") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");  }
 				if(player.side_A.equals("left-back") ) {spr_master = atlas_genericset.createSprite("b_" + sex + "_front1");   }
@@ -419,7 +421,7 @@ public class GameControl {
 		}
 				
 		
-		spr_master.setSize(10, 20);
+		spr_master.setSize(9, 15);
 		
 		return spr_master;
 	}
@@ -444,10 +446,10 @@ public class GameControl {
 		
 		
 		if(player.sex_A.equals("M")) {
-			if(player.side_A.equals("front")) { spr_master = atlas_hairs.createSprite(player.hair_A); spr_master.setPosition(coordsX + 10.8f, coordsY +105.4f); spr_master.setSize(8,14);}
-			if(player.side_A.equals("back")) { spr_master = atlas_hairs.createSprite(player.hair_A + "up"); spr_master.setPosition(coordsX + 10.8f, coordsY +105.4f); spr_master.setSize(8,14);}
-			if(player.side_A.equals("right")) { spr_master = atlas_hairs.createSprite(player.hair_A + "right"); spr_master.setPosition(coordsX + 10.8f, coordsY +105.4f); spr_master.setSize(8,12);}
-			if(player.side_A.equals("left")) { spr_master = atlas_hairs.createSprite(player.hair_A + "left"); spr_master.setPosition(coordsX + 10.8f, coordsY +105.4f); spr_master.setSize(8,12);}
+			if(player.side_A.equals("front")) { spr_master = atlas_hairs.createSprite(player.hair_A); spr_master.setPosition(coordsX + 10.8f, coordsY +101.6f); spr_master.setSize(7,13);}
+			if(player.side_A.equals("back")) { spr_master = atlas_hairs.createSprite(player.hair_A + "up"); spr_master.setPosition(coordsX + 10.5f, coordsY +101.6f); spr_master.setSize(8,11);}
+			if(player.side_A.equals("right")) { spr_master = atlas_hairs.createSprite(player.hair_A + "right"); spr_master.setPosition(coordsX + 10.6f, coordsY +102.4f); spr_master.setSize(8,10);}
+			if(player.side_A.equals("left")) { spr_master = atlas_hairs.createSprite(player.hair_A + "left"); spr_master.setPosition(coordsX + 10.6f, coordsY +102.4f); spr_master.setSize(8,10);}
 		}
 		
 		if(player.sex_A.equals("F")) {
@@ -467,9 +469,6 @@ public class GameControl {
 	
 	//[C] [INTERFACE] //
 	
-	public Sprite GetInterfaceItem() {
-		
-	}
 	
 	
 }
