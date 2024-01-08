@@ -453,14 +453,11 @@ public class GameControl {
 		}
 		
 		if(player.sex_A.equals("F")) {
-			if(player.side_A.equals("front")) { spr_master = atlas_hairs.createSprite(player.hair_A + "_f"); spr_master.setPosition(coordsX + 10.8f, coordsY +104.8f); spr_master.setSize(8,14);}
-			if(player.side_A.equals("back")) { spr_master = atlas_hairs.createSprite(player.hair_A + "up_f"); spr_master.setPosition(coordsX + 10.8f, coordsY +105f); spr_master.setSize(8,14);}
-			if(player.side_A.equals("right")) { spr_master = atlas_hairs.createSprite(player.hair_A + "right_f"); spr_master.setPosition(coordsX + 10.8f, coordsY +104f); spr_master.setSize(8,12);}
-			if(player.side_A.equals("left")) { spr_master = atlas_hairs.createSprite(player.hair_A + "left_f"); spr_master.setPosition(coordsX + 10.8f, coordsY +104f); spr_master.setSize(8,12);}
+			if(player.side_A.equals("front")) { spr_master = atlas_hairs.createSprite(player.hair_A + "_f"); spr_master.setPosition(coordsX + 10.8f, coordsY +101.6f); spr_master.setSize(8,14);}
+			if(player.side_A.equals("back")) { spr_master = atlas_hairs.createSprite(player.hair_A + "up_f"); spr_master.setPosition(coordsX + 10.5f, coordsY +101.6f); spr_master.setSize(8,14);}
+			if(player.side_A.equals("right")) { spr_master = atlas_hairs.createSprite(player.hair_A + "right_f"); spr_master.setPosition(coordsX + 10.6f, coordsY +102.4f); spr_master.setSize(8,12);}
+			if(player.side_A.equals("left")) { spr_master = atlas_hairs.createSprite(player.hair_A + "left_f"); spr_master.setPosition(coordsX + 10.6f, coordsY +102.4f); spr_master.setSize(8,12);}
 		}
-		
-		
-		
 		
 		return spr_master;
 	}
