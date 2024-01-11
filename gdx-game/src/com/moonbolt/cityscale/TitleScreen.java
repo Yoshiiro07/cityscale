@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class MainScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 	private MainGame game;
 	private ManagerScreen screen;
 	private OrthographicCamera camera;
@@ -42,7 +42,7 @@ public class MainScreen implements Screen, ApplicationListener, InputProcessor, 
 	
 	private BitmapFont font_master;
 	
-	public MainScreen(MainGame game, ManagerScreen screen){
+	public TitleScreen(MainGame game, ManagerScreen screen){
 		this.screen = screen;
 		this.game = game;
 		

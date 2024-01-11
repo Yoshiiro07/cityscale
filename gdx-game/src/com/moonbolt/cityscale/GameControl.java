@@ -79,24 +79,24 @@ public class GameControl {
 	}
 	
 	public void SaveData(Player playerInfo) {		
-		file = Gdx.files.local("SaveData/SvDT.json");
+		file = Gdx.files.local("SaveData/save.json");
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(playerInfo)),false);
 	}
 	
 	public void LoadData() {
-		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
+		FileHandle file = Gdx.files.local("SaveData/save.json");
 		player = json.fromJson(Player.class,Base64Coder.decodeString(file.readString()));	
 	}
 	
 	public void CreateNewChar(String name, String sex, String hair) {
-		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
+		FileHandle file = Gdx.files.local("SaveData/save.json");
 		player = json.fromJson(Player.class,Base64Coder.decodeString(file.readString()));
 		player.CreateNew(name, sex, hair);
 		SaveData(player);
 	}
 	
 	public void DeleteChar(int num) {
-		FileHandle file = Gdx.files.local("SaveData/SvDT.json");
+		FileHandle file = Gdx.files.local("SaveData/save.json");
 		player = json.fromJson(Player.class,Base64Coder.decodeString(file.readString()));
 		player.DeleteChar(num);
 		SaveData(player);	

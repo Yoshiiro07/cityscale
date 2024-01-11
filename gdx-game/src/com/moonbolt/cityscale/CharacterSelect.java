@@ -26,7 +26,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private OrthographicCamera camera;
     private Viewport viewport;
     private Player player;
-    private String charname = "Gui";
+    private String charname = "";
     private String systemMsg = "";
     private String sex = "M";
     private String hair = "hair1";
@@ -60,7 +60,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		viewport.apply();
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
-		
+	
 		
 		gameControl = new GameControl();
 		gameControl.LoadData();
@@ -565,9 +565,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	}
 	
 	public void CreateNewChar() {
-		gameControl.CreateNewChar(charname, sex, hair);
+		gameControl.CreateNewChar(charname, sex, hair);	
 		state = "Main";
 		player = gameControl.GetPlayer();
+		gameControl.SaveData(player);
 	}
 	
 	public boolean CheckName() {

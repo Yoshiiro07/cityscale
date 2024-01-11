@@ -18,8 +18,8 @@ public class ManagerScreen implements Screen{
 		
 		if(tipo.equals("MainScreen"))
 		{	
-			MainScreen mainScreen = new MainScreen(game, this);
-			game.setScreen(mainScreen);
+			TitleScreen titleScreen = new TitleScreen(game, this);
+			game.setScreen(titleScreen);
 		}
 		
 		if(tipo.equals("SplashScreen"))
