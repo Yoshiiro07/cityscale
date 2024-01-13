@@ -488,7 +488,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			if(coordsTouch.x >= 83 && coordsTouch.x <= 97 && coordsTouch.y >= 67 && coordsTouch.y <= 73f){
 				gameControl.SetCharSelected(charselect);
 				game.UpdateComponents(gameControl, false);
-				game.Switch("MetroStation");
+				game.Switch("LoadingScreen");
 				return false;
 			}
 		}

@@ -5,28 +5,50 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.TextInputListener;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class LoadingScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 	
 	private MainGame game;
 	private ManagerScreen screen;
+	private GameControl gameControl;
+	
 	private OrthographicCamera camera;
     private Viewport viewport;
-    private GameControl gameControl;
+    
     private Player player;
     private BitmapFont font_master;
     
     private Texture tex_background;
     private Sprite spr_background;
     
+    int loadtime = 0;
     
-	public LoadingScreen() {
+    
+	public LoadingScreen(MainGame game, GameControl gameControl, ManagerScreen screen) {
+		this.screen = screen;
+		this.game = game;
+		this.gameControl = gameControl;
+		
+		camera = new OrthographicCamera();
+		viewport = new StretchViewport(100,100,camera);
+		viewport.apply();
+		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+		Gdx.input.setInputProcessor(this);
+		
+		//font
+		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+		font_master.setColor(Color.WHITE);
+		font_master.getData().setScale(0.13f,0.08f);
+		font_master.setUseIntegerPositions(false);
+		
 		tex_background = new Texture(Gdx.files.internal("data/assets/misc/etc/blackscreen.png"));
 		spr_background = new Sprite(tex_background);
 	}
@@ -42,6 +64,31 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	    game.batch.setProjectionMatrix(camera.combined);
 			
 		game.batch.begin();
+			
+		spr_background.draw(game.batch);
+		spr_background.setPosition(0, 0);
+		spr_background.setSize(200, 200);
+		spr_background.draw(game.batch);
+		
+		font_master.setColor(Color.WHITE);
+		font_master.getData().setScale(0.06f,0.08f);
+		font_master.setUseIntegerPositions(false);
+		
+		font_master.draw(game.batch, "Carregando...", 78, 87.5f);
+		
+		loadtime++;
+		if(loadtime >= 400) {
+			
+			if(player.map_A.equals("MetroStation")) {
+				game.Switch("MetroStation");
+			}
+			else
+			{
+				game.Switch("GameMap");
+			}		
+		}
+		
+		game.batch.end();
 		
 	}
 

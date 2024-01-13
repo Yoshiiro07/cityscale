@@ -34,6 +34,12 @@ public class ManagerScreen implements Screen{
 			game.setScreen(characterSelect);
 		}
 		
+		if(tipo.equals("LoadingScreen")) {
+			LoadingScreen loadingScreen = new LoadingScreen(game, gameControl, this);
+			game.setScreen(loadingScreen);
+		}
+		
+		
 		if(tipo.equals("MetroStation"))
 		{	
 			MetroStation metroScreen = new MetroStation(game, this, gameControl, network);
@@ -42,8 +48,8 @@ public class ManagerScreen implements Screen{
 		
 		if(tipo.equals("GameMap"))
 		{	
-			MetroStation metroScreen = new MetroStation(game, this, gameControl, network);
-			game.setScreen(metroScreen);
+			GameMap gameMap = new GameMap(game, this, gameControl, network);
+			game.setScreen(gameMap);
 		}
 	}
 	
