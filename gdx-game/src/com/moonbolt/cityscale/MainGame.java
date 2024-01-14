@@ -6,9 +6,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 public class MainGame extends Game {
 	
 	private boolean network = false;
-	private GameControl gameControl;
 	
-public MainGame(){};
+	public MainGame(){};
 	
 	SpriteBatch batch;	
 	public ManagerScreen loadingmanager;
@@ -18,46 +17,29 @@ public MainGame(){};
 	{
 		batch = new SpriteBatch();  
 		loadingmanager = new ManagerScreen(this);
-		this.Switch("SplashScreen");
+		this.Switch("SplashScreen",network);
 	}
 	
-	public void Switch(String screenName) {
-		loadingmanager.UpdateComponents(gameControl, network);
-		loadingmanager.screenSwitch(screenName);
+	public void Switch(String screenName, boolean network) {
+		loadingmanager.screenSwitch(screenName, network);
 	}
 	
-	public void UpdateComponents(GameControl gameObject, boolean netwrk) {
-		this.gameControl = gameObject;
-		this.network = netwrk;
+	public void AtualizaElementos(MainGame mainGameAlt,GameObject gameObjectAlt, boolean networkAlt) {
+		loadingmanager.atualizaComponentes(mainGameAlt,gameObjectAlt, networkAlt);
 	}
 
 	@Override
-	public void render()
-	{   
-	    super.render();
-	}
+	public void render() { super.render(); }
 
 	@Override
-	public void dispose()
-	{
-		super.dispose();
-	}
+	public void dispose() { super.dispose(); }
 
 	@Override
-	public void resize(int width, int height)
-	{
-		super.resize(width, height);
-	}
+	public void resize(int width, int height) { super.resize(width, height); }
 
 	@Override
-	public void pause()
-	{
-		super.pause();
-	}
+	public void pause() { super.pause(); }
 
 	@Override
-	public void resume()
-	{
-		super.resume();
-	}
+	public void resume() { super.resume(); }
 }

@@ -1,12 +1,28 @@
 package com.moonbolt.cityscale;
 
 import java.io.UnsupportedEncodingException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.TextInputListener;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,203 +31,341 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Base64Coder;
+import com.badlogic.gdx.utils.IntSet;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+
 public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
-	private MainGame game;
-	private ManagerScreen screen;
-	private OrthographicCamera camera;
-    private Viewport viewport;
-    private GameControl gameControl;
-    private Player player;
-    
-    private String state = "Main";
-    
-    private Sprite spr_background;
-	private Texture tex_background;
-	
-	private TextureAtlas atlas_ui;
-	private Sprite spr_mainmenu;
-	
-	private Sprite spr_master;
-	private Texture tex_master;
-	
-	private Sprite spr_testdot;
-	private Texture tex_testdot;
-	
-	private BitmapFont font_master;
-	
-	public TitleScreen(MainGame game, ManagerScreen screen){
-		this.screen = screen;
-		this.game = game;
+		//Objects
+	    private MainGame game;
+	    private GameControl gameControl;
+	    private GameObject gameObject;
+	    private ManagerScreen screen;
+	    private String state = "main";
+	    private boolean network = true;
+	    
+	    //Manager
+	    private Json json;
+		private FileHandle file;
+		private Random randnumber;
+		private String systemMsg;
+		private String conta = "";
+		private String avisoconta = "";
+	    
+		//Fonts
+		private BitmapFont font_master;
 		
-		camera = new OrthographicCamera();
-		viewport = new StretchViewport(100,100,camera);
-		viewport.apply();
-		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
-		Gdx.input.setInputProcessor(this);
+	    //Camera
+	    private OrthographicCamera camera;
+	    private Viewport viewport;
+	    private float cameraCoordsX = 0;
+	    private float cameraCoordsY = 0;
+	    
+	    //Player
+	    private float playerPosX = 0;
+	    private float playerPosY = 0;
+	    private GameObject player;
+	    private String name = "";
+	    private String sex = "M";
+	    private String hair = "hair1";
+	    private String color = "brown";
+	    private String set = "basicset_m";
+	    private float posListHairX = -29f;
+	    private int posListHairAux = 0;
+	    
+	    //Sprites
+	    private Sprite spr_Background;
+	    private Texture tex_Background;
+	    
+	    //Teste
+	    private Texture tex_testeDot;
+	    private Sprite spr_testeDot;
+	    
+	    //Sprites
+	    private Sprite spr_loginmenu;
+	    private Sprite spr_createmenu;
+	    private Sprite spr_player;
+	    private Sprite spr_hair;
+	    
+	    //Textures
+	    private TextureAtlas atlas_gameUI;
+	    private TextureAtlas atlas_basicset;	    
+	    
+	    private TextureAtlas atlas_hairs1;
+	    private TextureAtlas atlas_hairs2;
+	    private TextureAtlas atlas_hairs3;
+	    
+	    //Controller
+	    private final IntSet downKeys = new IntSet(20);	
 		
-		gameControl = new GameControl();
-		player = new Player();
+		public TitleScreen(MainGame gameAlt, ManagerScreen screen) {
+			this.game = gameAlt;
+			this.screen = screen;
+			
+			//Misc
+			randnumber = new Random();
+			json = new Json();
+			
+			//test dot
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
+			spr_testeDot = new Sprite(tex_testeDot);
+			
+			//Load Title
+			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/titlemap.png"));
+			spr_Background = new Sprite(tex_Background);
+					
+			//Camera and Inputs
+			camera = new OrthographicCamera();
+		    viewport = new StretchViewport(135,135,camera);
+			viewport.apply();
+			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+			Gdx.input.setInputProcessor(this);
+	
+			//font
+			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+			font_master.setColor(Color.WHITE);
+			font_master.getData().setScale(0.07f,0.12f);
+			font_master.setUseIntegerPositions(false);	
+			
+			//Atlas
+			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/UI/uirenew.txt"));
+			atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/sets/basic/basic.txt"));
+			atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs1.txt"));
+			atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs2.txt"));		
+			atlas_hairs3 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs3.txt"));
+		}
+			
+		@Override
+		public void render(float delta) {
+			
+				//Just for coloring
+				Gdx.gl.glClearColor(1,1,1,1);
+				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				
-		tex_background = new Texture(Gdx.files.internal("data/assets/maps/titlescreen.png"));
-		spr_background = new Sprite(tex_background);
+				//Camera Ajustments
+				//cameraCoordsX = playerPosX;
+				//cameraCoordsY = playerPosY;
+				
+				//Follow camera
+				if(playerPosX <= -25f) { cameraCoordsX = -25; }
+				if(playerPosX >= 175) { cameraCoordsX = 175; }
+				if(playerPosY >= 91.5f) { cameraCoordsY = 91.5f; }
+				if(playerPosY <= -105) { cameraCoordsY = -105; }
+				
+				//Update camera and start drawling
+				camera.position.set(cameraCoordsX,cameraCoordsY,0);
+				camera.update();
+			    game.batch.setProjectionMatrix(camera.combined);	    
+				game.batch.begin();
+				
+				//Background	
+				spr_Background.setPosition(-70,-70);
+				spr_Background.setSize(140, 140);
+				spr_Background.draw(game.batch);
+				
+				
+				if(state.equals("main")) {
+					//Menus
+					spr_loginmenu = atlas_gameUI.createSprite("mainmenu");
+					spr_loginmenu.setPosition(15, -60);
+					spr_loginmenu.setSize(50,50);
+					spr_loginmenu.draw(game.batch);
+				}
+				
+				if(state.equals("change")) {
+					this.screen.screenSwitch("LoadingScreen", network);
+				}
+				
+				if(state.equals("Recover")) {
+					//Menus
+					spr_createmenu = atlas_gameUI.createSprite("recuperar");
+					spr_createmenu.setPosition(-59, -59);
+					spr_createmenu.setSize(120,120);
+					spr_createmenu.draw(game.batch);
+					
+					font_master.setColor(Color.WHITE);
+					font_master.getData().setScale(0.16f,0.22f);
+					font_master.setUseIntegerPositions(false);	
+					
+					font_master.draw(game.batch, conta, -50 , 38);
+					font_master.draw(game.batch, avisoconta , -50 , 22);
+				}
+				font_master.setColor(Color.WHITE);
+				font_master.getData().setScale(0.07f,0.12f);
+				font_master.setUseIntegerPositions(false);	
+						
+				font_master.draw(game.batch, "Versao: 1B" , -60 , -58);
+						
+				//spr_testeDot.setPosition(-57,-36);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 
-		tex_testdot = new Texture(Gdx.files.internal("data/assets/misc/etc/testdot.png"));
-		spr_testdot = new Sprite(tex_testdot);
-		
-		//font
-		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
-		font_master.setColor(Color.RED);
-		font_master.getData().setScale(0.13f,0.08f);
-		font_master.setUseIntegerPositions(false);
-		
-		//Atlas
-		atlas_ui = new TextureAtlas(Gdx.files.internal("data/assets/ui/ui.txt"));
-		spr_mainmenu = new Sprite(tex_testdot);
+				//spr_testeDot.setPosition(-1, -55);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
+					
+				game.batch.end();
 			
-		Gdx.input.setInputProcessor(this);
-	}
-
-	@Override
-	public void show() {
-
-	}
-
-	@Override
-	public void render(float p1)
-	{
-		Gdx.gl.glClearColor(1,1,1,1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		camera.update();
-	    game.batch.setProjectionMatrix(camera.combined);
-			
-		game.batch.begin();
-		
-		spr_background.setPosition(0,0);
-		spr_background.setSize(100,100);
-		spr_background.draw(game.batch);
-		
-		
-		if(state.equals("Main")) {
-			spr_mainmenu = atlas_ui.createSprite("mainmenu");
-			spr_mainmenu.setPosition(62, 0);
-			spr_mainmenu.setSize(40,42);
-			spr_mainmenu.draw(game.batch);
 		}
-		
-			
-		spr_testdot.setPosition(93,28);
-		spr_testdot.setSize(1,1);
-		spr_testdot.draw(game.batch);
-		
-		spr_testdot.setPosition(69,37);
-		spr_testdot.setSize(1,1);
-		spr_testdot.draw(game.batch);
-			
-		game.batch.end();
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int p1, int p2, int p3, int p4)
-	{
-		// TODO: Implement this method
-		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
-
-		if(state.equals("Main")) {
-			if(coordsTouch.x >= 69 && coordsTouch.x <= 93 && coordsTouch.y >= 28 && coordsTouch.y <= 37){
-				//Offline Mode
-				gameControl.CheckData();
-				game.Switch("CharacterSelect");
+	
+		@Override
+		public void input(String input) {	
+			if(state.equals("create")) {
+				name = input;
 			}
-		}
 			
-		return false;
-	}
+			if(state.equals("Recover")) {
+				conta = input;
+			}		
+		}
 
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
+		@Override
+		public void canceled() {}
 
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
-	}
+		@Override
+		public boolean keyDown(int keycode) {
+			
+			return false;
+		}
 
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
+		@Override
+		public boolean keyUp(int keycode) {
+			return false;
+		}
 
-	@Override
-	public void create() {
+		@Override
+		public boolean keyTyped(char character) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
-	}
+		@Override
+		public boolean touchDown(int p1, int p2, int pointer, int button) {
+			
+			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+			
+			//[MainState]// 
+			if(state.equals("main")) {
+				//Jogar Online
+				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -28 && coordsTouch.y <= -15) {
+					network = true;
+					CheckData();
+					return false;
+				}
+								
+				//Jogar Offline
+				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -42 && coordsTouch.y <= -28) {
+					network = false;
+					CheckData();
+					return false;
+				}
+						
+				//Recuperar Conta
+				if(coordsTouch.x >= + 20 && coordsTouch.x <= 59 && coordsTouch.y >= -56 && coordsTouch.y <= -44) {
+					state = "Recover";
+					return false;
+				}
+			}
+			
+			if(state.equals("Recover")) {
+				//Voltar
+				if(coordsTouch.x >= 28 && coordsTouch.x <= 58 && coordsTouch.y >= -57 && coordsTouch.y <= -44) {
+					state = "main";
+				}
+				//input acc
+				if(coordsTouch.x >= -57 && coordsTouch.x <= -2 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
+					Gdx.input.getTextInput(this,"Digite o numero da conta:","","");
+					return false;
+				}
+				//Recuperar botao
+				if(coordsTouch.x >= -1 && coordsTouch.x <= 30 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
+					try {
+						GerenciamentoOnline("Download",conta);
+					} catch (IOException e) {
+						avisoconta = "Nao foi possível efetuar operacao";
+					}
+				}
+				//delete acc
+				if(coordsTouch.x >= -57 && coordsTouch.x <= -1 && coordsTouch.y >= -55 && coordsTouch.y <= -36) {
+					DeleteData();
+					return false;
+				}
+			}
+			
+			return false;
+		}
 
-	@Override
-	public void resize(int p1, int p2)
-	{
-		viewport.update(p1,p2);
-		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
-	}
+		@Override
+		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+			return false;
+		}
 
-	@Override
-	public void pause() {
+		@Override
+		public boolean touchDragged(int screenX, int screenY, int pointer) {
+			return false;
+		}
 
-	}
+		@Override
+		public boolean mouseMoved(int screenX, int screenY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
-	@Override
-	public void resume() {
+		@Override
+		public boolean scrolled(int amount) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
-	}
+		@Override
+		public void create() {
+			// TODO Auto-generated method stub
+			
+		}
 
-	@Override
-	public void hide() {
+		@Override
+		public void render() {
+			// TODO Auto-generated method stub
+			
+		}
 
-	}
+		@Override
+		public void show() {
+			// TODO Auto-generated method stub
+			
+		}
 
-	@Override
-	public void dispose() {
+		@Override
+		public void resize(int p1, int p2)
+		{
+			viewport.update(p1,p2);
+			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+		}	
 
-	}
+		@Override
+		public void pause() {
+			// TODO Auto-generated method stub
+			
+		}
 
-	@Override
-	public void render() {
+		@Override
+		public void resume() {
+			// TODO Auto-generated method stub
+			
+		}
 
-	}
+		@Override
+		public void hide() {
+			// TODO Auto-generated method stub
+			
+		}
 
-
-	@Override
-	public void input(String text) {
-
-	}
-
-	@Override
-	public void canceled() {
-
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		@Override
+		public void dispose() {
+			// TODO Auto-generated method stub
+			
+		}
 }

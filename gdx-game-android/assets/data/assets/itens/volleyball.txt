@@ -1,0 +1,26 @@
+volleyball.png
+size: 108, 36
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ball1
+  rotate: false
+  xy: 0, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+ball2
+  rotate: false
+  xy: 36, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+ball3
+  rotate: false
+  xy: 72, 0
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
