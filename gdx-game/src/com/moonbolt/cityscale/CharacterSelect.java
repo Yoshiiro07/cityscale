@@ -43,14 +43,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private MainGame game;
 	    private GameObject gameObject;
 	    private ManagerScreen screen;
-	    private String state = "main";
-	    private boolean network = true;
+	    private String state = "Main";
+	    private boolean network = false;
+	    
 	    
 	    //Manager
-	    private Json json;
-		private FileHandle file;
-		private Random randnumber;
-		private String systemMsg;
+	    private String systemMsg;
 		private String conta = "";
 		private String avisoconta = "";
 	    
@@ -64,16 +62,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private float cameraCoordsY = 0;
 	    
 	    //Player
-	    private float playerPosX = 0;
-	    private float playerPosY = 0;
 	    private GameObject player;
 	    private String name = "";
 	    private String sex = "M";
 	    private String hair = "hair1";
 	    private String color = "brown";
 	    private String set = "basicset_m";
-	    private float posListHairX = -29f;
-	    private int posListHairAux = 0;
 	    
 	    //Sprites
 	    private Sprite spr_Background;
@@ -84,8 +78,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private Sprite spr_testeDot;
 	    
 	    //Sprites
-	    private Sprite spr_loginmenu;
-	    private Sprite spr_createmenu;
+	    private Sprite spr_master;
 	    private Sprite spr_player;
 	    private Sprite spr_hair;
 	    
@@ -100,17 +93,16 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public CharacterSelect(MainGame gameAlt, ManagerScreen screen) {
-			this.game = gameAlt;
-			this.screen = screen;
-			
-			//Misc
-			randnumber = new Random();
-			json = new Json();
+		public CharacterSelect(MainGame _game, ManagerScreen _screen,boolean _network, GameObject _gameObject) {
+			this.game = _game;
+			this.screen = _screen;
+			this.gameObject = _gameObject;
+			this.network = _network;
 			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
+			spr_master = new Sprite(tex_testeDot);
 			
 			//Load Title
 			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/characterselect.png"));
@@ -144,16 +136,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				
-				//Camera Ajustments
-				//cameraCoordsX = playerPosX;
-				//cameraCoordsY = playerPosY;
-				
-				//Follow camera
-				if(playerPosX <= -25f) { cameraCoordsX = -25; }
-				if(playerPosX >= 175) { cameraCoordsX = 175; }
-				if(playerPosY >= 91.5f) { cameraCoordsY = 91.5f; }
-				if(playerPosY <= -105) { cameraCoordsY = -105; }
-				
 				//Update camera and start drawling
 				camera.position.set(cameraCoordsX,cameraCoordsY,0);
 				camera.update();
@@ -166,20 +148,20 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_Background.draw(game.batch);
 				
 				
-				if(state.equals("main")) {
+				if(state.equals("Main")) {
 					//Menus
-					spr_loginmenu = atlas_gameUI.createSprite("mainmenu");
-					spr_loginmenu.setPosition(15, -60);
-					spr_loginmenu.setSize(50,50);
-					spr_loginmenu.draw(game.batch);
+					spr_master = atlas_gameUI.createSprite("mainmenu");
+					spr_master.setPosition(15, -60);
+					spr_master.setSize(50,50);
+					spr_master.draw(game.batch);
 				}
 				
 				if(state.equals("create")) {
 					//Menus
-					spr_createmenu = atlas_gameUI.createSprite("createmenu");
-					spr_createmenu.setPosition(-59, -59);
-					spr_createmenu.setSize(120,120);
-					spr_createmenu.draw(game.batch);
+					spr_master = atlas_gameUI.createSprite("createmenu");
+					spr_master.setPosition(-59, -59);
+					spr_master.setSize(120,120);
+					spr_master.draw(game.batch);
 					
 					if(sex.equals("M")) {
 						spr_player = atlas_basicset.createSprite("u_male_front1");
@@ -266,25 +248,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					this.screen.screenSwitch("LoadingScreen", network);
 				}
 				
-				if(state.equals("Recover")) {
-					//Menus
-					spr_createmenu = atlas_gameUI.createSprite("recuperar");
-					spr_createmenu.setPosition(-59, -59);
-					spr_createmenu.setSize(120,120);
-					spr_createmenu.draw(game.batch);
+				if(state.equals("Delete")) {
 					
-					font_master.setColor(Color.WHITE);
-					font_master.getData().setScale(0.16f,0.22f);
-					font_master.setUseIntegerPositions(false);	
-					
-					font_master.draw(game.batch, conta, -50 , 38);
-					font_master.draw(game.batch, avisoconta , -50 , 22);
 				}
-				font_master.setColor(Color.WHITE);
-				font_master.getData().setScale(0.07f,0.12f);
-				font_master.setUseIntegerPositions(false);	
-						
-				font_master.draw(game.batch, "Versao: 1B" , -60 , -58);
 						
 				//spr_testeDot.setPosition(-57,-36);
 				//spr_testeDot.setSize(1, 1);
@@ -296,126 +262,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					
 				game.batch.end();
 			
-		}
-		
-		public void CheckData() {
-			file = Gdx.files.local("SaveData/save.json");
-			
-			//Creating a new one
-			if (!file.exists()) {
-					try {
-						GameObject player = new GameObject();
-						int accNumber = randnumber.nextInt(999999);
-						player.AccountID = String.valueOf(accNumber);
-						player.Name = "none";
-						file.writeString(Base64Coder.encodeString(json.prettyPrint(player)), false);
-						state = "create";
-						
-					} catch (Exception e) 
-					{
-						String test = e.getMessage();
-					}
-			}
-			
-			else 
-			{
-				FileHandle file = Gdx.files.local("SaveData/save.json");		
-				player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
-				if(player.Name.equals("none")) { state = "create"; } else { this.screen.screenSwitch("GameMap",network); }
-			}
-		}
-		
-		private void CreateNewChar() {
-			player = new GameObject();
-			
-			FileHandle file = Gdx.files.local("SaveData/save.json");		
-			player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
-			
-			player.Name = name;
-			player.Sex = sex;
-			player.Level = 1;
-			player.Exp = 0;
-			player.Job = "Aprendiz";
-			player.Map = "MetroStation";
-			player.Hp = 100;
-			player.Mp = 100;
-			player.HpMax = 100;
-			player.MpMax = 100;
-			player.regenTime = 6000;
-			player.regenTimeMax = 6000;
-			player.PosX = -0.5f;
-			player.PosY = -4;
-			player.Walk = "no";
-			player.Frame = 1;
-			player.Money = 0;
-			player.AtkTimer = 200;
-			player.AtkTimerMax = 200;
-			player.Casting = "no";
-			player.Target = "none";
-			player.Atk = 9;
-			player.Def = 1;
-			player.Evasion = 1;
-			player.Side = "front";
-			player.Set = set;
-			player.Hair = hair;
-			player.Color = color;
-			player.Hat = "none";
-			player.Weapon = "basicknife";
-			player.Crystal1 = "none";
-			player.Crystal2 = "none";
-			player.Crystal3 = "none";
-			player.Crystal4 = "none";
-			player.Crystal5 = "none";
-			player.StatusPoint = 0;
-			player.Str = 1;
-			player.Agi = 1;
-			player.Vit = 1;
-			player.Dex = 1;
-			player.Wis = 1;
-			player.Luk = 1;
-			player.Res = 1;
-			player.Stamina = 100;
-			player.StaminaMax = 100;
-			player.StaminaTimer = 1200;
-			player.buffA = "none";
-			player.buffB = "none";
-			player.buffC = "none";
-			player.BuffTimeA = 0;
-			player.BuffTimeB = 0;
-			player.BuffTimeC = 0;
-			player.party = "none";
-			player.playerInBattle = "no";
-			player.playerInAttack = "no";
-			player.playerInCast = "no";
-			player.hotkey1 = "none";
-			player.hotkey2 = "none";
-			
-			String itensList = "";
-            for(int i = 0; i < 16; i++) {
-                if(i == 0) { itensList = itensList + "[blue_crystal_intextra_3#4]-"; } 
-                if(i == 1) {  if(sex.equals("M")) {itensList = itensList + "[basicset_m#1]-"; } else { itensList = itensList + "[basicset_f#1]-"; }}
-                if(i == 2) {  itensList = itensList + "[basicknife#1]-"; } 
-                if(i > 2) { itensList = itensList + "[NONE]-"; }          
-            }
-            player.Itens = itensList;
-            
-            //String itensList = "";
-            //for(int i = 0; i < 16; i++) {
-            //    if(i == 0) { itensList = itensList + "[hpcan#30]-"; } 
-            //    if(i == 1) {  if(sex.equals("M")) {itensList = itensList + "[basicset_m#1]-"; } else { itensList = itensList + "[basicset_f#1]-"; }}
-            //    if(i == 2) {  itensList = itensList + "[basicknife#1]-"; } 
-            //    if(i > 2) { itensList = itensList + "[NONE]-"; }          
-            //}
-            //player.Itens = itensList;
-            
-			SaveData(player);		
-			state = "change";
-		}
-		
-		//[Save file data]//
-		public void SaveData(GameObject acPlayer) {
-			file = Gdx.files.local("SaveData/save.json");
-			file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
 		}
 		
 		private boolean CheckName() {
@@ -448,81 +294,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			return true;
 		}
-		
-		public String GerenciamentoOnline(String tipoRequisicao, String subData) throws IOException {
-			
-			String linhaLida = "";
-			
-			try {
-			
-				if(tipoRequisicao.equals("Download")) {
-					try {			
-				        // Construct data
-						//Inscricoes para Conexao
-				        String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
-				        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
-				        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
-				        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
-				        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
-				        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
-				        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
-				   	    	        
-				        // Send data
-				        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
-				        URLConnection conn = url.openConnection();
-				        conn.setDoOutput(true);
-				        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-				        wr.write(data);
-				        wr.flush();
-				 
-				        // Get the response
-				        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				        String line;
-				        while ((line = rd.readLine()) != null) {
-				        	if(!line.contains("Inexistente")) {
-				        		LoadDownloadData(line);
-				        		avisoconta = "Recuperado com sucesso";
-				        	}
-				        	else {
-				        		avisoconta = "Conta nao encontrada";
-				        	}
-				        }		        
-				        wr.close();
-				        rd.close();
-				    } 
-					
-					catch (Exception e) { avisoconta = "Operacao falhou"; return "retry";}
-				}
-					
-				return "";
-			}
-			
-			catch(Exception ex) {
-				return "retry";
-			}		
-		}
-		
-		public void LoadDownloadData(String hash) {
-			FileHandle file = Gdx.files.local("SaveData/save.json");
-			GameObject player = json.fromJson(GameObject.class,Base64Coder.decodeString(hash));			
-			file.writeString(Base64Coder.encodeString(json.prettyPrint(player)),false);
-		}
-		
-		public void DeleteData() {
-			FileHandle file = Gdx.files.local("SaveData/save.json");
-			file.delete();
-		}
 	
 		@Override
 		public void input(String input) {	
 			if(state.equals("create")) {
 				name = input;
 			}
-			
-			if(state.equals("Recover")) {
-				conta = input;
-			}
-			
 		}
 
 		@Override
@@ -552,48 +329,17 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 			//[MainState]// 
 			if(state.equals("main")) {
-				//Jogar Online
+				//Create
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -28 && coordsTouch.y <= -15) {
 					network = true;
-					CheckData();
+					//CheckData();
 					return false;
 				}
 								
-				//Jogar Offline
+				//Delete
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -42 && coordsTouch.y <= -28) {
 					network = false;
-					CheckData();
-					return false;
-				}
-						
-				//Recuperar Conta
-				if(coordsTouch.x >= + 20 && coordsTouch.x <= 59 && coordsTouch.y >= -56 && coordsTouch.y <= -44) {
-					state = "Recover";
-					return false;
-				}
-			}
-			
-			if(state.equals("Recover")) {
-				//Voltar
-				if(coordsTouch.x >= 28 && coordsTouch.x <= 58 && coordsTouch.y >= -57 && coordsTouch.y <= -44) {
-					state = "main";
-				}
-				//input acc
-				if(coordsTouch.x >= -57 && coordsTouch.x <= -2 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
-					Gdx.input.getTextInput(this,"Digite o numero da conta:","","");
-					return false;
-				}
-				//Recuperar botao
-				if(coordsTouch.x >= -1 && coordsTouch.x <= 30 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
-					try {
-						GerenciamentoOnline("Download",conta);
-					} catch (IOException e) {
-						avisoconta = "Nao foi possível efetuar operacao";
-					}
-				}
-				//delete acc
-				if(coordsTouch.x >= -57 && coordsTouch.x <= -1 && coordsTouch.y >= -55 && coordsTouch.y <= -36) {
-					DeleteData();
+					//CheckData();
 					return false;
 				}
 			}
@@ -692,7 +438,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				//Confirmar 
 				if(coordsTouch.x >= cameraCoordsX + 32 && coordsTouch.x <= cameraCoordsX + 57 && coordsTouch.y >= cameraCoordsY - 55 && coordsTouch.y <= cameraCoordsY - 44) {
 					if(!CheckName()) { return false; }	
-					CreateNewChar();
+					//CreateNewChar();
 					return false;
 				}
 				//Voltar 

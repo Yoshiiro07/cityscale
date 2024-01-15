@@ -44,16 +44,14 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private GameControl gameControl;
 	    private GameObject gameObject;
 	    private ManagerScreen screen;
-	    private String state = "main";
-	    private boolean network = true;
+	    private String state = "Main";
+	    private boolean network = false;
 	    
 	    //Manager
-	    private Json json;
-		private FileHandle file;
-		private Random randnumber;
-		private String systemMsg;
-		private String conta = "";
-		private String avisoconta = "";
+	    private boolean checkData = false;
+	    private String systemMsg;
+		private String account = "";
+		private String accountwarning = "";
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -64,18 +62,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private float cameraCoordsX = 0;
 	    private float cameraCoordsY = 0;
 	    
-	    //Player
-	    private float playerPosX = 0;
-	    private float playerPosY = 0;
-	    private GameObject player;
-	    private String name = "";
-	    private String sex = "M";
-	    private String hair = "hair1";
-	    private String color = "brown";
-	    private String set = "basicset_m";
-	    private float posListHairX = -29f;
-	    private int posListHairAux = 0;
-	    
 	    //Sprites
 	    private Sprite spr_Background;
 	    private Texture tex_Background;
@@ -85,29 +71,23 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private Sprite spr_testeDot;
 	    
 	    //Sprites
-	    private Sprite spr_loginmenu;
-	    private Sprite spr_createmenu;
-	    private Sprite spr_player;
-	    private Sprite spr_hair;
+	    private Sprite spr_master;
 	    
 	    //Textures
 	    private TextureAtlas atlas_gameUI;
-	    private TextureAtlas atlas_basicset;	    
-	    
-	    private TextureAtlas atlas_hairs1;
-	    private TextureAtlas atlas_hairs2;
-	    private TextureAtlas atlas_hairs3;
 	    
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public TitleScreen(MainGame gameAlt, ManagerScreen screen) {
-			this.game = gameAlt;
-			this.screen = screen;
-			
-			//Misc
-			randnumber = new Random();
-			json = new Json();
+		public TitleScreen(MainGame _gameAlt, ManagerScreen _screen, boolean _network) {
+			this.game = _gameAlt;
+			this.screen = _screen;
+			this.network = _network;
+					
+			//test dot
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
+			spr_testeDot = new Sprite(tex_testeDot);
+			spr_master = new Sprite(tex_testeDot);
 			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
@@ -132,10 +112,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 			//Atlas
 			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/UI/uirenew.txt"));
-			atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/sets/basic/basic.txt"));
-			atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs1.txt"));
-			atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs2.txt"));		
-			atlas_hairs3 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs3.txt"));
 		}
 			
 		@Override
@@ -144,16 +120,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				//Just for coloring
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-				
-				//Camera Ajustments
-				//cameraCoordsX = playerPosX;
-				//cameraCoordsY = playerPosY;
-				
-				//Follow camera
-				if(playerPosX <= -25f) { cameraCoordsX = -25; }
-				if(playerPosX >= 175) { cameraCoordsX = 175; }
-				if(playerPosY >= 91.5f) { cameraCoordsY = 91.5f; }
-				if(playerPosY <= -105) { cameraCoordsY = -105; }
 				
 				//Update camera and start drawling
 				camera.position.set(cameraCoordsX,cameraCoordsY,0);
@@ -169,10 +135,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				
 				if(state.equals("main")) {
 					//Menus
-					spr_loginmenu = atlas_gameUI.createSprite("mainmenu");
-					spr_loginmenu.setPosition(15, -60);
-					spr_loginmenu.setSize(50,50);
-					spr_loginmenu.draw(game.batch);
+					spr_master = atlas_gameUI.createSprite("mainmenu");
+					spr_master.setPosition(15, -60);
+					spr_master.setSize(50,50);
+					spr_master.draw(game.batch);
 				}
 				
 				if(state.equals("change")) {
@@ -181,23 +147,23 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				
 				if(state.equals("Recover")) {
 					//Menus
-					spr_createmenu = atlas_gameUI.createSprite("recuperar");
-					spr_createmenu.setPosition(-59, -59);
-					spr_createmenu.setSize(120,120);
-					spr_createmenu.draw(game.batch);
+					spr_master = atlas_gameUI.createSprite("recuperar");
+					spr_master.setPosition(-59, -59);
+					spr_master.setSize(120,120);
+					spr_master.draw(game.batch);
 					
 					font_master.setColor(Color.WHITE);
 					font_master.getData().setScale(0.16f,0.22f);
 					font_master.setUseIntegerPositions(false);	
 					
-					font_master.draw(game.batch, conta, -50 , 38);
-					font_master.draw(game.batch, avisoconta , -50 , 22);
+					font_master.draw(game.batch, account, -50 , 38);
+					font_master.draw(game.batch, accountwarning , -50 , 22);
 				}
 				font_master.setColor(Color.WHITE);
 				font_master.getData().setScale(0.07f,0.12f);
 				font_master.setUseIntegerPositions(false);	
 						
-				font_master.draw(game.batch, "Versao: 1B" , -60 , -58);
+				font_master.draw(game.batch, "Versao: 1" , -60 , -58);
 						
 				//spr_testeDot.setPosition(-57,-36);
 				//spr_testeDot.setSize(1, 1);
@@ -207,18 +173,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				//spr_testeDot.setSize(1, 1);
 				//spr_testeDot.draw(game.batch);
 					
-				game.batch.end();
-			
+				game.batch.end();		
 		}
 	
 		@Override
 		public void input(String input) {	
-			if(state.equals("create")) {
-				name = input;
-			}
-			
 			if(state.equals("Recover")) {
-				conta = input;
+				account = input;
 			}		
 		}
 
@@ -252,14 +213,14 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				//Jogar Online
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -28 && coordsTouch.y <= -15) {
 					network = true;
-					CheckData();
+					state = "change";
 					return false;
 				}
 								
 				//Jogar Offline
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -42 && coordsTouch.y <= -28) {
 					network = false;
-					CheckData();
+					state = "change";
 					return false;
 				}
 						
@@ -282,15 +243,15 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				}
 				//Recuperar botao
 				if(coordsTouch.x >= -1 && coordsTouch.x <= 30 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
-					try {
+					/*try {
 						GerenciamentoOnline("Download",conta);
 					} catch (IOException e) {
-						avisoconta = "Nao foi possível efetuar operacao";
-					}
+						accountwarning = "Nao foi possível efetuar operacao";
+					}*/
 				}
 				//delete acc
 				if(coordsTouch.x >= -57 && coordsTouch.x <= -1 && coordsTouch.y >= -55 && coordsTouch.y <= -36) {
-					DeleteData();
+					gameControl.DeleteData();
 					return false;
 				}
 			}

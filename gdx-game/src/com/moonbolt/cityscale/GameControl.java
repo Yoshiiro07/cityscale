@@ -1,5 +1,12 @@
 package com.moonbolt.cityscale;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -8,22 +15,36 @@ import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 
 public class GameControl {
+	
+	//Server Credentials
+    public String lservername = "cityserver.mysql.uhserver.com";
+    public String lusername = "citymaster";
+    public String lpassword = "City@key90";
+    public String ldbname = "cityserver";
+    
+    //Variables
+    private String warning = "";
 
+	//[DATA CONTROL]//
+	//[ONLINE MANAGER]//
+	
 	private GameObject player;
 	private Json json;
 	private FileHandle file;
-	private Random random;
+	private Random randnumber;
 	
 	public GameControl() {
 		json = new Json();
+		randnumber = new Random();
 		
 	}
 	
-	//[DATA CONTROL]// 
+	//[DATA CONTROL]//
+	
 	private void CreateNewChar(String name, String sex, String hair, String color) {
 		player = new GameObject();
 		
-		FileHandle file = Gdx.files.local("SaveData/save.json");		
+		FileHandle file = Gdx.files.local("SaveData/svdt.json");		
 		player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
 		
 		player.Name = name;
@@ -105,11 +126,100 @@ public class GameControl {
         
 		SaveData(player);		
 	}
-	
-	//[Save file data]//
+
 	public void SaveData(GameObject acPlayer) {
 		file = Gdx.files.local("SaveData/save.json");
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
 	}
+	
+	public void CheckData() {
+		file = Gdx.files.local("SaveData/save.json");
+		
+		//Creating a new one
+		if (!file.exists()) {
+				try {
+					GameObject player = new GameObject();
+					int accNumber = randnumber.nextInt(999999);
+					player.AccountID = String.valueOf(accNumber);
+					player.Name = "none";
+					file.writeString(Base64Coder.encodeString(json.prettyPrint(player)), false);
+					
+				} catch (Exception e) 
+				{
+					String test = e.getMessage();
+				}
+		}
+		
+		else 
+		{
+			FileHandle file = Gdx.files.local("SaveData/save.json");		
+			player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
+		}
+	}
+	
+	public void LoadDownloadData(String hash) {
+		FileHandle file = Gdx.files.local("SaveData/save.json");
+		GameObject player = json.fromJson(GameObject.class,Base64Coder.decodeString(hash));			
+		file.writeString(Base64Coder.encodeString(json.prettyPrint(player)),false);
+	}
+	
+	public void DeleteData() {
+		FileHandle file = Gdx.files.local("SaveData/save.json");
+		file.delete();
+	}
+	
+	public String GerenciamentoOnline(String tipoRequisicao, String subData) throws IOException {
+		
+		String linhaLida = "";
+		
+		try {
+		
+			if(tipoRequisicao.equals("Download")) {
+				try {			
+			        // Construct data
+					//Inscricoes para Conexao
+			        String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
+			        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
+			        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			   	    	        
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			 
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        while ((line = rd.readLine()) != null) {
+			        	if(!line.contains("Inexistente")) {
+			        		LoadDownloadData(line);
+			        		warning = "Recuperado com sucesso";
+			        	}
+			        	else {
+			        		warning = "Conta nao encontrada";
+			        	}
+			        }		        
+			        wr.close();
+			        rd.close();
+			    } 
+				
+				catch (Exception e) { warning = "Operacao falhou"; return "retry";}
+			}
+				
+			return "";
+		}
+		
+		catch(Exception ex) {
+			return "retry";
+		}		
+	}
+	
 	
 }

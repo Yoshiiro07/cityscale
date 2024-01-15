@@ -8,13 +8,8 @@ import com.badlogic.gdx.Screen;
 public class ManagerScreen implements Screen{
 	private MainGame game;
 	private GameObject gameObject;
-	private boolean network;
+	private boolean network = false;
 	
-	//Online
-    public String lservername = "cityserver.mysql.uhserver.com";
-    public String lusername = "citymaster";
-    public String lpassword = "City@key90";
-    public String ldbname = "cityserver";
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
@@ -29,17 +24,22 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("TitleScreen")){	
-			TitleScreen titleScreen = new TitleScreen(game,this);
+			TitleScreen titleScreen = new TitleScreen(game,this, network);
 			game.setScreen(titleScreen);
 		}
 		
 		if(tipo.equals("LoadingScreen")){	
-			LoadingScreen loadingScreen = new LoadingScreen(game,network);
+			LoadingScreen loadingScreen = new LoadingScreen(game,network, gameObject);
 			game.setScreen(loadingScreen);
 		}
 		
+		if(tipo.equals("CharacterSelect")){	
+			CharacterSelect characterSelect = new CharacterSelect(game, this, network, gameObject);
+			game.setScreen(characterSelect);
+		}
+		
 		if(tipo.equals("GameMap")) {
-			GameMap gameMapScreen = new GameMap(game,this, network);
+			GameMap gameMapScreen = new GameMap(game,this, network, gameObject);
 			game.setScreen(gameMapScreen);
 		}
 	}

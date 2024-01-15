@@ -23,6 +23,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	//Objects
 	private MainGame game;
 	private boolean network = false;
+	private GameObject gameObject;
 	
 	//Loading Variables
 	private boolean loading = true;
@@ -45,9 +46,10 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
     //Controller
     private final IntSet downKeys = new IntSet(20);
     
-	public LoadingScreen(MainGame gameAlt,boolean networkAlt) {
-		this.game = gameAlt;
-		this.network = networkAlt;
+	public LoadingScreen(MainGame _game,boolean _network, GameObject _gameObject) {
+		this.game = _game;
+		this.network = _network;
+		this.gameObject = _gameObject;
 			
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -94,7 +96,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 			}
 		}
 		
-		if(changeScreen){	
+		if(changeScreen){
 		    game.Switch("GameMap", network);			
 		}
 		
