@@ -133,11 +133,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				spr_Background.draw(game.batch);
 				
 				
-				if(state.equals("main")) {
+				if(state.equals("Main")) {
 					//Menus
-					spr_master = atlas_gameUI.createSprite("mainmenu");
-					spr_master.setPosition(15, -60);
-					spr_master.setSize(50,50);
+					spr_master = gameControl.GetInterface("mainmenu");
 					spr_master.draw(game.batch);
 				}
 				

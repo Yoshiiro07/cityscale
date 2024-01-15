@@ -41,7 +41,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class CharacterSelect implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 		//Objects
 	    private MainGame game;
-	    private GameObject gameObject;
+	    private GameControl gameControl;
 	    private ManagerScreen screen;
 	    private String state = "Main";
 	    private boolean network = false;
@@ -93,11 +93,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public CharacterSelect(MainGame _game, ManagerScreen _screen,boolean _network, GameObject _gameObject) {
+		public CharacterSelect(MainGame _game, ManagerScreen _screen,boolean _network) {
 			this.game = _game;
 			this.screen = _screen;
-			this.gameObject = _gameObject;
 			this.network = _network;
+			this.gameControl = new GameControl();
 			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));

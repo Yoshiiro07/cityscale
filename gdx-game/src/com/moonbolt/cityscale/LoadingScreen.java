@@ -23,7 +23,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	//Objects
 	private MainGame game;
 	private boolean network = false;
-	private GameObject gameObject;
+	private GameControl gameControl;
 	
 	//Loading Variables
 	private boolean loading = true;
@@ -46,10 +46,10 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
     //Controller
     private final IntSet downKeys = new IntSet(20);
     
-	public LoadingScreen(MainGame _game,boolean _network, GameObject _gameObject) {
+	public LoadingScreen(MainGame _game,boolean _network) {
 		this.game = _game;
 		this.network = _network;
-		this.gameObject = _gameObject;
+		this.gameControl = new GameControl();
 			
 		//Camera and Inputs
 		camera = new OrthographicCamera();

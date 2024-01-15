@@ -24,8 +24,8 @@ public class MainGame extends Game {
 		loadingmanager.screenSwitch(screenName, network);
 	}
 	
-	public void AtualizaElementos(MainGame mainGameAlt,GameObject gameObjectAlt, boolean networkAlt) {
-		loadingmanager.atualizaComponentes(mainGameAlt,gameObjectAlt, networkAlt);
+	public void AtualizaElementos(MainGame _mainGame,GameControl _gameControl, boolean _network) {
+		loadingmanager.atualizaComponentes(_mainGame,_gameControl, _network);
 	}
 
 	@Override

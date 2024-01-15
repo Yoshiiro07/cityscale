@@ -7,13 +7,11 @@ import com.badlogic.gdx.Screen;
 
 public class ManagerScreen implements Screen{
 	private MainGame game;
-	private GameObject gameObject;
 	private boolean network = false;
 	
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
-		this.gameObject = new GameObject(); 
 	}
 	
 	public void screenSwitch(String tipo, boolean network){
@@ -29,25 +27,25 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("LoadingScreen")){	
-			LoadingScreen loadingScreen = new LoadingScreen(game,network, gameObject);
+			LoadingScreen loadingScreen = new LoadingScreen(game,network);
 			game.setScreen(loadingScreen);
 		}
 		
 		if(tipo.equals("CharacterSelect")){	
-			CharacterSelect characterSelect = new CharacterSelect(game, this, network, gameObject);
+			CharacterSelect characterSelect = new CharacterSelect(game, this, network);
 			game.setScreen(characterSelect);
 		}
 		
 		if(tipo.equals("GameMap")) {
-			GameMap gameMapScreen = new GameMap(game,this, network, gameObject);
+			GameMap gameMapScreen = new GameMap(game,this, network);
 			game.setScreen(gameMapScreen);
 		}
 	}
 	
-	public void atualizaComponentes(MainGame maingameAlt,GameObject gameObject, boolean network){
-		this.game = maingameAlt;
-		this.gameObject = gameObject;
-		this.network = network;
+	public void atualizaComponentes(MainGame _maingame,GameControl _gameControl, boolean _network){
+		this.game = _maingame;
+		this.gameControl = _gameControl;
+		this.network = _network;
 	}
 
 	@Override
