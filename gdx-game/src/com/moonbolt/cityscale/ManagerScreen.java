@@ -42,9 +42,8 @@ public class ManagerScreen implements Screen{
 		}
 	}
 	
-	public void atualizaComponentes(MainGame _maingame,GameControl _gameControl, boolean _network){
+	public void atualizaComponentes(MainGame _maingame, boolean _network){
 		this.game = _maingame;
-		this.gameControl = _gameControl;
 		this.network = _network;
 	}
 

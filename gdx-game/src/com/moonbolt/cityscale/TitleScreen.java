@@ -83,6 +83,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			this.game = _gameAlt;
 			this.screen = _screen;
 			this.network = _network;
+			
+			gameControl = new GameControl();
 					
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
@@ -139,7 +141,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 					spr_master.draw(game.batch);
 				}
 				
-				if(state.equals("change")) {
+				if(state.equals("Change")) {
 					this.screen.screenSwitch("LoadingScreen", network);
 				}
 				
@@ -161,15 +163,15 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				font_master.getData().setScale(0.07f,0.12f);
 				font_master.setUseIntegerPositions(false);	
 						
-				font_master.draw(game.batch, "Versao: 1" , -60 , -58);
+				font_master.draw(game.batch, "Versao: 1-A" , -60 , -58);
 						
-				//spr_testeDot.setPosition(-57,-36);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(26,-22);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 
-				//spr_testeDot.setPosition(-1, -55);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(57, -32);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 					
 				game.batch.end();		
 		}
@@ -208,17 +210,17 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 			//[MainState]// 
 			if(state.equals("main")) {
-				//Jogar Online
-				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -28 && coordsTouch.y <= -15) {
-					network = true;
-					state = "change";
+				//Jogar Offline
+				if(coordsTouch.x >= -22 && coordsTouch.x <= 26 && coordsTouch.y >= -32 && coordsTouch.y <= 57) {
+					network = false;
+					state = "Change";
 					return false;
 				}
 								
-				//Jogar Offline
+				//Jogar Online
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -42 && coordsTouch.y <= -28) {
-					network = false;
-					state = "change";
+					network = true;
+					state = "Change";
 					return false;
 				}
 						

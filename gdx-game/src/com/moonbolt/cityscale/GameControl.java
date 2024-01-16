@@ -262,8 +262,8 @@ public class GameControl {
 		//Title Screen elements
 		if(item.equals("mainmenu")) {
 			spr_master = atlas_ui.createSprite("mainmenu");
-			spr_master.setSize(20, 20);
-			spr_master.setPosition(20, 20);
+			spr_master.setSize(50, 50);
+			spr_master.setPosition(18, -65);
 			return spr_master;
 		}
 		
