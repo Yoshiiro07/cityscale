@@ -149,14 +149,26 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				
 				
 				if(state.equals("Main")) {
-					//Menus
-					spr_master = atlas_gameUI.createSprite("mainmenu");
-					spr_master.setPosition(15, -60);
-					spr_master.setSize(50,50);
+					//selecione
+					spr_master = atlas_gameUI.createSprite("selecionepersonagem");
+					spr_master.setPosition(-65, 50);
+					spr_master.setSize(50,8);
+					spr_master.draw(game.batch);
+					
+					//btn criar
+					spr_master = atlas_gameUI.createSprite("btncriar");
+					spr_master.setPosition(-60, -60);
+					spr_master.setSize(20,10);
+					spr_master.draw(game.batch);
+					
+					//btn criar
+					spr_master = atlas_gameUI.createSprite("btnexcluir");
+					spr_master.setPosition(40, -60);
+					spr_master.setSize(20,10);
 					spr_master.draw(game.batch);
 				}
 				
-				if(state.equals("create")) {
+				if(state.equals("Create")) {
 					//Menus
 					spr_master = atlas_gameUI.createSprite("createmenu");
 					spr_master.setPosition(-59, -59);
@@ -165,13 +177,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					
 					if(sex.equals("M")) {
 						spr_player = atlas_basicset.createSprite("u_male_front1");
-						spr_player.setPosition(-46f, 10);
-						spr_player.setSize(9, 15);
+						spr_player.setPosition(-47.8f, 9);
+						spr_player.setSize(12, 19);
 						spr_player.draw(game.batch);
 						
 						spr_player = atlas_basicset.createSprite("b_male_front1");
-						spr_player.setPosition(-51.5f, -5);
-						spr_player.setSize(9, 15);
+						spr_player.setPosition(-47f, -1.5f);
+						spr_player.setSize(11, 17);
 						spr_player.draw(game.batch);
 						
 						if(hair.equals("hair1")) { spr_hair = atlas_hairs1.createSprite(hair + color + sex + "Front"); }
@@ -252,13 +264,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					
 				}
 						
-				//spr_testeDot.setPosition(-57,-36);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(-60,-50);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 
-				//spr_testeDot.setPosition(-1, -55);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(-40, -60);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 					
 				game.batch.end();
 			
@@ -328,124 +340,18 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			
 			//[MainState]// 
-			if(state.equals("main")) {
+			if(state.equals("Main")) {
 				//Create
-				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -28 && coordsTouch.y <= -15) {
-					network = true;
-					//CheckData();
+				if(coordsTouch.x >=  -60 && coordsTouch.x <= -40 && coordsTouch.y >= -60 && coordsTouch.y <= -50) {
+					state = "Create";
 					return false;
 				}
 								
 				//Delete
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -42 && coordsTouch.y <= -28) {
-					network = false;
-					//CheckData();
+					state = "Delete";			
 					return false;
 				}
-			}
-			
-			if(state.equals("create")) {
-				//Nome
-				if(coordsTouch.x >= cameraCoordsX - 17 && coordsTouch.x <= cameraCoordsX + 14 && coordsTouch.y >= cameraCoordsY + 30 && coordsTouch.y <= cameraCoordsY + 39) {
-					Gdx.input.getTextInput(this,"Digite o nome","","");
-					return false;
-				}		
-				//Sex Male
-				if(coordsTouch.x >= cameraCoordsX - 17 && coordsTouch.x <= cameraCoordsX -4 && coordsTouch.y >= cameraCoordsY + 16 && coordsTouch.y <= cameraCoordsY + 29) {
-					sex = "M";
-					hair = "hair1";
-					set = "basicset_m";
-					return false;
-				}
-				//Sex Female
-				if(coordsTouch.x >= cameraCoordsX - 1 && coordsTouch.x <= cameraCoordsX + 12 && coordsTouch.y >= cameraCoordsY + 16 && coordsTouch.y <= cameraCoordsY + 29) {
-					sex = "F";
-					hair = "hair1";
-					set = "basicset_f";
-					return false;
-				}
-				//Hair1 
-				if(coordsTouch.x >=  -28 && coordsTouch.x <=  -18.6f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair1";
-					return false;
-				}
-				//Hair2
-				if(coordsTouch.x >=  -17.4f && coordsTouch.x <=  -8.6f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair2";
-					return false;
-				}
-				//Hair3
-				if(coordsTouch.x >=  -7 && coordsTouch.x <= 2 && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair3";
-					return false;
-				}
-				//Hair4
-				if(coordsTouch.x >=  3f && coordsTouch.x <= 13f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair4";
-					return false;
-				}
-				//Hair5
-				if(coordsTouch.x >=  14f && coordsTouch.x <=  23f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair5";
-					return false;
-				}
-				//Hair6
-				if(coordsTouch.x >=  24f && coordsTouch.x <=  33f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair6";
-					return false;
-				}
-				//Hair7
-				if(coordsTouch.x >=  34f && coordsTouch.x <=  44f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair7";
-					return false;
-				}
-				//Hair8
-				if(coordsTouch.x >=  45f && coordsTouch.x <=  55f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair8";
-					return false;
-				}
-				
-				//Color Orange 
-				if(coordsTouch.x >= -28 && coordsTouch.x <= -19 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "orange";
-					return false;
-				}
-				//Color Yellow 
-				if(coordsTouch.x >= -17 && coordsTouch.x <= -8 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "yellow";
-					return false;
-				}
-				//Color Green 
-				if(coordsTouch.x >= -7 && coordsTouch.x <= 2 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "green";
-					return false;
-				}
-				//Color Red 
-				if(coordsTouch.x >= 3 && coordsTouch.x <= 12 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "red";
-					return false;
-				}
-				//Color Pink 
-				if(coordsTouch.x >= 14 && coordsTouch.x <= 23 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "pink";
-					return false;
-				}
-				//Color Brown 
-				if(coordsTouch.x >= + 24 && coordsTouch.x <= + 33 && coordsTouch.y >= - 41 && coordsTouch.y <= - 25) {
-					color = "brown";
-					return false;
-				}
-				//Confirmar 
-				if(coordsTouch.x >= cameraCoordsX + 32 && coordsTouch.x <= cameraCoordsX + 57 && coordsTouch.y >= cameraCoordsY - 55 && coordsTouch.y <= cameraCoordsY - 44) {
-					if(!CheckName()) { return false; }	
-					//CreateNewChar();
-					return false;
-				}
-				//Voltar 
-				if(coordsTouch.x >= cameraCoordsX - 57 && coordsTouch.x <= cameraCoordsX - 32 && coordsTouch.y >= cameraCoordsY - 55 && coordsTouch.y <= cameraCoordsY - 44) {
-					state = "main";
-					return false;
-				}						
 			}
 				
 			return false;

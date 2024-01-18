@@ -266,6 +266,9 @@ public class GameControl {
 			spr_master.setPosition(18, -65);
 			return spr_master;
 		}
+		if(item.equals("selecionepersonagem")) { spr_master = atlas_ui.createSprite("mainmenu"); return spr_master;}		
+		if(item.equals("btncriar")) { spr_master = atlas_ui.createSprite("btncriar"); return spr_master;}
+		if(item.equals("btnexcluir")) { spr_master = atlas_ui.createSprite("btnexcluir"); return spr_master;}
 		
 		return spr_master;
 	}

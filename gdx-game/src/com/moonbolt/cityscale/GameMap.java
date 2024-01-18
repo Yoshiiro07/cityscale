@@ -178,7 +178,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			lstChats.add(""); lstChats.add(""); lstChats.add(""); 
 
 			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/assets/selected.png"));
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 			
 			//Load Player Data

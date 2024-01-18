@@ -142,7 +142,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				}
 				
 				if(state.equals("Change")) {
-					this.screen.screenSwitch("LoadingScreen", network);
+					this.screen.screenSwitch("CharacterSelect", network);
 				}
 				
 				if(state.equals("Recover")) {
@@ -209,9 +209,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			
 			//[MainState]// 
-			if(state.equals("main")) {
+			if(state.equals("Main")) {
 				//Jogar Offline
-				if(coordsTouch.x >= -22 && coordsTouch.x <= 26 && coordsTouch.y >= -32 && coordsTouch.y <= 57) {
+				if(coordsTouch.x >= 26 && coordsTouch.x <= 57 && coordsTouch.y >= -32 && coordsTouch.y <= -22) {
 					network = false;
 					state = "Change";
 					return false;
@@ -234,7 +234,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			if(state.equals("Recover")) {
 				//Voltar
 				if(coordsTouch.x >= 28 && coordsTouch.x <= 58 && coordsTouch.y >= -57 && coordsTouch.y <= -44) {
-					state = "main";
+					state = "Main";
 				}
 				//input acc
 				if(coordsTouch.x >= -57 && coordsTouch.x <= -2 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
