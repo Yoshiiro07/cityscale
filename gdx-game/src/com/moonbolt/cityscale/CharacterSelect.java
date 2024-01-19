@@ -1,27 +1,10 @@
 package com.moonbolt.cityscale;
 
-import java.io.UnsupportedEncodingException;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -31,9 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.IntSet;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -175,41 +156,44 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_master.setSize(120,120);
 					spr_master.draw(game.batch);
 					
-					if(sex.equals("M")) {
-						spr_player = atlas_basicset.createSprite("u_male_front1");
-						spr_player.setPosition(-47.8f, 9);
-						spr_player.setSize(12, 19);
+					font_master.draw(game.batch, systemMsg , 21 , 30);
+					
+					if(sex.equals("M")) {			
+						spr_player = atlas_basicset.createSprite("b_male_front1");
+						spr_player.setPosition(-48.5f, -18f);
+						spr_player.setSize(15, 30);
 						spr_player.draw(game.batch);
 						
-						spr_player = atlas_basicset.createSprite("b_male_front1");
-						spr_player.setPosition(-47f, -1.5f);
-						spr_player.setSize(11, 17);
+						spr_player = atlas_basicset.createSprite("u_male_front1");
+						spr_player.setPosition(-49.3f, 1);
+						spr_player.setSize(16, 30);
 						spr_player.draw(game.batch);
 						
 						if(hair.equals("hair1")) { spr_hair = atlas_hairs1.createSprite(hair + color + sex + "Front"); }
 						if(hair.equals("hair2")) { spr_hair = atlas_hairs2.createSprite(hair + color + sex + "Front"); }
 						
-						spr_hair.setPosition(-47.6f, 17.9f);
-						spr_hair.setSize(12, 19);
+						spr_hair.setPosition(-49.3f, 15.2f);
+						spr_hair.setSize(16, 29);
 						spr_hair.draw(game.batch);
 						
 					}
 					else {
-						spr_player = atlas_basicset.createSprite("u_female_front1");
-						spr_player.setPosition(-51.5f, -5);
-						spr_player.setSize(20, 35);
-						spr_player.draw(game.batch);
 						
 						spr_player = atlas_basicset.createSprite("b_female_front1");
-						spr_player.setPosition(-51.5f, -5);
-						spr_player.setSize(20, 35);
+						spr_player.setPosition(-48.5f, -18f);
+						spr_player.setSize(15, 30);
+						spr_player.draw(game.batch);
+						
+						spr_player = atlas_basicset.createSprite("u_female_front1");
+						spr_player.setPosition(-49f, 0.5f);
+						spr_player.setSize(16, 30);
 						spr_player.draw(game.batch);
 						
 						if(hair.equals("hair1")) { spr_hair = atlas_hairs1.createSprite(hair + color + sex + "Front"); }
 						if(hair.equals("hair2")) { spr_hair = atlas_hairs2.createSprite(hair + color + sex + "Front"); }
 	
-						spr_hair.setPosition(-47.3f, 17.8f);
-						spr_hair.setSize(12, 19);
+						spr_hair.setPosition(-49f, 14.5f);
+						spr_hair.setSize(16, 29);
 						spr_hair.draw(game.batch);
 					}
 					
@@ -217,34 +201,34 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					if(sex.equals("M")) {					
 						spr_hair = atlas_hairs1.createSprite("hair" + 1 + color + "MFront");
 						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-29f, -16); spr_hair.draw(game.batch); 
+						spr_hair.setPosition(-20.5f, -24); spr_hair.draw(game.batch); 
 						
 						spr_hair = atlas_hairs2.createSprite("hair" + 2 + color + "MFront");
 						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-18.5f, -16); spr_hair.draw(game.batch); 
+						spr_hair.setPosition(-11.5f, -24); spr_hair.draw(game.batch); 
 						
 						spr_hair = atlas_hairs3.createSprite("hair" + 3 + color + "MFront");
 						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-08f, -16); spr_hair.draw(game.batch); 
+						spr_hair.setPosition(-1.7f, -24); spr_hair.draw(game.batch);
 						
 						//spr_hair.setPosition( 2f, -16); spr_hair.draw(game.batch); 
 						//spr_hair.setPosition(12.6f, -16); spr_hair.draw(game.batch); 
 						//spr_hair.setPosition(22.9f, -16); spr_hair.draw(game.batch); 
 						//spr_hair.setPosition(33.5f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(44f, -16); spr_hair.draw(game.batch); 	
+						//spr_hair.setPosition(44f, -16); spr_hair.draw(game.batch);
 					}
 					if(sex.equals("F")) {
 						spr_hair = atlas_hairs1.createSprite("hair" + 1 + color + "FFront");
 						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-29f, -16); spr_hair.draw(game.batch); 
+						spr_hair.setPosition(-20.5f, -24); spr_hair.draw(game.batch); 
 						
 						spr_hair = atlas_hairs2.createSprite("hair" + 2 + color + "FFront");
 						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-18.5f, -16); spr_hair.draw(game.batch); 
+						spr_hair.setPosition(-11.5f, -24); spr_hair.draw(game.batch); 
 						
 						spr_hair = atlas_hairs3.createSprite("hair" + 3 + color + "FFront");
 						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-08f, -16); spr_hair.draw(game.batch); 
+						spr_hair.setPosition(-1.7f, -24); spr_hair.draw(game.batch); 
 						
 						//spr_hair.setPosition( 2f, -16); spr_hair.draw(game.batch); 
 						//spr_hair.setPosition(12.6f, -16); spr_hair.draw(game.batch); 
@@ -253,7 +237,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						//spr_hair.setPosition(44f, -16); spr_hair.draw(game.batch);					
 					}
 					
-					font_master.draw(game.batch, name , cameraCoordsX - 17 , cameraCoordsY + 39);
+					font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+					font_master.setColor(Color.WHITE);
+					font_master.getData().setScale(0.10f,0.16f);
+					font_master.setUseIntegerPositions(false);
+					
+					font_master.draw(game.batch, name , -17 , 30);
 				}
 				
 				if(state.equals("change")) {
@@ -264,11 +253,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					
 				}
 						
-				spr_testeDot.setPosition(-60,-50);
+				spr_testeDot.setPosition(34,-42);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(-40, -60);
+				spr_testeDot.setPosition(56, -54);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 					
@@ -276,41 +265,45 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			
 		}
 		
-		private boolean CheckName() {
-			if(name.equals("none")){ systemMsg = "Insira um nome"; return false;}
-			if(name.equals("")) { systemMsg = "Insira um nome"; return false; }
-			if(name.contains(".")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains(";")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("'")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("~")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains(":")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("?")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("!")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("*")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("@")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("#")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("$")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("%")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("&")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("(")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains(")")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("/")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("\\")){ systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("<")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains(">")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.length() > 10) { systemMsg = "Ate 10 letras"; return false; }
+		private boolean CheckName(String nameinput) {
+			if(nameinput.equals("none")){ systemMsg = "Insira um nome"; return false;}
+			if(nameinput.equals("")) { systemMsg = "Insira um nome"; return false; }
+			if(nameinput.contains(".")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains(";")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("'")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("~")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains(":")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("?")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("!")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("*")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("@")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("#")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("$")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("%")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("&")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("(")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains(")")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("/")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("\\")){ systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains("<")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.contains(">")) { systemMsg = "Nome com caracters especiais"; return false; }
+			if(nameinput.length() > 10) { systemMsg = "Ate 10 letras"; return false; }
+			if(nameinput.length() < 3) { systemMsg = "Menos de 3 letras"; return false; }
 			
 			return true;
 		}
 	
 		@Override
 		public void input(String input) {	
-			if(state.equals("create")) {
-				name = input;
+			if(state.equals("Create")) {
+				
+				if(CheckName(input)) {
+					name = input;
+				}
 			}
 		}
 
@@ -352,6 +345,39 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					state = "Delete";			
 					return false;
 				}
+			}
+			
+			//[CreateState]//
+			if(state.equals("Create")) {
+				//Back
+				if(coordsTouch.x >= -55 && coordsTouch.x <= -34 && coordsTouch.y >= -55 && coordsTouch.y <= -42) {
+					state = "Main";
+					return false;
+				}
+				
+				//Name
+				if(coordsTouch.x >= -20 && coordsTouch.x <= 20 && coordsTouch.y >= 22 && coordsTouch.y <= 33) {
+					Gdx.input.getTextInput(this,"Digite o nome do personagem:","","");
+					return false;
+				}
+					
+				//Male
+				if(coordsTouch.x >= -20 && coordsTouch.x <= -6 && coordsTouch.y >= 0 && coordsTouch.y <= 15) {
+					sex = "M";
+					return false;
+				}
+				//Female
+				if(coordsTouch.x >= -5 && coordsTouch.x <= 9 && coordsTouch.y >= 0 && coordsTouch.y <= 15) {
+					sex = "F";
+					return false;
+				}
+				
+				//Create
+				if(coordsTouch.x >= 34 && coordsTouch.x <= 56 && coordsTouch.y >= -54 && coordsTouch.y <= -42) {
+					
+					return false;
+				}
+				
 			}
 				
 			return false;
