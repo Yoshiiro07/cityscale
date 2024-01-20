@@ -102,8 +102,9 @@ public class GameControl {
 	//[ONLINE MANAGER]//
     //[BATTLE]//
     //[COLISIONS]//
+    //[CHARACTER]//
 	
-	private GameObject player;
+	private Player player;
 	private Json json;
 	private FileHandle file;
 	private Random randnumber;
@@ -129,20 +130,20 @@ public class GameControl {
 	
 	//[DATA CONTROL]//
 	
-	private void CreateNewChar(String name, String sex, String hair, String color) {
+	public void CreateNewChar(String name, String sex, String hair, String color) {
 		player = new Player();
 		
 		FileHandle file = Gdx.files.local("SaveData/svdt.json");		
-		player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
+		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
 		
-		
-        
-		SaveData(player);		
+		if(player.Name_1.equals("none")) { player.CreateNewChar(name, sex, hair, color, 1);  SaveData(player); return; }
+		if(player.Name_2.equals("none")) { player.CreateNewChar(name, sex, hair, color, 2);  SaveData(player); return; }
+		if(player.Name_3.equals("none")) { player.CreateNewChar(name, sex, hair, color, 3);  SaveData(player); return; } 		
 	}
 
-	public void SaveData(GameObject acPlayer) {
+	public void SaveData(Player player) {
 		file = Gdx.files.local("SaveData/svdt.json");
-		file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
+		file.writeString(Base64Coder.encodeString(json.prettyPrint(player)), false);
 	}
 	
 	public void CheckData() {
@@ -151,10 +152,12 @@ public class GameControl {
 		//Creating a new one
 		if (!file.exists()) {
 				try {
-					GameObject player = new GameObject();
+					Player player = new Player();
 					int accNumber = randnumber.nextInt(999999);
 					player.AccountID = String.valueOf(accNumber);
-					player.Name = "none";
+					player.Name_1 = "none";
+					player.Name_2 = "none";
+					player.Name_3 = "none";
 					file.writeString(Base64Coder.encodeString(json.prettyPrint(player)), false);
 					
 				} catch (Exception e) 
@@ -166,19 +169,26 @@ public class GameControl {
 		else 
 		{
 			FileHandle file = Gdx.files.local("SaveData/svdt.json");		
-			player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
+			player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
 		}
 	}
 	
 	public void LoadDownloadData(String hash) {
 		FileHandle file = Gdx.files.local("SaveData/svdt.json");
-		GameObject player = json.fromJson(GameObject.class,Base64Coder.decodeString(hash));			
+		Player player = json.fromJson(Player.class,Base64Coder.decodeString(hash));			
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(player)),false);
 	}
 	
 	public void DeleteData() {
 		FileHandle file = Gdx.files.local("SaveData/svdt.json");
 		file.delete();
+	}
+	
+	public Player LoadData() {
+		FileHandle file = Gdx.files.local("SaveData/svdt.json");		
+		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
+		
+		return player;
 	}
 	
 	//[INTERFACE]//
@@ -208,6 +218,26 @@ public class GameControl {
 	
 	
 	
+	//[CHARACTER]//
+	public Sprite CharacterMoveUpper(String type) {
+		
+		if(type.equals("Menu")) {
+			
+		}
+		
+		
+		
+		return spr_master;
+	}
+	
+	public Sprite CharacterMoveBottom(String type) {
+		
+		if(type.equals("Menu")) {
+			
+		}
+		
+		return spr_master;
+	}
 	
 	
 	
@@ -280,7 +310,7 @@ public class GameControl {
 	        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
 	        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 	        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("1A", "UTF-8");
-	        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
+	        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
 	        data += "&" + URLEncoder.encode("lChat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
 	        
 	        // Send data
@@ -323,7 +353,7 @@ public class GameControl {
 	        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
 	        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
 	        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-	        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
+	        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
 	        data += "&" + URLEncoder.encode("lHpMobAtual", "UTF-8") + "=" + URLEncoder.encode(extraData, "UTF-8"); 
 	        data += "&" + URLEncoder.encode("lMobLetter", "UTF-8") + "=" + URLEncoder.encode(mobLetter, "UTF-8");
 	        
@@ -360,7 +390,7 @@ public class GameControl {
 	        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
 	        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
 	        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-	        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
+	        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
 	        data += "&" + URLEncoder.encode("lChat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
 	        
 	        // Send data
@@ -404,27 +434,28 @@ public class GameControl {
 	        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 	        //Sync Data
 	        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-	        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
-	        data += "&" + URLEncoder.encode("lLevel", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Level), "UTF-8");
-	        data += "&" + URLEncoder.encode("lMap", "UTF-8") + "=" + URLEncoder.encode(player.Map, "UTF-8");
-	        data += "&" + URLEncoder.encode("lHp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Hp), "UTF-8");
-	        data += "&" + URLEncoder.encode("lMp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Mp), "UTF-8");
-	        data += "&" + URLEncoder.encode("lPosX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosX), "UTF-8");
-	        data += "&" + URLEncoder.encode("lPosY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosY), "UTF-8");
-	        data += "&" + URLEncoder.encode("lWalk", "UTF-8") + "=" + URLEncoder.encode(player.Walk, "UTF-8");
-	        data += "&" + URLEncoder.encode("lWeapon", "UTF-8") + "=" + URLEncoder.encode(player.Weapon, "UTF-8");
-	        data += "&" + URLEncoder.encode("lFrame", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Frame), "UTF-8");
-	        data += "&" + URLEncoder.encode("lParty", "UTF-8") + "=" + URLEncoder.encode(player.party, "UTF-8");
-	        data += "&" + URLEncoder.encode("lPlayerSet", "UTF-8") + "=" + URLEncoder.encode(player.Set, "UTF-8");       
-	        data += "&" + URLEncoder.encode("lHair", "UTF-8") + "=" + URLEncoder.encode(player.Hair, "UTF-8");    
-	        data += "&" + URLEncoder.encode("lSex", "UTF-8") + "=" + URLEncoder.encode(player.Sex, "UTF-8");  
-	        data += "&" + URLEncoder.encode("lColor", "UTF-8") + "=" + URLEncoder.encode(player.Color, "UTF-8");  
-	        data += "&" + URLEncoder.encode("lHat", "UTF-8") + "=" + URLEncoder.encode(player.Hat, "UTF-8"); 
-	        data += "&" + URLEncoder.encode("lSide", "UTF-8") + "=" + URLEncoder.encode(player.Side, "UTF-8"); 
-	        data += "&" + URLEncoder.encode("lJob", "UTF-8") + "=" + URLEncoder.encode(player.Job, "UTF-8"); 
-	        data += "&" + URLEncoder.encode("lplayerInBattle", "UTF-8") + "=" + URLEncoder.encode(player.playerInBattle, "UTF-8"); 
-	        data += "&" + URLEncoder.encode("lplayerInAttack", "UTF-8") + "=" + URLEncoder.encode(player.playerInAttack, "UTF-8"); 
-	        data += "&" + URLEncoder.encode("lplayerInCast", "UTF-8") + "=" + URLEncoder.encode(player.playerInCast, "UTF-8"); 
+	        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lLevel", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Level_A), "UTF-8");
+	        data += "&" + URLEncoder.encode("lMap", "UTF-8") + "=" + URLEncoder.encode(player.Map_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lHp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Hp_A), "UTF-8");
+	        data += "&" + URLEncoder.encode("lMp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Mp_A), "UTF-8");
+	        data += "&" + URLEncoder.encode("lPosX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosX_A), "UTF-8");
+	        data += "&" + URLEncoder.encode("lPosY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosY_A), "UTF-8");
+	        data += "&" + URLEncoder.encode("lWalk", "UTF-8") + "=" + URLEncoder.encode(player.Walk_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lWeapon", "UTF-8") + "=" + URLEncoder.encode(player.Weapon_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lFrame", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Frame_A), "UTF-8");
+	        data += "&" + URLEncoder.encode("lParty", "UTF-8") + "=" + URLEncoder.encode(player.party_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lPlayerSet", "UTF-8") + "=" + URLEncoder.encode(player.SetUpper_A, "UTF-8");   
+	        data += "&" + URLEncoder.encode("lPlayerSet", "UTF-8") + "=" + URLEncoder.encode(player.SetBottom_A, "UTF-8");
+	        data += "&" + URLEncoder.encode("lHair", "UTF-8") + "=" + URLEncoder.encode(player.Hair_A, "UTF-8");    
+	        data += "&" + URLEncoder.encode("lSex", "UTF-8") + "=" + URLEncoder.encode(player.Sex_A, "UTF-8");  
+	        data += "&" + URLEncoder.encode("lColor", "UTF-8") + "=" + URLEncoder.encode(player.Color_A, "UTF-8");  
+	        data += "&" + URLEncoder.encode("lHat", "UTF-8") + "=" + URLEncoder.encode(player.Hat_A, "UTF-8"); 
+	        data += "&" + URLEncoder.encode("lSide", "UTF-8") + "=" + URLEncoder.encode(player.Side_A, "UTF-8"); 
+	        data += "&" + URLEncoder.encode("lJob", "UTF-8") + "=" + URLEncoder.encode(player.Job_A, "UTF-8"); 
+	        data += "&" + URLEncoder.encode("lplayerInBattle", "UTF-8") + "=" + URLEncoder.encode(player.playerInBattle_A, "UTF-8"); 
+	        data += "&" + URLEncoder.encode("lplayerInAttack", "UTF-8") + "=" + URLEncoder.encode(player.playerInAttack_A, "UTF-8"); 
+	        data += "&" + URLEncoder.encode("lplayerInCast", "UTF-8") + "=" + URLEncoder.encode(player.playerInCast_A, "UTF-8"); 
 	        
 	        // Send data
 	        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");

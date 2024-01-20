@@ -27,9 +27,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private String state = "Main";
 	    private boolean network = false;
 	    
-	    
 	    //Manager
-	    private String systemMsg;
+	    private String systemMsg = "";
 		private String conta = "";
 		private String avisoconta = "";
 	    
@@ -43,7 +42,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private float cameraCoordsY = 0;
 	    
 	    //Player
-	    private GameObject player;
+	    private Player player;
 	    private String name = "";
 	    private String sex = "M";
 	    private String hair = "hair1";
@@ -79,6 +78,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			this.screen = _screen;
 			this.network = _network;
 			this.gameControl = new GameControl();
+			
+			//Load Account
+			player = gameControl.LoadData();
 			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
@@ -147,6 +149,25 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_master.setPosition(40, -60);
 					spr_master.setSize(20,10);
 					spr_master.draw(game.batch);
+					
+					if(!player.Name_A.equals("none")) {			
+						spr_player = atlas_basicset.createSprite("b_male_front1");
+						spr_player.setPosition(-48.5f, -18f);
+						spr_player.setSize(15, 30);
+						spr_player.draw(game.batch);
+						
+						spr_player = atlas_basicset.createSprite("u_male_front1");
+						spr_player.setPosition(-49.3f, 1);
+						spr_player.setSize(16, 30);
+						spr_player.draw(game.batch);
+						
+						if(hair.equals("hair1")) { spr_hair = atlas_hairs1.createSprite(hair + color + sex + "Front"); }
+						if(hair.equals("hair2")) { spr_hair = atlas_hairs2.createSprite(hair + color + sex + "Front"); }
+						
+						spr_hair.setPosition(-49.3f, 15.2f);
+						spr_hair.setSize(16, 29);
+						spr_hair.draw(game.batch);					
+					}
 				}
 				
 				if(state.equals("Create")) {
@@ -174,8 +195,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						
 						spr_hair.setPosition(-49.3f, 15.2f);
 						spr_hair.setSize(16, 29);
-						spr_hair.draw(game.batch);
-						
+						spr_hair.draw(game.batch);					
 					}
 					else {
 						
@@ -245,13 +265,15 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					font_master.draw(game.batch, name , -17 , 30);
 				}
 				
+				if(state.equals("Delete")) {
+					
+				}
+				
 				if(state.equals("change")) {
 					this.screen.screenSwitch("LoadingScreen", network);
 				}
 				
-				if(state.equals("Delete")) {
-					
-				}
+				
 						
 				spr_testeDot.setPosition(34,-42);
 				spr_testeDot.setSize(1, 1);
@@ -374,7 +396,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				
 				//Create
 				if(coordsTouch.x >= 34 && coordsTouch.x <= 56 && coordsTouch.y >= -54 && coordsTouch.y <= -42) {
-					
+					gameControl.CreateNewChar(name, sex, hair, color);
+					state = "Main";
 					return false;
 				}
 				

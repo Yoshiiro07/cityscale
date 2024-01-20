@@ -42,7 +42,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		//Objects
 	    private MainGame game;
 	    private GameControl gameControl;
-	    private GameObject gameObject;
 	    private ManagerScreen screen;
 	    private String state = "Main";
 	    private boolean network = false;
@@ -213,6 +212,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				//Jogar Offline
 				if(coordsTouch.x >= 26 && coordsTouch.x <= 57 && coordsTouch.y >= -32 && coordsTouch.y <= -22) {
 					network = false;
+					gameControl.CheckData();
 					state = "Change";
 					return false;
 				}
@@ -220,6 +220,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				//Jogar Online
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -42 && coordsTouch.y <= -28) {
 					network = true;
+					gameControl.CheckData();
 					state = "Change";
 					return false;
 				}

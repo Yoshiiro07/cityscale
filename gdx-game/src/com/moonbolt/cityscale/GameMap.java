@@ -70,7 +70,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private float cameraCoordsY = 0;
 	    
 	    //Player	   
-	    private GameObject player;
+	    private Player player;
 	    private float playerPosX;
 	    private float playerPosY;
 	    private float plPosX;
@@ -97,7 +97,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	     
 	    //Mob
 	    private Sprite spr_mob;
-	    private ArrayList<GameObject> lstMobs;
+	    private ArrayList<Monster> lstMobs;
 	    private int mobFrame = 1;
 	    private float mobPositionCoordX = 0;
 	    private float mobPositionCoordY = 0;
@@ -106,7 +106,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private int mobTimerFrame = 40;
 	    
 	    //Online
-	    private ArrayList<GameObject> lstOnlinePlayers;
+	    private ArrayList<Player> lstOnlinePlayers;
 	    private int countCleanOnline = 800;
 		private String retornoOnline = "";
 		private int threahCountSyncPlayer = 0;
@@ -120,7 +120,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_hairOnline;
 	    private Sprite spr_hatOnline;	 
 	    private Sprite spr_weaponOnline;
-	    private GameObject newOnlinePlayer;
+	    private Player newOnlinePlayer;
 	    private int timerreceiveExpOnline = 0;
 	    private int GiveExp = 0;
 	    private int timerGiveExp = 100;
@@ -133,12 +133,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private ArrayList<String> lstChats;
 	    
 	    //Damage
-	    private ArrayList<GameObject> lstDamage;
+	    private ArrayList<Damage> lstDamage;
 	    
 	    //Skills
 	    private boolean showZone = false;
 	    private int countZoneSkill = 0;
-	    private ArrayList<GameObject> lstSkills;
+	    private ArrayList<Skill> lstSkills;
 	    
 	    //NPC
 	    private float npcsideleft;
@@ -168,11 +168,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			this.network = network;
 			this.gameControl = new GameControl();
 			
-			lstOnlinePlayers = new ArrayList<GameObject>();
-			lstDamage = new ArrayList<GameObject>();
-			lstSkills = new ArrayList<GameObject>();
+			lstOnlinePlayers = new ArrayList<Player>();
+			lstDamage = new ArrayList<Damage>();
+			lstSkills = new ArrayList<Skill>();
 			lstChats = new ArrayList<String>();
-			newOnlinePlayer = new GameObject();
+			newOnlinePlayer = new Player();
 			
 			//Set list of chats
 			lstChats.add(""); lstChats.add(""); lstChats.add(""); 
@@ -183,10 +183,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Load Player Data
 			file = Gdx.files.local("SaveData/save.json");		
-			player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
+			player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
 			
 			//Load Title
-			if(player.Map.equals("StreetsA")) { 
+			if(player.Map_A.equals("StreetsA")) {
 				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); 
 			}
 			
@@ -205,10 +205,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			font_master.getData().setScale(0.07f,0.11f);
 			font_master.setUseIntegerPositions(false);	
 					
-			player.party = "none";
-			player.playerInAttack = "no";
-			player.playerInBattle = "no";
-			player.playerInCast = "no";
+			player.party_A = "none";
+			player.playerInAttack_A = "no";
+			player.playerInBattle_A = "no";
+			player.playerInCast_A = "no";
 		}
 			
 		@Override
@@ -284,26 +284,26 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        }
 		        if(downKeys.size == 1) {
 		        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-		        		player.Side = "left";
-		        		player.Walk = "walk"; 
+		        		player.Side_A = "left";
+		        		player.Walk_A = "walk"; 
 		        		return false;
 		            }
 		    		
 		    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
-		    			player.Side = "back";
-		    			player.Walk = "walk";
+		    			player.Side_A = "back";
+		    			player.Walk_A = "walk";
 		    			return false;
 		            }
 		    		
 		    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
-		    			player.Side = "front";
-		    			player.Walk = "walk";	
+		    			player.Side_A = "front";
+		    			player.Walk_A = "walk";	
 		    			return false;
 		            }
 		    		
 		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-		    			player.Side = "right";
-		    			player.Walk = "walk";
+		    			player.Side_A = "right";
+		    			player.Walk_A = "walk";
 		    			return false;
 		            }
 		        }
@@ -319,50 +319,50 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//For multiple key presses
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
-		        	player.Side = "left-front";
-		        	player.Walk = "walk";  	
+		        	player.Side_A = "left-front";
+		        	player.Walk_A = "walk";  	
 		        }
 		    }
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
-		        	player.Side = "left-back";
-		        	player.Walk = "walk";
+		        	player.Side_A = "left-back";
+		        	player.Walk_A = "walk";
 		        }
 		    }
 		    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
-		    		player.Side = "right-back";
-		    		player.Walk = "walk";	
+		    		player.Side_A = "right-back";
+		    		player.Walk_A = "walk";	
 		    	}
 		    }
 		    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
-		    		player.Side = "right-front";
-		    		player.Walk = "walk";	
+		    		player.Side_A = "right-front";
+		    		player.Walk_A = "walk";	
 		    	}
 		    }
 		    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
-		        	player.Side = "back-right";
-		        	player.Walk = "walk";
+		        	player.Side_A = "back-right";
+		        	player.Walk_A = "walk";
 		        }
 		    }
 		    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
-		        	player.Side = "back-left";
-		        	player.Walk = "walk";
+		        	player.Side_A = "back-left";
+		        	player.Walk_A = "walk";
 		         }
 		    }
 		    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
-		        	player.Side = "front-right";
-		        	player.Walk = "walk";
+		        	player.Side_A = "front-right";
+		        	player.Walk_A = "walk";
 		       }
 		    }
 		    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
-		        	player.Side = "front-left";
-		        	player.Walk = "walk";	
+		        	player.Side_A = "front-left";
+		        	player.Walk_A = "walk";	
 		         }
 		    }
 		}	
@@ -371,17 +371,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public boolean keyUp(int keycode) {
 			movement = false;
 			downKeys.remove(keycode);
-			player.Walk = "no";
+			player.Walk_A = "no";
 			//breakwalk = "";
 			
-			if(player.Side.equals("left-front")) { player.Side = "front"; }
-			if(player.Side.equals("left-back")) { player.Side = "front";}
-			if(player.Side.equals("right-back")) { player.Side = "front";}
-			if(player.Side.equals("right-front")) { player.Side = "front";}
-			if(player.Side.equals("back-right")) { player.Side = "front";}
-			if(player.Side.equals("back-left")) { player.Side = "front";}
-			if(player.Side.equals("front-right")) { player.Side = "front";}
-			if(player.Side.equals("front-left")) { player.Side = "front"; }
+			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
+			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
+			if(player.Side_A.equals("right-back")) { player.Side_A = "front";}
+			if(player.Side_A.equals("right-front")) { player.Side_A = "front";}
+			if(player.Side_A.equals("back-right")) { player.Side_A = "front";}
+			if(player.Side_A.equals("back-left")) { player.Side_A = "front";}
+			if(player.Side_A.equals("front-right")) { player.Side_A = "front";}
+			if(player.Side_A.equals("front-left")) { player.Side_A = "front"; }
 			
 			return false;
 		}
@@ -407,16 +407,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 			movement = false;
-			player.Walk = "no";
+			player.Walk_A = "no";
 			
-			if(player.Side.equals("left-front")) { player.Side = "front"; }
-			if(player.Side.equals("left-back")) { player.Side = "front";}
-			if(player.Side.equals("right-back")) { player.Side = "front";}
-			if(player.Side.equals("right-front")) { player.Side = "front";}
-			if(player.Side.equals("back-right")) { player.Side = "front";}
-			if(player.Side.equals("back-left")) { player.Side = "front";}
-			if(player.Side.equals("front-right")) { player.Side = "front";}
-			if(player.Side.equals("front-left")) { player.Side = "front"; }
+			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
+			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
+			if(player.Side_A.equals("right-back")) { player.Side_A = "front";}
+			if(player.Side_A.equals("right-front")) { player.Side_A = "front";}
+			if(player.Side_A.equals("back-right")) { player.Side_A = "front";}
+			if(player.Side_A.equals("back-left")) { player.Side_A = "front";}
+			if(player.Side_A.equals("front-right")) { player.Side_A = "front";}
+			if(player.Side_A.equals("front-left")) { player.Side_A = "front"; }
 			return false;
 		}
 
@@ -430,26 +430,26 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(movement){	
 				//Right
      				if(coordsTouch.x >= -53.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42f) {
-					player.Side = "right";
-					player.Walk = "walk";	
+					player.Side_A = "right";
+					player.Walk_A = "walk";	
 					return false;
 				}
 				//Left
 				if(coordsTouch.x >= -57.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42) {
-					player.Side = "left";
-					player.Walk = "walk";	
+					player.Side_A = "left";
+					player.Walk_A = "walk";	
 					return false;
 				}
 				//Front
 				if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
-					player.Side = "front";
-					player.Walk = "walk";	
+					player.Side_A = "front";
+					player.Walk_A = "walk";	
 					return false;
 				}
 				//Back
 				if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -42f && coordsTouch.y < -27) {
-					player.Side = "back";
-					player.Walk = "walk";	
+					player.Side_A = "back";
+					player.Walk_A = "walk";	
 					return false;
 				}
 			}
