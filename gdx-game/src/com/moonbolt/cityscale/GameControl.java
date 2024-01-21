@@ -138,7 +138,9 @@ public class GameControl {
 		
 		if(player.Name_1.equals("none")) { player.CreateNewChar(name, sex, hair, color, 1);  SaveData(player); return; }
 		if(player.Name_2.equals("none")) { player.CreateNewChar(name, sex, hair, color, 2);  SaveData(player); return; }
-		if(player.Name_3.equals("none")) { player.CreateNewChar(name, sex, hair, color, 3);  SaveData(player); return; } 		
+		if(player.Name_3.equals("none")) { player.CreateNewChar(name, sex, hair, color, 3);  SaveData(player); return; } 
+		
+		SaveData(player);
 	}
 
 	public void SaveData(Player player) {
@@ -186,9 +188,17 @@ public class GameControl {
 	
 	public Player LoadData() {
 		FileHandle file = Gdx.files.local("SaveData/svdt.json");		
-		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
-		
+		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));	
 		return player;
+	}
+	
+	public void DeleteChar(int num) {
+		FileHandle file = Gdx.files.local("SaveData/svdt.json");		
+		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));	
+		
+		if(num == 1) { player.Name_1 = "none"; SaveData(player);}
+		if(num == 2) { player.Name_2 = "none"; SaveData(player);}
+		if(num == 3) { player.Name_3 = "none"; SaveData(player);}	
 	}
 	
 	//[INTERFACE]//
@@ -212,28 +222,98 @@ public class GameControl {
 	//[COLISIONS]//
 	
 	
-	
-	
 	//[BATTLE]//
 	
 	
-	
 	//[CHARACTER]//
-	public Sprite CharacterMoveUpper(String type) {
-		
-		if(type.equals("Menu")) {
+	public void PutActiveSet(String setactive){
+		if(setactive.equals("basic")){ atlas_generic = atlas_basicset; }
+	}
+	
+	
+	public Sprite CharacterMoveUpper(String type, int charnum) {
 			
+		if(type.equals("Menu")) {
+			if(charnum == 1) {
+				if(player.Sex_1.equals("M")) { 
+				   spr_master = atlas_generic.createSprite("u_male_front1");
+				   spr_master.setPosition(-49.2f, -25.2f);
+				   spr_master.setSize(15, 30);
+				}
+				if(player.Sex_1.equals("F")) { 
+					spr_master = atlas_generic.createSprite("u_female_front1");
+					spr_master.setPosition(-49f, -24.2f);
+					spr_master.setSize(15, 29);
+				}
+			}
+			if(charnum == 2) {
+				if(player.Sex_2.equals("M")) { 
+					spr_master = atlas_generic.createSprite("u_male_front1");
+				    spr_master.setPosition(-10.3f, -25.2f);
+				    spr_master.setSize(15, 30);
+				}
+				if(player.Sex_2.equals("F")) { 
+					spr_master = atlas_generic.createSprite("u_female_front1");
+					spr_master.setPosition(-10.2f, -24.2f);
+					spr_master.setSize(15, 29);
+				}
+			}
+			if(charnum == 3) {
+				if(player.Sex_3.equals("M")) { 
+				   spr_master = atlas_generic.createSprite("u_male_front1");
+				   spr_master.setPosition(28.5f, -25.2f);
+				   spr_master.setSize(15, 30);
+				}
+				if(player.Sex_3.equals("F")) { 
+					spr_master = atlas_generic.createSprite("u_female_front1");
+					spr_master.setPosition(28.6f, -24.2f);
+					spr_master.setSize(15, 29);
+				}
+			}
 		}
-		
-		
 		
 		return spr_master;
 	}
 	
-	public Sprite CharacterMoveBottom(String type) {
+	public Sprite CharacterMoveBottom(String type,int charnum) {
 		
 		if(type.equals("Menu")) {
-			
+			if(charnum == 1) {
+				if(player.Sex_1.equals("M")) { 
+					spr_master = atlas_generic.createSprite("b_male_front1");
+					spr_master.setPosition(-48.5f, -40f);
+					spr_master.setSize(14, 25);
+				}
+				if(player.Sex_1.equals("F")) { 
+					spr_master = atlas_generic.createSprite("b_female_front1");
+					spr_master.setPosition(-48.9f, -40f);
+					spr_master.setSize(15, 30);
+				}
+			}
+			if(charnum == 2) {
+				if(player.Sex_2.equals("M")) { 
+					spr_master = atlas_generic.createSprite("b_male_front1");
+					spr_master.setPosition(-9.5f, -40f);
+					spr_master.setSize(14, 25);
+				}
+				if(player.Sex_2.equals("F")) { 
+					spr_master = atlas_generic.createSprite("b_female_front1");
+					spr_master.setPosition(-10.2f, -40f);
+					spr_master.setSize(15, 30);
+				}
+			}
+			if(charnum == 3) {
+				if(player.Sex_3.equals("M")) { 
+					spr_master = atlas_generic.createSprite("b_male_front1");
+					spr_master.setPosition(29.2f, -40f);
+					spr_master.setSize(14, 25);
+				}
+				if(player.Sex_3.equals("F")) { 
+					spr_master = atlas_generic.createSprite("b_female_front1");
+					spr_master.setPosition(28.5f, -40f);
+					spr_master.setSize(15, 30);
+				}
+			}
 		}
 		
 		return spr_master;
