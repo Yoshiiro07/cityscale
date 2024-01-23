@@ -36,6 +36,11 @@ public class ManagerScreen implements Screen{
 			game.setScreen(characterSelect);
 		}
 		
+		if(tipo.equals("MetroStation")){	
+			MetroStation metroStation = new MetroStation(game, this, network);
+			game.setScreen(metroStation);
+		}
+		
 		if(tipo.equals("GameMap")) {
 			GameMap gameMapScreen = new GameMap(game,this, network);
 			game.setScreen(gameMapScreen);

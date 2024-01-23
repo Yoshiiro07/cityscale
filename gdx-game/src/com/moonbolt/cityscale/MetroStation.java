@@ -34,7 +34,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-public class GameMap implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class MetroStation implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 	
 		//Objects
 	    private MainGame game;
@@ -46,6 +46,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private String SysMsg = "";
 	    private int SysMsgCount = 0;    
 	    private int savedataTime = 500;
+	    private String colisionresult = "";
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -93,7 +94,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public GameMap(MainGame _game,ManagerScreen _screen, boolean _network) {
+		public MetroStation(MainGame _game,ManagerScreen _screen, boolean _network) {
 			this.game = _game;	
 			this.screen = _screen;
 			this.gameControl = new GameControl();
@@ -112,13 +113,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player = gameControl.LoadData();
 			
 			//Load Title
-			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); }
-				
+			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));				
 			spr_Background = new Sprite(tex_Background);
 					
 			//Camera and Inputs
 			camera = new OrthographicCamera();
-		    viewport = new StretchViewport(200,200,camera);
+		    viewport = new StretchViewport(135,135,camera);
 			viewport.apply();
 			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 			Gdx.input.setInputProcessor(this);
@@ -132,7 +132,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 		@Override
 		public void render(float delta) {
-			try {						
+			try {			
 				savedataTime--;
 				if(savedataTime < 0) { savedataTime = 700;}
 				
@@ -140,27 +140,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				
-				playerPosX = player.PosX_A;
-				playerPosY = player.PosY_A;
-				
 				//Camera Ajustments
 				cameraCoordsX = playerPosX;
 				cameraCoordsY = playerPosY;
 				
 				//Follow camera
-				if(playerPosX <= 0f) { cameraCoordsX = 0; }
-				if(playerPosX >= 175) { cameraCoordsX = 175; }
+				if(playerPosX <= -25f) 	{ cameraCoordsX = -25; 	 }
+				if(playerPosX >= 175) 	{ cameraCoordsX = 175; 	 }
 				if(playerPosY >= 91.5f) { cameraCoordsY = 91.5f; }
-				if(playerPosY <= -80) { cameraCoordsY = -80; }
+				if(playerPosY <= -105) 	{ cameraCoordsY = -105;  }
 				
-				camera.position.set(cameraCoordsX,cameraCoordsY + 30,0);
+				//Update camera and start drawling
+				camera.position.set(cameraCoordsX,cameraCoordsY,0);				
 				camera.update();
-			    game.batch.setProjectionMatrix(camera.combined);		    
+			    game.batch.setProjectionMatrix(camera.combined);
 				game.batch.begin();
 				
 				//Background	
-				spr_Background.setPosition(-100, -150);
-				spr_Background.setSize(400, 400);
+				spr_Background.setPosition(-70,-70);
+				spr_Background.setSize(136, 140);
 				spr_Background.draw(game.batch);
 				
 				//Player
@@ -176,46 +174,20 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				player = gameControl.GetPlayer();
 				
-				
-				//[Interface]//
-				
 				//arrowmove
 				spr_master = gameControl.GetInterface("arrowmove");
 				spr_master.setPosition(touchPosX -1.5f, touchPosY);
 				spr_master.setSize(4, 10);
 				spr_master.draw(game.batch);
-				
-				//player tag
-				spr_master = gameControl.GetInterface("tagplayer");
-				spr_master.setPosition(cameraCoordsX - 99, cameraCoordsY + 98);
-				spr_master.setSize(50, 30);
-				spr_master.draw(game.batch);
-				
-				//cards
-				spr_master = gameControl.GetInterface("cardaction");
-				spr_master.setPosition(cameraCoordsX - 99, cameraCoordsY + 98);
-				spr_master.setSize(50, 30);
-				spr_master.draw(game.batch);
-				
-				
-				//Teste				
-				spr_testeDot.setPosition(touchPosX, touchPosY);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
-				spr_testeDot.setPosition(30, - 40);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
-				spr_testeDot.setPosition(45, - 65);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+							
+				//CheckColision
+				CheckColisionMetroStation();
 				
 				if(state.equals("Change")) {
 					this.screen.screenSwitch("LoadingScreen", network);
 				}
 				
-				game.batch.end();		
+				game.batch.end();	
 			}
 			
 			catch(Exception ex) {
@@ -341,20 +313,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean keyUp(int keycode) {
-			movement = false;
 			downKeys.remove(keycode);
-			player.Walk_A = "no";
-			//breakwalk = "";
-			
-			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
-			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
-			if(player.Side_A.equals("right-back")) { player.Side_A = "front";}
-			if(player.Side_A.equals("right-front")) { player.Side_A = "front";}
-			if(player.Side_A.equals("back-right")) { player.Side_A = "front";}
-			if(player.Side_A.equals("back-left")) { player.Side_A = "front";}
-			if(player.Side_A.equals("front-right")) { player.Side_A = "front";}
-			if(player.Side_A.equals("front-left")) { player.Side_A = "front"; }
-			
 			return false;
 		}
 
@@ -382,17 +341,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-			movement = false;
-			player.Walk_A = "no";
-			
-			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
-			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
-			if(player.Side_A.equals("right-back")) { player.Side_A = "front";}
-			if(player.Side_A.equals("right-front")) { player.Side_A = "front";}
-			if(player.Side_A.equals("back-right")) { player.Side_A = "front";}
-			if(player.Side_A.equals("back-left")) { player.Side_A = "front";}
-			if(player.Side_A.equals("front-right")) { player.Side_A = "front";}
-			if(player.Side_A.equals("front-left")) { player.Side_A = "front"; }
 			return false;
 		}
 

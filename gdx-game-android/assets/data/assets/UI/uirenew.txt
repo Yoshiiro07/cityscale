@@ -1,8 +1,15 @@
 uirenew.png
-size: 842, 1457
+size: 857, 1471
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+arrowmove
+  rotate: false
+  xy: 358, 29
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
 bartext
   rotate: false
   xy: 0, 66
@@ -12,42 +19,42 @@ bartext
   index: -1
 btncriar
   rotate: false
-  xy: 358, 29
+  xy: 388, 29
   size: 119, 36
   orig: 119, 36
   offset: 0, 0
   index: -1
 btnexcluir
   rotate: false
-  xy: 477, 29
+  xy: 507, 29
   size: 119, 36
   orig: 119, 36
   offset: 0, 0
   index: -1
 btnvoltar
   rotate: false
-  xy: 596, 29
+  xy: 626, 29
   size: 119, 36
   orig: 119, 36
   offset: 0, 0
   index: -1
 charmenu
   rotate: false
-  xy: 0, 332
+  xy: 0, 346
   size: 660, 375
   orig: 660, 375
   offset: 0, 0
   index: -1
 charmenuselect
   rotate: false
-  xy: 80, 132
+  xy: 0, 146
   size: 350, 200
   orig: 350, 200
   offset: 0, 0
   index: -1
 createmenu
   rotate: false
-  xy: 0, 707
+  xy: 0, 721
   size: 660, 375
   orig: 660, 375
   offset: 0, 0
@@ -61,7 +68,7 @@ criandopersonagem
   index: -1
 cristaljobmenu
   rotate: false
-  xy: 0, 1082
+  xy: 0, 1096
   size: 543, 375
   orig: 543, 375
   offset: 0, 0
@@ -75,7 +82,7 @@ excluindopersonagem
   index: -1
 flagbutton
   rotate: false
-  xy: 715, 29
+  xy: 745, 29
   size: 112, 37
   orig: 112, 37
   offset: 0, 0
@@ -124,21 +131,21 @@ icoWizard
   index: -1
 lojamenu
   rotate: false
-  xy: 543, 1082
+  xy: 543, 1096
   size: 276, 375
   orig: 276, 375
   offset: 0, 0
   index: -1
 mainmenu
   rotate: false
-  xy: 430, 132
+  xy: 350, 146
   size: 350, 200
   orig: 350, 200
   offset: 0, 0
   index: -1
 pad
   rotate: false
-  xy: 0, 132
+  xy: 776, 66
   size: 80, 80
   orig: 80, 80
   offset: 0, 0

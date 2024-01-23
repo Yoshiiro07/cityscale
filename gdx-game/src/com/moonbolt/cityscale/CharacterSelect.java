@@ -474,7 +474,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				if(state.equals("Change")) {
 					player.SetActiveChar(selectedchar);
 					gameControl.SaveData(player);
-					this.screen.screenSwitch("LoadingScreen", network);
+					
+					if(player.Map_A.equals("MetroStation")) {
+						this.screen.screenSwitch("MetroStation", network);
+					}
+					else {
+						this.screen.screenSwitch("LoadingScreen", network);
+					}					
 				}
 							
 				spr_testeDot.setPosition(41,31);
