@@ -40,25 +40,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private MainGame game;
 	    private ManagerScreen screen;
 	    private GameControl gameControl;
-	    private FileHandle file;
-	    private Json json;
-	    private Random randnumber;
 	    private String state = "main";
-	    private String shop = "";
 	    private Sprite spr_master;
-	    private Sprite spr_shop;
 	    private String SysMsg = "";
-	    private int countExit = 100;
 	    private int SysMsgCount = 0;    
 	    private int savedataTime = 500;
-	    private boolean onlineAuth = false;
-	    private boolean versionDif = false; 
-	    private boolean uploadDone = false;
-	    private boolean notmp = false;
-	    private boolean accountnumber = false;
-		private float npcWalk1 = 100;
-	    private float npcWalk2 = -20;
-	    private TextureAtlas atlas_generic;
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -73,62 +59,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Player player;
 	    private float playerPosX;
 	    private float playerPosY;
-	    private float plPosX;
-	    private float plPosY;
-	    private float touchSkillX;
-	    private float touchSkillY;
 	    private boolean movement = false;	
-	        	    
-	    //Player UI
-	    private Sprite spr_playerTag;
-	    private Sprite spr_touchpad;
-	    private Sprite spr_playerMenu;
-	    private Sprite spr_target;
-	    private Sprite spr_baritemdesc;
-	    private float padX = -60;
-	    private float padY = -55;
-	    private int countSwitchTarget = 0;
-	    private int showDropMsg = 0;
-	    private String menuOptions = "";
-	    private String itemdropname = "";
-	    private String detailItem = "";
-	    private boolean showDescription = false;
-	    private boolean selectAreaRanged = false;
 	     
 	    //Mob
-	    private Sprite spr_mob;
 	    private ArrayList<Monster> lstMobs;
-	    private int mobFrame = 1;
-	    private float mobPositionCoordX = 0;
-	    private float mobPositionCoordY = 0;
-	    private int mobRandomSt = 0;
-	    private int mobTimerMov = 100;
-	    private int mobTimerFrame = 40;
 	    
 	    //Online
 	    private ArrayList<Player> lstOnlinePlayers;
-	    private int countCleanOnline = 800;
-		private String retornoOnline = "";
-		private int threahCountSyncPlayer = 0;
-		private int threahCountSyncChat = 0;
-		private int threahCountSyncMob = 0;
-		private boolean network = true;
-		private boolean playerMobSync = false;
-		private boolean keepnetwork = false;
-	    private boolean receiveExpOnline = true;
-		private Sprite spr_playerOnline;
-	    private Sprite spr_hairOnline;
-	    private Sprite spr_hatOnline;	 
-	    private Sprite spr_weaponOnline;
-	    private Player newOnlinePlayer;
-	    private int timerreceiveExpOnline = 0;
-	    private int GiveExp = 0;
-	    private int timerGiveExp = 100;
-	    private int countParty = 0;
-	    private Thread thrOnlineSyncPlayer;
-		private Thread thrOnlineSyncChat;
-		private Thread thrOnlineSyncMob;
-				
+	    		
 	    //Chats
 	    private ArrayList<String> lstChats;
 	    
@@ -136,16 +74,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private ArrayList<Damage> lstDamage;
 	    
 	    //Skills
-	    private boolean showZone = false;
-	    private int countZoneSkill = 0;
 	    private ArrayList<Skill> lstSkills;
-	    
-	    //NPC
-	    private float npcsideleft;
-	    private float npcsideright;
-	    private String steptalk = "";
-	    private int npcframe = 1;
-	    private boolean setNPCSdefault = true;
 	    
 	    //Sprites Background
 	    private Sprite spr_Background;
@@ -154,8 +83,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    //Teste Dot
 	    private Sprite spr_testeDot;
 	    private Texture tex_testeDot;
-	    private float testX;
-	    private float testY;
 	    
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
@@ -163,33 +90,24 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public GameMap(MainGame _game,ManagerScreen _screen, boolean _network) {
 			this.game = _game;	
 			this.screen = _screen;
-			this.json = new Json();
-			this.randnumber = new Random();
-			this.network = network;
 			this.gameControl = new GameControl();
 			
 			lstOnlinePlayers = new ArrayList<Player>();
 			lstDamage = new ArrayList<Damage>();
 			lstSkills = new ArrayList<Skill>();
 			lstChats = new ArrayList<String>();
-			newOnlinePlayer = new Player();
 			
-			//Set list of chats
-			lstChats.add(""); lstChats.add(""); lstChats.add(""); 
-
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 			
 			//Load Player Data
-			file = Gdx.files.local("SaveData/save.json");		
-			player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
+			player = gameControl.LoadData();
 			
 			//Load Title
-			if(player.Map_A.equals("StreetsA")) {
-				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); 
-			}
-			
+			if(player.Map_A.equals("MetroStation")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));  }
+			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); }
+				
 			spr_Background = new Sprite(tex_Background);
 					
 			//Camera and Inputs
@@ -204,22 +122,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.11f);
 			font_master.setUseIntegerPositions(false);	
-					
-			player.party_A = "none";
-			player.playerInAttack_A = "no";
-			player.playerInBattle_A = "no";
-			player.playerInCast_A = "no";
 		}
 			
 		@Override
 		public void render(float delta) {
 			try {
 				savedataTime--;
-				if(savedataTime < 0) {
-					savedataTime = 700;
-			
-				}
-			
+				if(savedataTime < 0) { savedataTime = 700;}
+				
 				//Just for coloring
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -244,6 +154,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_Background.setPosition(-70,-70);
 				spr_Background.setSize(136, 140);
 				spr_Background.draw(game.batch);
+				
+				//Player
+				
 												
 				//Teste				
 				//spr_testeDot.setPosition(54, -10f);

@@ -283,11 +283,13 @@ public class GameControl {
 					spr_master = atlas_generic.createSprite("b_male_front1");
 					spr_master.setPosition(-48.5f, -40f);
 					spr_master.setSize(14, 25);
+					return spr_master;
 				}
 				if(player.Sex_1.equals("F")) { 
 					spr_master = atlas_generic.createSprite("b_female_front1");
 					spr_master.setPosition(-48.9f, -40f);
 					spr_master.setSize(15, 30);
+					return spr_master;
 				}
 			}
 			if(charnum == 2) {
@@ -295,11 +297,13 @@ public class GameControl {
 					spr_master = atlas_generic.createSprite("b_male_front1");
 					spr_master.setPosition(-9.5f, -40f);
 					spr_master.setSize(14, 25);
+					return spr_master;
 				}
 				if(player.Sex_2.equals("F")) { 
 					spr_master = atlas_generic.createSprite("b_female_front1");
 					spr_master.setPosition(-10.2f, -40f);
 					spr_master.setSize(15, 30);
+					return spr_master;
 				}
 			}
 			if(charnum == 3) {
@@ -307,14 +311,22 @@ public class GameControl {
 					spr_master = atlas_generic.createSprite("b_male_front1");
 					spr_master.setPosition(29.2f, -40f);
 					spr_master.setSize(14, 25);
+					return spr_master;
 				}
 				if(player.Sex_3.equals("F")) { 
 					spr_master = atlas_generic.createSprite("b_female_front1");
 					spr_master.setPosition(28.5f, -40f);
 					spr_master.setSize(15, 30);
+					return spr_master;
 				}
 			}
 		}
+		
+		
+		int frame = player.Frame_A;
+		
+		
+		
 		
 		return spr_master;
 	}

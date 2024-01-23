@@ -54,6 +54,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private Sprite spr_hat1;
 	    private Sprite spr_hat2;
 	    private Sprite spr_hat3;
+	    private int selectedchar = 0;
 	    
 	    //Sprites
 	    private Sprite spr_Background;
@@ -377,20 +378,110 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				
 				if(state.equals("Selected")) {
 					
+					//selecione
+					spr_master = atlas_gameUI.createSprite("selecionepersonagem");
+					spr_master.setPosition(-65, 50);
+					spr_master.setSize(50,8);
+					spr_master.draw(game.batch);
+					
+					
+					if(selectedchar == 1) {
+						if(!player.Name_1.equals("none")) {								
+							gameControl.PutActiveSet(player.SetBottom_1);
+							spr_player = gameControl.CharacterMoveBottom("Menu",1);
+							spr_player.draw(game.batch);
+							
+							gameControl.PutActiveSet(player.SetUpper_1);
+							spr_player = gameControl.CharacterMoveUpper("Menu",1);
+							spr_player.draw(game.batch);
+							
+							if(player.Hair_1.equals("hair1")) { spr_hair1 = atlas_hairs1.createSprite(hair + color + player.Sex_1 + "Front"); }
+							if(player.Hair_1.equals("hair2")) { spr_hair1 = atlas_hairs2.createSprite(hair + color + player.Sex_1 + "Front"); }
+							
+							spr_hair1.setPosition(-49.5f, -11f);
+							spr_hair1.setSize(16, 29);
+							spr_hair1.draw(game.batch);					
+						}
+						
+						spr_master = atlas_gameUI.createSprite("charmenuselect");
+						spr_master.setPosition(20, 17);
+						spr_master.setSize(50,50);
+						spr_master.draw(game.batch);
+						
+						font_master.draw(game.batch, player.Name_1 , 32 , 55);
+						font_master.draw(game.batch, String.valueOf(player.Level_1), 32 , 48.5f);
+						font_master.draw(game.batch, player.Map_1 , 32 , 42);
+						font_master.draw(game.batch, player.Job_1 , 34 , 36.5f);
+					}
+					if(selectedchar == 2) {
+						if(!player.Name_2.equals("none")) {		
+							gameControl.PutActiveSet(player.SetBottom_2);
+							spr_player = gameControl.CharacterMoveBottom("Menu",2);
+							spr_player.draw(game.batch);
+							
+							gameControl.PutActiveSet(player.SetUpper_2);
+							spr_player = gameControl.CharacterMoveUpper("Menu",2);
+							spr_player.draw(game.batch);
+
+							if(player.Hair_2.equals("hair1")) { spr_hair2 = atlas_hairs1.createSprite(hair + color + player.Sex_2 + "Front"); }
+							if(player.Hair_2.equals("hair2")) { spr_hair2 = atlas_hairs2.createSprite(hair + color + player.Sex_2 + "Front"); }
+
+							spr_hair2.setPosition(-10.7f, -11.5f);
+							spr_hair2.setSize(16, 29);
+							spr_hair2.draw(game.batch);					
+						}		
+						
+						spr_master = atlas_gameUI.createSprite("charmenuselect");
+						spr_master.setPosition(20, 17);
+						spr_master.setSize(50,50);
+						spr_master.draw(game.batch);
+						
+						font_master.draw(game.batch, player.Name_2, 32 , 55);
+						font_master.draw(game.batch, String.valueOf(player.Level_2), 32 , 48.5f);
+						font_master.draw(game.batch, player.Map_2 , 32 , 42);
+						font_master.draw(game.batch, player.Job_2 , 34 , 36.5f);
+					}
+					if(selectedchar == 3) {
+						if(!player.Name_3.equals("none")) {		
+							gameControl.PutActiveSet(player.SetBottom_3);
+							spr_player = gameControl.CharacterMoveBottom("Menu",3);
+							spr_player.draw(game.batch);
+							
+							gameControl.PutActiveSet(player.SetUpper_3);
+							spr_player = gameControl.CharacterMoveUpper("Menu",3);
+							spr_player.draw(game.batch);
+
+							if(player.Hair_3.equals("hair1")) { spr_hair3 = atlas_hairs1.createSprite(hair + color + player.Sex_3 + "Front"); }
+							if(player.Hair_3.equals("hair2")) { spr_hair3 = atlas_hairs2.createSprite(hair + color + player.Sex_3 + "Front"); }
+
+							spr_hair3.setPosition(28.1f, -11f);
+							spr_hair3.setSize(16, 29);
+							spr_hair3.draw(game.batch);			
+						}
+						
+						spr_master = atlas_gameUI.createSprite("charmenuselect");
+						spr_master.setPosition(20, 17);
+						spr_master.setSize(50,50);
+						spr_master.draw(game.batch);
+						
+						font_master.draw(game.batch, player.Name_3, 32 , 55);
+						font_master.draw(game.batch, String.valueOf(player.Level_3), 32 , 48.5f);
+						font_master.draw(game.batch, player.Map_3 , 32 , 42);
+						font_master.draw(game.batch, player.Job_3 , 34 , 36.5f);
+					}
 				}
-				
-				
-				if(state.equals("change")) {
+					
+				if(state.equals("Change")) {
+					player.SetActiveChar(selectedchar);
+					gameControl.SaveData(player);
 					this.screen.screenSwitch("LoadingScreen", network);
 				}
-				
-				
-						
-				spr_testeDot.setPosition(18,20);
+							
+				spr_testeDot.setPosition(41,31);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(50, -40);
+				spr_testeDot.setPosition(65, 20);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 					
@@ -482,18 +573,21 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				//Char 1
 				if(coordsTouch.x >= -55 && coordsTouch.x <= -28 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
 					state = "Selected";
+					selectedchar = 1;
 					return false;
 				}	
 				
 				//Char 2
 				if(coordsTouch.x >= -20 && coordsTouch.x <= 12 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
 					state = "Selected";
+					selectedchar = 2;
 					return false;
 				}	
 				
 				//Char 3
 				if(coordsTouch.x >= 18 && coordsTouch.x <= 50 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
 					state = "Selected";
+					selectedchar = 3;
 					return false;
 				}
 			}
@@ -568,6 +662,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				//Voltar
 				if(coordsTouch.x >=  + 39 && coordsTouch.x <= 60 && coordsTouch.y >= -62 && coordsTouch.y <= -50) {
 					state = "Main";			
+					return false;
+				}
+				//Selected
+				if(coordsTouch.x >=  + 41 && coordsTouch.x <= 65 && coordsTouch.y >= 20 && coordsTouch.y <= 31) {
+					state = "Change";			
 					return false;
 				}
 			}
