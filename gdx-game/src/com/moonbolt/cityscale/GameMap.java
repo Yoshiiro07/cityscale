@@ -62,6 +62,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private float playerPosY;
 	    private float touchPosX;
 	    private float touchPosY;
+	    private int showPosX = 0;
+	    private int showPosY = 0;
 	    private boolean movement = false;	
 	    private Sprite spr_playerUpper;
 	    private Sprite spr_playerBottom;
@@ -177,7 +179,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player = gameControl.GetPlayer();
 				
 				
-				//[Interface]//
+				/////[Interface]/////
 				
 				//arrowmove
 				spr_master = gameControl.GetInterface("arrowmove");
@@ -191,11 +193,28 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.setSize(50, 30);
 				spr_master.draw(game.batch);
 				
+				font_master.draw(game.batch, player.Name_A , cameraCoordsX - 81 , cameraCoordsY + 123);
+				font_master.draw(game.batch, String.valueOf(player.Hp_A), cameraCoordsX - 84 , cameraCoordsY + 116);
+				font_master.draw(game.batch, String.valueOf(player.Mp_A) , cameraCoordsX - 69 , cameraCoordsY + 116);
+				font_master.draw(game.batch, String.valueOf(player.Exp_A) , cameraCoordsX - 68 , cameraCoordsY + 110);
+				font_master.draw(game.batch, String.valueOf(player.Level_A) , cameraCoordsX - 80 , cameraCoordsY + 110);
+				
+				showPosX = Math.round(player.PosX_A);
+				showPosY = Math.round(player.PosX_A);
+				font_master.draw(game.batch, String.valueOf(showPosX), cameraCoordsX - 84 , cameraCoordsY + 116);
+				font_master.draw(game.batch, String.valueOf(showPosY) , cameraCoordsX - 69 , cameraCoordsY + 116);
+				
 				//cards
 				spr_master = gameControl.GetInterface("cardaction");
-				spr_master.setPosition(cameraCoordsX - 99, cameraCoordsY + 98);
-				spr_master.setSize(50, 30);
+				spr_master.setPosition(cameraCoordsX + 78, cameraCoordsY - 65);
+				spr_master.setSize(15, 35);
 				spr_master.draw(game.batch);
+				
+				
+				
+				
+				//ShowNPCS
+				ShowNPC();
 				
 				
 				//Teste				
@@ -203,11 +222,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
-				spr_testeDot.setPosition(30, - 40);
+				spr_testeDot.setPosition(cameraCoordsX - 100, cameraCoordsY + 126);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
-				spr_testeDot.setPosition(45, - 65);
+				spr_testeDot.setPosition(cameraCoordsX - 63, cameraCoordsY + 100);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -242,6 +261,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public void canceled() {}
+		
+		
+		public void ShowNPC() {
+			spr_master = gameControl.ShowNPC("guard");
+			spr_master.setPosition(0, 0);
+			spr_master.setSize(0, 0);
+			spr_master.draw(game.batch);
+		}
 
 		@Override
 		public boolean keyDown(int keycode) {
@@ -372,9 +399,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			
 			if(state.equals("Main")) {
+				
+				if(coordsTouch.x >=  cameraCoordsX - 100 && coordsTouch.x <= cameraCoordsX - 63 && coordsTouch.y >= cameraCoordsY + 100 && coordsTouch.y <= cameraCoordsY + 126) {
+					state = "Menu";
+					return false;
+				}
+				
 				touchPosX = coordsTouch.x;
 				touchPosY = coordsTouch.y;
 				gameControl.SetCharSide(touchPosX, touchPosY);
+			}
+			
+			if(state.equals("Menu")) {
+				
 			}
 			
 			return false;		

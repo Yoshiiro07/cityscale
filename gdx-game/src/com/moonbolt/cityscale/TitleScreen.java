@@ -112,7 +112,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			font_master.setUseIntegerPositions(false);	
 			
 			//Atlas
-			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/UI/uirenew.txt"));
+			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/interface/uirenew.txt"));
 		}
 			
 		@Override

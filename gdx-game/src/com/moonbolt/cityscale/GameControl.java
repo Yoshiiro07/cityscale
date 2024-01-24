@@ -120,7 +120,7 @@ public class GameControl {
 		randnumber = new Random();
 		
 		//Atlas
-		atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/ui/uirenew.txt"));
+		atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/interface/uirenew.txt"));
 		
 		atlas_hair1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs1.txt"));
 		atlas_hair2 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs2.txt"));
@@ -131,7 +131,10 @@ public class GameControl {
 		
 		atlas_cards = new TextureAtlas(Gdx.files.internal("data/assets/cards/cards.txt"));
 		
-		atlas_ui = new TextureAtlas(Gdx.files.internal("data/assets/UI/uirenew.txt"));
+		atlas_ui = new TextureAtlas(Gdx.files.internal("data/assets/interface/uirenew.txt"));
+		
+		
+		atlas_npcs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/npcs/npcs1.txt"));
 	}
 	
 	//[DATA CONTROL]//
@@ -607,6 +610,18 @@ public class GameControl {
 	public Sprite CharacterMoveHat() {
 		
 		return spr_master;
+	}
+	
+	
+	
+	public Sprite ShowNPC(String npctype) {
+	
+		if(npctype.equals("guard")) {
+			spr_master = atlas_npcs1.createSprite("guard1");
+		}
+		
+		return spr_master;
+		
 	}
 	
 	

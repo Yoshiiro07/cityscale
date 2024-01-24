@@ -119,7 +119,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			font_master.setUseIntegerPositions(false);	
 			
 			//Atlas
-			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/UI/uirenew.txt"));
+			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/interface/uirenew.txt"));
 			atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/sets/basic/basic.txt"));
 			atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs1.txt"));
 			atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs2.txt"));		
