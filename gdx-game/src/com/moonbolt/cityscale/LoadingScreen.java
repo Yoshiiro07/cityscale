@@ -27,7 +27,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	
 	//Loading Variables
 	private boolean loading = true;
-	private int loadtime = 300;
+	private int loadtime = 10;
 	
 	//Sprites
 	private Sprite spr_loadingBlack;

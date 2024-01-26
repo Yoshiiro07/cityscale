@@ -189,44 +189,53 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//player tag
 				spr_master = gameControl.GetInterface("tagplayer");
-				spr_master.setPosition(cameraCoordsX - 99, cameraCoordsY + 98);
-				spr_master.setSize(50, 30);
+				spr_master.setPosition(cameraCoordsX - 99, cameraCoordsY + 90);
+				spr_master.setSize(60, 40);
 				spr_master.draw(game.batch);
 				
-				font_master.draw(game.batch, player.Name_A , cameraCoordsX - 81 , cameraCoordsY + 123);
-				font_master.draw(game.batch, String.valueOf(player.Hp_A), cameraCoordsX - 84 , cameraCoordsY + 116);
-				font_master.draw(game.batch, String.valueOf(player.Mp_A) , cameraCoordsX - 69 , cameraCoordsY + 116);
-				font_master.draw(game.batch, String.valueOf(player.Exp_A) , cameraCoordsX - 68 , cameraCoordsY + 110);
-				font_master.draw(game.batch, String.valueOf(player.Level_A) , cameraCoordsX - 80 , cameraCoordsY + 110);
+				
+				font_master.getData().setScale(0.13f,0.20f);
+				font_master.setUseIntegerPositions(false);	
+				
+				font_master.draw(game.batch, player.Name_A , cameraCoordsX - 77 , cameraCoordsY + 124);
+				font_master.draw(game.batch, String.valueOf(player.Hp_A), cameraCoordsX - 82 , cameraCoordsY + 115);
+				font_master.draw(game.batch, String.valueOf(player.Mp_A) , cameraCoordsX - 63 , cameraCoordsY + 115);
+				font_master.draw(game.batch, String.valueOf(player.Exp_A) , cameraCoordsX - 60 , cameraCoordsY + 105);
+				font_master.draw(game.batch, String.valueOf(player.Level_A) , cameraCoordsX - 77 , cameraCoordsY + 105);
 				
 				showPosX = Math.round(player.PosX_A);
 				showPosY = Math.round(player.PosX_A);
-				font_master.draw(game.batch, String.valueOf(showPosX), cameraCoordsX - 84 , cameraCoordsY + 116);
-				font_master.draw(game.batch, String.valueOf(showPosY) , cameraCoordsX - 69 , cameraCoordsY + 116);
+				font_master.draw(game.batch, "X:" + String.valueOf(showPosX), cameraCoordsX - 90 , cameraCoordsY + 90);
+				font_master.draw(game.batch, "Y:" + String.valueOf(showPosY) , cameraCoordsX - 75 , cameraCoordsY + 90);
 				
 				//cards
 				spr_master = gameControl.GetInterface("cardaction");
 				spr_master.setPosition(cameraCoordsX + 78, cameraCoordsY - 65);
-				spr_master.setSize(15, 35);
+				spr_master.setSize(13, 32);
 				spr_master.draw(game.batch);
 				
 				
-				
+				if(state.equals("Menu"))
+				{
+					spr_master = gameControl.GetInterface("charmenu");
+					spr_master.setPosition(cameraCoordsX - 90, cameraCoordsY - 65);
+					spr_master.setSize(180, 155);
+					spr_master.draw(game.batch);
+				}
 				
 				//ShowNPCS
 				ShowNPC();
-				
 				
 				//Teste				
 				spr_testeDot.setPosition(touchPosX, touchPosY);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
-				spr_testeDot.setPosition(cameraCoordsX - 100, cameraCoordsY + 126);
+				spr_testeDot.setPosition(cameraCoordsX + 79, cameraCoordsY + 85);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
-				spr_testeDot.setPosition(cameraCoordsX - 63, cameraCoordsY + 100);
+				spr_testeDot.setPosition(cameraCoordsX + 87, cameraCoordsY + 72);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -400,7 +409,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(state.equals("Main")) {
 				
-				if(coordsTouch.x >=  cameraCoordsX - 100 && coordsTouch.x <= cameraCoordsX - 63 && coordsTouch.y >= cameraCoordsY + 100 && coordsTouch.y <= cameraCoordsY + 126) {
+				if(coordsTouch.x >=  cameraCoordsX - 100 && coordsTouch.x <= cameraCoordsX - 56 && coordsTouch.y >= cameraCoordsY + 93 && coordsTouch.y <= cameraCoordsY + 126) {
 					state = "Menu";
 					return false;
 				}
@@ -411,7 +420,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			if(state.equals("Menu")) {
-				
+				if(coordsTouch.x >=  cameraCoordsX + 79 && coordsTouch.x <= cameraCoordsX + 87 && coordsTouch.y >= cameraCoordsY + 72 && coordsTouch.y <= cameraCoordsY + 85) {
+					state = "Main";
+					return false;
+				}
 			}
 			
 			return false;		

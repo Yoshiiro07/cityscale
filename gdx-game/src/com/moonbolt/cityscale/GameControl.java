@@ -231,15 +231,16 @@ public class GameControl {
 		
 		if(item.equals("tagplayer")) {
 			spr_master = atlas_ui.createSprite("tagplayer");
-			spr_master.setSize(50, 50);
-			spr_master.setPosition(18, -65);
 			return spr_master;
 		}
 		
 		if(item.equals("cardaction")) {
 			spr_master = atlas_cards.createSprite("cardaction");
-			spr_master.setSize(50, 50);
-			spr_master.setPosition(18, -65);
+			return spr_master;
+		}
+		
+		if(item.equals("charmenu")) {
+			spr_master = atlas_ui.createSprite("charmenu");
 			return spr_master;
 		}
 		
