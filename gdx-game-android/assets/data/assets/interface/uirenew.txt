@@ -1,5 +1,5 @@
 uirenew.png
-size: 857, 1471
+size: 857, 1846
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -141,6 +141,13 @@ mainmenu
   xy: 350, 146
   size: 350, 200
   orig: 350, 200
+  offset: 0, 0
+  index: -1
+menudungeon
+  rotate: false
+  xy: 0, 1471
+  size: 660, 375
+  orig: 660, 375
   offset: 0, 0
   index: -1
 pad

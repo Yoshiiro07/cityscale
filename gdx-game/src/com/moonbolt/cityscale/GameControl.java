@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -71,6 +72,7 @@ public class GameControl {
     private TextureAtlas atlas_hatFrame;
     
     private TextureAtlas atlas_mobSewers;
+    private TextureAtlas atlas_mobGeneric;
     
     private TextureAtlas atlas_tripleattack;
     private TextureAtlas atlas_rockbound;
@@ -109,6 +111,7 @@ public class GameControl {
     //[BATTLE]//
     //[COLISIONS]//
     //[CHARACTER]//
+    //[MONSTERS]//
 	
 	private Player player;
 	private Json json;
@@ -244,6 +247,16 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		if(item.equals("ballonguard")) {
+			spr_master = atlas_ui.createSprite("bartext");
+			return spr_master;
+		}
+		
+		if(item.equals("dungeonselector")) {
+			spr_master = atlas_ui.createSprite("menudungeon");
+			return spr_master;
+		}
+		
 		if(item.equals("selecionepersonagem")) { spr_master = atlas_ui.createSprite("mainmenu"); return spr_master;}		
 		if(item.equals("btncriar")) { spr_master = atlas_ui.createSprite("btncriar"); return spr_master;}
 		if(item.equals("btnexcluir")) { spr_master = atlas_ui.createSprite("btnexcluir"); return spr_master;}
@@ -255,12 +268,40 @@ public class GameControl {
 	}
 	
 	
+	public void UseItem(int num) {
+		
+	}
+	
+	
+	public Sprite GetItemIcon(String itemname) {
+		
+		
+		
+		return spr_master;
+	}
+	
+	
 	//[COLISIONS]//
 	
 	
 	
 	//[BATTLE]//
 	
+	
+	
+	//[MONSTERS]//
+	public ArrayList<Monster> LoadMonsters(String map){
+		Monster mobplaceholder = new Monster();
+		return mobplaceholder.LoadMonsters(map);
+	}
+	
+	public Sprite GetSpriteMonster(String map, String mobdata) {
+		
+		if(map.equals("Sewers")) { atlas_mobGeneric = atlas_mobSewers; }		
+		spr_master = atlas_mobGeneric.createSprite(mobdata);
+		
+		return spr_master;
+	}
 	
 	//[CHARACTER]//
 	public void PutActiveSet(String setactive){
@@ -604,6 +645,25 @@ public class GameControl {
 		}
 		
 		
+		
+		return spr_master;
+	}
+	
+	public Sprite MenuHair(float cameraX, float cameraY) {
+		
+		if(player.Hair_A.equals("hair1")) { atlas_hairsgeneric = atlas_hair1;}
+		
+		
+		if(player.Sex_A.equals("M")) {
+			spr_master = atlas_hairsgeneric.createSprite("hair1" + player.Color_A + player.Sex_A + "Front"); 
+			spr_master.setPosition(cameraX - 103f, cameraY + 96f);
+			spr_master.setSize(20, 35);				
+		}
+		if(player.Sex_A.equals("F")) {
+			spr_master = atlas_hairsgeneric.createSprite("hair1" + player.Color_A + player.Sex_A + "Front");
+			spr_master.setPosition(cameraX - 103f, cameraY + 96f);
+			spr_master.setSize(20, 35);	
+		}
 		
 		return spr_master;
 	}

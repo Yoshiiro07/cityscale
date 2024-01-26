@@ -200,6 +200,8 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			//Change to CityStreets (RPG side)
 			if(player.PosX_A > 30 && player.PosX_A < 45 && player.PosY_A > - 65 && player.PosY_A < - 40) {
 				player.Map_A = "StreetsA";
+				player.PosX_A = 220;
+				player.PosY_A = -120;
 				gameControl.SetPlayer(player);
 				gameControl.SaveData(player);
 				state = "Change";
