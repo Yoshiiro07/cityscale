@@ -136,8 +136,9 @@ public class GameControl {
 		
 		atlas_ui = new TextureAtlas(Gdx.files.internal("data/assets/interface/uirenew.txt"));
 		
-		
 		atlas_npcs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/npcs/npcs1.txt"));
+		
+		atlas_mobSewers = new TextureAtlas(Gdx.files.internal("data/assets/mobs/mobSewers.txt"));
 	}
 	
 	//[DATA CONTROL]//
@@ -241,6 +242,14 @@ public class GameControl {
 			spr_master = atlas_cards.createSprite("cardaction");
 			return spr_master;
 		}
+		if(item.equals("cardactionON")) {
+			spr_master = atlas_cards.createSprite("cardactionON");
+			return spr_master;
+		}
+		if(item.equals("cardtarget")) {
+			spr_master = atlas_cards.createSprite("cardtarget");
+			return spr_master;
+		}
 		
 		if(item.equals("charmenu")) {
 			spr_master = atlas_ui.createSprite("charmenu");
@@ -299,7 +308,6 @@ public class GameControl {
 		
 		if(map.equals("Sewers")) { atlas_mobGeneric = atlas_mobSewers; }		
 		spr_master = atlas_mobGeneric.createSprite(mobdata);
-		
 		return spr_master;
 	}
 	

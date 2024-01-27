@@ -50,8 +50,8 @@ public class Monster {
 			newMob1.MobExp = 2;
 			newMob1.MobID = "SlimeA";
 			newMob1.MobMoney = 1;
-			newMob1.MobSizeY = 17;
-			newMob1.MobSizeX = 9;
+			newMob1.MobSizeY = 30;
+			newMob1.MobSizeX = 12;
 			newMob1.MobTarget = "none";
 			newMob1.MobDead = "no";
 			newMob1.MobTimeDead = 0;

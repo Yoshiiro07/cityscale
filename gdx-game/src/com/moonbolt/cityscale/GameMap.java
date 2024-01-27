@@ -69,6 +69,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_playerUpper;
 	    private Sprite spr_playerBottom;
 	    private Sprite spr_playerHair;
+	    private boolean AutoAttack = false;
+	    private int countSwitchTarget = 0;
 	     
 	    //Mob
 	    private Monster mob;
@@ -111,6 +113,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			this.mob = new Monster();
 			this.randnumber = new Random();
 			
+			lstMobs = new ArrayList<Monster>();
 			lstOnlinePlayers = new ArrayList<Player>();
 			lstDamage = new ArrayList<Damage>();
 			lstSkills = new ArrayList<Skill>();
@@ -125,7 +128,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Load Title
 			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); }
-			if(player.Map_A.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/Sewers.png")); }
+			if(player.Map_A.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png")); }
 			
 			
 			if(player.Map_A.equals("Sewers")) { lstMobs = gameControl.LoadMonsters("Sewers"); }
@@ -229,17 +232,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.draw(game.batch, "Y:" + String.valueOf(showPosY) , cameraCoordsX - 75 , cameraCoordsY + 90);
 				
 				//cards action
-				spr_master = gameControl.GetInterface("cardaction");
-				spr_master.setPosition(cameraCoordsX + 78, cameraCoordsY - 65);
-				spr_master.setSize(13, 32);
-				spr_master.draw(game.batch);
+				if(AutoAttack) {
+					spr_master = gameControl.GetInterface("cardactionON");
+					spr_master.setPosition(cameraCoordsX + 78, cameraCoordsY - 65);
+					spr_master.setSize(13, 32);
+					spr_master.draw(game.batch);
+				}
+				else {
+					spr_master = gameControl.GetInterface("cardaction");
+					spr_master.setPosition(cameraCoordsX + 78, cameraCoordsY - 65);
+					spr_master.setSize(13, 32);
+					spr_master.draw(game.batch);
+				}
+				
+				if(player.Map_A.equals("Sewers")) {
+					spr_master = gameControl.GetInterface("cardtarget");
+					spr_master.setPosition(cameraCoordsX + 78, cameraCoordsY - 30);
+					spr_master.setSize(13, 32);
+					spr_master.draw(game.batch);
+				}
 				
 				//cards job
 				
 				
 				
 				//Show Monsters
-				//ShowMobs();
+				ShowMobs();
 				
 				
 				if(state.equals("Menu"))
@@ -284,11 +302,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
-				spr_testeDot.setPosition(cameraCoordsX - 87, cameraCoordsY + 64);
+				spr_testeDot.setPosition(cameraCoordsX + 90, cameraCoordsY - 30);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
-				spr_testeDot.setPosition(cameraCoordsX - 8, cameraCoordsY + 45);
+				spr_testeDot.setPosition(cameraCoordsX + 78, cameraCoordsY + 2);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -305,113 +323,303 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		
+		public void CheckAutoAttack() {
+			if(player.Map_A.equals("Sewers") && AutoAttack) {
+				for(int i = 0; i < lstMobs.size(); i++) {
+					
+					if(player.Target_A.equals(lstMobs.get(i).MobID)) {
+						 
+						if((lstMobs.get(i).MobPosX + 20) > (player.PosX_A) && (lstMobs.get(i).MobPosX) < (player.PosX_A)
+						   && (lstMobs.get(i).MobPosY) > (player.PosY_A) && (lstMobs.get(i).MobPosY + 30) < (player.PosY_A)) {
+							player.playerInBattle_A = "yes";
+							player.AtkTimer_A--;
+							
+							if(player.AtkTimer_A < (player.AtkTimerMax_A - 10) && player.playerInAttack_A.equals("yes")) {
+								player.playerInAttack_A = "no";
+							}
+							
+							if(player.AtkTimer_A <= 0) { 	
+								int atkweapon = 5;
+								int mobhp = lstMobs.get(i).MobHp; //CheckDamageDifer(lstMobs.get(i).MobHpMax, 1);
+								int damagehit = player.Atk_A + atkweapon + player.Str_A;
+								
+								/*if(CheckMobEvade()) { 
+									GameObject damage = new GameObject();
+									damage.DamagePosX = lstMobs.get(i).MobPosX;
+									damage.DamagePosY = lstMobs.get(i).MobPosY;
+									damage.DamageTime = 100;
+									damage.DamageType = "mob";
+									damage.DamageValue = 0;
+									lstDamage.add(damage);
+									return; 
+								}*/
+								
+								if(network) {
+									/*int mobHpGet = lstMobs.get(i).MobHp;
+									int st = player.Stamina_A;
+									if(st > 0) { mobHpGet =  mobHpGet - damagehit;  } else {  mobHpGet =  mobHpGet - 5; }								
+									OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHpGet));
+									if(mobHpGet < 0) { mobHpGet = 0; }
+									if(mobHpGet <= 0) { 					
+										player.Target = "none";
+										player.AtkTimer = player.AtkTimerMax;
+										player.playerInBattle = "no";
+									    player.playerInAttack = "no";
+									    player.playerInCast = "no";	
+									    autoattack = false;
+									    
+									    ItemDrop(lstMobs.get(i).MobName);
+									    player.Money = player.Money + 2;
+									    GiveExp(lstMobs.get(i).MobExp);
+									    return;
+									}									
+									GameObject damage = new GameObject();
+									damage.DamagePosX = lstMobs.get(i).MobPosX;
+									damage.DamagePosY = lstMobs.get(i).MobPosY;
+									damage.DamageTime = 100;
+									damage.DamageType = "mob";
+									damage.DamageValue = damagehit;
+									lstDamage.add(damage);
+									
+									player.AtkTimer = player.AtkTimerMax;
+									player.playerInAttack = "yes";
+									lstMobs.get(i).MobTarget = player.Name;	*/
+								}
+								else {
+									int st = player.Stamina_A;
+									if(st > 0) { mobhp = mobhp - damagehit;  } else {  mobhp = mobhp - 5; }								
+									if(mobhp < 0) { mobhp = 0; }
+									lstMobs.get(i).MobHp = mobhp;
+									
+									if(lstMobs.get(i).MobHp <= 0) { 
+										
+										player.Target_A = "none";
+										player.AtkTimer_A = player.AtkTimerMax_A;
+										player.playerInBattle_A = "no";
+									    player.playerInAttack_A = "no";
+									    player.playerInCast_A = "no";	
+									    AutoAttack = false;
+									    
+									    //ItemDrop(lstMobs.get(i).MobName);
+									    player.Money_A = player.Money_A + 2;
+									    //GiveExp(lstMobs.get(i).MobExp);
+									    return;
+									}
+									
+									Damage damage = new Damage();
+									damage.DamagePosX = lstMobs.get(i).MobPosX;
+									damage.DamagePosY = lstMobs.get(i).MobPosY;
+									damage.DamageTime = 100;
+									damage.DamageType = "mob";
+									damage.DamageValue = damagehit;
+									lstDamage.add(damage);
+									
+									player.AtkTimer_A = player.AtkTimerMax_A;
+									player.playerInAttack_A = "yes";
+									lstMobs.get(i).MobTarget = player.Name_A;	
+								}
+									
+								
+								
+							}					
+						}
+						else {
+							player.playerInBattle_A = "no";
+						}
+					}
+				}
+			}
+		}
+		
+		public void CheckMobAutoAttack() {
+			if(player.Map_A.equals("Sewers")) {
+				for(int i = 0; i < lstMobs.size(); i++) {						
+					if(lstMobs.get(i).MobTarget.equals(player.Name_A)) {
+						if(player.PosX_A > (lstMobs.get(i).MobPosX - 5) && player.PosX_A < (lstMobs.get(i).MobPosX + 15)
+							   && player.PosY_A > (lstMobs.get(i).MobPosY - 7) && player.PosY_A < (lstMobs.get(i).MobPosY + 18)) {
+								
+								lstMobs.get(i).MobAtkTimer--;
+								if(lstMobs.get(i).MobAtkTimer <= 0) {
+									 int mobluck = randnumber.nextInt(100);
+									 if(mobluck > 5 && mobluck < 20) {
+										 player.Hp_A = player.Hp_A - ((lstMobs.get(i).MobAtk * 2) - player.Def_A);
+									 }
+									 if(mobluck >= 0 && mobluck < 5) {
+										 player.Hp_A = player.Hp_A - ((lstMobs.get(i).MobAtk * 3) - player.Def_A);
+									 }
+									 if(mobluck > 10)
+									 {
+										 player.Hp_A = player.Hp_A - (lstMobs.get(i).MobAtk - player.Def_A);
+									 }								 
+									 lstMobs.get(i).MobAtkTimer = lstMobs.get(i).MobAtkTimerMax;
+									 Damage damage = new Damage();
+									 damage.DamagePosX = lstMobs.get(i).MobPosX;
+									 damage.DamagePosY = lstMobs.get(i).MobPosY;
+									 damage.DamageTime = 100;
+									 damage.DamageType = "player";
+									 damage.DamageValue = lstMobs.get(i).MobAtk;
+									 lstDamage.add(damage);
+									 
+									if(player.Hp_A <= 0) {
+										//playerDead = true;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		
+		public void ShowDamage() {
+			
+			if(lstDamage.size() == 0) {
+				return;
+			}
+			
+			for(int i = 0; i < lstDamage.size(); i++) {
+				lstDamage.get(i).DamagePosY = lstDamage.get(i).DamagePosY + 0.4f;
+				lstDamage.get(i).DamageTime = lstDamage.get(i).DamageTime - 1;
+								
+				font_master.getData().setScale(0.10f,0.15f);
+				font_master.setUseIntegerPositions(false);
+				if(lstDamage.get(i).DamageType.equals("mob")) { font_master.setColor(Color.YELLOW); }
+				if(lstDamage.get(i).DamageType.equals("player")) { font_master.setColor(Color.RED); }
+				if(lstDamage.get(i).DamageType.equals("heal")) { font_master.setColor(Color.GREEN); }
+				
+				font_master.draw(game.batch, String.valueOf(lstDamage.get(i).DamageValue), lstDamage.get(i).DamagePosX, lstDamage.get(i).DamagePosY);
+				
+				if(lstDamage.get(i).DamageTime < 0) {
+					lstDamage.remove(lstDamage.get(i));
+				}
+			}
+		}
+		
+		
 		public void ShowMobs() {			
 			if(player.Map_A.equals("Sewers") || player.Map_A.equals("Watercave") || player.Map_A.equals("Mines") || player.Map_A.equals("Snowpalace") || player.Map_A.equals("Tower")) {
 				for(int i = 0; i < lstMobs.size(); i++) {
-					
-						//Target do player
-						if(player.Target_A.equals(lstMobs.get(i).MobID)) {
-							spr_master = gameControl.GetInterface("arrowmove");
-							spr_master.setPosition(lstMobs.get(i).MobPosX + 2, lstMobs.get(i).MobPosY + 16);
-							spr_master.setSize(4,8);
-							spr_master.draw(game.batch);
-						}
-									
-						mobTimerFrame = lstMobs.get(i).MobFrameTime;
-						if(mobTimerFrame > 0) {
-							mobTimerFrame--;
-							lstMobs.get(i).MobFrameTime = mobTimerFrame;
-						}
-						if(mobTimerFrame <= 0) {
-							mobTimerFrame = 40;
-							mobFrame = lstMobs.get(i).MobFrame;
-							mobFrame++;
-							if(mobFrame > 3) { mobFrame = 1;}
-							lstMobs.get(i).MobFrame = mobFrame;
-							lstMobs.get(i).MobFrameTime = 40;
-						}
-						
-						//Sem Target
-						if(lstMobs.get(i).MobTarget.equals("none")) {
-							mobTimerMov = lstMobs.get(i).MobTimerMov;
-							mobRandomSt = lstMobs.get(i).MobRandomSt;
-							if(mobTimerMov >= 0) { 
-								mobTimerMov--;
-								lstMobs.get(i).MobTimerMov = mobTimerMov;
-							}
-							if(mobTimerMov < 0) { 
-								mobRandomSt = randnumber.nextInt(4); 
-								mobTimerMov = 100; 
-								lstMobs.get(i).MobTimerMov = mobTimerMov;
-								lstMobs.get(i).MobRandomSt = mobRandomSt;
-							}
-												
-							if(mobRandomSt == 0) { 
-								mobPositionCoordX = lstMobs.get(i).MobPosX;
-								mobPositionCoordX = mobPositionCoordX + 0.07f; 
-								lstMobs.get(i).MobPosX = mobPositionCoordX;
-							}
-							if(mobRandomSt == 1) { 
-								mobPositionCoordX = lstMobs.get(i).MobPosX;
-								mobPositionCoordX = mobPositionCoordX - 0.07f;
-								lstMobs.get(i).MobPosX = mobPositionCoordX;
-							}
-							if(mobRandomSt == 2) { 
-								mobPositionCoordY = lstMobs.get(i).MobPosY;
-								mobPositionCoordY = mobPositionCoordY + 0.07f;
-								lstMobs.get(i).MobPosY = mobPositionCoordY;
-							}
-							if(mobRandomSt == 3) { 
-								mobPositionCoordY = lstMobs.get(i).MobPosY;
-								mobPositionCoordY = mobPositionCoordY - 0.07f;
-								lstMobs.get(i).MobPosY = mobPositionCoordY;
-							}
-						}
-						
-						if(lstMobs.get(i).MobTarget.equals(player.Name_A)) {
-							if(lstMobs.get(i).MobPosX < player.PosX_A + 3) { lstMobs.get(i).MobPosX = lstMobs.get(i).MobPosX + 0.07f; }
-							if(lstMobs.get(i).MobPosX > player.PosX_A + 3) { lstMobs.get(i).MobPosX = lstMobs.get(i).MobPosX - 0.07f; }
-							if(lstMobs.get(i).MobPosY < player.PosY_A - 6 ) { lstMobs.get(i).MobPosY = lstMobs.get(i).MobPosY + 0.07f; }
-							if(lstMobs.get(i).MobPosY > player.PosY_A - 6) { lstMobs.get(i).MobPosY = lstMobs.get(i).MobPosY - 0.07f; }
-						}
-						
-						//Limit screen
-						if(mobPositionCoordY >= 57 && lstMobs.get(i).MobDead.equals("no")) 
-						{						
-							lstMobs.get(i).MobPosY = 0;
-							lstMobs.get(i).MobPosX = 0;
-						}
-						if(mobPositionCoordY <= -73.5f && lstMobs.get(i).MobDead.equals("no")) 
-						{
-							lstMobs.get(i).MobPosY = 0;
-							lstMobs.get(i).MobPosX = 0;
-						}
-						if(mobPositionCoordX >= 45f && lstMobs.get(i).MobDead.equals("no")) 
-						{
-							lstMobs.get(i).MobPosY = 0;
-							lstMobs.get(i).MobPosX = 0;
-						}
-						if(mobPositionCoordX <= -66.5f && lstMobs.get(i).MobDead.equals("no")) 
-						{
-							lstMobs.get(i).MobPosY = 0;
-							lstMobs.get(i).MobPosX = 0;
-						}
-						
-						if(player.Map_A.equals("Sewers")) { spr_master = gameControl.GetSpriteMonster("Sewers",lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
-						//if(player.Map_A.equals("Watercave")) { spr_master = atlas_mobWatercave.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
-						//if(player.Map_A.equals("Mines")) { spr_master = atlas_mobMines.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
-						//if(player.Map_A.equals("Snowpalace")) { spr_master = atlas_mobSnowpalace.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
-						//if(player.Map_A.equals("Tower")) { spr_master = atlas_mobTower.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
-						spr_master.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY);
-						spr_master.setSize(lstMobs.get(i).MobSizeX, lstMobs.get(i).MobSizeY);
+
+					//Target do player
+					if(player.Target_A.equals(lstMobs.get(i).MobID)) {
+						spr_master = gameControl.GetInterface("arrowmove");
+						spr_master.setPosition(lstMobs.get(i).MobPosX + 7, lstMobs.get(i).MobPosY + 30);
+						spr_master.setSize(4,8);
 						spr_master.draw(game.batch);
-						
-						
-						mobPositionCoordX = lstMobs.get(i).MobPosX;
-						mobPositionCoordY = lstMobs.get(i).MobPosY;
-						mobPositionCoordY = mobPositionCoordY - 0.2f;
-						font_master.draw(game.batch, lstMobs.get(i).MobName + " HP :" + lstMobs.get(i).MobHp + "/" + lstMobs.get(i).MobHpMax ,mobPositionCoordX, mobPositionCoordY);
-					}			
+					}
+					
+					spr_testeDot.setPosition(lstMobs.get(i).MobPosX + 20, lstMobs.get(i).MobPosY);
+					spr_testeDot.setSize(1, 1);
+					spr_testeDot.draw(game.batch);
+					
+					spr_testeDot.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY);
+					spr_testeDot.setSize(1, 1);
+					spr_testeDot.draw(game.batch);
+					
+					spr_testeDot.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY + 30);
+					spr_testeDot.setSize(1, 1);
+					spr_testeDot.draw(game.batch);
+					
+					spr_testeDot.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY);
+					spr_testeDot.setSize(1, 1);
+					spr_testeDot.draw(game.batch);
+					
+					
+					mobTimerFrame = lstMobs.get(i).MobFrameTime;
+					if(mobTimerFrame > 0) {
+						mobTimerFrame--;
+						lstMobs.get(i).MobFrameTime = mobTimerFrame;
+					}
+					if(mobTimerFrame <= 0) {
+						mobTimerFrame = 40;
+						mobFrame = lstMobs.get(i).MobFrame;
+						mobFrame++;
+						if(mobFrame > 3) { mobFrame = 1;}
+						lstMobs.get(i).MobFrame = mobFrame;
+						lstMobs.get(i).MobFrameTime = 40;
+					}
+
+					//Sem Target
+					if(lstMobs.get(i).MobTarget.equals("none")) {
+						mobTimerMov = lstMobs.get(i).MobTimerMov;
+						mobRandomSt = lstMobs.get(i).MobRandomSt;
+						if(mobTimerMov >= 0) { 
+							mobTimerMov--;
+							lstMobs.get(i).MobTimerMov = mobTimerMov;
+						}
+						if(mobTimerMov < 0) { 
+							mobRandomSt = randnumber.nextInt(4); 
+							mobTimerMov = 100; 
+							lstMobs.get(i).MobTimerMov = mobTimerMov;
+							lstMobs.get(i).MobRandomSt = mobRandomSt;
+						}
+
+						if(mobRandomSt == 0) { 
+							mobPositionCoordX = lstMobs.get(i).MobPosX;
+							mobPositionCoordX = mobPositionCoordX + 0.07f; 
+							lstMobs.get(i).MobPosX = mobPositionCoordX;
+						}
+						if(mobRandomSt == 1) { 
+							mobPositionCoordX = lstMobs.get(i).MobPosX;
+							mobPositionCoordX = mobPositionCoordX - 0.07f;
+							lstMobs.get(i).MobPosX = mobPositionCoordX;
+						}
+						if(mobRandomSt == 2) { 
+							mobPositionCoordY = lstMobs.get(i).MobPosY;
+							mobPositionCoordY = mobPositionCoordY + 0.07f;
+							lstMobs.get(i).MobPosY = mobPositionCoordY;
+						}
+						if(mobRandomSt == 3) { 
+							mobPositionCoordY = lstMobs.get(i).MobPosY;
+							mobPositionCoordY = mobPositionCoordY - 0.07f;
+							lstMobs.get(i).MobPosY = mobPositionCoordY;
+						}
+					}
+
+					if(lstMobs.get(i).MobTarget.equals(player.Name_A)) {
+						if(lstMobs.get(i).MobPosX < player.PosX_A + 3) { lstMobs.get(i).MobPosX = lstMobs.get(i).MobPosX + 0.07f; }
+						if(lstMobs.get(i).MobPosX > player.PosX_A + 3) { lstMobs.get(i).MobPosX = lstMobs.get(i).MobPosX - 0.07f; }
+						if(lstMobs.get(i).MobPosY < player.PosY_A - 6 ) { lstMobs.get(i).MobPosY = lstMobs.get(i).MobPosY + 0.07f; }
+						if(lstMobs.get(i).MobPosY > player.PosY_A - 6) { lstMobs.get(i).MobPosY = lstMobs.get(i).MobPosY - 0.07f; }
+					}
+
+					//Limit screen
+					if(mobPositionCoordY >= 57 && lstMobs.get(i).MobDead.equals("no")) 
+					{						
+						lstMobs.get(i).MobPosY = 0;
+						lstMobs.get(i).MobPosX = 0;
+					}
+					if(mobPositionCoordY <= -73.5f && lstMobs.get(i).MobDead.equals("no")) 
+					{
+						lstMobs.get(i).MobPosY = 0;
+						lstMobs.get(i).MobPosX = 0;
+					}
+					if(mobPositionCoordX >= 45f && lstMobs.get(i).MobDead.equals("no")) 
+					{
+						lstMobs.get(i).MobPosY = 0;
+						lstMobs.get(i).MobPosX = 0;
+					}
+					if(mobPositionCoordX <= -66.5f && lstMobs.get(i).MobDead.equals("no")) 
+					{
+						lstMobs.get(i).MobPosY = 0;
+						lstMobs.get(i).MobPosX = 0;
+					}
+
+					if(player.Map_A.equals("Sewers")) { spr_master = gameControl.GetSpriteMonster("Sewers",lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
+					//if(player.Map_A.equals("Watercave")) { spr_mob = atlas_mobWatercave.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
+					//if(player.Map_A.equals("Mines")) { spr_mob = atlas_mobMines.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
+					//if(player.Map_A.equals("Snowpalace")) { spr_mob = atlas_mobSnowpalace.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
+					//if(player.Map_A.equals("Tower")) { spr_mob = atlas_mobTower.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
+					spr_master.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY);
+					spr_master.setSize(20,35);
+					//spr_master.setSize(lstMobs.get(i).MobSizeX, lstMobs.get(i).MobSizeY);
+					spr_master.draw(game.batch);
+
+
+					mobPositionCoordX = lstMobs.get(i).MobPosX;
+					mobPositionCoordY = lstMobs.get(i).MobPosY;
+					mobPositionCoordY = mobPositionCoordY - 0.2f;
+					font_master.draw(game.batch, lstMobs.get(i).MobName + " HP :" + lstMobs.get(i).MobHp + "/" + lstMobs.get(i).MobHpMax ,mobPositionCoordX, mobPositionCoordY);
+				}			
 			}
 		}
 		
@@ -469,12 +677,43 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void CheckAction() {
 			
-			if(player.Map_A.equals("StreetsA")) {
-				
+			if(player.Map_A.equals("StreetsA")) {		
 				if(player.PosX_A > 176 && player.PosY_A < 198 && player.PosY_A > -67 && player.PosY_A < -34 ) {
 					state = "DungeonSelect";
 				}		
-			}		
+			}
+			
+			if(player.Map_A.equals("Sewers")) {
+				if(AutoAttack) { AutoAttack = false; } else { AutoAttack = true; }
+			}
+		}
+		
+		public void ChangeTarget() {
+			
+			if(player.Map_A.equals("Sewers")) {
+			
+				String playerTarget = player.Target_A;
+				for(int i = 0; i < lstMobs.size(); i++) {
+					
+					if(countSwitchTarget == 0) {
+						countSwitchTarget = i;
+					}
+					
+					if(countSwitchTarget >= 0) {
+						if(countSwitchTarget <= lstMobs.size()) {
+							countSwitchTarget++;
+							if(countSwitchTarget >= lstMobs.size()) { countSwitchTarget = 0; }
+							if(!playerTarget.equals(lstMobs.get(countSwitchTarget).MobID)) {
+								player.Target_A = lstMobs.get(countSwitchTarget).MobID;						
+								return;		
+							}
+						}
+						else {
+							countSwitchTarget = 0;
+						}
+					}	
+				}
+			}
 		}
 
 		@Override
@@ -618,6 +857,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				
+				if(player.Map_A.equals("Sewers")) {
+					if(coordsTouch.x >=  cameraCoordsX + 78 && coordsTouch.x <= cameraCoordsX + 90 && coordsTouch.y >= cameraCoordsY - 30 && coordsTouch.y <= cameraCoordsY + 2) {
+						ChangeTarget();
+						return false;
+					}
+				}
+				
 				touchPosX = coordsTouch.x;
 				touchPosY = coordsTouch.y;
 				gameControl.SetCharSide(touchPosX, touchPosY);
@@ -678,6 +924,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 			}
+			
+			
+			
 			
 			return false;		
 		}
