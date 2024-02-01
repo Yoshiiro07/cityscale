@@ -71,6 +71,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_playerHair;
 	    private boolean AutoAttack = false;
 	    private int countSwitchTarget = 0;
+	    private float playerPosXSelective = 0;
+	    private float playerPosYSelective = 0;
 	     
 	    //Mob
 	    private Monster mob;
@@ -298,11 +300,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(state.equals("Shop")) {
 					
 				}
-				
-				
+						
 				CheckColisionSewers();
 				CheckAutoAttack();
 				CheckMobAutoAttack();
+				ShowDamage();
 							
 				//Teste		
 				
@@ -321,6 +323,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_testeDot.draw(game.batch);
 				
 				spr_testeDot.setPosition(mobposYmax, mobposYmax);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
+				
+				//teste player
+				spr_testeDot.setPosition( player.PosX_A + 5, player.PosY_A);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -347,6 +354,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void CheckAutoAttack() {
 			if(player.Map_A.equals("Sewers") && AutoAttack) {
+				
+				playerPosXSelective = player.PosX_A + 5;
+				playerPosYSelective = player.PosY_A;
+				
 				for(int i = 0; i < lstMobs.size(); i++) {
 					
 					if(player.Target_A.equals(lstMobs.get(i).MobID)) {
@@ -354,10 +365,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						float mobposXmax = lstMobs.get(i).MobPosX + 20;
 						float mobposXmin = lstMobs.get(i).MobPosX;
 						float mobposYmax = lstMobs.get(i).MobPosY + 30;
-						float mobposYmin = lstMobs.get(i).MobPosY;
+						float mobposYmin = lstMobs.get(i).MobPosY - 10;
 						 
-						if((lstMobs.get(i).MobPosX) > (player.PosX_A) && (lstMobs.get(i).MobPosX + 20) < (player.PosX_A)
-						   && (lstMobs.get(i).MobPosY) > (player.PosY_A) && (lstMobs.get(i).MobPosY + 20) < (player.PosY_A)) {
+						if((playerPosXSelective) > (mobposXmin) && (mobposXmax) < (playerPosXSelective)
+						   && (mobposYmin) > (playerPosYSelective) && (playerPosYSelective) < (mobposYmax)) {
 							player.playerInBattle_A = "yes";
 							player.AtkTimer_A--;
 							
