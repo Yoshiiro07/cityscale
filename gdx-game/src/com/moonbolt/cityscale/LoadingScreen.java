@@ -97,7 +97,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 		}
 		
 		if(changeScreen){
-		    game.Switch("GameMap", network);		
+		    game.Switch("GameMap", network);	
 		}
 		
 		game.batch.end();	

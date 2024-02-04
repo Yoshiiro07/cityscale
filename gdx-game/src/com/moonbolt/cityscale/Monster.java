@@ -100,7 +100,7 @@ public class Monster {
 			newMob2.MobAtkTimerMax = 250;
 			newMob2.MobLevel = 1;
 			newMob2.Map = "Sewers";
-			lstMobs.add(newMob2);
+			//lstMobs.add(newMob2);
 			
 			Monster newMob3 = new Monster();
 			newMob3.MobName = "oikplant"; 
@@ -132,7 +132,7 @@ public class Monster {
 			newMob3.MobAtkTimerMax = 250;
 			newMob3.MobLevel = 1;
 			newMob3.Map = "Sewers";
-			lstMobs.add(newMob3);
+			//lstMobs.add(newMob3);
 			
 			Monster newMob4 = new Monster();
 			newMob4.MobName = "poro"; 
@@ -164,7 +164,7 @@ public class Monster {
 			newMob4.MobAtkTimerMax = 320;
 			newMob4.MobLevel = 1;
 			newMob4.Map = "Sewers";
-			lstMobs.add(newMob4);
+			//lstMobs.add(newMob4);
 		}
 		return lstMobs;
 		

@@ -34,6 +34,7 @@ public class GameControl {
     //Player
     private float playerCoordX = 0;
     private float playerCoordY = 0;
+    private int frameatkplayer = 20;
     
     //Sprite
     public Sprite spr_master;
@@ -238,6 +239,11 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		if(item.equals("dungeonselector")) {
+			spr_master = atlas_ui.createSprite("menudungeon");
+			return spr_master;
+		}
+		
 		if(item.equals("cardaction")) {
 			spr_master = atlas_cards.createSprite("cardaction");
 			return spr_master;
@@ -256,15 +262,27 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		if(item.equals("bartext")) {
+			spr_master = atlas_ui.createSprite("bartext");
+			return spr_master;
+		}
+		
 		if(item.equals("ballonguard")) {
 			spr_master = atlas_ui.createSprite("bartext");
 			return spr_master;
 		}
 		
-		if(item.equals("dungeonselector")) {
-			spr_master = atlas_ui.createSprite("menudungeon");
+		//cardtripleattack
+		if(item.equals("cardtripleattack")) {
+			spr_master = atlas_cards.createSprite("cardtripleattack");
 			return spr_master;
 		}
+		
+		if(item.equals("cardregen")) {
+			spr_master = atlas_cards.createSprite("cardregen");
+			return spr_master;
+		}
+		
 		
 		if(item.equals("selecionepersonagem")) { spr_master = atlas_ui.createSprite("mainmenu"); return spr_master;}		
 		if(item.equals("btncriar")) { spr_master = atlas_ui.createSprite("btncriar"); return spr_master;}
@@ -288,15 +306,6 @@ public class GameControl {
 		
 		return spr_master;
 	}
-	
-	
-	//[COLISIONS]//
-	
-	
-	
-	//[BATTLE]//
-	
-	
 	
 	//[MONSTERS]//
 	public ArrayList<Monster> LoadMonsters(String map){
@@ -363,7 +372,7 @@ public class GameControl {
 		charHasToMove = true;
 		
 		//Check Frames
-		if(player.Walk_A.equals("yes")) { countFrame++; }
+		if(player.Walk_A.equals("yes") || player.playerInBattle_A.equals("yes")) { countFrame++; }
 		if(player.Walk_A.equals("no")) { player.Frame_A = 1; }
 		if(countFrame > 1 && countFrame <= 15) { player.Frame_A = 2; }
 		if(countFrame >= 15 && countFrame <= 30) { player.Frame_A = 1; }
@@ -445,6 +454,12 @@ public class GameControl {
 			if(player.Side_A.equals("back-left") ) {spr_master = atlas_generic.createSprite("u_" + sex + "_front1");   }
 			if(player.Side_A.equals("front-right") ) {spr_master = atlas_generic.createSprite("u_" + sex + "_front1"); }
 			if(player.Side_A.equals("front-left") ) {spr_master = atlas_generic.createSprite("u_" + sex + "_front1");  }			
+		}
+		if(player.playerInBattle_A.equals("yes")) {
+			spr_master = atlas_generic.createSprite("u_" + sex + "_battle" + player.Frame_A);
+		}
+		if(player.playerInAttack_A.equals("yes")) {
+			spr_master = atlas_generic.createSprite("u_" + sex + "_attack");
 		}
 		
 		
@@ -564,6 +579,14 @@ public class GameControl {
 			if(player.Side_A.equals("front-left") ) {spr_master = atlas_generic.createSprite("b_" + sex + "_front1");  }			
 		}
 		
+		if(player.playerInBattle_A.equals("yes")) {
+			spr_master = atlas_generic.createSprite("b_" + sex + "_battle1");
+		}
+		if(player.playerInAttack_A.equals("yes")) {
+			spr_master = atlas_generic.createSprite("b_" + sex + "_battle1");
+		}
+		
+		
 		if(sex.equals("male") && player.Frame_A == 1 && player.Side_A.equals("front")) {spr_master.setPosition(player.PosX_A + 0.7f, player.PosY_A); } 
 		if(sex.equals("male") && player.Frame_A == 2 && player.Side_A.equals("front")) {spr_master.setPosition(player.PosX_A + 0.6f, player.PosY_A + 0.9f); } 
 		if(sex.equals("male") && player.Frame_A == 3 && player.Side_A.equals("front")) {spr_master.setPosition(player.PosX_A + 0.6f, player.PosY_A + 0.9f); } 
@@ -627,6 +650,11 @@ public class GameControl {
 				spr_master.setPosition(player.PosX_A + 0.4f, player.PosY_A + 19f);
 				spr_master.setSize(9, 18);
 			}
+			if(player.playerInAttack_A.equals("yes") || player.playerInBattle_A.equals("yes")) {
+				spr_master = atlas_hairsgeneric.createSprite("hair1" + player.Color_A + player.Sex_A + "Battle1"); //hair1brownFFront  
+				spr_master.setPosition(player.PosX_A + 0.7f, player.PosY_A + 19.5f);
+				spr_master.setSize(10, 18);
+			}
 		}
 		
 		if(player.Sex_A.equals("F")) {
@@ -649,6 +677,11 @@ public class GameControl {
 				spr_master = atlas_hairsgeneric.createSprite("hair1" + player.Color_A + player.Sex_A + "Left"); //hair1brownMRight	  
 				spr_master.setPosition(player.PosX_A + 0.8f, player.PosY_A + 18.6f);
 				spr_master.setSize(9, 18);
+			}
+			if(player.playerInAttack_A.equals("yes") || player.playerInBattle_A.equals("yes")) {
+				spr_master = atlas_hairsgeneric.createSprite("hair1" + player.Color_A + player.Sex_A + "Front"); //hair1brownFFront  
+				spr_master.setPosition(player.PosX_A + 0.7f, player.PosY_A + 19f);
+				spr_master.setSize(10, 18);
 			}
 		}
 		

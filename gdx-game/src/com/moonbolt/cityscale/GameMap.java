@@ -45,7 +45,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_master;
 	    private String SysMsg = "";
 	    private int SysMsgCount = 0;    
-	    private int savedataTime = 500;
+	    private int savedataTime = 1000;
 	    private Random randnumber;
 	    
 		//Fonts
@@ -73,6 +73,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private int countSwitchTarget = 0;
 	    private float playerPosXSelective = 0;
 	    private float playerPosYSelective = 0;
+	    private int frameatkplayer = 50;
+	    private boolean playerDead = false;
+	    private int playerDeadTime = 100;
 	     
 	    //Mob
 	    private Monster mob;
@@ -160,11 +163,20 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void render(float delta) {
 			try {						
 				savedataTime--;
-				if(savedataTime < 0) { savedataTime = 700;}
+				if(savedataTime < 0) { 
+					gameControl.SetPlayer(player);
+					gameControl.SaveData(player);
+					savedataTime = 1000;
+				}
 				
 				//Just for coloring
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+				
+				//Ajust text
+				font_master.setColor(Color.WHITE);
+				font_master.getData().setScale(0.07f,0.11f);
+				font_master.setUseIntegerPositions(false);	
 				
 				playerPosX = player.PosX_A;
 				playerPosY = player.PosY_A;
@@ -260,12 +272,40 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//cards job
+				if(player.Job_A.equals("Aprendiz")) {
+					//card 1
+					spr_master = gameControl.GetInterface("cardtripleattack");
+					spr_master.setPosition(cameraCoordsX + 19, cameraCoordsY - 65);
+					spr_master.setSize(13, 32);
+					spr_master.draw(game.batch);
+					
+					spr_master = gameControl.GetInterface("cardregen");
+					spr_master.setPosition(cameraCoordsX + 34, cameraCoordsY - 65);
+					spr_master.setSize(13, 32);
+					spr_master.draw(game.batch);	
+				}
 				
-				
+				if(player.Job_A.equals("Espadachim")) {
+					//card 1
+					spr_master = gameControl.GetInterface("cardtripleattack");
+					spr_master.setPosition(cameraCoordsX + 19, cameraCoordsY - 65);
+					spr_master.setSize(13, 32);
+					spr_master.draw(game.batch);
+					
+					spr_master = gameControl.GetInterface("cardtripleattack");
+					spr_master.setPosition(cameraCoordsX + 34, cameraCoordsY - 65);
+					spr_master.setSize(13, 32);
+					spr_master.draw(game.batch);
+					
+					spr_master = gameControl.GetInterface("cardtripleattack");
+					spr_master.setPosition(cameraCoordsX + 49, cameraCoordsY - 65);
+					spr_master.setSize(13, 32);
+					spr_master.draw(game.batch);			
+				}
+			
 				
 				//Show Monsters
 				ShowMobs();
-				
 				
 				if(state.equals("Menu"))
 				{
@@ -304,40 +344,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				CheckColisionSewers();
 				CheckAutoAttack();
 				CheckMobAutoAttack();
-				ShowDamage();
+				ShowDamage();			
+				CheckPlayerRegen();
+				CheckPlayerDead();
 							
-				//Teste		
-				
-				//teste X
-				spr_testeDot.setPosition(mobposXmax + 20, mobposYmax);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
-				spr_testeDot.setPosition(mobposXmax, mobposYmax);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
-				//teste Y
-				spr_testeDot.setPosition(mobposYmax + 20, mobposYmax);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
-				spr_testeDot.setPosition(mobposYmax, mobposYmax);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
 				//teste player
 				spr_testeDot.setPosition( player.PosX_A + 5, player.PosY_A);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
-				
-				//spr_testeDot.setPosition(touchPosX, touchPosY);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
-				
-				//spr_testeDot.setPosition(cameraCoordsX + 78, cameraCoordsY + 2);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
 				
 				if(state.equals("Change")) {
 					this.screen.screenSwitch("LoadingScreen", network);
@@ -348,6 +362,56 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			catch(Exception ex) {
 				Gdx.app.exit();
+			}
+		}
+		
+		public void CheckPlayerRegen() {
+			player.regenTime_A--;
+			if(player.regenTime_A <= 0){
+				
+				player.Hp_A = player.Hp_A + 20;
+				player.Mp_A = player.Mp_A + 20;
+				
+				if(player.Hp_A > player.HpMax_A) { player.Hp_A = player.HpMax_A; }
+				if(player.Mp_A > player.MpMax_A) { player.Mp_A = player.MpMax_A; }
+				
+				
+				player.regenTime_A = player.regenTimeMax_A;
+				
+			}
+		}
+		
+		public void CheckPlayerDead() {
+			if(playerDead == true) {
+				player.Target_A = "none";
+				player.AtkTimer_A = player.AtkTimerMax_A;
+				player.playerInBattle_A = "no";
+			    player.playerInAttack_A = "no";
+			    player.playerInCast_A = "no";	
+			    AutoAttack = false;
+			    
+				if(playerDeadTime > 0) {
+					playerDeadTime--;
+					spr_master = gameControl.GetInterface("bartext");
+					spr_master.setPosition(cameraCoordsX - 23, cameraCoordsY + 20);
+					spr_master.setSize(40, 30);
+					spr_master.draw(game.batch);
+					
+					font_master.setColor(Color.RED);
+					font_master.getData().setScale(0.20f,0.29f);
+					font_master.setUseIntegerPositions(false);
+					font_master.draw(game.batch, "Voce Morreu", cameraCoordsX - 20, cameraCoordsY + 38);
+				}
+				else {
+					playerDead = false;
+					player.Map_A = "MetroStation";
+					player.PosX_A = -0.5f;
+					player.PosY_A = -4;
+					gameControl.SetPlayer(player);
+					gameControl.SaveData(player);
+					this.screen.screenSwitch("MetroStation", network);
+				}
+				
 			}
 		}
 		
@@ -362,13 +426,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					if(player.Target_A.equals(lstMobs.get(i).MobID)) {
 						
-						float mobposXmax = lstMobs.get(i).MobPosX + 20;
-						float mobposXmin = lstMobs.get(i).MobPosX;
-						float mobposYmax = lstMobs.get(i).MobPosY + 30;
-						float mobposYmin = lstMobs.get(i).MobPosY - 10;
+						mobposXmin = lstMobs.get(i).MobPosX;	
+						mobposYmin = lstMobs.get(i).MobPosY;
+						mobposXmax = lstMobs.get(i).MobPosX + 20;
+						mobposYmax = lstMobs.get(i).MobPosY + 30;
 						 
-						if((playerPosXSelective) > (mobposXmin) && (mobposXmax) < (playerPosXSelective)
-						   && (mobposYmin) > (playerPosYSelective) && (playerPosYSelective) < (mobposYmax)) {
+						if( (playerPosXSelective) > (mobposXmin) && (playerPosXSelective) < (mobposXmax) && 
+								(playerPosYSelective) > (mobposYmin) && (playerPosYSelective) < (mobposYmax) ) {
 							player.playerInBattle_A = "yes";
 							player.AtkTimer_A--;
 							
@@ -430,7 +494,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									lstMobs.get(i).MobHp = mobhp;
 									
 									if(lstMobs.get(i).MobHp <= 0) { 
-										
+										lstMobs.get(i).MobDead = "yes";
 										player.Target_A = "none";
 										player.AtkTimer_A = player.AtkTimerMax_A;
 										player.playerInBattle_A = "no";
@@ -455,10 +519,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									player.AtkTimer_A = player.AtkTimerMax_A;
 									player.playerInAttack_A = "yes";
 									lstMobs.get(i).MobTarget = player.Name_A;	
-								}
 									
-								
-								
+									if(frameatkplayer > 0) { frameatkplayer--; }
+									if(frameatkplayer < 0) { player.playerInAttack_A = "no"; frameatkplayer = 50; }
+								}					
 							}					
 						}
 						else {
@@ -483,7 +547,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 										 player.Hp_A = player.Hp_A - ((lstMobs.get(i).MobAtk * 2) - player.Def_A);
 									 }
 									 if(mobluck >= 0 && mobluck < 5) {
-										 player.Hp_A = player.Hp_A - ((lstMobs.get(i).MobAtk * 3) - player.Def_A);
+										 player.Hp_A = player.Hp_A - ((lstMobs.get(i).MobAtk * 4) - player.Def_A);
 									 }
 									 if(mobluck > 10)
 									 {
@@ -499,7 +563,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									 lstDamage.add(damage);
 									 
 									if(player.Hp_A <= 0) {
-										//playerDead = true;
+										playerDead = true;
 									}
 								}
 							}
@@ -517,14 +581,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			for(int i = 0; i < lstDamage.size(); i++) {
 				lstDamage.get(i).DamagePosY = lstDamage.get(i).DamagePosY + 0.4f;
 				lstDamage.get(i).DamageTime = lstDamage.get(i).DamageTime - 1;
-								
-				font_master.getData().setScale(0.10f,0.15f);
-				font_master.setUseIntegerPositions(false);
+											
 				if(lstDamage.get(i).DamageType.equals("mob")) { font_master.setColor(Color.YELLOW); }
 				if(lstDamage.get(i).DamageType.equals("player")) { font_master.setColor(Color.RED); }
 				if(lstDamage.get(i).DamageType.equals("heal")) { font_master.setColor(Color.GREEN); }
 				
+				font_master.getData().setScale(0.20f,0.29f);
+				font_master.setUseIntegerPositions(false);
 				font_master.draw(game.batch, String.valueOf(lstDamage.get(i).DamageValue), lstDamage.get(i).DamagePosX, lstDamage.get(i).DamagePosY);
+				
+				font_master.setColor(Color.WHITE);
 				
 				if(lstDamage.get(i).DamageTime < 0) {
 					lstDamage.remove(lstDamage.get(i));
@@ -536,6 +602,23 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void ShowMobs() {			
 			if(player.Map_A.equals("Sewers") || player.Map_A.equals("Watercave") || player.Map_A.equals("Mines") || player.Map_A.equals("Snowpalace") || player.Map_A.equals("Tower")) {
 				for(int i = 0; i < lstMobs.size(); i++) {
+					
+					//Check Dead Mob
+					if(lstMobs.get(i).MobDead.equals("yes")) {
+						lstMobs.get(i).MobTimeDead--;						
+						if(lstMobs.get(i).MobTimeDead <= 0) {
+							lstMobs.get(i).MobTarget = "none";
+							lstMobs.get(i).MobHp = lstMobs.get(i).MobHpMax;
+							lstMobs.get(i).MobDead = "no";
+							
+							int mobnewposX = randnumber.nextInt(100);
+							int mobnewposY = randnumber.nextInt(100);
+							
+							lstMobs.get(i).MobPosX = mobnewposX;
+							lstMobs.get(i).MobPosY = mobnewposY;
+							
+							}
+					}
 
 					//Target do player
 					if(player.Target_A.equals(lstMobs.get(i).MobID)) {
@@ -544,23 +627,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						spr_master.setSize(4,8);
 						spr_master.draw(game.batch);
 					}
-					
-					spr_testeDot.setPosition(lstMobs.get(i).MobPosX + 20, lstMobs.get(i).MobPosY);
-					spr_testeDot.setSize(1, 1);
-					spr_testeDot.draw(game.batch);
-					
-					spr_testeDot.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY);
-					spr_testeDot.setSize(1, 1);
-					spr_testeDot.draw(game.batch);
-					
-					spr_testeDot.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY + 30);
-					spr_testeDot.setSize(1, 1);
-					spr_testeDot.draw(game.batch);
-					
-					spr_testeDot.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY);
-					spr_testeDot.setSize(1, 1);
-					spr_testeDot.draw(game.batch);
-					
 					
 					mobTimerFrame = lstMobs.get(i).MobFrameTime;
 					if(mobTimerFrame > 0) {
@@ -621,25 +687,31 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}
 
 					//Limit screen
-					if(mobPositionCoordY >= 57 && lstMobs.get(i).MobDead.equals("no")) 
+					if(mobPositionCoordY >= 192 && lstMobs.get(i).MobDead.equals("no")) 
 					{						
 						lstMobs.get(i).MobPosY = 0;
 						lstMobs.get(i).MobPosX = 0;
 					}
-					if(mobPositionCoordY <= -73.5f && lstMobs.get(i).MobDead.equals("no")) 
+					if(mobPositionCoordY <= -112 && lstMobs.get(i).MobDead.equals("no")) 
 					{
 						lstMobs.get(i).MobPosY = 0;
 						lstMobs.get(i).MobPosX = 0;
 					}
-					if(mobPositionCoordX >= 45f && lstMobs.get(i).MobDead.equals("no")) 
+					if(mobPositionCoordX >= 266 && lstMobs.get(i).MobDead.equals("no")) 
 					{
 						lstMobs.get(i).MobPosY = 0;
 						lstMobs.get(i).MobPosX = 0;
 					}
-					if(mobPositionCoordX <= -66.5f && lstMobs.get(i).MobDead.equals("no")) 
+					if(mobPositionCoordX <= -100 && lstMobs.get(i).MobDead.equals("no")) 
 					{
 						lstMobs.get(i).MobPosY = 0;
 						lstMobs.get(i).MobPosX = 0;
+					}
+					
+					
+					if(lstMobs.get(i).MobDead.equals("yes")) {
+						lstMobs.get(i).MobPosY = 300;
+						lstMobs.get(i).MobPosX = 300;
 					}
 
 					if(player.Map_A.equals("Sewers")) { spr_master = gameControl.GetSpriteMonster("Sewers",lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
@@ -649,9 +721,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					//if(player.Map_A.equals("Tower")) { spr_mob = atlas_mobTower.createSprite(lstMobs.get(i).MobName + lstMobs.get(i).MobFrame + "L"); }
 					spr_master.setPosition(lstMobs.get(i).MobPosX, lstMobs.get(i).MobPosY);
 					spr_master.setSize(20,35);
-					//spr_master.setSize(lstMobs.get(i).MobSizeX, lstMobs.get(i).MobSizeY);
 					spr_master.draw(game.batch);
-
 
 					mobPositionCoordX = lstMobs.get(i).MobPosX;
 					mobPositionCoordY = lstMobs.get(i).MobPosY;
@@ -757,7 +827,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public boolean keyDown(int keycode) {
 			
-			//if(playerDead) { return false; }
+			if(playerDead) { return false; }
 			
 			if(state.equals("main")) {
 				movement = true;		
@@ -878,7 +948,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
 			
-			//if(playerDead) { return false; }
+			if(playerDead) { return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			
@@ -989,7 +1059,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
 			
-			//if(playerDead) { return false; }
+			if(playerDead) { return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 			
