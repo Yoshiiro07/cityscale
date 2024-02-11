@@ -532,6 +532,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}
 		}
+	
 		
 		public void CheckMobAutoAttack() {
 			if(player.Map_A.equals("Sewers")) {
