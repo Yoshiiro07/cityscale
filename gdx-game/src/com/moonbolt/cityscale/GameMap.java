@@ -502,9 +502,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									    player.playerInCast_A = "no";	
 									    AutoAttack = false;
 									    
-									    //ItemDrop(lstMobs.get(i).MobName);
+									    ItemDrop(lstMobs.get(i).MobName);
 									    player.Money_A = player.Money_A + 2;
-									    //GiveExp(lstMobs.get(i).MobExp);
+									    GiveExp(lstMobs.get(i).MobExp);
 									    return;
 									}
 									
@@ -572,6 +572,29 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}
 				}
 			}
+		
+		//Item Drop
+		public void ItemDrop(String mob) {
+			int chance = randnumber.nextInt(100);
+			
+			if(mob.equals("slime"))
+			if(chance <= 40) { AddItemBag("blop_loot"); itemdropname = "Gosma"; showDropMsg = 100; return; }
+			if(chance >= 40 && chance <= 95) { AddItemBag("blue_orb"); itemdropname = "Orb Azul"; showDropMsg = 100; return; }
+			if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); itemdropname = "Lata de HP"; showDropMsg = 100; return; }
+			if(chance >= 98) { AddItemBag("slime_hat"); itemdropname = "Chapeu de Slime"; showDropMsg = 100; return; }
+			
+			if(mob.equals("oikplant"))
+			if(chance <= 40) { AddItemBag("poisonleaf_loot"); return; }
+			if(chance >= 40 && chance <= 95) { AddItemBag("green_orb"); return; }
+			if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); return;  }
+			if(chance >= 98) { AddItemBag("lowmoney_loot"); return; }
+			
+			if(mob.equals("poro"))
+			if(chance <= 40) { AddItemBag("mushroom_loot"); return; }
+			if(chance >= 40 && chance <= 95) { AddItemBag("yellow_orb"); return; }
+			if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); return;  }
+			if(chance >= 98) { AddItemBag("mpcan"); return; }
+		}
 		
 		//Give EXP
 		public void GiveExp(int exp) {
@@ -720,6 +743,81 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Level_A == 50) {  return 999999999;}
 			
 			return 1000;
+		}
+		
+		public void DiscartItem(int itemNum) {
+			String[] lstItem = player.Itens_A.split("-");
+			String listaItemFinal = "";
+			String[] itemSplit;
+			String item;
+			String itemName;
+			int qtd;
+			int money = 0;
+			
+			//Get Item
+			item = lstItem[itemNum];
+			if(item.equals("[NONE]")) { return; }
+				
+			//Check quantity
+			itemSplit = item.split("#");
+			itemName = itemSplit[0].replace("[", "");
+			qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+			
+			//Give Money
+			money = player.Money_A;
+			if(money > 5000) { return; }
+			int moneygave = randnumber.nextInt(5);
+			while(moneygave < 2) { moneygave = randnumber.nextInt(5); }
+			money = money + (moneygave * 2);
+			player.Money_A = money;
+			
+			//Clean Item placebox
+			lstItem[itemNum] = "[NONE]";
+			listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+			listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+			player.Itens_A = listaItemFinal;	
+		}
+		
+		public void AddItemBag(String itemName) {
+			String[] lstItem = player.Itens_A.split("-");
+			String[] itemSplit;
+			boolean exist = false;
+			int qtd = 0;
+			int posicaoItem = 0;
+			String listaItemFinal;
+			
+			for(int i = 0; i < lstItem.length; i++) {
+				if(lstItem[i].contains(itemName) && !exist) {
+					posicaoItem = i;
+					exist = true;
+				}
+			}
+			
+			if(exist) {
+				itemSplit = lstItem[posicaoItem].split("#");
+				qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+				qtd++;
+				if(qtd >= 99) { return;}
+					lstItem[posicaoItem] = "[" + itemSplit[0].replace("[", "") + "#" + String.valueOf(qtd) + "]";
+					listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+					listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+					player.Itens_A = listaItemFinal;
+			}
+			else {
+				for(int i = 0; i < lstItem.length; i++) {
+					if(lstItem[i].contains("[NONE]") && !exist) {
+						posicaoItem = i;
+						exist = true;
+					}
+				}
+				
+				if(exist) {
+					lstItem[posicaoItem] = "[" + itemName + "#" + "1" + "]";
+					listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+					listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+					player.Itens_A = listaItemFinal;
+				}
+			}
 		}
 		
 		
