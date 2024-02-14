@@ -23,11 +23,10 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	//Objects
 	private MainGame game;
 	private boolean network = false;
-	private GameControl gameControl;
 	
 	//Loading Variables
 	private boolean loading = true;
-	private int loadtime = 10;
+	private int loadtime = 300;
 	
 	//Sprites
 	private Sprite spr_loadingBlack;
@@ -46,10 +45,9 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
     //Controller
     private final IntSet downKeys = new IntSet(20);
     
-	public LoadingScreen(MainGame _game,boolean _network) {
-		this.game = _game;
-		this.network = _network;
-		this.gameControl = new GameControl();
+	public LoadingScreen(MainGame gameAlt,boolean networkAlt) {
+		this.game = gameAlt;
+		this.network = networkAlt;
 			
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -62,10 +60,10 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 		font_master.setColor(Color.WHITE);
 		font_master.getData().setScale(0.11f,0.23f);
-		font_master.setUseIntegerPositions(false);
+		font_master.setUseIntegerPositions(false);	
 		
 		//Sprites
-		tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/misc/blackscreen.png"));		
+		tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/blackscreen.png"));		
 		spr_loadingBlack = new Sprite(tex_loadingBlack);
 		spr_loadingBlack.setSize(100, 100);
 	}
@@ -96,8 +94,8 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 			}
 		}
 		
-		if(changeScreen){
-		    game.Switch("GameMap", network);	
+		if(changeScreen){	
+		    game.Switch("GameMap", network);			
 		}
 		
 		game.batch.end();	
@@ -118,14 +116,12 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {return false;}
-
-	
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {return false;}
 	private void onMultipleKeysDown (int mostRecentKeycode){}	
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {return false;}
-
+	@Override
 	public boolean scrolled(int amount) {return false;}
 	@Override
 	public void create() {}
