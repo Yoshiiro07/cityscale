@@ -39,18 +39,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+	
 		//Objects
 	    private MainGame game;
 	    private GameObject gameObject;
 	    private ManagerScreen screen;
 	    private String state = "main";
 	    private boolean network = true;
-	    
-	    //Online
-	    private String lservername = "cityserver.mysql.uhserver.com";
-		private String lusername = "citymaster";
-		private String lpassword = "City@key90";
-		private String ldbname = "cityserver";
 	    
 	    //Manager
 	    private Json json;
@@ -294,6 +289,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 		}
 		
+		
+		
+		//[Account]//
+		
 		public void CheckData() {
 			file = Gdx.files.local("SaveData/save.json");
 			
@@ -408,7 +407,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			state = "change";
 		}
 		
-		//[Save file data]//
 		public void SaveData(GameObject acPlayer) {
 			file = Gdx.files.local("SaveData/save.json");
 			file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
@@ -458,10 +456,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				        String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
 				        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
 				        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
-				        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-				        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-				        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-				        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+				        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
+				        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
+				        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
+				        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
 				   	    	        
 				        // Send data
 				        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");

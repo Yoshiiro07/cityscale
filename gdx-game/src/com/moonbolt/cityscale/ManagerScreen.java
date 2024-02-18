@@ -9,6 +9,10 @@ public class ManagerScreen implements Screen{
 	private MainGame game;
 	private GameObject gameObject;
 	private boolean network;
+	public String lservername = "cityserver.mysql.uhserver.com";
+	public String lusername = "citymaster";
+	public String lpassword = "City@key90";
+	public String ldbname = "cityserver";
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;

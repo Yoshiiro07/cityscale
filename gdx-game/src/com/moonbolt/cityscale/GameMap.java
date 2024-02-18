@@ -36,12 +36,15 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameMap implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 	
-		//Server Crendentals
-	
-		private String lservername = "cityserver.mysql.uhserver.com";
-		private String lusername = "citymaster";
-		private String lpassword = "City@key90";
-		private String ldbname = "cityserver";
+		//[INDEX]//
+		//[Account]//
+		//[Character]//
+		//[Battle]//
+		//[Inventory]//
+		//[Network]//
+		//[Touch]//
+		//[Colisions]//
+		//[Quest]//
 		
 		//Objects
 	    private MainGame game;
@@ -792,6 +795,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
+		//[Account]//
+		public void SaveData() {		
+			file = Gdx.files.local("SaveData/save.json");
+			file.writeString(Base64Coder.encodeString(json.prettyPrint(player)),false);		
+		}
+		
 		public void CheckStamina() {
 			int sttimer = player.StaminaTimer;
 			sttimer--;
@@ -996,12 +1005,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(lstChats.get(0) != null) { font_master.draw(game.batch, lstChats.get(0),-24, -39);  }
 				if(lstChats.get(1) != null) { font_master.draw(game.batch, lstChats.get(1),-24, -49);  }
 				if(lstChats.get(2) != null) { font_master.draw(game.batch, lstChats.get(2),-24, -59);  }		
-		}
-		
-		//[SAVE]//
-		public void SaveData() {		
-			file = Gdx.files.local("SaveData/save.json");
-			file.writeString(Base64Coder.encodeString(json.prettyPrint(player)),false);		
 		}
 		
 		//[Char movement]//
@@ -6199,10 +6202,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 				data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("CheckVersion", "UTF-8");
-		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
+		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
 		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("1A", "UTF-8");
 		        
 		        // Send data
@@ -6242,10 +6245,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 				data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Chat", "UTF-8");
-		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
+		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
 		        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("1A", "UTF-8");
 		        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
 		        data += "&" + URLEncoder.encode("lChat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
@@ -6286,10 +6289,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 				data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Atk", "UTF-8");
-		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
+		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
 		        data += "&" + URLEncoder.encode("lMobHitTarget", "UTF-8") + "=" + URLEncoder.encode(lstMobs.get(numMob).MobID, "UTF-8");
 		        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
 		        data += "&" + URLEncoder.encode("lHpMobAtual", "UTF-8") + "=" + URLEncoder.encode(extraData, "UTF-8"); 
@@ -6324,10 +6327,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 				data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncChats", "UTF-8");
-		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
+		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
 		        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
 		        data += "&" + URLEncoder.encode("lChat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
 		        
@@ -6366,10 +6369,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 				data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 		        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncPlayer", "UTF-8");
-		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
+		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
 		        //Sync Data
 		        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 		        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
@@ -6425,10 +6428,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				// Construct data				
 				String data = URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
 				data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncMob", "UTF-8");
-		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+		        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
+		        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
+		        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
 		        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
 		        data += "&" + URLEncoder.encode("lMap", "UTF-8") + "=" + URLEncoder.encode(player.Map, "UTF-8");
 		        
@@ -6498,10 +6501,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			        String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(arq, "UTF-8");
 			        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 			        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Upload", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
 			   	        
 			        // Send data
 			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
