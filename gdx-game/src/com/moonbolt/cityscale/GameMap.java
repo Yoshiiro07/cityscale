@@ -38,7 +38,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	
 		//[INDEX]//
 		//[Account]//
+		//[Interface]//
 		//[Character]//
+		//[Monsters]//
 		//[Battle]//
 		//[Inventory]//
 		//[Network]//
@@ -594,9 +596,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}			
 				}
 				
-				//Colisions
 				CheckColision();
-				
 				
 				//Bars
 				if(player.Map.equals("StreetsA")) {
@@ -801,6 +801,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			file.writeString(Base64Coder.encodeString(json.prettyPrint(player)),false);		
 		}
 		
+		//[Character]//
+		public void CheckRegenTime() {		
+			player.regenTime--;		
+			if(player.regenTime <= 0) {
+				player.Hp = player.Hp + 15;
+				if(player.Hp > player.HpMax) { player.Hp = player.HpMax; }
+				
+				player.Mp = player.Mp + 10;
+				if(player.Mp > player.MpMax) { player.Mp = player.MpMax; }
+				player.regenTime = player.regenTimeMax;
+			}		
+		}
+		
 		public void CheckStamina() {
 			int sttimer = player.StaminaTimer;
 			sttimer--;
@@ -811,203 +824,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Stamina <= 0) { player.Stamina = 0; }
 		}
 		
-		public void MsgChecks() {
-			if(showDropMsg > 0) {
-				spr_master = atlas_gameUI.createSprite("bardescription");
-				spr_master.setPosition(-27, 30);
-				spr_master.setSize(50, 15);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, "Obtido item: " + itemdropname,-24, 39);				
-				showDropMsg--;
-			}
-			
-			
-			if(versionDif) {
-				spr_master = atlas_gameUI.createSprite("bardescription");
-				spr_master.setPosition(-27, 30);
-				spr_master.setSize(50, 15);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, SysMsg,-24, 39);	
-				countExit--;
-				if(countExit <= 0) {
-					countExit = 200;
-					versionDif = false;
-					Gdx.app.exit();
-				}
-			}
-			
-			if(uploadDone) {
-				spr_master = atlas_gameUI.createSprite("bardescription");
-				spr_master.setPosition(-27, 30);
-				spr_master.setSize(50, 15);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, SysMsg,-24, 39);	
-				countExit--;
-				if(countExit <= 0) {
-					countExit = 200;
-					uploadDone = false;
-				}
-			}
-			
-			if(accountnumber) {
-				spr_master = atlas_gameUI.createSprite("bardescription");
-				spr_master.setPosition(-27, 30);
-				spr_master.setSize(50, 15);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, SysMsg,-24, 39);	
-				countExit--;
-				if(countExit <= 0) {
-					countExit = 200;
-					accountnumber = false;
-				}
-			}
-			
-			if(notmp) {
-				spr_master = atlas_gameUI.createSprite("bardescription");
-				spr_master.setPosition(-27, 30);
-				spr_master.setSize(50, 15);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, "MP insuficiente",-24, 39);	
-				countExit--;
-				if(countExit <= 0) {
-					countExit = 200;
-					notmp = false;
-				}
-			}
-		}
-		
-		public void ShowHotKey() {  
-			if(!player.hotkey1.equals("none")) {
-				spr_master = ItemLog(player.hotkey1);
-				spr_master.setPosition(55, -20);
-				spr_master.setSize(9, 14);
-				spr_master.draw(game.batch);
-				String teste = ShowQuantityItem(hotketcountitem);
-				
-				if(teste.equals("")) {
-					player.hotkey1 = "none";
-				}
-				else {
-					font_master.draw(game.batch, teste, 60, -15);
-					font_master.draw(game.batch, "Atalho",55, -20);
-				}		
-			}
-		}
-		
-		public void ShowOnlinePlayers() {
-			
-			if(lstOnlinePlayers == null) { return; }
-			
-			for(int i = 0; i < lstOnlinePlayers.size(); i++) {
-				
-				if(lstOnlinePlayers.get(0).AccountID.equals(player.AccountID)) { playerMobSync = true; } else { playerMobSync = false;}
-								
-				if(!lstOnlinePlayers.get(i).AccountID.equals(player.AccountID)) {
-					if(player.Map.equals(lstOnlinePlayers.get(i).Map)) {
-						font_master.draw(game.batch, lstOnlinePlayers.get(i).Name, lstOnlinePlayers.get(i).PosX +2.5f, lstOnlinePlayers.get(i).PosY + 22.5f);
-						spr_playerOnline = SetCharMov(lstOnlinePlayers.get(i),"online");
-						spr_playerOnline.draw(game.batch);
-						
-						spr_hairOnline = SetCharHair(lstOnlinePlayers.get(i), "online");
-						spr_hairOnline.draw(game.batch);
-						
-						spr_hatOnline = SetCharHat(lstOnlinePlayers.get(i), "online");
-						spr_hatOnline.draw(game.batch);
-						
-						if(player.playerInBattle.equals("yes") || player.playerInAttack.equals("yes") || player.playerInCast.equals("yes")) {
-							spr_weaponOnline = SetWeapon(lstOnlinePlayers.get(i));
-							spr_weaponOnline.draw(game.batch);
-						}
-					}
-					
-					if(!player.party.equals("none")) {
-						if(lstOnlinePlayers.get(i).party.equals(player.party)) {
-							countParty++;
-							if(countParty > 3) {
-								countParty = 0;
-							}
-							ShowParty(i);
-						}
-					}
-				}
-			}
-			countParty = 0;
-		}
-		
-		public void ShowParty(int num) {  
-			if(timerreceiveExpOnline >= 0) {
-				timerreceiveExpOnline--;
-				if(timerreceiveExpOnline <= 0) {
-					timerreceiveExpOnline = 0;
-					receiveExpOnline = true;
-				}
-			}
-			
-			if(timerGiveExp >= 0) {
-				timerGiveExp--;
-				if(timerGiveExp <= 0) {
-					timerGiveExp = 0;
-					GiveExp = 0;
-				}
-			}
-			if(!player.party.equals("none")) {
-				font_master.draw(game.batch, player.party,-37, 43);
-			}
-			
-			//Show Tags online party
-			if(countParty == 1) {
-				spr_master = atlas_gameUI.createSprite("partytag");
-				spr_master.setPosition(-70, 10);
-				spr_master.setSize(25, 16);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, lstOnlinePlayers.get(num).Name,-63,23.5f);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Level),-49,23.5f);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Hp),-64.6f, 19);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Mp),-54f, 19);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Job),-65, 14.5f);
-			}	
-			if(countParty == 2) {
-				spr_master = atlas_gameUI.createSprite("partytag");
-				spr_master.setPosition(-70, -6);
-				spr_master.setSize(25, 16);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, lstOnlinePlayers.get(num).Name,-63,7.5f);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Level),-49,7.5f);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Hp),-64.6f, 3);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Mp),-54f, 3);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Job),-65, -1.5f);
-			}
-			if(countParty == 3) {
-				spr_master = atlas_gameUI.createSprite("partytag");
-				spr_master.setPosition(-70, -22);
-				spr_master.setSize(25, 16);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, lstOnlinePlayers.get(num).Name,-63,-8.5f);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Level),-49,-8.5f);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Hp),-64.6f, -13f);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Mp),-54f, -13f);
-				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Job),-65, -17.5f);
-			}
-		}
-		
-		public void ShowChats() {
-				font_master.setColor(Color.WHITE);
-				font_master.getData().setScale(0.10f,0.16f);
-				font_master.setUseIntegerPositions(false);	
-				if(lstChats.get(0) != null) { font_master.draw(game.batch, lstChats.get(0),-24, -39);  }
-				if(lstChats.get(1) != null) { font_master.draw(game.batch, lstChats.get(1),-24, -49);  }
-				if(lstChats.get(2) != null) { font_master.draw(game.batch, lstChats.get(2),-24, -59);  }		
-		}
-		
-		//[Char movement]//
+		//Char movement
 		public Sprite SetCharMov(GameObject playerUse, String type) {			
 			//Check MovePosition
 			if(playerUse.Walk.equals("walk")) {
@@ -1193,7 +1010,281 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			return spr_master;
 		}
 		
-		//[Mobs]//
+		//[Interface]//
+		public void MsgChecks() {
+			if(showDropMsg > 0) {
+				spr_master = atlas_gameUI.createSprite("bardescription");
+				spr_master.setPosition(-27, 30);
+				spr_master.setSize(50, 15);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, "Obtido item: " + itemdropname,-24, 39);				
+				showDropMsg--;
+			}
+			
+			
+			if(versionDif) {
+				spr_master = atlas_gameUI.createSprite("bardescription");
+				spr_master.setPosition(-27, 30);
+				spr_master.setSize(50, 15);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, SysMsg,-24, 39);	
+				countExit--;
+				if(countExit <= 0) {
+					countExit = 200;
+					versionDif = false;
+					Gdx.app.exit();
+				}
+			}
+			
+			if(uploadDone) {
+				spr_master = atlas_gameUI.createSprite("bardescription");
+				spr_master.setPosition(-27, 30);
+				spr_master.setSize(50, 15);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, SysMsg,-24, 39);	
+				countExit--;
+				if(countExit <= 0) {
+					countExit = 200;
+					uploadDone = false;
+				}
+			}
+			
+			if(accountnumber) {
+				spr_master = atlas_gameUI.createSprite("bardescription");
+				spr_master.setPosition(-27, 30);
+				spr_master.setSize(50, 15);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, SysMsg,-24, 39);	
+				countExit--;
+				if(countExit <= 0) {
+					countExit = 200;
+					accountnumber = false;
+				}
+			}
+			
+			if(notmp) {
+				spr_master = atlas_gameUI.createSprite("bardescription");
+				spr_master.setPosition(-27, 30);
+				spr_master.setSize(50, 15);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, "MP insuficiente",-24, 39);	
+				countExit--;
+				if(countExit <= 0) {
+					countExit = 200;
+					notmp = false;
+				}
+			}
+		}
+
+		public void ShowParty(int num) {  
+			if(timerreceiveExpOnline >= 0) {
+				timerreceiveExpOnline--;
+				if(timerreceiveExpOnline <= 0) {
+					timerreceiveExpOnline = 0;
+					receiveExpOnline = true;
+				}
+			}
+			
+			if(timerGiveExp >= 0) {
+				timerGiveExp--;
+				if(timerGiveExp <= 0) {
+					timerGiveExp = 0;
+					GiveExp = 0;
+				}
+			}
+			if(!player.party.equals("none")) {
+				font_master.draw(game.batch, player.party,-37, 43);
+			}
+			
+			//Show Tags online party
+			if(countParty == 1) {
+				spr_master = atlas_gameUI.createSprite("partytag");
+				spr_master.setPosition(-70, 10);
+				spr_master.setSize(25, 16);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, lstOnlinePlayers.get(num).Name,-63,23.5f);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Level),-49,23.5f);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Hp),-64.6f, 19);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Mp),-54f, 19);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Job),-65, 14.5f);
+			}	
+			if(countParty == 2) {
+				spr_master = atlas_gameUI.createSprite("partytag");
+				spr_master.setPosition(-70, -6);
+				spr_master.setSize(25, 16);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, lstOnlinePlayers.get(num).Name,-63,7.5f);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Level),-49,7.5f);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Hp),-64.6f, 3);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Mp),-54f, 3);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Job),-65, -1.5f);
+			}
+			if(countParty == 3) {
+				spr_master = atlas_gameUI.createSprite("partytag");
+				spr_master.setPosition(-70, -22);
+				spr_master.setSize(25, 16);
+				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, lstOnlinePlayers.get(num).Name,-63,-8.5f);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Level),-49,-8.5f);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Hp),-64.6f, -13f);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Mp),-54f, -13f);
+				font_master.draw(game.batch, String.valueOf(lstOnlinePlayers.get(num).Job),-65, -17.5f);
+			}
+		}
+		
+		public void ShowHotKey() {  
+			if(!player.hotkey1.equals("none")) {
+				spr_master = ItemLog(player.hotkey1);
+				spr_master.setPosition(55, -20);
+				spr_master.setSize(9, 14);
+				spr_master.draw(game.batch);
+				String teste = ShowQuantityItem(hotketcountitem);
+				
+				if(teste.equals("")) {
+					player.hotkey1 = "none";
+				}
+				else {
+					font_master.draw(game.batch, teste, 60, -15);
+					font_master.draw(game.batch, "Atalho",55, -20);
+				}		
+			}
+		}
+		
+		public void ShowChats() {
+			font_master.setColor(Color.WHITE);
+			font_master.getData().setScale(0.10f,0.16f);
+			font_master.setUseIntegerPositions(false);	
+			if(lstChats.get(0) != null) { font_master.draw(game.batch, lstChats.get(0),-24, -39);  }
+			if(lstChats.get(1) != null) { font_master.draw(game.batch, lstChats.get(1),-24, -49);  }
+			if(lstChats.get(2) != null) { font_master.draw(game.batch, lstChats.get(2),-24, -59);  }		
+		}
+		
+		//Action
+		public void CheckAction() {
+			
+			if(player.Map.equals("StreetsA")) {
+				if(player.PosX > 20 && player.PosX < 37 && player.PosY > 13 && player.PosY < 23) {
+					state = "shop";
+					shop = "shopStreetsA1";
+				}
+				
+				if(player.PosX > -24 && player.PosX < -11.5f && player.PosY > 11.5f && player.PosY < 23.5f) {
+					state = "shop";
+					shop = "shopStreetsA2";
+				}
+				
+				if(player.PosX > -43.5f && player.PosX < -30.5f && player.PosY > -43 && player.PosY < -24) {
+					//state = "shop";
+					//shop = "shopJob";
+				}
+				
+				if(player.PosX > -24 && player.PosX < -12 && player.PosY > -43 && player.PosY < -24) {
+					//state = "shop";
+					//shop = "shopCrytal";
+				}
+				
+				if(player.PosX > -35.5f && player.PosX < -26.5f && player.PosY > 11.5 && player.PosY < 19) {
+					player.Map = "Volleyball";
+					player.PosX = 0;
+					player.PosY = 0;
+					SaveData();
+					this.screen.screenSwitch("LoadingScreen",network);
+				}
+				//Change Sewers
+				if(player.PosX >= 41f && player.PosX <= 54f && player.PosY > -37f && player.PosY < -25) {
+					player.PosX = 32;
+					player.PosY = 40;
+					player.Map = "Sewers";
+					threahCountSyncPlayer = 0;
+					threahCountSyncChat = 0;
+					threahCountSyncMob = 0;
+					SaveData();
+					this.screen.screenSwitch("LoadingScreen",keepnetwork);
+					return;
+				}
+			}
+			
+			if(player.Map.equals("StreetsB")) {
+				if(player.PosX > 23.5f && player.PosX < 48 && player.PosY > -9 && player.PosY < 4.5f) {
+					state = "shop";
+					shop = "shopStreetsB3";
+				}
+				if(player.PosX > -10.5f && player.PosX < 7.5 && player.PosY > -8 && player.PosY < 4) {
+					state = "shop";
+					shop = "shopStreetsB4";
+				}
+			}
+			
+			if(player.Map.equals("Sewers")) {
+				if(autoattack) { autoattack = false; player.Target = "none"; } else { autoattack = true;}
+				
+				//Change StreetsA
+				if(player.PosX >= 52f && player.PosX <= 65f && player.PosY > 35f && player.PosY < 60) {
+					player.Map = "StreetsA";
+					player.PosX = 31.5f;
+					player.PosY = -40;
+					threahCountSyncPlayer = 0;
+					threahCountSyncChat = 0;
+					threahCountSyncMob = 0;
+					SaveData();
+					this.screen.screenSwitch("LoadingScreen",keepnetwork);
+					return;
+				}
+			}
+ 		}
+		
+		//[Network]//
+		public void ShowOnlinePlayers() {
+			
+			if(lstOnlinePlayers == null) { return; }
+			
+			for(int i = 0; i < lstOnlinePlayers.size(); i++) {
+				
+				if(lstOnlinePlayers.get(0).AccountID.equals(player.AccountID)) { playerMobSync = true; } else { playerMobSync = false;}
+								
+				if(!lstOnlinePlayers.get(i).AccountID.equals(player.AccountID)) {
+					if(player.Map.equals(lstOnlinePlayers.get(i).Map)) {
+						font_master.draw(game.batch, lstOnlinePlayers.get(i).Name, lstOnlinePlayers.get(i).PosX +2.5f, lstOnlinePlayers.get(i).PosY + 22.5f);
+						spr_playerOnline = SetCharMov(lstOnlinePlayers.get(i),"online");
+						spr_playerOnline.draw(game.batch);
+						
+						spr_hairOnline = SetCharHair(lstOnlinePlayers.get(i), "online");
+						spr_hairOnline.draw(game.batch);
+						
+						spr_hatOnline = SetCharHat(lstOnlinePlayers.get(i), "online");
+						spr_hatOnline.draw(game.batch);
+						
+						if(player.playerInBattle.equals("yes") || player.playerInAttack.equals("yes") || player.playerInCast.equals("yes")) {
+							spr_weaponOnline = SetWeapon(lstOnlinePlayers.get(i));
+							spr_weaponOnline.draw(game.batch);
+						}
+					}
+					
+					if(!player.party.equals("none")) {
+						if(lstOnlinePlayers.get(i).party.equals(player.party)) {
+							countParty++;
+							if(countParty > 3) {
+								countParty = 0;
+							}
+							ShowParty(i);
+						}
+					}
+				}
+			}
+			countParty = 0;
+		}
+		
+		
+		
+		//[Monsters]//
 		//Mostra mobs
 		public void ShowMobs() {			
 			if(player.Map.equals("Sewers") || player.Map.equals("Watercave") || player.Map.equals("Mines") || player.Map.equals("Snowpalace") || player.Map.equals("Tower")) {
@@ -1430,18 +1521,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
-		public void CheckRegenTime() {		
-			player.regenTime--;		
-			if(player.regenTime <= 0) {
-				player.Hp = player.Hp + 15;
-				if(player.Hp > player.HpMax) { player.Hp = player.HpMax; }
-				
-				player.Mp = player.Mp + 10;
-				if(player.Mp > player.MpMax) { player.Mp = player.MpMax; }
-				player.regenTime = player.regenTimeMax;
-			}		
-		}
+		
 			
+		
 		//CarregaMobs
 		public void LoadMobsSewers() {
 			
@@ -2123,6 +2205,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
+		
+		//[Battle]//
 		//Give EXP
 		public void GiveExp(int exp) {
 			boolean levelup = false;
@@ -2412,79 +2496,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//}
 			}
 		}
-		//Action
-		public void CheckAction() {
-			
-			if(player.Map.equals("StreetsA")) {
-				if(player.PosX > 20 && player.PosX < 37 && player.PosY > 13 && player.PosY < 23) {
-					state = "shop";
-					shop = "shopStreetsA1";
-				}
-				
-				if(player.PosX > -24 && player.PosX < -11.5f && player.PosY > 11.5f && player.PosY < 23.5f) {
-					state = "shop";
-					shop = "shopStreetsA2";
-				}
-				
-				if(player.PosX > -43.5f && player.PosX < -30.5f && player.PosY > -43 && player.PosY < -24) {
-					//state = "shop";
-					//shop = "shopJob";
-				}
-				
-				if(player.PosX > -24 && player.PosX < -12 && player.PosY > -43 && player.PosY < -24) {
-					//state = "shop";
-					//shop = "shopCrytal";
-				}
-				
-				if(player.PosX > -35.5f && player.PosX < -26.5f && player.PosY > 11.5 && player.PosY < 19) {
-					player.Map = "Volleyball";
-					player.PosX = 0;
-					player.PosY = 0;
-					SaveData();
-					this.screen.screenSwitch("LoadingScreen",network);
-				}
-				//Change Sewers
-				if(player.PosX >= 41f && player.PosX <= 54f && player.PosY > -37f && player.PosY < -25) {
-					player.PosX = 32;
-					player.PosY = 40;
-					player.Map = "Sewers";
-					threahCountSyncPlayer = 0;
-					threahCountSyncChat = 0;
-					threahCountSyncMob = 0;
-					SaveData();
-					this.screen.screenSwitch("LoadingScreen",keepnetwork);
-					return;
-				}
-			}
-			
-			if(player.Map.equals("StreetsB")) {
-				if(player.PosX > 23.5f && player.PosX < 48 && player.PosY > -9 && player.PosY < 4.5f) {
-					state = "shop";
-					shop = "shopStreetsB3";
-				}
-				if(player.PosX > -10.5f && player.PosX < 7.5 && player.PosY > -8 && player.PosY < 4) {
-					state = "shop";
-					shop = "shopStreetsB4";
-				}
-			}
-			
-			if(player.Map.equals("Sewers")) {
-				if(autoattack) { autoattack = false; player.Target = "none"; } else { autoattack = true;}
-				
-				//Change StreetsA
-				if(player.PosX >= 52f && player.PosX <= 65f && player.PosY > 35f && player.PosY < 60) {
-					player.Map = "StreetsA";
-					player.PosX = 31.5f;
-					player.PosY = -40;
-					threahCountSyncPlayer = 0;
-					threahCountSyncChat = 0;
-					threahCountSyncMob = 0;
-					SaveData();
-					this.screen.screenSwitch("LoadingScreen",keepnetwork);
-					return;
-				}
-			}
- 		}
+		
 		
 		public int CheckDamageDifer(int mobHPMax, int moblevel) {
 			

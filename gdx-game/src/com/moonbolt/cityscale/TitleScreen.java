@@ -394,15 +394,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
             }
             player.Itens = itensList;
             
-            //String itensList = "";
-            //for(int i = 0; i < 16; i++) {
-            //    if(i == 0) { itensList = itensList + "[hpcan#30]-"; } 
-            //    if(i == 1) {  if(sex.equals("M")) {itensList = itensList + "[basicset_m#1]-"; } else { itensList = itensList + "[basicset_f#1]-"; }}
-            //    if(i == 2) {  itensList = itensList + "[basicknife#1]-"; } 
-            //    if(i > 2) { itensList = itensList + "[NONE]-"; }          
-            //}
-            //player.Itens = itensList;
-            
 			SaveData(player);		
 			state = "change";
 		}
