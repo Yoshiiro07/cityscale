@@ -16,7 +16,7 @@ public class GameControl {
 	private Random randnumber;
 	private GameObject player;
 		
-	public GameControl(MainGame _game, ManagerScreen _screen,boolean _network) {
+	public GameControl() {
 		
 		GameObject player = new GameObject();
 	}

@@ -44,10 +44,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private MainGame game;
 	    private GameObject gameObject;
 	    private ManagerScreen screen;
+	    private GameControl gameControl;
 	    private String state = "main";
 	    private boolean network = true;
 	    
 	    //Manager
+	    private String name = "";
 		private String systemMsg;
 		private String conta = "";
 		private String avisoconta = "";
@@ -61,18 +63,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private float cameraCoordsX = 0;
 	    private float cameraCoordsY = 0;
 	    
-	    //Player
-	    private float playerPosX = 0;
-	    private float playerPosY = 0;
-	    private GameObject player;
-	    private String name = "";
-	    private String sex = "M";
-	    private String hair = "hair1";
-	    private String color = "brown";
-	    private String set = "basicset_m";
-	    private float posListHairX = -29f;
-	    private int posListHairAux = 0;
-	    
 	    //Sprites
 	    private Sprite spr_Background;
 	    private Texture tex_Background;
@@ -83,17 +73,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    
 	    //Sprites
 	    private Sprite spr_loginmenu;
-	    private Sprite spr_createmenu;
-	    private Sprite spr_player;
-	    private Sprite spr_hair;
 	    
 	    //Textures
 	    private TextureAtlas atlas_gameUI;
-	    private TextureAtlas atlas_basicset;	    
-	    
-	    private TextureAtlas atlas_hairs1;
-	    private TextureAtlas atlas_hairs2;
-	    private TextureAtlas atlas_hairs3;
 	    
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
@@ -101,10 +83,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		public TitleScreen(MainGame gameAlt, ManagerScreen screen) {
 			this.game = gameAlt;
 			this.screen = screen;
-			
-			//Misc
-			randnumber = new Random();
-			json = new Json();
+			gameControl = new GameControl();
 			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/selected.png"));
@@ -129,10 +108,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 			//Atlas
 			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/UI/UI.txt"));
-			atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/chars/basicset.txt"));
-			atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/hairs1.txt"));
-			atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/chars/hairs2.txt"));		
-			atlas_hairs3 = new TextureAtlas(Gdx.files.internal("data/assets/chars/hairs3.txt"));
 		}
 			
 		@Override
@@ -145,12 +120,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				//Camera Ajustments
 				//cameraCoordsX = playerPosX;
 				//cameraCoordsY = playerPosY;
-				
-				//Follow camera
-				if(playerPosX <= -25f) { cameraCoordsX = -25; }
-				if(playerPosX >= 175) { cameraCoordsX = 175; }
-				if(playerPosY >= 91.5f) { cameraCoordsY = 91.5f; }
-				if(playerPosY <= -105) { cameraCoordsY = -105; }
 				
 				//Update camera and start drawling
 				camera.position.set(cameraCoordsX,cameraCoordsY,0);
@@ -172,106 +141,9 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 					spr_loginmenu.draw(game.batch);
 				}
 				
-				if(state.equals("create")) {
-					//Menus
-					spr_createmenu = atlas_gameUI.createSprite("createmenu");
-					spr_createmenu.setPosition(-59, -59);
-					spr_createmenu.setSize(120,120);
-					spr_createmenu.draw(game.batch);
-					
-					if(sex.equals("M")) {
-						spr_player = atlas_basicset.createSprite("front1M");
-						spr_player.setPosition(-51.5f, -5);
-						spr_player.setSize(20, 35);
-						spr_player.draw(game.batch);
-						
-						if(hair.equals("hair1")) { spr_hair = atlas_hairs1.createSprite(hair + color + sex + "Front"); }
-						if(hair.equals("hair2")) { spr_hair = atlas_hairs2.createSprite(hair + color + sex + "Front"); }
-						
-						spr_hair.setPosition(-47.6f, 17.9f);
-						spr_hair.setSize(12, 19);
-						spr_hair.draw(game.batch);
-						
-					}
-					else {
-						spr_player = atlas_basicset.createSprite("front1F");
-						spr_player.setPosition(-51.5f, -5);
-						spr_player.setSize(20, 35);
-						spr_player.draw(game.batch);
-						
-						if(hair.equals("hair1")) { spr_hair = atlas_hairs1.createSprite(hair + color + sex + "Front"); }
-						if(hair.equals("hair2")) { spr_hair = atlas_hairs2.createSprite(hair + color + sex + "Front"); }
-	
-						spr_hair.setPosition(-47.3f, 17.8f);
-						spr_hair.setSize(12, 19);
-						spr_hair.draw(game.batch);
-					}
-					
-					//List of hairs
-					if(sex.equals("M")) {					
-						spr_hair = atlas_hairs1.createSprite("hair" + 1 + color + "MFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-29f, -16); spr_hair.draw(game.batch); 
-						
-						spr_hair = atlas_hairs2.createSprite("hair" + 2 + color + "MFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-18.5f, -16); spr_hair.draw(game.batch); 
-						
-						spr_hair = atlas_hairs3.createSprite("hair" + 3 + color + "MFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-08f, -16); spr_hair.draw(game.batch); 
-						
-						//spr_hair.setPosition( 2f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(12.6f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(22.9f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(33.5f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(44f, -16); spr_hair.draw(game.batch); 	
-					}
-					if(sex.equals("F")) {
-						spr_hair = atlas_hairs1.createSprite("hair" + 1 + color + "FFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-29f, -16); spr_hair.draw(game.batch); 
-						
-						spr_hair = atlas_hairs2.createSprite("hair" + 2 + color + "FFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-18.5f, -16); spr_hair.draw(game.batch); 
-						
-						spr_hair = atlas_hairs3.createSprite("hair" + 3 + color + "FFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-08f, -16); spr_hair.draw(game.batch); 
-						
-						//spr_hair.setPosition( 2f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(12.6f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(22.9f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(33.5f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(44f, -16); spr_hair.draw(game.batch);					
-					}
-					
-					font_master.draw(game.batch, name , cameraCoordsX - 17 , cameraCoordsY + 39);
-				}
-				
-				if(state.equals("change")) {
-					this.screen.screenSwitch("LoadingScreen", network);
-				}
-				
-				if(state.equals("Recover")) {
-					//Menus
-					spr_createmenu = atlas_gameUI.createSprite("recuperar");
-					spr_createmenu.setPosition(-59, -59);
-					spr_createmenu.setSize(120,120);
-					spr_createmenu.draw(game.batch);
-					
-					font_master.setColor(Color.WHITE);
-					font_master.getData().setScale(0.16f,0.22f);
-					font_master.setUseIntegerPositions(false);	
-					
-					font_master.draw(game.batch, conta, -50 , 38);
-					font_master.draw(game.batch, avisoconta , -50 , 22);
-				}
 				font_master.setColor(Color.WHITE);
 				font_master.getData().setScale(0.07f,0.12f);
-				font_master.setUseIntegerPositions(false);	
-						
+				font_master.setUseIntegerPositions(false);			
 				font_master.draw(game.batch, "Versao: 1B" , -60 , -58);
 						
 				//spr_testeDot.setPosition(-57,-36);
@@ -286,107 +158,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 		}
 		
-		
-		
-		//[Account]//
-		
-		
-		
-		private boolean CheckName() {
-			if(name.equals("none")){ systemMsg = "Insira um nome"; return false;}
-			if(name.equals("")) { systemMsg = "Insira um nome"; return false; }
-			if(name.contains(".")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains(";")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("'")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("~")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains(":")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("?")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("!")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("-")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("*")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("@")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("#")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("$")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("%")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("&")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("(")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains(")")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("=")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("/")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("\\")){ systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains("<")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.contains(">")) { systemMsg = "Nome com caracters especiais"; return false; }
-			if(name.length() > 10) { systemMsg = "Ate 10 letras"; return false; }
-			
-			return true;
-		}
-		
-		public String GerenciamentoOnline(String tipoRequisicao, String subData) throws IOException {
-			
-			String linhaLida = "";
-			
-			try {
-			
-				if(tipoRequisicao.equals("Download")) {
-					try {			
-				        // Construct data
-						//Inscricoes para Conexao
-				        String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
-				        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
-				        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
-				        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(screen.lservername, "UTF-8");
-				        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(screen.lusername, "UTF-8");
-				        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(screen.lpassword, "UTF-8");
-				        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(screen.ldbname, "UTF-8");
-				   	    	        
-				        // Send data
-				        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
-				        URLConnection conn = url.openConnection();
-				        conn.setDoOutput(true);
-				        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-				        wr.write(data);
-				        wr.flush();
-				 
-				        // Get the response
-				        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				        String line;
-				        while ((line = rd.readLine()) != null) {
-				        	if(!line.contains("Inexistente")) {
-				        		LoadDownloadData(line);
-				        		avisoconta = "Recuperado com sucesso";
-				        	}
-				        	else {
-				        		avisoconta = "Conta nao encontrada";
-				        	}
-				        }		        
-				        wr.close();
-				        rd.close();
-				    } 
-					
-					catch (Exception e) { avisoconta = "Operacao falhou"; return "retry";}
-				}
-					
-				return "";
-			}
-			
-			catch(Exception ex) {
-				return "retry";
-			}		
-		}
-		
-		public void LoadDownloadData(String hash) {
-			FileHandle file = Gdx.files.local("SaveData/save.json");
-			GameObject player = json.fromJson(GameObject.class,Base64Coder.decodeString(hash));			
-			file.writeString(Base64Coder.encodeString(json.prettyPrint(player)),false);
-		}
-		
-		public void DeleteData() {
-			FileHandle file = Gdx.files.local("SaveData/save.json");
-			file.delete();
-		}
-	
 		@Override
 		public void input(String input) {	
 			if(state.equals("create")) {
@@ -429,14 +200,14 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				//Jogar Online
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -28 && coordsTouch.y <= -15) {
 					network = true;
-					CheckData();
+					gameControl.CheckData();
 					return false;
 				}
 								
 				//Jogar Offline
 				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -42 && coordsTouch.y <= -28) {
 					network = false;
-					CheckData();
+					gameControl.CheckData();
 					return false;
 				}
 						
@@ -460,122 +231,17 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				//Recuperar botao
 				if(coordsTouch.x >= -1 && coordsTouch.x <= 30 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
 					try {
-						GerenciamentoOnline("Download",conta);
-					} catch (IOException e) {
-						avisoconta = "Nao foi possível efetuar operacao";
+						//GerenciamentoOnline("Download",conta);
+					} catch (Exception e) {
+						//avisoconta = "Nao foi possível efetuar operacao";
 					}
 				}
 				//delete acc
 				if(coordsTouch.x >= -57 && coordsTouch.x <= -1 && coordsTouch.y >= -55 && coordsTouch.y <= -36) {
-					DeleteData();
 					return false;
 				}
 			}
-			
-			if(state.equals("create")) {
-				//Nome
-				if(coordsTouch.x >= cameraCoordsX - 17 && coordsTouch.x <= cameraCoordsX + 14 && coordsTouch.y >= cameraCoordsY + 30 && coordsTouch.y <= cameraCoordsY + 39) {
-					Gdx.input.getTextInput(this,"Digite o nome","","");
-					return false;
-				}		
-				//Sex Male
-				if(coordsTouch.x >= cameraCoordsX - 17 && coordsTouch.x <= cameraCoordsX -4 && coordsTouch.y >= cameraCoordsY + 16 && coordsTouch.y <= cameraCoordsY + 29) {
-					sex = "M";
-					hair = "hair1";
-					set = "basicset_m";
-					return false;
-				}
-				//Sex Female
-				if(coordsTouch.x >= cameraCoordsX - 1 && coordsTouch.x <= cameraCoordsX + 12 && coordsTouch.y >= cameraCoordsY + 16 && coordsTouch.y <= cameraCoordsY + 29) {
-					sex = "F";
-					hair = "hair1";
-					set = "basicset_f";
-					return false;
-				}
-				//Hair1 
-				if(coordsTouch.x >=  -28 && coordsTouch.x <=  -18.6f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair1";
-					return false;
-				}
-				//Hair2
-				if(coordsTouch.x >=  -17.4f && coordsTouch.x <=  -8.6f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair2";
-					return false;
-				}
-				//Hair3
-				if(coordsTouch.x >=  -7 && coordsTouch.x <= 2 && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair3";
-					return false;
-				}
-				//Hair4
-				if(coordsTouch.x >=  3f && coordsTouch.x <= 13f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair4";
-					return false;
-				}
-				//Hair5
-				if(coordsTouch.x >=  14f && coordsTouch.x <=  23f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair5";
-					return false;
-				}
-				//Hair6
-				if(coordsTouch.x >=  24f && coordsTouch.x <=  33f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair6";
-					return false;
-				}
-				//Hair7
-				if(coordsTouch.x >=  34f && coordsTouch.x <=  44f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair7";
-					return false;
-				}
-				//Hair8
-				if(coordsTouch.x >=  45f && coordsTouch.x <=  55f && coordsTouch.y >=  - 15 && coordsTouch.y <=  + 1) {
-					hair = "hair8";
-					return false;
-				}
-				
-				//Color Orange 
-				if(coordsTouch.x >= -28 && coordsTouch.x <= -19 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "orange";
-					return false;
-				}
-				//Color Yellow 
-				if(coordsTouch.x >= -17 && coordsTouch.x <= -8 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "yellow";
-					return false;
-				}
-				//Color Green 
-				if(coordsTouch.x >= -7 && coordsTouch.x <= 2 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "green";
-					return false;
-				}
-				//Color Red 
-				if(coordsTouch.x >= 3 && coordsTouch.x <= 12 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "red";
-					return false;
-				}
-				//Color Pink 
-				if(coordsTouch.x >= 14 && coordsTouch.x <= 23 && coordsTouch.y >=  - 41 && coordsTouch.y <= - 25) {
-					color = "pink";
-					return false;
-				}
-				//Color Brown 
-				if(coordsTouch.x >= + 24 && coordsTouch.x <= + 33 && coordsTouch.y >= - 41 && coordsTouch.y <= - 25) {
-					color = "brown";
-					return false;
-				}
-				//Confirmar 
-				if(coordsTouch.x >= cameraCoordsX + 32 && coordsTouch.x <= cameraCoordsX + 57 && coordsTouch.y >= cameraCoordsY - 55 && coordsTouch.y <= cameraCoordsY - 44) {
-					if(!CheckName()) { return false; }	
-					CreateNewChar();
-					return false;
-				}
-				//Voltar 
-				if(coordsTouch.x >= cameraCoordsX - 57 && coordsTouch.x <= cameraCoordsX - 32 && coordsTouch.y >= cameraCoordsY - 55 && coordsTouch.y <= cameraCoordsY - 44) {
-					state = "main";
-					return false;
-				}						
-			}
-				
+							
 			return false;
 		}
 
