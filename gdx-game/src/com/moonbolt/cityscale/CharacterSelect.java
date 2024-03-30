@@ -26,8 +26,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private ManagerScreen screen;
 	    private String state = "Main";
 	    private boolean network = false;
-	    
-	    
+	    private String systemMsg = "";
+	       
 		//Fonts
 		private BitmapFont font_master;
 		
@@ -38,18 +38,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private float cameraCoordsY = 0;
 	    
 	    //Player
-	    private GameObject player;
+	    private Player player;
 	    private String name = "";
 	    private String sex = "M";
 	    private String hair = "hair1";
 	    private String color = "brown";
-	    private String set = "basicset_m";
-	    private Sprite spr_hair1;
-	    private Sprite spr_hair2;
-	    private Sprite spr_hair3;
-	    private Sprite spr_hat1;
-	    private Sprite spr_hat2;
-	    private Sprite spr_hat3;
+	    private String setUpper = "basic";
+	    private String setBottom = "basic";
+	    private String setFooter = "basic";
 	    private int selectedchar = 0;
 	    
 	    //Sprites
@@ -64,14 +60,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private Sprite spr_master;
 	    private Sprite spr_player;
 	    private Sprite spr_hair;
+	    private Sprite spr_hat;
 	    
 	    //Textures
 	    private TextureAtlas atlas_gameUI;
-	    private TextureAtlas atlas_basicset;	    
-	    
-	    private TextureAtlas atlas_hairs1;
-	    private TextureAtlas atlas_hairs2;
-	    private TextureAtlas atlas_hairs3;
 	    
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
@@ -86,19 +78,15 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			player = gameControl.LoadData();
 			
 			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/assets/misc/selected.png"));
+			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 			spr_master = new Sprite(tex_testeDot);
 			
-			spr_hair1 = new Sprite(tex_testeDot);
-			spr_hair2 = new Sprite(tex_testeDot);
-			spr_hair3 = new Sprite(tex_testeDot);
-			spr_hat1 = new Sprite(tex_testeDot);
-			spr_hat2 = new Sprite(tex_testeDot);
-			spr_hat3 = new Sprite(tex_testeDot);
+			spr_hair = new Sprite(tex_testeDot);
+			spr_hat = new Sprite(tex_testeDot);
 			
 			//Load Title
-			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/characterselect.png"));
+			tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
 			spr_Background = new Sprite(tex_Background);
 					
 			//Camera and Inputs
@@ -109,17 +97,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			Gdx.input.setInputProcessor(this);
 	
 			//font
-			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+			font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.12f);
 			font_master.setUseIntegerPositions(false);	
-			
-			//Atlas
-			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/interface/uirenew.txt"));
-			atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/sets/basic/basic.txt"));
-			atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs1.txt"));
-			atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs2.txt"));		
-			atlas_hairs3 = new TextureAtlas(Gdx.files.internal("data/assets/chars/player/hairs/hairs3.txt"));
 		}
 			
 		@Override
@@ -140,350 +121,56 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_Background.setSize(140, 140);
 				spr_Background.draw(game.batch);
 				
-				
 				if(state.equals("Main")) {
-					//selecione
-					spr_master = atlas_gameUI.createSprite("selecionepersonagem");
-					spr_master.setPosition(-65, 50);
-					spr_master.setSize(50,8);
+					spr_master = gameControl.GetUX("bannerselect");
 					spr_master.draw(game.batch);
 					
-					//btn criar
-					spr_master = atlas_gameUI.createSprite("btncriar");
-					spr_master.setPosition(-60, -60);
-					spr_master.setSize(20,10);
+					spr_master = gameControl.GetUX("btncreatenew");
 					spr_master.draw(game.batch);
 					
-					//btn criar
-					spr_master = atlas_gameUI.createSprite("btnexcluir");
-					spr_master.setPosition(40, -60);
-					spr_master.setSize(20,10);
+					spr_master = gameControl.GetUX("btnexclude");
 					spr_master.draw(game.batch);
 					
-					if(!player.Name_1.equals("none")) {								
-						gameControl.PutActiveSet(player.SetBottom_1);
-						spr_player = gameControl.CharacterMoveBottom("Menu",1);
-						spr_player.draw(game.batch);
-						
-						gameControl.PutActiveSet(player.SetUpper_1);
-						spr_player = gameControl.CharacterMoveUpper("Menu",1);
-						spr_player.draw(game.batch);
-						
-						if(player.Hair_1.equals("hair1")) { spr_hair1 = atlas_hairs1.createSprite(hair + color + player.Sex_1 + "Front"); }
-						if(player.Hair_1.equals("hair2")) { spr_hair1 = atlas_hairs2.createSprite(hair + color + player.Sex_1 + "Front"); }
-						
-						spr_hair1.setPosition(-49.5f, -11f);
-						spr_hair1.setSize(16, 29);
-						spr_hair1.draw(game.batch);					
+					if(!player.Name_1.equals("none")) {
+						spr_master = gameControl.MenuShowCharacterSprite("btnexclude");
+						spr_master.draw(game.batch);
 					}
 					
-					if(!player.Name_2.equals("none")) {		
-						gameControl.PutActiveSet(player.SetBottom_2);
-						spr_player = gameControl.CharacterMoveBottom("Menu",2);
-						spr_player.draw(game.batch);
-						
-						gameControl.PutActiveSet(player.SetUpper_2);
-						spr_player = gameControl.CharacterMoveUpper("Menu",2);
-						spr_player.draw(game.batch);
-
-						if(player.Hair_2.equals("hair1")) { spr_hair2 = atlas_hairs1.createSprite(hair + color + player.Sex_2 + "Front"); }
-						if(player.Hair_2.equals("hair2")) { spr_hair2 = atlas_hairs2.createSprite(hair + color + player.Sex_2 + "Front"); }
-
-						spr_hair2.setPosition(-10.7f, -11.5f);
-						spr_hair2.setSize(16, 29);
-						spr_hair2.draw(game.batch);					
-					}
-					
-					if(!player.Name_3.equals("none")) {		
-						gameControl.PutActiveSet(player.SetBottom_3);
-						spr_player = gameControl.CharacterMoveBottom("Menu",3);
-						spr_player.draw(game.batch);
-						
-						gameControl.PutActiveSet(player.SetUpper_3);
-						spr_player = gameControl.CharacterMoveUpper("Menu",3);
-						spr_player.draw(game.batch);
-
-						if(player.Hair_3.equals("hair1")) { spr_hair3 = atlas_hairs1.createSprite(hair + color + player.Sex_3 + "Front"); }
-						if(player.Hair_3.equals("hair2")) { spr_hair3 = atlas_hairs2.createSprite(hair + color + player.Sex_3 + "Front"); }
-
-						spr_hair3.setPosition(28.1f, -11f);
-						spr_hair3.setSize(16, 29);
-						spr_hair3.draw(game.batch);			
-					}
 				}
 				
-				if(state.equals("Create")) {
-					//Menus
-					spr_master = atlas_gameUI.createSprite("createmenu");
-					spr_master.setPosition(-59, -59);
-					spr_master.setSize(120,120);
+				if(state.equals("Create")) {				
+					spr_master = gameControl.GetUX("create");
+					spr_master.draw(game.batch);
+			
+					spr_master = gameControl.MenuCreateSprite(sex, "footer");
 					spr_master.draw(game.batch);
 					
-					font_master.draw(game.batch, systemMsg , 21 , 30);
+					spr_master = gameControl.MenuCreateSprite(sex, "bottom");
+					spr_master.draw(game.batch);
 					
-					if(sex.equals("M")) {			
-						spr_player = atlas_basicset.createSprite("b_male_front1");
-						spr_player.setPosition(-49f, -17.2f);
-						spr_player.setSize(16, 29);
-						spr_player.draw(game.batch);
-						
-						spr_player = atlas_basicset.createSprite("u_male_front1");
-						spr_player.setPosition(-49.3f, 1);
-						spr_player.setSize(16, 30);
-						spr_player.draw(game.batch);
-						
-						if(hair.equals("hair1")) { spr_hair = atlas_hairs1.createSprite(hair + color + sex + "Front"); }
-						if(hair.equals("hair2")) { spr_hair = atlas_hairs2.createSprite(hair + color + sex + "Front"); }
-						
-						spr_hair.setPosition(-49.3f, 15.2f);
-						spr_hair.setSize(16, 29);
-						spr_hair.draw(game.batch);					
-					}
-					else {
-						
-						spr_player = atlas_basicset.createSprite("b_female_front1");
-						spr_player.setPosition(-48.5f, -18f);
-						spr_player.setSize(15, 30);
-						spr_player.draw(game.batch);
-						
-						spr_player = atlas_basicset.createSprite("u_female_front1");
-						spr_player.setPosition(-49f, 0.5f);
-						spr_player.setSize(16, 30);
-						spr_player.draw(game.batch);
-						
-						if(hair.equals("hair1")) { spr_hair = atlas_hairs1.createSprite(hair + color + sex + "Front"); }
-						if(hair.equals("hair2")) { spr_hair = atlas_hairs2.createSprite(hair + color + sex + "Front"); }
-	
-						spr_hair.setPosition(-49f, 14.5f);
-						spr_hair.setSize(16, 29);
-						spr_hair.draw(game.batch);
-					}
+					spr_master = gameControl.MenuCreateSprite(sex, "upper");
+					spr_master.draw(game.batch);
 					
-					//List of hairs
-					if(sex.equals("M")) {					
-						spr_hair = atlas_hairs1.createSprite("hair" + 1 + color + "MFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-20.5f, -24); spr_hair.draw(game.batch); 
-						
-						spr_hair = atlas_hairs2.createSprite("hair" + 2 + color + "MFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-11.5f, -24); spr_hair.draw(game.batch); 
-						
-						spr_hair = atlas_hairs3.createSprite("hair" + 3 + color + "MFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-1.7f, -24); spr_hair.draw(game.batch);
-						
-						//spr_hair.setPosition( 2f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(12.6f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(22.9f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(33.5f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(44f, -16); spr_hair.draw(game.batch);
-					}
-					if(sex.equals("F")) {
-						spr_hair = atlas_hairs1.createSprite("hair" + 1 + color + "FFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-20.5f, -24); spr_hair.draw(game.batch); 
-						
-						spr_hair = atlas_hairs2.createSprite("hair" + 2 + color + "FFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-11.5f, -24); spr_hair.draw(game.batch); 
-						
-						spr_hair = atlas_hairs3.createSprite("hair" + 3 + color + "FFront");
-						spr_hair.setSize(12, 19);
-						spr_hair.setPosition(-1.7f, -24); spr_hair.draw(game.batch); 
-						
-						//spr_hair.setPosition( 2f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(12.6f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(22.9f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(33.5f, -16); spr_hair.draw(game.batch); 
-						//spr_hair.setPosition(44f, -16); spr_hair.draw(game.batch);					
-					}
+					spr_master = gameControl.MenuHairCreateSprite(sex, hair);
+					spr_master.draw(game.batch);
 					
-					font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+					spr_master = gameControl.MenuHairsSelect(1, sex);
+					spr_master.draw(game.batch);
+					
+					
+					
 					font_master.setColor(Color.WHITE);
-					font_master.getData().setScale(0.10f,0.16f);
-					font_master.setUseIntegerPositions(false);
+					font_master.getData().setScale(0.12f,0.19f);
+					font_master.setUseIntegerPositions(false);			
+					font_master.draw(game.batch, name , -13 , 37);
 					
-					font_master.draw(game.batch, name , -17 , 30);
 				}
-				
-				if(state.equals("Delete")) {
-					//selecione
-					spr_master = atlas_gameUI.createSprite("excluindopersonagem");
-					spr_master.setPosition(-65, 50);
-					spr_master.setSize(50,8);
-					spr_master.draw(game.batch);
-					
-					//btn criar
-					spr_master = atlas_gameUI.createSprite("btnvoltar");
-					spr_master.setPosition(40, -60);
-					spr_master.setSize(20,10);
-					spr_master.draw(game.batch);
-					
-					if(!player.Name_1.equals("none")) {								
-						gameControl.PutActiveSet(player.SetBottom_1);
-						spr_player = gameControl.CharacterMoveBottom("Menu",1);
-						spr_player.draw(game.batch);
-						
-						gameControl.PutActiveSet(player.SetUpper_1);
-						spr_player = gameControl.CharacterMoveUpper("Menu",1);
-						spr_player.draw(game.batch);
-						
-						if(player.Hair_1.equals("hair1")) { spr_hair1 = atlas_hairs1.createSprite(hair + color + player.Sex_1 + "Front"); }
-						if(player.Hair_1.equals("hair2")) { spr_hair1 = atlas_hairs2.createSprite(hair + color + player.Sex_1 + "Front"); }
-						
-						spr_hair1.setPosition(-49.5f, -11f);
-						spr_hair1.setSize(16, 29);
-						spr_hair1.draw(game.batch);					
-					}
-					
-					if(!player.Name_2.equals("none")) {		
-						gameControl.PutActiveSet(player.SetBottom_2);
-						spr_player = gameControl.CharacterMoveBottom("Menu",2);
-						spr_player.draw(game.batch);
-						
-						gameControl.PutActiveSet(player.SetUpper_2);
-						spr_player = gameControl.CharacterMoveUpper("Menu",2);
-						spr_player.draw(game.batch);
-
-						if(player.Hair_2.equals("hair1")) { spr_hair2 = atlas_hairs1.createSprite(hair + color + player.Sex_2 + "Front"); }
-						if(player.Hair_2.equals("hair2")) { spr_hair2 = atlas_hairs2.createSprite(hair + color + player.Sex_2 + "Front"); }
-
-						spr_hair2.setPosition(-10.7f, -11.5f);
-						spr_hair2.setSize(16, 29);
-						spr_hair2.draw(game.batch);					
-					}
-					
-					if(!player.Name_3.equals("none")) {		
-						gameControl.PutActiveSet(player.SetBottom_3);
-						spr_player = gameControl.CharacterMoveBottom("Menu",3);
-						spr_player.draw(game.batch);
-						
-						gameControl.PutActiveSet(player.SetUpper_3);
-						spr_player = gameControl.CharacterMoveUpper("Menu",3);
-						spr_player.draw(game.batch);
-
-						if(player.Hair_3.equals("hair1")) { spr_hair3 = atlas_hairs1.createSprite(hair + color + player.Sex_3 + "Front"); }
-						if(player.Hair_3.equals("hair2")) { spr_hair3 = atlas_hairs2.createSprite(hair + color + player.Sex_3 + "Front"); }
-
-						spr_hair3.setPosition(28.1f, -11f);
-						spr_hair3.setSize(16, 29);
-						spr_hair3.draw(game.batch);			
-					}
-				}
-				
-				if(state.equals("Selected")) {
-					
-					//selecione
-					spr_master = atlas_gameUI.createSprite("selecionepersonagem");
-					spr_master.setPosition(-65, 50);
-					spr_master.setSize(50,8);
-					spr_master.draw(game.batch);
-					
-					
-					if(selectedchar == 1) {
-						if(!player.Name_1.equals("none")) {								
-							gameControl.PutActiveSet(player.SetBottom_1);
-							spr_player = gameControl.CharacterMoveBottom("Menu",1);
-							spr_player.draw(game.batch);
-							
-							gameControl.PutActiveSet(player.SetUpper_1);
-							spr_player = gameControl.CharacterMoveUpper("Menu",1);
-							spr_player.draw(game.batch);
-							
-							if(player.Hair_1.equals("hair1")) { spr_hair1 = atlas_hairs1.createSprite(hair + color + player.Sex_1 + "Front"); }
-							if(player.Hair_1.equals("hair2")) { spr_hair1 = atlas_hairs2.createSprite(hair + color + player.Sex_1 + "Front"); }
-							
-							spr_hair1.setPosition(-49.5f, -11f);
-							spr_hair1.setSize(16, 29);
-							spr_hair1.draw(game.batch);					
-						}
-						
-						spr_master = atlas_gameUI.createSprite("charmenuselect");
-						spr_master.setPosition(20, 17);
-						spr_master.setSize(50,50);
-						spr_master.draw(game.batch);
-						
-						font_master.draw(game.batch, player.Name_1 , 32 , 55);
-						font_master.draw(game.batch, String.valueOf(player.Level_1), 32 , 48.5f);
-						font_master.draw(game.batch, player.Map_1 , 32 , 42);
-						font_master.draw(game.batch, player.Job_1 , 34 , 36.5f);
-					}
-					if(selectedchar == 2) {
-						if(!player.Name_2.equals("none")) {		
-							gameControl.PutActiveSet(player.SetBottom_2);
-							spr_player = gameControl.CharacterMoveBottom("Menu",2);
-							spr_player.draw(game.batch);
-							
-							gameControl.PutActiveSet(player.SetUpper_2);
-							spr_player = gameControl.CharacterMoveUpper("Menu",2);
-							spr_player.draw(game.batch);
-
-							if(player.Hair_2.equals("hair1")) { spr_hair2 = atlas_hairs1.createSprite(hair + color + player.Sex_2 + "Front"); }
-							if(player.Hair_2.equals("hair2")) { spr_hair2 = atlas_hairs2.createSprite(hair + color + player.Sex_2 + "Front"); }
-
-							spr_hair2.setPosition(-10.7f, -11.5f);
-							spr_hair2.setSize(16, 29);
-							spr_hair2.draw(game.batch);					
-						}		
-						
-						spr_master = atlas_gameUI.createSprite("charmenuselect");
-						spr_master.setPosition(20, 17);
-						spr_master.setSize(50,50);
-						spr_master.draw(game.batch);
-						
-						font_master.draw(game.batch, player.Name_2, 32 , 55);
-						font_master.draw(game.batch, String.valueOf(player.Level_2), 32 , 48.5f);
-						font_master.draw(game.batch, player.Map_2 , 32 , 42);
-						font_master.draw(game.batch, player.Job_2 , 34 , 36.5f);
-					}
-					if(selectedchar == 3) {
-						if(!player.Name_3.equals("none")) {		
-							gameControl.PutActiveSet(player.SetBottom_3);
-							spr_player = gameControl.CharacterMoveBottom("Menu",3);
-							spr_player.draw(game.batch);
-							
-							gameControl.PutActiveSet(player.SetUpper_3);
-							spr_player = gameControl.CharacterMoveUpper("Menu",3);
-							spr_player.draw(game.batch);
-
-							if(player.Hair_3.equals("hair1")) { spr_hair3 = atlas_hairs1.createSprite(hair + color + player.Sex_3 + "Front"); }
-							if(player.Hair_3.equals("hair2")) { spr_hair3 = atlas_hairs2.createSprite(hair + color + player.Sex_3 + "Front"); }
-
-							spr_hair3.setPosition(28.1f, -11f);
-							spr_hair3.setSize(16, 29);
-							spr_hair3.draw(game.batch);			
-						}
-						
-						spr_master = atlas_gameUI.createSprite("charmenuselect");
-						spr_master.setPosition(20, 17);
-						spr_master.setSize(50,50);
-						spr_master.draw(game.batch);
-						
-						font_master.draw(game.batch, player.Name_3, 32 , 55);
-						font_master.draw(game.batch, String.valueOf(player.Level_3), 32 , 48.5f);
-						font_master.draw(game.batch, player.Map_3 , 32 , 42);
-						font_master.draw(game.batch, player.Job_3 , 34 , 36.5f);
-					}
-				}
-					
-				if(state.equals("Change")) {
-					player.SetActiveChar(selectedchar);
-					gameControl.SaveData(player);
-					
-					if(player.Map_A.equals("MetroStation")) {
-						this.screen.screenSwitch("MetroStation", network);
-					}
-					else {
-						this.screen.screenSwitch("LoadingScreen", network);
-					}					
-				}
-							
-				spr_testeDot.setPosition(41,31);
+												
+				spr_testeDot.setPosition(28,-42);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(65, 20);
+				spr_testeDot.setPosition(54,-53);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 					
@@ -525,8 +212,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	
 		@Override
 		public void input(String input) {	
-			if(state.equals("Create")) {
-				
+			if(state.equals("Create")) {		
 				if(CheckName(input)) {
 					name = input;
 				}
@@ -561,35 +247,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			//[MainState]// 
 			if(state.equals("Main")) {
 				//Create
-				if(coordsTouch.x >=  -60 && coordsTouch.x <= -40 && coordsTouch.y >= -60 && coordsTouch.y <= -50) {
+				if(coordsTouch.x >=  -60 && coordsTouch.x <= -40 && coordsTouch.y >= -61 && coordsTouch.y <= -50) {
 					state = "Create";
 					return false;
 				}
 								
 				//Delete
-				if(coordsTouch.x >=  + 39 && coordsTouch.x <= 60 && coordsTouch.y >= -62 && coordsTouch.y <= -50) {
+				if(coordsTouch.x >=  40 && coordsTouch.x <= 60 && coordsTouch.y >= -61 && coordsTouch.y <= -50) {
 					state = "Delete";			
-					return false;
-				}
-				
-				//Char 1
-				if(coordsTouch.x >= -55 && coordsTouch.x <= -28 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
-					state = "Selected";
-					selectedchar = 1;
-					return false;
-				}	
-				
-				//Char 2
-				if(coordsTouch.x >= -20 && coordsTouch.x <= 12 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
-					state = "Selected";
-					selectedchar = 2;
-					return false;
-				}	
-				
-				//Char 3
-				if(coordsTouch.x >= 18 && coordsTouch.x <= 50 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
-					state = "Selected";
-					selectedchar = 3;
 					return false;
 				}
 			}
@@ -597,35 +262,44 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			//[CreateState]//
 			if(state.equals("Create")) {
 				//Back
-				if(coordsTouch.x >= -55 && coordsTouch.x <= -34 && coordsTouch.y >= -55 && coordsTouch.y <= -42) {
+				if(coordsTouch.x >= -55 && coordsTouch.x <= -30f && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
 					state = "Main";
 					return false;
 				}
 				
-				//Name
-				if(coordsTouch.x >= -20 && coordsTouch.x <= 20 && coordsTouch.y >= 22 && coordsTouch.y <= 33) {
-					Gdx.input.getTextInput(this,"Digite o nome do personagem:","","");
+				//Nome
+				if(coordsTouch.x >= -16 && coordsTouch.x <= 17 && coordsTouch.y >= 29 && coordsTouch.y <= 39) {
+					Gdx.input.getTextInput(this,"Digite o nome","","");
 					return false;
 				}
-					
-				//Male
-				if(coordsTouch.x >= -20 && coordsTouch.x <= -6 && coordsTouch.y >= 0 && coordsTouch.y <= 15) {
+				
+				//Masc
+				if(coordsTouch.x >= -16 && coordsTouch.x <= -10 && coordsTouch.y >= 16 && coordsTouch.y <= 27) {
 					sex = "M";
 					return false;
 				}
-				//Female
-				if(coordsTouch.x >= -5 && coordsTouch.x <= 9 && coordsTouch.y >= 0 && coordsTouch.y <= 15) {
+				
+				//Fem
+				if(coordsTouch.x >= -8 && coordsTouch.x <= -1 && coordsTouch.y >= 16 && coordsTouch.y <= 27) {
 					sex = "F";
 					return false;
 				}
 				
-				//Create
-				if(coordsTouch.x >= 34 && coordsTouch.x <= 56 && coordsTouch.y >= -54 && coordsTouch.y <= -42) {
-					gameControl.CreateNewChar(name, sex, hair, color);
-					player = gameControl.LoadData();
+				//Hair 1
+				if(coordsTouch.x >= -28 && coordsTouch.x <= -19.5f && coordsTouch.y >= -10 && coordsTouch.y <= 5) {
+					hair = "hair1";
+					return false;
+				}
+				
+				//Confirmar
+				if(coordsTouch.x >= 28 && coordsTouch.x <= 54 && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
+					gameControl.CreateNewChar(name, sex, hair, "");
 					state = "Main";
 					return false;
-				}	
+				}
+				
+				
+				
 			}
 			
 			if(state.equals("Delete")) {
@@ -634,30 +308,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					state = "Main";			
 					return false;
 				}
-				
-				//Char 1
-				if(coordsTouch.x >= -55 && coordsTouch.x <= -28 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
-					gameControl.DeleteChar(1);
-					player = gameControl.LoadData();
-					state = "Main";
-					return false;
-				}	
-				
-				//Char 2
-				if(coordsTouch.x >= -20 && coordsTouch.x <= 12 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
-					gameControl.DeleteChar(2);
-					player = gameControl.LoadData();
-					state = "Main";
-					return false;
-				}	
-				
-				//Char 3
-				if(coordsTouch.x >= 18 && coordsTouch.x <= 50 && coordsTouch.y >= -40 && coordsTouch.y <= 20) {
-					gameControl.DeleteChar(3);
-					player = gameControl.LoadData();
-					state = "Main";
-					return false;
-				}	
 			}
 			
 			if(state.equals("Selected")) {

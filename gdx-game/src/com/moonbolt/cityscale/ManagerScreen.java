@@ -7,7 +7,7 @@ import com.badlogic.gdx.Screen;
 
 public class ManagerScreen implements Screen{
 	private MainGame game;
-	private GameObject gameObject;
+	private GameControl gameControl;
 	private boolean network;
 	public String lservername = "cityserver.mysql.uhserver.com";
 	public String lusername = "citymaster";
@@ -16,7 +16,7 @@ public class ManagerScreen implements Screen{
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
-		this.gameObject = new GameObject(); 
+		this.gameControl = new GameControl(); 
 	}
 	
 	public void screenSwitch(String tipo, boolean network){
@@ -31,6 +31,11 @@ public class ManagerScreen implements Screen{
 			game.setScreen(titleScreen);
 		}
 		
+		if(tipo.equals("CharacterSelectScreen")){	
+			CharacterSelect CharacterSelectScreen = new CharacterSelect(game,this, network);
+			game.setScreen(CharacterSelectScreen);
+		}
+		
 		if(tipo.equals("LoadingScreen")){	
 			LoadingScreen loadingScreen = new LoadingScreen(game,network);
 			game.setScreen(loadingScreen);
@@ -42,9 +47,9 @@ public class ManagerScreen implements Screen{
 		}
 	}
 	
-	public void atualizaComponentes(MainGame maingameAlt,GameObject gameObject, boolean network){
+	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControlAlt, boolean network){
 		this.game = maingameAlt;
-		this.gameObject = gameObject;
+		this.gameControl = gameControlAlt;
 		this.network = network;
 	}
 
