@@ -31,6 +31,11 @@ public class ManagerScreen implements Screen{
 			game.setScreen(titleScreen);
 		}
 		
+		if(tipo.equals("CharacterSelectScreen")){	
+			CharacterSelect CharacterSelectScreen = new CharacterSelect(game,this, network);
+			game.setScreen(CharacterSelectScreen);
+		}
+		
 		if(tipo.equals("LoadingScreen")){	
 			LoadingScreen loadingScreen = new LoadingScreen(game,network);
 			game.setScreen(loadingScreen);

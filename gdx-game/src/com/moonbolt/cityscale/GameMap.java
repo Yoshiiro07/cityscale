@@ -39,6 +39,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		//Objects
 	    private MainGame game;
 	    private ManagerScreen screen;
+	    private GameControl gameControl;
 	    private String state = "main";
 	    private Sprite spr_master;
 	    
@@ -55,6 +56,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    public Player player;
 	    private float playerPosX;
 	    private float playerPosY;
+	    private Sprite spr_playerhair;
+	    private Sprite spr_playertop;
+	    private Sprite spr_playerbottom;
+	    private Sprite spr_playerfooter;
 	    
 	    
 	    //Sprites Background
@@ -76,17 +81,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			
 			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/assets/selected.png"));
+			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 			
 			//Load Player Data
-			
+			this.gameControl = new GameControl();
+			player = gameControl.LoadData();
 			
 			//Load Title
-			if(player.Map_A.equals("StreetsA")) { 
-				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); 
-			}
-			
+			if(player.Map_A.equals("MetroStation")) { tex_Background = new Texture(Gdx.files.internal("data/maps/metrostation.png")); }
+			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/maps/streetsA.png")); }
+				
 			spr_Background = new Sprite(tex_Background);
 					
 			//Camera and Inputs
@@ -97,10 +102,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			Gdx.input.setInputProcessor(this);
 	
 			//font
-			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+			font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.11f);
-			font_master.setUseIntegerPositions(false);	
+			font_master.setUseIntegerPositions(false);
 		}
 			
 		@Override
@@ -134,6 +139,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 68f, cameraCoordsY + 38.7f);
 				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 68f, cameraCoordsY + 34.7f);
 				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 68f, cameraCoordsY + 30.7f);
+				
+				
+				//Char
+				//spr_playerhair = gameControl.
+				
 											
 				//Teste				
 				//spr_testeDot.setPosition(54, -10f);

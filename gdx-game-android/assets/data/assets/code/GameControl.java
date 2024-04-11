@@ -4,6 +4,8 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.files.FileHandle;
@@ -15,16 +17,34 @@ public class GameControl {
 	private FileHandle file;
 	private Random randnumber;
 	private Player player;
+	
+	//Sprite
+	private Sprite spr_master;
+	
+	//Texture Atlas
+	private TextureAtlas atlas_hairs;
+	private TextureAtlas atlas_basicset;
+	private TextureAtlas atlas_ux;
+	private TextureAtlas atlas_genericset;
+	
 		
 	public GameControl() {
 		
+		json = new Json();
+		randnumber = new Random();
 		
+		//Textures
+		atlas_genericset = new TextureAtlas(Gdx.files.internal("data/characters/player/basic/basicset.txt"));
+		atlas_hairs = new TextureAtlas(Gdx.files.internal("data/characters/player/hairs/hairs.txt"));
+		atlas_basicset = new TextureAtlas(Gdx.files.internal("data/characters/player/basic/basicset.txt"));
+		atlas_ux = new TextureAtlas(Gdx.files.internal("data/ux/ux.txt"));
 	}
 	
 	
 	
 	/////////////////////// [ SUMMARY ] ///////////////////
 	//[Account]//
+	//[Interface]//
 	//[Character]//
 	
 	//[Account]//
@@ -60,12 +80,19 @@ public class GameControl {
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
 	}
 
-	public void LoadData(){
+	public Player LoadData(){
 		FileHandle file = Gdx.files.local("SaveData/save.json");		
 		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
+		return player;
 	}
 	
-	private void CreateNewChar(String name, String sex, String hair, String color) {
+	public void DeleteChar(int num) {
+		if(num == 1) { player.Name_1 = "none"; SaveData(player); }
+		if(num == 2) { player.Name_2 = "none"; SaveData(player); }
+		if(num == 3) { player.Name_3 = "none"; SaveData(player); }
+	}
+	
+	public void CreateNewChar(String name, String sex, String hair, String color) {
 		boolean created = false;
 		player = new Player();
 		
@@ -79,9 +106,9 @@ public class GameControl {
 			player.Color_1 = color;
 			player.Hat_1 = "none";
 			player.Job_1 = "Aprendiz";
-			player.SetUpper_1 = "basic";
-			player.SetBottom_1 = "basic";
-			player.SetFooter_1 = "basic";
+			player.SetUpper_1 = "basicset";
+			player.SetBottom_1 = "basicset";
+			player.SetFooter_1 = "basicset";
 			player.Level_1 = 1;
 			player.Exp_1 = 0;
 			player.Map_1 = "MetroStation";
@@ -279,8 +306,6 @@ public class GameControl {
 	        created = true;
 		}
 		
-		
-        
 		SaveData(player);		
 	}
 	
@@ -465,8 +490,168 @@ public class GameControl {
 		}	
 	}
 
-	//[Character]//
+	//[Interface]//
+	public Sprite GetUX(String element) {
+		if(element.equals("bannerselect")) {
+			spr_master = atlas_ux.createSprite("bannerselect");
+			spr_master.setPosition(-60, 50);
+			spr_master.setSize(50,10);
+			return spr_master;
+		}
+		if(element.equals("bannercreate")) {
+			spr_master = atlas_ux.createSprite("bannercreate");
+			spr_master.setPosition(-60, 50);
+			spr_master.setSize(50,10);
+			return spr_master;
+		}
+		if(element.equals("create")) {
+			spr_master = atlas_ux.createSprite("create");
+			spr_master.setPosition(-60, -60);
+			spr_master.setSize(120,120);
+			return spr_master;
+		}
+		if(element.equals("confirmtab")) {
+			spr_master = atlas_ux.createSprite("confirmtab");
+			spr_master.setPosition(15, 10);
+			spr_master.setSize(50,50);
+			return spr_master;
+		}
+		if(element.equals("bannerdelete")) {
+			spr_master = atlas_ux.createSprite("bannerdelete");
+			spr_master.setPosition(-60, 50);
+			spr_master.setSize(50,10);
+			return spr_master;
+		}
+		if(element.equals("btnvoltar")) {
+			spr_master = atlas_ux.createSprite("btnback");
+			spr_master.setPosition(40, -60);
+			spr_master.setSize(20,10);
+			return spr_master;
+		}
+		if(element.equals("btncreatenew")) {
+			spr_master = atlas_ux.createSprite("btncreatenew");
+			spr_master.setPosition(-60, -60);
+			spr_master.setSize(20,10);
+			return spr_master;
+		}
+		if(element.equals("btnexclude")) {
+			spr_master = atlas_ux.createSprite("btnexclude");
+			spr_master.setPosition(40, -60);
+			spr_master.setSize(20,10);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
 	
+	
+	
+	//[Character]//
+	public Sprite MenuCreateSprite(String sex, String type) {
+		if(sex.equals("M")) {
+			if(type.equals("upper")) { 
+				spr_master = atlas_basicset.createSprite("basictopM_front1");
+				spr_master.setPosition(-67, -8);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+			if(type.equals("bottom")) { 
+				spr_master = atlas_basicset.createSprite("basicbottomM_front1");
+				spr_master.setPosition(-67, -20);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+			if(type.equals("footer")) { 
+				spr_master = atlas_basicset.createSprite("basicfooterM_front1");
+				spr_master.setPosition(-67.2f, -27f);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}		
+		}
+		
+		if(sex.equals("F")) {
+			if(type.equals("upper")) { 
+				spr_master = atlas_basicset.createSprite("basictopF_front1");
+				spr_master.setPosition(-67, -8);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+			if(type.equals("bottom")) { 
+				spr_master = atlas_basicset.createSprite("basicbottomF_front1");
+				spr_master.setPosition(-67, -20);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+			if(type.equals("footer")) { 
+				spr_master = atlas_basicset.createSprite("basicfooterF_front1");
+				spr_master.setPosition(-67.5f, -32f);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}		
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite MenuHairCreateSprite(String sex, String hair) {
+		if(sex.equals("M")) {
+			if(hair.equals("hair1")) { 
+				spr_master = atlas_hairs.createSprite("hair1_front_green_M");
+				spr_master.setPosition(-62, 10);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+		}
+		
+		if(sex.equals("F")) {
+			if(hair.equals("hair1")) { 
+				spr_master = atlas_hairs.createSprite("hair1_front_pink_F");
+				spr_master.setPosition(-62, 10);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+		}
+		
+		return spr_master;	
+	}
+	
+	public Sprite MenuHairsSelect(int num, String sex) {
+		if(sex.equals("M")) {
+			if(num == 1) { spr_master = atlas_hairs.createSprite("hair1_front_green_M"); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
+		}
+		if(sex.equals("F")) {
+			if(num == 1) { spr_master = atlas_hairs.createSprite("hair1_front_pink_F"); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
+		}	
+		return spr_master;	
+	}
+	
+	public Sprite MenuShowCharacterSprite(String sex, String set, String type) {
+		if(type.equals("upper")) {
+			if(set == "basicset") { atlas_genericset = atlas_basicset; }
+			if(sex.equals("M")) { spr_master = atlas_genericset.createSprite("basictopM_front1"); }
+			if(sex.equals("F")) { spr_master = atlas_genericset.createSprite("basictopF_front1"); }
+			spr_master.setPosition(-67, -8);
+			spr_master.setScale(-0.3f,0.5f);
+			return spr_master;
+		}
+		if(type.equals("bottom")) { 
+			if(set == "basicset") { atlas_genericset = atlas_basicset; }
+			if(sex.equals("M")) { spr_master = atlas_genericset.createSprite("basicbottomM_front1"); }
+			if(sex.equals("F")) { spr_master = atlas_genericset.createSprite("basicbottomF_front1"); }
+			spr_master.setPosition(-67, -20);
+			spr_master.setScale(-0.3f,0.5f);
+			return spr_master;
+		}
+		if(type.equals("footer")) { 
+			if(set == "basicset") { atlas_genericset = atlas_basicset; }
+			if(sex.equals("M")) { spr_master = atlas_genericset.createSprite("basicfooterM_front1"); }
+			if(sex.equals("F")) { spr_master = atlas_genericset.createSprite("basicfooterF_front1"); }
+			spr_master.setPosition(-67.2f, -27f);
+			spr_master.setScale(-0.3f,0.5f);
+			return spr_master;
+		}		
+		return spr_master;
+	}
 	
 	
 				

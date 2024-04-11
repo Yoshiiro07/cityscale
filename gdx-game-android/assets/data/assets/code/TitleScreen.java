@@ -69,8 +69,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private Texture tex_testeDot;
 	    private Sprite spr_testeDot;
 	    
+	    //Logo
+	    private Texture tex_logo;
+	    private Sprite spr_logo;
+	    
 	    //Sprites
 	    private Sprite spr_loginmenu;
+	    
 	    
 	    //Textures
 	    private TextureAtlas atlas_gameUI;
@@ -84,12 +89,16 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			gameControl = new GameControl();
 			
 			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/assets/selected.png"));
+			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 			
 			//Load Title
-			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/titlemap.png"));
+			tex_Background = new Texture(Gdx.files.internal("data/maps/titlemap.png"));
 			spr_Background = new Sprite(tex_Background);
+			
+			//Logo
+			tex_logo = new Texture(Gdx.files.internal("data/etc/maintitle.png"));
+			spr_logo = new Sprite(tex_logo);
 					
 			//Camera and Inputs
 			camera = new OrthographicCamera();
@@ -99,13 +108,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			Gdx.input.setInputProcessor(this);
 	
 			//font
-			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+			font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.12f);
 			font_master.setUseIntegerPositions(false);	
 			
 			//Atlas
-			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/UI/UI.txt"));
+			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/ux/ux.txt"));
 		}
 			
 		@Override
@@ -125,14 +134,23 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				spr_Background.setPosition(-70,-70);
 				spr_Background.setSize(140, 140);
 				spr_Background.draw(game.batch);
-				
+						
+				spr_logo.setPosition(-65, 15);
+				spr_logo.setSize(50,50);
+				spr_logo.draw(game.batch);
 				
 				if(state.equals("main")) {
 					//Menus
-					spr_loginmenu = atlas_gameUI.createSprite("titlemenu");
+					spr_loginmenu = atlas_gameUI.createSprite("login");
 					spr_loginmenu.setPosition(15, -60);
 					spr_loginmenu.setSize(50,50);
 					spr_loginmenu.draw(game.batch);
+				}
+				
+				
+				if(state.equals("charselect")) {
+					this.screen.screenSwitch("CharacterSelectScreen", network);
+					dispose();
 				}
 				
 				font_master.setColor(Color.WHITE);
@@ -140,13 +158,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				font_master.setUseIntegerPositions(false);			
 				font_master.draw(game.batch, "Versao: 1A" , -60 , -58);
 						
-				//spr_testeDot.setPosition(-57,-36);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(19,-44);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 
-				//spr_testeDot.setPosition(-1, -55);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(60, -56);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 					
 				game.batch.end();
 			
@@ -184,21 +202,23 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			//[MainState]// 
 			if(state.equals("main")) {
 				//Jogar Online
-				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -28 && coordsTouch.y <= -15) {
+				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -26 && coordsTouch.y <= -13) {
 					network = true;
 					gameControl.CheckData();
+					state = "charselect";
 					return false;
 				}
 								
 				//Jogar Offline
-				if(coordsTouch.x >=  + 20 && coordsTouch.x <= +59 && coordsTouch.y >= -42 && coordsTouch.y <= -28) {
+				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -42 && coordsTouch.y <= -29) {
 					network = false;
 					gameControl.CheckData();
+					state = "charselect";
 					return false;
 				}
 						
 				//Recuperar Conta
-				if(coordsTouch.x >= + 20 && coordsTouch.x <= 59 && coordsTouch.y >= -56 && coordsTouch.y <= -44) {
+				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -56 && coordsTouch.y <= -44) {
 					state = "Recover";
 					return false;
 				}

@@ -86,6 +86,12 @@ public class GameControl {
 		return player;
 	}
 	
+	public void DeleteChar(int num) {
+		if(num == 1) { player.Name_1 = "none"; SaveData(player); }
+		if(num == 2) { player.Name_2 = "none"; SaveData(player); }
+		if(num == 3) { player.Name_3 = "none"; SaveData(player); }
+	}
+	
 	public void CreateNewChar(String name, String sex, String hair, String color) {
 		boolean created = false;
 		player = new Player();
@@ -300,8 +306,6 @@ public class GameControl {
 	        created = true;
 		}
 		
-		
-        
 		SaveData(player);		
 	}
 	
@@ -506,6 +510,24 @@ public class GameControl {
 			spr_master.setSize(120,120);
 			return spr_master;
 		}
+		if(element.equals("confirmtab")) {
+			spr_master = atlas_ux.createSprite("confirmtab");
+			spr_master.setPosition(15, 10);
+			spr_master.setSize(50,50);
+			return spr_master;
+		}
+		if(element.equals("bannerdelete")) {
+			spr_master = atlas_ux.createSprite("bannerdelete");
+			spr_master.setPosition(-60, 50);
+			spr_master.setSize(50,10);
+			return spr_master;
+		}
+		if(element.equals("btnvoltar")) {
+			spr_master = atlas_ux.createSprite("btnback");
+			spr_master.setPosition(40, -60);
+			spr_master.setSize(20,10);
+			return spr_master;
+		}
 		if(element.equals("btncreatenew")) {
 			spr_master = atlas_ux.createSprite("btncreatenew");
 			spr_master.setPosition(-60, -60);
@@ -603,24 +625,27 @@ public class GameControl {
 		return spr_master;	
 	}
 	
-	public Sprite MenuShowCharacterSprite(String sex, String type, String set) {
+	public Sprite MenuShowCharacterSprite(String sex, String set, String type) {
 		if(type.equals("upper")) {
 			if(set == "basicset") { atlas_genericset = atlas_basicset; }
-			spr_master = atlas_genericset.createSprite("basictopM_front1");
+			if(sex.equals("M")) { spr_master = atlas_genericset.createSprite("basictopM_front1"); }
+			if(sex.equals("F")) { spr_master = atlas_genericset.createSprite("basictopF_front1"); }
 			spr_master.setPosition(-67, -8);
 			spr_master.setScale(-0.3f,0.5f);
 			return spr_master;
 		}
 		if(type.equals("bottom")) { 
 			if(set == "basicset") { atlas_genericset = atlas_basicset; }
-			spr_master = atlas_genericset.createSprite("basicbottomM_front1");
+			if(sex.equals("M")) { spr_master = atlas_genericset.createSprite("basicbottomM_front1"); }
+			if(sex.equals("F")) { spr_master = atlas_genericset.createSprite("basicbottomF_front1"); }
 			spr_master.setPosition(-67, -20);
 			spr_master.setScale(-0.3f,0.5f);
 			return spr_master;
 		}
 		if(type.equals("footer")) { 
 			if(set == "basicset") { atlas_genericset = atlas_basicset; }
-			spr_master = atlas_genericset.createSprite("basicfooterM_front1");
+			if(sex.equals("M")) { spr_master = atlas_genericset.createSprite("basicfooterM_front1"); }
+			if(sex.equals("F")) { spr_master = atlas_genericset.createSprite("basicfooterF_front1"); }
 			spr_master.setPosition(-67.2f, -27f);
 			spr_master.setScale(-0.3f,0.5f);
 			return spr_master;
@@ -628,6 +653,14 @@ public class GameControl {
 		return spr_master;
 	}
 	
+	public Sprite GetHairChar(int num, String sex) {
+		if(sex.equals("M")) {
+			if(num == 1) { spr_master = atlas_hairs.createSprite("hair1_front_green_M"); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
+		}
+		if(sex.equals("F")) {
+			if(num == 1) { spr_master = atlas_hairs.createSprite("hair1_front_pink_F"); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
+		}
+		return spr_master;
+	}
 	
-				
 }
