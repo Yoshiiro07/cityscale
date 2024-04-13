@@ -57,13 +57,13 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 		Gdx.input.setInputProcessor(this);
 		
 		//font
-		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
+		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
 		font_master.setColor(Color.WHITE);
 		font_master.getData().setScale(0.11f,0.23f);
-		font_master.setUseIntegerPositions(false);	
+		font_master.setUseIntegerPositions(false);
 		
 		//Sprites
-		tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/blackscreen.png"));		
+		tex_loadingBlack = new Texture(Gdx.files.internal("data/etc/blackscreen.png"));		
 		spr_loadingBlack = new Sprite(tex_loadingBlack);
 		spr_loadingBlack.setSize(100, 100);
 	}
@@ -118,6 +118,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {return false;}
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {return false;}
+	
 	private void onMultipleKeysDown (int mostRecentKeycode){}	
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {return false;}
@@ -136,7 +137,9 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	@Override
 	public void hide() {}
 	@Override
-	public void dispose() {}
+	public void dispose() {
+		
+	}
 	@Override
 	public void input(String text) {}
 	@Override

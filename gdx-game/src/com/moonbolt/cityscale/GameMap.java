@@ -142,7 +142,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				
 				//Char
-				//spr_playerhair = gameControl.
+				spr_playerhair = gameControl.GetHairChar(player);
+				spr_playerhair.draw(game.batch);
+				
+				spr_playertop = gameControl.GetTopChar(player);
+				spr_playertop.draw(game.batch);
 				
 											
 				//Teste				

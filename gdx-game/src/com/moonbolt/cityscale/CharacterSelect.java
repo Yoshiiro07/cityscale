@@ -132,136 +132,43 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_master.draw(game.batch);
 					
 					if(!player.Name_1.equals("none")) {
-						if(player.Sex_1.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetFooter_1, "footer");
-							spr_master.setPosition(-64, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetBottom_1, "bottom");
-							spr_master.setPosition(-64, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetUpper_1, "upper");
-							spr_master.setPosition(-64, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1);
-							spr_master.setPosition(-59, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
-						if(player.Sex_1.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetFooter_1, "footer");
-							spr_master.setPosition(-64.5f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetBottom_1, "bottom");
-							spr_master.setPosition(-64, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetUpper_1, "upper");
-							spr_master.setPosition(-64, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1);
-							spr_master.setPosition(-59, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}					
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,1);
+						spr_master.draw(game.batch);			
 					}	
 					if(!player.Name_2.equals("none")) {
-						if(player.Sex_2.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetFooter_2, "footer");
-							spr_master.setPosition(-25f, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetBottom_2, "bottom");
-							spr_master.setPosition(-25, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetUpper_2, "upper");
-							spr_master.setPosition(-25, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2);
-							spr_master.setPosition(-20, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
-						if(player.Sex_2.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetFooter_2, "footer");
-							spr_master.setPosition(-25.5f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetBottom_2, "bottom");
-							spr_master.setPosition(-25, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetUpper_2, "upper");
-							spr_master.setPosition(-25, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2);
-							spr_master.setPosition(-20, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,2);
+						spr_master.draw(game.batch);	
 					}	
 					if(!player.Name_3.equals("none")) {
-						if(player.Sex_3.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetFooter_3, "footer");
-							spr_master.setPosition(10, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetBottom_3, "bottom");
-							spr_master.setPosition(10, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetUpper_3, "upper");
-							spr_master.setPosition(10, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3);
-							spr_master.setPosition(15, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}	
-						if(player.Sex_3.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetFooter_3, "footer");
-							spr_master.setPosition(9.6f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetBottom_3, "bottom");
-							spr_master.setPosition(10, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetUpper_3, "upper");
-							spr_master.setPosition(10, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3);
-							spr_master.setPosition(15, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}	
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,3);
+						spr_master.draw(game.batch);	
 					}
 				}
 				
@@ -278,7 +185,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_master = gameControl.MenuCreateSprite(sex, "upper");
 					spr_master.draw(game.batch);
 					
-					spr_master = gameControl.MenuHairCreateSprite(sex, hair);
+					spr_master = gameControl.MenuHairCreateSprite(sex, hair,4);
 					spr_master.draw(game.batch);
 					
 					spr_master = gameControl.MenuHairsSelect(1, sex);
@@ -300,136 +207,43 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					
 					
 					if(!player.Name_1.equals("none")) {
-						if(player.Sex_1.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetFooter_1, "footer");
-							spr_master.setPosition(-64, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetBottom_1, "bottom");
-							spr_master.setPosition(-64, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetUpper_1, "upper");
-							spr_master.setPosition(-64, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1);
-							spr_master.setPosition(-59, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
-						if(player.Sex_1.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetFooter_1, "footer");
-							spr_master.setPosition(-64.5f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetBottom_1, "bottom");
-							spr_master.setPosition(-64, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetUpper_1, "upper");
-							spr_master.setPosition(-64, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1);
-							spr_master.setPosition(-59, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}					
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,1);
+						spr_master.draw(game.batch);				
 					}	
 					if(!player.Name_2.equals("none")) {
-						if(player.Sex_2.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetFooter_2, "footer");
-							spr_master.setPosition(-25f, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetBottom_2, "bottom");
-							spr_master.setPosition(-25, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetUpper_2, "upper");
-							spr_master.setPosition(-25, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2);
-							spr_master.setPosition(-20, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
-						if(player.Sex_2.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetFooter_2, "footer");
-							spr_master.setPosition(-25.5f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetBottom_2, "bottom");
-							spr_master.setPosition(-25, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetUpper_2, "upper");
-							spr_master.setPosition(-25, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2);
-							spr_master.setPosition(-20, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,2);
+						spr_master.draw(game.batch);
 					}	
 					if(!player.Name_3.equals("none")) {
-						if(player.Sex_3.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetFooter_3, "footer");
-							spr_master.setPosition(10, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetBottom_3, "bottom");
-							spr_master.setPosition(10, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetUpper_3, "upper");
-							spr_master.setPosition(10, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3);
-							spr_master.setPosition(15, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}	
-						if(player.Sex_3.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetFooter_3, "footer");
-							spr_master.setPosition(9.6f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetBottom_3, "bottom");
-							spr_master.setPosition(10, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetUpper_3, "upper");
-							spr_master.setPosition(10, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3);
-							spr_master.setPosition(15, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}	
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,3);
+						spr_master.draw(game.batch);
 					}
 				}
 				
@@ -447,143 +261,53 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					
 							
 					if(!player.Name_1.equals("none")) {
-						if(player.Sex_1.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetFooter_1, "footer");
-							spr_master.setPosition(-64, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetBottom_1, "bottom");
-							spr_master.setPosition(-64, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetUpper_1, "upper");
-							spr_master.setPosition(-64, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1);
-							spr_master.setPosition(-59, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
-						if(player.Sex_1.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetFooter_1, "footer");
-							spr_master.setPosition(-64.5f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetBottom_1, "bottom");
-							spr_master.setPosition(-64, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_1, player.SetUpper_1, "upper");
-							spr_master.setPosition(-64, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1);
-							spr_master.setPosition(-59, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}	
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,1);
+						spr_master.draw(game.batch);
 						
 						font_master.draw(game.batch, player.Name_1 , 25 , 48);
 						font_master.draw(game.batch, String.valueOf(player.Level_1), 25 , 42);
 						font_master.draw(game.batch, player.Map_1 , 25 , 35);
 					}	
 					if(!player.Name_2.equals("none")) {
-						if(player.Sex_2.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetFooter_2, "footer");
-							spr_master.setPosition(-25f, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetBottom_2, "bottom");
-							spr_master.setPosition(-25, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetUpper_2, "upper");
-							spr_master.setPosition(-25, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2);
-							spr_master.setPosition(-20, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
-						if(player.Sex_2.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetFooter_2, "footer");
-							spr_master.setPosition(-25.5f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetBottom_2, "bottom");
-							spr_master.setPosition(-25, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_2, player.SetUpper_2, "upper");
-							spr_master.setPosition(-25, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2);
-							spr_master.setPosition(-20, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,2);
+						spr_master.draw(game.batch);
+						
 						font_master.draw(game.batch, player.Name_2 , 25 , 48);
 						font_master.draw(game.batch, String.valueOf(player.Level_2), 25 , 42);
 						font_master.draw(game.batch, player.Map_2 , 25 , 35);
 					}	
 					if(!player.Name_3.equals("none")) {
-						if(player.Sex_3.equals("M")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetFooter_3, "footer");
-							spr_master.setPosition(10, -55);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetBottom_3, "bottom");
-							spr_master.setPosition(10, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetUpper_3, "upper");
-							spr_master.setPosition(10, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3);
-							spr_master.setPosition(15, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}	
-						if(player.Sex_3.equals("F")) {
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetFooter_3, "footer");
-							spr_master.setPosition(9.6f, -60);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetBottom_3, "bottom");
-							spr_master.setPosition(10, -48);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuShowCharacterSprite(player.Sex_3, player.SetUpper_3, "upper");
-							spr_master.setPosition(10, -36);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-							
-							spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3);
-							spr_master.setPosition(15, -18);
-							spr_master.setScale(-0.3f,0.5f);
-							spr_master.draw(game.batch);
-						}	
+						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
+						spr_master.draw(game.batch);
+						
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,3);
+						spr_master.draw(game.batch);
+						
 						font_master.draw(game.batch, player.Name_3 , 25 , 48);
 						font_master.draw(game.batch, String.valueOf(player.Level_3), 25 , 42);
 						font_master.draw(game.batch, player.Map_3 , 25 , 35);
@@ -756,7 +480,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				
 				//Confirmar
 				if(coordsTouch.x >= 28 && coordsTouch.x <= 54 && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
-					gameControl.CreateNewChar(name, sex, hair, "");
+					if(sex.equals("M")) { color = "green"; }
+					if(sex.equals("F")) { color = "pink"; }
+					gameControl.CreateNewChar(name, sex, hair, color);
 					player = gameControl.LoadData();
 					state = "Main";
 					return false;
