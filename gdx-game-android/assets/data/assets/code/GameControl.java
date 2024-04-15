@@ -540,6 +540,17 @@ public class GameControl {
 			spr_master.setSize(20,10);
 			return spr_master;
 		}
+		if(element.equals("playertag")) {
+			spr_master = atlas_ux.createSprite("playertag");
+			spr_master.setPosition(-69, 36);
+			spr_master.setSize(42,32);
+			return spr_master;
+		}
+		if(element.equals("innerpad")) {
+			spr_master = atlas_ux.createSprite("innerpad");
+			spr_master.setSize(10,20);
+			return spr_master;
+		}
 		
 		return spr_master;
 	}
@@ -711,6 +722,19 @@ public class GameControl {
 		return spr_master;
 	}
 	
+	public Sprite GetHairCharTag(Player player) {
+		
+		
+		//hair1_front_green_M
+		if(player.Sex_A.equals("M")) {
+			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master.setPosition(-86, 42); 
+			spr_master.setScale(0.2f,0.4f);		
+		}
+		
+		return spr_master;
+	}
+	
 	public Sprite GetHairChar(Player player) {
 		
 		
@@ -735,7 +759,41 @@ public class GameControl {
 		if(player.Sex_A.equals("M")) {
 			if(player.Side_A.equals("front")) {
 			spr_master = atlas_basicset.createSprite(player.SetUpper_A + "top" + player.Sex_A + "_" + player.Side_A + player.Frame_A);
-			spr_master.setPosition(-20, 10); 
+			spr_master.setPosition(-25, -5); 
+			spr_master.setScale(0.2f,0.4f);
+			}
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetBottomChar(Player player) {
+		//Top 1
+		if(player.SetBottom_A.equals("basic")) { atlas_genericset = atlas_basicset; }
+		
+		
+		//basicbottomM_front1
+		if(player.Sex_A.equals("M")) {
+			if(player.Side_A.equals("front")) {
+			spr_master = atlas_basicset.createSprite(player.SetBottom_A + "bottom" + player.Sex_A + "_" + player.Side_A + player.Frame_A);
+			spr_master.setPosition(-25, -15); 
+			spr_master.setScale(0.2f,0.4f);
+			}
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetFooterChar(Player player) {
+		//Top 1
+		if(player.SetFooter_A.equals("basic")) { atlas_genericset = atlas_basicset; }
+		
+		
+		//basicbottomM_front1
+		if(player.Sex_A.equals("M")) {
+			if(player.Side_A.equals("front")) {
+			spr_master = atlas_basicset.createSprite(player.SetFooter_A + "footer" + player.Sex_A + "_" + player.Side_A + player.Frame_A);
+			spr_master.setPosition(-25, -21); 
 			spr_master.setScale(0.2f,0.4f);
 			}
 		}

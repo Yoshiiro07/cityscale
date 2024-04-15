@@ -40,7 +40,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private MainGame game;
 	    private ManagerScreen screen;
 	    private GameControl gameControl;
-	    private String state = "main";
+	    private String state = "Main";
 	    private Sprite spr_master;
 	    
 		//Fonts
@@ -56,15 +56,29 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    public Player player;
 	    private float playerPosX;
 	    private float playerPosY;
+	    private Sprite spr_playerTagHair;
 	    private Sprite spr_playerhair;
 	    private Sprite spr_playertop;
 	    private Sprite spr_playerbottom;
 	    private Sprite spr_playerfooter;
+	    private boolean playerDead = false;
+	    private boolean movement = false;
+	    private String breakwalk = "";
+	    
+	    //UX
+	    private float padmoveX = -56;
+	    private float padmoveY =  -50;
+	    private String padmove = "center";
+	    private Sprite spr_playerTag;
+	    
 	    
 	    
 	    //Sprites Background
 	    private Sprite spr_Background;
 	    private Texture tex_Background;
+	    
+	    private Sprite spr_metro;
+	    private Texture tex_metro;
 	    
 	    //Teste Dot
 	    private Sprite spr_testeDot;
@@ -89,7 +103,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player = gameControl.LoadData();
 			
 			//Load Title
-			if(player.Map_A.equals("MetroStation")) { tex_Background = new Texture(Gdx.files.internal("data/maps/metrostation.png")); }
+			if(player.Map_A.equals("MetroStation")) { 
+				tex_Background = new Texture(Gdx.files.internal("data/maps/metrostation.png")); 
+				tex_metro = new Texture(Gdx.files.internal("data/etc/metro.png")); 
+				
+				spr_metro = new Sprite(tex_metro);
+				spr_Background = new Sprite(tex_Background);
+			}
 			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/maps/streetsA.png")); }
 				
 			spr_Background = new Sprite(tex_Background);
@@ -136,17 +156,43 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_Background.setSize(136, 140);
 				spr_Background.draw(game.batch);
 				
-				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 68f, cameraCoordsY + 38.7f);
+				//UX
+				spr_playerTag = gameControl.GetUX("playertag");
+				spr_playerTag.draw(game.batch);
+				
+				spr_playerTagHair = gameControl.GetHairCharTag(player);
+				spr_playerTagHair.draw(game.batch);
+				
+				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 68f, cameraCoordsY + 30.7f);
 				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 68f, cameraCoordsY + 34.7f);
-				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 68f, cameraCoordsY + 30.7f);
+				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 58f, cameraCoordsY + 34.7f);
+				
+				
+				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 62f, cameraCoordsY + 62.7f);
+				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 62f, cameraCoordsY + 53.7f);
+				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 62f, cameraCoordsY + 47.7f);
+				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 61f, cameraCoordsY + 40.7f);
+				font_master.draw(game.batch, String.valueOf(player.Exp_A), cameraCoordsX - 48f, cameraCoordsY + 40.7f);
+				
+				spr_master = gameControl.GetUX("innerpad");
+				spr_master.setPosition(padmoveX, padmoveY);	
+				spr_master.draw(game.batch);
 				
 				
 				//Char
 				spr_playerhair = gameControl.GetHairChar(player);
 				spr_playerhair.draw(game.batch);
 				
+				spr_playerfooter = gameControl.GetFooterChar(player);
+				spr_playerfooter.draw(game.batch);
+				
+				spr_playerbottom = gameControl.GetBottomChar(player);
+				spr_playerbottom.draw(game.batch);
+				
 				spr_playertop = gameControl.GetTopChar(player);
 				spr_playertop.draw(game.batch);
+				
+				
 				
 											
 				//Teste				
@@ -197,20 +243,90 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 
 		@Override
-		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-			// TODO Auto-generated method stub
+		public boolean touchDown(int p1, int p2, int pointer, int button) {
+			
+			if(playerDead) { return false; }
+			
+			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+			
+			//Main
+			//[Main State]//
+			if(state.equals("Main")) {
+				//Menu
+				if(coordsTouch.x > -70f && coordsTouch.x < -39f && coordsTouch.y > 39f && coordsTouch.y < 67f) {
+					state = "menu";
+					return false;
+				}
+				
+				//touchPad
+				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -26 && coordsTouch.y <= -13) {
+					
+					return false;
+				}
+			}
+			
 			return false;
 		}
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-			// TODO Auto-generated method stub
+			movement = false;
+			breakwalk = "";
+			player.Walk_A = "no";
+			padmoveX = -60;
+			padmoveY = -55;
+			
+			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
+			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
+			if(player.Side_A.equals("right-back")) { player.Side_A = "front";}
+			if(player.Side_A.equals("right-front")) { player.Side_A = "front";}
+			if(player.Side_A.equals("back-right")) { player.Side_A = "front";}
+			if(player.Side_A.equals("back-left")) { player.Side_A = "front";}
+			if(player.Side_A.equals("front-right")) { player.Side_A = "front";}
+			if(player.Side_A.equals("front-left")) { player.Side_A = "front"; }
 			return false;
 		}
 
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
-			// TODO Auto-generated method stub
+			if(playerDead) { return false; }
+			
+			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
+			
+			if(movement){	
+				//Right
+     				if(coordsTouch.x >= -53.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42f) {
+					player.Side_A = "right";
+					player.Walk_A = "walk";	
+					padmoveX = -55;		
+					player.playerInBattle_A = "no";
+					return false;
+				}
+				//Left
+				if(coordsTouch.x >= -57.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42) {
+					player.Side_A = "left";
+					player.Walk_A = "walk";	
+					padmoveX = -66;		
+					player.playerInBattle_A = "no";
+					return false;
+				}
+				//Front
+				if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
+					player.Side_A = "front";
+					player.Walk_A = "walk";	
+					padmoveY = -60;
+					player.playerInBattle_A = "no";
+					return false;
+				}
+				//Back
+				if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -42f && coordsTouch.y < -27) {
+					player.Side_A = "back";
+					player.Walk_A = "walk";	
+					padmoveY = -50;
+					player.playerInBattle_A = "no";
+					return false;
+				}
+			}
 			return false;
 		}
 
