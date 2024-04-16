@@ -595,7 +595,7 @@ public class GameControl {
 			}
 			if(type.equals("footer")) { 
 				spr_master = atlas_basicset.createSprite("basicfooterF_front1");
-				spr_master.setPosition(-67.5f, -32f);
+				spr_master.setPosition(-67f, -27f);
 				spr_master.setScale(-0.3f,0.5f);
 				return spr_master;
 			}		
@@ -621,9 +621,9 @@ public class GameControl {
 			if(hair.equals("hair1")) { 
 				spr_master = atlas_hairs.createSprite("hair1_front_pink_F");
 				spr_master.setScale(-0.3f,0.5f);
-				if(num == 1) {spr_master.setPosition(-62, 10);}
-				if(num == 2) {spr_master.setPosition(-62, 10);}
-				if(num == 3) {spr_master.setPosition(-62, 10);}
+				if(num == 1) {spr_master.setPosition(-59, -18);}
+				if(num == 2) {spr_master.setPosition(-20, -18);}
+				if(num == 3) {spr_master.setPosition(15, -18);}
 				if(num == 4) {spr_master.setPosition(-62, 10);}
 				return spr_master;
 			}
@@ -715,7 +715,7 @@ public class GameControl {
 				if(player.SetUpper_3 == "basic") { atlas_genericset = atlas_basicset; }
 				spr_master = atlas_genericset.createSprite(player.SetFooter_3 + "footer" + player.Sex_3 + "_front1");
 				if(player.Sex_3.equals("M")) { spr_master.setPosition(10, -55); spr_master.setScale(-0.3f,0.5f); }
-				if(player.Sex_3.equals("F")) { spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex_3.equals("F")) { spr_master.setPosition(10, -60); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;	
 			}
 		}		

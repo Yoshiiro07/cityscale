@@ -191,9 +191,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				spr_playertop = gameControl.GetTopChar(player);
 				spr_playertop.draw(game.batch);
-				
-				
-				
 											
 				//Teste				
 				//spr_testeDot.setPosition(54, -10f);

@@ -260,7 +260,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					font_master.setUseIntegerPositions(false);			
 					
 							
-					if(!player.Name_1.equals("none")) {
+					if(!player.Name_1.equals("none") && selectedchar == 1) {
 						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",1);
 						spr_master.draw(game.batch);
 						
@@ -277,7 +277,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						font_master.draw(game.batch, String.valueOf(player.Level_1), 25 , 42);
 						font_master.draw(game.batch, player.Map_1 , 25 , 35);
 					}	
-					if(!player.Name_2.equals("none")) {
+					if(!player.Name_2.equals("none")  && selectedchar == 2) {
 						
 						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",2);
 						spr_master.draw(game.batch);
@@ -295,7 +295,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						font_master.draw(game.batch, String.valueOf(player.Level_2), 25 , 42);
 						font_master.draw(game.batch, player.Map_2 , 25 , 35);
 					}	
-					if(!player.Name_3.equals("none")) {
+					if(!player.Name_3.equals("none")  && selectedchar == 3) {
 						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",3);
 						spr_master.draw(game.batch);
 						
