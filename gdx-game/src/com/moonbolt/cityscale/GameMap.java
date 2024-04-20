@@ -195,13 +195,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playertop.draw(game.batch);
 											
 				//Teste				
-				//spr_testeDot.setPosition(54, -10f);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(59.5f, -65);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
-				//spr_testeDot.setPosition(65, -25f);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(-51.5f, -50f);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
+				
+				//if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
 				
 				game.batch.end();
 			}
@@ -227,7 +229,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public boolean keyDown(int keycode) {
 			if(playerDead) { return false; }
 			
-			if(state.equals("main")) {
+			if(state.equals("Main")) {
 				movement = true;		
 				downKeys.add(keycode);
 		        if (downKeys.size >= 2){
@@ -303,7 +305,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//For multiple key presses
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
-		        	player.Side_A = "left-front";
+		        	//player.Side_A = "left-front";
+		        	player.Side_A = "left";
 		        	player.Walk_A = "walk";  	
 		        	padmoveX = -66;
 		        	padmoveY = -60;
@@ -391,17 +394,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
+				if(player.playerInCast_A.equals("none")) { movement = true; } else { movement = false; }
+				
 				//Menu
 				if(coordsTouch.x > -70f && coordsTouch.x < -39f && coordsTouch.y > 39f && coordsTouch.y < 67f) {
 					state = "menu";
 					return false;
-				}
-				
-				//touchPad
-				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -26 && coordsTouch.y <= -13) {
-					
-					return false;
-				}
+				}	
 			}
 			
 			return false;
@@ -437,7 +436,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
      				if(coordsTouch.x >= -53.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42f) {
 					player.Side_A = "right";
 					player.Walk_A = "walk";	
-					padmoveX = -55;		
+					padmoveX = -55;
 					player.playerInBattle_A = "no";
 					return false;
 				}

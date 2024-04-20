@@ -123,6 +123,8 @@ public class GameControl {
 			player.PosY_1 = 0;
 			player.Walk_1 = "no";
 			player.Frame_1 = 1;
+			player.countFrame_1 = 1;
+			player.breakwalk_1 = "";
 			player.Target_1 = "none";
 			player.AtkTimer_1 = 300;
 			player.AtkTimerMax_1 = 300;
@@ -192,6 +194,8 @@ public class GameControl {
 			player.PosY_2 = 0;
 			player.Walk_2 = "no";
 			player.Frame_2 = 1;
+			player.countFrame_2 = 1;
+			player.breakwalk_2 = "";
 			player.Target_2 = "none";
 			player.AtkTimer_2 = 300;
 			player.AtkTimerMax_2 = 300;
@@ -261,6 +265,8 @@ public class GameControl {
 			player.PosY_3 = 0;
 			player.Walk_3 = "no";
 			player.Frame_3 = 1;
+			player.countFrame_3 = 1;
+			player.breakwalk_3 = "";
 			player.Target_3 = "none";
 			player.AtkTimer_3 = 300;
 			player.AtkTimerMax_3 = 300;
@@ -336,6 +342,8 @@ public class GameControl {
 			player.PosY_A = player.PosY_1;
 			player.Walk_A = player.Walk_1;
 			player.Frame_A = player.Frame_1;
+			player.countFrame_A = player.countFrame_1;
+			player.breakwalk_A = player.breakwalk_1;
 			player.Target_A = player.Target_1;
 			player.AtkTimer_A = player.AtkTimer_1;
 			player.AtkTimerMax_A = player.AtkTimerMax_1;
@@ -395,6 +403,8 @@ public class GameControl {
 			player.PosY_A = player.PosY_2;
 			player.Walk_A = player.Walk_2;
 			player.Frame_A = player.Frame_2;
+			player.countFrame_A = player.countFrame_2;
+			player.breakwalk_A = player.breakwalk_2;
 			player.Target_A = player.Target_2;
 			player.AtkTimer_A = player.AtkTimer_2;
 			player.AtkTimerMax_A = player.AtkTimerMax_2;
@@ -454,6 +464,8 @@ public class GameControl {
 			player.PosY_A = player.PosY_3;
 			player.Walk_A = player.Walk_3;
 			player.Frame_A = player.Frame_3;
+			player.countFrame_A = player.countFrame_3;
+			player.breakwalk_A = player.breakwalk_3;
 			player.Target_A = player.Target_3;
 			player.AtkTimer_A = player.AtkTimer_3;
 			player.AtkTimerMax_A = player.AtkTimerMax_3;
@@ -749,12 +761,36 @@ public class GameControl {
 		
 		return spr_master;
 	}
+	//[Char movement]//
+	public Player SetCharMov(Player playerUse, String type) {			
+		//Check MovePosition
+		if(playerUse.Walk_A.equals("walk")) {
+			if(playerUse.Side_A.equals("front") && !player.breakwalk_A.equals("front")) { playerUse.PosY_A = playerUse.PosY_A - 0.5f; }
+			if(playerUse.Side_A.equals("back") && !player.breakwalk_A.equals("back")) { playerUse.PosY_A = playerUse.PosY_A + 0.5f; }
+			if(playerUse.Side_A.equals("left") && !player.breakwalk_A.equals("left")) { playerUse.PosX_A = playerUse.PosX_A - 0.5f; }
+			if(playerUse.Side_A.equals("right") && !player.breakwalk_A.equals("right")) { playerUse.PosX_A = playerUse.PosX_A + 0.5f; }
+		}
+		
+		//Check Frames
+		if(type.equals("player")) {
+			if(!playerUse.Walk_A.equals("no")) { player.countFrame_A = player.countFrame_A + 1; }
+			if(playerUse.Walk_A.equals("no")) { playerUse.Frame_A = 1; }
+			if(player.countFrame_A > 1 && player.countFrame_A <= 15) { playerUse.Frame_A = 2; }
+			if(player.countFrame_A >= 15 && player.countFrame_A <= 30) { playerUse.Frame_A = 1; }
+			if(player.countFrame_A >= 30 && player.countFrame_A <= 45) { playerUse.Frame_A = 3; }
+			if(player.countFrame_A >= 45 && player.countFrame_A <= 60) { playerUse.Frame_A = 1; }
+			if(player.countFrame_A >= 60) { player.countFrame_A = 1; }
+		}
+				
+		return player;
+	}
 	
 	public Sprite GetTopChar(Player player) {
 		//Top 1
 		if(player.SetUpper_A.equals("basic")) { atlas_genericset = atlas_basicset; }
 		
-		
+		float posX = player.PosX_A;
+		float posY = player.PosY_A;
 		//basictopM_front1
 		if(player.Sex_A.equals("M")) {
 			if(player.Side_A.equals("front")) {

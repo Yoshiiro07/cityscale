@@ -430,21 +430,21 @@ basictopF_front3
   orig: 50, 50
   offset: 0, 0
   index: -1
-basictopF_left2
+basictopF_left1
   rotate: false
   xy: 50, 600
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-basictopF_left3
+basictopF_left2
   rotate: false
   xy: 100, 600
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
-basictopF_legt1
+basictopF_left3
   rotate: false
   xy: 150, 600
   size: 50, 50

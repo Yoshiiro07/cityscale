@@ -27,6 +27,8 @@ public class Player {
 		public float PosY_1;
 		public String Walk_1;
 		public int Frame_1;
+		public int countFrame_1;
+		public String breakwalk_1;
 		public String Target_1;
 		public int AtkTimer_1;
 		public int AtkTimerMax_1;
@@ -85,6 +87,8 @@ public class Player {
 		public float PosY_2;
 		public String Walk_2;
 		public int Frame_2;
+		public int countFrame_2;
+		public String breakwalk_2;
 		public String Target_2;
 		public int AtkTimer_2;
 		public int AtkTimerMax_2;
@@ -143,6 +147,8 @@ public class Player {
 		public float PosY_3;
 		public String Walk_3;
 		public int Frame_3;
+		public int countFrame_3;
+		public String breakwalk_3;
 		public String Target_3;
 		public int AtkTimer_3;
 		public int AtkTimerMax_3;
@@ -201,6 +207,8 @@ public class Player {
 		public float PosY_A;
 		public String Walk_A;
 		public int Frame_A;
+		public int countFrame_A;
+		public String breakwalk_A;
 		public String Target_A;
 		public int AtkTimer_A;
 		public int AtkTimerMax_A;

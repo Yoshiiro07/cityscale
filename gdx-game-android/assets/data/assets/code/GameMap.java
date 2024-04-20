@@ -64,6 +64,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private boolean playerDead = false;
 	    private boolean movement = false;
 	    private String breakwalk = "";
+	    private int countFrame = 1;
 	    
 	    //UX
 	    private float padmoveX = -56;
@@ -175,11 +176,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.draw(game.batch, String.valueOf(player.Exp_A), cameraCoordsX - 48f, cameraCoordsY + 40.7f);
 				
 				spr_master = gameControl.GetUX("innerpad");
-				spr_master.setPosition(padmoveX, padmoveY);	
+				spr_master.setPosition(padmoveX, padmoveY);
 				spr_master.draw(game.batch);
 				
 				
 				//Char
+				player = gameControl.SetCharMov(player, player.breakwalk_A);
 				spr_playerhair = gameControl.GetHairChar(player);
 				spr_playerhair.draw(game.batch);
 				
@@ -223,15 +225,155 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean keyDown(int keycode) {
-			// TODO Auto-generated method stub
+			if(playerDead) { return false; }
+			
+			if(state.equals("main")) {
+				movement = true;		
+				downKeys.add(keycode);
+		        if (downKeys.size >= 2){
+		            onMultipleKeysDown(keycode);
+		        }
+		        if(downKeys.size == 1) {
+		        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+		        		player.Side_A = "left";
+		        		player.Walk_A = "walk"; 
+		        		padmoveX = -66;
+		        		player.playerInBattle_A = "no";
+		        		return false;
+		            }
+		    		
+		    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
+		    			player.Side_A = "back";
+		    			player.Walk_A = "walk";
+		    			padmoveY = -50;
+		    			player.playerInBattle_A = "no";
+		    			return false;
+		            }
+		    		
+		    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
+		    			player.Side_A = "front";
+		    			player.Walk_A = "walk";	
+		    			padmoveY = -60;
+		    			player.playerInBattle_A = "no";
+		    			return false;
+		            }
+		    		
+		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+		    			player.Side_A = "right";
+		    			player.Walk_A = "walk";
+		    			padmoveX = -55;
+		    			player.playerInBattle_A = "no";
+		    			return false;
+		            } 
+		        }
+			}
+			
+			
+			
 			return false;
 		}
 
 		@Override
 		public boolean keyUp(int keycode) {
-			// TODO Auto-generated method stub
+			movement = false;
+			downKeys.remove(keycode);
+			player.Walk_A = "no";
+			player.Frame_A = 1;
+			countFrame = 1;
+			padmoveX = -60;
+			padmoveY = -55;
+			player.breakwalk_A = "";
+			
+			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
+			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
+			if(player.Side_A.equals("right-back")) { player.Side_A = "front";}
+			if(player.Side_A.equals("right-front")) { player.Side_A = "front";}
+			if(player.Side_A.equals("back-right")) { player.Side_A = "front";}
+			if(player.Side_A.equals("back-left")) { player.Side_A = "front";}
+			if(player.Side_A.equals("front-right")) { player.Side_A = "front";}
+			if(player.Side_A.equals("front-left")) { player.Side_A = "front"; }
+			
 			return false;
 		}
+		
+		private void onMultipleKeysDown (int mostRecentKeycode){
+			
+			if(state.equals("menu")) { return; }
+			
+			//For multiple key presses
+		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
+		        	player.Side_A = "left-front";
+		        	player.Walk_A = "walk";  	
+		        	padmoveX = -66;
+		        	padmoveY = -60;
+		        	player.playerInBattle_A = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
+		        	player.Side_A = "left-back";
+		        	player.Walk_A = "walk";
+		        	padmoveX = -66;
+		        	padmoveY = -50; 
+		        	player.playerInBattle_A = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
+		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
+		    		player.Side_A = "right-back";
+		    		player.Walk_A = "walk";	
+		    		padmoveX = -55;
+		    		padmoveY = -50;
+		    		player.playerInBattle_A = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
+		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
+		    		player.Side_A = "right-front";
+		    		player.Walk_A = "walk";	
+		    		padmoveX = -55;
+		    		padmoveY = -60;
+		    		player.playerInBattle_A = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
+		        	player.Side_A = "back-right";
+		        	player.Walk_A = "walk";
+		        	padmoveX = -55;
+		        	padmoveY = -50;
+		        	player.playerInBattle_A = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
+		        	player.Side_A = "back-left";
+		        	player.Walk_A = "walk";
+		        	padmoveX = -66;
+		        	padmoveY = -50;
+		        	player.playerInBattle_A = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
+		        	player.Side_A = "front-right";
+		        	player.Walk_A = "walk";
+		        	padmoveX = -55;
+		        	padmoveY = -60;
+		        	player.playerInBattle_A = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
+		        	player.Side_A = "front-left";
+		        	player.Walk_A = "walk";	
+		        	padmoveX = -66;
+		        	padmoveY = -60;
+		        	player.playerInBattle_A = "no";
+		        }
+		    }
+		}	
 
 		@Override
 		public boolean keyTyped(char character) {
@@ -268,7 +410,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 			movement = false;
-			breakwalk = "";
+			player.breakwalk_A = "";
 			player.Walk_A = "no";
 			padmoveX = -60;
 			padmoveY = -55;
