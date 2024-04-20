@@ -34,7 +34,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-public class GameMap implements Screen, ApplicationListener, InputProcessor, TextInputListener {
+public class MetroStation implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 	
 		//Objects
 	    private MainGame game;
@@ -88,7 +88,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public GameMap(MainGame gameAlt,ManagerScreen screenAlt, boolean network) {
+		public MetroStation(MainGame gameAlt,ManagerScreen screenAlt, boolean network) {
 			this.game = gameAlt;	
 			this.screen = screenAlt;
 			
@@ -97,25 +97,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player = gameControl.LoadData();
 			
 			//Load Title
-			if(player.Map_A.equals("MetroStation")) { 
-				tex_Background = new Texture(Gdx.files.internal("data/maps/metrostation.png")); 
-				tex_metro = new Texture(Gdx.files.internal("data/etc/metro.png")); 
-				
-				spr_metro = new Sprite(tex_metro);
-				spr_Background = new Sprite(tex_Background);
-			}
-			
-			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/maps/streetsA.png")); }
-				
+			tex_Background = new Texture(Gdx.files.internal("data/maps/metrostation.png")); 
+			tex_metro = new Texture(Gdx.files.internal("data/etc/metro.png")); 
+			spr_metro = new Sprite(tex_metro);
 			spr_Background = new Sprite(tex_Background);
 					
 			//Camera and Inputs
-			if(player.Map_A.equals("MetroStation")) {
-				camera = new OrthographicCamera();
-			    viewport = new StretchViewport(135,135,camera);
-				viewport.apply();
-				camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
-			}
+			camera = new OrthographicCamera();
+		    viewport = new StretchViewport(135,135,camera);
+			viewport.apply();
+			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 			
 			Gdx.input.setInputProcessor(this);
 	
@@ -200,15 +191,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				CheckColision();
 											
 				//Teste				
-				spr_testeDot.setPosition(59.5f, -65);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+				//spr_testeDot.setPosition(59.5f, -65);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 				
-				spr_testeDot.setPosition(-51.5f, -50f);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
-				//if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
+				//spr_testeDot.setPosition(-51.5f, -50f);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 				
 				game.batch.end();
 			}

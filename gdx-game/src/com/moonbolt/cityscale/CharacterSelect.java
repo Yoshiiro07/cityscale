@@ -315,6 +315,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(state.equals("Change")) {
+					player.Map_A.equals("MetroStation");
 					gameControl.SaveData(player);
 					this.screen.screenSwitch("LoadingScreen", network);
 					dispose();		
