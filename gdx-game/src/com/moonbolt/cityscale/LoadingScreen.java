@@ -28,7 +28,8 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	
 	//Loading Variables
 	private boolean loading = true;
-	private int loadtime = 300;
+	private int loadtime = 100;
+	private int loadanimationtime = 0;
 	
 	//Sprites
 	private Sprite spr_loadingBlack;
@@ -90,7 +91,19 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 			spr_loadingBlack.setPosition(0, 0);
 			spr_loadingBlack.draw(game.batch);
 			
-			font_master.draw(game.batch, "Carregando..",80,10);
+			loadanimationtime++;
+			if(loadanimationtime >= 0 && loadanimationtime <= 10) {
+				font_master.draw(game.batch, "Car",80,10);
+			}
+			if(loadanimationtime >= 10 && loadanimationtime <= 20) {
+				font_master.draw(game.batch, "Carreg",80,10);
+			}
+			if(loadanimationtime >= 20 && loadanimationtime <= 30) {
+				font_master.draw(game.batch, "Carregando...",80,10);
+			}
+			if(loadanimationtime > 29) {
+				loadanimationtime = 0;
+			}
 			
 			loadtime--;
 			if(loadtime < 0) {
@@ -146,6 +159,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	@Override
 	public void dispose() {
 		
+		tex_loadingBlack.dispose();
 	}
 	@Override
 	public void input(String text) {}

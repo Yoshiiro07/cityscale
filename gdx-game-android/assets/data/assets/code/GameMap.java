@@ -63,23 +63,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_playerfooter;
 	    private boolean playerDead = false;
 	    private boolean movement = false;
-	    private String breakwalk = "";
-	    private int countFrame = 1;
 	    
 	    //UX
 	    private float padmoveX = -56;
 	    private float padmoveY =  -50;
-	    private String padmove = "center";
 	    private Sprite spr_playerTag;
-	    
-	    
-	    
+	     
 	    //Sprites Background
 	    private Sprite spr_Background;
 	    private Texture tex_Background;
-	    
-	    private Sprite spr_metro;
-	    private Texture tex_metro;
 	    
 	    //Teste Dot
 	    private Sprite spr_testeDot;
@@ -94,32 +86,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			this.game = gameAlt;	
 			this.screen = screenAlt;
 			
-			
-			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
-			spr_testeDot = new Sprite(tex_testeDot);
-			
 			//Load Player Data
 			this.gameControl = new GameControl();
 			player = gameControl.LoadData();
 			
-			//Load Title
-			if(player.Map_A.equals("MetroStation")) { 
-				tex_Background = new Texture(Gdx.files.internal("data/maps/metrostation.png")); 
-				tex_metro = new Texture(Gdx.files.internal("data/etc/metro.png")); 
-				
-				spr_metro = new Sprite(tex_metro);
-				spr_Background = new Sprite(tex_Background);
-			}
-			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/maps/streetsA.png")); }
-				
+			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/maps/streetsA.png")); }	
 			spr_Background = new Sprite(tex_Background);
 					
 			//Camera and Inputs
 			camera = new OrthographicCamera();
-		    viewport = new StretchViewport(135,135,camera);
+		    viewport = new StretchViewport(195,195,camera);
 			viewport.apply();
-			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);			
 			Gdx.input.setInputProcessor(this);
 	
 			//font
@@ -127,6 +105,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.11f);
 			font_master.setUseIntegerPositions(false);
+			
+			//test dot
+			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
+			spr_testeDot = new Sprite(tex_testeDot);
 		}
 			
 		@Override
@@ -137,14 +119,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				
 				//Camera Ajustments
-				cameraCoordsX = playerPosX;
-				cameraCoordsY = playerPosY;
+				cameraCoordsX = player.PosX_A;
+				cameraCoordsY = player.PosY_A;
 				
 				//Follow camera
-				if(playerPosX <= -25f) 	{ cameraCoordsX = -25; 	 }
-				if(playerPosX >= 175) 	{ cameraCoordsX = 175; 	 }
-				if(playerPosY >= 91.5f) { cameraCoordsY = 91.5f; }
-				if(playerPosY <= -105) 	{ cameraCoordsY = -105;  }
+				if(player.PosX_A <= 18.5f) 	{ cameraCoordsX = 18.5f; 	 }
+				if(player.PosX_A >= 93) 	{ cameraCoordsX = 93; 	 }
+				if(player.PosY_A >= -22f) { cameraCoordsY = -22f; }
+				if(player.PosY_A <= -97) 	{ cameraCoordsY = -97;  }
 				
 				//Update camera and start drawling
 				camera.position.set(cameraCoordsX -2,cameraCoordsY+1,0);
@@ -153,30 +135,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				game.batch.begin();
 				
 				//Background	
-				spr_Background.setPosition(-70,-70);
-				spr_Background.setSize(136, 140);
+				spr_Background.setPosition(-81,-194);
+				spr_Background.setSize(270, 270);
 				spr_Background.draw(game.batch);
 				
 				//UX
-				spr_playerTag = gameControl.GetUX("playertag");
+				spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
 				spr_playerTag.draw(game.batch);
 				
 				spr_playerTagHair = gameControl.GetHairCharTag(player);
 				spr_playerTagHair.draw(game.batch);
 				
+				
+				font_master.getData().setScale(0.07f,0.11f);
 				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 68f, cameraCoordsY + 30.7f);
 				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 68f, cameraCoordsY + 34.7f);
 				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 58f, cameraCoordsY + 34.7f);
 				
 				
-				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 62f, cameraCoordsY + 62.7f);
-				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 62f, cameraCoordsY + 53.7f);
-				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 62f, cameraCoordsY + 47.7f);
+				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 92f, cameraCoordsY + 92.7f);
+				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 92f, cameraCoordsY + 78.7f);
+				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 92f, cameraCoordsY + 70.7f);
 				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 61f, cameraCoordsY + 40.7f);
 				font_master.draw(game.batch, String.valueOf(player.Exp_A), cameraCoordsX - 48f, cameraCoordsY + 40.7f);
 				
-				spr_master = gameControl.GetUX("innerpad");
-				spr_master.setPosition(padmoveX, padmoveY);
+				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
+				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
 				spr_master.draw(game.batch);
 				
 				
@@ -193,15 +177,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				spr_playertop = gameControl.GetTopChar(player);
 				spr_playertop.draw(game.batch);
+				
+				
+				//Colision
+				CheckColision();
 											
 				//Teste				
-				//spr_testeDot.setPosition(54, -10f);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(59.5f, -65);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
-				//spr_testeDot.setPosition(65, -25f);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(-51.5f, -50f);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
+				
+				//if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
 				
 				game.batch.end();
 			}
@@ -210,6 +200,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				Gdx.app.exit();
 			}
 		}
+		
+		public void CheckColision() {
+			if(player.Map_A.equals("StreetsA")) {
+				if(player.PosY_A < -192.5f) {
+					player.breakwalk_A = "front";
+				}
+				if(player.PosX_A > 184.5f) {
+					player.breakwalk_A = "right";
+				}
+				if(player.PosX_A < -77) {
+					player.breakwalk_A = "left";
+				}
+			}
+		}
+		
 
 		@Override
 		public void input(String text) {
@@ -227,7 +232,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public boolean keyDown(int keycode) {
 			if(playerDead) { return false; }
 			
-			if(state.equals("main")) {
+			if(state.equals("Main")) {
 				movement = true;		
 				downKeys.add(keycode);
 		        if (downKeys.size >= 2){
@@ -237,7 +242,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
 		        		player.Side_A = "left";
 		        		player.Walk_A = "walk"; 
-		        		padmoveX = -66;
+		        		padmoveX = -90;
 		        		player.playerInBattle_A = "no";
 		        		return false;
 		            }
@@ -261,7 +266,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 		    			player.Side_A = "right";
 		    			player.Walk_A = "walk";
-		    			padmoveX = -55;
+		    			padmoveX = -70;
 		    			player.playerInBattle_A = "no";
 		    			return false;
 		            } 
@@ -279,9 +284,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			downKeys.remove(keycode);
 			player.Walk_A = "no";
 			player.Frame_A = 1;
-			countFrame = 1;
-			padmoveX = -60;
-			padmoveY = -55;
+			padmoveX = -80;
+			padmoveY = -75;
 			player.breakwalk_A = "";
 			
 			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
@@ -303,7 +307,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//For multiple key presses
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
-		        	player.Side_A = "left-front";
+		        	//player.Side_A = "left-front";
+		        	player.Side_A = "left";
 		        	player.Walk_A = "walk";  	
 		        	padmoveX = -66;
 		        	padmoveY = -60;
@@ -312,7 +317,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    }
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
-		        	player.Side_A = "left-back";
+		        	//player.Side_A = "left-back";
+		        	player.Side_A = "left";
 		        	player.Walk_A = "walk";
 		        	padmoveX = -66;
 		        	padmoveY = -50; 
@@ -321,7 +327,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    }
 		    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
-		    		player.Side_A = "right-back";
+		    		//player.Side_A = "right-back";
+		    		player.Side_A = "right";
 		    		player.Walk_A = "walk";	
 		    		padmoveX = -55;
 		    		padmoveY = -50;
@@ -330,7 +337,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    }
 		    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
 		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
-		    		player.Side_A = "right-front";
+		    		//player.Side_A = "right-front";
+		    		player.Side_A = "right";
 		    		player.Walk_A = "walk";	
 		    		padmoveX = -55;
 		    		padmoveY = -60;
@@ -339,7 +347,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    }
 		    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
-		        	player.Side_A = "back-right";
+		        	//player.Side_A = "back-right";
+		        	player.Side_A = "back";
 		        	player.Walk_A = "walk";
 		        	padmoveX = -55;
 		        	padmoveY = -50;
@@ -348,7 +357,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    }
 		    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
-		        	player.Side_A = "back-left";
+		        	//player.Side_A = "back-left";
+		        	player.Side_A = "back";
 		        	player.Walk_A = "walk";
 		        	padmoveX = -66;
 		        	padmoveY = -50;
@@ -357,7 +367,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    }
 		    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
-		        	player.Side_A = "front-right";
+		        	//player.Side_A = "front-right";
+		        	player.Side_A = "front";
 		        	player.Walk_A = "walk";
 		        	padmoveX = -55;
 		        	padmoveY = -60;
@@ -366,7 +377,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    }
 		    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
-		        	player.Side_A = "front-left";
+		        	//player.Side_A = "front-left";
+		        	player.Side_A = "front";
 		        	player.Walk_A = "walk";	
 		        	padmoveX = -66;
 		        	padmoveY = -60;
@@ -391,17 +403,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
+				if(player.playerInCast_A.equals("none")) { movement = true; } else { movement = false; }
+				
 				//Menu
 				if(coordsTouch.x > -70f && coordsTouch.x < -39f && coordsTouch.y > 39f && coordsTouch.y < 67f) {
 					state = "menu";
 					return false;
-				}
-				
-				//touchPad
-				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -26 && coordsTouch.y <= -13) {
-					
-					return false;
-				}
+				}	
 			}
 			
 			return false;
@@ -412,8 +420,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			movement = false;
 			player.breakwalk_A = "";
 			player.Walk_A = "no";
-			padmoveX = -60;
-			padmoveY = -55;
+			padmoveX = -80;
+			padmoveY = -75;
 			
 			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
 			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
@@ -437,7 +445,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
      				if(coordsTouch.x >= -53.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42f) {
 					player.Side_A = "right";
 					player.Walk_A = "walk";	
-					padmoveX = -55;		
+					padmoveX = -55;
 					player.playerInBattle_A = "no";
 					return false;
 				}
@@ -500,9 +508,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 
 		@Override
-		public void resize(int width, int height) {
-			// TODO Auto-generated method stub
-			
+		public void resize(int p1, int p2) {
+			viewport.update(p1,p2);
+			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);	
 		}
 
 		@Override

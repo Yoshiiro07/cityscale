@@ -41,7 +41,7 @@ public class ManagerScreen implements Screen{
 			game.setScreen(loadingScreen);
 		}
 		
-		if(tipo.equals("MetroStation")){	
+		if(tipo.equals("MetroStation")){
 			MetroStation MetroScreen = new MetroStation(game,this, network);
 			game.setScreen(MetroScreen);
 		}

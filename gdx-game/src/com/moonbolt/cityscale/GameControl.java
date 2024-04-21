@@ -503,7 +503,7 @@ public class GameControl {
 	}
 
 	//[Interface]//
-	public Sprite GetUX(String element) {
+	public Sprite GetUXSmall(String element) {
 		if(element.equals("bannerselect")) {
 			spr_master = atlas_ux.createSprite("bannerselect");
 			spr_master.setPosition(-60, 50);
@@ -561,6 +561,22 @@ public class GameControl {
 		if(element.equals("innerpad")) {
 			spr_master = atlas_ux.createSprite("innerpad");
 			spr_master.setSize(10,20);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetUX(String element, float cameraCoordsX, float cameraCoordsY) {
+		if(element.equals("playertag")) {
+			spr_master = atlas_ux.createSprite("playertag");
+			spr_master.setPosition(cameraCoordsX -99,cameraCoordsY + 56);
+			spr_master.setSize(52,42);
+			return spr_master;
+		}
+		if(element.equals("innerpad")) {
+			spr_master = atlas_ux.createSprite("innerpad");
+			spr_master.setSize(20,35);
 			return spr_master;
 		}
 		

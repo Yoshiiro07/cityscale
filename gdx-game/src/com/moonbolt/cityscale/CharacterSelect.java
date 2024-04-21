@@ -122,13 +122,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_Background.draw(game.batch);
 				
 				if(state.equals("Main")) {
-					spr_master = gameControl.GetUX("bannerselect");
+					spr_master = gameControl.GetUXSmall("bannerselect");
 					spr_master.draw(game.batch);
 					
-					spr_master = gameControl.GetUX("btncreatenew");
+					spr_master = gameControl.GetUXSmall("btncreatenew");
 					spr_master.draw(game.batch);
 					
-					spr_master = gameControl.GetUX("btnexclude");
+					spr_master = gameControl.GetUXSmall("btnexclude");
 					spr_master.draw(game.batch);
 					
 					if(!player.Name_1.equals("none")) {
@@ -173,7 +173,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(state.equals("Create")) {				
-					spr_master = gameControl.GetUX("create");
+					spr_master = gameControl.GetUXSmall("create");
 					spr_master.draw(game.batch);
 			
 					spr_master = gameControl.MenuCreateSprite(sex, "footer");
@@ -198,10 +198,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 				if(state.equals("Delete")) {
-					spr_master = gameControl.GetUX("bannerdelete");
+					spr_master = gameControl.GetUXSmall("bannerdelete");
 					spr_master.draw(game.batch);
 					
-					spr_master = gameControl.GetUX("btnvoltar");
+					spr_master = gameControl.GetUXSmall("btnvoltar");
 					spr_master.draw(game.batch);
 					
 					
@@ -249,10 +249,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				
 				if(state.equals("Selected")) {
 					
-					spr_master = gameControl.GetUX("confirmtab");
+					spr_master = gameControl.GetUXSmall("confirmtab");
 					spr_master.draw(game.batch);
 					
-					spr_master = gameControl.GetUX("btnvoltar");
+					spr_master = gameControl.GetUXSmall("btnvoltar");
 					spr_master.draw(game.batch);
 					
 					font_master.setColor(Color.WHITE);
@@ -413,7 +413,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				//select char 1
 				if(coordsTouch.x >=  -52 && coordsTouch.x <= -28 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					if(player.Name_1 != "none") {
+					if(!player.Name_1.equals("none")) {
 						selectedchar = 1;
 						state = "Selected";
 					}
@@ -421,7 +421,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				//select char 2
 				if(coordsTouch.x >=  -15 && coordsTouch.x <= 15 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					if(player.Name_2 != "none") {
+					if(!player.Name_2.equals("none")) {
 						selectedchar = 2;
 						state = "Selected";
 					}
@@ -429,7 +429,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				//select char 3
 				if(coordsTouch.x >=  22 && coordsTouch.x <= 44 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					if(player.Name_3 != "none") {
+					if(!player.Name_3.equals("none")) {
 						selectedchar = 3;
 						state = "Selected";
 					}	
