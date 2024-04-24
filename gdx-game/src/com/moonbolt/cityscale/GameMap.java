@@ -64,6 +64,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private boolean playerDead = false;
 	    private boolean movement = false;
 	    
+	    //Sprite NPC
+	    private Sprite spr_npc;
+	    
 	    //UX
 	    private float padmoveX = -56;
 	    private float padmoveY =  -50;
@@ -147,17 +150,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playerTagHair.draw(game.batch);
 				
 				
-				font_master.getData().setScale(0.07f,0.11f);
-				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 68f, cameraCoordsY + 30.7f);
-				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 68f, cameraCoordsY + 34.7f);
-				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 58f, cameraCoordsY + 34.7f);
+				font_master.getData().setScale(0.17f,0.28f);
+				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 98f, cameraCoordsY + 44.7f);
+				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 98f, cameraCoordsY + 53.7f);
+				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 78f, cameraCoordsY + 53.7f);
 				
 				
-				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 92f, cameraCoordsY + 92.7f);
-				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 92f, cameraCoordsY + 78.7f);
-				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 92f, cameraCoordsY + 70.7f);
-				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 61f, cameraCoordsY + 40.7f);
-				font_master.draw(game.batch, String.valueOf(player.Exp_A), cameraCoordsX - 48f, cameraCoordsY + 40.7f);
+				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 88f, cameraCoordsY + 93.7f);
+				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 85f, cameraCoordsY + 82f);
+				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 85f, cameraCoordsY + 73.7f);
+				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 88f, cameraCoordsY + 65.7f);
+				font_master.draw(game.batch, String.valueOf(player.Exp_A) + "%", cameraCoordsX - 69f, cameraCoordsY + 65.7f);
 				
 				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
 				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
@@ -181,15 +184,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Colision
 				CheckColision();
-											
-				//Teste				
-				spr_testeDot.setPosition(59.5f, -65);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
 				
-				spr_testeDot.setPosition(-51.5f, -50f);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+				//NPCs
+				if(player.Map_A.equals("StreetsA")) {
+					spr_npc = gameControl.GetNPC("DungeonMaster", 0);
+					spr_npc.draw(game.batch);
+				}
+				
 				
 				//if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
 				
@@ -242,7 +243,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
 		        		player.Side_A = "left";
 		        		player.Walk_A = "walk"; 
-		        		padmoveX = -90;
+		        		padmoveX = -85;
 		        		player.playerInBattle_A = "no";
 		        		return false;
 		            }
@@ -250,7 +251,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
 		    			player.Side_A = "back";
 		    			player.Walk_A = "walk";
-		    			padmoveY = -50;
+		    			padmoveY = -65;
 		    			player.playerInBattle_A = "no";
 		    			return false;
 		            }
@@ -258,7 +259,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
 		    			player.Side_A = "front";
 		    			player.Walk_A = "walk";	
-		    			padmoveY = -60;
+		    			padmoveY = -85;
 		    			player.playerInBattle_A = "no";
 		    			return false;
 		            }
@@ -266,7 +267,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 		    			player.Side_A = "right";
 		    			player.Walk_A = "walk";
-		    			padmoveX = -70;
+		    			padmoveX = -75;
 		    			player.playerInBattle_A = "no";
 		    			return false;
 		            } 
@@ -442,34 +443,34 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(movement){	
 				//Right
-     				if(coordsTouch.x >= -53.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42f) {
+     				if(coordsTouch.x >= cameraCoordsX -70 && coordsTouch.x <= cameraCoordsX -50 && coordsTouch.y > cameraCoordsY - 70 && coordsTouch.y < cameraCoordsY - 48) {
 					player.Side_A = "right";
 					player.Walk_A = "walk";	
-					padmoveX = -55;
+					padmoveX = -75;
 					player.playerInBattle_A = "no";
 					return false;
 				}
 				//Left
-				if(coordsTouch.x >= -57.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42) {
+     				if(coordsTouch.x >= cameraCoordsX -90 && coordsTouch.x <= cameraCoordsX -50 && coordsTouch.y > cameraCoordsY - 70 && coordsTouch.y < cameraCoordsY - 48) {
 					player.Side_A = "left";
 					player.Walk_A = "walk";	
-					padmoveX = -66;		
+					padmoveX = -85;	
 					player.playerInBattle_A = "no";
 					return false;
 				}
 				//Front
-				if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
+				if(coordsTouch.x > cameraCoordsX -80 && coordsTouch.x < cameraCoordsX -60 && coordsTouch.y > cameraCoordsY - 94 && coordsTouch.y < cameraCoordsY - 58) {
 					player.Side_A = "front";
 					player.Walk_A = "walk";	
-					padmoveY = -60;
+					padmoveY = -85;			
 					player.playerInBattle_A = "no";
 					return false;
 				}
 				//Back
-				if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -42f && coordsTouch.y < -27) {
+				if(coordsTouch.x > cameraCoordsX -80 && coordsTouch.x < cameraCoordsX -60 && coordsTouch.y > cameraCoordsY - 58 && coordsTouch.y < cameraCoordsY - 24) {
 					player.Side_A = "back";
 					player.Walk_A = "walk";	
-					padmoveY = -50;
+					padmoveY = -65;
 					player.playerInBattle_A = "no";
 					return false;
 				}

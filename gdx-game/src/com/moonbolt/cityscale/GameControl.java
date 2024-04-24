@@ -26,6 +26,7 @@ public class GameControl {
 	private TextureAtlas atlas_basicset;
 	private TextureAtlas atlas_ux;
 	private TextureAtlas atlas_genericset;
+	private TextureAtlas atlas_npcs;
 	
 		
 	public GameControl() {
@@ -34,10 +35,12 @@ public class GameControl {
 		randnumber = new Random();
 		
 		//Textures
-		atlas_genericset = new TextureAtlas(Gdx.files.internal("data/characters/player/basic/basicset.txt"));
-		atlas_hairs = new TextureAtlas(Gdx.files.internal("data/characters/player/hairs/hairs.txt"));
-		atlas_basicset = new TextureAtlas(Gdx.files.internal("data/characters/player/basic/basicset.txt"));
-		atlas_ux = new TextureAtlas(Gdx.files.internal("data/ux/ux.txt"));
+		atlas_genericset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
+		atlas_hairs = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hairs.txt"));
+		atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
+		atlas_ux = new TextureAtlas(Gdx.files.internal("data/assets/ux/ux.txt"));
+		
+		atlas_npcs = new TextureAtlas(Gdx.files.internal("data/assets/characters/npcs/npcs.txt"));
 	}
 	
 	
@@ -926,6 +929,18 @@ public class GameControl {
 				if(player.Frame_A == 3) { spr_master.setPosition(posX -25.6f,posY -23f);  }
 			}
 			spr_master.setScale(0.2f,0.4f);		
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetNPC(String npcname, int frame) {
+		
+		if(npcname.equals("DungeonMaster")) {  
+			spr_master = atlas_npcs.createSprite("NPCY");
+			spr_master.setSize(10, 10);
+			spr_master.setPosition(10, 10);
+			return spr_master;
 		}
 		
 		return spr_master;

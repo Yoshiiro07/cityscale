@@ -63,13 +63,13 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 		Gdx.input.setInputProcessor(this);
 		
 		//font
-		font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
+		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 		font_master.setColor(Color.WHITE);
 		font_master.getData().setScale(0.11f,0.23f);
 		font_master.setUseIntegerPositions(false);
 		
 		//Sprites
-		tex_loadingBlack = new Texture(Gdx.files.internal("data/etc/blackscreen.png"));		
+		tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/etc/blackscreen.png"));		
 		spr_loadingBlack = new Sprite(tex_loadingBlack);
 		spr_loadingBlack.setSize(100, 100);
 	}

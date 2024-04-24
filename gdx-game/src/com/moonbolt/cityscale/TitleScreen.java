@@ -89,15 +89,15 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			gameControl = new GameControl();
 			
 			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 			
 			//Load Title
-			tex_Background = new Texture(Gdx.files.internal("data/maps/titlemap.png"));
+			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/titlemap.png"));
 			spr_Background = new Sprite(tex_Background);
 			
 			//Logo
-			tex_logo = new Texture(Gdx.files.internal("data/etc/maintitle.png"));
+			tex_logo = new Texture(Gdx.files.internal("data/assets/etc/maintitle.png"));
 			spr_logo = new Sprite(tex_logo);
 					
 			//Camera and Inputs
@@ -108,13 +108,13 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			Gdx.input.setInputProcessor(this);
 	
 			//font
-			font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
+			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.12f);
 			font_master.setUseIntegerPositions(false);	
 			
 			//Atlas
-			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/ux/ux.txt"));
+			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/ux/ux.txt"));
 		}
 			
 		@Override

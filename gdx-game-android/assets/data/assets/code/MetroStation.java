@@ -98,8 +98,8 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			player = gameControl.LoadData();
 			
 			//Load Title
-			tex_Background = new Texture(Gdx.files.internal("data/maps/metrostation.png")); 
-			tex_metro = new Texture(Gdx.files.internal("data/etc/metro.png")); 
+			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png")); 
+			tex_metro = new Texture(Gdx.files.internal("data/assets/etc/metro.png")); 
 			spr_metro = new Sprite(tex_metro);
 			spr_Background = new Sprite(tex_Background);
 					
@@ -112,13 +112,13 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			Gdx.input.setInputProcessor(this);
 	
 			//font
-			font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
+			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.11f);
 			font_master.setUseIntegerPositions(false);
 			
 			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 		}
 			

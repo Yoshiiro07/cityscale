@@ -78,7 +78,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			player = gameControl.LoadData();
 			
 			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 			spr_master = new Sprite(tex_testeDot);
 			
@@ -86,7 +86,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			spr_hat = new Sprite(tex_testeDot);
 			
 			//Load Title
-			tex_Background = new Texture(Gdx.files.internal("data/maps/characterselect.png"));
+			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/characterselect.png"));
 			spr_Background = new Sprite(tex_Background);
 					
 			//Camera and Inputs
@@ -97,7 +97,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			Gdx.input.setInputProcessor(this);
 	
 			//font
-			font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
+			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.12f);
 			font_master.setUseIntegerPositions(false);	
