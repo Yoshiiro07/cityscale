@@ -94,7 +94,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player = gameControl.LoadData();
 			
 			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); }	
+			if(player.Map_A.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png")); }	
 			spr_Background = new Sprite(tex_Background);
+			
+			//Mobs
+			if(player.Map_A.equals("Sewers")) {
+				
+			}
 					
 			//Camera and Inputs
 			camera = new OrthographicCamera();
@@ -145,31 +151,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//npcs
 				ShowNPCs();
 				
-				//UX
-				spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
-				spr_playerTag.draw(game.batch);
-				
-				spr_playerTagHair = gameControl.GetHairCharTag(player);
-				spr_playerTagHair.draw(game.batch);
-				
-				
-				font_master.getData().setScale(0.17f,0.28f);
-				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 98f, cameraCoordsY + 44.7f);
-				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 98f, cameraCoordsY + 53.7f);
-				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 78f, cameraCoordsY + 53.7f);
-				
-				
-				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 88f, cameraCoordsY + 93.7f);
-				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 85f, cameraCoordsY + 82f);
-				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 85f, cameraCoordsY + 73.7f);
-				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 88f, cameraCoordsY + 65.7f);
-				font_master.draw(game.batch, String.valueOf(player.Exp_A) + "%", cameraCoordsX - 69f, cameraCoordsY + 65.7f);
-				
-				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
-				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
-				spr_master.draw(game.batch);
-				
-				
 				//Char
 				player = gameControl.SetCharMov(player, player.breakwalk_A);
 				spr_playerhair = gameControl.GetHairChar(player);
@@ -184,16 +165,46 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playertop = gameControl.GetTopChar(player);
 				spr_playertop.draw(game.batch);
 				
+				//UX
+				spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
+				spr_playerTag.draw(game.batch);
+				
+				spr_playerTagHair = gameControl.GetHairCharTag(player);
+				spr_playerTagHair.draw(game.batch);
+				
+				
+				font_master.getData().setScale(0.15f,0.26f);
+				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 98f, cameraCoordsY + 53.7f);
+				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 78f, cameraCoordsY + 53.7f);
+				
+				
+				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 88f, cameraCoordsY + 93.7f);
+				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 85f, cameraCoordsY + 82f);
+				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 85f, cameraCoordsY + 73.7f);
+				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 88f, cameraCoordsY + 65.7f);
+				font_master.draw(game.batch, String.valueOf(player.Exp_A) + "%", cameraCoordsX - 69f, cameraCoordsY + 65.7f);
+				
+				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
+				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
+				spr_master.draw(game.batch);
+				
+				ShowCards();
 				
 				//Colision
 				CheckColision();
 				
 				
-				spr_testeDot.setPosition(cameraCoordsX + 19,cameraCoordsY -44);
+				if(state.equals("DungeonSelect")) {
+					spr_master = gameControl.GetUX("battlezoneA", cameraCoordsX, cameraCoordsY);
+					spr_master.draw(game.batch);
+				}
+				
+				
+				spr_testeDot.setPosition(cameraCoordsX - 47,cameraCoordsY + 34);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 19,cameraCoordsY -50);
+				spr_testeDot.setPosition(cameraCoordsX + 32,cameraCoordsY + 17);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -205,6 +216,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			catch(Exception ex) {
 				Gdx.app.exit();
+			}
+		}
+		
+		public void MapChange(String map) {
+			if(map.equals("Sewers")) {
+				player.Map_A = "Sewers";
+				player.PosX_A = 44.5f;
+				player.PosY_A = -4.5f;
+				gameControl.SaveData(player);
+				this.screen.screenSwitch("LoadingScreen",false);
+				dispose();	
+			}
+			if(map.equals("StreetsAFromSewers")) {
+				player.Map_A = "StreetsA";
+				player.PosX_A = 112.5f;
+				player.PosY_A = -142f;
+				gameControl.SaveData(player);
+				this.screen.screenSwitch("LoadingScreen",false);
+				dispose();	
 			}
 		}
 		
@@ -228,6 +258,69 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					player.breakwalk_A = "left";
 				}
 			}
+			if(player.Map_A.equals("Sewers")) {
+				if(player.PosX_A > 40f && player.PosX_A < 53 && player.PosY_A > 5 && player.PosY_A < 21.5f) {
+					MapChange("StreetsAFromSewers");
+				}
+			}
+		}
+		
+		public void CheckAction() {
+			if(player.Map_A.equals("StreetsA")) {
+				if(player.PosX_A >= 103.5f && player.PosX_A <= 122 && player.PosY_A >= -142 && player.PosY_A <= -128.5f ) {
+					state = "DungeonSelect";
+				}
+			}
+		}
+		
+		public void CheckTarget() {
+			
+		}
+
+		public void CheckBlock() {
+			
+		}
+		
+		
+		public void ShowCards() {
+			//Basic Cards
+			//Hotkey 1 / 2
+			spr_master = gameControl.GetCard("cardempty");
+			spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 30);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardempty");
+			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardaction");
+			spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 60);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardtarget");
+			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 60);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardblock");
+			spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardsit");
+			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+			spr_master.draw(game.batch);
+			
+			//Novice Cards
+			spr_master = gameControl.GetCard("cardcutbreak");
+			spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardrockbound");
+			spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardempty");
+			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
+			spr_master.draw(game.batch);
 		}
 		
 
@@ -424,7 +517,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > -70f && coordsTouch.x < -39f && coordsTouch.y > 39f && coordsTouch.y < 67f) {
 					state = "menu";
 					return false;
-				}	
+				}
+				
+				
+				//Action
+				if(coordsTouch.x > cameraCoordsX + 46 && coordsTouch.x < cameraCoordsX + 57 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
+					CheckAction();
+					return false;
+				}
+				//Block
+				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
+					CheckBlock();
+					return false;
+				}
+				//Target
+				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
+					CheckTarget();
+					return false;
+				}
+			}
+			
+			if(state.equals("DungeonSelect")) {
+				//Dungeon 1
+				if(coordsTouch.x > cameraCoordsX - 47 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 17 && coordsTouch.y < cameraCoordsY + 34) {
+					MapChange("Sewers");
+					return false;
+				}
 			}
 			
 			return false;

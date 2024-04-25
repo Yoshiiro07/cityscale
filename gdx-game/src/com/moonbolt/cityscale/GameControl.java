@@ -1,5 +1,6 @@
 package com.moonbolt.cityscale;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -18,6 +19,8 @@ public class GameControl {
 	private Random randnumber;
 	private Player player;
 	
+	private ArrayList<Monster> lstMonsters;
+	
 	//Sprite
 	private Sprite spr_master;
 	
@@ -27,6 +30,7 @@ public class GameControl {
 	private TextureAtlas atlas_ux;
 	private TextureAtlas atlas_genericset;
 	private TextureAtlas atlas_npcs;
+	private TextureAtlas atlas_cards;
 	
 		
 	public GameControl() {
@@ -41,6 +45,9 @@ public class GameControl {
 		atlas_ux = new TextureAtlas(Gdx.files.internal("data/assets/ux/ux.txt"));
 		
 		atlas_npcs = new TextureAtlas(Gdx.files.internal("data/assets/characters/npcs/npcs.txt"));
+		atlas_cards = new TextureAtlas(Gdx.files.internal("data/assets/skills/cards.txt"));
+		
+		LoadMonsters();
 	}
 	
 	
@@ -49,6 +56,7 @@ public class GameControl {
 	//[Account]//
 	//[Interface]//
 	//[Character]//
+	//[Monsters]//
 	
 	//[Account]//
 	public void CheckData() {
@@ -81,6 +89,7 @@ public class GameControl {
 	public void SaveData(Player acPlayer) {
 		file = Gdx.files.local("SaveData/save.json");
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
+		this.player = acPlayer;
 	}
 
 	public Player LoadData(){
@@ -582,6 +591,61 @@ public class GameControl {
 			spr_master.setSize(20,35);
 			return spr_master;
 		}
+		if(element.equals("battlezoneA")) {
+			spr_master = atlas_ux.createSprite("battlezoneA");
+			spr_master.setPosition(cameraCoordsX -48,cameraCoordsY - 45);
+			spr_master.setSize(90,100);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetCard(String cardname) {
+		if(cardname.equals("cardempty")) {
+			spr_master = atlas_cards.createSprite("cardempty");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		if(cardname.equals("cardaction")) {
+			spr_master = atlas_cards.createSprite("cardaction");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		if(cardname.equals("cardblock")) {
+			spr_master = atlas_cards.createSprite("cardblock");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		if(cardname.equals("cardtarget")) {
+			spr_master = atlas_cards.createSprite("cardtarget");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardblock")) {
+			spr_master = atlas_cards.createSprite("cardblock");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardsit")) {
+			spr_master = atlas_cards.createSprite("cardsit");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardcutbreak")) {
+			spr_master = atlas_cards.createSprite("cardcutbreak");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardrockbound")) {
+			spr_master = atlas_cards.createSprite("cardrockbound");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
 		
 		return spr_master;
 	}
@@ -939,11 +1003,16 @@ public class GameControl {
 		if(npcname.equals("DungeonMaster")) {  
 			spr_master = atlas_npcs.createSprite("NPCP");
 			spr_master.setSize(12, 40);
-			spr_master.setPosition(106, -122.5f);
+			spr_master.setPosition(106, -130.5f);
 			return spr_master;
 		}
 		
 		return spr_master;
+	}
+	
+	//[Monsters]//
+	public void LoadMonsters() {
+		
 	}
 	
 }
