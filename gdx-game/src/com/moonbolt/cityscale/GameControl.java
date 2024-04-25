@@ -937,9 +937,9 @@ public class GameControl {
 	public Sprite GetNPC(String npcname, int frame) {
 		
 		if(npcname.equals("DungeonMaster")) {  
-			spr_master = atlas_npcs.createSprite("NPCY");
-			spr_master.setSize(10, 10);
-			spr_master.setPosition(10, 10);
+			spr_master = atlas_npcs.createSprite("NPCP");
+			spr_master.setSize(12, 40);
+			spr_master.setPosition(106, -122.5f);
 			return spr_master;
 		}
 		

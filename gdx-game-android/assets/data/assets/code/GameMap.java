@@ -93,7 +93,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			this.gameControl = new GameControl();
 			player = gameControl.LoadData();
 			
-			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/maps/streetsA.png")); }	
+			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); }	
 			spr_Background = new Sprite(tex_Background);
 					
 			//Camera and Inputs
@@ -104,13 +104,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			Gdx.input.setInputProcessor(this);
 	
 			//font
-			font_master = new BitmapFont(Gdx.files.internal("data/font/impact.fnt"),Gdx.files.internal("data/font/impact.png"), false);
+			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.11f);
 			font_master.setUseIntegerPositions(false);
 			
 			//test dot
-			tex_testeDot = new Texture(Gdx.files.internal("data/etc/testdot.png"));
+			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 		}
 			
@@ -141,6 +141,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_Background.setPosition(-81,-194);
 				spr_Background.setSize(270, 270);
 				spr_Background.draw(game.batch);
+				
+				//npcs
+				ShowNPCs();
 				
 				//UX
 				spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
@@ -185,11 +188,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Colision
 				CheckColision();
 				
-				//NPCs
-				if(player.Map_A.equals("StreetsA")) {
-					spr_npc = gameControl.GetNPC("DungeonMaster", 0);
-					spr_npc.draw(game.batch);
-				}
+				
+				spr_testeDot.setPosition(cameraCoordsX + 19,cameraCoordsY -44);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
+
+				spr_testeDot.setPosition(cameraCoordsX + 19,cameraCoordsY -50);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
 				
 				//if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
@@ -199,6 +205,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			catch(Exception ex) {
 				Gdx.app.exit();
+			}
+		}
+		
+		public void ShowNPCs() {
+			//NPCs
+			if(player.Map_A.equals("StreetsA")) {
+				spr_npc = gameControl.GetNPC("DungeonMaster", 0);
+				spr_npc.draw(game.batch);
 			}
 		}
 		
