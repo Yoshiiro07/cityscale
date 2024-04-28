@@ -608,6 +608,11 @@ public class GameControl {
 			spr_master = atlas_ux.createSprite("target");
 			return spr_master;
 		}
+		if(element.equals("menu")){
+			spr_master = atlas_ux.createSprite("inventory");
+			spr_master.setPosition(cameraCoordsX -85,cameraCoordsY -80);
+			spr_master.setSize(170,170);
+		}
 		
 		return spr_master;
 	}

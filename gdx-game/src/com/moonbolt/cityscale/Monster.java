@@ -101,8 +101,8 @@ public class Monster {
 			MobC.MobName = "oikplant";
 			MobC.MobHp = 130;
 			MobC.MobMp = 130;
-			MobC.MobHpMax = 100;
-			MobC.MobMpMax = 100;
+			MobC.MobHpMax = 130;
+			MobC.MobMpMax = 130;
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
@@ -130,8 +130,8 @@ public class Monster {
 			MobD.MobName = "rat";
 			MobD.MobHp = 180;
 			MobD.MobMp = 180;
-			MobD.MobHpMax = 100;
-			MobD.MobMpMax = 100;
+			MobD.MobHpMax = 180;
+			MobD.MobMpMax = 180;
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
@@ -159,8 +159,8 @@ public class Monster {
 			MobE.MobName = "sapod";
 			MobE.MobHp = 240;
 			MobE.MobMp = 240;
-			MobE.MobHpMax = 260;
-			MobE.MobMpMax = 260;
+			MobE.MobHpMax = 240;
+			MobE.MobMpMax = 240;
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;

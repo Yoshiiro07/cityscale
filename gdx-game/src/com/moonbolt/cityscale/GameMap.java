@@ -211,19 +211,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Colision
 				CheckColision();
+
+				if(state.equals("menu")){
+					spr_master = gameControl.GetUX("menu", cameraCoordsX, cameraCoordsY);
+					spr_master.draw(game.batch);
+				}
+
 				
 				if(state.equals("DungeonSelect")) {
 					spr_master = gameControl.GetUX("battlezoneA", cameraCoordsX, cameraCoordsY);
 					spr_master.draw(game.batch);
 				}
 				
-				//spr_testeDot.setPosition(cameraCoordsX - 47,cameraCoordsY + 34);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(cameraCoordsX - 61,cameraCoordsY + 57);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 
-				//spr_testeDot.setPosition(cameraCoordsX + 32,cameraCoordsY + 17);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(cameraCoordsX - 99,cameraCoordsY + 96);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
 				//if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
 				
@@ -663,7 +669,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(player.playerInCast_A.equals("none")) { movement = true; } else { movement = false; }
 				
 				//Menu
-				if(coordsTouch.x > -70f && coordsTouch.x < -39f && coordsTouch.y > 39f && coordsTouch.y < 67f) {
+				if(coordsTouch.x > cameraCoordsX - 99 && coordsTouch.x < cameraCoordsX - 61 && coordsTouch.y > cameraCoordsY + 57 && coordsTouch.y < cameraCoordsY + 96) {
 					state = "menu";
 					return false;
 				}
