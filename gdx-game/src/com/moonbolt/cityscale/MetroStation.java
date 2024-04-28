@@ -160,7 +160,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				spr_playerTag = gameControl.GetUXSmall("playertag");
 				spr_playerTag.draw(game.batch);
 				
-				spr_playerTagHair = gameControl.GetHairCharTag(player);
+				spr_playerTagHair = gameControl.GetHairCharTagStation(player);
 				spr_playerTagHair.draw(game.batch);
 				
 				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 68f, cameraCoordsY + 30.7f);

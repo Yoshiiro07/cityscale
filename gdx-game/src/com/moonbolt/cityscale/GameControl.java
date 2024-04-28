@@ -20,6 +20,7 @@ public class GameControl {
 	private Player player;
 	
 	private ArrayList<Monster> lstMonsters;
+	private Monster placeholderMonster;
 	
 	//Sprite
 	private Sprite spr_master;
@@ -31,23 +32,29 @@ public class GameControl {
 	private TextureAtlas atlas_genericset;
 	private TextureAtlas atlas_npcs;
 	private TextureAtlas atlas_cards;
+	private TextureAtlas atlas_mobSewers;
 	
 		
 	public GameControl() {
 		
 		json = new Json();
 		randnumber = new Random();
+
+		//Monster
+		placeholderMonster = new Monster();
+		lstMonsters = new ArrayList<Monster>();
 		
 		//Textures
 		atlas_genericset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
 		atlas_hairs = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hairs.txt"));
 		atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
 		atlas_ux = new TextureAtlas(Gdx.files.internal("data/assets/ux/ux.txt"));
+
+		atlas_mobSewers = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobsewers.txt"));
 		
 		atlas_npcs = new TextureAtlas(Gdx.files.internal("data/assets/characters/npcs/npcs.txt"));
 		atlas_cards = new TextureAtlas(Gdx.files.internal("data/assets/skills/cards.txt"));
-		
-		LoadMonsters();
+
 	}
 	
 	
@@ -597,6 +604,10 @@ public class GameControl {
 			spr_master.setSize(90,100);
 			return spr_master;
 		}
+		if(element.equals("target")) {
+			spr_master = atlas_ux.createSprite("target");
+			return spr_master;
+		}
 		
 		return spr_master;
 	}
@@ -817,13 +828,31 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	public Sprite GetHairCharTag(Player player) {
+	public Sprite GetHairCharTagStation(Player player) {
 		
 		
 		//hair1_front_green_M
 		if(player.Sex_A.equals("M")) {
 			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
 			spr_master.setPosition(-86, 42); 
+			spr_master.setScale(0.2f,0.4f);		
+		}
+		
+		return spr_master;
+	}
+
+	public Sprite GetHairCharTag(Player player,float cameraCoordsX,float cameraCoordsY) {
+		
+		
+		//hair1_front_green_M
+		if(player.Sex_A.equals("M")) {
+			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master.setPosition(cameraCoordsX -115,cameraCoordsY + 71); 
+			spr_master.setScale(0.2f,0.4f);		
+		}
+		if(player.Sex_A.equals("F")) {
+			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master.setPosition(cameraCoordsX -86,cameraCoordsY + 42); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
 		
@@ -1011,8 +1040,34 @@ public class GameControl {
 	}
 	
 	//[Monsters]//
-	public void LoadMonsters() {
+	public ArrayList<Monster> LoadMonsters(String Map) {
+		if(Map.equals("Sewers")){
+			lstMonsters = placeholderMonster.LoadMonsterData(Map);
+		}
+
+		return lstMonsters;
+	}
+
+	public Sprite GetMonster(String mob, int mobframe, String side) {
+		if(mob.equals("slime")){
+			spr_master = atlas_mobSewers.createSprite("slime" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("oikplant")){
+			spr_master = atlas_mobSewers.createSprite("oikplant" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("rat")){
+			spr_master = atlas_mobSewers.createSprite("rat" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("sapod")){
+			spr_master = atlas_mobSewers.createSprite("sapod" + mobframe);
+			return spr_master;
+		}
 		
+
+		return spr_master;
 	}
 	
 }

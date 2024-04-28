@@ -42,6 +42,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private GameControl gameControl;
 	    private String state = "Main";
 	    private Sprite spr_master;
+		private Random randnumber;
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -63,6 +64,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_playerfooter;
 	    private boolean playerDead = false;
 	    private boolean movement = false;
+		private Sprite spr_target;
+
+		//Monster
+		private ArrayList<Monster> listMonsters;
+		private Sprite spr_monster;
+		private int mobFrame = 1;
+	    private float mobPositionCoordX = 0;
+	    private float mobPositionCoordY = 0;
+	    private int mobRandomSt = 0;
+	    private int mobTimerMov = 100;
+	    private int mobTimerFrame = 40;
+		private int countSwitchTarget;
 	    
 	    //Sprite NPC
 	    private Sprite spr_npc;
@@ -88,6 +101,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public GameMap(MainGame gameAlt,ManagerScreen screenAlt, boolean network) {
 			this.game = gameAlt;	
 			this.screen = screenAlt;
+			this.randnumber = new Random();
 			
 			//Load Player Data
 			this.gameControl = new GameControl();
@@ -99,7 +113,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Mobs
 			if(player.Map_A.equals("Sewers")) {
-				
+				listMonsters = gameControl.LoadMonsters("Sewers");
 			}
 					
 			//Camera and Inputs
@@ -164,12 +178,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				spr_playertop = gameControl.GetTopChar(player);
 				spr_playertop.draw(game.batch);
+
+				//Show Mobs
+				if(player.Map_A.equals("Sewers")){
+					ShowMobs();
+				}
 				
 				//UX
 				spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
 				spr_playerTag.draw(game.batch);
 				
-				spr_playerTagHair = gameControl.GetHairCharTag(player);
+				spr_playerTagHair = gameControl.GetHairCharTag(player, cameraCoordsX, cameraCoordsY);
 				spr_playerTagHair.draw(game.batch);
 				
 				
@@ -193,21 +212,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Colision
 				CheckColision();
 				
-				
 				if(state.equals("DungeonSelect")) {
 					spr_master = gameControl.GetUX("battlezoneA", cameraCoordsX, cameraCoordsY);
 					spr_master.draw(game.batch);
 				}
 				
-				
-				spr_testeDot.setPosition(cameraCoordsX - 47,cameraCoordsY + 34);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+				//spr_testeDot.setPosition(cameraCoordsX - 47,cameraCoordsY + 34);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 32,cameraCoordsY + 17);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
+				//spr_testeDot.setPosition(cameraCoordsX + 32,cameraCoordsY + 17);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 				
 				//if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
 				
@@ -273,12 +289,145 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
-		public void CheckTarget() {
+		public void ChangeTarget() {
 			
+			if(player.Map_A.equals("Sewers")) {
+			
+				String playerTarget = player.Target_A;
+				for(int i = 0; i < listMonsters.size(); i++) {
+					
+					if(countSwitchTarget == 0) {
+						countSwitchTarget = i;
+					}
+					
+					if(countSwitchTarget >= 0) {
+						if(countSwitchTarget <= listMonsters.size()) {
+							countSwitchTarget++;
+							if(countSwitchTarget >= listMonsters.size()) { countSwitchTarget = 0; }
+							if(!playerTarget.equals(listMonsters.get(countSwitchTarget).MobID)) {
+								player.Target_A = listMonsters.get(countSwitchTarget).MobID;						
+								return;		
+							}
+						}
+						else {
+							countSwitchTarget = 0;
+						}
+					}	
+				}
+			}
 		}
 
 		public void CheckBlock() {
 			
+		}
+
+		public void ShowMobs() {			
+			if(player.Map_A.equals("Sewers") || player.Map_A.equals("Watercave") || player.Map_A.equals("Mines") || player.Map_A.equals("Snowpalace") || player.Map_A.equals("Tower")) {
+				for(int i = 0; i < listMonsters.size(); i++) {
+					
+						//Target do player
+						if(player.Target_A.equals(listMonsters.get(i).MobID)) {
+							spr_target = gameControl.GetUX("target", 0, 0);
+							spr_target.setPosition(listMonsters.get(i).MobPosX + 2, listMonsters.get(i).MobPosY + 16);
+							spr_target.setSize(4,8);
+							spr_target.draw(game.batch);
+						}
+									
+						mobTimerFrame = listMonsters.get(i).MobFrameTime;
+						if(mobTimerFrame > 0) {
+							mobTimerFrame--;
+							listMonsters.get(i).MobFrameTime = mobTimerFrame;
+						}
+						if(mobTimerFrame <= 0) {
+							mobTimerFrame = 40;
+							mobFrame = listMonsters.get(i).MobFrame;
+							mobFrame++;
+							if(mobFrame > 3) { mobFrame = 1;}
+							listMonsters.get(i).MobFrame = mobFrame;
+							listMonsters.get(i).MobFrameTime = 40;
+						}
+						
+						//Sem Target
+						if(listMonsters.get(i).MobTarget.equals("none")) {
+							mobTimerMov = listMonsters.get(i).MobTimerMov;
+							mobRandomSt = listMonsters.get(i).MobRandomSt;
+							if(mobTimerMov >= 0) { 
+								mobTimerMov--;
+								listMonsters.get(i).MobTimerMov = mobTimerMov;
+							}
+							if(mobTimerMov < 0) { 
+								mobRandomSt = randnumber.nextInt(4); 
+								mobTimerMov = 100; 
+								listMonsters.get(i).MobTimerMov = mobTimerMov;
+								listMonsters.get(i).MobRandomSt = mobRandomSt;
+							}
+												
+							if(mobRandomSt == 0) { 
+								mobPositionCoordX = listMonsters.get(i).MobPosX;
+								mobPositionCoordX = mobPositionCoordX + 0.07f; 
+								listMonsters.get(i).MobPosX = mobPositionCoordX;
+							}
+							if(mobRandomSt == 1) { 
+								mobPositionCoordX = listMonsters.get(i).MobPosX;
+								mobPositionCoordX = mobPositionCoordX - 0.07f;
+								listMonsters.get(i).MobPosX = mobPositionCoordX;
+							}
+							if(mobRandomSt == 2) { 
+								mobPositionCoordY = listMonsters.get(i).MobPosY;
+								mobPositionCoordY = mobPositionCoordY + 0.07f;
+								listMonsters.get(i).MobPosY = mobPositionCoordY;
+							}
+							if(mobRandomSt == 3) { 
+								mobPositionCoordY = listMonsters.get(i).MobPosY;
+								mobPositionCoordY = mobPositionCoordY - 0.07f;
+								listMonsters.get(i).MobPosY = mobPositionCoordY;
+							}
+						}
+						
+						if(listMonsters.get(i).MobTarget.equals(player.Name_A)) {
+							if(listMonsters.get(i).MobPosX < player.PosX_A + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX + 0.07f; }
+							if(listMonsters.get(i).MobPosX > player.PosX_A + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX - 0.07f; }
+							if(listMonsters.get(i).MobPosY < player.PosY_A - 6 ) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY + 0.07f; }
+							if(listMonsters.get(i).MobPosY > player.PosY_A - 6) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY - 0.07f; }
+						}
+						
+						//Limit screen
+						if(mobPositionCoordY >= 18f && listMonsters.get(i).MobDead.equals("no")) 
+						{						
+							listMonsters.get(i).MobPosY = -112f;
+							listMonsters.get(i).MobPosX = 96.5f;
+						}
+						if(mobPositionCoordY <= -190.5f && listMonsters.get(i).MobDead.equals("no")) 
+						{
+							listMonsters.get(i).MobPosY = -112f;
+							listMonsters.get(i).MobPosX = 67;
+						}
+						if(mobPositionCoordX >= 185 && listMonsters.get(i).MobDead.equals("no")) 
+						{
+							listMonsters.get(i).MobPosY = -112f;
+							listMonsters.get(i).MobPosX = 65;
+						}
+						if(mobPositionCoordX <= -77f && listMonsters.get(i).MobDead.equals("no")) 
+						{
+							listMonsters.get(i).MobPosY = -112f;
+							listMonsters.get(i).MobPosX = 65;
+						}
+						
+						if(player.Map_A.equals("Sewers")) { spr_monster = gameControl.GetMonster(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, "L");}
+						//if(player.Map_A.equals("Watercave")) { spr_monster = atlas_mobWatercave.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						//if(player.Map_A.equals("Mines")) { spr_monster = atlas_mobMines.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						//if(player.Map_A.equals("Snowpalace")) { spr_monster = atlas_mobSnowpalace.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						//if(player.Map_A.equals("Tower")) { spr_monster = atlas_mobTower.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						spr_monster.setPosition(listMonsters.get(i).MobPosX, listMonsters.get(i).MobPosY);
+						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);
+						spr_monster.draw(game.batch);
+									
+						mobPositionCoordX = listMonsters.get(i).MobPosX;
+						mobPositionCoordY = listMonsters.get(i).MobPosY;
+						mobPositionCoordY = mobPositionCoordY - 0.2f;
+						font_master.draw(game.batch, listMonsters.get(i).MobName + " HP :" + listMonsters.get(i).MobHp + "/" + listMonsters.get(i).MobHpMax ,mobPositionCoordX, mobPositionCoordY);
+					}			
+			}
 		}
 		
 		
@@ -532,7 +681,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				//Target
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
-					CheckTarget();
+					ChangeTarget();
 					return false;
 				}
 			}
