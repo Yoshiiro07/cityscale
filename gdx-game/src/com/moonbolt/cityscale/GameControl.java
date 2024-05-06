@@ -26,7 +26,10 @@ public class GameControl {
 	private Sprite spr_master;
 	
 	//Texture Atlas
-	private TextureAtlas atlas_hairs;
+	private TextureAtlas atlas_hairs1;
+	private TextureAtlas atlas_hairs2;
+	private TextureAtlas atlas_hairs3;
+	private TextureAtlas atlas_hairs4;
 	private TextureAtlas atlas_basicset;
 	private TextureAtlas atlas_ux;
 	private TextureAtlas atlas_genericset;
@@ -45,8 +48,13 @@ public class GameControl {
 		lstMonsters = new ArrayList<Monster>();
 		
 		//Textures
+		atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair1.txt"));
+		atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair2.txt"));
+		atlas_hairs3 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair3.txt"));
+		atlas_hairs4 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair4.txt"));
+		
+
 		atlas_genericset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
-		atlas_hairs = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hairs.txt"));
 		atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
 		atlas_ux = new TextureAtlas(Gdx.files.internal("data/assets/ux/ux.txt"));
 
@@ -718,7 +726,7 @@ public class GameControl {
 	public Sprite MenuHairCreateSprite(String sex, String hair, int num) {
 		if(sex.equals("M")) {
 			if(hair.equals("hair1")) { 
-				spr_master = atlas_hairs.createSprite("hair1_front_green_M");
+				spr_master = atlas_hairs1.createSprite("hair1_front_green_M");
 				spr_master.setScale(-0.3f,0.5f);
 				if(num == 1) {spr_master.setPosition(-59, -18);}
 				if(num == 2) {spr_master.setPosition(-20, -18);}
@@ -730,7 +738,7 @@ public class GameControl {
 		
 		if(sex.equals("F")) {
 			if(hair.equals("hair1")) { 
-				spr_master = atlas_hairs.createSprite("hair1_front_pink_F");
+				spr_master = atlas_hairs1.createSprite("hair1_front_pink_F");
 				spr_master.setScale(-0.3f,0.5f);
 				if(num == 1) {spr_master.setPosition(-59, -18);}
 				if(num == 2) {spr_master.setPosition(-20, -18);}
@@ -745,10 +753,10 @@ public class GameControl {
 	
 	public Sprite MenuHairsSelect(int num, String sex) {
 		if(sex.equals("M")) {
-			if(num == 1) { spr_master = atlas_hairs.createSprite("hair1_front_green_M"); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
+			if(num == 1) { spr_master = atlas_hairs1.createSprite("hair1_front_green_M"); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
 		}
 		if(sex.equals("F")) {
-			if(num == 1) { spr_master = atlas_hairs.createSprite("hair1_front_pink_F"); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
+			if(num == 1) { spr_master = atlas_hairs1.createSprite("hair1_front_pink_F"); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
 		}	
 		return spr_master;	
 	}
@@ -838,7 +846,7 @@ public class GameControl {
 		
 		//hair1_front_green_M
 		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
 			spr_master.setPosition(-86, 42); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
@@ -851,12 +859,12 @@ public class GameControl {
 		
 		//hair1_front_green_M
 		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
 			spr_master.setPosition(cameraCoordsX -115,cameraCoordsY + 71); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
 		if(player.Sex_A.equals("F")) {
-			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
 			spr_master.setPosition(cameraCoordsX -86,cameraCoordsY + 42); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
@@ -893,7 +901,7 @@ public class GameControl {
 		float posX = player.PosX_A;
 		float posY = player.PosY_A;
 		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A);
 			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -20, posY + 10);  }
 			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -20, posY + 10);  }
 			if(player.Side_A.equals("left")) {  spr_master.setPosition(posX -21, posY + 10); }
@@ -901,7 +909,7 @@ public class GameControl {
 			spr_master.setScale(0.2f,0.4f);
 		}
 		if(player.Sex_A.equals("F")) {
-			spr_master = atlas_hairs.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A);
 			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -20, posY + 10);  }
 			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -20, posY + 10);  }
 			if(player.Side_A.equals("left")) {  spr_master.setPosition(posX -20.7f, posY + 8.8f); }

@@ -51,6 +51,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    //Sprites
 	    private Sprite spr_Background;
 	    private Texture tex_Background;
+		private float posTrainY = -70;
 	    
 	    //Teste
 	    private Texture tex_testeDot;
@@ -117,9 +118,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				game.batch.begin();
 				
 				//Background	
-				spr_Background.setPosition(-70,-70);
+				spr_Background.setPosition(-70,posTrainY);
 				spr_Background.setSize(140, 140);
 				spr_Background.draw(game.batch);
+
+				posTrainY = posTrainY + 0.6f;
+				if(posTrainY > -60f) { posTrainY = -70; }
+
 				
 				if(state.equals("Main")) {
 					spr_master = gameControl.GetUXSmall("bannerselect");
