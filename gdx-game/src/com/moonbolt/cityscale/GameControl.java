@@ -341,6 +341,14 @@ public class GameControl {
 		
 		SaveData(player);		
 	}
+
+	public Player SendPlayer(){
+		return this.player;
+	}
+
+	public void UpdatePlayer(Player viewplayer){
+		this.player = viewplayer;
+	}
 	
 	
 

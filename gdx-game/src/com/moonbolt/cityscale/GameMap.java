@@ -1,15 +1,6 @@
 package com.moonbolt.cityscale;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -17,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -27,9 +17,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.IntSet;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -92,8 +80,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    //Teste Dot
 	    private Sprite spr_testeDot;
 	    private Texture tex_testeDot;
-	    private float testX;
-	    private float testY;
 	    
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
@@ -224,9 +210,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 					//Show Character
 					//Itens Equipped
-					spr_playerhair = gameControl.GetHairChar(player, "yes", cameraCoordsX, cameraCoordsY);
-					spr_playerhair.draw(game.batch);
-					
 					spr_playerfooter = gameControl.GetFooterChar(player, "yes", cameraCoordsX, cameraCoordsY);
 					spr_playerfooter.draw(game.batch);
 					
@@ -332,6 +315,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(player.PosX_A >= 103.5f && player.PosX_A <= 122 && player.PosY_A >= -142 && player.PosY_A <= -128.5f ) {
 					state = "DungeonSelect";
 				}
+			}
+
+			if(player.Map_A.equals("Sewers")){
+
 			}
 		}
 		
@@ -471,7 +458,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						mobPositionCoordX = listMonsters.get(i).MobPosX;
 						mobPositionCoordY = listMonsters.get(i).MobPosY;
 						mobPositionCoordY = mobPositionCoordY - 0.2f;
-						font_master.draw(game.batch, listMonsters.get(i).MobName + " HP :" + listMonsters.get(i).MobHp + "/" + listMonsters.get(i).MobHpMax ,mobPositionCoordX, mobPositionCoordY);
+						font_master.draw(game.batch, listMonsters.get(i).MobName,mobPositionCoordX, mobPositionCoordY);
+						font_master.draw(game.batch, " HP :" + listMonsters.get(i).MobHp + "/" + listMonsters.get(i).MobHpMax ,mobPositionCoordX - 4, mobPositionCoordY - 8);
+						
 					}			
 			}
 		}
@@ -590,6 +579,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			padmoveX = -80;
 			padmoveY = -75;
 			player.breakwalk_A = "";
+
+			gameControl.UpdatePlayer(player);
 			
 			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
 			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
