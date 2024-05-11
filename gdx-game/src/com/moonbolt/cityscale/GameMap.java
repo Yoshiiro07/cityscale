@@ -167,16 +167,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Char
 				player = gameControl.SetCharMov(player, player.breakwalk_A);
-				spr_playerhair = gameControl.GetHairChar(player);
+				spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
 				spr_playerhair.draw(game.batch);
 				
-				spr_playerfooter = gameControl.GetFooterChar(player);
+				spr_playerfooter = gameControl.GetFooterChar(player, "no",0,0);
 				spr_playerfooter.draw(game.batch);
 				
-				spr_playerbottom = gameControl.GetBottomChar(player);
+				spr_playerbottom = gameControl.GetBottomChar(player, "no",0,0);
 				spr_playerbottom.draw(game.batch);
 				
-				spr_playertop = gameControl.GetTopChar(player);
+				spr_playertop = gameControl.GetTopChar(player, "no", 0,0);
 				spr_playertop.draw(game.batch);
 
 				//Show Mobs
@@ -215,6 +215,40 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(state.equals("menu")){
 					spr_master = gameControl.GetUX("menu", cameraCoordsX, cameraCoordsY);
 					spr_master.draw(game.batch);
+					//Status
+					font_master.draw(game.batch, String.valueOf(player.Str_A), cameraCoordsX - 76f, cameraCoordsY - 50f);
+					font_master.draw(game.batch, String.valueOf(player.Vit_A), cameraCoordsX - 62f, cameraCoordsY - 50f);
+					font_master.draw(game.batch, String.valueOf(player.Agi_A), cameraCoordsX - 48f, cameraCoordsY - 50f);
+					font_master.draw(game.batch, String.valueOf(player.Wis_A), cameraCoordsX - 34f, cameraCoordsY - 50f);
+					font_master.draw(game.batch, String.valueOf(player.Dex_A), cameraCoordsX - 21f, cameraCoordsY - 50f);
+
+					//Show Character
+					//Itens Equipped
+					spr_playerhair = gameControl.GetHairChar(player, "yes", cameraCoordsX, cameraCoordsY);
+					spr_playerhair.draw(game.batch);
+					
+					spr_playerfooter = gameControl.GetFooterChar(player, "yes", cameraCoordsX, cameraCoordsY);
+					spr_playerfooter.draw(game.batch);
+					
+					spr_playerbottom = gameControl.GetBottomChar(player, "yes", cameraCoordsX, cameraCoordsY);
+					spr_playerbottom.draw(game.batch);
+					
+					spr_playertop = gameControl.GetTopChar(player, "yes", cameraCoordsX, cameraCoordsY);
+					spr_playertop.draw(game.batch);
+
+					//CharacterShow
+					spr_playerhair = gameControl.GetHairChar(player, "Show", cameraCoordsX, cameraCoordsY);
+					spr_playerhair.draw(game.batch);
+					
+					spr_playerfooter = gameControl.GetFooterChar(player, "Show", cameraCoordsX, cameraCoordsY);
+					spr_playerfooter.draw(game.batch);
+					
+					spr_playerbottom = gameControl.GetBottomChar(player, "Show", cameraCoordsX, cameraCoordsY);
+					spr_playerbottom.draw(game.batch);
+					
+					spr_playertop = gameControl.GetTopChar(player, "Show", cameraCoordsX, cameraCoordsY);
+					spr_playertop.draw(game.batch);
+					
 				}
 
 				
@@ -223,15 +257,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX - 61,cameraCoordsY + 57);
+				spr_testeDot.setPosition(cameraCoordsX + 68,cameraCoordsY + 84);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX - 99,cameraCoordsY + 96);
+				spr_testeDot.setPosition(cameraCoordsX + 82,cameraCoordsY + 69);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
-				//if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
 				
 				game.batch.end();
 			}
@@ -265,6 +298,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map_A.equals("StreetsA")) {
 				spr_npc = gameControl.GetNPC("DungeonMaster", 0);
 				spr_npc.draw(game.batch);
+
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setSize(20,10);
+				spr_master.setPosition(102, -90);
+				spr_master.draw(game.batch);
+
+				font_master.draw(game.batch, "Arenas", 105, -81);
 			}
 		}
 		
@@ -696,6 +736,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Dungeon 1
 				if(coordsTouch.x > cameraCoordsX - 47 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 17 && coordsTouch.y < cameraCoordsY + 34) {
 					MapChange("Sewers");
+					return false;
+				}
+				//Voltar
+				if(coordsTouch.x > cameraCoordsX - 21 && coordsTouch.x < cameraCoordsX + 12 && coordsTouch.y > cameraCoordsY - 42 && coordsTouch.y < cameraCoordsY - 24) {
+					state = "Main";
+					return false;
+				}
+			}
+			//[Menu State]//
+			//Action
+			if(state.equals("menu")) {
+				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 82 && coordsTouch.y > cameraCoordsY + 69 && coordsTouch.y < cameraCoordsY + 84) {
+					state = "Main";
 					return false;
 				}
 			}

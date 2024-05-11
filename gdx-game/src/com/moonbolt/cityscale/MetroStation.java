@@ -181,16 +181,16 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				
 				//Char
 				player = gameControl.SetCharMov(player, player.breakwalk_A);
-				spr_playerhair = gameControl.GetHairChar(player);
+				spr_playerhair = gameControl.GetHairChar(player, "no", 0, 0);
 				spr_playerhair.draw(game.batch);
 				
-				spr_playerfooter = gameControl.GetFooterChar(player);
+				spr_playerfooter = gameControl.GetFooterChar(player,"no", 0, 0);
 				spr_playerfooter.draw(game.batch);
 				
-				spr_playerbottom = gameControl.GetBottomChar(player);
+				spr_playerbottom = gameControl.GetBottomChar(player,"no", 0, 0);
 				spr_playerbottom.draw(game.batch);
 				
-				spr_playertop = gameControl.GetTopChar(player);
+				spr_playertop = gameControl.GetTopChar(player,"no", 0, 0);
 				spr_playertop.draw(game.batch);
 				
 				

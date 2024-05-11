@@ -42,7 +42,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private String name = "";
 	    private String sex = "M";
 	    private String hair = "hair1";
-	    private String color = "brown";
+	    private String color = "yellow";
 	    private String setUpper = "basic";
 	    private String setBottom = "basic";
 	    private String setFooter = "basic";
@@ -122,8 +122,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_Background.setSize(140, 140);
 				spr_Background.draw(game.batch);
 
-				posTrainY = posTrainY + 0.6f;
-				if(posTrainY > -60f) { posTrainY = -70; }
+				posTrainY = posTrainY + 0.02f;
+				if(posTrainY > -68f) { posTrainY = -70; }
 
 				
 				if(state.equals("Main")) {
@@ -146,7 +146,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,1);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
 						spr_master.draw(game.batch);			
 					}	
 					if(!player.Name_2.equals("none")) {
@@ -159,7 +159,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,2);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
 						spr_master.draw(game.batch);	
 					}	
 					if(!player.Name_3.equals("none")) {
@@ -172,7 +172,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,3);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
 						spr_master.draw(game.batch);	
 					}
 				}
@@ -190,12 +190,18 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					spr_master = gameControl.MenuCreateSprite(sex, "upper");
 					spr_master.draw(game.batch);
 					
-					spr_master = gameControl.MenuHairCreateSprite(sex, hair,4);
+					spr_master = gameControl.MenuHairCreateSprite(sex, hair,color, 99);
 					spr_master.draw(game.batch);
 					
-					spr_master = gameControl.MenuHairsSelect(1, sex);
+					spr_master = gameControl.MenuHairsSelect(1, sex, color);
 					spr_master.draw(game.batch);
-										
+					spr_master = gameControl.MenuHairsSelect(2, sex, color);
+					spr_master.draw(game.batch);
+					spr_master = gameControl.MenuHairsSelect(3, sex, color);
+					spr_master.draw(game.batch);
+					spr_master = gameControl.MenuHairsSelect(4, sex, color);
+					spr_master.draw(game.batch);
+								
 					font_master.setColor(Color.WHITE);
 					font_master.getData().setScale(0.12f,0.19f);
 					font_master.setUseIntegerPositions(false);			
@@ -221,7 +227,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,1);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
 						spr_master.draw(game.batch);				
 					}	
 					if(!player.Name_2.equals("none")) {
@@ -234,7 +240,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,2);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
 						spr_master.draw(game.batch);
 					}	
 					if(!player.Name_3.equals("none")) {
@@ -247,7 +253,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,3);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
 						spr_master.draw(game.batch);
 					}
 				}
@@ -275,7 +281,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,1);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
 						spr_master.draw(game.batch);
 						
 						font_master.draw(game.batch, player.Name_1 , 25 , 48);
@@ -293,7 +299,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,2);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
 						spr_master.draw(game.batch);
 						
 						font_master.draw(game.batch, player.Name_2 , 25 , 48);
@@ -310,7 +316,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 						
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,3);
+						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
 						spr_master.draw(game.batch);
 						
 						font_master.draw(game.batch, player.Name_3 , 25 , 48);
@@ -327,11 +333,11 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				}
 				
 												
-				spr_testeDot.setPosition(40,24);
+				spr_testeDot.setPosition(9,-10);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(63,11);
+				spr_testeDot.setPosition(1,5);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 					
@@ -483,11 +489,56 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					hair = "hair1";
 					return false;
 				}
+				//Hair 2
+				if(coordsTouch.x >= -18.5f && coordsTouch.x <= -10 && coordsTouch.y >= -10 && coordsTouch.y <= 5) {
+					hair = "hair2";
+					return false;
+				}
+				//Hair 3
+				if(coordsTouch.x >= -9 && coordsTouch.x <= 0 && coordsTouch.y >= -10 && coordsTouch.y <= 5) {
+					hair = "hair3";
+					return false;
+				}
+				//Hair 4
+				if(coordsTouch.x >= 1 && coordsTouch.x <= 9 && coordsTouch.y >= -10 && coordsTouch.y <= 5) {
+					hair = "hair4";
+					return false;
+				}
+
+				//Color
+				//Yellow
+				if(coordsTouch.x >= -28 && coordsTouch.x <= -19 && coordsTouch.y >= -38 && coordsTouch.y <= -22) {
+					color = "yellow";
+					return false;
+				}
+				//green
+				if(coordsTouch.x >= -18 && coordsTouch.x <= -9 && coordsTouch.y >= -38 && coordsTouch.y <= -22) {
+					color = "green";
+					return false;
+				}
+				//red
+				if(coordsTouch.x >= -7 && coordsTouch.x <= 2 && coordsTouch.y >= -38 && coordsTouch.y <= -22) {
+					color = "red";
+					return false;
+				}
+				//pink
+				if(coordsTouch.x >= 3 && coordsTouch.x <= 12 && coordsTouch.y >= -38 && coordsTouch.y <= -22) {
+					color = "pink";
+					return false;
+				}
+				//blue
+				if(coordsTouch.x >= 13 && coordsTouch.x <= 22 && coordsTouch.y >= -38 && coordsTouch.y <= -22) {
+					color = "blue";
+					return false;
+				}
+				//grey
+				if(coordsTouch.x >= 24 && coordsTouch.x <= 33 && coordsTouch.y >= -38 && coordsTouch.y <= -22) {
+					color = "grey";
+					return false;
+				}
 				
 				//Confirmar
 				if(coordsTouch.x >= 28 && coordsTouch.x <= 54 && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
-					if(sex.equals("M")) { color = "green"; }
-					if(sex.equals("F")) { color = "pink"; }
 					gameControl.CreateNewChar(name, sex, hair, color);
 					player = gameControl.LoadData();
 					state = "Main";

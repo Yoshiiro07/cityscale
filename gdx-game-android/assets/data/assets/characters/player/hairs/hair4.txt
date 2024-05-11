@@ -248,7 +248,7 @@ hair4_front_yellow_F
   orig: 40, 40
   offset: 0, 0
   index: -1
-hair4_front_yelow_M
+hair4_front_yellow_M
   rotate: false
   xy: 80, 440
   size: 40, 40
