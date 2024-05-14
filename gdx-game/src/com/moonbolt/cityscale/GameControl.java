@@ -647,6 +647,11 @@ public class GameControl {
 			spr_master.setSize(10,25);
 			return spr_master;	
 		}
+		if(cardname.equals("cardactionON")) {
+			spr_master = atlas_cards.createSprite("cardactionON");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
 		if(cardname.equals("cardblock")) {
 			spr_master = atlas_cards.createSprite("cardblock");
 			spr_master.setSize(10,25);
@@ -892,6 +897,7 @@ public class GameControl {
 		
 		//Check Frames
 		if(!playerUse.Walk_A.equals("no")) { player.countFrame_A = player.countFrame_A + 1; }
+		if(playerUse.playerInBattle_A.equals("yes")) { player.countFrame_A = player.countFrame_A + 1; }
 		if(playerUse.Walk_A.equals("no")) { playerUse.Frame_A = 1; }
 		if(player.countFrame_A > 1 && player.countFrame_A <= 10) { playerUse.Frame_A = 2; }
 		if(player.countFrame_A >= 10 && player.countFrame_A <= 20) { playerUse.Frame_A = 1; }
@@ -965,6 +971,16 @@ public class GameControl {
 				spr_master.setScale(0.4f,0.7f);
 			}
 		}
+
+		if(player.playerInBattle_A.equals("yes")){
+			if(player.Hair_A.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair_A + "_attack_" + player.Color_A + "_" + player.Sex_A); }
+			if(player.Hair_A.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair_A + "_attack_" + player.Color_A + "_" + player.Sex_A); }
+			if(player.Hair_A.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair_A + "_attack_" + player.Color_A + "_" + player.Sex_A); }
+			if(player.Hair_A.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair_A + "_attack_" + player.Color_A + "_" + player.Sex_A); }
+			
+			spr_master.setPosition(posX -20, posY + 10);
+			spr_master.setScale(0.2f,0.4f);
+		}
 		
 		return spr_master;
 	}
@@ -975,15 +991,24 @@ public class GameControl {
 		
 		float posX = player.PosX_A;
 		float posY = player.PosY_A;
-		//basictopM_front1
+		//[MALE]
 		if(player.Sex_A.equals("M")) {
 			spr_master = atlas_basicset.createSprite(player.SetUpper_A + "top" + player.Sex_A + "_" + player.Side_A + player.Frame_A);
 			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side_A.equals("left")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side_A.equals("right")) { spr_master.setPosition(posX -25,posY -5);  }
-			spr_master.setScale(0.2f,0.4f);		
+			spr_master.setScale(0.2f,0.4f);	
+			
+			if(player.playerInBattle_A.equals("yes")){
+				if(player.Frame_A == 3) { player.Frame_A = 2; }
+				spr_master = atlas_basicset.createSprite(player.SetUpper_A + "top" + player.Sex_A + "_attack" + player.Frame_A);
+				spr_master.setPosition(posX -25,posY -5);
+				spr_master.setScale(0.2f,0.4f);							
+			}
 		}
+
+		//[FEMALE]//
 		if(player.Sex_A.equals("F")) {
 			spr_master = atlas_basicset.createSprite(player.SetUpper_A + "top" + player.Sex_A + "_" + player.Side_A + player.Frame_A);
 			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25,posY -4.5f);  }
@@ -994,7 +1019,14 @@ public class GameControl {
 				if(player.Frame_A == 3) { spr_master.setPosition(posX -26,posY -5.2f);   }
 			}
 			if(player.Side_A.equals("right")) { spr_master.setPosition(posX -25,posY -5);  }
-			spr_master.setScale(0.2f,0.35f);		
+			spr_master.setScale(0.2f,0.35f);	
+			
+			if(player.playerInBattle_A.equals("yes")){
+				if(player.Frame_A == 3) { player.Frame_A = 2; }
+				spr_master = atlas_basicset.createSprite(player.SetUpper_A + "top" + player.Sex_A + "_attack" + player.Frame_A);
+				spr_master.setPosition(posX -25,posY -4.5f);
+				spr_master.setPosition(posX -25,posY -5);  						
+			}
 		}
 
 		if(menu.equals("yes")){
@@ -1013,7 +1045,7 @@ public class GameControl {
 				spr_master.setScale(0.4f,0.7f);
 			}
 		}
-		
+
 		return spr_master;
 	}
 	/// [BOTTOM ] //////
@@ -1032,6 +1064,12 @@ public class GameControl {
 			if(player.Side_A.equals("right")) { spr_master.setPosition(posX -25,posY -15); }
 			if(player.Side_A.equals("left")) { 	spr_master.setPosition(posX -25,posY -15); }	
 			spr_master.setScale(0.2f,0.4f);
+
+			if(player.playerInBattle_A.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetUpper_A + "bottom" + player.Sex_A + "_attack1");
+				spr_master.setPosition(posX -24.5f,posY -15);
+				spr_master.setScale(0.2f,0.4f);					
+			}
 		}
 		
 		/// [BOTTOM FEMALE] //////
@@ -1048,7 +1086,13 @@ public class GameControl {
 				spr_master.setPosition(posX -25f,posY -13);
 				if(player.Frame_A == 2) { spr_master.setPosition(posX -24.6f,posY -13f);   }
 				if(player.Frame_A == 3) { spr_master.setPosition(posX -24.8f,posY -14f);   }
-			}	
+			}
+			
+			if(player.playerInBattle_A.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetUpper_A + "bottom" + player.Sex_A + "_attack1");
+				spr_master.setPosition(posX -25.2f,posY -13f);
+				spr_master.setScale(0.2f,0.4f);	
+			}
 			spr_master.setScale(0.2f,0.4f);
 		}
 
@@ -1094,7 +1138,13 @@ public class GameControl {
 				if(player.Frame_A == 2) { spr_master.setPosition(posX -24.8f,posY -18f);   }
 				if(player.Frame_A == 3) { spr_master.setPosition(posX -24.8f,posY -18f);   }
 			}
-			spr_master.setScale(0.2f,0.4f);		
+			spr_master.setScale(0.2f,0.4f);	
+			
+			if(player.playerInBattle_A.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetUpper_A + "footer" + player.Sex_A + "_front2");
+				spr_master.setPosition(posX -25,posY -21);
+				spr_master.setScale(0.2f,0.4f);	
+			}
 		}
 		
 		/// [FOOTER FEMALE ] //////
@@ -1117,7 +1167,13 @@ public class GameControl {
 				if(player.Frame_A == 2) { spr_master.setPosition(posX -24.6f,posY -22f);   }
 				if(player.Frame_A == 3) { spr_master.setPosition(posX -25.6f,posY -23f);  }
 			}
-			spr_master.setScale(0.2f,0.4f);		
+			spr_master.setScale(0.2f,0.4f);
+			
+			if(player.playerInBattle_A.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetUpper_A + "footer" + player.Sex_A + "_front2");
+				spr_master.setPosition(posX -25f,posY -18.5f);
+				spr_master.setScale(0.2f,0.4f);								
+			}
 		}
 
 		if(menu.equals("yes")){

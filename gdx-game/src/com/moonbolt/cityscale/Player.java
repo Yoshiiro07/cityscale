@@ -14,7 +14,7 @@ public class Player {
 		public String SetBottom_1;
 		public String SetFooter_1;
 		public int Level_1;
-		public int Exp_1;
+		public float Exp_1;
 		public String Map_1;
 		public int Hp_1;
 		public int Mp_1;
@@ -48,6 +48,8 @@ public class Player {
 		public int Vit_1;
 		public int Dex_1;
 		public int Wis_1;
+		public int Luk_1;
+		public int Res_1;
 		public int Stamina_1;
 		public String Itens_1;
 		public String Quests_1;
@@ -74,7 +76,7 @@ public class Player {
 		public String SetBottom_2;
 		public String SetFooter_2;
 		public int Level_2;
-		public int Exp_2;
+		public float Exp_2;
 		public String Map_2;
 		public int Hp_2;
 		public int Mp_2;
@@ -108,6 +110,8 @@ public class Player {
 		public int Vit_2;
 		public int Dex_2;
 		public int Wis_2;
+		public int Luk_2;
+		public int Res_2;
 		public int Stamina_2;
 		public String Itens_2;
 		public String Quests_2;
@@ -134,7 +138,7 @@ public class Player {
 		public String SetBottom_3;
 		public String SetFooter_3;
 		public int Level_3;
-		public int Exp_3;
+		public float Exp_3;
 		public String Map_3;
 		public int Hp_3;
 		public int Mp_3;
@@ -168,6 +172,8 @@ public class Player {
 		public int Vit_3;
 		public int Dex_3;
 		public int Wis_3;
+		public int Luk_3;
+		public int Res_3;
 		public int Stamina_3;
 		public String Itens_3;
 		public String Quests_3;
@@ -194,7 +200,7 @@ public class Player {
 		public String SetBottom_A;
 		public String SetFooter_A;
 		public int Level_A;
-		public int Exp_A;
+		public float Exp_A;
 		public String Map_A;
 		public int Hp_A;
 		public int Mp_A;
@@ -228,6 +234,8 @@ public class Player {
 		public int Vit_A;
 		public int Dex_A;
 		public int Wis_A;
+		public int Luk_A;
+		public int Res_A;
 		public int Stamina_A;
 		public String Itens_A;
 		public String Quests_A;
