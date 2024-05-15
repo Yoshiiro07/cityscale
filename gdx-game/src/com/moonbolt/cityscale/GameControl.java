@@ -37,6 +37,7 @@ public class GameControl {
 	private TextureAtlas atlas_cards;
 	private TextureAtlas atlas_mobSewers;
 	
+	
 		
 	public GameControl() {
 		
@@ -64,8 +65,6 @@ public class GameControl {
 		atlas_cards = new TextureAtlas(Gdx.files.internal("data/assets/skills/cards.txt"));
 
 	}
-	
-	
 	
 	/////////////////////// [ SUMMARY ] ///////////////////
 	//[Account]//
