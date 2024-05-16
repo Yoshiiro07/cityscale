@@ -56,6 +56,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private boolean movement = false;
 		private boolean autoattack = false;
 		private Sprite spr_target;
+		private int countDead = 100;
 		
 
 		//Monster
@@ -229,6 +230,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				CheckMobAutoAttack();
 				CheckMobDeadRespawn();
 				ShowDamage();
+				
+				if(playerDead) { ShowPlayerDead(); }
 
 				if(state.equals("menu")){
 					spr_master = gameControl.GetUX("menu", cameraCoordsX, cameraCoordsY);
@@ -239,18 +242,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					font_master.draw(game.batch, String.valueOf(player.Agi_A), cameraCoordsX - 48f, cameraCoordsY - 50f);
 					font_master.draw(game.batch, String.valueOf(player.Wis_A), cameraCoordsX - 34f, cameraCoordsY - 50f);
 					font_master.draw(game.batch, String.valueOf(player.Dex_A), cameraCoordsX - 21f, cameraCoordsY - 50f);
-
-					//Show Character
-					//Itens Equipped
-					spr_playerfooter = gameControl.GetFooterChar(player, "yes", cameraCoordsX, cameraCoordsY);
-					spr_playerfooter.draw(game.batch);
 					
-					spr_playerbottom = gameControl.GetBottomChar(player, "yes", cameraCoordsX, cameraCoordsY);
-					spr_playerbottom.draw(game.batch);
-					
-					spr_playertop = gameControl.GetTopChar(player, "yes", cameraCoordsX, cameraCoordsY);
-					spr_playertop.draw(game.batch);
-
 					//CharacterShow
 					spr_playerhair = gameControl.GetHairChar(player, "Show", cameraCoordsX, cameraCoordsY);
 					spr_playerhair.draw(game.batch);
@@ -263,7 +255,20 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					spr_playertop = gameControl.GetTopChar(player, "Show", cameraCoordsX, cameraCoordsY);
 					spr_playertop.draw(game.batch);
+
+					//Show Character
+					//Itens Equipped
+					spr_playerfooter = gameControl.GetItem(player.SetUpper_A);
+					spr_playerfooter.setPosition(cameraCoordsX + 20, cameraCoordsY + 20);
+					spr_playerfooter.setSize(30, 30);
+					spr_playerfooter.draw(game.batch);
 					
+					spr_playerbottom = gameControl.GetItem(player.SetBottom_A);
+					spr_playerbottom.draw(game.batch);
+					
+					spr_playertop = gameControl.GetItem(player.SetFooter_A);
+					spr_playertop.draw(game.batch);
+		
 				}
 
 				
@@ -320,6 +325,33 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.draw(game.batch);
 
 				font_master.draw(game.batch, "Arenas", 105, -81);
+			}
+		}
+		
+		public void ShowPlayerDead() {
+			countDead--;
+			
+			player.Target_A = "none";
+			player.playerInBattle_A = "no";
+			player.playerInAttack_A = "no";
+			player.playerInCast_A = "no";
+			autoattack = false;
+			spr_master = gameControl.GetUX("textbar", 0, 0);
+			spr_master.setPosition(cameraCoordsX -32f,cameraCoordsY -10);
+			spr_master.setSize(60, 30);
+			spr_master.draw(game.batch);
+			font_master.getData().setScale(0.10f,0.15f);
+			font_master.setUseIntegerPositions(false);
+			font_master.draw(game.batch, "Voce morreu, retornando...",cameraCoordsX - 28,cameraCoordsY + 8);
+			
+			if(countDead <= 0) {
+				player.Hp_A = 10;
+				player.Mp_A = 10;
+				player.Map_A = "MetroStation";
+				player.PosX_A = 0;
+				player.PosY_A = 0;
+				gameControl.SaveData(player);
+				this.screen.screenSwitch("LoadingScreen",keepnetwork);
 			}
 		}
 		
@@ -759,22 +791,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int chance = randnumber.nextInt(100);
 			
 			if(mob.equals("slime"))
-			if(chance <= 40) { AddItemBag("blop_loot"); itemdropname = "Gosma"; showDropMsg = 100; return; }
-			if(chance >= 40 && chance <= 95) { AddItemBag("blue_orb"); itemdropname = "Orb Azul"; showDropMsg = 100; return; }
-			if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); itemdropname = "Lata de HP"; showDropMsg = 100; return; }
-			if(chance >= 98) { AddItemBag("slime_hat"); itemdropname = "Chapeu de Slime"; showDropMsg = 100; return; }
-			
-			if(mob.equals("oikplant"))
-			if(chance <= 40) { AddItemBag("poisonleaf_loot"); return; }
-			if(chance >= 40 && chance <= 95) { AddItemBag("green_orb"); return; }
-			if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); return;  }
-			if(chance >= 98) { AddItemBag("lowmoney_loot"); return; }
-			
-			if(mob.equals("poro"))
-			if(chance <= 40) { AddItemBag("mushroom_loot"); return; }
-			if(chance >= 40 && chance <= 95) { AddItemBag("yellow_orb"); return; }
-			if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); return;  }
-			if(chance >= 98) { AddItemBag("mpcan"); return; }
+			if(chance <= 40) { AddItemBag("lootblop"); itemdropname = "Gosma"; showDropMsg = 100; return; }
+			if(chance >= 40 && chance <= 95) { AddItemBag("lootblop"); itemdropname = "Orb Azul"; showDropMsg = 100; return; }
+			if(chance >= 95 && chance <= 98) { AddItemBag("lootblop"); itemdropname = "Lata de HP"; showDropMsg = 100; return; }
+			if(chance >= 98) { AddItemBag("lootblop"); itemdropname = "Chapeu de Slime"; showDropMsg = 100; return; }
 		}
 
 		public void AddItemBag(String itemName) {
@@ -1040,7 +1060,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean keyDown(int keycode) {
-			if(playerDead) { return false; }
+			//if(playerDead) { return false; }
 			
 			if(state.equals("Main")) {
 				movement = true;		

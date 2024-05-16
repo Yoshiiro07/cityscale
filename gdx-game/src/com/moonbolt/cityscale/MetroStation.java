@@ -124,7 +124,6 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 		@Override
 		public void render(float delta) {
-			try {
 				//Just for coloring
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -209,10 +208,8 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				game.batch.end();
 			}
 			
-			catch(Exception ex) {
-				Gdx.app.exit();
-			}
-		}
+			
+		
 		
 		public void CheckColision() {
 			if(player.Map_A.equals("MetroStation")) {
