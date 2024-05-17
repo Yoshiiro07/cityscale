@@ -51,6 +51,7 @@ public class Player {
 		public int Luk_1;
 		public int Res_1;
 		public int Stamina_1;
+		public int StaminaMax_1;
 		public String Itens_1;
 		public String Quests_1;
 		public String hotkey1_1;
@@ -113,6 +114,7 @@ public class Player {
 		public int Luk_2;
 		public int Res_2;
 		public int Stamina_2;
+		public int StaminaMax_2;
 		public String Itens_2;
 		public String Quests_2;
 		public String hotkey1_2;
@@ -175,6 +177,7 @@ public class Player {
 		public int Luk_3;
 		public int Res_3;
 		public int Stamina_3;
+		public int StaminaMax_3;
 		public String Itens_3;
 		public String Quests_3;
 		public String hotkey1_3;
@@ -237,6 +240,7 @@ public class Player {
 		public int Luk_A;
 		public int Res_A;
 		public int Stamina_A;
+		public int StaminaMax_A;
 		public String Itens_A;
 		public String Quests_A;
 		public String hotkey1_A;

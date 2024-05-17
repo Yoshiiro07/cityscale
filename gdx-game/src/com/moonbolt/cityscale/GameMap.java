@@ -52,11 +52,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_playertop;
 	    private Sprite spr_playerbottom;
 	    private Sprite spr_playerfooter;
+	    private Sprite spr_playerweapon;
 	    private boolean playerDead = false;
 	    private boolean movement = false;
 		private boolean autoattack = false;
 		private Sprite spr_target;
 		private int countDead = 100;
+		private String itemEquipped = "";
+		
 		
 
 		//Monster
@@ -258,16 +261,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 					//Show Character
 					//Itens Equipped
-					spr_playerfooter = gameControl.GetItem(player.SetUpper_A);
-					spr_playerfooter.setPosition(cameraCoordsX + 20, cameraCoordsY + 20);
-					spr_playerfooter.setSize(30, 30);
+					spr_playerfooter = gameControl.GetItem(player.SetFooter_A);
+					spr_playerfooter.setPosition(cameraCoordsX + 13, cameraCoordsY + 41);
+					spr_playerfooter.setSize(13, 22);
 					spr_playerfooter.draw(game.batch);
 					
 					spr_playerbottom = gameControl.GetItem(player.SetBottom_A);
+					spr_playerbottom.setPosition(cameraCoordsX + 27, cameraCoordsY + 41);
+					spr_playerbottom.setSize(13, 22);
 					spr_playerbottom.draw(game.batch);
 					
-					spr_playertop = gameControl.GetItem(player.SetFooter_A);
+					spr_playertop = gameControl.GetItem(player.SetUpper_A);
+					spr_playertop.setPosition(cameraCoordsX + 41, cameraCoordsY + 41);
+					spr_playertop.setSize(13, 22);
 					spr_playertop.draw(game.batch);
+					
+					spr_playerweapon = gameControl.GetItem(player.Weapon_A);
+					spr_playerweapon.setPosition(cameraCoordsX + 54.4f, cameraCoordsY + 41);
+					spr_playerweapon.setSize(13, 22);
+					spr_playerweapon.draw(game.batch);
+					
+					ShowBag();
 		
 				}
 
@@ -277,11 +291,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX + 68,cameraCoordsY + 84);
+				spr_testeDot.setPosition(cameraCoordsX - 44,cameraCoordsY + 64);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 82,cameraCoordsY + 69);
+				spr_testeDot.setPosition(cameraCoordsX - 32,cameraCoordsY + 42);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -311,6 +325,110 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				this.screen.screenSwitch("LoadingScreen",false);
 				dispose();	
 			}
+		}
+		
+		public void ShowBag() {
+				//Common Itens
+				for (int i = 0; i < 16; i++) {
+					spr_master = ShowItem(i);
+					if(spr_master != null) {
+						spr_master.draw(game.batch);
+						font_master.draw(game.batch, ShowQuantityItem(i), spr_master.getX() + 9,spr_master.getY() + 7);
+						if(player.Weapon_A.equals(itemEquipped)) { font_master.draw(game.batch, "Em uso", spr_master.getX(),spr_master.getY() + 23); }
+						if(player.SetBottom_A.equals(itemEquipped)) { font_master.draw(game.batch, "Em uso", spr_master.getX(),spr_master.getY() + 23); }
+						if(player.SetUpper_A.equals(itemEquipped)) { font_master.draw(game.batch, "Em uso", spr_master.getX(),spr_master.getY() + 23); }
+						if(player.SetFooter_A.equals(itemEquipped)) { font_master.draw(game.batch, "Em uso", spr_master.getX(),spr_master.getY() + 23); }
+					}
+				}	
+						
+				//Crystal Itens    
+				//slot 1
+				if(!player.Crystal1_A.equals("none")) {
+					spr_master = gameControl.GetItem(player.Crystal1_A);
+					spr_master.setPosition(1.5f, 25);
+					spr_master.setSize(9, 14);
+					spr_master.draw(game.batch); 
+				}
+				
+				if(!player.Crystal2_A.equals("none")) {
+					spr_master = gameControl.GetItem(player.Crystal1_A);
+					spr_master.setPosition(10.5f, 25);
+					spr_master.setSize(9, 14);
+					spr_master.draw(game.batch); 
+				}
+				
+				//slot 3
+				if(!player.Crystal3_A.equals("none")) {
+					spr_master = gameControl.GetItem(player.Crystal1_A);
+					spr_master.setPosition(19.5f, 25);
+					spr_master.setSize(9, 14);
+					spr_master.draw(game.batch); 
+				}
+				
+				//slot 4
+				if(!player.Crystal4_A.equals("none")) {
+					spr_master = gameControl.GetItem(player.Crystal1_A);
+					spr_master.setPosition(29f, 25);
+					spr_master.setSize(9, 14);
+					spr_master.draw(game.batch); 
+				}
+		}
+		
+		public Sprite ShowItem(int num) {
+			String[] lstItem = player.Itens_A.split("-");
+			String[] itemSplit;
+			String item;
+			
+			item = lstItem[num];
+			if(!item.equals("[NONE]")) {
+				itemSplit = item.split("#");
+				item = itemSplit[0].replace("[", "");
+				spr_master = gameControl.GetItem(item);
+				
+				if(player.Weapon_A.equals(item)) { itemEquipped = item; }
+				if(player.SetBottom_A.equals(item)) { itemEquipped = item; }
+				if(player.SetUpper_A.equals(item)) { itemEquipped = item; }
+				if(player.SetFooter_A.equals(item)) { itemEquipped = item; }
+				
+				if(num == 0){ spr_master.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23); }
+				if(num == 1){ spr_master.setPosition(cameraCoordsX - 30.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23); }
+				if(num == 2){ spr_master.setPosition(cameraCoordsX - 16.5f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23); }
+				if(num == 3){ spr_master.setPosition(cameraCoordsX - 2.6f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 4){ spr_master.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 17.7f); spr_master.setSize(13, 23);  }
+				if(num == 5){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 6){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 7){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 8){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 9){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 10){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 11){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 12){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 13){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 14){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
+				if(num == 15){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }	
+				
+			}
+				
+			return spr_master;
+		}
+		
+		public String ShowQuantityItem(int num) {
+			//Structure: [HPCAN#3]
+			String qtd = "";
+			String item = "";
+			String[] lstItem = player.Itens_A.split("-");
+			String[] itemSplit;
+				
+			item = lstItem[num];
+			if(!item.equals("[NONE]")) {
+				itemSplit = item.split("#");
+				item = itemSplit[1].replace("]", "");		
+				qtd = item;
+			}
+			else {
+				qtd = "";
+			}		
+			return qtd;
 		}
 		
 		public void ShowNPCs() {
@@ -1243,7 +1361,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				
-				
 				//Action
 				if(coordsTouch.x > cameraCoordsX + 46 && coordsTouch.x < cameraCoordsX + 57 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
 					CheckAction();
@@ -1285,6 +1402,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(state.equals("menu")) {
 				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 82 && coordsTouch.y > cameraCoordsY + 69 && coordsTouch.y < cameraCoordsY + 84) {
 					state = "Main";
+					return false;
+				}
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					gameControl.UseItem(0);
 					return false;
 				}
 			}
