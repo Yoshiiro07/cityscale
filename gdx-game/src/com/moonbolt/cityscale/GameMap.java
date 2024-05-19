@@ -385,10 +385,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				item = itemSplit[0].replace("[", "");
 				spr_master = gameControl.GetItem(item);
 				
-				if(player.Weapon_A.equals(item)) { itemEquipped = item; }
-				if(player.SetBottom_A.equals(item)) { itemEquipped = item; }
-				if(player.SetUpper_A.equals(item)) { itemEquipped = item; }
-				if(player.SetFooter_A.equals(item)) { itemEquipped = item; }
+				if(player.Weapon_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY + 30);  }
+				if(player.SetBottom_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY + 20);  }
+				if(player.SetUpper_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY + 10);  }
+				if(player.SetFooter_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY);  }
 				
 				if(num == 0){ spr_master.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23); }
 				if(num == 1){ spr_master.setPosition(cameraCoordsX - 30.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23); }
