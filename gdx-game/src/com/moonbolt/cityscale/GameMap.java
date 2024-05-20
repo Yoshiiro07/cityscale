@@ -33,6 +33,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_master;
 		private Random randnumber;
 		private boolean keepnetwork = false;
+		private String shopname = "";
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -59,6 +60,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private Sprite spr_target;
 		private int countDead = 100;
 		private String itemEquipped = "";
+		private Sprite spr_item;
 		
 		
 
@@ -80,6 +82,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private int SysMsgCount = 0;    
 	    private int savedataTime = 500;
 		private int showDropMsg;
+		private Sprite spr_shop;
+		private String showbuymsg = "";
+		private int showbuymsgtime = 2000;
 
 		//Online
 		private int ExpShared;
@@ -229,14 +234,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				CheckColision();
 
 				CheckAutoAttack();
-				CheckAutoAttack();
 				CheckMobAutoAttack();
 				CheckMobDeadRespawn();
 				ShowDamage();
 				
 				if(playerDead) { ShowPlayerDead(); }
 
-				if(state.equals("menu")){
+				if(state.equals("Menu")){
 					spr_master = gameControl.GetUX("menu", cameraCoordsX, cameraCoordsY);
 					spr_master.draw(game.batch);
 					//Status
@@ -284,6 +288,24 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					ShowBag();
 		
 				}
+				
+				if(state.equals("Shop")) {
+					font_master.draw(game.batch, String.valueOf(player.Money_A), cameraCoordsX, cameraCoordsY);
+					
+					if(shopname.equals("refrishop")) {
+						spr_shop = gameControl.GetShops("refrishop",cameraCoordsX, cameraCoordsY);
+						spr_shop.draw(game.batch);
+					}
+					
+					if(!showbuymsg.equals("")) {
+						showbuymsgtime--;
+						font_master.draw(game.batch, showbuymsg, cameraCoordsX + 15, cameraCoordsY - 37);
+						if(showbuymsgtime <= 0) {
+							showbuymsg = "";
+							showbuymsgtime = 2000;						
+						}
+					}
+				}
 
 				
 				if(state.equals("DungeonSelect")) {
@@ -291,11 +313,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX - 44,cameraCoordsY + 64);
+				spr_testeDot.setPosition(cameraCoordsX + 51,cameraCoordsY + 75);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX - 32,cameraCoordsY + 42);
+				spr_testeDot.setPosition(cameraCoordsX + 61,cameraCoordsY + 60);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -330,47 +352,43 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void ShowBag() {
 				//Common Itens
 				for (int i = 0; i < 16; i++) {
-					spr_master = ShowItem(i);
-					if(spr_master != null) {
-						spr_master.draw(game.batch);
-						font_master.draw(game.batch, ShowQuantityItem(i), spr_master.getX() + 9,spr_master.getY() + 7);
-						if(player.Weapon_A.equals(itemEquipped)) { font_master.draw(game.batch, "Em uso", spr_master.getX(),spr_master.getY() + 23); }
-						if(player.SetBottom_A.equals(itemEquipped)) { font_master.draw(game.batch, "Em uso", spr_master.getX(),spr_master.getY() + 23); }
-						if(player.SetUpper_A.equals(itemEquipped)) { font_master.draw(game.batch, "Em uso", spr_master.getX(),spr_master.getY() + 23); }
-						if(player.SetFooter_A.equals(itemEquipped)) { font_master.draw(game.batch, "Em uso", spr_master.getX(),spr_master.getY() + 23); }
+					spr_item = ShowItem(i);
+					if(spr_item != null) {
+						spr_item.draw(game.batch);
+						font_master.draw(game.batch, ShowQuantityItem(i), spr_item.getX() + 9,spr_item.getY() + 7);
 					}
 				}	
 						
 				//Crystal Itens    
 				//slot 1
 				if(!player.Crystal1_A.equals("none")) {
-					spr_master = gameControl.GetItem(player.Crystal1_A);
-					spr_master.setPosition(1.5f, 25);
-					spr_master.setSize(9, 14);
-					spr_master.draw(game.batch); 
+					spr_item = gameControl.GetItem(player.Crystal1_A);
+					spr_item.setPosition(1.5f, 25);
+					spr_item.setSize(9, 14);
+					spr_item.draw(game.batch);
 				}
 				
 				if(!player.Crystal2_A.equals("none")) {
-					spr_master = gameControl.GetItem(player.Crystal1_A);
-					spr_master.setPosition(10.5f, 25);
-					spr_master.setSize(9, 14);
-					spr_master.draw(game.batch); 
+					spr_item = gameControl.GetItem(player.Crystal1_A);
+					spr_item.setPosition(10.5f, 25);
+					spr_item.setSize(9, 14);
+					spr_item.draw(game.batch); 
 				}
 				
 				//slot 3
 				if(!player.Crystal3_A.equals("none")) {
-					spr_master = gameControl.GetItem(player.Crystal1_A);
-					spr_master.setPosition(19.5f, 25);
-					spr_master.setSize(9, 14);
-					spr_master.draw(game.batch); 
+					spr_item = gameControl.GetItem(player.Crystal1_A);
+					spr_item.setPosition(19.5f, 25);
+					spr_item.setSize(9, 14);
+					spr_item.draw(game.batch); 
 				}
 				
 				//slot 4
 				if(!player.Crystal4_A.equals("none")) {
-					spr_master = gameControl.GetItem(player.Crystal1_A);
-					spr_master.setPosition(29f, 25);
-					spr_master.setSize(9, 14);
-					spr_master.draw(game.batch); 
+					spr_item = gameControl.GetItem(player.Crystal1_A);
+					spr_item.setPosition(29f, 25);
+					spr_item.setSize(9, 14);
+					spr_item.draw(game.batch); 
 				}
 		}
 		
@@ -383,33 +401,34 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(!item.equals("[NONE]")) {
 				itemSplit = item.split("#");
 				item = itemSplit[0].replace("[", "");
-				spr_master = gameControl.GetItem(item);
+				spr_item = gameControl.GetItem(item);
 				
-				if(player.Weapon_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY + 30);  }
-				if(player.SetBottom_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY + 20);  }
-				if(player.SetUpper_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY + 10);  }
-				if(player.SetFooter_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY);  }
+				if(num == 0) {  
+					font_master.draw(game.batch, item, cameraCoordsX, cameraCoordsY); 
+				}
 				
-				if(num == 0){ spr_master.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23); }
-				if(num == 1){ spr_master.setPosition(cameraCoordsX - 30.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23); }
-				if(num == 2){ spr_master.setPosition(cameraCoordsX - 16.5f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23); }
-				if(num == 3){ spr_master.setPosition(cameraCoordsX - 2.6f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 4){ spr_master.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 17.7f); spr_master.setSize(13, 23);  }
-				if(num == 5){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 6){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 7){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 8){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 9){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 10){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 11){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 12){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 13){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 14){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }
-				if(num == 15){ spr_master.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_master.setSize(13, 23);  }	
+				//if(player.Weapon_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY + 30);  }
+				
+				if(num == 0){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item; }
+				if(num == 1){ spr_item.setPosition(cameraCoordsX - 30.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 2){ spr_item.setPosition(cameraCoordsX - 16.5f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 3){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 4){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 17.7f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 5){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 6){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 7){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 8){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 9){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 10){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 11){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 12){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 13){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 14){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 15){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}	
 				
 			}
 				
-			return spr_master;
+			return spr_item;
 		}
 		
 		public String ShowQuantityItem(int num) {
@@ -496,6 +515,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map_A.equals("StreetsA")) {
 				if(player.PosX_A >= 103.5f && player.PosX_A <= 122 && player.PosY_A >= -142 && player.PosY_A <= -128.5f ) {
 					state = "DungeonSelect";
+				}
+				
+				if(player.PosX_A >= 127 && player.PosX_A <= 143 && player.PosY_A >= -140 && player.PosY_A <= -124 ) {
+					state = "Shop";
+					shopname = "refrishop";
 				}
 			}
 		}
@@ -728,9 +752,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 
-		public int CheckWeapon() {  //here
+		public int CheckWeapon() {  
 		
-			if(player.Weapon_A.equals("basicknife")) { return 0;}			
+			if(player.Weapon_A.equals("basic_knife")) { return 6;}			
 			if(player.Weapon_A.equals("doubleedgeknife")) { return 3; }
 			
 			if(player.Weapon_A.equals("woodsword")) { return 10;}			
@@ -1252,7 +1276,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		private void onMultipleKeysDown (int mostRecentKeycode){
 			
-			if(state.equals("menu")) { return; }
+			if(state.equals("Menu")) { return; }
 			
 			//For multiple key presses
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
@@ -1357,7 +1381,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Menu
 				if(coordsTouch.x > cameraCoordsX - 99 && coordsTouch.x < cameraCoordsX - 61 && coordsTouch.y > cameraCoordsY + 57 && coordsTouch.y < cameraCoordsY + 96) {
-					state = "menu";
+					state = "Menu";
 					return false;
 				}
 				
@@ -1399,7 +1423,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			//[Menu State]//
 			//Action
-			if(state.equals("menu")) {
+			if(state.equals("Menu")) {
 				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 82 && coordsTouch.y > cameraCoordsY + 69 && coordsTouch.y < cameraCoordsY + 84) {
 					state = "Main";
 					return false;
@@ -1407,6 +1431,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
 					gameControl.UseItem(0);
 					return false;
+				}
+			}
+			
+			//Shops
+			if(state.equals("Shop")) {
+				if(shopname.equals("refrishop")) { 
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 1);
+						return false; 
+					}
+				}
+				
+				if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
+					state = "Main";
+					return false; 
 				}
 			}
 			

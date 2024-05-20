@@ -33,6 +33,7 @@ public class GameControl {
 	private TextureAtlas atlas_hairs4;
 	private TextureAtlas atlas_basicset;
 	private TextureAtlas atlas_ux;
+	private TextureAtlas atlas_shops;
 	private TextureAtlas atlas_genericset;
 	private TextureAtlas atlas_npcs;
 	private TextureAtlas atlas_cards;
@@ -69,6 +70,8 @@ public class GameControl {
 		
 		atlas_items = new TextureAtlas(Gdx.files.internal("data/assets/itens/itens/itens.txt"));
 		atlas_weapons = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/nknifes.txt"));
+		
+		atlas_shops = new TextureAtlas(Gdx.files.internal("data/assets/ux/shops.txt"));
 
 	}
 	
@@ -645,6 +648,16 @@ public class GameControl {
 		}
 		if(element.equals("textbar")){
 			spr_master = atlas_ux.createSprite("textbar");
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetShops(String shopname, float cameraCoordsX, float cameraCoordsY) {
+		if(shopname.equals("refrishop")){
+			spr_master = atlas_shops.createSprite("lojamaquina");
+			spr_master.setPosition(cameraCoordsX -65,cameraCoordsY -80);
+			spr_master.setSize(130,160);
 		}
 		
 		return spr_master;
@@ -1284,7 +1297,7 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	//[BAG]
+			//[BAG]
 			public void UseItem(int numItem) {
 				String[] lstItem = player.Itens_A.split("-");
 				String[] itemSplit;
@@ -1687,5 +1700,28 @@ public class GameControl {
 					}
 				}
 			}
-	
+			
+			
+			
+			
+			//Shops
+			//SHOP
+			public String CheckBuyItemStreetsA(String shop, int num) {
+				String SysMsg = "";
+				if(shop.equals("refrishop")) {
+					if(num == 1) {  
+						if(player.Money_A >= 2) {  
+							AddItemBag("hpcan"); 
+							player.Money_A = player.Money_A - 2; 
+							if(player.Money_A < 0) { player.Money_A = 0; } 	
+							SysMsg = "Comprado!";
+						}
+						else {
+							SysMsg = "Dinheiro insuficiente"; 
+						}		
+					}
+				}
+				
+				return SysMsg;
+			}
 }
