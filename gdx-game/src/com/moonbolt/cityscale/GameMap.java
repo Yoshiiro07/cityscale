@@ -32,7 +32,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private String state = "Main";
 	    private Sprite spr_master;
 		private Random randnumber;
-		private boolean keepnetwork = false;
+		private boolean network = false;
 		private String shopname = "";
 	    
 		//Fonts
@@ -62,8 +62,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private String itemEquipped = "";
 		private Sprite spr_item;
 		
-		
-
 		//Monster
 		private ArrayList<Monster> listMonsters;
 		private Sprite spr_monster;
@@ -85,11 +83,31 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private Sprite spr_shop;
 		private String showbuymsg = "";
 		private int showbuymsgtime = 2000;
+		private ArrayList<String> lstChats;
 
 		//Online
-		private int ExpShared;
 		private ArrayList<Player> lstOnlinePlayers;
-	    
+		private Player playerOnline = new Player();
+	    private int countCleanOnline = 800;
+		private String retornoOnline = "";
+		private int threahCountSyncPlayer = 0;
+		private int threahCountSyncChat = 0;
+		private int threahCountSyncMob = 0;
+		private int ExpShared;	
+		private Sprite spr_playerTopOnline;
+	    private Sprite spr_playerBottomOnline;
+	    private Sprite spr_playerFooterOnline;
+	    private Sprite spr_playerHairOnline;
+	    private Sprite spr_playerHatOnline;
+	    private Sprite spr_weaponOnline;
+	    private Thread thrOnlineSyncPlayer;
+		private Thread thrOnlineSyncChat;
+		private Thread thrOnlineSyncMob;
+		private boolean onlineAuth = false;
+	    private boolean versionDif = false; 
+	    private boolean uploadDone = false;
+		
+		
 	    //Sprite NPC
 	    private Sprite spr_npc;
 	    
@@ -113,13 +131,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			this.game = gameAlt;	
 			this.screen = screenAlt;
 			this.randnumber = new Random();
+			this.keepnetwork = network;
 
-			savedataTime--;
-			if(savedataTime < 0) {
-				savedataTime = 700;
-				gameControl.SaveData(player);
-			}
-			
 			//Load Player Data
 			this.gameControl = new GameControl();
 			player = gameControl.LoadData();
@@ -143,6 +156,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			viewport.apply();
 			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);			
 			Gdx.input.setInputProcessor(this);
+			
+			//Etc
+			lstChats = new ArrayList<String>();
+			lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add("");
+			
+			//Network
+			lstOnlinePlayers = new ArrayList<Player>();
 	
 			//font
 			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
@@ -178,6 +198,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			    game.batch.setProjectionMatrix(camera.combined);	    
 				game.batch.begin();
 				
+				//Save
+				savedataTime--;
+				if(savedataTime < 0) {
+					savedataTime = 700;
+					gameControl.SaveData(player);
+				}
+				
 				//Background	
 				spr_Background.setPosition(-81,-194);
 				spr_Background.setSize(270, 270);
@@ -185,6 +212,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//npcs
 				ShowNPCs();
+				
+				if(keepnetwork) {
+					if(!onlineAuth) {
+						OnlineManager("CheckVersion","","");
+					}
+					else {
+						OnlineManager("SyncPlayer","","");
+						OnlineManager("SyncChats","","");
+						OnlineManager("SyncMob","","");
+						network = false;
+						//keepnetwork = true;
+					}			
+				}
 				
 				//Char
 				player = gameControl.SetCharMov(player, player.breakwalk_A);
@@ -200,11 +240,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playertop = gameControl.GetTopChar(player, "no", 0,0);
 				spr_playertop.draw(game.batch);
 
+				
+				
 				//Show Mobs
 				if(player.Map_A.equals("Sewers")){
 					ShowMobs();
 				}
-				
+			
 				//UX
 				spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
 				spr_playerTag.draw(game.batch);
@@ -221,18 +263,29 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 88f, cameraCoordsY + 93.7f);
 				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 85f, cameraCoordsY + 82f);
 				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 85f, cameraCoordsY + 73.7f);
-				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 88f, cameraCoordsY + 65.7f);
-				font_master.draw(game.batch, String.valueOf(player.Exp_A) + "%", cameraCoordsX - 69f, cameraCoordsY + 65.7f);
+				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 88f, cameraCoordsY + 64f);
+				font_master.draw(game.batch, String.valueOf(player.Exp_A) + "%", cameraCoordsX - 72f, cameraCoordsY + 64f);
 				
 				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
 				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
 				spr_master.draw(game.batch);
 				
-				ShowCards();
+				font_master.draw(game.batch, "Chats:", cameraCoordsX - 40f, cameraCoordsY - 40f);
+				for(int i = 0; i < lstChats.size(); i++) {
+					if(i == 0) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 50f); }
+					if(i == 1) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 60f); }
+					if(i == 2) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 70f); }
+					if(i == 3) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 80f); }
+					if(i == 4) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 90f); }
+				}
 				
-				//Colision
+				if(network) {
+					font_master.draw(game.batch, "Online Ativo", cameraCoordsX - 48, cameraCoordsY + 96);
+				}
+				
+				//Checks e Cards
+				ShowCards();
 				CheckColision();
-
 				CheckAutoAttack();
 				CheckMobAutoAttack();
 				CheckMobDeadRespawn();
@@ -290,11 +343,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				if(state.equals("Shop")) {
-					font_master.draw(game.batch, String.valueOf(player.Money_A), cameraCoordsX, cameraCoordsY);
 					
 					if(shopname.equals("refrishop")) {
 						spr_shop = gameControl.GetShops("refrishop",cameraCoordsX, cameraCoordsY);
 						spr_shop.draw(game.batch);
+						
+						font_master.draw(game.batch, String.valueOf(player.Money_A), cameraCoordsX - 25, cameraCoordsY - 37);
+						
 					}
 					
 					if(!showbuymsg.equals("")) {
@@ -313,13 +368,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				//spr_testeDot.setPosition(cameraCoordsX + 51,cameraCoordsY + 75);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(cameraCoordsX - 60,cameraCoordsY + 97);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 
-				//spr_testeDot.setPosition(cameraCoordsX + 61,cameraCoordsY + 60);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(cameraCoordsX - 49,cameraCoordsY + 77);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
 				
 				game.batch.end();
@@ -488,7 +543,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 0;
 				player.PosY_A = 0;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",keepnetwork);
+				this.screen.screenSwitch("LoadingScreen",network);
 			}
 		}
 		
@@ -555,7 +610,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									return; 
 								}
 								
-								if(keepnetwork) {
+								if(network) {
 									int mobHpGet = listMonsters.get(i).MobHp;
 									int st = player.Stamina_A;
 									if(st > 0) { mobHpGet =  mobHpGet - damagehit;  } else {  mobHpGet =  mobHpGet - 5; }								
@@ -680,7 +735,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void CheckMobDeadRespawn() {
-			if(!keepnetwork) {
+			if(!network) {
 				if(player.Map_A.equals("Sewers")) {
 					for(int num = 0; num < listMonsters.size(); num++) {
 						
@@ -708,7 +763,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			    }
 			}
 			
-			if(keepnetwork) {
+			if(network) {
 				if(player.Map_A.equals("Sewers")) {
 					for(int num = 0; num < listMonsters.size(); num++) {
 						
@@ -933,10 +988,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int chance = randnumber.nextInt(100);
 			
 			if(mob.equals("slime"))
-			if(chance <= 40) { AddItemBag("lootblop"); itemdropname = "Gosma"; showDropMsg = 100; return; }
-			if(chance >= 40 && chance <= 95) { AddItemBag("lootblop"); itemdropname = "Orb Azul"; showDropMsg = 100; return; }
-			if(chance >= 95 && chance <= 98) { AddItemBag("lootblop"); itemdropname = "Lata de HP"; showDropMsg = 100; return; }
-			if(chance >= 98) { AddItemBag("lootblop"); itemdropname = "Chapeu de Slime"; showDropMsg = 100; return; }
+			if(chance <= 40) { AddItemBag("hpcan"); itemdropname = "Refri de HP"; showDropMsg = 100; return; }
+			if(chance >= 40 && chance <= 95) { AddItemBag("hpcan"); itemdropname = "Refri de HP"; showDropMsg = 100; return; }
+			if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); itemdropname = "Refri de HP"; showDropMsg = 100; return; }
+			if(chance >= 98) { AddItemBag("hpcan"); itemdropname = "Refri de HP"; showDropMsg = 100; return; }
 		}
 
 		public void AddItemBag(String itemName) {
@@ -1190,13 +1245,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public void input(String text) {
-			// TODO Auto-generated method stub
-			
+			lstChats.add(0, text);
+			if(lstChats.size() > 10)
+				lstChats.remove(lstChats.size() - 1);
 		}
 
 		@Override
 		public void canceled() {
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -1405,6 +1460,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Target
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
 					ChangeTarget();
+					return false;
+				}
+				
+				//Chat
+				if(coordsTouch.x > cameraCoordsX - 60 && coordsTouch.x < cameraCoordsX - 49 && coordsTouch.y > cameraCoordsY + 77 && coordsTouch.y < cameraCoordsY + 97) {
+					Gdx.input.getTextInput(this,"Digite sua mensagem","","");
 					return false;
 				}
 			}

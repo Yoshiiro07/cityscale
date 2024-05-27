@@ -41,8 +41,8 @@ public class Monster {
 			Monster MobA = new Monster();
 			
 			MobA.MobName = "slime";
-			MobA.MobHp = 100;
-			MobA.MobMp = 100;
+			MobA.MobHp = 50;
+			MobA.MobMp = 50;
 			MobA.MobHpMax = 100;
 			MobA.MobMpMax = 100;
 			MobA.MobFrame = 1;
@@ -57,7 +57,7 @@ public class Monster {
 			MobA.MobDead = "no";
 			MobA.MobTimeDead = 500;
 			MobA.MobSkillChance = "";
-			MobA.MobAtk = 10;
+			MobA.MobAtk = 2;
 			MobA.MobEvade = 20;
 			MobA.MobPosition = "left";
 			MobA.MobRandomSt = 1;
@@ -70,8 +70,8 @@ public class Monster {
 
 			Monster MobB = new Monster();
 			MobB.MobName = "slime";
-			MobB.MobHp = 100;
-			MobB.MobMp = 100;
+			MobB.MobHp = 50;
+			MobB.MobMp = 50;
 			MobB.MobHpMax = 100;
 			MobB.MobMpMax = 100;
 			MobB.MobFrame = 1;
@@ -86,7 +86,7 @@ public class Monster {
 			MobB.MobDead = "no";
 			MobB.MobTimeDead = 500;
 			MobB.MobSkillChance = "";
-			MobB.MobAtk = 10;
+			MobB.MobAtk = 2;
 			MobB.MobEvade = 20;
 			MobB.MobPosition = "left";
 			MobB.MobRandomSt = 1;
@@ -99,8 +99,8 @@ public class Monster {
 
 			Monster MobC = new Monster();
 			MobC.MobName = "oikplant";
-			MobC.MobHp = 130;
-			MobC.MobMp = 130;
+			MobC.MobHp = 80;
+			MobC.MobMp = 80;
 			MobC.MobHpMax = 130;
 			MobC.MobMpMax = 130;
 			MobC.MobFrame = 1;

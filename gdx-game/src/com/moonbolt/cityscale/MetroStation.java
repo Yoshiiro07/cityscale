@@ -42,6 +42,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    private GameControl gameControl;
 	    private String state = "Main";
 	    private Sprite spr_master;
+	    private boolean network = false;
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -89,9 +90,10 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public MetroStation(MainGame gameAlt,ManagerScreen screenAlt, boolean network) {
+		public MetroStation(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt) {
 			this.game = gameAlt;	
 			this.screen = screenAlt;
+			this.network = networkAlt;
 			
 			//Load Player Data
 			this.gameControl = new GameControl();
@@ -218,7 +220,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 					player.PosX_A = 134;
 					player.PosY_A = -186;
 					gameControl.SaveData(player);
-					this.screen.screenSwitch("LoadingScreen", false);
+					this.screen.screenSwitch("LoadingScreen", network);
 				}
 			}
 		}

@@ -1,5 +1,11 @@
 package com.moonbolt.cityscale;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -1701,9 +1707,6 @@ public class GameControl {
 				}
 			}
 			
-			
-			
-			
 			//Shops
 			//SHOP
 			public String CheckBuyItemStreetsA(String shop, int num) {
@@ -1723,5 +1726,479 @@ public class GameControl {
 				}
 				
 				return SysMsg;
+			}
+			
+			public void OnlineManager(String operation, String subData, String extraData) {
+				try {
+					if(operation.equals("CheckVersion")) {  
+						TipoOperacaoOnline("CheckVersion", subData);
+					}
+					if(operation.equals("Upload")) {  
+						GerenciamentoOnline("Upload","",extraData);
+					}
+					if(operation.equals("Download")) {
+						GerenciamentoOnline("Download","",extraData);    
+					}
+					if(operation.equals("Chat")) {
+						GerenciamentoOnline("Chat",subData,extraData);
+					}
+					if(operation.equals("Atk")) {
+						GerenciamentoOnline("Atk",subData,extraData);
+					}
+					
+					if(operation.equals("SyncPlayer")) {
+						threahCountSyncPlayer = 1;
+						ThreadsSyncStartPlayer();				
+					}
+					if(operation.equals("SyncChats")) {
+						threahCountSyncChat = 1;
+						ThreadsSyncStartChat();				
+					}
+					if(operation.equals("SyncMob")) {
+						threahCountSyncMob = 1;
+						ThreadsSyncStartMobs();				
+					}
+				}
+				
+				catch(Exception ex) {}
+			}
+		
+			public void TipoOperacaoOnline(String nomeOperacao, String subData) {
+				
+				try {
+					String retorno = "retry";
+					
+					if(nomeOperacao.equals("CheckVersion")) {
+						retorno = GerenciamentoOnline("CheckVersion","","");
+						
+						if(retorno.equals("Autorizado")) { onlineAuth = true; }
+						
+						if(!versionDif) {
+							if(retorno.equals("Probido")){
+								versionDif = true;
+								SysMsg = "Versao incompativel, fechando jogo";
+								SysMsgCount = 200;
+							}
+						}
+					}
+				}
+				
+				catch(Exception ex) {
+					
+				}	
+			}
+			
+			private void ThreadsSyncStartPlayer() {
+				thrOnlineSyncPlayer = new Thread(t1);
+				thrOnlineSyncPlayer.start();
+			}
+			
+			private Runnable t1 = new Runnable() {
+				public void run() {
+					try{    
+						while(threahCountSyncPlayer == 1) {
+							GerenciamentoOnline("SyncPlayer","","");            	
+						}
+					}
+					catch(Exception ex) {
+						Thread.currentThread().interrupt();	
+					}	
+				}
+			};
+			
+			private void ThreadsSyncStartChat() {
+				thrOnlineSyncChat = new Thread(t2);
+				thrOnlineSyncChat.start();
+			}
+			
+			private Runnable t2 = new Runnable() {
+				public void run() {
+					try{    
+						while(threahCountSyncChat == 1) {
+							GerenciamentoOnline("SyncChats","","");            	
+						}
+					}
+					catch(Exception ex) {
+						Thread.currentThread().interrupt();	
+					}	
+				}
+			};
+			
+			private void ThreadsSyncStartMobs() {
+				thrOnlineSyncMob = new Thread(t3);
+				thrOnlineSyncMob.start();
+			}
+			
+			private Runnable t3 = new Runnable() {
+				public void run() {
+					try{    
+						while(threahCountSyncMob == 1) {
+							GerenciamentoOnline("SyncMob","","");            	
+						}
+					}
+					catch(Exception ex) {
+						Thread.currentThread().interrupt();	
+					}	
+				}
+			};
+			
+			public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData) throws IOException {
+		    	
+				String linhaLida = "";
+				
+				countCleanOnline--;
+				if(countCleanOnline < 0) {
+					countCleanOnline = 500;
+					lstOnlinePlayers.clear();
+					lstOnlinePlayers.add(player);
+					countCleanOnline = 800;
+				}
+				
+				
+				try {
+				
+				if(tipoRequisicao.equals("CheckVersion")){
+					// Construct data
+					
+					String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+			        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("CheckVersion", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("1A", "UTF-8");
+			        
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        //URL url = new URL("http://localhost/default.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        line = "";
+			        retornoOnline = "retry";
+			        while ((line = rd.readLine()) != null) {
+			        	linhaLida = line;   
+			        	//Resultado: - Logado -. <br>done
+				        if (linhaLida.contains("Autorizado")) {            	
+			        		retornoOnline = "Autorizado";       		
+			            }	
+				        else {
+				        	retornoOnline = "Probido"; 
+				        }
+		    		}	        
+			        wr.close();
+			        rd.close();
+		    
+			        return retornoOnline;		        
+				}
+				
+				if(tipoRequisicao.equals("Chat")){
+					
+					// Construct data	
+					String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+			        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Chat", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("1A", "UTF-8");
+			        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
+			        data += "&" + URLEncoder.encode("lChat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
+			        
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        line = "";
+			        retornoOnline = "retry";
+			        while ((line = rd.readLine()) != null) {
+			        	linhaLida = line;   
+		    		}	        
+			        wr.close();
+			        rd.close();
+		    
+			        return retornoOnline;		        
+				}
+				
+				if(tipoRequisicao.equals("Atk")){
+					int numMob = Integer.parseInt(subData);
+					
+	 				String mobLetter = "A";
+					if(numMob == 0) { mobLetter = "A"; }
+					if(numMob == 1) { mobLetter = "B"; }
+					if(numMob == 2) { mobLetter = "C"; }
+					if(numMob == 3) { mobLetter = "D"; }
+					
+					// Construct data	
+					String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+			        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Atk", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        data += "&" + URLEncoder.encode("lMobHitTarget", "UTF-8") + "=" + URLEncoder.encode(lstMobs.get(numMob).MobID, "UTF-8");
+			        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
+			        data += "&" + URLEncoder.encode("lHpMobAtual", "UTF-8") + "=" + URLEncoder.encode(extraData, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lMobLetter", "UTF-8") + "=" + URLEncoder.encode(mobLetter, "UTF-8");
+			        
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rdd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        line = "";
+			        retornoOnline = "retry";
+			        while ((line = rdd.readLine()) != null) {
+			        	linhaLida = line;   
+		    		}	        
+			        wr.close();
+			        rdd.close();
+			        
+			        return retornoOnline;		        
+				}
+				
+				
+				if(tipoRequisicao.equals("SyncChats")){
+					
+					// Construct data				
+					String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+			        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncChats", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
+			        data += "&" + URLEncoder.encode("lChat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
+			        
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        String linechat = "";
+			        line = "";
+			        
+			        retornoOnline = "retry";
+			        while ((line = rd.readLine()) != null) {
+			        	linhaLida = line;  
+			        	//Resultado: - Logado -. <br>done
+			        	if (linhaLida.contains("SYSTEMCHAT")) { 
+			        		String[] lineSplit = line.split(":");
+			        		linechat = lineSplit[2] + "=" + lineSplit[4];
+			    			UpdateListOnlineChats(linechat);
+			            }
+		    		}	        
+			        wr.close();
+			        rd.close();
+		    
+			        return retornoOnline;		        
+				}
+				
+				if(tipoRequisicao.equals("SyncPlayer")){
+					// Construct data
+					String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+			        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncPlayer", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        //Sync Data
+			        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+			        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
+			        data += "&" + URLEncoder.encode("lLevel", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Level), "UTF-8");
+			        data += "&" + URLEncoder.encode("lMap", "UTF-8") + "=" + URLEncoder.encode(player.Map, "UTF-8");
+			        data += "&" + URLEncoder.encode("lHp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Hp), "UTF-8");
+			        data += "&" + URLEncoder.encode("lMp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Mp), "UTF-8");
+			        data += "&" + URLEncoder.encode("lPosX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosX), "UTF-8");
+			        data += "&" + URLEncoder.encode("lPosY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosY), "UTF-8");
+			        data += "&" + URLEncoder.encode("lWalk", "UTF-8") + "=" + URLEncoder.encode(player.Walk, "UTF-8");
+			        data += "&" + URLEncoder.encode("lWeapon", "UTF-8") + "=" + URLEncoder.encode(player.Weapon, "UTF-8");
+			        data += "&" + URLEncoder.encode("lFrame", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Frame), "UTF-8");
+			        data += "&" + URLEncoder.encode("lExp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(GiveExp), "UTF-8");
+			        data += "&" + URLEncoder.encode("lParty", "UTF-8") + "=" + URLEncoder.encode(player.party, "UTF-8");
+			        data += "&" + URLEncoder.encode("lSyncPlayerMob", "UTF-8") + "=" + URLEncoder.encode("none", "UTF-8");
+			        data += "&" + URLEncoder.encode("lPlayerSet", "UTF-8") + "=" + URLEncoder.encode(player.Set, "UTF-8");       
+			        data += "&" + URLEncoder.encode("lHair", "UTF-8") + "=" + URLEncoder.encode(player.Hair, "UTF-8");    
+			        data += "&" + URLEncoder.encode("lSex", "UTF-8") + "=" + URLEncoder.encode(player.Sex, "UTF-8");  
+			        data += "&" + URLEncoder.encode("lColor", "UTF-8") + "=" + URLEncoder.encode(player.Color, "UTF-8");  
+			        data += "&" + URLEncoder.encode("lHat", "UTF-8") + "=" + URLEncoder.encode(player.Hat, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lSide", "UTF-8") + "=" + URLEncoder.encode(player.Side, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lJob", "UTF-8") + "=" + URLEncoder.encode(player.Job, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lplayerInBattle", "UTF-8") + "=" + URLEncoder.encode(player.playerInBattle, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lplayerInAttack", "UTF-8") + "=" + URLEncoder.encode(player.playerInAttack, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lplayerInCast", "UTF-8") + "=" + URLEncoder.encode(player.playerInCast, "UTF-8"); 
+			        
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line = "";
+			        retornoOnline = "retry";
+			        while ((line = rd.readLine()) != null) {
+			        	linhaLida = line;   
+			        	if (linhaLida.contains("SYSTEMPLAYERS")) {            	
+				        	UpdateListOnlinePlayers(line);     		
+			            }	
+		    		}	        
+			        wr.close();
+			        rd.close();
+			
+			        return retornoOnline;		        
+				}
+				
+				if(tipoRequisicao.equals("SyncMob")){ 
+					
+					// Construct data				
+					String data = URLEncoder.encode("lIDLocal", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8");
+					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncMob", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        data += "&" + URLEncoder.encode("lName", "UTF-8") + "=" + URLEncoder.encode(player.Name, "UTF-8");
+			        data += "&" + URLEncoder.encode("lMap", "UTF-8") + "=" + URLEncoder.encode(player.Map, "UTF-8");
+			        
+			        if(playerMobSync) { 
+			        	
+				        data += "&" + URLEncoder.encode("lplayersync", "UTF-8") + "=" + URLEncoder.encode("playerMobSync", "UTF-8");  //here
+				        
+				        data += "&" + URLEncoder.encode("lMobA", "UTF-8") + "=" + URLEncoder.encode(lstMobs.get(0).MobID, "UTF-8");  
+				        data += "&" + URLEncoder.encode("lMobAPosX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lstMobs.get(0).MobPosX), "UTF-8");  
+				        data += "&" + URLEncoder.encode("lMobAPosY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lstMobs.get(0).MobPosY), "UTF-8"); 
+				        
+				        data += "&" + URLEncoder.encode("lMobB", "UTF-8") + "=" + URLEncoder.encode(lstMobs.get(1).MobID, "UTF-8");  
+				        data += "&" + URLEncoder.encode("lMobBPosX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lstMobs.get(1).MobPosX), "UTF-8");  
+				        data += "&" + URLEncoder.encode("lMobBPosY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lstMobs.get(1).MobPosY), "UTF-8");  
+				        
+				        data += "&" + URLEncoder.encode("lMobC", "UTF-8") + "=" + URLEncoder.encode(lstMobs.get(2).MobID, "UTF-8");  
+				        data += "&" + URLEncoder.encode("lMobCPosX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lstMobs.get(2).MobPosX), "UTF-8");  
+				        data += "&" + URLEncoder.encode("lMobCPosY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lstMobs.get(2).MobPosY), "UTF-8");   
+				        
+				        data += "&" + URLEncoder.encode("lMobD", "UTF-8") + "=" + URLEncoder.encode(lstMobs.get(3).MobID, "UTF-8");  
+				        data += "&" + URLEncoder.encode("lMobDPosX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lstMobs.get(3).MobPosX), "UTF-8");  
+				        data += "&" + URLEncoder.encode("lMobDPosY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(lstMobs.get(3).MobPosY), "UTF-8"); 
+				        
+			        }
+			        
+			        if(!playerMobSync) { data += "&" + URLEncoder.encode("lplayersync", "UTF-8") + "=" + URLEncoder.encode("playerMobSyncNot", "UTF-8");  }
+			        		        
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        line = "";
+			        
+			        retornoOnline = "retry";
+			        if(playerMobSync) {  
+			        	retornoOnline = "retry";
+			        }
+			        while ((line = rd.readLine()) != null) {  //heremob
+			        	linhaLida = line;  
+			        	//Resultado: - Logado -. <br>done
+			        	if (linhaLida.contains("SYSTEMMOB")) {
+			        		UpdateListOnlineMobs(linhaLida);
+			            }
+		    		}	        
+			        wr.close();
+			        rd.close();
+		    
+			        return retornoOnline;		        
+				}
+				
+				if(tipoRequisicao.equals("Upload")) {
+						try {
+						
+						//Edite dada
+						FileHandle file = Gdx.files.local("SaveData/save.json");	
+						String arq = file.readString();
+						
+				        // Construct data
+						//Instrucoes para Conexao
+				        String data = URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(arq, "UTF-8");
+				        data += "&" + URLEncoder.encode("lAccountID", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+				        data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Upload", "UTF-8");
+				        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+				        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+				        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+				        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+				   	        
+				        // Send data
+				        URL url = new URL("http://moonboltprojects.online/Conector/Online.php");
+				        URLConnection conn = url.openConnection();
+				        conn.setDoOutput(true);
+				        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+				        wr.write(data);
+				        wr.flush();
+				 
+				        // Get the response
+				        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				        String line;
+				        while ((line = rd.readLine()) != null) {
+				            if(line.contains("Sucesso")){
+				            	uploadDone = true;
+				            	SysMsg = "Upload feito com sucesso";
+				            	SysMsgCount = 200;
+				            }
+				        	//System.out.println(line);
+				        }		        
+				        wr.close();
+				        rd.close();
+				        return retornoOnline;
+				    } 
+					
+					catch (Exception e) { return "retry";}
+				}
+				
+				return "";
+				}
+				
+				catch(Exception ex) {
+					return "retry";
+				}
 			}
 }
