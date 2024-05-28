@@ -61,6 +61,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private int countDead = 100;
 		private String itemEquipped = "";
 		private Sprite spr_item;
+		private String msgShowMenu = "Atualizado com sucesso";
+		private int msgShowTime = 0;
 		
 		//Monster
 		private ArrayList<Monster> listMonsters;
@@ -87,25 +89,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		//Online
 		private ArrayList<Player> lstOnlinePlayers;
-		private Player playerOnline = new Player();
-	    private int countCleanOnline = 800;
-		private String retornoOnline = "";
-		private int threahCountSyncPlayer = 0;
-		private int threahCountSyncChat = 0;
-		private int threahCountSyncMob = 0;
-		private int ExpShared;	
 		private Sprite spr_playerTopOnline;
 	    private Sprite spr_playerBottomOnline;
 	    private Sprite spr_playerFooterOnline;
 	    private Sprite spr_playerHairOnline;
 	    private Sprite spr_playerHatOnline;
 	    private Sprite spr_weaponOnline;
-	    private Thread thrOnlineSyncPlayer;
-		private Thread thrOnlineSyncChat;
-		private Thread thrOnlineSyncMob;
-		private boolean onlineAuth = false;
-	    private boolean versionDif = false; 
-	    private boolean uploadDone = false;
+	    private boolean onlineAuth = false;
+	    private String onlineresponse = "";
+	    private int ExpSharedOnline = 0;
 		
 		
 	    //Sprite NPC
@@ -127,11 +119,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public GameMap(MainGame gameAlt,ManagerScreen screenAlt, boolean network) {
+		public GameMap(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt) {
 			this.game = gameAlt;	
 			this.screen = screenAlt;
 			this.randnumber = new Random();
-			this.keepnetwork = network;
+			this.network = networkAlt;
 
 			//Load Player Data
 			this.gameControl = new GameControl();
@@ -213,16 +205,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//npcs
 				ShowNPCs();
 				
-				if(keepnetwork) {
+				if(network) {
 					if(!onlineAuth) {
-						OnlineManager("CheckVersion","","");
+						onlineresponse = gameControl.OnlineManager("CheckVersion","","");		
+						if(onlineresponse.equals("Autorizado")) {
+							onlineAuth = true;
+						}		
 					}
 					else {
-						OnlineManager("SyncPlayer","","");
-						OnlineManager("SyncChats","","");
-						OnlineManager("SyncMob","","");
-						network = false;
-						//keepnetwork = true;
+						//gameControl.OnlineManager("SyncChats","","");
 					}			
 				}
 				
@@ -240,8 +231,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playertop = gameControl.GetTopChar(player, "no", 0,0);
 				spr_playertop.draw(game.batch);
 
-				
-				
 				//Show Mobs
 				if(player.Map_A.equals("Sewers")){
 					ShowMobs();
@@ -339,6 +328,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_playerweapon.draw(game.batch);
 					
 					ShowBag();
+					
+					font_master.draw(game.batch, msgShowMenu, cameraCoordsX + 14, cameraCoordsY - 38f);
 		
 				}
 				
@@ -368,11 +359,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX - 60,cameraCoordsY + 97);
+				spr_testeDot.setPosition(cameraCoordsX + 28,cameraCoordsY - 13);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX - 49,cameraCoordsY + 77);
+				spr_testeDot.setPosition(cameraCoordsX + 40,cameraCoordsY - 35);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -1097,17 +1088,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void GiveExp(int exp) {
 			boolean levelup = false;
 			if(player.Level_A == 10) {
-				ExpShared = exp;
+				ExpSharedOnline = exp;
 				return;
 			}
 			
 			if(player.Level_A == 50) {
-				ExpShared = exp;
+				ExpSharedOnline = exp;
 				return;
 			}
 			
 			player.Exp_A = player.Exp_A + exp;
-			ExpShared = exp;
+			ExpSharedOnline = exp;
 			
 			//Sewers   
 			if(player.Level_A == 1 && player.Exp_A >= 100) {  player.Level_A = 2; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true; }
@@ -1483,7 +1474,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}
 			//[Menu State]//
-			//Action
 			if(state.equals("Menu")) {
 				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 82 && coordsTouch.y > cameraCoordsY + 69 && coordsTouch.y < cameraCoordsY + 84) {
 					state = "Main";
@@ -1491,6 +1481,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
 					gameControl.UseItem(0);
+					return false;
+				}
+				
+				//config
+				if(coordsTouch.x > cameraCoordsX + 28 && coordsTouch.x < cameraCoordsX + 40 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 13) {
+					onlineresponse = gameControl.OnlineManager("Upload","","");
 					return false;
 				}
 			}

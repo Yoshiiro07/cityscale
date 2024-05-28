@@ -1,11 +1,11 @@
 ux.png
-size: 995, 1731
+size: 995, 1724
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 area
   rotate: false
-  xy: 801, 113
+  xy: 801, 106
   size: 94, 90
   orig: 94, 90
   offset: 0, 0
@@ -33,112 +33,126 @@ bannerselect
   index: -1
 battlezone
   rotate: false
-  xy: 650, 213
+  xy: 650, 206
   size: 334, 200
   orig: 334, 200
   offset: 0, 0
   index: -1
 battlezoneA
   rotate: false
-  xy: 0, 413
+  xy: 0, 406
   size: 334, 200
   orig: 334, 200
   offset: 0, 0
   index: -1
 btnback
   rotate: false
-  xy: 695, 0
+  xy: 0, 45
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btnconfirm
   rotate: false
-  xy: 0, 52
+  xy: 193, 45
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btncreatenew
   rotate: false
-  xy: 193, 52
+  xy: 386, 45
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btnexclude
   rotate: false
-  xy: 386, 52
+  xy: 579, 45
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 confirmtab
   rotate: false
-  xy: 0, 213
+  xy: 0, 206
   size: 325, 161
   orig: 325, 161
   offset: 0, 0
   index: -1
 create
   rotate: false
-  xy: 266, 1388
+  xy: 266, 1381
   size: 588, 343
   orig: 588, 343
   offset: 0, 0
   index: -1
 crystal
   rotate: false
-  xy: 588, 710
+  xy: 588, 703
   size: 266, 339
   orig: 266, 339
   offset: 0, 0
   index: -1
+hand
+  rotate: false
+  xy: 787, 0
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
 innerpad
   rotate: false
-  xy: 895, 113
+  xy: 895, 106
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 inventory
   rotate: false
-  xy: 0, 710
+  xy: 0, 703
   size: 588, 331
   orig: 588, 331
   offset: 0, 0
   index: -1
 jobmaster
   rotate: false
-  xy: 0, 1049
+  xy: 0, 1042
   size: 800, 339
   orig: 800, 339
   offset: 0, 0
   index: -1
 login
   rotate: false
-  xy: 325, 213
+  xy: 325, 206
   size: 325, 161
   orig: 325, 161
   offset: 0, 0
   index: -1
+moon
+  rotate: false
+  xy: 658, 0
+  size: 46, 40
+  orig: 46, 40
+  offset: 0, 0
+  index: -1
 partytag
   rotate: false
-  xy: 579, 52
+  xy: 772, 45
   size: 173, 61
   orig: 173, 61
   offset: 0, 0
   index: -1
 playertag
   rotate: false
-  xy: 584, 113
+  xy: 584, 106
   size: 217, 80
   orig: 217, 80
   offset: 0, 0
   index: -1
 recover
   rotate: false
-  xy: 334, 413
+  xy: 334, 406
   size: 498, 297
   orig: 498, 297
   offset: 0, 0
@@ -152,21 +166,28 @@ selected
   index: -1
 shop
   rotate: false
-  xy: 0, 1388
+  xy: 0, 1381
   size: 266, 339
   orig: 266, 339
   offset: 0, 0
   index: -1
+sun
+  rotate: false
+  xy: 704, 0
+  size: 46, 40
+  orig: 46, 40
+  offset: 0, 0
+  index: -1
 target
   rotate: false
-  xy: 658, 0
+  xy: 750, 0
   size: 37, 42
   orig: 37, 42
   offset: 0, 0
   index: -1
 textbar
   rotate: false
-  xy: 0, 113
+  xy: 0, 106
   size: 584, 79
   orig: 584, 79
   offset: 0, 0

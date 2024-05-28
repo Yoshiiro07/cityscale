@@ -24,7 +24,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private MainGame game;
 	    private GameControl gameControl;
 	    private ManagerScreen screen;
-	    private String state = "Main";
+	    private String state = "Account";
 	    private boolean network = false;
 	    private String systemMsg = "";
 	       
@@ -124,6 +124,24 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 
 				posTrainY = posTrainY + 0.02f;
 				if(posTrainY > -68f) { posTrainY = -70; }
+				
+				
+				if(state.equals("Account")) {
+					spr_master = gameControl.GetUXSmall("textbar");
+					spr_master.setPosition(-42, 0);
+					spr_master.setSize(90, 30);
+					spr_master.draw(game.batch);
+					
+					font_master.getData().setScale(0.10f,0.16f);
+					font_master.setUseIntegerPositions(false);	
+					font_master.draw(game.batch, "ID da conta, guarde para recupera-la posteriormente", -40 , 26);
+					
+					font_master.getData().setScale(0.25f,0.35f);
+					font_master.draw(game.batch, player.AccountID, -12 , 18);
+					
+					font_master.getData().setScale(0.10f,0.16f);
+					font_master.draw(game.batch, "Toque/Click para continuar", 10, 7);
+				}
 
 				
 				if(state.equals("Main")) {
@@ -408,6 +426,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+			
+			//[Account]//
+			if(state.equals("Account")) {
+				if(coordsTouch.x >=  -200 && coordsTouch.x <= 200 && coordsTouch.y >= -200 && coordsTouch.y <= 200) {
+					state = "Main";
+					return false;
+				}
+			}
 			
 			//[MainState]// 
 			if(state.equals("Main")) {
