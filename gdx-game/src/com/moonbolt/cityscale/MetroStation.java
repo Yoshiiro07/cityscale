@@ -42,7 +42,6 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    private GameControl gameControl;
 	    private String state = "Main";
 	    private Sprite spr_master;
-	    private boolean network = false;
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -90,10 +89,9 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public MetroStation(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt) {
+		public MetroStation(MainGame gameAlt,ManagerScreen screenAlt, boolean network) {
 			this.game = gameAlt;	
 			this.screen = screenAlt;
-			this.network = networkAlt;
 			
 			//Load Player Data
 			this.gameControl = new GameControl();
@@ -126,6 +124,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			
 		@Override
 		public void render(float delta) {
+			try {
 				//Just for coloring
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -161,7 +160,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				spr_playerTag = gameControl.GetUXSmall("playertag");
 				spr_playerTag.draw(game.batch);
 				
-				spr_playerTagHair = gameControl.GetHairCharTagStation(player);
+				spr_playerTagHair = gameControl.GetHairCharTag(player);
 				spr_playerTagHair.draw(game.batch);
 				
 				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 68f, cameraCoordsY + 30.7f);
@@ -182,16 +181,16 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				
 				//Char
 				player = gameControl.SetCharMov(player, player.breakwalk_A);
-				spr_playerhair = gameControl.GetHairChar(player, "no", 0, 0);
+				spr_playerhair = gameControl.GetHairChar(player);
 				spr_playerhair.draw(game.batch);
 				
-				spr_playerfooter = gameControl.GetFooterChar(player,"no", 0, 0);
+				spr_playerfooter = gameControl.GetFooterChar(player);
 				spr_playerfooter.draw(game.batch);
 				
-				spr_playerbottom = gameControl.GetBottomChar(player,"no", 0, 0);
+				spr_playerbottom = gameControl.GetBottomChar(player);
 				spr_playerbottom.draw(game.batch);
 				
-				spr_playertop = gameControl.GetTopChar(player,"no", 0, 0);
+				spr_playertop = gameControl.GetTopChar(player);
 				spr_playertop.draw(game.batch);
 				
 				
@@ -210,8 +209,10 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				game.batch.end();
 			}
 			
-			
-		
+			catch(Exception ex) {
+				Gdx.app.exit();
+			}
+		}
 		
 		public void CheckColision() {
 			if(player.Map_A.equals("MetroStation")) {
@@ -220,7 +221,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 					player.PosX_A = 134;
 					player.PosY_A = -186;
 					gameControl.SaveData(player);
-					this.screen.screenSwitch("LoadingScreen", network);
+					this.screen.screenSwitch("LoadingScreen", false);
 				}
 			}
 		}
