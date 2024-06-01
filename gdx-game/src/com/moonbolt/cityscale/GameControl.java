@@ -52,6 +52,7 @@ public class GameControl {
     private String lpassword = "P@titos07";
     private String ldbname = "cityserver";
     private String onlineresponse = "";
+    private ArrayList<String> lstChats;
 	
 	//Texture Atlas
 	private TextureAtlas atlas_hairs1;
@@ -74,6 +75,13 @@ public class GameControl {
 		
 		json = new Json();
 		randnumber = new Random();
+		
+		//Chats
+		lstChats = new ArrayList<String>();
+		lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add("");
+		
+		//Online player
+		lstOnlinePlayers = new ArrayList<Player>();
 
 		//Monster
 		placeholderMonster = new Monster();
@@ -221,6 +229,7 @@ public class GameControl {
 			player.playerInBattle_1 = "none";
 			player.playerInAttack_1 = "none";
 			player.playerInCast_1 = "none";
+			player.playerSit_1 = "none";
 			
 			String itensList = "";
 	        for(int i = 0; i < 16; i++) {
@@ -293,6 +302,7 @@ public class GameControl {
 			player.playerInBattle_2 = "none";
 			player.playerInAttack_2 = "none";
 			player.playerInCast_2 = "none";
+			player.playerSit_2 = "none";
 			
 			String itensList = "";
 			for(int i = 0; i < 16; i++) {
@@ -365,6 +375,7 @@ public class GameControl {
 			player.playerInBattle_3 = "none";
 			player.playerInAttack_3 = "none";
 			player.playerInCast_3 = "none";
+			player.playerSit_3 = "none";
 			
 			String itensList = "";
 			for(int i = 0; i < 16; i++) {
@@ -451,6 +462,7 @@ public class GameControl {
 			player.playerInBattle_A = player.playerInBattle_1;
 			player.playerInAttack_A = player.playerInAttack_1;
 			player.playerInCast_A = player.playerInCast_1;
+			player.playerSit_A = player.playerSit_1;
 			player.Itens_A = player.Itens_1;
 		}
 
@@ -514,6 +526,7 @@ public class GameControl {
 			player.playerInBattle_A = player.playerInBattle_2;
 			player.playerInAttack_A = player.playerInAttack_2;
 			player.playerInCast_A = player.playerInCast_2;
+			player.playerSit_A = player.playerSit_2;
 			player.Itens_A = player.Itens_2;
 		}
 
@@ -577,6 +590,7 @@ public class GameControl {
 			player.playerInBattle_A = player.playerInBattle_3;
 			player.playerInAttack_A = player.playerInAttack_3;
 			player.playerInCast_A = player.playerInCast_3;
+			player.playerSit_A = player.playerSit_3;
 			player.Itens_A = player.Itens_3;
 		}	
 	}
@@ -1767,9 +1781,11 @@ public class GameControl {
 					if(operation.equals("Download")) {  
 						TipoOperacaoOnline("Download", subData);
 					}
-					if(operation.equals("SyncPlayer")) {
-						threahCountSyncPlayer = 1;
+					if(operation.equals("SyncChats")) {
 						ThreadsSyncStartChat();				
+					}
+					if(operation.equals("SyncPlayer")) {
+						ThreadsSyncStartPlayer();				
 					}
 					
 					return onlineresponse;
@@ -1795,7 +1811,14 @@ public class GameControl {
 					if(nomeOperacao.equals("Download")) {
 						onlineresponse = GerenciamentoOnline("Download","","");		
 					}
-					
+					if(nomeOperacao.equals("SyncChats")) {
+						
+						ThreadsSyncStartChat();		
+					}	
+					if(nomeOperacao.equals("SyncPlayer")) {
+						
+						ThreadsSyncStartPlayer();		
+					}
 					return onlineresponse;
 				}
 				
@@ -1807,11 +1830,31 @@ public class GameControl {
 				thrOnlineSyncChat.start();
 			}
 			
+			private void ThreadsSyncStartPlayer() {
+				thrOnlineSyncChat = new Thread(t2);
+				thrOnlineSyncChat.start();
+			}
+			
 			private Runnable t1 = new Runnable() {
 				public void run() {
 					try{    
+						threahCountSyncChat = 1;
 						while(threahCountSyncChat == 1) {
 							GerenciamentoOnline("SyncChats","","");            	
+						}
+					}
+					catch(Exception ex) {
+						Thread.currentThread().interrupt();	
+					}	
+				}
+			};
+			
+			private Runnable t2 = new Runnable() {
+				public void run() {
+					try{   
+						threahCountSyncPlayer = 1;
+						while(threahCountSyncPlayer == 1) {
+							GerenciamentoOnline("SyncPlayer","","");            	
 						}
 					}
 					catch(Exception ex) {
@@ -1868,8 +1911,8 @@ public class GameControl {
 				}
 				
 				if(tipoRequisicao.equals("Chat")){
-					// Construct data
 					
+					// Construct data
 					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
 					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Chat", "UTF-8");
 			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
@@ -1878,8 +1921,7 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
 			        data += "&" + URLEncoder.encode("lchat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
-			        
-			        
+			            
 			        // Send data
 			        URL url = new URL("http://moonboltprojects.online/index.php");
 			        URLConnection conn = url.openConnection();
@@ -1895,19 +1937,123 @@ public class GameControl {
 			        retornoOnline = "retry";
 			        while ((line = rd.readLine()) != null) {
 			        	linhaLida = line;   
-			        	//Resultado: - Logado -. <br>done
-				        if (linhaLida.contains("Adicionado")) {            	
-			        		retornoOnline = "Adicionado";       		
-			            }	
-				        else {
-				        	retornoOnline = "Falhou"; 
-				        }
 		    		}	        
 			        wr.close();
 			        rd.close();
 		    
 			        return retornoOnline;		        
 				}
+				
+				if(tipoRequisicao.equals("SyncChats")){
+					
+					// Construct data
+					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncChats", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			            
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        String linechat = "";
+			        int chatnum = 1;
+			        line = "";
+			        lstChats.clear();
+			        retornoOnline = "retry";
+			        while ((line = rd.readLine()) != null) {
+			        	linhaLida = line;   
+			        	if (linhaLida.contains("SYSTEMCHAT")) {  
+			        		String[] lineSplit = line.split(":");
+			        		linechat = lineSplit[2] + "=" + lineSplit[4];
+			        		
+			        		if(chatnum == 1) { lstChats.add(0, linechat); }
+			        		if(chatnum == 2) { lstChats.add(1, linechat); }
+			        		if(chatnum == 3) { lstChats.add(2, linechat); }
+			        		if(chatnum == 4) { lstChats.add(3, linechat); }
+			        		if(chatnum == 5) { lstChats.add(4, linechat); }
+			        		chatnum++;
+			            }	
+		    		}	        
+			        wr.close();
+			        rd.close();
+		    
+			        return retornoOnline;		        
+				}
+				
+				
+				if(tipoRequisicao.equals("SyncPlayer")){
+					
+					// Construct data
+					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncPlayer", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        //Sync Data
+			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
+			        data += "&" + URLEncoder.encode("llevel", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Level_A), "UTF-8");
+			        data += "&" + URLEncoder.encode("lmap", "UTF-8") + "=" + URLEncoder.encode(player.Map_A, "UTF-8");
+			        data += "&" + URLEncoder.encode("lhp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Hp_A), "UTF-8");
+			        data += "&" + URLEncoder.encode("lmp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Mp_A), "UTF-8");
+			        data += "&" + URLEncoder.encode("lposX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosX_A), "UTF-8");
+			        data += "&" + URLEncoder.encode("lposY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosY_A), "UTF-8");
+			        data += "&" + URLEncoder.encode("lwalk", "UTF-8") + "=" + URLEncoder.encode(player.Walk_A, "UTF-8");
+			        data += "&" + URLEncoder.encode("lweapon", "UTF-8") + "=" + URLEncoder.encode(player.Weapon_A, "UTF-8");
+			        data += "&" + URLEncoder.encode("lframe", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Frame_A), "UTF-8");
+			        data += "&" + URLEncoder.encode("lsyncPlayerMob", "UTF-8") + "=" + URLEncoder.encode("none", "UTF-8");
+			        data += "&" + URLEncoder.encode("lsetUpper", "UTF-8") + "=" + URLEncoder.encode(player.SetUpper_A, "UTF-8");  
+			        data += "&" + URLEncoder.encode("lsetBottom", "UTF-8") + "=" + URLEncoder.encode(player.SetBottom_1, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lsetFooter", "UTF-8") + "=" + URLEncoder.encode(player.SetFooter_1, "UTF-8");
+			        data += "&" + URLEncoder.encode("lhair", "UTF-8") + "=" + URLEncoder.encode(player.Hair_A, "UTF-8");    
+			        data += "&" + URLEncoder.encode("lsex", "UTF-8") + "=" + URLEncoder.encode(player.Sex_A, "UTF-8");  
+			        data += "&" + URLEncoder.encode("lcolor", "UTF-8") + "=" + URLEncoder.encode(player.Color_A, "UTF-8");  
+			        data += "&" + URLEncoder.encode("lhat", "UTF-8") + "=" + URLEncoder.encode(player.Hat_A, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lside", "UTF-8") + "=" + URLEncoder.encode(player.Side_A, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("ljob", "UTF-8") + "=" + URLEncoder.encode(player.Job_A, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lplayerInBattle", "UTF-8") + "=" + URLEncoder.encode(player.playerInBattle_A, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lplayerInAttack", "UTF-8") + "=" + URLEncoder.encode(player.playerInAttack_A, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lplayerInCast", "UTF-8") + "=" + URLEncoder.encode(player.playerInCast_A, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lplayerSit", "UTF-8") + "=" + URLEncoder.encode(player.playerSit_A, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lparty", "UTF-8") + "=" + URLEncoder.encode(player.party_A, "UTF-8"); 
+			        data += "&" + URLEncoder.encode("lexpshared", "UTF-8") + "=" + URLEncoder.encode("0", "UTF-8"); 
+			        
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        line = "";
+			        String retornoSync = "";
+			        retornoOnline = "retry";
+			        while ((line = rd.readLine()) != null) {
+			        	linhaLida = line;   
+			        	if (linhaLida.contains("SYSTEMPLAYERS")) {  
+			        		retornoSync = linhaLida;
+			            }	
+		    		}	        
+			        wr.close();
+			        rd.close();
+		    
+			        return retornoOnline;		        
+				}
+				
 				
 				if(tipoRequisicao.equals("Upload")){
 					
@@ -1997,5 +2143,45 @@ public class GameControl {
 					linhaLida = ex.getMessage();
 				}
 				return linhaLida;
+			}
+			
+			public void UpdateListOnlineChats(String line) {
+				lstChats.add(line);		
+			}
+			
+			public ArrayList<String> GetChatList() {
+				return lstChats;
+			}
+			
+			public ArrayList<Player> GetListOnlinePlayers(){
+				
+			}
+			
+			public void UpdateOnlinePlayers(String line) {
+				String[] lineSplit = line.split(":");
+				playerOnline = new Player();
+				player.AccountID = lineSplit[2];
+				playerOnline.Name_A = lineSplit[4];
+				playerOnline.Level_A = Integer.parseInt(lineSplit[6]);
+				playerOnline.Map = lineSplit[8];
+				playerOnline.Hp = Integer.parseInt(lineSplit[10]);
+				playerOnline.Mp = Integer.parseInt(lineSplit[12]);
+				playerOnline.PosX = Float.parseFloat(lineSplit[14]);
+				playerOnline.PosY = Float.parseFloat(lineSplit[16]);
+				playerOnline.Walk = lineSplit[18];
+				playerOnline.Weapon = lineSplit[20];
+				playerOnline.Frame = Integer.parseInt(lineSplit[22]);
+				playerOnline.Exp = Integer.parseInt(lineSplit[24]);
+				playerOnline.party = lineSplit[26];
+				playerOnline.Set = lineSplit[30];
+				playerOnline.Hair = lineSplit[32];
+				playerOnline.Sex = lineSplit[34];
+				playerOnline.Color = lineSplit[36];
+				playerOnline.Hat = lineSplit[38];
+				playerOnline.Side = lineSplit[40];
+				playerOnline.Job = lineSplit[42];
+				playerOnline.playerInBattle = lineSplit[44];
+				playerOnline.playerInAttack = lineSplit[46];
+				playerOnline.playerInCast = lineSplit[48];
 			}
 }

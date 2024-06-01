@@ -98,6 +98,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private boolean onlineAuth = false;
 	    private String onlineresponse = "";
 	    private int ExpSharedOnline = 0;
+	    private boolean SyncStart = false;
 		
 		
 	    //Sprite NPC
@@ -213,7 +214,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						}		
 					}
 					else {
-						//gameControl.OnlineManager("SyncChats","","");
+						if(!SyncStart) {
+							gameControl.OnlineManager("SyncChats","","");
+							gameControl.OnlineManager("SyncPlayer","","");
+							SyncStart = true;
+						}
 					}			
 				}
 				
@@ -259,13 +264,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
 				spr_master.draw(game.batch);
 				
+				if(network) { lstChats = gameControl.GetChatList(); }
 				font_master.draw(game.batch, "Chats:", cameraCoordsX - 40f, cameraCoordsY - 40f);
-				for(int i = 0; i < lstChats.size(); i++) {
-					if(i == 0) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 50f); }
-					if(i == 1) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 60f); }
-					if(i == 2) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 70f); }
-					if(i == 3) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 80f); }
-					if(i == 4) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 90f); }
+				if(lstChats.size() > 4) {
+					for(int i = 0; i < lstChats.size(); i++) {
+						if(i == 0) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 50f); }
+						if(i == 1) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 60f); }
+						if(i == 2) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 70f); }
+						if(i == 3) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 80f); }
+						if(i == 4) { font_master.draw(game.batch, lstChats.get(i), cameraCoordsX - 36f, cameraCoordsY - 90f); }
+					}
 				}
 				
 				if(network) {
@@ -713,6 +721,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}
 		}
+		
+		
 		
 		public boolean CheckMobEvade() {
 			int nextint = randnumber.nextInt(100);
@@ -1235,15 +1245,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 
 		@Override
-		public void input(String text) {
+		public void input(String input) {
 			
 			if(!network) {
-				lstChats.add(0, text);
+				lstChats.add(0, input);
 				if(lstChats.size() > 10)
 					lstChats.remove(lstChats.size() - 1);
 			}
 			else 
 			{
+				if(input.contains(":")) { return; }
+				if(input.contains("none")) { return; }
+				String text = input;
 				onlineresponse = gameControl.OnlineManager("Chat",text,"");
 			}
 		}

@@ -66,6 +66,7 @@ public class Player {
 		public String playerInBattle_1;
 		public String playerInAttack_1;
 		public String playerInCast_1;
+		public String playerSit_1;
 		
 		public String Name_2;
 		public String Sex_2;
@@ -129,6 +130,7 @@ public class Player {
 		public String playerInBattle_2;
 		public String playerInAttack_2;
 		public String playerInCast_2;
+		public String playerSit_2;
 		
 		public String Name_3;
 		public String Sex_3;
@@ -192,6 +194,7 @@ public class Player {
 		public String playerInBattle_3;
 		public String playerInAttack_3;
 		public String playerInCast_3;
+		public String playerSit_3;
 			
 		public String Name_A;
 		public String Sex_A;
@@ -255,6 +258,7 @@ public class Player {
 		public String playerInBattle_A;
 		public String playerInAttack_A;
 		public String playerInCast_A;
+		public String playerSit_A;
 		
 		
 		public String pet;
