@@ -54,10 +54,27 @@
 	if ($lrequest == "Chat")
 	{
 		$sql = "INSERT INTO Chats (AccountID,Name,Msg) VALUES ('$ldataaccount','$lname','$lchat')";
-		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Adicionado Chat - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou Add Chat - \n") . $conn->error;}		
+		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Adicionado - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou \n") . $conn->error;}		
 		$result = $conn->query($sql);
 		$conn->close();	
 		return;
+	}
+
+	#Sync Chats
+	if ($lrequest == "SyncChats")
+	{
+	$sql = "SELECT * FROM Chats order by ChatID desc limit 3";
+		$result = $conn->query($sql);
+		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Recuperado - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou - \n") . $conn->error;}
+		if ($result->num_rows > 0) {
+			// output data of each row
+			while($row = $result->fetch_assoc()) {
+				$lAll = $lAll . ("SYSTEMCHAT - :Name:" . $row["Name"]. 
+							  ":Msg:" .  $row["Msg"]. 
+							  ": - \n");
+				echo($lAll);
+			}
+		}
 	}
 
 	##UPLOAD
