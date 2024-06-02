@@ -121,6 +121,7 @@
 		}
 
 		$sql = "SELECT * from Sync";
+
 		$result = $conn->query($sql);
 		
 		$lAll = '';
@@ -136,7 +137,7 @@
                               ":PosY:" . $row["posY"] .
                               ":Walk:" . $row["walk"] .
                               ":Weapon:" . $row["weapon"] .
-                              ":Frame:" . $row["lframe"] .
+                              ":Frame:" . $row["frame"] .
                               ":SyncPlayerMob:" . $row["syncPlayerMob"] . 
                               ":SetUpper:" . $row["setUpper"] . 
                               ":SetBottom:" . $row["setBottom"] . 

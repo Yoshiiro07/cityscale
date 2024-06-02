@@ -2046,6 +2046,7 @@ public class GameControl {
 			        	linhaLida = line;   
 			        	if (linhaLida.contains("SYSTEMPLAYERS")) {  
 			        		retornoSync = linhaLida;
+			        		UpdateOnlinePlayers(retornoSync);
 			            }	
 		    		}	        
 			        wr.close();
@@ -2154,34 +2155,40 @@ public class GameControl {
 			}
 			
 			public ArrayList<Player> GetListOnlinePlayers(){
-				
+				return lstOnlinePlayers;
 			}
 			
 			public void UpdateOnlinePlayers(String line) {
+				
+				System.out.println(line);
+				
 				String[] lineSplit = line.split(":");
 				playerOnline = new Player();
 				player.AccountID = lineSplit[2];
 				playerOnline.Name_A = lineSplit[4];
 				playerOnline.Level_A = Integer.parseInt(lineSplit[6]);
-				playerOnline.Map = lineSplit[8];
-				playerOnline.Hp = Integer.parseInt(lineSplit[10]);
-				playerOnline.Mp = Integer.parseInt(lineSplit[12]);
-				playerOnline.PosX = Float.parseFloat(lineSplit[14]);
-				playerOnline.PosY = Float.parseFloat(lineSplit[16]);
-				playerOnline.Walk = lineSplit[18];
-				playerOnline.Weapon = lineSplit[20];
-				playerOnline.Frame = Integer.parseInt(lineSplit[22]);
-				playerOnline.Exp = Integer.parseInt(lineSplit[24]);
-				playerOnline.party = lineSplit[26];
-				playerOnline.Set = lineSplit[30];
-				playerOnline.Hair = lineSplit[32];
-				playerOnline.Sex = lineSplit[34];
-				playerOnline.Color = lineSplit[36];
-				playerOnline.Hat = lineSplit[38];
-				playerOnline.Side = lineSplit[40];
-				playerOnline.Job = lineSplit[42];
-				playerOnline.playerInBattle = lineSplit[44];
-				playerOnline.playerInAttack = lineSplit[46];
-				playerOnline.playerInCast = lineSplit[48];
+				playerOnline.Map_A = lineSplit[8];
+				playerOnline.Hp_A = Integer.parseInt(lineSplit[10]);
+				playerOnline.Mp_A = Integer.parseInt(lineSplit[12]);
+				playerOnline.PosX_A = Float.parseFloat(lineSplit[14]);
+				playerOnline.PosY_A = Float.parseFloat(lineSplit[16]);
+				playerOnline.Walk_A = lineSplit[18];
+				playerOnline.Weapon_A = lineSplit[20];
+				playerOnline.Frame_A = Integer.parseInt(lineSplit[22]);
+				playerOnline.Exp_A = Integer.parseInt(lineSplit[24]);
+				playerOnline.party_A = lineSplit[26];
+				playerOnline.SetUpper_A = lineSplit[30];
+				playerOnline.SetBottom_A = lineSplit[30];
+				playerOnline.SetFooter_A = lineSplit[30];
+				playerOnline.Hair_A = lineSplit[32];
+				playerOnline.Sex_A = lineSplit[34];
+				playerOnline.Color_A = lineSplit[36];
+				playerOnline.Hat_A = lineSplit[38];
+				playerOnline.Side_A = lineSplit[40];
+				playerOnline.Job_A = lineSplit[42];
+				playerOnline.playerInBattle_A = lineSplit[44];
+				playerOnline.playerInAttack_A = lineSplit[46];
+				playerOnline.playerInCast_A = lineSplit[48];
+				playerOnline.playerSit_A = lineSplit[48];
 			}
 }
