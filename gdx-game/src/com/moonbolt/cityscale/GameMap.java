@@ -204,6 +204,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_Background.draw(game.batch);
 				
 				//npcs
+				ShowOnlinePlayers();
 				ShowNPCs();
 				
 				if(network) {
@@ -338,17 +339,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					ShowBag();
 					
 					font_master.draw(game.batch, msgShowMenu, cameraCoordsX + 14, cameraCoordsY - 38f);
-		
 				}
 				
 				if(state.equals("Shop")) {
 					
 					if(shopname.equals("refrishop")) {
 						spr_shop = gameControl.GetShops("refrishop",cameraCoordsX, cameraCoordsY);
-						spr_shop.draw(game.batch);
-						
-						font_master.draw(game.batch, String.valueOf(player.Money_A), cameraCoordsX - 25, cameraCoordsY - 37);
-						
+						spr_shop.draw(game.batch);		
+						font_master.draw(game.batch, String.valueOf(player.Money_A), cameraCoordsX - 25, cameraCoordsY - 37);				
 					}
 					
 					if(!showbuymsg.equals("")) {
@@ -361,20 +359,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}
 				}
 
-				
 				if(state.equals("DungeonSelect")) {
 					spr_master = gameControl.GetUX("battlezoneA", cameraCoordsX, cameraCoordsY);
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX + 28,cameraCoordsY - 13);
+				spr_testeDot.setPosition(cameraCoordsX - 3,cameraCoordsY - 8);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 40,cameraCoordsY - 35);
+				spr_testeDot.setPosition(cameraCoordsX + 10,cameraCoordsY - 30);
 				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
-				
+				spr_testeDot.draw(game.batch);  //here
 				
 				game.batch.end();
 			}
@@ -383,6 +379,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//	Gdx.app.exit();
 			//}
 		
+		public void ShowOnlinePlayers() {
+			lstOnlinePlayers = gameControl.GetListOnlinePlayers();
+			
+			if(lstOnlinePlayers.size() > 0) {
+				for(int i = 0; i < lstOnlinePlayers.size(); i++) {
+					spr_playerhair = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
+					spr_playerhair.draw(game.batch);
+					
+					spr_playerfooter = gameControl.GetFooterChar(lstOnlinePlayers.get(i), "no",0,0);
+					spr_playerfooter.draw(game.batch);
+					
+					spr_playerbottom = gameControl.GetBottomChar(lstOnlinePlayers.get(i), "no",0,0);
+					spr_playerbottom.draw(game.batch);
+					
+					spr_playertop = gameControl.GetTopChar(lstOnlinePlayers.get(i), "no", 0,0);
+					spr_playertop.draw(game.batch);
+				}
+			}
+		}
 		
 		public void MapChange(String map) {
 			if(map.equals("Sewers")) {
@@ -399,7 +414,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosY_A = -142f;
 				gameControl.SaveData(player);
 				this.screen.screenSwitch("LoadingScreen",false);
-				dispose();	
+				dispose();
 			}
 		}
 		
@@ -1429,7 +1444,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean keyTyped(char character) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 
@@ -1495,12 +1509,107 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			//[Menu State]//
 			if(state.equals("Menu")) {
+				
 				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 82 && coordsTouch.y > cameraCoordsY + 69 && coordsTouch.y < cameraCoordsY + 84) {
 					state = "Main";
 					return false;
 				}
+				
+				//Item 1
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
 					gameControl.UseItem(0);
+					return false;
+				}
+				
+				//Item 2
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					gameControl.UseItem(1);
+					return false;
+				}
+				
+				//Item 3
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					gameControl.UseItem(2);
+					return false;
+				}
+				
+				//Item 4
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					gameControl.UseItem(3);
+					return false;
+				}
+				
+				
+				
+				//Item 5
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					gameControl.UseItem(4);
+					return false;
+				}
+				
+				//Item 6
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					gameControl.UseItem(5);
+					return false;
+				}
+				
+				//Item 7
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					gameControl.UseItem(6);
+					return false;
+				}
+				
+				//Item 8
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					gameControl.UseItem(7);
+					return false;
+				}
+				
+				//Item 9
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					gameControl.UseItem(8);
+					return false;
+				}
+				
+				//Item 10
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					gameControl.UseItem(9);
+					return false;
+				}
+				
+				//Item 11
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					gameControl.UseItem(10);
+					return false;
+				}
+				
+				//Item 12
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					gameControl.UseItem(11);
+					return false;
+				}
+				
+				//Item 13
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					gameControl.UseItem(12);
+					return false;
+				}
+				
+				//Item 14
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					gameControl.UseItem(13);
+					return false;
+				}
+				
+				//Item 15
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					gameControl.UseItem(14);
+					return false;
+				}
+				
+				//Item 16
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					gameControl.UseItem(15);
 					return false;
 				}
 				

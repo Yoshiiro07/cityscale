@@ -9,6 +9,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -125,6 +127,9 @@ public class GameControl {
 				try {
 					Player player = new Player();
 					int accNumber = randnumber.nextInt(999999);
+					while(accNumber < 10000){
+						accNumber = randnumber.nextInt(999999);
+					}
 					player.AccountID = String.valueOf(accNumber);
 					player.Name_1 = "none";
 					player.Name_2 = "none";
@@ -2167,7 +2172,7 @@ public class GameControl {
 				
 				String[] lineSplit = line.split(":");
 				playerOnline = new Player();
-				player.AccountID = lineSplit[4];
+				playerOnline.AccountID = lineSplit[4];
 				playerOnline.Name_A = lineSplit[2];
 				playerOnline.Level_A = Integer.parseInt(lineSplit[6]);
 				playerOnline.Map_A = lineSplit[8];
@@ -2194,5 +2199,18 @@ public class GameControl {
 				playerOnline.playerSit_A = lineSplit[50];
 				playerOnline.party_A = lineSplit[52];
 				playerOnline.Exp_A = Integer.parseInt(lineSplit[54]);
+				
+				if(!player.AccountID.equals(playerOnline.AccountID)) { 
+					lstOnlinePlayers.add(playerOnline); 
+				}
+
+				Map<String, Player> playersMap = new HashMap<String, Player>();
+
+				for (Player player : lstOnlinePlayers) {
+				    playersMap.put(player.getAccountID(), player);
+				}
+
+				lstOnlinePlayers.clear();
+				lstOnlinePlayers.addAll(playersMap.values());
 			}
 }

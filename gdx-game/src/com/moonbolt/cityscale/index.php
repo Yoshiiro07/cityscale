@@ -112,7 +112,7 @@
 	#Efetua Sync
 	if ($lrequest == "SyncPlayer")
 	{
-		$sql = "REPLACE INTO Sync (name, level, map, hp, mp, posX, posY, walk, weapon, frame, syncPlayerMob, setUpper, setBottom, setFooter, hair, sex, color, hat, side, job, playerInBattle, playerInAttack, playerInCast, playerSit, party, expShared) VALUES ('$lname', '$llevel', '$lmap', '$lhp', '$lmp', '$lposX', '$lposY', '$lwalk', '$lweapon', '$lframe', '$lsyncPlayerMob', '$lsetUpper', '$lsetBottom', '$lsetFooter', '$lhair', '$lsex', '$lcolor', '$lhat', '$lside', '$ljob', '$lplayerInBattle', '$lplayerInAttack', '$lplayerInCast', '$lplayerSit', '$lparty', '$lexpshared');";
+		$sql = "REPLACE INTO Sync (AccountID, name, level, map, hp, mp, posX, posY, walk, weapon, frame, syncPlayerMob, setUpper, setBottom, setFooter, hair, sex, color, hat, side, job, playerInBattle, playerInAttack, playerInCast, playerSit, party, expShared) VALUES ('$ldataaccount','$lname', '$llevel', '$lmap', '$lhp', '$lmp', '$lposX', '$lposY', '$lwalk', '$lweapon', '$lframe', '$lsyncPlayerMob', '$lsetUpper', '$lsetBottom', '$lsetFooter', '$lhair', '$lsex', '$lcolor', '$lhat', '$lside', '$ljob', '$lplayerInBattle', '$lplayerInAttack', '$lplayerInCast', '$lplayerSit', '$lparty', '$lexpshared');";
 		if ($conn->query($sql) === TRUE) { 
 			echo nl2br("\n - Atualizado Player- \n"); 
 		} else { 
