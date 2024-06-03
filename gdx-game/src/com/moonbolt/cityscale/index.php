@@ -129,6 +129,7 @@
 			// output data of each row
 			while($row = $result->fetch_assoc()) {
 				$lAll = $lAll . ("SYSTEMPLAYERS - :Name:" . $row["name"]. 
+							  ":AccountID:" . $row["AccountID"].
                               ":Level:" .  $row["level"]. 
                               ":Map:" . $row["map"] .
                               ":Hp:" . $row["hp"] .
