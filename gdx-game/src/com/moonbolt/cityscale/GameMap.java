@@ -364,11 +364,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX - 3,cameraCoordsY - 8);
+				spr_testeDot.setPosition(cameraCoordsX - 81,cameraCoordsY - 42);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 10,cameraCoordsY - 30);
+				spr_testeDot.setPosition(cameraCoordsX - 69,cameraCoordsY - 64);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);  //here
 				
@@ -459,6 +459,36 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_item.setSize(9, 14);
 					spr_item.draw(game.batch); 
 				}
+		}
+		
+		public void CheckStatus(String status) {
+			if(player.StatusPoint_A > 1) {
+				if(status.equals("Str")) {
+					player.Str_A = player.Str_A + 1;
+					player.StatusPoint_A = player.StatusPoint_A - 1;
+					player.Atk_A = player.Atk_A + 1;
+				}
+				if(status.equals("Agi")) {
+					player.Str_A = player.Agi_A + 1;
+					player.StatusPoint_A = player.StatusPoint_A - 1;
+					player.Def_A = player.Def_A + 1;
+				}
+				if(status.equals("Wis")) {
+					player.Str_A = player.Wis_A + 1;
+					player.StatusPoint_A = player.StatusPoint_A - 1;
+					player.Def_A = player.Def_A + 1;
+				}
+				if(status.equals("Dex")) {
+					player.Str_A = player.Dex_A + 1;
+					player.StatusPoint_A = player.StatusPoint_A - 1;
+					player.Atk_A = player.Atk_A + 1;
+				}
+				if(status.equals("Luk")) {
+					player.Str_A = player.Luk_A + 1;
+					player.StatusPoint_A = player.StatusPoint_A - 1;
+					player.Def_A = player.Def_A + 1;
+				}
+			}
 		}
 		
 		public Sprite ShowItem(int num) {
@@ -1610,6 +1640,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Item 16
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
 					gameControl.UseItem(15);
+					return false;
+				}
+				
+				
+				//Status point
+				//STR
+				if(coordsTouch.x > cameraCoordsX - 81 && coordsTouch.x < cameraCoordsX - 69 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Str");
 					return false;
 				}
 				
