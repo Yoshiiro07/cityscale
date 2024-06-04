@@ -65,6 +65,7 @@ public class GameControl {
 	private TextureAtlas atlas_ux;
 	private TextureAtlas atlas_shops;
 	private TextureAtlas atlas_genericset;
+	private TextureAtlas atlas_generichair;
 	private TextureAtlas atlas_npcs;
 	private TextureAtlas atlas_cards;
 	private TextureAtlas atlas_mobSewers;
@@ -187,10 +188,10 @@ public class GameControl {
 			player.Level_1 = 1;
 			player.Exp_1 = 0;
 			player.Map_1 = "MetroStation";
-			player.Hp_1 = 50;
+			player.Hp_1 = 30;
 			player.Mp_1 = 20;
-			player.Money_1 = 0;
-			player.HpMax_1 = 50;
+			player.Money_1 = 50;
+			player.HpMax_1 = 30;
 			player.MpMax_1 = 20;
 			player.regenTime_1 = 6000;
 			player.regenTimeMax_1 = 6000;
@@ -204,7 +205,7 @@ public class GameControl {
 			player.AtkTimer_1 = 300;
 			player.AtkTimerMax_1 = 300;
 			player.Casting_1 = "no";
-			player.Atk_1 = 3;
+			player.Atk_1 = 5;
 			player.Def_1 = 1;
 			player.Evasion_1 = 0;
 			player.Side_1 =	"front";
@@ -239,10 +240,8 @@ public class GameControl {
 			
 			String itensList = "";
 	        for(int i = 0; i < 16; i++) {
-	            if(i == 0) { itensList = itensList + "[hpcan#10]-"; } 
-	            if(i == 1) { itensList = itensList + "[basictop#1]-"; itensList = itensList + "[basicbottom#1]-"; itensList = itensList + "[basicfooter#1]-"; }  
-	            if(i == 2) {  itensList = itensList + "[basic_knife#1]-"; } 
-	            if(i > 2) { itensList = itensList + "[NONE]-"; }          
+	            if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
+	            if(i > 0) { itensList = itensList + "[NONE]-"; }          
 	        }
 	        player.Itens_1 = itensList;
 	        created = true;
@@ -261,10 +260,10 @@ public class GameControl {
 			player.Level_2 = 1;
 			player.Exp_2 = 0;
 			player.Map_2 = "MetroStation";
-			player.Hp_2 = 50;
+			player.Hp_2 = 30;
 			player.Mp_2 = 20;
-			player.Money_2 = 0;
-			player.HpMax_2 = 50;
+			player.Money_2 = 50;
+			player.HpMax_2 = 30;
 			player.MpMax_2 = 20;
 			player.regenTime_2 = 6000;
 			player.regenTimeMax_2 = 6000;
@@ -278,7 +277,7 @@ public class GameControl {
 			player.AtkTimer_2 = 300;
 			player.AtkTimerMax_2 = 300;
 			player.Casting_2 = "no";
-			player.Atk_2 = 3;
+			player.Atk_2 = 5;
 			player.Def_2 = 1;
 			player.Evasion_2 = 0;
 			player.Side_2 =	"front";
@@ -313,10 +312,8 @@ public class GameControl {
 			
 			String itensList = "";
 			for(int i = 0; i < 16; i++) {
-	            if(i == 0) { itensList = itensList + "[hpcan#10]-"; } 
-	            if(i == 1) { itensList = itensList + "[basictop#1]-"; itensList = itensList + "[basicbottom#1]-"; itensList = itensList + "[basicfooter#1]-"; }  
-	            if(i == 2) {  itensList = itensList + "[basic_knife#1]-"; } 
-	            if(i > 2) { itensList = itensList + "[NONE]-"; }          
+				if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
+	            if(i > 0) { itensList = itensList + "[NONE]-"; }        
 	        }
 	        player.Itens_2 = itensList;
 	        created = true;
@@ -335,10 +332,10 @@ public class GameControl {
 			player.Level_3 = 1;
 			player.Exp_3 = 0;
 			player.Map_3 = "MetroStation";
-			player.Hp_3 = 50;
+			player.Hp_3 = 30;
 			player.Mp_3 = 20;
-			player.Money_3 = 0;
-			player.HpMax_3 = 50;
+			player.Money_3 = 50;
+			player.HpMax_3 = 30;
 			player.MpMax_3 = 20;
 			player.regenTime_3 = 6000;
 			player.regenTimeMax_3 = 6000;
@@ -352,7 +349,7 @@ public class GameControl {
 			player.AtkTimer_3 = 300;
 			player.AtkTimerMax_3 = 300;
 			player.Casting_3 = "no";
-			player.Atk_3 = 3;
+			player.Atk_3 = 5;
 			player.Def_3 = 1;
 			player.Evasion_3 = 0;
 			player.Side_3 =	"front";
@@ -387,10 +384,8 @@ public class GameControl {
 			
 			String itensList = "";
 			for(int i = 0; i < 16; i++) {
-	            if(i == 0) { itensList = itensList + "[hpcan#10]-"; } 
-	            if(i == 1) { itensList = itensList + "[basictop#1]-"; itensList = itensList + "[basicbottom#1]-"; itensList = itensList + "[basicfooter#1]-"; }  
-	            if(i == 2) {  itensList = itensList + "[basic_knife#1]-"; } 
-	            if(i > 2) { itensList = itensList + "[NONE]-"; }          
+				if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
+	            if(i > 0) { itensList = itensList + "[NONE]-"; }          
 	        }
 	        player.Itens_3 = itensList;
 	        created = true;
@@ -933,12 +928,16 @@ public class GameControl {
 		
 		
 		//hair1_front_green_M
+		if(player.Hair_A.equals("hair1")){ spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
+		if(player.Hair_A.equals("hair2")){ spr_master = atlas_hairs2.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
+		if(player.Hair_A.equals("hair3")){ spr_master = atlas_hairs3.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
+		if(player.Hair_A.equals("hair4")){ spr_master = atlas_hairs4.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
+		
 		if(player.Sex_A.equals("M")) {
-			if(player.Hair_A.equals("hair1")){ spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
-			if(player.Hair_A.equals("hair2")){ spr_master = atlas_hairs2.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
-			if(player.Hair_A.equals("hair3")){ spr_master = atlas_hairs3.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
-			if(player.Hair_A.equals("hair4")){ spr_master = atlas_hairs4.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
-			
+			spr_master.setPosition(-86, 42); 
+			spr_master.setScale(0.2f,0.4f);		
+		}
+		if(player.Sex_A.equals("F")) {
 			spr_master.setPosition(-86, 42); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
@@ -948,16 +947,21 @@ public class GameControl {
 
 	public Sprite GetHairCharTag(Player player,float cameraCoordsX,float cameraCoordsY) {
 		
+		if(player.Hair_A.equals("hair1")) { atlas_generichair = atlas_hairs1;}
+		if(player.Hair_A.equals("hair2")) { atlas_generichair = atlas_hairs2;}
+		if(player.Hair_A.equals("hair3")) { atlas_generichair = atlas_hairs3;}
+		if(player.Hair_A.equals("hair4")) { atlas_generichair = atlas_hairs4;}
+		//if(player.Hair_A.equals("hair5")) { atlas_generichair = atlas_hairs5;}
 		
 		//hair1_front_green_M
 		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master = atlas_generichair.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
 			spr_master.setPosition(cameraCoordsX -115,cameraCoordsY + 71); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
 		if(player.Sex_A.equals("F")) {
-			spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
-			spr_master.setPosition(cameraCoordsX -86,cameraCoordsY + 42); 
+			spr_master = atlas_generichair.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+			spr_master.setPosition(cameraCoordsX -115,cameraCoordsY + 71); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
 		
@@ -1047,7 +1051,7 @@ public class GameControl {
 				spr_master.setScale(0.4f,0.7f);
 			}
 			if(player.Sex_A.equals("F")) {
-				spr_master.setPosition(cameraX -89, cameraY + 11.5f);
+				spr_master.setPosition(cameraX -84.4f, cameraY + 34.8f);
 				spr_master.setScale(0.4f,0.7f);
 			}
 		}
@@ -1187,7 +1191,11 @@ public class GameControl {
 		if(menu.equals("Show")){
 			player.Side_A = "front";
 			spr_master = atlas_basicset.createSprite(player.SetBottom_A + player.Sex_A + "_" + player.Side_A + 1);
-			if(player.Side_A.equals("front")) { 
+			if(player.Sex_A.equals("M")) { 
+				spr_master.setPosition(cameraX -89, cameraY - 5);
+				spr_master.setScale(0.4f,0.7f);
+			}
+			if(player.Sex_A.equals("F")) { 
 				spr_master.setPosition(cameraX -89, cameraY - 5);
 				spr_master.setScale(0.4f,0.7f);
 			}
@@ -1267,8 +1275,12 @@ public class GameControl {
 		if(menu.equals("Show")){
 			player.Side_A = "front";
 			spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_" + player.Side_A + 1);
-			if(player.Side_A.equals("front")) { 
+			if(player.Sex_A.equals("M")) { 
 				spr_master.setPosition(cameraX -89, cameraY - 15);
+				spr_master.setScale(0.4f,0.7f);
+			}
+			if(player.Sex_A.equals("F")) { 
+				spr_master.setPosition(cameraX -88.6f, cameraY - 21);
 				spr_master.setScale(0.4f,0.7f);
 			}
 		}
@@ -1784,7 +1796,7 @@ public class GameControl {
 						TipoOperacaoOnline("Chat", subData);
 					}
 					if(operation.equals("Upload")) {  
-						TipoOperacaoOnline("Upload", subData);
+						onlineresponse = TipoOperacaoOnline("Upload", subData);
 					}
 					if(operation.equals("Download")) {  
 						TipoOperacaoOnline("Download", subData);

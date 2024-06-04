@@ -300,6 +300,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					font_master.draw(game.batch, String.valueOf(player.Agi_A), cameraCoordsX - 48f, cameraCoordsY - 50f);
 					font_master.draw(game.batch, String.valueOf(player.Wis_A), cameraCoordsX - 34f, cameraCoordsY - 50f);
 					font_master.draw(game.batch, String.valueOf(player.Dex_A), cameraCoordsX - 21f, cameraCoordsY - 50f);
+					font_master.draw(game.batch, String.valueOf(player.StatusPoint_A), cameraCoordsX - 43f, cameraCoordsY - 67f);
+					
 					
 					//CharacterShow
 					spr_playerhair = gameControl.GetHairChar(player, "Show", cameraCoordsX, cameraCoordsY);
@@ -337,8 +339,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_playerweapon.draw(game.batch);
 					
 					ShowBag();
-					
-					font_master.draw(game.batch, msgShowMenu, cameraCoordsX + 14, cameraCoordsY - 38f);
+					if(msgShowTime > 0) {
+						msgShowTime--;
+						font_master.draw(game.batch, msgShowMenu, cameraCoordsX + 14, cameraCoordsY - 38f);
+						if(msgShowTime < 0) {
+							msgShowTime = 0;
+						}
+					}	
 				}
 				
 				if(state.equals("Shop")) {
@@ -364,13 +371,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX - 81,cameraCoordsY - 42);
+				spr_testeDot.setPosition(cameraCoordsX - 26,cameraCoordsY - 42);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX - 69,cameraCoordsY - 64);
+				spr_testeDot.setPosition(cameraCoordsX - 14,cameraCoordsY - 64);
 				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);  //here
+				spr_testeDot.draw(game.batch);  //hereteste
 				
 				game.batch.end();
 			}
@@ -422,26 +429,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Common Itens
 				for (int i = 0; i < 16; i++) {
 					spr_item = ShowItem(i);
-					if(spr_item != null) {
+					if(spr_item != null) {				
 						spr_item.draw(game.batch);
 						font_master.draw(game.batch, ShowQuantityItem(i), spr_item.getX() + 9,spr_item.getY() + 7);
 					}
 				}	
 						
+				font_master.draw(game.batch, "teste", cameraCoordsX - 40,cameraCoordsY + 45);
 				//Crystal Itens    
 				//slot 1
 				if(!player.Crystal1_A.equals("none")) {
 					spr_item = gameControl.GetItem(player.Crystal1_A);
 					spr_item.setPosition(1.5f, 25);
 					spr_item.setSize(9, 14);
-					spr_item.draw(game.batch);
+					//spr_item.draw(game.batch);
 				}
 				
 				if(!player.Crystal2_A.equals("none")) {
 					spr_item = gameControl.GetItem(player.Crystal1_A);
 					spr_item.setPosition(10.5f, 25);
 					spr_item.setSize(9, 14);
-					spr_item.draw(game.batch); 
+					//spr_item.draw(game.batch); 
 				}
 				
 				//slot 3
@@ -449,7 +457,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_item = gameControl.GetItem(player.Crystal1_A);
 					spr_item.setPosition(19.5f, 25);
 					spr_item.setSize(9, 14);
-					spr_item.draw(game.batch); 
+					//spr_item.draw(game.batch); 
 				}
 				
 				//slot 4
@@ -457,7 +465,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_item = gameControl.GetItem(player.Crystal1_A);
 					spr_item.setPosition(29f, 25);
 					spr_item.setSize(9, 14);
-					spr_item.draw(game.batch); 
+					//spr_item.draw(game.batch); 
 				}
 		}
 		
@@ -466,28 +474,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(status.equals("Str")) {
 					player.Str_A = player.Str_A + 1;
 					player.StatusPoint_A = player.StatusPoint_A - 1;
-					player.Atk_A = player.Atk_A + 1;
+					player.Atk_A = player.Atk_A + 2;
+				}
+				if(status.equals("Vit")) {
+					player.Vit_A = player.Vit_A + 1;
+					player.StatusPoint_A = player.StatusPoint_A - 1;
+					player.Def_A = player.Def_A + 2;
+					player.HpMax_A = player.HpMax_A + 5;
 				}
 				if(status.equals("Agi")) {
-					player.Str_A = player.Agi_A + 1;
+					player.Agi_A = player.Agi_A + 1;
 					player.StatusPoint_A = player.StatusPoint_A - 1;
 					player.Def_A = player.Def_A + 1;
+					player.AtkTimerMax_A = player.AtkTimerMax_A - 1;
 				}
 				if(status.equals("Wis")) {
-					player.Str_A = player.Wis_A + 1;
+					player.Wis_A = player.Wis_A + 1;
 					player.StatusPoint_A = player.StatusPoint_A - 1;
 					player.Def_A = player.Def_A + 1;
+					player.MpMax_A = player.MpMax_A + 5;
 				}
 				if(status.equals("Dex")) {
-					player.Str_A = player.Dex_A + 1;
+					player.Dex_A = player.Dex_A + 1;
 					player.StatusPoint_A = player.StatusPoint_A - 1;
 					player.Atk_A = player.Atk_A + 1;
 				}
-				if(status.equals("Luk")) {
-					player.Str_A = player.Luk_A + 1;
-					player.StatusPoint_A = player.StatusPoint_A - 1;
-					player.Def_A = player.Def_A + 1;
-				}
+				
 			}
 		}
 		
@@ -502,13 +514,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				item = itemSplit[0].replace("[", "");
 				spr_item = gameControl.GetItem(item);
 				
-				if(num == 0) {  
-					font_master.draw(game.batch, item, cameraCoordsX, cameraCoordsY); 
-				}
-				
-				//if(player.Weapon_A.equals(item)) { itemEquipped = item; font_master.draw(game.batch, item, cameraCoordsX,cameraCoordsY + 30);  }
-				
-				if(num == 0){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item; }
+				if(num == 0){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
 				if(num == 1){ spr_item.setPosition(cameraCoordsX - 30.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
 				if(num == 2){ spr_item.setPosition(cameraCoordsX - 16.5f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
 				if(num == 3){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
@@ -1650,10 +1656,33 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					CheckStatus("Str");
 					return false;
 				}
+				//VIT
+				if(coordsTouch.x > cameraCoordsX - 67 && coordsTouch.x < cameraCoordsX - 55 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Vit");
+					return false;
+				}
+				//AGI
+				if(coordsTouch.x > cameraCoordsX - 54 && coordsTouch.x < cameraCoordsX - 41 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Agi");
+					return false;
+				}
+				//WIS
+				if(coordsTouch.x > cameraCoordsX - 40 && coordsTouch.x < cameraCoordsX - 27 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Wis");
+					return false;
+				}
+				//DES
+				if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 14 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Des");
+					return false;
+				}
 				
 				//config
 				if(coordsTouch.x > cameraCoordsX + 28 && coordsTouch.x < cameraCoordsX + 40 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 13) {
 					onlineresponse = gameControl.OnlineManager("Upload","","");
+					if(onlineresponse.equals("Atualizado")) {
+						msgShowTime = 100;
+					}
 					return false;
 				}
 			}
