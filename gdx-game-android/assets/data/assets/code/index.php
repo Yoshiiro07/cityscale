@@ -15,33 +15,7 @@
 	#Variaveis de Uso
 	$lAll = '';
 	$lchat = $_POST['lchat'];
-
-	$llevel = $_POST['llevel'];
 	$lname = $_POST['lname'];
-	$lmap = $_POST['lmap'];
-	$lhp = $_POST['lhp'];
-	$lmp = $_POST['lmp'];
-	$lposX = $_POST['lposX'];
-	$lposY = $_POST['lposY'];
-	$lwalk = $_POST['lwalk'];
-	$lweapon = $_POST['lweapon'];
-	$lframe = $_POST['lframe'];
-	$lsyncPlayerMob = $_POST['lsyncPlayerMob'];
-	$lsetUpper = $_POST['lsetUpper'];
-	$lsetBottom = $_POST['lsetBottom'];
-	$lsetFooter = $_POST['lsetFooter'];
-	$lhair = $_POST['lhair'];
-	$lsex = $_POST['lsex'];
-	$lcolor = $_POST['lcolor'];
-	$lhat = $_POST['lhat'];
-	$lside = $_POST['lside'];
-	$ljob = $_POST['ljob'];
-	$lplayerInBattle = $_POST['lplayerInBattle'];
-	$lplayerInAttack = $_POST['lplayerInAttack'];
-	$lplayerInCast = $_POST['lplayerInCast'];
-	$lplayerSit = $_POST['lplayerSit'];
-	$lparty = $_POST['lparty'];
-	$lexpshared = $_POST['lexpshared'];
 
 	#\n  (Quebra Linha)
 	
@@ -80,86 +54,10 @@
 	if ($lrequest == "Chat")
 	{
 		$sql = "INSERT INTO Chats (AccountID,Name,Msg) VALUES ('$ldataaccount','$lname','$lchat')";
-		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Adicionado - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou \n") . $conn->error;}		
-		#$result = $conn->query($sql);
+		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Adicionado Chat - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou Add Chat - \n") . $conn->error;}		
+		$result = $conn->query($sql);
 		$conn->close();	
 		return;
-	}
-
-	#Sync Chats
-	if ($lrequest == "SyncChats") {
-		$sql = "SELECT * FROM Chats order by ChatID desc limit 5";
-		$result = $conn->query($sql);
-		if ($result === FALSE) { 
-			echo nl2br($sql); 
-			echo nl2br("\n - Falhou - \n") . $conn->error;
-		} else {
-			echo nl2br("\n - Recuperado - \n"); 
-			if ($result->num_rows > 0) {
-				// output data of each row
-				while($row = $result->fetch_assoc()) {
-					$lAll = "SYSTEMCHAT - :Name:" . $row["Name"]. 
-							":Msg:" .  $row["Msg"]. 
-							": - \n";
-					echo nl2br($lAll);
-				}
-			} else {
-				echo "0 results";
-			}
-		}
-	}
-
-	#Efetua Sync
-	if ($lrequest == "SyncPlayer")
-	{
-		$sql = "REPLACE INTO Sync (AccountID, name, level, map, hp, mp, posX, posY, walk, weapon, frame, syncPlayerMob, setUpper, setBottom, setFooter, hair, sex, color, hat, side, job, playerInBattle, playerInAttack, playerInCast, playerSit, party, expShared) VALUES ('$ldataaccount','$lname', '$llevel', '$lmap', '$lhp', '$lmp', '$lposX', '$lposY', '$lwalk', '$lweapon', '$lframe', '$lsyncPlayerMob', '$lsetUpper', '$lsetBottom', '$lsetFooter', '$lhair', '$lsex', '$lcolor', '$lhat', '$lside', '$ljob', '$lplayerInBattle', '$lplayerInAttack', '$lplayerInCast', '$lplayerSit', '$lparty', '$lexpshared');";
-		if ($conn->query($sql) === TRUE) { 
-			echo nl2br("\n - Atualizado Player- \n"); 
-		} else { 
-			echo nl2br($sql); 
-			echo nl2br("\n - Falhou Player - \n") . $conn->error;
-		}
-
-		$sql = "SELECT * from Sync";
-
-		$result = $conn->query($sql);
-		
-		$lAll = '';
-		if ($result->num_rows > 0) {
-			// output data of each row
-			while($row = $result->fetch_assoc()) {
-				$lAll = $lAll . ("SYSTEMPLAYERS - :Name:" . $row["name"]. 
-							  ":AccountID:" . $row["AccountID"].
-                              ":Level:" .  $row["level"]. 
-                              ":Map:" . $row["map"] .
-                              ":Hp:" . $row["hp"] .
-                              ":Mp:" . $row["mp"] .
-                              ":PosX:" . $row["posX"] .
-                              ":PosY:" . $row["posY"] .
-                              ":Walk:" . $row["walk"] .
-                              ":Weapon:" . $row["weapon"] .
-                              ":Frame:" . $row["frame"] .
-                              ":SyncPlayerMob:" . $row["syncPlayerMob"] . 
-                              ":SetUpper:" . $row["setUpper"] . 
-                              ":SetBottom:" . $row["setBottom"] . 
-                              ":SetFooter:" . $row["setFooter"] . 
-                              ":Hair:" . $row["hair"] . 
-                              ":Sex:" . $row["sex"] . 
-                              ":Color:" . $row["color"] . 
-                              ":Hat:" . $row["hat"] . 
-                              ":Side:" . $row["side"] . 
-                              ":Job:" . $row["job"] .
-                              ":PlayerInBattle:" . $row["playerInBattle"] . 
-                              ":PlayerInAttack:" . $row["playerInAttack"] . 
-                              ":PlayerInCast:" . $row["playerInCast"] .
-                              ":PlayerSit:" . $row["playerSit"] .
-                              ":Party:" . $row["party"] .
-                              ":ExpShared:" . $row["expShared"] .
-                              ": - \n");
-				echo($lAll);
-			}
-		}
-		$conn->close();	
 	}
 
 	##UPLOAD

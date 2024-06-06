@@ -284,8 +284,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Checks e Cards
 				ShowCards();
 				CheckColision();
-				CheckAutoAttack();
-				CheckMobAutoAttack();
+				gameControl.CheckAutoAttack(autoattack);
+				gameControl.CheckMobAutoAttack();
 				CheckMobDeadRespawn();
 				ShowDamage();
 				
@@ -371,11 +371,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX - 26,cameraCoordsY - 42);
+				spr_testeDot.setPosition(cameraCoordsX + 79,cameraCoordsY + 24);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX - 14,cameraCoordsY - 64);
+				spr_testeDot.setPosition(cameraCoordsX + 89,cameraCoordsY + 1);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);  //hereteste
 				
@@ -629,149 +629,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 
-		public void CheckAutoAttack() {
-			if(player.Map_A.equals("Sewers") && autoattack) {
-				for(int i = 0; i < listMonsters.size(); i++) {
-					
-					if(player.Target_A.equals(listMonsters.get(i).MobID)) {
-						 
-						if((listMonsters.get(i).MobPosX + 5) > (player.PosX_A - 5) && (listMonsters.get(i).MobPosX + 5) < (player.PosX_A + 15)
-						   && (listMonsters.get(i).MobPosY + 7) > (player.PosY_A - 7) && (listMonsters.get(i).MobPosY + 5) < (player.PosY_A + 18)) {
-							player.playerInBattle_A = "yes";
-							player.AtkTimer_A--;
-							
-							if(player.AtkTimer_A < (player.AtkTimerMax_A - 10) && player.playerInAttack_A.equals("yes")) {
-								player.playerInAttack_A = "no";
-							}
-							
-							if(player.AtkTimer_A <= 0) { 	
-								int atkweapon = CheckWeapon();
-								int mobhp = listMonsters.get(i).MobHp; //CheckDamageDifer(lstMobs.get(i).MobHpMax, 1);
-								int damagehit = player.Atk_A + atkweapon + player.Str_A;
-								
-								if(CheckMobEvade()) { 
-									Damage damage = new Damage();
-									damage.DamagePosX = listMonsters.get(i).MobPosX;
-									damage.DamagePosY = listMonsters.get(i).MobPosY;
-									damage.DamageTime = 100;
-									damage.DamageType = "mob";
-									damage.DamageValue = 0;
-									listDamage.add(damage);
-									return; 
-								}
-								
-								if(network) {
-									int mobHpGet = listMonsters.get(i).MobHp;
-									int st = player.Stamina_A;
-									if(st > 0) { mobHpGet =  mobHpGet - damagehit;  } else {  mobHpGet =  mobHpGet - 5; }								
-									//OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHpGet));
-									if(mobHpGet < 0) { mobHpGet = 0; }
-									if(mobHpGet <= 0) { 					
-										player.Target_A = "none";
-										player.AtkTimer_A = player.AtkTimerMax_A;
-										player.playerInBattle_A = "no";
-									    player.playerInAttack_A = "no";
-									    player.playerInCast_A = "no";	
-									    autoattack = false;
-									    
-									    ItemDrop(listMonsters.get(i).MobName);
-									    player.Money_A = player.Money_A + 2;
-									    GiveExp(listMonsters.get(i).MobExp);
-									    return;
-									}									
-									Damage damage = new Damage();
-									damage.DamagePosX = listMonsters.get(i).MobPosX;
-									damage.DamagePosY = listMonsters.get(i).MobPosY;
-									damage.DamageTime = 100;
-									damage.DamageType = "mob";
-									damage.DamageValue = damagehit;
-									listDamage.add(damage);
-									
-									player.AtkTimer_A = player.AtkTimerMax_A;
-									player.playerInAttack_A = "yes";
-									listMonsters.get(i).MobTarget = player.Name_A;	
-								}
-								else {
-									int st = player.Stamina_A;
-									if(st > 0) { mobhp = mobhp - damagehit;  } else {  mobhp = mobhp - 5; }								
-									if(mobhp < 0) { mobhp = 0; }
-									listMonsters.get(i).MobHp = mobhp;
-									
-									if(listMonsters.get(i).MobHp <= 0) { 
-										
-										player.Target_A = "none";
-										player.AtkTimer_A = player.AtkTimerMax_A;
-										player.playerInBattle_A = "no";
-									    player.playerInAttack_A = "no";
-									    player.playerInCast_A = "no";	
-									    autoattack = false;
-									    
-									    ItemDrop(listMonsters.get(i).MobName);
-									    player.Money_A = player.Money_A + 2;
-									    GiveExp(listMonsters.get(i).MobExp);
-									    return;
-									}
-									
-									Damage damage = new Damage();
-									damage.DamagePosX = listMonsters.get(i).MobPosX;
-									damage.DamagePosY = listMonsters.get(i).MobPosY;
-									damage.DamageTime = 100;
-									damage.DamageType = "mob";
-									damage.DamageValue = damagehit;
-									listDamage.add(damage);
-									
-									player.AtkTimer_A = player.AtkTimerMax_A;
-									player.playerInAttack_A = "yes";
-									listMonsters.get(i).MobTarget = player.Name_A;	
-								}			
-							}					
-						}
-						else {
-							player.playerInBattle_A = "no";
-						}
-					}
-				}
-			}
-		}
 		
-		public void CheckMobAutoAttack() {
-				if(player.Map_A.equals("Sewers")) {
-					for(int i = 0; i < listMonsters.size(); i++) {						
-						if(listMonsters.get(i).MobTarget.equals(player.Name_A)) {
-							if(player.PosX_A > (listMonsters.get(i).MobPosX - 5) && player.PosX_A < (listMonsters.get(i).MobPosX + 15)
-								&& player.PosY_A > (listMonsters.get(i).MobPosY - 7) && player.PosY_A < (listMonsters.get(i).MobPosY + 18)) {
-									
-									listMonsters.get(i).MobAtkTimer--;
-									if(listMonsters.get(i).MobAtkTimer <= 0) {
-										int mobluck = randnumber.nextInt(100);
-										if(mobluck > 5 && mobluck < 20) {
-											player.Hp_A = player.Hp_A - ((listMonsters.get(i).MobAtk * 2) - player.Def_A);
-										}
-										if(mobluck >= 0 && mobluck < 5) {
-											player.Hp_A = player.Hp_A - ((listMonsters.get(i).MobAtk * 3) - player.Def_A);
-										}
-										if(mobluck > 10) {
-										{
-											player.Hp_A = player.Hp_A - (listMonsters.get(i).MobAtk - player.Def_A);
-										}								 
-										listMonsters.get(i).MobAtkTimer = listMonsters.get(i).MobAtkTimerMax;
-										Damage damage = new Damage();
-										damage.DamagePosX = listMonsters.get(i).MobPosX;
-										damage.DamagePosY = listMonsters.get(i).MobPosY;
-										damage.DamageTime = 100;
-										damage.DamageType = "player";
-										damage.DamageValue = listMonsters.get(i).MobAtk;
-										listDamage.add(damage);
-									}	
-									if(player.Hp_A <= 0) {
-										playerDead = true;
-									}
-							}
-						}				
-					}
-				}
-			}
-		}
 		
 		
 		
@@ -891,10 +749,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}		
 			return 0;
-		}
-
-		public void CheckBlock() {
-			
 		}
 
 		public void ShowDamage() {
@@ -1319,7 +1173,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean keyDown(int keycode) {
-			//if(playerDead) { return false; }
+			if(playerDead) { return false; }
+			if(player.playerSit_A.equals("yes")){ return false; }
 			
 			if(state.equals("Main")) {
 				movement = true;		
@@ -1515,12 +1370,23 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				//Block
 				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
-					CheckBlock();
 					return false;
 				}
 				//Target
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
 					ChangeTarget();
+					return false;
+				}
+				//Sit 
+				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 24) {
+					if(!player.playerInBattle_A.equals("yes")) {
+						if(player.playerSit_A.equals("none")) {
+							player.playerSit_A = "yes";
+						}
+						else {
+							player.playerSit_A = "none";
+						}
+					}
 					return false;
 				}
 				
@@ -1727,6 +1593,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
 			if(playerDead) { return false; }
+			if(player.playerSit_A.equals("yes")){ return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 			

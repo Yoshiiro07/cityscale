@@ -1077,7 +1077,7 @@ public class GameControl {
 		float posY = player.PosY_A;
 		//[MALE]
 		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_basicset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
+			spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
 			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side_A.equals("left")) { spr_master.setPosition(posX -25,posY -5);  }
@@ -1086,15 +1086,37 @@ public class GameControl {
 			
 			if(player.playerInBattle_A.equals("yes")){
 				if(player.Frame_A == 3) { player.Frame_A = 2; }
-				spr_master = atlas_basicset.createSprite(player.SetUpper_A + player.Sex_A + "_attack" + player.Frame_A);
+				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack" + player.Frame_A);
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);							
 			}
+			
+			//basictopM_sit
+			if(player.playerInAttack_A.equals("yes")) {
+				player.Frame_A = 1;
+				player.Side_A = "front";
+				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack3");
+				spr_master.setPosition(posX -25,posY -5);
+				spr_master.setScale(0.2f,0.4f);	
+			}
+			
+			
+			//basictopM_sit
+			if(player.playerSit_A.equals("yes")) {
+				player.Frame_A = 1;
+				player.Side_A = "front";
+				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_sit");
+				spr_master.setPosition(posX -25,posY -5);
+				spr_master.setScale(0.2f,0.4f);	
+			}
+			
+			
+			
 		}
 
 		//[FEMALE]//
 		if(player.Sex_A.equals("F")) {
-			spr_master = atlas_basicset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
+			spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
 			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25,posY -4.5f);  }
 			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side_A.equals("left")) { 
@@ -1107,15 +1129,24 @@ public class GameControl {
 			
 			if(player.playerInBattle_A.equals("yes")){
 				if(player.Frame_A == 3) { player.Frame_A = 2; }
-				spr_master = atlas_basicset.createSprite(player.SetUpper_A + player.Sex_A + "_attack" + player.Frame_A);
-				spr_master.setPosition(posX -25,posY -4.5f);
-				spr_master.setPosition(posX -25,posY -5);  						
+				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack" + player.Frame_A);
+				spr_master.setPosition(posX -25,posY -4); 
+				spr_master.setScale(0.2f,0.4f);
+			}
+			
+			//basictopM_sit
+			if(player.playerSit_A.equals("yes")) {
+				player.Frame_A = 1;
+				player.Side_A = "front";
+				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_sit");
+				spr_master.setPosition(posX -25.2f,posY -5);
+				spr_master.setScale(0.2f,0.4f);	
 			}
 		}
 
 		if(menu.equals("yes")){
 			player.Side_A = "front";
-			spr_master = atlas_basicset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + 1);
+			spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + 1);
 			if(player.Side_A.equals("front")) { 
 				spr_master.setPosition(cameraX + 8, cameraY + 27);
 				spr_master.setScale(0.2f,0.4f);
@@ -1123,7 +1154,7 @@ public class GameControl {
 		}
 		if(menu.equals("Show")){
 			player.Side_A = "front";
-			spr_master = atlas_basicset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + 1);
+			spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + 1);
 			if(player.Side_A.equals("front")) { 
 				spr_master.setPosition(cameraX -89, cameraY + 11.5f);
 				spr_master.setScale(0.4f,0.7f);
@@ -1154,6 +1185,15 @@ public class GameControl {
 				spr_master.setPosition(posX -24.5f,posY -15);
 				spr_master.setScale(0.2f,0.4f);					
 			}
+			
+			//basictopM_sit
+			if(player.playerSit_A.equals("yes")) {
+				player.Frame_A = 1;
+				player.Side_A = "front";
+				spr_master = atlas_genericset.createSprite(player.SetBottom_A + player.Sex_A + "_sit");
+				spr_master.setPosition(posX -25,posY -15);
+				spr_master.setScale(0.2f,0.4f);	
+			}
 		}
 		
 		/// [BOTTOM FEMALE] //////
@@ -1177,6 +1217,16 @@ public class GameControl {
 				spr_master.setPosition(posX -25.2f,posY -13f);
 				spr_master.setScale(0.2f,0.4f);	
 			}
+			
+			//basictopM_sit
+			if(player.playerSit_A.equals("yes")) {
+				player.Frame_A = 1;
+				player.Side_A = "front";
+				spr_master = atlas_genericset.createSprite(player.SetBottom_A + player.Sex_A + "_sit");
+				spr_master.setPosition(posX -25.2f,posY -12);
+				spr_master.setScale(0.2f,0.4f);	
+			}
+			
 			spr_master.setScale(0.2f,0.4f);
 		}
 
@@ -1233,6 +1283,15 @@ public class GameControl {
 				spr_master.setPosition(posX -25,posY -21);
 				spr_master.setScale(0.2f,0.4f);	
 			}
+			
+			//basictopM_sit
+			if(player.playerSit_A.equals("yes")) {
+				player.Frame_A = 1;
+				player.Side_A = "front";
+				spr_master = atlas_genericset.createSprite(player.SetFooter_A + player.Sex_A + "_sit");
+				spr_master.setPosition(posX -25,posY -18);
+				spr_master.setScale(0.2f,0.4f);	
+			}
 		}
 		
 		/// [FOOTER FEMALE ] //////
@@ -1258,9 +1317,18 @@ public class GameControl {
 			spr_master.setScale(0.2f,0.4f);
 			
 			if(player.playerInBattle_A.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_front2");
-				spr_master.setPosition(posX -25f,posY -18.5f);
+				spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_attack1");
+				spr_master.setPosition(posX -25f,posY -19.5f);
 				spr_master.setScale(0.2f,0.4f);								
+			}
+			
+			//basictopM_sit
+			if(player.playerSit_A.equals("yes")) {
+				player.Frame_A = 1;
+				player.Side_A = "front";
+				spr_master = atlas_genericset.createSprite(player.SetFooter_A + player.Sex_A + "_sit");
+				spr_master.setPosition(posX -25.2f,posY -12);
+				spr_master.setScale(0.2f,0.4f);	
 			}
 		}
 
@@ -2224,5 +2292,151 @@ public class GameControl {
 
 				lstOnlinePlayers.clear();
 				lstOnlinePlayers.addAll(playersMap.values());
+			}
+			
+			
+			public void CheckAutoAttack(boolean autoattack) {
+				if(player.Map_A.equals("Sewers") && autoattack) {
+					for(int i = 0; i < listMonsters.size(); i++) {
+						
+						if(player.Target_A.equals(listMonsters.get(i).MobID)) {
+							 
+							if((listMonsters.get(i).MobPosX + 5) > (player.PosX_A - 5) && (listMonsters.get(i).MobPosX + 5) < (player.PosX_A + 15)
+							   && (listMonsters.get(i).MobPosY + 7) > (player.PosY_A - 7) && (listMonsters.get(i).MobPosY + 5) < (player.PosY_A + 18)) {
+								player.playerInBattle_A = "yes";
+								player.AtkTimer_A--;
+								
+								//if(player.AtkTimer_A < (player.AtkTimerMax_A - 10) && player.playerInAttack_A.equals("yes")) {
+								//	player.playerInAttack_A = "no";
+								//}a
+								
+								if(player.AtkTimer_A <= 0) { 	
+									int atkweapon = CheckWeapon();
+									int mobhp = listMonsters.get(i).MobHp; //CheckDamageDifer(lstMobs.get(i).MobHpMax, 1);
+									int damagehit = player.Atk_A + atkweapon + player.Str_A;
+									player.playerInAttack_A = "yes";
+									
+									if(CheckMobEvade()) { 
+										Damage damage = new Damage();
+										damage.DamagePosX = listMonsters.get(i).MobPosX;
+										damage.DamagePosY = listMonsters.get(i).MobPosY;
+										damage.DamageTime = 100;
+										damage.DamageType = "mob";
+										damage.DamageValue = 0;
+										listDamage.add(damage);
+										return; 
+									}
+									
+									if(network) {
+										int mobHpGet = listMonsters.get(i).MobHp;
+										int st = player.Stamina_A;
+										if(st > 0) { mobHpGet =  mobHpGet - damagehit;  } else {  mobHpGet =  mobHpGet - 5; }								
+										//OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHpGet));
+										if(mobHpGet < 0) { mobHpGet = 0; }
+										if(mobHpGet <= 0) { 					
+											player.Target_A = "none";
+											player.AtkTimer_A = player.AtkTimerMax_A;
+											player.playerInBattle_A = "no";
+										    player.playerInAttack_A = "no";
+										    player.playerInCast_A = "no";	
+										    autoattack = false;
+										    
+										    ItemDrop(listMonsters.get(i).MobName);
+										    player.Money_A = player.Money_A + 2;
+										    GiveExp(listMonsters.get(i).MobExp);
+										    return;
+										}									
+										Damage damage = new Damage();
+										damage.DamagePosX = listMonsters.get(i).MobPosX;
+										damage.DamagePosY = listMonsters.get(i).MobPosY;
+										damage.DamageTime = 100;
+										damage.DamageType = "mob";
+										damage.DamageValue = damagehit;
+										listDamage.add(damage);
+										
+										player.AtkTimer_A = player.AtkTimerMax_A;
+										player.playerInAttack_A = "yes";
+										listMonsters.get(i).MobTarget = player.Name_A;	
+									}
+									else {
+										int st = player.Stamina_A;
+										if(st > 0) { mobhp = mobhp - damagehit;  } else {  mobhp = mobhp - 5; }								
+										if(mobhp < 0) { mobhp = 0; }
+										listMonsters.get(i).MobHp = mobhp;
+										
+										if(listMonsters.get(i).MobHp <= 0) { 
+											
+											player.Target_A = "none";
+											player.AtkTimer_A = player.AtkTimerMax_A;
+											player.playerInBattle_A = "no";
+										    player.playerInAttack_A = "no";
+										    player.playerInCast_A = "no";	
+										    autoattack = false;
+										    
+										    ItemDrop(listMonsters.get(i).MobName);
+										    player.Money_A = player.Money_A + 2;
+										    GiveExp(listMonsters.get(i).MobExp);
+										    return;
+										}
+										
+										Damage damage = new Damage();
+										damage.DamagePosX = listMonsters.get(i).MobPosX;
+										damage.DamagePosY = listMonsters.get(i).MobPosY;
+										damage.DamageTime = 100;
+										damage.DamageType = "mob";
+										damage.DamageValue = damagehit;
+										listDamage.add(damage);
+										
+										player.AtkTimer_A = player.AtkTimerMax_A;
+										player.playerInAttack_A = "yes";
+										listMonsters.get(i).MobTarget = player.Name_A;	
+									}			
+								}					
+							}
+							else {
+								player.playerInBattle_A = "no";
+							}
+						}
+					}
+				}
+			}
+			
+			public void CheckMobAutoAttack() {
+					if(player.Map_A.equals("Sewers")) {
+						for(int i = 0; i < listMonsters.size(); i++) {						
+							if(listMonsters.get(i).MobTarget.equals(player.Name_A)) {
+								if(player.PosX_A > (listMonsters.get(i).MobPosX - 5) && player.PosX_A < (listMonsters.get(i).MobPosX + 15)
+									&& player.PosY_A > (listMonsters.get(i).MobPosY - 7) && player.PosY_A < (listMonsters.get(i).MobPosY + 18)) {
+										
+										listMonsters.get(i).MobAtkTimer--;
+										if(listMonsters.get(i).MobAtkTimer <= 0) {
+											int mobluck = randnumber.nextInt(100);
+											if(mobluck > 5 && mobluck < 20) {
+												player.Hp_A = player.Hp_A - ((listMonsters.get(i).MobAtk * 2) - player.Def_A);
+											}
+											if(mobluck >= 0 && mobluck < 5) {
+												player.Hp_A = player.Hp_A - ((listMonsters.get(i).MobAtk * 3) - player.Def_A);
+											}
+											if(mobluck > 10) {
+											{
+												player.Hp_A = player.Hp_A - (listMonsters.get(i).MobAtk - player.Def_A);
+											}								 
+											listMonsters.get(i).MobAtkTimer = listMonsters.get(i).MobAtkTimerMax;
+											Damage damage = new Damage();
+											damage.DamagePosX = listMonsters.get(i).MobPosX;
+											damage.DamagePosY = listMonsters.get(i).MobPosY;
+											damage.DamageTime = 100;
+											damage.DamageType = "player";
+											damage.DamageValue = listMonsters.get(i).MobAtk;
+											listDamage.add(damage);
+										}	
+										if(player.Hp_A <= 0) {
+											playerDead = true;
+										}
+								}
+							}				
+						}
+					}
+				}
 			}
 }
