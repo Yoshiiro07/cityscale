@@ -34,7 +34,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private Random randnumber;
 		private boolean network = false;
 		private String shopname = "";
-	    
+	    private boolean hotkey1 = false;
+	    private boolean hotkey2 = false;
 		//Fonts
 		private BitmapFont font_master;
 		
@@ -376,11 +377,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX + 79,cameraCoordsY + 24);
+				spr_testeDot.setPosition(cameraCoordsX - 10,cameraCoordsY + 65);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 89,cameraCoordsY + 1);
+				spr_testeDot.setPosition(cameraCoordsX - 30,cameraCoordsY + 78);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);  //hereteste
 				
@@ -579,17 +580,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
-		public void ShowBag() {
+				public void ShowBag() {
 				//Common Itens
 				for (int i = 0; i < 16; i++) {
 					spr_item = ShowItem(i);
 					if(spr_item != null) {				
 						spr_item.draw(game.batch);
-						font_master.draw(game.batch, ShowQuantityItem(i), spr_item.getX() + 9,spr_item.getY() + 7);
 					}
 				}	
+				for (int i = 0; i < 16; i++) {
+					spr_item = ShowItem(i);
+					if(spr_item != null) {				
+						font_master.draw(game.batch, ShowQuantityItem(i), spr_item.getX() + 9,spr_item.getY() + 7);
+					}
+				}
 						
-				font_master.draw(game.batch, "teste", cameraCoordsX - 40,cameraCoordsY + 45);
 				//Crystal Itens    
 				//slot 1
 				if(!player.Crystal1_A.equals("none")) {
@@ -1302,6 +1307,24 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			return 1000;
 		}
+		
+		//Hotkey
+		public void HotKeyItem(int itemNum) {
+			String[] lstItem = player.Itens_A.split("-");
+			String[] itemSplit = lstItem[itemNum].split("#");
+			String item = "";
+			hotketcountitem = itemNum;
+						
+			item = itemSplit[0].replace("[", "");
+			
+			
+			if(item.equals("hpcan")) { player.hotkey1_A = item; return; }
+			if(item.equals("garrafadrink")) { player.hotkey1_A = item; return; }
+			if(item.equals("mpcan")) { player.hotkey1_A = item; return; }
+			if(item.equals("garrafamagica")) { player.hotkey1_A = item; return; }
+			if(item.equals("stcan")) { player.hotkey1_A = item; return; }
+			if(item.equals("garrafasuco")) { player.hotkey1_A = item; return; }
+		}
 
 		@Override
 		public void input(String input) {
@@ -1566,13 +1589,24 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//[Menu State]//
 			if(state.equals("Menu")) {
 				
+				//Voltar
 				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 82 && coordsTouch.y > cameraCoordsY + 69 && coordsTouch.y < cameraCoordsY + 84) {
 					state = "Main";
 					return false;
 				}
 				
+				//Hotkey 1
+				if(coordsTouch.x > cameraCoordsX - 10 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY + 65 && coordsTouch.y < cameraCoordsY + 78) {
+					hotkey1 = true;
+					return false;
+				}
+				
+				
 				//Item 1
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					if(hotkey1) {
+						player.hotkey1_A = 
+					}
 					gameControl.UseItem(0);
 					return false;
 				}
