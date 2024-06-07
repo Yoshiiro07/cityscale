@@ -717,6 +717,14 @@ public class GameControl {
 			spr_master.setSize(10,25);
 			return spr_master;	
 		}
+		
+		
+		if(cardname.equals("cardhp")) {
+			spr_master = atlas_cards.createSprite("cardhp");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
 		if(cardname.equals("cardaction")) {
 			spr_master = atlas_cards.createSprite("cardaction");
 			spr_master.setSize(10,25);

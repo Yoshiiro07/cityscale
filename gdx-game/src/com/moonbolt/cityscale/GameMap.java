@@ -34,8 +34,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private Random randnumber;
 		private boolean network = false;
 		private String shopname = "";
-	    private boolean hotkey1 = false;
-	    private boolean hotkey2 = false;
+	    private String menuoption = "";
 		//Fonts
 		private BitmapFont font_master;
 		
@@ -64,6 +63,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private Sprite spr_item;
 		private String msgShowMenu = "Atualizado com sucesso";
 		private int msgShowTime = 0;
+		private int hotketcountitem1;
+		private int hotketcountitem2;
 		
 		//Monster
 		private ArrayList<Monster> listMonsters;
@@ -377,11 +378,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX - 10,cameraCoordsY + 65);
+				spr_testeDot.setPosition(cameraCoordsX + 79,cameraCoordsY - 6);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX - 30,cameraCoordsY + 78);
+				spr_testeDot.setPosition(cameraCoordsX + 89,cameraCoordsY - 30);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);  //hereteste
 				
@@ -1105,13 +1106,30 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void ShowCards() {
 			//Basic Cards
 			//Hotkey 1 / 2
-			spr_master = gameControl.GetCard("cardempty");
-			spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 30);
-			spr_master.draw(game.batch);
+			if(player.hotkey1_A.equals("none")) {
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
 			
-			spr_master = gameControl.GetCard("cardempty");
-			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
-			spr_master.draw(game.batch);
+			if(player.hotkey2_A.equals("none")) {
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+			
+			if(player.hotkey1_A.equals("hpcan")) {
+				spr_master = gameControl.GetCard("cardhp");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+			
+			if(player.hotkey2_A.equals("hpcan")) {
+				spr_master = gameControl.GetCard("cardhp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+			
 			
 			if(!player.Map_A.equals("Sewers")){
 				spr_master = gameControl.GetCard("cardaction");
@@ -1309,21 +1327,39 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		//Hotkey
-		public void HotKeyItem(int itemNum) {
+		public void HotKeyItem(int itemNum, int hotkeynum) {
 			String[] lstItem = player.Itens_A.split("-");
 			String[] itemSplit = lstItem[itemNum].split("#");
 			String item = "";
-			hotketcountitem = itemNum;
+			//hotketcountitem = itemNum;
+			
+			
+			if(hotkeynum == 1) {
+				hotketcountitem1 = itemNum;
+			}
+			
+			if(hotkeynum == 2) {
+				hotketcountitem2 = itemNum;
+			}
 						
 			item = itemSplit[0].replace("[", "");
 			
-			
-			if(item.equals("hpcan")) { player.hotkey1_A = item; return; }
-			if(item.equals("garrafadrink")) { player.hotkey1_A = item; return; }
-			if(item.equals("mpcan")) { player.hotkey1_A = item; return; }
-			if(item.equals("garrafamagica")) { player.hotkey1_A = item; return; }
-			if(item.equals("stcan")) { player.hotkey1_A = item; return; }
-			if(item.equals("garrafasuco")) { player.hotkey1_A = item; return; }
+			if(hotkeynum == 1) {
+				if(item.equals("hpcan")) { player.hotkey1_A = item; return; }
+				if(item.equals("garrafadrink")) { player.hotkey1_A = item; return; }
+				if(item.equals("mpcan")) { player.hotkey1_A = item; return; }
+				if(item.equals("garrafamagica")) { player.hotkey1_A = item; return; }
+				if(item.equals("stcan")) { player.hotkey1_A = item; return; }
+				if(item.equals("garrafasuco")) { player.hotkey1_A = item; return; }
+			}
+			if(hotkeynum == 2) {
+				if(item.equals("hpcan")) { player.hotkey2_A = item; return; }
+				if(item.equals("garrafadrink")) { player.hotkey2_A = item; return; }
+				if(item.equals("mpcan")) { player.hotkey2_A = item; return; }
+				if(item.equals("garrafamagica")) { player.hotkey2_A = item; return; }
+				if(item.equals("stcan")) { player.hotkey2_A = item; return; }
+				if(item.equals("garrafasuco")) { player.hotkey2_A = item; return; }
+			}
 		}
 
 		@Override
@@ -1567,6 +1603,22 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				
+				//hotkey1
+				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 72 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 6) {
+					if(!player.hotkey1_A.equals("none")) {
+						gameControl.UseItem(hotketcountitem1);
+					}
+					return false;
+				}
+				
+				//hotkey2
+				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 6) {
+					if(!player.hotkey2_A.equals("none")) {
+						gameControl.UseItem(hotketcountitem2);
+					}
+					return false;
+				}
+				
 				//Chat
 				if(coordsTouch.x > cameraCoordsX - 60 && coordsTouch.x < cameraCoordsX - 49 && coordsTouch.y > cameraCoordsY + 77 && coordsTouch.y < cameraCoordsY + 97) {
 					Gdx.input.getTextInput(this,"Digite sua mensagem","","");
@@ -1596,35 +1648,46 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Hotkey 1
-				if(coordsTouch.x > cameraCoordsX - 10 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY + 65 && coordsTouch.y < cameraCoordsY + 78) {
-					hotkey1 = true;
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 10 && coordsTouch.y > cameraCoordsY + 65 && coordsTouch.y < cameraCoordsY + 78) {
+					menuoption = "hotkey1";
+					return false;
+				}
+				
+				//Hotkey 2
+				if(coordsTouch.x > cameraCoordsX - 8 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 65 && coordsTouch.y < cameraCoordsY + 78) {
+					menuoption = "hotkey2";
 					return false;
 				}
 				
 				
 				//Item 1
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
-					if(hotkey1) {
-						player.hotkey1_A = 
-					}
+					if(menuoption.equals("hotkey1")) { HotKeyItem(0,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(0,2); menuoption = ""; return false; }
 					gameControl.UseItem(0);
 					return false;
 				}
 				
 				//Item 2
 				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(1,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(1,2); menuoption = ""; return false; }
 					gameControl.UseItem(1);
 					return false;
 				}
 				
 				//Item 3
 				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(2,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(2,2); menuoption = ""; return false; }
 					gameControl.UseItem(2);
 					return false;
 				}
 				
 				//Item 4
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(3,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(3,2); menuoption = ""; return false; }
 					gameControl.UseItem(3);
 					return false;
 				}
@@ -1633,72 +1696,96 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Item 5
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(4,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(4,2); menuoption = ""; return false; }
 					gameControl.UseItem(4);
 					return false;
 				}
 				
 				//Item 6
 				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(5,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(5,2); menuoption = ""; return false; }
 					gameControl.UseItem(5);
 					return false;
 				}
 				
 				//Item 7
 				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(6,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(6,2); menuoption = ""; return false; }
 					gameControl.UseItem(6);
 					return false;
 				}
 				
 				//Item 8
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(7,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(7,2); menuoption = ""; return false; }
 					gameControl.UseItem(7);
 					return false;
 				}
 				
 				//Item 9
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(8,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(8,2); menuoption = ""; return false; }
 					gameControl.UseItem(8);
 					return false;
 				}
 				
 				//Item 10
 				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(9,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(9,2); menuoption = ""; return false; }
 					gameControl.UseItem(9);
 					return false;
 				}
 				
 				//Item 11
 				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(10,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(10,2); menuoption = ""; return false;  }
 					gameControl.UseItem(10);
 					return false;
 				}
 				
 				//Item 12
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(11,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(11,2); menuoption = ""; return false;  }
 					gameControl.UseItem(11);
 					return false;
 				}
 				
 				//Item 13
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(12,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(12,2); menuoption = ""; return false;  }
 					gameControl.UseItem(12);
 					return false;
 				}
 				
 				//Item 14
 				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(13,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(13,2); menuoption = ""; return false;  }
 					gameControl.UseItem(13);
 					return false;
 				}
 				
 				//Item 15
 				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(14,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(14,2); menuoption = ""; return false;  }
 					gameControl.UseItem(14);
 					return false;
 				}
 				
 				//Item 16
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(15,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(15,2); menuoption = ""; return false;  }
 					gameControl.UseItem(15);
 					return false;
 				}
