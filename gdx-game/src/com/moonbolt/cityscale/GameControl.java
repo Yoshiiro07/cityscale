@@ -71,7 +71,17 @@ public class GameControl {
 	private TextureAtlas atlas_mobSewers;
 	
 	private TextureAtlas atlas_items;
-	private TextureAtlas atlas_weapons;
+	
+	private TextureAtlas atlas_weapongeneric;
+	private TextureAtlas atlas_nknifes;
+	private TextureAtlas atlas_swords;
+	private TextureAtlas atlas_rods;
+	private TextureAtlas atlas_axes;
+	private TextureAtlas atlas_pistols;
+	private TextureAtlas atlas_daggers;
+	
+	
+	
 	
 		
 	public GameControl() {
@@ -107,7 +117,14 @@ public class GameControl {
 		atlas_cards = new TextureAtlas(Gdx.files.internal("data/assets/skills/cards.txt"));
 		
 		atlas_items = new TextureAtlas(Gdx.files.internal("data/assets/itens/itens/itens.txt"));
-		atlas_weapons = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/nknifes.txt"));
+		
+		atlas_weapongeneric = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/nknifes.txt"));
+		atlas_nknifes = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/nknifes.txt"));
+		atlas_swords = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/swords.txt"));
+		atlas_rods = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/rods.txt"));
+		atlas_axes = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/axes.txt"));
+		atlas_pistols = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/pistols.txt"));
+		atlas_daggers = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/daggers.txt"));
 		
 		atlas_shops = new TextureAtlas(Gdx.files.internal("data/assets/ux/shops.txt"));
 
@@ -1099,8 +1116,15 @@ public class GameControl {
 				spr_master.setScale(0.2f,0.4f);							
 			}
 			
+			if(player.playerInAttack_A.equals("yes")){
+				if(player.Frame_A == 3) { player.Frame_A = 1; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack4");
+				spr_master.setPosition(posX -25,posY -5);
+				spr_master.setScale(0.2f,0.4f);							
+			}
+			
 			//basictopM_sit
-			if(player.playerInAttack_A.equals("yes")) {
+			if(player.playerSit_A.equals("yes")) {
 				player.Frame_A = 1;
 				player.Side_A = "front";
 				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack3");
@@ -1800,6 +1824,39 @@ public class GameControl {
 				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 700; player.Crystal4_A = "none";  return; }
 			}
 			
+			
+			public Sprite SetWeapon(Player playerUse) {   
+				
+				//player.playerInBattle = "no";
+				//playerInAttack = true;
+				
+				if(playerUse.Job_A.equals("Aprendiz")) { atlas_weapongeneric = atlas_nknifes; }
+				if(playerUse.Job_A.equals("Espadachim")) { atlas_weapongeneric = atlas_swords; }
+				if(playerUse.Job_A.equals("Feiticeiro")) { atlas_weapongeneric = atlas_rods; }
+				if(playerUse.Job_A.equals("Batedor")) { atlas_weapongeneric = atlas_axes; }
+				if(playerUse.Job_A.equals("Pistoleiro")) { atlas_weapongeneric = atlas_pistols; }
+				if(playerUse.Job_A.equals("Medico")) { atlas_weapongeneric = atlas_rods; }
+				if(playerUse.Job_A.equals("Ladrao")) { atlas_weapongeneric = atlas_daggers; }
+					
+				playerUse.playerInAttack_A = "yes";
+				if(playerUse.playerInBattle_A.equals("yes")) {
+					if(playerUse.Job_A.equals("Aprendiz")) {
+						if(playerUse.Weapon_A.equals("basic_knife")) { spr_master = atlas_nknifes.createSprite("basic_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 13.5f, playerUse.PosY_A + 11f); }
+						if(playerUse.Weapon_A.equals("doubleedge_knife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(6, 11); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
+					}
+				}
+				
+				if(playerUse.playerInAttack_A.equals("yes")) {
+					if(playerUse.Job_A.equals("Aprendiz")) {
+						if(playerUse.Weapon_A.equals("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knife_attack_right"); spr_master.setSize(12, 18); spr_master.setPosition(playerUse.PosX_A + 2.2f, playerUse.PosY_A + 2f);  }
+						if(playerUse.Weapon_A.equals("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(6, 11); spr_master.setPosition(playerUse.PosX_A + 2.2f, playerUse.PosY_A + 2f);  }
+					}
+				}
+				
+				return spr_master;
+				
+			}
+			
 			public void AddItemBag(String itemName) {
 				String[] lstItem = player.Itens_A.split("-");
 				String[] itemSplit;
@@ -1840,6 +1897,39 @@ public class GameControl {
 						player.Itens_A = listaItemFinal;
 					}
 				}
+			}
+			
+			public void DiscartItem(int itemNum) {
+				String[] lstItem = player.Itens_A.split("-");
+				String listaItemFinal = "";
+				String[] itemSplit;
+				String item;
+				String itemName;
+				int qtd;
+				int money = 0;
+				
+				//Get Item
+				item = lstItem[itemNum];
+				if(item.equals("[NONE]")) { return; }
+					
+				//Check quantity
+				itemSplit = item.split("#");
+				itemName = itemSplit[0].replace("[", "");
+				qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+				
+				//Give Money
+				money = player.Money_A;
+				if(money > 5000) { return; }
+				int moneygave = randnumber.nextInt(5);
+				while(moneygave < 2) { moneygave = randnumber.nextInt(5); }
+				money = money + (moneygave * 2);
+				player.Money_A = money;
+				
+				//Clean Item placebox
+				lstItem[itemNum] = "[NONE]";
+				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+				player.Itens_A = listaItemFinal;	
 			}
 			
 			//Shops

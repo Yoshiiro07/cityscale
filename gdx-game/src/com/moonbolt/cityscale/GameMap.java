@@ -238,6 +238,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				spr_playertop = gameControl.GetTopChar(player, "no", 0,0);
 				spr_playertop.draw(game.batch);
+				
+				player.playerInAttack_A = "yes";
+				if(player.playerInBattle_A.equals("yes") || player.playerInBattle_A.equals("yes") || player.playerInBattle_A.equals("yes")) {
+					spr_playerweapon = gameControl.SetWeapon(player);
+					spr_playerweapon.draw(game.batch);
+				}
 
 				//Show Mobs
 				if(player.Map_A.equals("Sewers")){
