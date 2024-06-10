@@ -227,19 +227,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Char
 				player = gameControl.SetCharMov(player, player.breakwalk_A);
-				spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
-				spr_playerhair.draw(game.batch);
 				
 				spr_playerfooter = gameControl.GetFooterChar(player, "no",0,0);
 				spr_playerfooter.draw(game.batch);
 				
 				spr_playerbottom = gameControl.GetBottomChar(player, "no",0,0);
 				spr_playerbottom.draw(game.batch);
-				
+								
 				spr_playertop = gameControl.GetTopChar(player, "no", 0,0);
 				spr_playertop.draw(game.batch);
 				
-				player.playerInAttack_A = "yes";
+				spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
+				spr_playerhair.draw(game.batch);
+				
 				if(player.playerInBattle_A.equals("yes") || player.playerInBattle_A.equals("yes") || player.playerInBattle_A.equals("yes")) {
 					spr_playerweapon = gameControl.SetWeapon(player);
 					spr_playerweapon.draw(game.batch);
@@ -303,6 +303,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				ShowDamage();
 				
 				if(playerDead) { ShowPlayerDead(); }
+				
+				
+				//Item Drop
+				if(showDropMsg > 0) {
+					spr_master = gameControl.GetUX("textbar", cameraCoordsX, cameraCoordsY);
+					spr_master.setPosition(cameraCoordsX - 40, cameraCoordsY + 29);
+					spr_master.setSize(80, 20);
+					spr_master.draw(game.batch);
+					font_master.draw(game.batch, itemdropname, cameraCoordsX - 38, cameraCoordsY + 42);
+					showDropMsg--;
+				}
 
 				if(state.equals("Menu")){
 					spr_master = gameControl.GetUX("menu", cameraCoordsX, cameraCoordsY);
@@ -424,6 +435,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void CheckAutoAttack() {
+			
 			if(player.Map_A.equals("Sewers") && autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
@@ -434,15 +446,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							player.playerInBattle_A = "yes";
 							player.AtkTimer_A--;
 							
-							//if(player.AtkTimer_A < (player.AtkTimerMax_A - 10) && player.playerInAttack_A.equals("yes")) {
-							//	player.playerInAttack_A = "no";
-							//}a
-							
 							if(player.AtkTimer_A <= 0) { 	
 								int atkweapon = CheckWeapon();
 								int mobhp = listMonsters.get(i).MobHp; //CheckDamageDifer(lstMobs.get(i).MobHpMax, 1);
 								int damagehit = player.Atk_A + atkweapon + player.Str_A;
 								player.playerInAttack_A = "yes";
+								player.AtkTimer_A = player.AtkTimerMax_A;
+								listMonsters.get(i).MobTarget = player.Name_A;
+								gameControl.SetAttackFrame();
 								
 								if(CheckMobEvade()) { 
 									Damage damage = new Damage();
@@ -455,70 +466,33 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									return; 
 								}
 								
-								if(network) {
-									int mobHpGet = listMonsters.get(i).MobHp;
-									int st = player.Stamina_A;
-									if(st > 0) { mobHpGet =  mobHpGet - damagehit;  } else {  mobHpGet =  mobHpGet - 5; }								
-									//OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHpGet));
-									if(mobHpGet < 0) { mobHpGet = 0; }
-									if(mobHpGet <= 0) { 					
-										player.Target_A = "none";
-										player.AtkTimer_A = player.AtkTimerMax_A;
-										player.playerInBattle_A = "no";
-									    player.playerInAttack_A = "no";
-									    player.playerInCast_A = "no";	
-									    autoattack = false;
-									    
-									    ItemDrop(listMonsters.get(i).MobName);
-									    player.Money_A = player.Money_A + 2;
-									    GiveExp(listMonsters.get(i).MobExp);
-									    return;
-									}									
-									Damage damage = new Damage();
-									damage.DamagePosX = listMonsters.get(i).MobPosX;
-									damage.DamagePosY = listMonsters.get(i).MobPosY;
-									damage.DamageTime = 100;
-									damage.DamageType = "mob";
-									damage.DamageValue = damagehit;
-									listDamage.add(damage);
+								int st = player.Stamina_A;
+								if(st > 0) { mobhp = mobhp - damagehit;  } else {  mobhp = mobhp - 5; }								
+								if(mobhp < 0) { mobhp = 0; }
+								listMonsters.get(i).MobHp = mobhp;
+								
+								if(listMonsters.get(i).MobHp <= 0) { 
 									
+									player.Target_A = "none";
 									player.AtkTimer_A = player.AtkTimerMax_A;
-									player.playerInAttack_A = "yes";
-									listMonsters.get(i).MobTarget = player.Name_A;	
+									player.playerInBattle_A = "no";
+								    player.playerInAttack_A = "no";
+								    player.playerInCast_A = "no";	
+								    autoattack = false;
+								    
+								    ItemDrop(listMonsters.get(i).MobName);
+								    player.Money_A = player.Money_A + 2;
+								    GiveExp(listMonsters.get(i).MobExp);
+								    return;
 								}
-								else {
-									int st = player.Stamina_A;
-									if(st > 0) { mobhp = mobhp - damagehit;  } else {  mobhp = mobhp - 5; }								
-									if(mobhp < 0) { mobhp = 0; }
-									listMonsters.get(i).MobHp = mobhp;
-									
-									if(listMonsters.get(i).MobHp <= 0) { 
-										
-										player.Target_A = "none";
-										player.AtkTimer_A = player.AtkTimerMax_A;
-										player.playerInBattle_A = "no";
-									    player.playerInAttack_A = "no";
-									    player.playerInCast_A = "no";	
-									    autoattack = false;
-									    
-									    ItemDrop(listMonsters.get(i).MobName);
-									    player.Money_A = player.Money_A + 2;
-									    GiveExp(listMonsters.get(i).MobExp);
-									    return;
-									}
-									
-									Damage damage = new Damage();
-									damage.DamagePosX = listMonsters.get(i).MobPosX;
-									damage.DamagePosY = listMonsters.get(i).MobPosY;
-									damage.DamageTime = 100;
-									damage.DamageType = "mob";
-									damage.DamageValue = damagehit;
-									listDamage.add(damage);
-									
-									player.AtkTimer_A = player.AtkTimerMax_A;
-									player.playerInAttack_A = "yes";
-									listMonsters.get(i).MobTarget = player.Name_A;	
-								}			
+								
+								Damage damage = new Damage();
+								damage.DamagePosX = listMonsters.get(i).MobPosX;
+								damage.DamagePosY = listMonsters.get(i).MobPosY;
+								damage.DamageTime = 100;
+								damage.DamageType = "mob";
+								damage.DamageValue = damagehit;
+								listDamage.add(damage);											
 							}					
 						}
 						else {
@@ -1059,11 +1033,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void ItemDrop(String mob) {
 			int chance = randnumber.nextInt(100);
 			
-			if(mob.equals("slime"))
-			if(chance <= 40) { AddItemBag("hpcan"); itemdropname = "Refri de HP"; showDropMsg = 100; return; }
-			if(chance >= 40 && chance <= 95) { AddItemBag("hpcan"); itemdropname = "Refri de HP"; showDropMsg = 100; return; }
-			if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); itemdropname = "Refri de HP"; showDropMsg = 100; return; }
-			if(chance >= 98) { AddItemBag("hpcan"); itemdropname = "Refri de HP"; showDropMsg = 100; return; }
+			if(mob.equals("slime")) {
+				if(chance <= 40) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
+				if(chance >= 40 && chance <= 95) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
+				if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
+				if(chance >= 98) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP pequeno (P)"; showDropMsg = 100; return; }
+			}
+		
 		}
 
 		public void AddItemBag(String itemName) {

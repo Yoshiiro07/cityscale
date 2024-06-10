@@ -28,6 +28,7 @@ public class GameControl {
 	private FileHandle file;
 	private Random randnumber;
 	private Player player;
+	private int FrameAtkPlayer = 0;
 	
 	private ArrayList<Monster> lstMonsters;
 	private Monster placeholderMonster;
@@ -995,6 +996,10 @@ public class GameControl {
 	
 	
 	//[Char movement]//
+	public void SetAttackFrame() {
+		FrameAtkPlayer = 30;
+	}
+	
 	public Player SetCharMov(Player playerUse, String type) {			
 		//Check MovePosition
 		if(playerUse.Walk_A.equals("walk")) {
@@ -1117,10 +1122,17 @@ public class GameControl {
 			}
 			
 			if(player.playerInAttack_A.equals("yes")){
+				if(FrameAtkPlayer > 0) {
 				if(player.Frame_A == 3) { player.Frame_A = 1; }
-				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack4");
-				spr_master.setPosition(posX -25,posY -5);
-				spr_master.setScale(0.2f,0.4f);							
+					spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack4");
+					spr_master.setPosition(posX -25,posY -5);
+					spr_master.setScale(0.2f,0.4f);	
+					FrameAtkPlayer--;
+				}
+				if(FrameAtkPlayer <= 0) {
+					FrameAtkPlayer = 0;
+					player.playerInAttack_A = "no";
+				}
 			}
 			
 			//basictopM_sit
@@ -1838,18 +1850,17 @@ public class GameControl {
 				if(playerUse.Job_A.equals("Medico")) { atlas_weapongeneric = atlas_rods; }
 				if(playerUse.Job_A.equals("Ladrao")) { atlas_weapongeneric = atlas_daggers; }
 					
-				playerUse.playerInAttack_A = "yes";
 				if(playerUse.playerInBattle_A.equals("yes")) {
 					if(playerUse.Job_A.equals("Aprendiz")) {
 						if(playerUse.Weapon_A.equals("basic_knife")) { spr_master = atlas_nknifes.createSprite("basic_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 13.5f, playerUse.PosY_A + 11f); }
-						if(playerUse.Weapon_A.equals("doubleedge_knife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(6, 11); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
+						if(playerUse.Weapon_A.equals("doubleedge_knife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
 					}
 				}
 				
 				if(playerUse.playerInAttack_A.equals("yes")) {
 					if(playerUse.Job_A.equals("Aprendiz")) {
-						if(playerUse.Weapon_A.equals("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knife_attack_right"); spr_master.setSize(12, 18); spr_master.setPosition(playerUse.PosX_A + 2.2f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(6, 11); spr_master.setPosition(playerUse.PosX_A + 2.2f, playerUse.PosY_A + 2f);  }
+						if(playerUse.Weapon_A.equals("basic_knife")) { spr_master = atlas_nknifes.createSprite("basic_knife_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+						if(playerUse.Weapon_A.equals("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
 					}
 				}
 				
