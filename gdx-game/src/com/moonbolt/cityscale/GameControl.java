@@ -1462,7 +1462,33 @@ public class GameControl {
 			if(nameItem.equals("basicfooter")) { spr_master = atlas_items.createSprite("basicfooterF"); }
 		}
 		
+		//Facas Aprendiz
 		if(nameItem.equals("basic_knife")) { spr_master = atlas_items.createSprite("basicknife"); }
+		if(nameItem.equals("doubleedge_knife")) { spr_master = atlas_items.createSprite("doubleedgeknife"); }
+		
+		//Espadas
+		if(nameItem.equals("wood_sword")) { spr_master = atlas_items.createSprite("woodsword"); }
+		if(nameItem.equals("saber_sword")) { spr_master = atlas_items.createSprite("sabersword"); }
+		if(nameItem.equals("edge_sword")) { spr_master = atlas_items.createSprite("edgesword"); }
+		if(nameItem.equals("knight_sword")) { spr_master = atlas_items.createSprite("knightsword"); }
+		if(nameItem.equals("rage_sword")) { spr_master = atlas_items.createSprite("ragesword"); }
+		if(nameItem.equals("curved_sword")) { spr_master = atlas_items.createSprite("curvedsword"); }
+		if(nameItem.equals("cristal_sword")) { spr_master = atlas_items.createSprite("cristalsword"); }
+		if(nameItem.equals("serpent_sword")) { spr_master = atlas_items.createSprite("serpentsword"); }
+		if(nameItem.equals("flame_sword")) { spr_master = atlas_items.createSprite("flamesword"); }
+		
+		
+		//Cajados
+		if(nameItem.equals("stick_rod")) { spr_master = atlas_items.createSprite("stickrod"); }
+		if(nameItem.equals("gloom_rod")) { spr_master = atlas_items.createSprite("gloomrod"); }
+		if(nameItem.equals("doubleedge_knife")) { spr_master = atlas_items.createSprite("doubleedgeknife"); }
+		if(nameItem.equals("doubleedge_knife")) { spr_master = atlas_items.createSprite("doubleedgeknife"); }
+		if(nameItem.equals("lightwieldrod")) { spr_master = atlas_items.createSprite("lightwieldrod"); }
+		if(nameItem.equals("clerig_rod")) { spr_master = atlas_items.createSprite("clerigrod"); }
+		if(nameItem.equals("death_rod")) { spr_master = atlas_items.createSprite("deathrod"); }
+		if(nameItem.equals("butterfly_rod")) { spr_master = atlas_items.createSprite("butterflyrod"); }
+		if(nameItem.equals("star_rod")) { spr_master = atlas_items.createSprite("starrod"); }
+		
 		
 		if(nameItem.equals("hpcan")) { spr_master = atlas_items.createSprite("hpcan"); }
 		if(nameItem.equals("mpcan")) { spr_master = atlas_items.createSprite("mpcan"); }
