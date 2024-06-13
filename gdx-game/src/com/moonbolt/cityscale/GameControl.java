@@ -1139,23 +1139,10 @@ public class GameControl {
 			if(player.playerSit_A.equals("yes")) {
 				player.Frame_A = 1;
 				player.Side_A = "front";
-				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack3");
-				spr_master.setPosition(posX -25,posY -5);
-				spr_master.setScale(0.2f,0.4f);	
-			}
-			
-			
-			//basictopM_sit
-			if(player.playerSit_A.equals("yes")) {
-				player.Frame_A = 1;
-				player.Side_A = "front";
 				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_sit");
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
-			
-			
-			
 		}
 
 		//[FEMALE]//
@@ -1469,6 +1456,7 @@ public class GameControl {
 		//Espadas
 		if(nameItem.equals("wood_sword")) { spr_master = atlas_items.createSprite("woodsword"); }
 		if(nameItem.equals("saber_sword")) { spr_master = atlas_items.createSprite("sabersword"); }
+		if(nameItem.equals("venom_sword")) { spr_master = atlas_items.createSprite("venomsword"); }
 		if(nameItem.equals("edge_sword")) { spr_master = atlas_items.createSprite("edgesword"); }
 		if(nameItem.equals("knight_sword")) { spr_master = atlas_items.createSprite("knightsword"); }
 		if(nameItem.equals("rage_sword")) { spr_master = atlas_items.createSprite("ragesword"); }
@@ -1481,13 +1469,35 @@ public class GameControl {
 		//Cajados
 		if(nameItem.equals("stick_rod")) { spr_master = atlas_items.createSprite("stickrod"); }
 		if(nameItem.equals("gloom_rod")) { spr_master = atlas_items.createSprite("gloomrod"); }
-		if(nameItem.equals("doubleedge_knife")) { spr_master = atlas_items.createSprite("doubleedgeknife"); }
-		if(nameItem.equals("doubleedge_knife")) { spr_master = atlas_items.createSprite("doubleedgeknife"); }
-		if(nameItem.equals("lightwieldrod")) { spr_master = atlas_items.createSprite("lightwieldrod"); }
+		if(nameItem.equals("gem_rod")) { spr_master = atlas_items.createSprite("gemrod"); }
+		if(nameItem.equals("lightwield_rod")) { spr_master = atlas_items.createSprite("lightwieldrod"); }
+		if(nameItem.equals("serpent_rod")) { spr_master = atlas_items.createSprite("serpentrod"); }
 		if(nameItem.equals("clerig_rod")) { spr_master = atlas_items.createSprite("clerigrod"); }
 		if(nameItem.equals("death_rod")) { spr_master = atlas_items.createSprite("deathrod"); }
 		if(nameItem.equals("butterfly_rod")) { spr_master = atlas_items.createSprite("butterflyrod"); }
 		if(nameItem.equals("star_rod")) { spr_master = atlas_items.createSprite("starrod"); }
+		
+		//Pistolas
+		if(nameItem.equals("basic_pistol")) { spr_master = atlas_items.createSprite("basicpistol"); }
+		if(nameItem.equals("revolver_pistol")) { spr_master = atlas_items.createSprite("revolverpistol"); }
+		if(nameItem.equals("light_pistol")) { spr_master = atlas_items.createSprite("lightpistol"); }
+		if(nameItem.equals("turret_pistol")) { spr_master = atlas_items.createSprite("turretpistol"); }
+		if(nameItem.equals("rifle_pistol")) { spr_master = atlas_items.createSprite("riflepistol"); }
+		if(nameItem.equals("shooter_pistol")) { spr_master = atlas_items.createSprite("shooterpistol"); }
+		if(nameItem.equals("heavymachine_pistol")) { spr_master = atlas_items.createSprite("heavymachinepistol"); }
+		if(nameItem.equals("cannon_pistol")) { spr_master = atlas_items.createSprite("cannonpistol"); }
+		if(nameItem.equals("shark_pistol")) { spr_master = atlas_items.createSprite("sharkpistol"); }
+		
+		//Facas
+		if(nameItem.equals("basic_dagger")) { spr_master = atlas_items.createSprite("basicdagger"); }
+		if(nameItem.equals("revolver_pistol")) { spr_master = atlas_items.createSprite("revolverpistol"); }
+		if(nameItem.equals("light_pistol")) { spr_master = atlas_items.createSprite("lightpistol"); }
+		if(nameItem.equals("turret_pistol")) { spr_master = atlas_items.createSprite("turretpistol"); }
+		if(nameItem.equals("rifle_pistol")) { spr_master = atlas_items.createSprite("riflepistol"); }
+		if(nameItem.equals("shooter_pistol")) { spr_master = atlas_items.createSprite("shooterpistol"); }
+		if(nameItem.equals("poison_dagger")) { spr_master = atlas_items.createSprite("poisondagger"); }
+		if(nameItem.equals("marine_dagger")) { spr_master = atlas_items.createSprite("marinedagger"); }
+		if(nameItem.equals("thunder_dagger")) { spr_master = atlas_items.createSprite("thunderdagger"); }
 		
 		
 		if(nameItem.equals("hpcan")) { spr_master = atlas_items.createSprite("hpcan"); }
@@ -1878,6 +1888,10 @@ public class GameControl {
 					
 				if(playerUse.playerInBattle_A.equals("yes")) {
 					if(playerUse.Job_A.equals("Aprendiz")) {
+						if(playerUse.Weapon_A.equals("basic_knife")) { spr_master = atlas_nknifes.createSprite("basic_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 13.5f, playerUse.PosY_A + 11f); }
+						if(playerUse.Weapon_A.equals("doubleedge_knife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
+					}
+					if(playerUse.Job_A.equals("Espadachim")) {
 						if(playerUse.Weapon_A.equals("basic_knife")) { spr_master = atlas_nknifes.createSprite("basic_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 13.5f, playerUse.PosY_A + 11f); }
 						if(playerUse.Weapon_A.equals("doubleedge_knife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
 					}
