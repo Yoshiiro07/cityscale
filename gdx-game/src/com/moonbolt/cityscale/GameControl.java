@@ -2127,6 +2127,15 @@ public class GameControl {
 						if(playerUse.Weapon_A.equals("serpentrod")) { spr_master = atlas_nknifes.createSprite("serpent_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
 						if(playerUse.Weapon_A.equals("clerigrod")) { spr_master = atlas_nknifes.createSprite("clerig_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
 					}
+					
+					if(playerUse.Job_A.equals("Ladrao")) {
+						if(playerUse.Weapon_A.equals("basic_pistol")) { spr_master = atlas_nknifes.createSprite("stick_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+						if(playerUse.Weapon_A.equals("gloomrod")) { spr_master = atlas_nknifes.createSprite("gloom_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+						if(playerUse.Weapon_A.equals("gemrod")) { spr_master = atlas_nknifes.createSprite("gem_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+						if(playerUse.Weapon_A.equals("lightwieldrod")) { spr_master = atlas_nknifes.createSprite("lightwield_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+						if(playerUse.Weapon_A.equals("serpentrod")) { spr_master = atlas_nknifes.createSprite("serpent_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+						if(playerUse.Weapon_A.equals("clerigrod")) { spr_master = atlas_nknifes.createSprite("clerig_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+					}
 				}
 				
 				return spr_master;
