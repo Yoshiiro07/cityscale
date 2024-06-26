@@ -395,13 +395,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX + 79,cameraCoordsY - 6);
+				spr_testeDot.setPosition(cameraCoordsX + 79,cameraCoordsY - 66);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 89,cameraCoordsY - 30);
+				spr_testeDot.setPosition(cameraCoordsX + 88,cameraCoordsY - 90);
 				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);  //hereteste
+				spr_testeDot.draw(game.batch);
 				
 				game.batch.end();
 			}
@@ -1570,6 +1570,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Target
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
 					ChangeTarget();
+					return false;
+				}
+				//Skill 1
+				if(coordsTouch.x > cameraCoordsX + 47 && coordsTouch.x < cameraCoordsX + 56 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {
+					
+					return false;
+				}
+				//Skill 2
+				if(coordsTouch.x > cameraCoordsX + 63 && coordsTouch.x < cameraCoordsX + 72 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {
+					
+					return false;
+				}
+				//Skill 3
+				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {
+					
 					return false;
 				}
 				//Sit 
