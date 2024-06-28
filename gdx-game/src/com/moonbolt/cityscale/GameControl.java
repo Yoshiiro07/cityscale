@@ -35,6 +35,7 @@ public class GameControl {
 	
 	//Sprite
 	private Sprite spr_master;
+	private Sprite spr_skill;
 	
 	//Online
 	private ArrayList<Player> lstOnlinePlayers;
@@ -80,6 +81,37 @@ public class GameControl {
 	private TextureAtlas atlas_axes;
 	private TextureAtlas atlas_pistols;
 	private TextureAtlas atlas_daggers;
+	
+	
+	private TextureAtlas atlas_tripleattack;
+    private TextureAtlas atlas_rockbound;
+    private TextureAtlas atlas_regen;
+    private TextureAtlas atlas_steal;
+    private TextureAtlas atlas_soulclash;
+    private TextureAtlas atlas_ravenblade;
+    private TextureAtlas atlas_ragebound;
+    private TextureAtlas atlas_thundercloud;
+    private TextureAtlas atlas_lockshot;
+    private TextureAtlas atlas_mine;
+    private TextureAtlas atlas_overpower;
+    private TextureAtlas atlas_poisonhit;
+    private TextureAtlas atlas_precision;
+    private TextureAtlas atlas_protect;
+    private TextureAtlas atlas_healthboost;
+    private TextureAtlas atlas_holyprism;
+    private TextureAtlas atlas_icecrystal;
+    private TextureAtlas atlas_impound;
+    private TextureAtlas atlas_invisibility;
+    private TextureAtlas atlas_ironshield;
+    private TextureAtlas atlas_doublehit;
+    private TextureAtlas atlas_fastshot;
+    private TextureAtlas atlas_fireball;
+    private TextureAtlas atlas_flysword;
+    private TextureAtlas atlas_heal;
+    private TextureAtlas atlas_boost;
+    private TextureAtlas atlas_berserk;
+    private TextureAtlas atlas_bulletrain;
+    private TextureAtlas atlas_dashkick;
 	
 	
 	
@@ -128,6 +160,35 @@ public class GameControl {
 		atlas_daggers = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/daggers.txt"));
 		
 		atlas_shops = new TextureAtlas(Gdx.files.internal("data/assets/ux/shops.txt"));
+		
+		atlas_tripleattack = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/tripleattack.txt"));
+		atlas_rockbound = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/rockbound.txt"));
+		atlas_regen = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/regen.txt"));
+		atlas_steal = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/steal.txt"));
+		atlas_soulclash = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/soulclash.txt"));
+		atlas_ravenblade = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/ravenblade.txt"));
+		atlas_ragebound = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/ragebound.txt"));
+		atlas_thundercloud = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/thundercloud.txt"));
+		atlas_lockshot = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/lockshot.txt"));
+		atlas_mine = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/mine.txt"));
+		atlas_overpower = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/overpower.txt"));
+		atlas_poisonhit = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/poisonhit.txt"));
+		atlas_precision = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/precision.txt"));
+		atlas_protect = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/protect.txt"));
+		atlas_healthboost = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/healthboost.txt"));
+		atlas_holyprism = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/holyprism.txt"));
+		atlas_icecrystal = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/icecrystal.txt"));
+		atlas_impound = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/impound.txt"));
+		atlas_invisibility = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/invisibility.txt"));
+		atlas_ironshield = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/ironshield.txt"));
+		atlas_doublehit = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/doublehit.txt"));
+		atlas_fastshot = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/fastshot.txt"));
+		atlas_fireball = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/fireball.txt"));
+		atlas_flysword = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/flysword.txt"));
+		atlas_boost = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/boost.txt"));
+		atlas_berserk = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/berserk.txt"));
+		atlas_bulletrain = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/bulletrain.txt"));
+		atlas_dashkick = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/dashkick.txt"));
 
 	}
 	
@@ -2237,6 +2298,41 @@ public class GameControl {
 				
 				return SysMsg;
 			}
+			
+			public Sprite GetSpriteSkill(String skillname, int num) {
+				
+				if(skillname.equals("tripleattack")) { spr_master = atlas_tripleattack.createSprite("tripleattack"+num); }
+				if(skillname.equals("steal")) { spr_master = atlas_steal.createSprite("steal"+num); }
+				if(skillname.equals("soulclash")) { spr_master = atlas_soulclash.createSprite("soulclash"+num); }
+				if(skillname.equals("ravenblade")) { spr_master = atlas_ravenblade.createSprite("ravenblade"+num); }
+				if(skillname.equals("ragebound")) { spr_master = atlas_ragebound.createSprite("ragebound"+num); }
+				if(skillname.equals("thundercloud")) { spr_master = atlas_thundercloud.createSprite("thundercloud"+num); }
+				if(skillname.equals("lockshot")) { spr_master = atlas_lockshot.createSprite("lockshot"+num); }
+				if(skillname.equals("mine")) { spr_master = atlas_mine.createSprite("mine"+num); }
+				if(skillname.equals("overpower")) { spr_master = atlas_overpower.createSprite("overpower"+num); }
+				if(skillname.equals("poisonhit")) { spr_master = atlas_poisonhit.createSprite("poisonhit"+num); }
+				if(skillname.equals("precision")) { spr_master = atlas_precision.createSprite("precision"+num); }
+				if(skillname.equals("protect")) { spr_master = atlas_protect.createSprite("protect"+num); }
+				if(skillname.equals("healthboost")) { spr_master = atlas_healthboost.createSprite("healthboost"+num); }
+				if(skillname.equals("holyprism")) { spr_master = atlas_holyprism.createSprite("holyprism"+num); }
+				if(skillname.equals("icecrystal")) { spr_master = atlas_icecrystal.createSprite("icecrystal"+num); }
+				if(skillname.equals("impound")) { spr_master = atlas_impound.createSprite("impound"+num); }
+				if(skillname.equals("invisibility")) { spr_master = atlas_invisibility.createSprite("invisibility"+num); }
+				if(skillname.equals("ironshield")) { spr_master = atlas_ironshield.createSprite("ironshield"+num); }
+				if(skillname.equals("doublehit")) { spr_master = atlas_doublehit.createSprite("doublehit"+num); }
+				if(skillname.equals("fastshot")) { spr_master = atlas_fastshot.createSprite("fastshot"+num); }
+				if(skillname.equals("fireball")) { spr_master = atlas_fireball.createSprite("fireball"+num); }
+				if(skillname.equals("flysword")) { spr_master = atlas_flysword.createSprite("flysword"+num); }
+				if(skillname.equals("heal")) { spr_master = atlas_heal.createSprite("heal"+num); }
+				if(skillname.equals("boost")) { spr_master = atlas_boost.createSprite("boost"+num); }
+				if(skillname.equals("berserk")) { spr_master = atlas_berserk.createSprite("berserk"+num); }
+				if(skillname.equals("bulletrain")) { spr_master = atlas_bulletrain.createSprite("bulletrain"+num); }
+				if(skillname.equals("dashkick")) { spr_master = atlas_dashkick.createSprite("dashkick"+num); }
+				if(skillname.equals("regen")) { spr_master = atlas_regen.createSprite("regen"+num); }
+				if(skillname.equals("rockbound")) { spr_master = atlas_rockbound.createSprite("rockbound"+num); }
+				return spr_skill;
+			}
+			
 			
 			public String OnlineManager(String operation, String subData, String extraData) {
 				try {

@@ -70,6 +70,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private boolean rangedAttack = false;
 	    private boolean skillEffect = false;
 	    private String skillname = "";
+	    private float touchSkillX;
+	    private float touchSkillY;
+	    private boolean selectAreaRanged = false;
 	    
 		//Monster
 		private ArrayList<Monster> listMonsters;
@@ -85,6 +88,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		//Misc
 		private ArrayList<Damage> listDamage;
 		private ArrayList<Skill> listSkills;
+		private ArrayList<String> lstChats;
 		private String itemdropname;
 		private int SysMsgCount = 0;    
 	    private int savedataTime = 500;
@@ -92,7 +96,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private Sprite spr_shop;
 		private String showbuymsg = "";
 		private int showbuymsgtime = 2000;
-		private ArrayList<String> lstChats;
+		private boolean showZone = false;
+	    private int countZoneSkill = 0;
 
 		//Online
 		private ArrayList<Player> lstOnlinePlayers;
@@ -277,6 +282,28 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
 				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
 				spr_master.draw(game.batch);
+				
+				//Ranged Skill
+				if(selectAreaRanged) {
+					spr_master = gameControl.GetUX("bardescription", 0, 0);
+					spr_master.setPosition(-17, 53);
+					spr_master.setSize(30, 15);
+					spr_master.draw(game.batch);
+					font_master.draw(game.batch, "Selecione a Area",-10, 62);
+				}
+				if(showZone) {
+					if(countZoneSkill > 0) {
+						spr_master = gameControl.GetUX("areaskill", 0, 0);
+						spr_master.setPosition(touchSkillX -5, touchSkillY - 8);
+						spr_master.setSize(10,20);
+						spr_master.draw(game.batch);
+						countZoneSkill--;
+					}
+					else {
+						showZone = false;
+						countZoneSkill = 0;
+					}			
+				}
 				
 				
 				try {
@@ -1425,61 +1452,64 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "tripleattack";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
 								listSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								listDamage.add(damageSkill);
 								rangedAttack = false;
 								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 							}
 							if(skillname.equals("flysword")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Str * 3) + (player.Agi * 2) + atkweapon);
+								int totaldmg = ((player.Str_A * 3) + (player.Agi_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "tripleattack";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
 								listSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								listDamage.add(damageSkill);
 								rangedAttack = false;
 								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 							}
 							if(skillname.equals("poisonhit")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Luk * 2)+ (player.Str * 2) + atkweapon);
+								int totaldmg = ((player.Luk_A * 2)+ (player.Str_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "tripleattack";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
 								listSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								listDamage.add(damageSkill);
 								rangedAttack = false;
 								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 							}
@@ -1488,23 +1518,24 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("overpower")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Vit * 3) + (player.Str * 5) + (player.Luk * 2) + atkweapon);	
+								int totaldmg = ((player.Vit_A * 3) + (player.Str_A * 5) + (player.Luk_A * 2) + atkweapon);	
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "overpower";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
-								listSkills.add(skillInUse);
-								lstDamage.add(skillInUse);
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
 								rangedAttack = false;
 								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 							}
@@ -1515,20 +1546,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(rangedAttack) {	
 					
 						if(skillname.equals("heal")) {
-							player.Hp = player.Hp + (player.Wis * 10);
-							if(player.Hp > player.HpMax) {player.Hp = player.HpMax; }
+							player.Hp_A = player.Hp_A + (player.Wis_A * 10);
+							if(player.Hp_A > player.HpMax_A) {player.Hp_A = player.HpMax_A; }
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
 							skillInUse.SkillName = "heal";
-							skillInUse.SkillPosX = player.PosX;
-							skillInUse.SkillPosY = player.PosY;
-							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 							skillInUse.SkillTime = 100;
-							skillInUse.DamageTime = 100;
-							skillInUse.DamageType = "heal";
-							skillInUse.DamageValue = 0;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
 							return;
 						}
 						
@@ -1537,15 +1569,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
 							skillInUse.SkillName = "boost";
-							skillInUse.SkillPosX = player.PosX;
-							skillInUse.SkillPosY = player.PosY;
-							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 							skillInUse.SkillTime = 100;
-							skillInUse.DamageTime = 100;
-							skillInUse.DamageType = "heal";
-							skillInUse.DamageValue = 0;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
 							return; 	
 						}						
 						if(skillname.equals("healthboost")) { GiveBuff("healthboost"); rangedAttack = false; return; }			
@@ -1554,15 +1587,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
 							skillInUse.SkillName = "regen";
-							skillInUse.SkillPosX = player.PosX;
-							skillInUse.SkillPosY = player.PosY;
-							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 							skillInUse.SkillTime = 100;
-							skillInUse.DamageTime = 100;
-							skillInUse.DamageType = "heal";
-							skillInUse.DamageValue = 0;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
 							return; 	
 						}		
 						if(skillname.equals("ironshield")) { 
@@ -1570,15 +1604,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
 							skillInUse.SkillName = "ironshield";
-							skillInUse.SkillPosX = player.PosX;
-							skillInUse.SkillPosY = player.PosY;
-							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 							skillInUse.SkillTime = 100;
-							skillInUse.DamageTime = 100;
-							skillInUse.DamageType = "heal";
-							skillInUse.DamageValue = 0;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
 							return; 	
 						}				
 						if(skillname.equals("invisibility")) { 
@@ -1586,191 +1621,610 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
 							skillInUse.SkillName = "invisibility";
-							skillInUse.SkillPosX = player.PosX;
-							skillInUse.SkillPosY = player.PosY;
-							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 							skillInUse.SkillTime = 100;
-							skillInUse.DamageTime = 100;
-							skillInUse.DamageType = "heal";
-							skillInUse.DamageValue = 0;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
 							return; 								
 						}
 						
 						
 						if((listMonsters.get(i).MobPosX + 5) > (touchSkillX - 5) && (listMonsters.get(i).MobPosX + 5) < (touchSkillX + 5)
 						   && (listMonsters.get(i).MobPosY + 5) > (touchSkillY - 10) && (listMonsters.get(i).MobPosY + 5) < (touchSkillY + 10)) {
-							player.playerInBattle = "yes";
-							listMonsters.get(i).MobTarget = player.Name;
+							player.playerInBattle_A = "yes";
+							listMonsters.get(i).MobTarget = player.Name_A;
 							
 							if(skillname.equals("rockbound")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = player.Atk + ((player.Wis * 2) + 10);
+								int totaldmg = player.Atk_A + ((player.Wis_A * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "rockbound";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
-								lstSkills.add(skillInUse);
-								lstDamage.add(skillInUse);
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 								return;
 							}
 							
 							if(skillname.equals("fireball")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Wis * 2) + atkweapon);
+								int totaldmg = ((player.Wis_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "fireball";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
-								lstSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 								return;
 							}
 							
 							if(skillname.equals("icecrystal")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Wis * 6) + (player.Dex * 2) + atkweapon);
+								int totaldmg = ((player.Wis_A * 6) + (player.Dex_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "icecrystal";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
-								lstSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 								return;
 							}												
 							if(skillname.equals("thundercloud")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Wis * 3) + (player.Agi * 2) + atkweapon);
+								int totaldmg = ((player.Wis_A * 3) + (player.Agi_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "thundercloud";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
-								lstSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 								return;
 							}
 							
 							if(skillname.equals("bulletrain")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Dex * 2) + (player.Agi * 2) + 10);
+								int totaldmg = ((player.Dex_A * 2) + (player.Agi_A * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "bulletrain";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
-								lstSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 								return;
 							}						
 							if(skillname.equals("holyprism")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Wis) + player.Luk + atkweapon);
+								int totaldmg = ((player.Wis_A) + player.Luk_A + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "holyprism";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
-								lstSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 								return;
 							}
 							if(skillname.equals("mine")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Dex * 2) + 10);
+								int totaldmg = ((player.Dex_A * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "mine";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
-								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
-								skillInUse.DamageTime = 100;
-								skillInUse.DamageType = "mob";
-								skillInUse.DamageValue = totaldmg;
-								lstSkills.add(skillInUse);	
-								lstDamage.add(skillInUse);
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
 								return;
 							}							
 						}
 					}
 				}		
+			}
+		}
+		
+		public void GiveBuff(String buffname) {
+			boolean setBuff = false;
+			String buff = "";
+			
+			if(player.buffA_A.equals(buffname)) { return; }
+			if(player.buffB_A.equals(buffname)) { return; }
+			if(player.buffC_A.equals(buffname)) { return; }
+			
+			if(player.buffA_A.equals("none") && !setBuff) { player.buffA_A = buffname; setBuff  = true; buff = "A"; }
+			if(player.buffB_A.equals("none") && !setBuff) { player.buffB_A = buffname; setBuff  = true; buff = "B"; }
+			if(player.buffC_A.equals("none") && !setBuff) { player.buffC_A = buffname; setBuff  = true; buff = "C"; }
+					
+			if(buffname.equals("boost")) {
+				player.Str_A = player.Str_A + player.Str_A * 2;
+				player.Wis_A = player.Wis_A + player.Wis_A * 2;
+				player.Agi_A = player.Agi_A + player.Agi_A * 2;
+				player.Luk_A = player.Luk_A + player.Luk_A * 2;
+				player.Dex_A = player.Dex_A + player.Dex_A * 2;
+				player.HpMax_A = player.HpMax_A + 50;
+				player.MpMax_A = player.MpMax_A + 30;
+				
+				if(buff.equals("A")) { player.BuffTimeA_A = 5000; }
+				if(buff.equals("B")) { player.BuffTimeB_A = 5000; }
+				if(buff.equals("C")) { player.BuffTimeC_A = 5000; }
+			}
+			
+			if(buffname.equals("ironshield")) {
+				player.Def_A = player.Def_A * 2;
+				
+				if(buff.equals("A")) { player.BuffTimeA_A = 2500; }
+				if(buff.equals("B")) { player.BuffTimeB_A = 2500; }
+				if(buff.equals("C")) { player.BuffTimeC_A = 2500; }
+			}
+			
+			if(buffname.equals("healthboost")) {
+				player.HpMax_A = player.HpMax_A * 3;
+				
+				if(buff.equals("A")) { player.BuffTimeA_A = 4500; }
+				if(buff.equals("B")) { player.BuffTimeB_A = 4500; }
+				if(buff.equals("C")) { player.BuffTimeC_A = 4500; }
+			}
+			
+			if(buffname.equals("berserk")) {
+				player.Str_A = player.Str_A * 3;
+				
+				if(buff.equals("A")) { player.BuffTimeA_A = 2500; }
+				if(buff.equals("B")) { player.BuffTimeB_A = 2500; }
+				if(buff.equals("C")) { player.BuffTimeC_A = 2500; }
+			}
+			
+			if(buffname.equals("regen")) {
+				player.regenTimeMax_A = player.regenTimeMax_A - 3000;
+				
+				if(buff.equals("A")) { player.BuffTimeA_A = 2000; }
+				if(buff.equals("B")) { player.BuffTimeB_A = 2000; }
+				if(buff.equals("C")) { player.BuffTimeC_A = 2000; }
+			}
+			
+			if(buffname.equals("invisibility")) {
+				if(buff.equals("A")) { player.BuffTimeA_A = 1000; }
+				if(buff.equals("B")) { player.BuffTimeB_A = 1000; }
+				if(buff.equals("C")) { player.BuffTimeC_A = 1000; }
+			}
+			
+			if(buffname.equals("lockshot")) {
+				player.Dex_A = player.Dex_A * 2;
+				player.Luk_A = player.Luk_A * 2;
+				
+				if(buff.equals("A")) { player.BuffTimeA_A = 3000; }
+				if(buff.equals("B")) { player.BuffTimeB_A = 3000; }
+				if(buff.equals("C")) { player.BuffTimeC_A = 3000; }
+			}		
+		}
+		
+		public void RemoveBuffs(String buffname) {
+			String buff = "";
+			
+			if(player.buffA_A.equals(buffname)) { buff = "A"; }
+			if(player.buffB_A.equals(buffname)) { buff = "B"; }
+			if(player.buffC_A.equals(buffname)) { buff = "C"; }
+			
+			if(buffname.equals("boost")) {
+				player.Str_A = player.Str_A + player.Str_A / 2;
+				player.Wis_A = player.Wis_A + player.Wis_A / 2;
+				player.Agi_A = player.Agi_A + player.Agi_A / 2;
+				player.Luk_A = player.Luk_A + player.Luk_A / 2;
+				player.Dex_A = player.Dex_A + player.Dex_A / 2;
+				player.HpMax_A = player.HpMax_A - 50;
+				player.MpMax_A = player.MpMax_A - 30;
+			}
+			
+			if(buffname.equals("ironshield")) {
+				player.Def_A = player.Def_A / 2;
+			}
+			
+			if(buffname.equals("healthboost")) {
+				player.HpMax_A = player.HpMax_A / 3;
+			}
+			
+			if(buffname.equals("berserk")) {
+				player.Str_A = player.Str_A / 3;
+			}
+			
+			if(buffname.equals("regen")) {
+				player.regenTimeMax_A = player.regenTimeMax_A + 3000;
+			}
+			
+			if(buffname.equals("lockshot")) {
+				player.Dex_A = player.Dex_A / 2;
+				player.Luk_A = player.Luk_A / 2;
+			}
+			
+			if(buff.equals("A")) { player.buffA_A = "none"; player.BuffTimeA_A = 0; }
+			if(buff.equals("B")) { player.buffB_A = "none"; player.BuffTimeB_A = 0; }
+			if(buff.equals("C")) { player.buffC_A = "none"; player.BuffTimeC_A = 0; }
+			
+		}
+		
+		public void ShowBuffs() {
+			
+			if(!player.buffA_A.equals("none")) {
+				if(player.buffA_A.equals("boost")) { spr_master = gameControl.GetCard("cardboost"); }
+				if(player.buffA_A.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
+				if(player.buffA_A.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
+				if(player.buffA_A.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
+				if(player.buffA_A.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
+				if(player.buffA_A.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
+				if(player.buffA_A.equals("lockshot")) { spr_master = gameControl.GetCard("cardlockshot"); }
+				spr_master.setSize(3, 8);
+				spr_master.setPosition(-50, 30);
+				spr_master.draw(game.batch);
+				
+				player.BuffTimeA_A = player.BuffTimeA_A - 1;
+				if(player.BuffTimeA_A <= 0) {
+					RemoveBuffs(player.buffA_A);
+				}		
+			}
+			if(!player.buffB_A.equals("none")) {
+				if(player.buffB_A.equals("boost")) { spr_master = gameControl.GetCard("cardboost"); }
+				if(player.buffB_A.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
+				if(player.buffB_A.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
+				if(player.buffB_A.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
+				if(player.buffB_A.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
+				if(player.buffB_A.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
+				if(player.buffB_A.equals("lockshot")) { spr_master = gameControl.GetCard("cardlockshot"); }
+				spr_master.setSize(3, 8);
+				spr_master.setPosition(-45, 30);
+				spr_master.draw(game.batch);
+				
+				player.BuffTimeB_A = player.BuffTimeB_A - 1;
+				if(player.BuffTimeB_A <= 0) {
+					RemoveBuffs(player.buffB_A);
+				}
+			}
+			if(!player.buffC_A.equals("none")) {
+				if(player.buffC_A.equals("boost")) { spr_master = gameControl.GetCard("cardboost"); }
+				if(player.buffC_A.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
+				if(player.buffC_A.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
+				if(player.buffC_A.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
+				if(player.buffC_A.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
+				if(player.buffC_A.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
+				if(player.buffC_A.equals("lockshot")) { spr_master = gameControl.GetCard("cardlockshot"); }
+				spr_master.setSize(3, 8);
+				spr_master.setPosition(-40, 30);
+				spr_master.draw(game.batch);
+				
+				player.BuffTimeC_A = player.BuffTimeC_A - 1;
+				if(player.BuffTimeC_A <= 0) {
+					RemoveBuffs(player.buffC_A);	
+				}
+			}		
+		}
+		
+		public void ShowSkill() {
+			
+			if(skillUsed > 0) {
+				skillUsed--;
+				if(skillUsed < 0) { skillUsed = 0; }
+			}
+			
+			if(listSkills.size() == 0) {
+				return;
+			}
+			
+			for(int i = 0; i < listSkills.size(); i++) {
+				
+				int time = listSkills.get(i).SkillTime;
+				listSkills.get(i).SkillTime = time - 1;
+				
+				if(listSkills.get(i).SkillTime >= 80 && listSkills.get(i).SkillTime <= 100) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",6); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",6); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",6); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",6); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",6); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",6); }
+					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",6); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",6); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",6); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",6); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",6); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",6); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",6); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",6); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",6); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",6); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",6); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",6); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",6); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",6); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",6); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",6); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",6); }
+					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",6); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",6); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",6); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",6); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",6); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",6); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setSize(20,20);
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime >= 60 && listSkills.get(i).SkillTime <= 80) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",5); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",5); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",5); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",5); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",5); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",5); }
+					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",5); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",5); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",5); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",5); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",5); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",5); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",5); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",5); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",5); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",5); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",5); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",5); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",5); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",5); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",5); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",5); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",5); }
+					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",5); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",5); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",5); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",5); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",5); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",5); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setSize(20,20);
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime >= 40 && listSkills.get(i).SkillTime <= 60) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",4); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",4); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",4); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",4); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",4); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",4); }
+					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",4); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",4); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",4); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",4); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",4); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",4); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",4); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",4); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",4); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",4); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",4); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",4); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",4); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",4); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",4); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",4); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",4); }
+					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",4); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",4); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",4); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",4); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",4); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",4); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setSize(20,20);
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime >= 20 && listSkills.get(i).SkillTime <= 40) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",3); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",3); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",3); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",3); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",3); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",3); }
+					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",3); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",3); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",3); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",3); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",3); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",3); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",3); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",3); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",3); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",3); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",3); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",3); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",3); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",3); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",3); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",3); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",3); }
+					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",3); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",3); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",3); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",3); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",3); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",3); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setSize(20,20);
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime >= 10 && listSkills.get(i).SkillTime <= 20) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",2); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",2); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",2); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",2); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",2); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",2); }
+					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",2); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",2); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",2); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",2); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",2); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",2); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",2); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",2); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",2); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",2); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",2); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",2); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",2); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",2); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",2); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",2); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",2); }
+					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",2); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",2); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",2); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",2); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",2); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",2); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setSize(20,20);
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime >= 0 && listSkills.get(i).SkillTime <= 10) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",1); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",1); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",1); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",1); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",1); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",1); }
+					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",1); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",1); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",1); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",1); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",1); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",1); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",1); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",1); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",1); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",1); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",1); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",1); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",1); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",1); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",1); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",1); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",1); }
+					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",1); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",1); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",1); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",1); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",1); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",1); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setSize(20,20);
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime < 0) { 
+					listSkills.remove(listSkills.get(i));
+				}
 			}
 		}
 		
@@ -2070,6 +2524,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//[Main State]//
 			if(state.equals("Main")) {
 				if(player.playerInCast_A.equals("none")) { movement = true; } else { movement = false; }
+				
+				if(selectAreaRanged) {
+					touchSkillX = coordsTouch.x;
+					touchSkillY = coordsTouch.y;
+					selectAreaRanged = false;
+					rangedAttack = true;
+					CheckAreaRangedSkill();
+					showZone = true;
+					countZoneSkill = 40;
+				}
 				
 				//Menu
 				if(coordsTouch.x > cameraCoordsX - 99 && coordsTouch.x < cameraCoordsX - 61 && coordsTouch.y > cameraCoordsY + 57 && coordsTouch.y < cameraCoordsY + 96) {
