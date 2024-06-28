@@ -65,7 +65,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private int msgShowTime = 0;
 		private int hotketcountitem1;
 		private int hotketcountitem2;
-		
+		private int skillUsed = 0; 
+		private boolean notmp = false;
+		private boolean rangedAttack = false;
+	    private boolean skillEffect = false;
+	    private String skillname = "";
+	    
 		//Monster
 		private ArrayList<Monster> listMonsters;
 		private Sprite spr_monster;
@@ -448,7 +453,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(player.AtkTimer_A <= 0) { 	
 								int atkweapon = CheckWeapon();
-								int mobhp = listMonsters.get(i).MobHp; //CheckDamageDifer(lstMobs.get(i).MobHpMax, 1);
+								int mobhp = listMonsters.get(i).MobHp; //CheckDamageDifer(listMonsters.get(i).MobHpMax, 1);
 								int damagehit = player.Atk_A + atkweapon + player.Str_A;
 								player.playerInAttack_A = "yes";
 								player.AtkTimer_A = player.AtkTimerMax_A;
@@ -1248,6 +1253,527 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			levelup = false;
 		}
 		
+		//SKILL
+		public void CheckSkill(int num) {
+			
+			if(num == 1 && player.Job_A.equals("Aprendiz")) { SetUseSkill("tripleattack"); }
+			if(num == 1 && player.Job_A.equals("Espadachim")) { SetUseSkill("flysword"); }
+			if(num == 1 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("fireball"); }
+			if(num == 1 && player.Job_A.equals("Batedor")) { SetUseSkill("hammercrash"); }
+			if(num == 1 && player.Job_A.equals("Pistoleiro")) { SetUseSkill("bulletrain"); }
+			if(num == 1 && player.Job_A.equals("Medico")) { SetUseSkill("heal"); }
+			if(num == 1 && player.Job_A.equals("Ladrao")) { SetUseSkill("poisonhit"); }
+			
+			if(num == 2 && player.Job_A.equals("Aprendiz")) { SetUseSkill("regen"); }
+			if(num == 2 && player.Job_A.equals("Espadachim")) { SetUseSkill("ironshield"); }
+			if(num == 2 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("thundercloud"); }
+			if(num == 2 && player.Job_A.equals("Batedor")) { SetUseSkill("overpower"); }
+			if(num == 2 && player.Job_A.equals("Pistoleiro")) { SetUseSkill("mine"); }
+			if(num == 2 && player.Job_A.equals("Medico")) { SetUseSkill("holyprism"); }
+			if(num == 2 && player.Job_A.equals("Ladrao")) { SetUseSkill("invisibility"); }
+			
+			if(num == 3 && player.Job_A.equals("Aprendiz")) { SetUseSkill("rockbound"); }
+			if(num == 3 && player.Job_A.equals("Espadachim")) { SetUseSkill("healthboost"); }
+			if(num == 3 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("icecrystal"); }
+			if(num == 3 && player.Job_A.equals("Batedor")) { SetUseSkill("berserk"); }
+			if(num == 3 && player.Job_A.equals("Pistoleiro")) { SetUseSkill("lockshot"); }
+			if(num == 3 && player.Job_A.equals("Medico")) { SetUseSkill("boost"); }
+			if(num == 3 && player.Job_A.equals("Ladrao")) { SetUseSkill("steal"); }			
+		}
+		
+		
+		public void SetUseSkill(String skill) {
+			//Cost
+			if(skill.equals("tripleattack") && player.Mp_A < 5) { notmp = true; return; }
+			if(skill.equals("rockbound") && player.Mp_A < 5) { notmp = true; return; }
+			if(skill.equals("regen") && player.Mp_A < 2) { notmp = true; return; }
+			
+			if(skill.equals("flysword") && player.Mp_A < 45) { notmp = true; return; }
+			if(skill.equals("ironshield") && player.Mp_A < 30) { notmp = true; return; }
+			if(skill.equals("healthboost") && player.Mp_A < 40) { notmp = true; return; }
+			
+			if(skill.equals("fireball") && player.Mp_A < 30) { notmp = true; return; }
+			if(skill.equals("thundercloud") && player.Mp_A < 60) { notmp = true; return; }
+			if(skill.equals("icecrystal") && player.Mp_A < 100) { notmp = true; return; }
+			
+			if(skill.equals("heal") && player.Mp_A < 20) { notmp = true; return; }
+			if(skill.equals("holyprism") && player.Mp_A < 5) { notmp = true; return; }
+			if(skill.equals("boost") && player.Mp_A < 40) { notmp = true; return; }
+			
+			if(skill.equals("poisonhit") && player.Mp_A < 25) { notmp = true; return; }
+			if(skill.equals("steal") && player.Mp_A < 10) { notmp = true; return; }
+			if(skill.equals("invisibility") && player.Mp_A < 15) { notmp = true; return; }
+			
+			if(skill.equals("berserk") && player.Mp_A < 25) { notmp = true; return; }
+			if(skill.equals("overpower") && player.Mp_A < 50) { notmp = true; return; }
+			if(skill.equals("hammercrash") && player.Mp_A < 20) { notmp = true; return; }
+			
+			if(skill.equals("lockshot") && player.Mp_A < 15) { notmp = true; return; }
+			if(skill.equals("mine") && player.Mp_A < 20) { notmp = true; return; }
+			if(skill.equals("bulletrain") && player.Mp_A < 40) { notmp = true; return; }
+			
+			if(skill.equals("tripleattack")) { player.Mp_A = player.Mp_A - 5; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("rockbound")) { player.Mp_A = player.Mp_A - 5; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;}}
+			if(skill.equals("regen")) { player.Mp_A = player.Mp_A - 2; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			
+			if(skill.equals("flysword")) { player.Mp_A = player.Mp_A - 25; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("ironshield")) { player.Mp_A = player.Mp_A - 15; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("healthboost")) { player.Mp_A = player.Mp_A - 40; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			
+			if(skill.equals("fireball")) { player.Mp_A = player.Mp_A - 10; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("thundercloud")) { player.Mp_A = player.Mp_A - 40; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("icecrystal")) { player.Mp_A = player.Mp_A - 100; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			
+			if(skill.equals("heal")) { player.Mp_A = player.Mp_A - 10; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("holyprism")) { player.Mp_A = player.Mp_A - 5; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("boost")) { player.Mp_A = player.Mp_A - 40; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			
+			if(skill.equals("poisonhit")) { player.Mp_A = player.Mp_A - 10; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("steal")) { player.Mp_A = player.Mp_A - 10; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("invisibility")) { player.Mp_A = player.Mp_A - 15; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			
+			if(skill.equals("berserk")) { player.Mp_A = player.Mp_A - 25; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("overpower")) { player.Mp_A = player.Mp_A - 50; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("hammercrash")) { player.Mp_A = player.Mp_A - 20; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			
+			if(skill.equals("lockshot")) { player.Mp_A = player.Mp_A - 15; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("mine")) { player.Mp_A = player.Mp_A - 20; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("bulletrain")) { player.Mp_A = player.Mp_A - 40; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			
+			
+			//Ranged?
+			if(skill.equals("tripleattack")) { rangedAttack = false; }
+			if(skill.equals("regen")) { rangedAttack = true; }
+			if(skill.equals("rockbound")) { rangedAttack = true; }
+			
+			if(skill.equals("flysword")) { rangedAttack = false; }
+			if(skill.equals("healthboost")) { rangedAttack = true; }
+			if(skill.equals("ironshield")) { rangedAttack = false; }
+			
+			if(skill.equals("fireball")) { rangedAttack = true; }
+			if(skill.equals("icecrystal")) { rangedAttack = true; }
+			if(skill.equals("thundercloud")) { rangedAttack = true; }
+			
+			if(skill.equals("heal")) { rangedAttack = true; }
+			if(skill.equals("boost")) { rangedAttack = true; }
+			if(skill.equals("holyprism")) { rangedAttack = true; }
+			
+			if(skill.equals("hammercrash")) { rangedAttack = false; }
+			if(skill.equals("overpower")) { rangedAttack = false; }		
+			if(skill.equals("berserk")) { rangedAttack = false; }
+			
+			
+			if(skill.equals("lockshot")) { rangedAttack = true; }
+			if(skill.equals("mine")) { rangedAttack = true; }
+			if(skill.equals("bulletrain")) { rangedAttack = true; }
+			
+			if(skill.equals("steal")) { rangedAttack = false; }
+			if(skill.equals("poisonhit")) { rangedAttack = false; }
+			if(skill.equals("invisibility")) { rangedAttack = true; }
+					
+			
+			skillname = skill;
+			if(!rangedAttack) { 
+				CheckAreaRangedSkill();
+			}
+			else { 
+				selectAreaRanged = true; 
+			}
+		  
+		}
+		
+		public void CheckAreaRangedSkill() {
+			if(player.Map_A.equals("Sewers") && autoattack) {
+				for(int i = 0; i < listMonsters.size(); i++) {
+					
+					//Close Ranged
+					if(player.Target_A.equals(listMonsters.get(i).MobID) && !rangedAttack) {		 
+						if((listMonsters.get(i).MobPosX + 5) > (player.PosX_A - 5) && (listMonsters.get(i).MobPosX + 5) < (player.PosX_A + 15)
+						   && (listMonsters.get(i).MobPosY + 5) > (player.PosY_A - 7) && (listMonsters.get(i).MobPosY + 5) < (player.PosY_A + 18)) {
+							player.playerInBattle_A = "yes";
+							listMonsters.get(i).MobTarget = player.Name_A;				
+							//Aprendiz
+							if(skillname.equals("tripleattack")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = player.Atk_A + ((player.Str_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX +5;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY + 5;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX + 5;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY + 5;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								
+							}
+							if(skillname.equals("hammercrash")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Str_A * 2) + (player.Vit_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+							}
+							if(skillname.equals("flysword")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Str * 3) + (player.Agi * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+							}
+							if(skillname.equals("poisonhit")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Luk * 2)+ (player.Str * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+							}
+							if(skillname.equals("steal")) {
+								
+							}
+							if(skillname.equals("overpower")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Vit * 3) + (player.Str * 5) + (player.Luk * 2) + atkweapon);	
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "overpower";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								listSkills.add(skillInUse);
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+							}
+						}
+					}
+					
+					//Long Ranged
+					if(rangedAttack) {	
+					
+						if(skillname.equals("heal")) {
+							player.Hp = player.Hp + (player.Wis * 10);
+							if(player.Hp > player.HpMax) {player.Hp = player.HpMax; }
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							skillInUse.SkillName = "heal";
+							skillInUse.SkillPosX = player.PosX;
+							skillInUse.SkillPosY = player.PosY;
+							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							skillInUse.DamageTime = 100;
+							skillInUse.DamageType = "heal";
+							skillInUse.DamageValue = 0;
+							return;
+						}
+						
+						if(skillname.equals("boost")) { 
+							GiveBuff("boost"); 
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							skillInUse.SkillName = "boost";
+							skillInUse.SkillPosX = player.PosX;
+							skillInUse.SkillPosY = player.PosY;
+							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							skillInUse.DamageTime = 100;
+							skillInUse.DamageType = "heal";
+							skillInUse.DamageValue = 0;
+							return; 	
+						}						
+						if(skillname.equals("healthboost")) { GiveBuff("healthboost"); rangedAttack = false; return; }			
+						if(skillname.equals("regen")) { 
+							GiveBuff("regen"); 
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							skillInUse.SkillName = "regen";
+							skillInUse.SkillPosX = player.PosX;
+							skillInUse.SkillPosY = player.PosY;
+							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							skillInUse.DamageTime = 100;
+							skillInUse.DamageType = "heal";
+							skillInUse.DamageValue = 0;
+							return; 	
+						}		
+						if(skillname.equals("ironshield")) { 
+							GiveBuff("ironshield"); 
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							skillInUse.SkillName = "ironshield";
+							skillInUse.SkillPosX = player.PosX;
+							skillInUse.SkillPosY = player.PosY;
+							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							skillInUse.DamageTime = 100;
+							skillInUse.DamageType = "heal";
+							skillInUse.DamageValue = 0;
+							return; 	
+						}				
+						if(skillname.equals("invisibility")) { 
+							GiveBuff("invisibility");
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							skillInUse.SkillName = "invisibility";
+							skillInUse.SkillPosX = player.PosX;
+							skillInUse.SkillPosY = player.PosY;
+							skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+							skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							skillInUse.DamageTime = 100;
+							skillInUse.DamageType = "heal";
+							skillInUse.DamageValue = 0;
+							return; 								
+						}
+						
+						
+						if((listMonsters.get(i).MobPosX + 5) > (touchSkillX - 5) && (listMonsters.get(i).MobPosX + 5) < (touchSkillX + 5)
+						   && (listMonsters.get(i).MobPosY + 5) > (touchSkillY - 10) && (listMonsters.get(i).MobPosY + 5) < (touchSkillY + 10)) {
+							player.playerInBattle = "yes";
+							listMonsters.get(i).MobTarget = player.Name;
+							
+							if(skillname.equals("rockbound")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = player.Atk + ((player.Wis * 2) + 10);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "rockbound";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								lstSkills.add(skillInUse);
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								return;
+							}
+							
+							if(skillname.equals("fireball")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Wis * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "fireball";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								lstSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								return;
+							}
+							
+							if(skillname.equals("icecrystal")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Wis * 6) + (player.Dex * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "icecrystal";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								lstSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								return;
+							}												
+							if(skillname.equals("thundercloud")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Wis * 3) + (player.Agi * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "thundercloud";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								lstSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								return;
+							}
+							
+							if(skillname.equals("bulletrain")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Dex * 2) + (player.Agi * 2) + 10);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "bulletrain";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								lstSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								return;
+							}						
+							if(skillname.equals("holyprism")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Wis) + player.Luk + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "holyprism";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								lstSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								return;
+							}
+							if(skillname.equals("mine")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Dex * 2) + 10);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "mine";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.DamagePosX = listMonsters.get(i).MobPosX;
+								skillInUse.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								skillInUse.DamageTime = 100;
+								skillInUse.DamageType = "mob";
+								skillInUse.DamageValue = totaldmg;
+								lstSkills.add(skillInUse);	
+								lstDamage.add(skillInUse);
+								rangedAttack = false;
+								if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								return;
+							}							
+						}
+					}
+				}		
+			}
+		}
+		
 		public int CheckLevelExpPercent() {
 			//Sewers
 			if(player.Level_A == 1) {  return 100;  }
@@ -1574,7 +2100,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				//Skill 1
 				if(coordsTouch.x > cameraCoordsX + 47 && coordsTouch.x < cameraCoordsX + 56 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {
-					
+					if(skillUsed > 0) { return false; }
+					skillUsed = 200;
+					CheckSkill(1);
 					return false;
 				}
 				//Skill 2
