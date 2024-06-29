@@ -68,6 +68,7 @@ public class Player {
 		public String playerInCast_1;
 		public String playerSit_1;  
 		public String SyncPlayerMob_1;
+		public String PlayerExpGet_1;
 		
 		public String Name_2;
 		public String Sex_2;
@@ -133,6 +134,7 @@ public class Player {
 		public String playerInCast_2;
 		public String playerSit_2;
 		public String SyncPlayerMob_2;
+		public String PlayerExpGet_2;
 		
 		public String Name_3;
 		public String Sex_3;
@@ -198,6 +200,7 @@ public class Player {
 		public String playerInCast_3;
 		public String playerSit_3;
 		public String SyncPlayerMob_3;
+		public String PlayerExpGet_3;
 			
 		public String Name_A;
 		public String Sex_A;
@@ -263,7 +266,7 @@ public class Player {
 		public String playerInCast_A;
 		public String playerSit_A;
 		public String SyncPlayerMob_A;
-		
+		public String PlayerExpGet_A;
 		
 		public String pet;
 		public String pethungry;
@@ -281,6 +284,31 @@ public class Player {
 		
 		
 		//gets and sets
+		public String getPlayerExpGet_1() {
+			return PlayerExpGet_1;
+		}
+		public void setPlayerExpGet_1(String playerExpGet_1) {
+			PlayerExpGet_1 = playerExpGet_1;
+		}
+		public String getPlayerExpGet_2() {
+			return PlayerExpGet_2;
+		}
+		public void setPlayerExpGet_2(String playerExpGet_2) {
+			PlayerExpGet_2 = playerExpGet_2;
+		}
+		public String getPlayerExpGet_3() {
+			return PlayerExpGet_3;
+		}
+		public void setPlayerExpGet_3(String playerExpGet_3) {
+			PlayerExpGet_3 = playerExpGet_3;
+		}
+		public String getPlayerExpGet_A() {
+			return PlayerExpGet_A;
+		}
+		public void setPlayerExpGet_A(String playerExpGet_A) {
+			PlayerExpGet_A = playerExpGet_A;
+		}
+		
 		public String getAccountID() {
 			return AccountID;
 		}

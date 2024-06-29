@@ -42,6 +42,7 @@
 	$lplayerSit = $_POST['lplayerSit'];
 	$lparty = $_POST['lparty'];
 	$lexpshared = $_POST['lexpshared'];
+	$lexpsend = $_POST['lexpsend'];
 
 	#\n  (Quebra Linha)
 	
@@ -80,6 +81,17 @@
 	if ($lrequest == "Chat")
 	{
 		$sql = "INSERT INTO Chats (AccountID,Name,Msg) VALUES ('$ldataaccount','$lname','$lchat')";
+		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Adicionado - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou \n") . $conn->error;}		
+		#$result = $conn->query($sql);
+		$conn->close();	
+		return;
+	}
+
+	#Adiciona Exp
+	if ($lrequest == "ExpSharedSend")
+	{
+		$currentDateTime = date('Y-m-d H:i:s');
+		$sql = "INSERT INTO ExpShared (	AccountID,Name,ExpSended,Date) VALUES ('$ldataaccount','$lname','$lexpsend','$currentDateTime')";
 		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Adicionado - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou \n") . $conn->error;}		
 		#$result = $conn->query($sql);
 		$conn->close();	

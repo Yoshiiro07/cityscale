@@ -333,6 +333,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				CheckMobAutoAttack();
 				CheckMobDeadRespawn();
 				ShowDamage();
+				ShowSkill();
 				
 				if(playerDead) { ShowPlayerDead(); }
 				
@@ -515,6 +516,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								    ItemDrop(listMonsters.get(i).MobName);
 								    player.Money_A = player.Money_A + 2;
 								    GiveExp(listMonsters.get(i).MobExp);
+								    
+								    if(network) {
+								    	onlineresponse = gameControl.OnlineManager("ExpSharedSend",String.valueOf(listMonsters.get(i).MobExp),"");
+								    }
+								    
 								    return;
 								}
 								
@@ -580,7 +586,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 44.5f;
 				player.PosY_A = -4.5f;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",false);
+				this.screen.screenSwitch("LoadingScreen",network);
 				dispose();	
 			}
 			if(map.equals("StreetsAFromSewers")) {
@@ -588,7 +594,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 112.5f;
 				player.PosY_A = -142f;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",false);
+				this.screen.screenSwitch("LoadingScreen",network);
 				dispose();
 			}
 		}
@@ -1304,7 +1310,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(num == 3 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("icecrystal"); }
 			if(num == 3 && player.Job_A.equals("Batedor")) { SetUseSkill("berserk"); }
 			if(num == 3 && player.Job_A.equals("Pistoleiro")) { SetUseSkill("lockshot"); }
-			if(num == 3 && player.Job_A.equals("Medico")) { SetUseSkill("boost"); }
+			if(num == 3 && player.Job_A.equals("Medico")) { SetUseSkill("defboost"); }
 			if(num == 3 && player.Job_A.equals("Ladrao")) { SetUseSkill("steal"); }			
 		}
 		
@@ -1325,7 +1331,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(skill.equals("heal") && player.Mp_A < 20) { notmp = true; return; }
 			if(skill.equals("holyprism") && player.Mp_A < 5) { notmp = true; return; }
-			if(skill.equals("boost") && player.Mp_A < 40) { notmp = true; return; }
+			if(skill.equals("defboost") && player.Mp_A < 40) { notmp = true; return; }
 			
 			if(skill.equals("poisonhit") && player.Mp_A < 25) { notmp = true; return; }
 			if(skill.equals("steal") && player.Mp_A < 10) { notmp = true; return; }
@@ -1353,7 +1359,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(skill.equals("heal")) { player.Mp_A = player.Mp_A - 10; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
 			if(skill.equals("holyprism")) { player.Mp_A = player.Mp_A - 5; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
-			if(skill.equals("boost")) { player.Mp_A = player.Mp_A - 40; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
+			if(skill.equals("defboost")) { player.Mp_A = player.Mp_A - 40; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
 			
 			if(skill.equals("poisonhit")) { player.Mp_A = player.Mp_A - 10; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
 			if(skill.equals("steal")) { player.Mp_A = player.Mp_A - 10; if(player.Mp_A <= 0) { player.Mp_A = player.Mp_A = 0;} }
@@ -1382,7 +1388,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(skill.equals("thundercloud")) { rangedAttack = true; }
 			
 			if(skill.equals("heal")) { rangedAttack = true; }
-			if(skill.equals("boost")) { rangedAttack = true; }
+			if(skill.equals("defboost")) { rangedAttack = true; }
 			if(skill.equals("holyprism")) { rangedAttack = true; }
 			
 			if(skill.equals("hammercrash")) { rangedAttack = false; }
@@ -1564,13 +1570,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							return;
 						}
 						
-						if(skillname.equals("boost")) { 
-							GiveBuff("boost"); 
+						if(skillname.equals("defboost")) { 
+							GiveBuff("defboost"); 
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
 							Damage damageSkill = new Damage();
-							skillInUse.SkillName = "boost";
+							skillInUse.SkillName = "defboost";
 							skillInUse.SkillPosX = player.PosX_A;
 							skillInUse.SkillPosY = player.PosY_A;
 							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
@@ -1829,13 +1835,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.buffB_A.equals("none") && !setBuff) { player.buffB_A = buffname; setBuff  = true; buff = "B"; }
 			if(player.buffC_A.equals("none") && !setBuff) { player.buffC_A = buffname; setBuff  = true; buff = "C"; }
 					
-			if(buffname.equals("boost")) {
-				player.Str_A = player.Str_A + player.Str_A * 2;
-				player.Wis_A = player.Wis_A + player.Wis_A * 2;
-				player.Agi_A = player.Agi_A + player.Agi_A * 2;
-				player.Luk_A = player.Luk_A + player.Luk_A * 2;
-				player.Dex_A = player.Dex_A + player.Dex_A * 2;
-				player.HpMax_A = player.HpMax_A + 50;
+			if(buffname.equals("defboost")) {
+				player.Atk_A = player.Atk_A + player.Atk_A * 2;
+				player.Def_A = player.Def_A + player.Def_A * 2;
+				player.HpMax_A = player.HpMax_A + 30;
 				player.MpMax_A = player.MpMax_A + 30;
 				
 				if(buff.equals("A")) { player.BuffTimeA_A = 5000; }
@@ -1844,7 +1847,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			if(buffname.equals("ironshield")) {
-				player.Def_A = player.Def_A * 2;
+				player.Def_A = player.Def_A * 4;
 				
 				if(buff.equals("A")) { player.BuffTimeA_A = 2500; }
 				if(buff.equals("B")) { player.BuffTimeB_A = 2500; }
@@ -1899,17 +1902,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.buffC_A.equals(buffname)) { buff = "C"; }
 			
 			if(buffname.equals("boost")) {
-				player.Str_A = player.Str_A + player.Str_A / 2;
-				player.Wis_A = player.Wis_A + player.Wis_A / 2;
-				player.Agi_A = player.Agi_A + player.Agi_A / 2;
-				player.Luk_A = player.Luk_A + player.Luk_A / 2;
-				player.Dex_A = player.Dex_A + player.Dex_A / 2;
-				player.HpMax_A = player.HpMax_A - 50;
+				player.Atk_A = player.Atk_A + player.Atk_A / 2;
+				player.Def_A = player.Def_A + player.Def_A / 2;
+				player.HpMax_A = player.HpMax_A - 30;
 				player.MpMax_A = player.MpMax_A - 30;
 			}
 			
 			if(buffname.equals("ironshield")) {
-				player.Def_A = player.Def_A / 2;
+				player.Def_A = player.Def_A / 4;
 			}
 			
 			if(buffname.equals("healthboost")) {
@@ -1938,7 +1938,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void ShowBuffs() {
 			
 			if(!player.buffA_A.equals("none")) {
-				if(player.buffA_A.equals("boost")) { spr_master = gameControl.GetCard("cardboost"); }
+				if(player.buffA_A.equals("defboost")) { spr_master = gameControl.GetCard("cardboost"); }
 				if(player.buffA_A.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
 				if(player.buffA_A.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
 				if(player.buffA_A.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
@@ -1955,7 +1955,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}		
 			}
 			if(!player.buffB_A.equals("none")) {
-				if(player.buffB_A.equals("boost")) { spr_master = gameControl.GetCard("cardboost"); }
+				if(player.buffB_A.equals("defboost")) { spr_master = gameControl.GetCard("cardboost"); }
 				if(player.buffB_A.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
 				if(player.buffB_A.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
 				if(player.buffB_A.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
@@ -1972,7 +1972,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}
 			if(!player.buffC_A.equals("none")) {
-				if(player.buffC_A.equals("boost")) { spr_master = gameControl.GetCard("cardboost"); }
+				if(player.buffC_A.equals("defboost")) { spr_master = gameControl.GetCard("cardboost"); }
 				if(player.buffC_A.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
 				if(player.buffC_A.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
 				if(player.buffC_A.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
@@ -2030,7 +2030,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",6); }
 					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",6); }
 					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",6); }
-					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",6); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",6); }
 					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",6); }
 					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",6); }
 					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",6); }
@@ -2038,7 +2038,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",6); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
-					spr_master.setSize(20,20);
+					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
 				
@@ -2066,7 +2066,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",5); }
 					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",5); }
 					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",5); }
-					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",5); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",5); }
 					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",5); }
 					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",5); }
 					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",5); }
@@ -2074,7 +2074,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",5); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
-					spr_master.setSize(20,20);
+					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
 				
@@ -2102,7 +2102,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",4); }
 					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",4); }
 					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",4); }
-					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",4); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",4); }
 					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",4); }
 					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",4); }
 					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",4); }
@@ -2110,7 +2110,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",4); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
-					spr_master.setSize(20,20);
+					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
 				
@@ -2138,7 +2138,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",3); }
 					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",3); }
 					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",3); }
-					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",3); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",3); }
 					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",3); }
 					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",3); }
 					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",3); }
@@ -2146,7 +2146,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",3); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
-					spr_master.setSize(20,20);
+					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
 				
@@ -2174,7 +2174,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",2); }
 					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",2); }
 					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",2); }
-					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",2); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",2); }
 					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",2); }
 					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",2); }
 					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",2); }
@@ -2182,7 +2182,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",2); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
-					spr_master.setSize(20,20);
+					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
 				
@@ -2210,7 +2210,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",1); }
 					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",1); }
 					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",1); }
-					if(listSkills.get(i).SkillName.equals("boost")) { spr_master = gameControl.GetSpriteSkill("boost",1); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",1); }
 					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",1); }
 					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",1); }
 					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",1); }
@@ -2218,7 +2218,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",1); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
-					spr_master.setSize(20,20);
+					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
 				
@@ -2230,13 +2230,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public int CheckLevelExpPercent() {
 			//Sewers
-			if(player.Level_A == 1) {  return 100;  }
-			if(player.Level_A == 2) {  return 150;  }
-			if(player.Level_A == 3) {  return 250; }
-			if(player.Level_A == 4) {  return 360; }
-			if(player.Level_A == 5) {  return 430;  }
-			if(player.Level_A == 6) {  return 500;  }
-			if(player.Level_A == 7) {  return 730; }
+			if(player.Level_A == 1) {  return 150;  }
+			if(player.Level_A == 2) {  return 250;  }
+			if(player.Level_A == 3) {  return 350; }
+			if(player.Level_A == 4) {  return 460; }
+			if(player.Level_A == 5) {  return 530;  }
+			if(player.Level_A == 6) {  return 600;  }
+			if(player.Level_A == 7) {  return 830; }
 			if(player.Level_A == 8) {  return 1000;  }
 			if(player.Level_A == 9) {  return 1450; }
 			//Watercave

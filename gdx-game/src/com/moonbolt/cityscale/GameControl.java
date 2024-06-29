@@ -7,6 +7,8 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -108,7 +110,7 @@ public class GameControl {
     private TextureAtlas atlas_fireball;
     private TextureAtlas atlas_flysword;
     private TextureAtlas atlas_heal;
-    private TextureAtlas atlas_boost;
+    private TextureAtlas atlas_defboost;
     private TextureAtlas atlas_berserk;
     private TextureAtlas atlas_bulletrain;
     private TextureAtlas atlas_dashkick;
@@ -185,7 +187,7 @@ public class GameControl {
 		atlas_fastshot = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/fastshot.txt"));
 		atlas_fireball = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/fireball.txt"));
 		atlas_flysword = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/flysword.txt"));
-		atlas_boost = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/boost.txt"));
+		atlas_defboost = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/defboost.txt"));
 		atlas_berserk = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/berserk.txt"));
 		atlas_bulletrain = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/bulletrain.txt"));
 		atlas_dashkick = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/dashkick.txt"));
@@ -316,6 +318,8 @@ public class GameControl {
 			player.playerInCast_1 = "none";
 			player.playerSit_1 = "none";
 			player.SyncPlayerMob_1 = "none";
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			player.PlayerExpGet_1 = dtf.format(LocalDateTime.now());
 			
 			String itensList = "";
 	        for(int i = 0; i < 16; i++) {
@@ -388,6 +392,8 @@ public class GameControl {
 			player.playerInCast_2 = "none";
 			player.playerSit_2 = "none";
 			player.SyncPlayerMob_2 = "none";
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			player.PlayerExpGet_2 = dtf.format(LocalDateTime.now());
 			
 			String itensList = "";
 			for(int i = 0; i < 16; i++) {
@@ -460,6 +466,8 @@ public class GameControl {
 			player.playerInCast_3 = "none";
 			player.playerSit_3 = "none";
 			player.SyncPlayerMob_3 = "none";
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			player.PlayerExpGet_3 = dtf.format(LocalDateTime.now());
 			
 			String itensList = "";
 			for(int i = 0; i < 16; i++) {
@@ -546,6 +554,7 @@ public class GameControl {
 			player.playerInCast_A = player.playerInCast_1;
 			player.playerSit_A = player.playerSit_1;
 			player.Itens_A = player.Itens_1;
+			player.PlayerExpGet_A = player.PlayerExpGet_1;
 		}
 
 		if(charnum == 2) {
@@ -610,6 +619,7 @@ public class GameControl {
 			player.playerInCast_A = player.playerInCast_2;
 			player.playerSit_A = player.playerSit_2;
 			player.Itens_A = player.Itens_2;
+			player.PlayerExpGet_A = player.PlayerExpGet_2;
 		}
 
 		if(charnum == 3) {
@@ -674,6 +684,7 @@ public class GameControl {
 			player.playerInCast_A = player.playerInCast_3;
 			player.playerSit_A = player.playerSit_3;
 			player.Itens_A = player.Itens_3;
+			player.PlayerExpGet_A = player.PlayerExpGet_3;
 		}	
 	}
 
@@ -2301,35 +2312,35 @@ public class GameControl {
 			
 			public Sprite GetSpriteSkill(String skillname, int num) {
 				
-				if(skillname.equals("tripleattack")) { spr_master = atlas_tripleattack.createSprite("tripleattack"+num); }
-				if(skillname.equals("steal")) { spr_master = atlas_steal.createSprite("steal"+num); }
-				if(skillname.equals("soulclash")) { spr_master = atlas_soulclash.createSprite("soulclash"+num); }
-				if(skillname.equals("ravenblade")) { spr_master = atlas_ravenblade.createSprite("ravenblade"+num); }
-				if(skillname.equals("ragebound")) { spr_master = atlas_ragebound.createSprite("ragebound"+num); }
-				if(skillname.equals("thundercloud")) { spr_master = atlas_thundercloud.createSprite("thundercloud"+num); }
-				if(skillname.equals("lockshot")) { spr_master = atlas_lockshot.createSprite("lockshot"+num); }
-				if(skillname.equals("mine")) { spr_master = atlas_mine.createSprite("mine"+num); }
-				if(skillname.equals("overpower")) { spr_master = atlas_overpower.createSprite("overpower"+num); }
-				if(skillname.equals("poisonhit")) { spr_master = atlas_poisonhit.createSprite("poisonhit"+num); }
-				if(skillname.equals("precision")) { spr_master = atlas_precision.createSprite("precision"+num); }
-				if(skillname.equals("protect")) { spr_master = atlas_protect.createSprite("protect"+num); }
-				if(skillname.equals("healthboost")) { spr_master = atlas_healthboost.createSprite("healthboost"+num); }
-				if(skillname.equals("holyprism")) { spr_master = atlas_holyprism.createSprite("holyprism"+num); }
-				if(skillname.equals("icecrystal")) { spr_master = atlas_icecrystal.createSprite("icecrystal"+num); }
-				if(skillname.equals("impound")) { spr_master = atlas_impound.createSprite("impound"+num); }
-				if(skillname.equals("invisibility")) { spr_master = atlas_invisibility.createSprite("invisibility"+num); }
-				if(skillname.equals("ironshield")) { spr_master = atlas_ironshield.createSprite("ironshield"+num); }
-				if(skillname.equals("doublehit")) { spr_master = atlas_doublehit.createSprite("doublehit"+num); }
-				if(skillname.equals("fastshot")) { spr_master = atlas_fastshot.createSprite("fastshot"+num); }
-				if(skillname.equals("fireball")) { spr_master = atlas_fireball.createSprite("fireball"+num); }
-				if(skillname.equals("flysword")) { spr_master = atlas_flysword.createSprite("flysword"+num); }
-				if(skillname.equals("heal")) { spr_master = atlas_heal.createSprite("heal"+num); }
-				if(skillname.equals("boost")) { spr_master = atlas_boost.createSprite("boost"+num); }
-				if(skillname.equals("berserk")) { spr_master = atlas_berserk.createSprite("berserk"+num); }
-				if(skillname.equals("bulletrain")) { spr_master = atlas_bulletrain.createSprite("bulletrain"+num); }
-				if(skillname.equals("dashkick")) { spr_master = atlas_dashkick.createSprite("dashkick"+num); }
-				if(skillname.equals("regen")) { spr_master = atlas_regen.createSprite("regen"+num); }
-				if(skillname.equals("rockbound")) { spr_master = atlas_rockbound.createSprite("rockbound"+num); }
+				if(skillname.equals("tripleattack")) { spr_skill = atlas_tripleattack.createSprite("tripleattack"+num); }
+				if(skillname.equals("steal")) { spr_skill = atlas_steal.createSprite("steal"+num); }
+				if(skillname.equals("soulclash")) { spr_skill = atlas_soulclash.createSprite("soulclash"+num); }
+				if(skillname.equals("ravenblade")) { spr_skill = atlas_ravenblade.createSprite("ravenblade"+num); }
+				if(skillname.equals("ragebound")) { spr_skill = atlas_ragebound.createSprite("ragebound"+num); }
+				if(skillname.equals("thundercloud")) { spr_skill = atlas_thundercloud.createSprite("thundercloud"+num); }
+				if(skillname.equals("lockshot")) { spr_skill = atlas_lockshot.createSprite("lockshot"+num); }
+				if(skillname.equals("mine")) { spr_skill = atlas_mine.createSprite("mine"+num); }
+				if(skillname.equals("overpower")) { spr_skill = atlas_overpower.createSprite("overpower"+num); }
+				if(skillname.equals("poisonhit")) { spr_skill = atlas_poisonhit.createSprite("poisonhit"+num); }
+				if(skillname.equals("precision")) { spr_skill = atlas_precision.createSprite("precision"+num); }
+				if(skillname.equals("protect")) { spr_skill = atlas_protect.createSprite("protect"+num); }
+				if(skillname.equals("healthboost")) { spr_skill = atlas_healthboost.createSprite("healthboost"+num); }
+				if(skillname.equals("holyprism")) { spr_skill = atlas_holyprism.createSprite("holyprism"+num); }
+				if(skillname.equals("icecrystal")) { spr_skill = atlas_icecrystal.createSprite("icecrystal"+num); }
+				if(skillname.equals("impound")) { spr_skill = atlas_impound.createSprite("impound"+num); }
+				if(skillname.equals("invisibility")) { spr_skill = atlas_invisibility.createSprite("invisibility"+num); }
+				if(skillname.equals("ironshield")) { spr_skill = atlas_ironshield.createSprite("ironshield"+num); }
+				if(skillname.equals("doublehit")) { spr_skill = atlas_doublehit.createSprite("doublehit"+num); }
+				if(skillname.equals("fastshot")) { spr_skill = atlas_fastshot.createSprite("fastshot"+num); }
+				if(skillname.equals("fireball")) { spr_skill = atlas_fireball.createSprite("fireball"+num); }
+				if(skillname.equals("flysword")) { spr_skill = atlas_flysword.createSprite("flysword"+num); }
+				if(skillname.equals("heal")) { spr_skill = atlas_heal.createSprite("heal"+num); }
+				if(skillname.equals("defboost")) { spr_skill = atlas_defboost.createSprite("defboost"+num); }
+				if(skillname.equals("berserk")) { spr_skill = atlas_berserk.createSprite("berserk"+num); }
+				if(skillname.equals("bulletrain")) { spr_skill = atlas_bulletrain.createSprite("bulletrain"+num); }
+				if(skillname.equals("dashkick")) { spr_skill = atlas_dashkick.createSprite("dashkick"+num); }
+				if(skillname.equals("regen")) { spr_skill = atlas_regen.createSprite("regen"+num); }
+				if(skillname.equals("rockbound")) { spr_skill = atlas_rockbound.createSprite("rockbound"+num); }
 				return spr_skill;
 			}
 			
@@ -2354,7 +2365,9 @@ public class GameControl {
 					if(operation.equals("SyncPlayer")) {
 						ThreadsSyncStartPlayer();				
 					}
-					
+					if(operation.equals("ExpSharedSend")){
+						TipoOperacaoOnline("ExpSharedSend", subData);
+					}
 					return onlineresponse;
 				}
 				
@@ -2377,6 +2390,9 @@ public class GameControl {
 					}
 					if(nomeOperacao.equals("Download")) {
 						onlineresponse = GerenciamentoOnline("Download","","");		
+					}
+					if(nomeOperacao.equals("ExpSharedSend")) {
+						onlineresponse = GerenciamentoOnline("ExpSharedSend",subData,"");		
 					}
 					if(nomeOperacao.equals("SyncChats")) {
 						
@@ -2705,6 +2721,40 @@ public class GameControl {
 			        return retornoOnline;		        
 				}
 				
+				if(tipoRequisicao.equals("ExpSharedSend")){
+					
+					// Construct data
+					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("ExpSharedSend", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
+			        data += "&" + URLEncoder.encode("lexpsend", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
+			            
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        line = "";
+			        retornoOnline = "retry";
+			        while ((line = rd.readLine()) != null) {
+			        	linhaLida = line;   
+		    		}	        
+			        wr.close();
+			        rd.close();
+		    
+			        return retornoOnline;		        
+				}
+				
 				
 				}
 				catch(Exception ex) {
@@ -2726,8 +2776,6 @@ public class GameControl {
 			}
 			
 			public void UpdateOnlinePlayers(String line) {
-				
-				System.out.println(line);
 				
 				String[] lineSplit = line.split(":");
 				playerOnline = new Player();
