@@ -1468,6 +1468,13 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		if(npcname.equals("ExpGiver")) {  
+			spr_master = atlas_npcs.createSprite("NPCB2");
+			spr_master.setSize(9, 33);
+			spr_master.setPosition(-5, -123.5f);
+			return spr_master;
+		}
+		
 		return spr_master;
 	}
 
@@ -2368,6 +2375,9 @@ public class GameControl {
 					if(operation.equals("ExpSharedSend")){
 						TipoOperacaoOnline("ExpSharedSend", subData);
 					}
+					if(operation.equals("ExpGiver")){
+						TipoOperacaoOnline("ExpGiver", subData);
+					}
 					return onlineresponse;
 				}
 				
@@ -2393,6 +2403,9 @@ public class GameControl {
 					}
 					if(nomeOperacao.equals("ExpSharedSend")) {
 						onlineresponse = GerenciamentoOnline("ExpSharedSend",subData,"");		
+					}
+					if(nomeOperacao.equals("ExpGiver")) {
+						onlineresponse = GerenciamentoOnline("ExpGiver","","");		
 					}
 					if(nomeOperacao.equals("SyncChats")) {
 						
@@ -2756,11 +2769,51 @@ public class GameControl {
 				}
 				
 				
+				if(tipoRequisicao.equals("ExpGiver")){
+					
+					// Construct data
+					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
+					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("ExpGiver", "UTF-8");
+			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
+			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
+			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
+			        data += "&" + URLEncoder.encode("lexpGet", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
+			            
+			        // Send data
+			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URLConnection conn = url.openConnection();
+			        conn.setDoOutput(true);
+			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			        wr.write(data);
+			        wr.flush();
+			        
+			        // Get the response
+			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        String line;
+			        line = "";
+			        retornoOnline = "retry";
+			        while ((line = rd.readLine()) != null) {
+			        	linhaLida = line;   
+		    		}	        
+			        wr.close();
+			        rd.close();
+		    
+			        return retornoOnline;		        
+				}
+				
+				
 				}
 				catch(Exception ex) {
 					linhaLida = ex.getMessage();
 				}
 				return linhaLida;
+			}
+			
+			public void UpdateExpGet() {
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				player.PlayerExpGet_1 = dtf.format(LocalDateTime.now());
 			}
 			
 			public void UpdateListOnlineChats(String line) {

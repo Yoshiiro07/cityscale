@@ -285,15 +285,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Ranged Skill
 				if(selectAreaRanged) {
-					spr_master = gameControl.GetUX("bardescription", 0, 0);
-					spr_master.setPosition(-17, 53);
-					spr_master.setSize(30, 15);
+					spr_master = gameControl.GetUX("textbar", 0, 0);
+					spr_master.setPosition(cameraCoordsX - 33, cameraCoordsY + 35);
+					spr_master.setSize(60, 15);
 					spr_master.draw(game.batch);
-					font_master.draw(game.batch, "Selecione a Area",-10, 62);
+					font_master.draw(game.batch, "Selecione a Area",cameraCoordsX - 20, cameraCoordsY + 46);
 				}
 				if(showZone) {
 					if(countZoneSkill > 0) {
-						spr_master = gameControl.GetUX("areaskill", 0, 0);
+						spr_master = gameControl.GetUX("target", 0, 0);
 						spr_master.setPosition(touchSkillX -5, touchSkillY - 8);
 						spr_master.setSize(10,20);
 						spr_master.draw(game.batch);
@@ -427,13 +427,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX + 79,cameraCoordsY - 66);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+				//spr_testeDot.setPosition(cameraCoordsX + 79,cameraCoordsY - 66);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 88,cameraCoordsY - 90);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+				//spr_testeDot.setPosition(cameraCoordsX + 88,cameraCoordsY - 90);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
 				
 				game.batch.end();
 			}
@@ -738,13 +738,22 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map_A.equals("StreetsA")) {
 				spr_npc = gameControl.GetNPC("DungeonMaster", 0);
 				spr_npc.draw(game.batch);
+				
+				spr_npc = gameControl.GetNPC("ExpGiver", 0);
+				spr_npc.draw(game.batch);
 
 				spr_master = gameControl.GetUX("textbar", 0, 0);
 				spr_master.setSize(20,10);
 				spr_master.setPosition(102, -90);
 				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setSize(20,10);
+				spr_master.setPosition(-8, -88.5f);
+				spr_master.draw(game.batch);
 
 				font_master.draw(game.batch, "Arenas", 105, -81);
+				font_master.draw(game.batch, "Doadora", -7f, -80f);
 			}
 		}
 		
@@ -798,6 +807,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map_A.equals("StreetsA")) {
 				if(player.PosX_A >= 103.5f && player.PosX_A <= 122 && player.PosY_A >= -142 && player.PosY_A <= -128.5f ) {
 					state = "DungeonSelect";
+				}
+				
+				//Exp Giver
+				if(player.PosX_A >= -8 && player.PosX_A <= -125.5f && player.PosY_A >= -145 && player.PosY_A <= -112.5f ) {
+					onlineresponse = gameControl.OnlineManager("ExpGiver","","");
 				}
 				
 				if(player.PosX_A >= 127 && player.PosX_A <= 143 && player.PosY_A >= -140 && player.PosY_A <= -124 ) {
@@ -2035,7 +2049,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",6); }
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",6); }
 					
-					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
@@ -2071,7 +2085,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",5); }
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",5); }
 					
-					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
@@ -2107,7 +2121,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",4); }
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",4); }
 					
-					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
@@ -2143,7 +2157,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",3); }
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",3); }
 					
-					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
@@ -2179,7 +2193,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",2); }
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",2); }
 					
-					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}
@@ -2213,9 +2227,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",1); }
 					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",1); }
 					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",1); }
-					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",1); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",1); spr_master.setSize(60,60); }
 					
-					spr_master.setPosition(listSkills.get(i).SkillPosX, listSkills.get(i).SkillPosY);
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
 					spr_master.draw(game.batch);
 				}

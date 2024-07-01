@@ -98,6 +98,30 @@
 		return;
 	}
 
+	#Recupera Exp
+	if ($lrequest == "ExpGiver")
+	{
+		$sql = "SELECT * FROM Chats order by ChatID desc limit 5";
+		$result = $conn->query($sql);
+		if ($result === FALSE) { 
+			echo nl2br($sql); 
+			echo nl2br("\n - Falhou - \n") . $conn->error;
+		} else {
+			echo nl2br("\n - Recuperado - \n"); 
+			if ($result->num_rows > 0) {
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+					$lAll = "SYSTEMCHAT - :Name:" . $row["Name"]. 
+							":Msg:" .  $row["Msg"]. 
+							": - \n";
+					echo nl2br($lAll);
+				}
+			} else {
+				echo "0 results";
+			}
+		}
+	}
+
 	#Adicionar Atk
 	if ($lrequest == "Atk")
 	{
