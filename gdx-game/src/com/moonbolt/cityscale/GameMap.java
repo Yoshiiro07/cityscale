@@ -337,7 +337,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				if(playerDead) { ShowPlayerDead(); }
 				
-				
 				//Item Drop
 				if(showDropMsg > 0) {
 					spr_master = gameControl.GetUX("textbar", cameraCoordsX, cameraCoordsY);
@@ -504,19 +503,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								if(mobhp < 0) { mobhp = 0; }
 								listMonsters.get(i).MobHp = mobhp;
 								
-								if(listMonsters.get(i).MobHp <= 0) { 
-									
-									player.Target_A = "none";
-									player.AtkTimer_A = player.AtkTimerMax_A;
-									player.playerInBattle_A = "no";
-								    player.playerInAttack_A = "no";
-								    player.playerInCast_A = "no";	
-								    autoattack = false;
-								    
-								    ItemDrop(listMonsters.get(i).MobName);
-								    player.Money_A = player.Money_A + 2;
-								    GiveExp(listMonsters.get(i).MobExp);
-								    
+								if(listMonsters.get(i).MobHp <= 0) {  
 								    if(network) {
 								    	onlineresponse = gameControl.OnlineManager("ExpSharedSend",String.valueOf(listMonsters.get(i).MobExp),"");
 								    }
@@ -578,6 +565,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}
 				}
 			}
+		}
+		
+		public void MobDead(int mobindex) {
+			player.Target_A = "none";
+			player.AtkTimer_A = player.AtkTimerMax_A;
+			player.playerInBattle_A = "no";
+		    player.playerInAttack_A = "no";
+		    player.playerInCast_A = "no";	
+		    autoattack = false;
+		    
+		    ItemDrop(listMonsters.get(mobindex).MobName);
+		    player.Money_A = player.Money_A + 2;
+		    GiveExp(listMonsters.get(mobindex).MobExp);
 		}
 		
 		public void MapChange(String map) {
@@ -1297,7 +1297,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(num == 1 && player.Job_A.equals("Medico")) { SetUseSkill("heal"); }
 			if(num == 1 && player.Job_A.equals("Ladrao")) { SetUseSkill("poisonhit"); }
 			
-			if(num == 2 && player.Job_A.equals("Aprendiz")) { SetUseSkill("regen"); }
+			if(num == 2 && player.Job_A.equals("Aprendiz")) { SetUseSkill("rockbound"); }
 			if(num == 2 && player.Job_A.equals("Espadachim")) { SetUseSkill("ironshield"); }
 			if(num == 2 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("thundercloud"); }
 			if(num == 2 && player.Job_A.equals("Batedor")) { SetUseSkill("overpower"); }
@@ -1305,7 +1305,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(num == 2 && player.Job_A.equals("Medico")) { SetUseSkill("holyprism"); }
 			if(num == 2 && player.Job_A.equals("Ladrao")) { SetUseSkill("invisibility"); }
 			
-			if(num == 3 && player.Job_A.equals("Aprendiz")) { SetUseSkill("rockbound"); }
 			if(num == 3 && player.Job_A.equals("Espadachim")) { SetUseSkill("healthboost"); }
 			if(num == 3 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("icecrystal"); }
 			if(num == 3 && player.Job_A.equals("Batedor")) { SetUseSkill("berserk"); }
@@ -1431,7 +1430,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = player.Atk_A + ((player.Str_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1447,15 +1446,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
-								
+								if(mobHP <= 0) { MobDead(i); }							
 							}
 							if(skillname.equals("hammercrash")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = ((player.Str_A * 2) + (player.Vit_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1471,14 +1469,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 							}
 							if(skillname.equals("flysword")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = ((player.Str_A * 3) + (player.Agi_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1494,14 +1492,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 							}
 							if(skillname.equals("poisonhit")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = ((player.Luk_A * 2)+ (player.Str_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								listMonsters.get(i).MobHp = mobHP;
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1517,7 +1515,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 							}
 							if(skillname.equals("steal")) {
 								
@@ -1527,7 +1525,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((player.Vit_A * 3) + (player.Str_A * 5) + (player.Luk_A * 2) + atkweapon);	
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1543,7 +1541,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 							}
 						}
 					}
@@ -1651,7 +1649,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = player.Atk_A + ((player.Wis_A * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1667,7 +1665,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 								return;
 							}
 							
@@ -1676,7 +1674,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((player.Wis_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								listMonsters.get(i).MobHp = mobHP;				
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1692,7 +1690,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 								return;
 							}
 							
@@ -1701,7 +1699,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((player.Wis_A * 6) + (player.Dex_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1717,7 +1715,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 								return;
 							}												
 							if(skillname.equals("thundercloud")) {
@@ -1725,7 +1723,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((player.Wis_A * 3) + (player.Agi_A * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1741,7 +1739,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 								return;
 							}
 							
@@ -1750,7 +1748,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((player.Dex_A * 2) + (player.Agi_A * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1766,7 +1764,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 								return;
 							}						
 							if(skillname.equals("holyprism")) {
@@ -1774,7 +1772,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((player.Wis_A) + player.Luk_A + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1790,7 +1788,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 								return;
 							}
 							if(skillname.equals("mine")) {
@@ -1798,7 +1796,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((player.Dex_A * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(keepnetwork) { OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1814,7 +1812,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								//if(keepnetwork) { MobDeadOnline(mobHP,listMonsters.get(i)); } else { MobDead(listMonsters.get(i)); }
+								if(mobHP <= 0) { MobDead(i); }
 								return;
 							}							
 						}
@@ -2523,7 +2521,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
-				if(player.playerInCast_A.equals("none")) { movement = true; } else { movement = false; }
+				if(player.playerInCast_A.equals("no")) { movement = true; } else { movement = false; }
 				
 				if(selectAreaRanged) {
 					touchSkillX = coordsTouch.x;
@@ -2571,7 +2569,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				//Skill 2
 				if(coordsTouch.x > cameraCoordsX + 63 && coordsTouch.x < cameraCoordsX + 72 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {
-					
+					if(skillUsed > 0) { return false; }
+					skillUsed = 200;
+					CheckSkill(2);
 					return false;
 				}
 				//Skill 3

@@ -98,6 +98,15 @@
 		return;
 	}
 
+	#Adicionar Atk
+	if ($lrequest == "Atk")
+	{
+		$sql = "UPDATE Mobs SET MobHp$lMobLetter = '$lHpMobAtual', MobTarget$lMobLetter = '$lName' where MobID$lMobLetter = '$lMobHitTarget'";
+		echo($sql);
+		$result = $conn->query($sql);
+		$conn->close();	
+	}
+
 	#Sync Chats
 	if ($lrequest == "SyncChats") {
 		$sql = "SELECT * FROM Chats order by ChatID desc limit 5";
