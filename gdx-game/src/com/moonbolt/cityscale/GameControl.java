@@ -2779,7 +2779,7 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
 			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lexpGet", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
+			        data += "&" + URLEncoder.encode("ldateExp", "UTF-8") + "=" + URLEncoder.encode(player.PlayerExpGet_A, "UTF-8");
 			            
 			        // Send data
 			        URL url = new URL("http://moonboltprojects.online/index.php");
@@ -2796,6 +2796,12 @@ public class GameControl {
 			        retornoOnline = "retry";
 			        while ((line = rd.readLine()) != null) {
 			        	linhaLida = line;   
+			        	if (linhaLida.contains("Recuperado")) {            	
+			        		retornoOnline = "Atualizado";       		
+			            }	
+			        	if (linhaLida.contains("SYSTEMEXP")) {  
+			        		UpdateOnlinePlayers(linhaLida);
+			            }	
 		    		}	        
 			        wr.close();
 			        rd.close();
@@ -2826,6 +2832,12 @@ public class GameControl {
 			
 			public ArrayList<Player> GetListOnlinePlayers(){
 				return lstOnlinePlayers;
+			}
+			
+			public void UpdateExpRecebida(String line) {
+				float expserver = 0;
+				String[] lineSplit = line.split(":");
+				expserver = Float.parseFloat(lineSplit[4]);
 			}
 			
 			public void UpdateOnlinePlayers(String line) {

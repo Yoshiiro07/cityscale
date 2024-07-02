@@ -91,7 +91,7 @@
 	if ($lrequest == "ExpSharedSend")
 	{
 		$currentDateTime = date('Y-m-d H:i:s');
-		$sql = "INSERT INTO ExpShared (	AccountID,Name,ExpSended,Date) VALUES ('$ldataaccount','$lname','$lexpsend','$currentDateTime')";
+		$sql = "INSERT INTO ExpBank (AccountID,Name,ExpSended,Date) VALUES ('$ldataaccount','$lname','$lexpsend','$currentDateTime')";
 		if ($conn->query($sql) === TRUE) { echo nl2br("\n - Adicionado - \n"); } else { echo nl2br($sql); echo nl2br("\n - Falhou \n") . $conn->error;}		
 		#$result = $conn->query($sql);
 		$conn->close();	
@@ -101,7 +101,8 @@
 	#Recupera Exp
 	if ($lrequest == "ExpGiver")
 	{
-		$sql = "SELECT * FROM Chats order by ChatID desc limit 5";
+		$currentDateTime = date('Y-m-d H:i:s');
+		$sql = "SELECT * FROM ExpBank WHERE AccountID <> '$ldataaccount' AND Date > '$currentDateTime'";
 		$result = $conn->query($sql);
 		if ($result === FALSE) { 
 			echo nl2br($sql); 
@@ -111,8 +112,8 @@
 			if ($result->num_rows > 0) {
 				// output data of each row
 				while($row = $result->fetch_assoc()) {
-					$lAll = "SYSTEMCHAT - :Name:" . $row["Name"]. 
-							":Msg:" .  $row["Msg"]. 
+					$lAll = "SYSTEMEXP - :Name:" . $row["Name"]. 
+							":ExpSended:" .  $row["ExpSended"]. 
 							": - \n";
 					echo nl2br($lAll);
 				}
