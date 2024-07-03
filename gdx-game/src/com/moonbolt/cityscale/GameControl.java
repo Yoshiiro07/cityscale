@@ -2800,7 +2800,7 @@ public class GameControl {
 			        		retornoOnline = "Atualizado";       		
 			            }	
 			        	if (linhaLida.contains("SYSTEMEXP")) {  
-			        		UpdateOnlinePlayers(linhaLida);
+			        		UpdateExpGet(linhaLida);
 			            }	
 		    		}	        
 			        wr.close();
@@ -2817,9 +2817,13 @@ public class GameControl {
 				return linhaLida;
 			}
 			
-			public void UpdateExpGet() {
+			public void UpdateExpGet(String line) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 				player.PlayerExpGet_1 = dtf.format(LocalDateTime.now());
+				
+				float expserver = 0;
+				String[] lineSplit = line.split(":");
+				expserver = Float.parseFloat(lineSplit[4]);
 			}
 			
 			public void UpdateListOnlineChats(String line) {
@@ -2832,12 +2836,6 @@ public class GameControl {
 			
 			public ArrayList<Player> GetListOnlinePlayers(){
 				return lstOnlinePlayers;
-			}
-			
-			public void UpdateExpRecebida(String line) {
-				float expserver = 0;
-				String[] lineSplit = line.split(":");
-				expserver = Float.parseFloat(lineSplit[4]);
 			}
 			
 			public void UpdateOnlinePlayers(String line) {

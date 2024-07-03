@@ -810,7 +810,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Exp Giver
-				if(player.PosX_A >= -8 && player.PosX_A <= -125.5f && player.PosY_A >= -145 && player.PosY_A <= -112.5f ) {
+				if(player.PosX_A >= -8f && player.PosX_A <= 10.5f && player.PosY_A >= -145 && player.PosY_A <= -112.5f ) {
 					onlineresponse = gameControl.OnlineManager("ExpGiver","","");
 				}
 				
