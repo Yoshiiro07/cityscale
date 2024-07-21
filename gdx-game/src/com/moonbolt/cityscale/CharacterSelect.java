@@ -38,7 +38,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	    private float cameraCoordsY = 0;
 	    
 	    //Player
-	    private Player player;
+	    private GameObject player;
 	    private String name = "";
 	    private String sex = "M";
 	    private String hair = "hair1";

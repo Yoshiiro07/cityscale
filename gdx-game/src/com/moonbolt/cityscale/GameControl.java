@@ -29,19 +29,19 @@ public class GameControl {
 	private Json json;
 	private FileHandle file;
 	private Random randnumber;
-	private Player player;
+	private GameObject player;
 	private int FrameAtkPlayer = 0;
 	
-	private ArrayList<Monster> lstMonsters;
-	private Monster placeholderMonster;
+	private ArrayList<GameObject> lstMonsters;
+	private GameObject placeholderMonster;
 	
 	//Sprite
 	private Sprite spr_master;
 	private Sprite spr_skill;
 	
 	//Online
-	private ArrayList<Player> lstOnlinePlayers;
-	private Player playerOnline = new Player();
+	private ArrayList<GameObject> lstOnlinePlayers;
+	private GameObject playerOnline = new GameObject();
     private int countCleanOnline = 800;
 	private String retornoOnline = "";
 	private int threahCountSyncPlayer = 0;
@@ -129,11 +129,11 @@ public class GameControl {
 		lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add("");
 		
 		//Online player
-		lstOnlinePlayers = new ArrayList<Player>();
+		lstOnlinePlayers = new ArrayList<GameObject>();
 
 		//Monster
-		placeholderMonster = new Monster();
-		lstMonsters = new ArrayList<Monster>();
+		placeholderMonster = new GameObject();
+		lstMonsters = new ArrayList<GameObject>();
 		
 		//Textures
 		atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair1.txt"));
@@ -207,7 +207,7 @@ public class GameControl {
 		//Creating a new one
 		if (!file.exists()) {
 				try {
-					Player player = new Player();
+					GameObject player = new GameObject();
 					int accNumber = randnumber.nextInt(999999);
 					while(accNumber < 10000){
 						accNumber = randnumber.nextInt(999999);
@@ -227,19 +227,19 @@ public class GameControl {
 		else 
 		{
 			FileHandle file = Gdx.files.local("SaveData/save.json");		
-			player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
+			player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
 		}
 	}
 
-	public void SaveData(Player acPlayer) {
+	public void SaveData(GameObject acPlayer) {
 		file = Gdx.files.local("SaveData/save.json");
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
 		this.player = acPlayer;
 	}
 
-	public Player LoadData(){
+	public GameObject LoadData(){
 		FileHandle file = Gdx.files.local("SaveData/save.json");		
-		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
+		player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
 		return player;
 	}
 	
@@ -251,10 +251,10 @@ public class GameControl {
 	
 	public void CreateNewChar(String name, String sex, String hair, String color) {
 		boolean created = false;
-		player = new Player();
+		player = new GameObject();
 		
 		FileHandle file = Gdx.files.local("SaveData/save.json");		
-		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
+		player = json.fromJson(GameObject.class, Base64Coder.decodeString(file.readString()));
 		
 		if(player.Name_1.equals("none") && !created) {
 			player.Name_1 = name;
@@ -481,11 +481,11 @@ public class GameControl {
 		SaveData(player);		
 	}
 
-	public Player SendPlayer(){
+	public GameObject SendPlayer(){
 		return this.player;
 	}
 
-	public void UpdatePlayer(Player viewplayer){
+	public void UpdatePlayer(GameObject viewplayer){
 		this.player = viewplayer;
 	}
 	
@@ -942,7 +942,7 @@ public class GameControl {
 		return spr_master;	
 	}
 	
-	public Sprite SelectShowCharacterSprite(Player player, String type, int num) {
+	public Sprite SelectShowCharacterSprite(GameObject player, String type, int num) {
 		//basictopM_front1
 		if(type.equals("upper")) {
 			if(num == 1) {
@@ -1022,7 +1022,7 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	public Sprite GetHairCharTagStation(Player player) {
+	public Sprite GetHairCharTagStation(GameObject player) {
 		
 		
 		//hair1_front_green_M
@@ -1043,7 +1043,7 @@ public class GameControl {
 		return spr_master;
 	}
 
-	public Sprite GetHairCharTag(Player player,float cameraCoordsX,float cameraCoordsY) {
+	public Sprite GetHairCharTag(GameObject player,float cameraCoordsX,float cameraCoordsY) {
 		
 		if(player.Hair_A.equals("hair1")) { atlas_generichair = atlas_hairs1;}
 		if(player.Hair_A.equals("hair2")) { atlas_generichair = atlas_hairs2;}
@@ -1072,7 +1072,7 @@ public class GameControl {
 		FrameAtkPlayer = 30;
 	}
 	
-	public Player SetCharMov(Player playerUse, String type) {			
+	public GameObject SetCharMov(GameObject playerUse, String type) {			
 		//Check MovePosition
 		if(playerUse.Walk_A.equals("walk")) {
 			if(playerUse.Side_A.equals("front") && !player.breakwalk_A.equals("front")) { playerUse.PosY_A = playerUse.PosY_A - 0.5f; }
@@ -1094,7 +1094,7 @@ public class GameControl {
 		return player;
 	}
 	
-	public Sprite GetHairChar(Player player, String menu, float cameraX, float cameraY) {
+	public Sprite GetHairChar(GameObject player, String menu, float cameraX, float cameraY) {
 		
 		//hair1_front_green_M
 		float posX = player.PosX_A;
@@ -1171,7 +1171,7 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	public Sprite GetTopChar(Player player , String menu, float cameraX, float cameraY) {
+	public Sprite GetTopChar(GameObject player , String menu, float cameraX, float cameraY) {
 		//Top 1
 		if(player.SetUpper_A.equals("basictop")) { atlas_genericset = atlas_basicset; }
 		
@@ -1267,7 +1267,7 @@ public class GameControl {
 		return spr_master;
 	}
 	/// [BOTTOM ] //////
-	public Sprite GetBottomChar(Player player , String menu, float cameraX, float cameraY) {
+	public Sprite GetBottomChar(GameObject player , String menu, float cameraX, float cameraY) {
 		//Top 1
 		if(player.SetBottom_A.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
 		
@@ -1358,7 +1358,7 @@ public class GameControl {
 	}
 	
 	/// [FOOTER ] //////
-	public Sprite GetFooterChar(Player player , String menu, float cameraX, float cameraY) {
+	public Sprite GetFooterChar(GameObject player , String menu, float cameraX, float cameraY) {
 		//Top 1
 		if(player.SetFooter_A.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
 		
@@ -1478,12 +1478,12 @@ public class GameControl {
 		return spr_master;
 	}
 
-	public Sprite GetWeapon(Player player , String menu, float cameraX, float cameraY) {
+	public Sprite GetWeapon(GameObject player , String menu, float cameraX, float cameraY) {
 		return spr_master;
 	}
 	
 	//[Monsters]//
-	public ArrayList<Monster> LoadMonsters(String Map) {
+	public ArrayList<GameObject> LoadMonsters(String Map) {
 		if(Map.equals("Sewers")){
 			lstMonsters = placeholderMonster.LoadMonsterData(Map);
 		}
@@ -2119,7 +2119,7 @@ public class GameControl {
 			}
 			
 			
-			public Sprite SetWeapon(Player playerUse) {   
+			public Sprite SetWeapon(GameObject playerUse) {   
 				
 				//player.playerInBattle = "no";
 				//playerInAttack = true;
@@ -2834,14 +2834,14 @@ public class GameControl {
 				return lstChats;
 			}
 			
-			public ArrayList<Player> GetListOnlinePlayers(){
+			public ArrayList<GameObject> GetListOnlinePlayers(){
 				return lstOnlinePlayers;
 			}
 			
 			public void UpdateOnlinePlayers(String line) {
 				
 				String[] lineSplit = line.split(":");
-				playerOnline = new Player();
+				playerOnline = new GameObject();
 				playerOnline.AccountID = lineSplit[4];
 				playerOnline.Name_A = lineSplit[2];
 				playerOnline.Level_A = Integer.parseInt(lineSplit[6]);
@@ -2874,9 +2874,9 @@ public class GameControl {
 					lstOnlinePlayers.add(playerOnline); 
 				}
 
-				Map<String, Player> playersMap = new HashMap<String, Player>();
+				Map<String, GameObject> playersMap = new HashMap<String, GameObject>();
 
-				for (Player player : lstOnlinePlayers) {
+				for (GameObject player : lstOnlinePlayers) {
 				    playersMap.put(player.getAccountID(), player);
 				}
 

@@ -24,7 +24,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	private MainGame game;
 	private GameControl gameControl;
 	private boolean network = false;
-	private Player player;
+	private GameObject player;
 	
 	//Loading Variables
 	private boolean loading = true;

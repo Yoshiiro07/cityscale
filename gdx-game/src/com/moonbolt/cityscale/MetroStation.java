@@ -54,7 +54,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    private float cameraCoordsY = 0;
 	    
 	    //Player
-	    public Player player;
+	    public GameObject player;
 	    private float playerPosX;
 	    private float playerPosY;
 	    private Sprite spr_playerTagHair;
