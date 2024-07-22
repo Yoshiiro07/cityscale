@@ -690,104 +690,80 @@ public class GameControl {
 
 	//[Interface]//
 	public Sprite GetUXSmall(String element) {
-		if(element.equals("bannerselect")) {
-			spr_master = atlas_ux.createSprite("bannerselect");
-			spr_master.setPosition(-60, 50);
-			spr_master.setSize(50,10);
-			return spr_master;
-		}
-		if(element.equals("bannercreate")) {
-			spr_master = atlas_ux.createSprite("bannercreate");
-			spr_master.setPosition(-60, 50);
-			spr_master.setSize(50,10);
-			return spr_master;
-		}
-		if(element.equals("create")) {
-			spr_master = atlas_ux.createSprite("create");
-			spr_master.setPosition(-60, -60);
-			spr_master.setSize(120,120);
-			return spr_master;
-		}
-		if(element.equals("confirmtab")) {
-			spr_master = atlas_ux.createSprite("confirmtab");
-			spr_master.setPosition(15, 10);
-			spr_master.setSize(50,50);
-			return spr_master;
-		}
-		if(element.equals("bannerdelete")) {
-			spr_master = atlas_ux.createSprite("bannerdelete");
-			spr_master.setPosition(-60, 50);
-			spr_master.setSize(50,10);
-			return spr_master;
-		}
-		if(element.equals("btnvoltar")) {
-			spr_master = atlas_ux.createSprite("btnback");
-			spr_master.setPosition(40, -60);
-			spr_master.setSize(20,10);
-			return spr_master;
-		}
-		if(element.equals("btncreatenew")) {
-			spr_master = atlas_ux.createSprite("btncreatenew");
-			spr_master.setPosition(-60, -60);
-			spr_master.setSize(20,10);
-			return spr_master;
-		}
-		if(element.equals("btnexclude")) {
-			spr_master = atlas_ux.createSprite("btnexclude");
-			spr_master.setPosition(40, -60);
-			spr_master.setSize(20,10);
-			return spr_master;
-		}
-		if(element.equals("playertag")) {
-			spr_master = atlas_ux.createSprite("playertag");
-			spr_master.setPosition(-69, 36);
-			spr_master.setSize(42,32);
-			return spr_master;
-		}
-		if(element.equals("innerpad")) {
-			spr_master = atlas_ux.createSprite("innerpad");
-			spr_master.setSize(10,20);
-			return spr_master;
-		}
-		
-		if(element.equals("textbar")){
-			spr_master = atlas_ux.createSprite("textbar");
-		}
-		
-		return spr_master;
+		switch (element) {
+			case "bannerselect":
+			case "bannercreate":
+			case "bannerdelete":
+				spr_master = atlas_ux.createSprite(element);
+				spr_master.setPosition(-60, 50);
+				spr_master.setSize(50, 10);
+				break;
+			case "create":
+				spr_master = atlas_ux.createSprite(element);
+				spr_master.setPosition(-60, -60);
+				spr_master.setSize(120, 120);
+				break;
+			case "confirmtab":
+				spr_master = atlas_ux.createSprite(element);
+				spr_master.setPosition(15, 10);
+				spr_master.setSize(50, 50);
+				break;
+			case "btnvoltar":
+			case "btncreatenew":
+			case "btnexclude":
+				spr_master = atlas_ux.createSprite(element.equals("btnvoltar") ? "btnback" : element);
+				spr_master.setPosition(element.equals("btnvoltar") || element.equals("btnexclude") ? 40 : -60, -60);
+				spr_master.setSize(20, 10);
+				break;
+			case "playertag":
+				spr_master = atlas_ux.createSprite(element);
+				spr_master.setPosition(-69, 36);
+				spr_master.setSize(42, 32);
+				break;
+			case "innerpad":
+				spr_master = atlas_ux.createSprite(element);
+				spr_master.setSize(10, 20);
+				break;
+			case "textbar":
+				spr_master = atlas_ux.createSprite(element);
+				// If there are no specific properties to set for "textbar", it ends here.
+				break;
+			default:
+				return spr_master;
 	}
 	
 	public Sprite GetUX(String element, float cameraCoordsX, float cameraCoordsY) {
-		if(element.equals("playertag")) {
-			spr_master = atlas_ux.createSprite("playertag");
-			spr_master.setPosition(cameraCoordsX -99,cameraCoordsY + 56);
-			spr_master.setSize(52,42);
-			return spr_master;
+		switch (element) {
+			case "playertag":
+				spr_master = atlas_ux.createSprite("playertag");
+				spr_master.setPosition(cameraCoordsX - 99, cameraCoordsY + 56);
+				spr_master.setSize(52, 42);
+				break;
+			case "innerpad":
+				spr_master = atlas_ux.createSprite("innerpad");
+				spr_master.setSize(20, 35);
+				break;
+			case "battlezoneA":
+				spr_master = atlas_ux.createSprite("battlezoneA");
+				spr_master.setPosition(cameraCoordsX - 48, cameraCoordsY - 45);
+				spr_master.setSize(90, 100);
+				break;
+			case "target":
+				spr_master = atlas_ux.createSprite("target");
+				// No additional properties to set for "target"
+				break;
+			case "menu":
+				spr_master = atlas_ux.createSprite("inventory"); // Note: "inventory" is used instead of "menu"
+				spr_master.setPosition(cameraCoordsX - 85, cameraCoordsY - 80);
+				spr_master.setSize(170, 170);
+				break;
+			case "textbar":
+				spr_master = atlas_ux.createSprite("textbar");
+				// If there are no specific properties to set for "textbar", it ends here.
+				break;
+			default:
+				return spr_master;
 		}
-		if(element.equals("innerpad")) {
-			spr_master = atlas_ux.createSprite("innerpad");
-			spr_master.setSize(20,35);
-			return spr_master;
-		}
-		if(element.equals("battlezoneA")) {
-			spr_master = atlas_ux.createSprite("battlezoneA");
-			spr_master.setPosition(cameraCoordsX -48,cameraCoordsY - 45);
-			spr_master.setSize(90,100);
-			return spr_master;
-		}
-		if(element.equals("target")) {
-			spr_master = atlas_ux.createSprite("target");
-			return spr_master;
-		}
-		if(element.equals("menu")){
-			spr_master = atlas_ux.createSprite("inventory");
-			spr_master.setPosition(cameraCoordsX -85,cameraCoordsY -80);
-			spr_master.setSize(170,170);
-		}
-		if(element.equals("textbar")){
-			spr_master = atlas_ux.createSprite("textbar");
-		}
-		
 		return spr_master;
 	}
 	
@@ -802,64 +778,22 @@ public class GameControl {
 	}
 	
 	public Sprite GetCard(String cardname) {
-		if(cardname.equals("cardempty")) {
-			spr_master = atlas_cards.createSprite("cardempty");
-			spr_master.setSize(10,25);
-			return spr_master;	
+		switch (cardname) {
+			case "cardempty":
+			case "cardhp":
+			case "cardaction":
+			case "cardactionON":
+			case "cardblock":
+			case "cardtarget":
+			case "cardsit":
+			case "cardcutbreak":
+			case "cardrockbound":
+				spr_master = atlas_cards.createSprite(cardname);
+				spr_master.setSize(10, 25);
+				break;
+			default:
+				return spr_master;
 		}
-		
-		
-		if(cardname.equals("cardhp")) {
-			spr_master = atlas_cards.createSprite("cardhp");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		
-		if(cardname.equals("cardaction")) {
-			spr_master = atlas_cards.createSprite("cardaction");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		if(cardname.equals("cardactionON")) {
-			spr_master = atlas_cards.createSprite("cardactionON");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		if(cardname.equals("cardblock")) {
-			spr_master = atlas_cards.createSprite("cardblock");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		if(cardname.equals("cardtarget")) {
-			spr_master = atlas_cards.createSprite("cardtarget");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		
-		if(cardname.equals("cardblock")) {
-			spr_master = atlas_cards.createSprite("cardblock");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		
-		if(cardname.equals("cardsit")) {
-			spr_master = atlas_cards.createSprite("cardsit");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		
-		if(cardname.equals("cardcutbreak")) {
-			spr_master = atlas_cards.createSprite("cardcutbreak");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		
-		if(cardname.equals("cardrockbound")) {
-			spr_master = atlas_cards.createSprite("cardrockbound");
-			spr_master.setSize(10,25);
-			return spr_master;	
-		}
-		
 		return spr_master;
 	}
 	
@@ -2540,50 +2474,43 @@ public class GameControl {
 			        return retornoOnline;		        
 				}
 				
-				if(tipoRequisicao.equals("SyncChats")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncChats", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        String linechat = "";
-			        int chatnum = 1;
-			        line = "";
-			        lstChats.clear();
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	if (linhaLida.contains("SYSTEMCHAT")) {  
-			        		String[] lineSplit = line.split(":");
-			        		linechat = lineSplit[2] + "=" + lineSplit[4];
-			        		
-			        		if(chatnum == 1) { lstChats.add(0, linechat); }
-			        		if(chatnum == 2) { lstChats.add(1, linechat); }
-			        		if(chatnum == 3) { lstChats.add(2, linechat); }
-			        		if(chatnum == 4) { lstChats.add(3, linechat); }
-			        		if(chatnum == 5) { lstChats.add(4, linechat); }
-			        		chatnum++;
-			            }	
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
+				if (tipoRequisicao.equals("SyncChats")) {
+					// Construct data using StringBuilder
+					StringBuilder dataBuilder = new StringBuilder();
+					String[] params = {"ldataaccount", player.AccountID, "lrequest", "SyncChats", "lservername", lservername, "lusername", lusername, "lpassword", lpassword, "ldbname", ldbname};
+					for (int i = 0; i < params.length; i += 2) {
+						if (i > 0) dataBuilder.append("&");
+						dataBuilder.append(URLEncoder.encode(params[i], "UTF-8"))
+								   .append("=")
+								   .append(URLEncoder.encode(params[i + 1], "UTF-8"));
+					}
+					String data = dataBuilder.toString();
+				
+					// Send data
+					URL url = new URL("http://moonboltprojects.online/index.php");
+					URLConnection conn = url.openConnection();
+					conn.setDoOutput(true);
+					try (OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream())) {
+						wr.write(data);
+						wr.flush();
+					}
+				
+					// Get the response
+					lstChats.clear();
+					retornoOnline = "retry";
+					try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+						String line;
+						int chatnum = 0;
+						while ((line = rd.readLine()) != null && chatnum < 5) {
+							if (line.contains("SYSTEMCHAT")) {
+								String[] lineSplit = line.split(":");
+								String linechat = lineSplit[2] + "=" + lineSplit[4];
+								lstChats.add(chatnum, linechat);
+								chatnum++;
+							}
+						}
+					}
+					return retornoOnline;
 				}
 				
 				

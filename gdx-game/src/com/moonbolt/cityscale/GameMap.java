@@ -1586,8 +1586,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							GiveBuff("defboost"); 
 							rangedAttack = false; 
 							skillEffect = true;
-							Skill skillInUse = new Skill();
-							Damage damageSkill = new Damage();
+							GameObject skillInUse = new GameObject();
+							GameObject damageSkill = new GameObject();
 							skillInUse.SkillName = "defboost";
 							skillInUse.SkillPosX = player.PosX_A;
 							skillInUse.SkillPosY = player.PosY_A;
@@ -1604,8 +1604,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							GiveBuff("regen"); 
 							rangedAttack = false; 
 							skillEffect = true;
-							Skill skillInUse = new Skill();
-							Damage damageSkill = new Damage();
+							GameObject skillInUse = new GameObject();
+							GameObject damageSkill = new GameObject();
 							skillInUse.SkillName = "regen";
 							skillInUse.SkillPosX = player.PosX_A;
 							skillInUse.SkillPosY = player.PosY_A;
@@ -1621,8 +1621,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							GiveBuff("ironshield"); 
 							rangedAttack = false; 
 							skillEffect = true;
-							Skill skillInUse = new Skill();
-							Damage damageSkill = new Damage();
+							GameObject skillInUse = new GameObject();
+							GameObject damageSkill = new GameObject();
 							skillInUse.SkillName = "ironshield";
 							skillInUse.SkillPosX = player.PosX_A;
 							skillInUse.SkillPosY = player.PosY_A;
@@ -1638,8 +1638,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							GiveBuff("invisibility");
 							rangedAttack = false; 
 							skillEffect = true;
-							Skill skillInUse = new Skill();
-							Damage damageSkill = new Damage();
+							GameObject skillInUse = new GameObject();
+							GameObject damageSkill = new GameObject();
 							skillInUse.SkillName = "invisibility";
 							skillInUse.SkillPosX = player.PosX_A;
 							skillInUse.SkillPosY = player.PosY_A;
@@ -1665,8 +1665,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								mobHP = mobHP - totaldmg;
 								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
-								Skill skillInUse = new Skill();
-								Damage damageSkill = new Damage();
+								GameObject skillInUse = new GameObject();
+								GameObject damageSkill = new GameObject();
 								skillInUse.SkillName = "rockbound";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
@@ -1690,8 +1690,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								mobHP = mobHP - totaldmg;
 								listMonsters.get(i).MobHp = mobHP;				
 								skillEffect = true;
-								Skill skillInUse = new Skill();
-								Damage damageSkill = new Damage();
+								GameObject skillInUse = new GameObject();
+								GameObject damageSkill = new GameObject();
 								skillInUse.SkillName = "fireball";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
@@ -1715,8 +1715,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								mobHP = mobHP - totaldmg;
 								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
-								Skill skillInUse = new Skill();
-								Damage damageSkill = new Damage();
+								GameObject skillInUse = new GameObject();
+								GameObject damageSkill = new GameObject();
 								skillInUse.SkillName = "icecrystal";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
@@ -1739,8 +1739,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								mobHP = mobHP - totaldmg;
 								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
-								Skill skillInUse = new Skill();
-								Damage damageSkill = new Damage();
+								GameObject skillInUse = new GameObject();
+								GameObject damageSkill = new GameObject();
 								skillInUse.SkillName = "thundercloud";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
@@ -1764,8 +1764,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								mobHP = mobHP - totaldmg;
 								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
-								Skill skillInUse = new Skill();
-								Damage damageSkill = new Damage();
+								GameObject skillInUse = new GameObject();
+								GameObject damageSkill = new GameObject();
 								skillInUse.SkillName = "bulletrain";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
@@ -1788,8 +1788,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								mobHP = mobHP - totaldmg;
 								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
-								Skill skillInUse = new Skill();
-								Damage damageSkill = new Damage();
+								GameObject skillInUse = new GameObject();
+								GameObject damageSkill = new GameObject();
 								skillInUse.SkillName = "holyprism";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
@@ -1812,8 +1812,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								mobHP = mobHP - totaldmg;
 								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
-								Skill skillInUse = new Skill();
-								Damage damageSkill = new Damage();
+								GameObject skillInUse = new GameObject();
+								GameObject damageSkill = new GameObject();
 								skillInUse.SkillName = "mine";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
