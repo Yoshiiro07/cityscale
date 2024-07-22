@@ -25,27 +25,10 @@ public class ManagerScreen implements Screen{
 			SplashScreen splashScreen = new SplashScreen(game, this);
 			game.setScreen(splashScreen);
 		}
-		
-		if(tipo.equals("TitleScreen")){	
-			TitleScreen titleScreen = new TitleScreen(game,this);
-			game.setScreen(titleScreen);
-		}
-		
-		if(tipo.equals("CharacterSelectScreen")){	
-			CharacterSelect CharacterSelectScreen = new CharacterSelect(game,this, network);
-			game.setScreen(CharacterSelectScreen);
-		}
-		
 		if(tipo.equals("LoadingScreen")){	
 			LoadingScreen loadingScreen = new LoadingScreen(game,network);
 			game.setScreen(loadingScreen);
-		}
-		
-		if(tipo.equals("MetroStation")){
-			MetroStation MetroScreen = new MetroStation(game,this, network);
-			game.setScreen(MetroScreen);
-		}
-		
+		}	
 		if(tipo.equals("GameMap")) {
 			GameMap gameMapScreen = new GameMap(game,this, network);
 			game.setScreen(gameMapScreen);

@@ -53,7 +53,6 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 		this.network = networkAlt;
 		
 		this.gameControl = new GameControl();
-		player = gameControl.LoadData();
 			
 		//Camera and Inputs
 		camera = new OrthographicCamera();
