@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.moonbolt.cityscale.models.Player;
 
 
 public class MetroStation implements Screen, ApplicationListener, InputProcessor, TextInputListener {
@@ -157,24 +158,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				spr_metro.draw(game.batch);
 				if(metroX > 100) { metroX = -189; }
 				
-				//UX
-				spr_playerTag = gameControl.GetUXSmall("playertag");
-				spr_playerTag.draw(game.batch);
-				
-				spr_playerTagHair = gameControl.GetHairCharTagStation(player);
-				spr_playerTagHair.draw(game.batch);
-				
-				font_master.draw(game.batch, "Local:" + player.Map_A, cameraCoordsX - 68f, cameraCoordsY + 30.7f);
-				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 68f, cameraCoordsY + 34.7f);
-				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 58f, cameraCoordsY + 34.7f);
-				
-				
-				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 62f, cameraCoordsY + 62.7f);
-				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 62f, cameraCoordsY + 53.7f);
-				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 62f, cameraCoordsY + 47.7f);
-				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 61f, cameraCoordsY + 40.7f);
-				font_master.draw(game.batch, String.valueOf(player.Exp_A), cameraCoordsX - 48f, cameraCoordsY + 40.7f);
-				
+				//UX						
 				spr_master = gameControl.GetUXSmall("innerpad");
 				spr_master.setPosition(padmoveX, padmoveY);
 				spr_master.draw(game.batch);

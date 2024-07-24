@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.moonbolt.cityscale.models.Player;
 
 
 public class CharacterSelect implements Screen, ApplicationListener, InputProcessor, TextInputListener {

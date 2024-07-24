@@ -1,4 +1,4 @@
-package com.moonbolt.cityscale;
+package com.moonbolt.cityscale.models;
 
 public class Damage {
 	//Damage

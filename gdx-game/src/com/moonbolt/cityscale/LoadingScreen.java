@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.moonbolt.cityscale.models.Player;
 import com.badlogic.gdx.Input.TextInputListener;
 
 public class LoadingScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {

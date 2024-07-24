@@ -21,6 +21,10 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.moonbolt.cityscale.models.Damage;
+import com.moonbolt.cityscale.models.Monster;
+import com.moonbolt.cityscale.models.Player;
+import com.moonbolt.cityscale.models.Skill;
 
 
 public class GameMap implements Screen, ApplicationListener, InputProcessor, TextInputListener {
@@ -912,18 +916,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public int CheckWeapon() {  
 		
 			if(player.Weapon_A.equals("basic_knife")) { return 6;}			
-			if(player.Weapon_A.equals("doubleedgeknife")) { return 3; }
-			
-			if(player.Weapon_A.equals("woodsword")) { return 10;}			
-						
-			if(player.Weapon_A.equals("basicpistol")) { return 8;}	
-			
-			if(player.Weapon_A.equals("basicdagger")) { return 7;}
-			
-			if(player.Weapon_A.equals("stickrod")) { return 6;}
-			
+			if(player.Weapon_A.equals("doubleedgeknife")) { return 3; }		
+			if(player.Weapon_A.equals("woodsword")) { return 10;}							
+			if(player.Weapon_A.equals("basicpistol")) { return 8;}			
+			if(player.Weapon_A.equals("basicdagger")) { return 7;}		
+			if(player.Weapon_A.equals("stickrod")) { return 6;}	
 			if(player.Weapon_A.equals("basicaxe")) { return 12;}
-			
 			
 			return 0;
 		}
@@ -1142,7 +1140,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Hotkey 1 / 2
 			if(player.hotkey1_A.equals("none")) {
 				spr_master = gameControl.GetCard("cardempty");
-				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 30);
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
 				spr_master.draw(game.batch);
 			}
 			
@@ -1167,33 +1165,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(!player.Map_A.equals("Sewers")){
 				spr_master = gameControl.GetCard("cardaction");
-				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 60);
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
 				spr_master.draw(game.batch);
 			}
 
 			if(player.Map_A.equals("Sewers")){ //cardactionON
 				if(autoattack){
 					spr_master = gameControl.GetCard("cardactionON");
-					spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 60);
+					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
 					spr_master.draw(game.batch);
 				}
 				else{
 					spr_master = gameControl.GetCard("cardaction");
-					spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 60);
+					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
 					spr_master.draw(game.batch);
 				}
 			}
 			
 			spr_master = gameControl.GetCard("cardtarget");
 			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 60);
-			spr_master.draw(game.batch);
-			
-			spr_master = gameControl.GetCard("cardblock");
-			spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
-			spr_master.draw(game.batch);
-			
-			spr_master = gameControl.GetCard("cardsit");
-			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
 			spr_master.draw(game.batch);
 			
 			//Novice Cards

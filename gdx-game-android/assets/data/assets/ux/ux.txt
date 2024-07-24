@@ -12,21 +12,21 @@ area
   index: -1
 bannercreate
   rotate: false
-  xy: 0, 0
+  xy: 50, 0
   size: 194, 23
   orig: 194, 23
   offset: 0, 0
   index: -1
 bannerdelete
   rotate: false
-  xy: 194, 0
+  xy: 244, 0
   size: 194, 23
   orig: 194, 23
   offset: 0, 0
   index: -1
 bannerselect
   rotate: false
-  xy: 388, 0
+  xy: 438, 0
   size: 194, 23
   orig: 194, 23
   offset: 0, 0
@@ -96,7 +96,7 @@ crystal
   index: -1
 hand
   rotate: false
-  xy: 787, 0
+  xy: 837, 0
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
@@ -131,7 +131,7 @@ login
   index: -1
 moon
   rotate: false
-  xy: 658, 0
+  xy: 708, 0
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
@@ -159,9 +159,16 @@ recover
   index: -1
 selected
   rotate: false
-  xy: 582, 0
+  xy: 632, 0
   size: 76, 35
   orig: 76, 35
+  offset: 0, 0
+  index: -1
+sentar
+  rotate: false
+  xy: 0, 0
+  size: 50, 15
+  orig: 50, 15
   offset: 0, 0
   index: -1
 shop
@@ -173,14 +180,14 @@ shop
   index: -1
 sun
   rotate: false
-  xy: 704, 0
+  xy: 754, 0
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 target
   rotate: false
-  xy: 750, 0
+  xy: 800, 0
   size: 37, 42
   orig: 37, 42
   offset: 0, 0

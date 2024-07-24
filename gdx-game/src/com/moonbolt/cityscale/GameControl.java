@@ -21,6 +21,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
+import com.moonbolt.cityscale.models.Monster;
+import com.moonbolt.cityscale.models.Player;
 import com.badlogic.gdx.files.FileHandle;
 
 public class GameControl {
