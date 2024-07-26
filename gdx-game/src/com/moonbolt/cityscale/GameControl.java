@@ -491,6 +491,203 @@ public class GameControl {
 		this.player = viewplayer;
 	}
 	
+	public void SetSave(int charnum) {
+		if(charnum == 1) {
+			    player.Name_1 = player.Name_A;
+	            player.Sex_1 = player.Sex_A;
+	            player.Hair_1 = player.Hair_A;
+	            player.Color_1 = player.Color_A;
+	            player.Hat_1 = player.Hat_A;
+	            player.Job_1 = player.Job_A;
+	            player.SetUpper_1 = player.SetUpper_A;
+	            player.SetBottom_1 = player.SetBottom_A;
+	            player.SetFooter_1 = player.SetFooter_A;
+	            player.Level_1 = player.Level_A;
+	            player.Exp_1 = player.Exp_A;
+	            player.Map_1 = player.Map_A;
+	            player.Hp_1 = player.Hp_A;
+	            player.Mp_1 = player.Mp_A;
+	            player.Money_1 = player.Money_A;
+	            player.HpMax_1 = player.HpMax_A;
+	            player.MpMax_1 = player.MpMax_A;
+	            player.regenTime_1 = player.regenTime_A;
+	            player.regenTimeMax_1 = player.regenTimeMax_A;
+	            player.PosX_1 = player.PosX_A;
+	            player.PosY_1 = player.PosY_A;
+	            player.Walk_1 = player.Walk_A;
+	            player.Frame_1 = player.Frame_A;
+	            player.countFrame_1 = player.countFrame_A;
+	            player.breakwalk_1 = player.breakwalk_A;
+	            player.Target_1 = player.Target_A;
+	            player.AtkTimer_1 = player.AtkTimer_A;
+	            player.AtkTimerMax_1 = player.AtkTimerMax_A;
+	            player.Casting_1 = player.Casting_A;
+	            player.Atk_1 = player.Atk_A;
+	            player.Def_1 = player.Def_A;
+	            player.Evasion_1 = player.Evasion_A;
+	            player.Side_1 =	player.Side_A;
+	            player.Weapon_1 = player.Weapon_A;
+	            player.Crystal1_1 = player.Crystal1_A;
+	            player.Crystal2_1 = player.Crystal2_A;
+	            player.Crystal3_1 = player.Crystal3_A;
+	            player.Crystal4_1 = player.Crystal4_A;
+	            player.StatusPoint_1 = player.StatusPoint_A;
+	            player.Str_1 = player.Str_A;
+	            player.Agi_1 = player.Agi_A;
+	            player.Vit_1 = player.Vit_A;
+	            player.Dex_1 = player.Dex_A;
+	            player.Wis_1 = player.Wis_A;
+	            player.Stamina_1 = player.Stamina_A;
+	            player.StaminaMax_1 = player.StaminaMax_A;
+	            player.Quests_1 = player.Quests_A;
+	            player.hotkey1_1 = player.hotkey1_A;
+	            player.hotkey2_1 = player.hotkey2_A;
+	            player.buffA_1 = player.buffA_A;
+	            player.buffB_1 = player.buffB_A;
+	            player.buffC_1 = player.buffC_A;
+	            player.BuffTimeA_1 = player.BuffTimeA_A;
+	            player.BuffTimeB_1 = player.BuffTimeB_A;
+	            player.BuffTimeC_1 = player.BuffTimeC_A;
+	            player.party_1 = player.party_A;
+	            player.playerInBattle_1 = player.playerInBattle_A;
+	            player.playerInAttack_1 = player.playerInAttack_A;
+	            player.playerInCast_1 = player.playerInCast_A;
+	            player.playerSit_1 = player.playerSit_A;
+	            player.Itens_1 = player.Itens_A;
+	            player.PlayerExpGet_1 = player.PlayerExpGet_A;
+		}
+		
+		if(charnum == 2) {
+			player.Name_2 = player.Name_A;
+			player.Sex_2 = player.Sex_A;
+			player.Hair_2 = player.Hair_A;
+			player.Color_2 = player.Color_A;
+			player.Hat_2 = player.Hat_A;
+			player.Job_2 = player.Job_A;
+			player.SetUpper_2 = player.SetUpper_A;
+			player.SetBottom_2 = player.SetBottom_A;
+			player.SetFooter_2 = player.SetFooter_A;
+			player.Level_2 = player.Level_A;
+			player.Exp_2 = player.Exp_A;
+			player.Map_2 = player.Map_A;
+			player.Hp_2 = player.Hp_A;
+			player.Mp_2 = player.Mp_A;
+			player.Money_2 = player.Money_A;
+			player.HpMax_2 = player.HpMax_A;
+			player.MpMax_2 = player.MpMax_A;
+			player.regenTime_2 = player.regenTime_A;
+			player.regenTimeMax_2 = player.regenTimeMax_A;
+			player.PosX_2 = player.PosX_A;
+			player.PosY_2 = player.PosY_A;
+			player.Walk_2 = player.Walk_A;
+			player.Frame_2 = player.Frame_A;
+			player.countFrame_2 = player.countFrame_A;
+			player.breakwalk_2 = player.breakwalk_A;
+			player.Target_2 = player.Target_A;
+			player.AtkTimer_2 = player.AtkTimer_A;
+			player.AtkTimerMax_2 = player.AtkTimerMax_A;
+			player.Casting_2 = player.Casting_A;
+			player.Atk_2 = player.Atk_A;
+			player.Def_2 = player.Def_A;
+			player.Evasion_2 = player.Evasion_A;
+			player.Side_2 = player.Side_A;
+			player.Weapon_2 = player.Weapon_A;
+			player.Crystal1_2 = player.Crystal1_A;
+			player.Crystal2_2 = player.Crystal2_A;
+			player.Crystal3_2 = player.Crystal3_A;
+			player.Crystal4_2 = player.Crystal4_A;
+			player.StatusPoint_2 = player.StatusPoint_A;
+			player.Str_2 = player.Str_A;
+			player.Agi_2 = player.Agi_A;
+			player.Vit_2 = player.Vit_A;
+			player.Dex_2 = player.Dex_A;
+			player.Wis_2 = player.Wis_A;
+			player.Stamina_2 = player.Stamina_A;
+			player.StaminaMax_2 = player.StaminaMax_A;
+			player.Quests_2 = player.Quests_A;
+			player.hotkey1_2 = player.hotkey1_A;
+			player.hotkey2_2 = player.hotkey2_A;
+			player.buffA_2 = player.buffA_A;
+			player.buffB_2 = player.buffB_A;
+			player.buffC_2 = player.buffC_A;
+			player.BuffTimeA_2 = player.BuffTimeA_A;
+			player.BuffTimeB_2 = player.BuffTimeB_A;
+			player.BuffTimeC_2 = player.BuffTimeC_A;
+			player.party_2 = player.party_A;
+			player.playerInBattle_2 = player.playerInBattle_A;
+			player.playerInAttack_2 = player.playerInAttack_A;
+			player.playerInCast_2 = player.playerInCast_A;
+			player.playerSit_2 = player.playerSit_A;
+			player.Itens_2 = player.Itens_A;
+			player.PlayerExpGet_2 = player.PlayerExpGet_A;
+		}
+		
+		if(charnum == 3) {
+			player.Name_3 = player.Name_A;
+			player.Sex_3 = player.Sex_A;
+			player.Hair_3 = player.Hair_A;
+			player.Color_3 = player.Color_A;
+			player.Hat_3 = player.Hat_A;
+			player.Job_3 = player.Job_A;
+			player.SetUpper_3 = player.SetUpper_A;
+			player.SetBottom_3 = player.SetBottom_A;
+			player.SetFooter_3 = player.SetFooter_A;
+			player.Level_3 = player.Level_A;
+			player.Exp_3 = player.Exp_A;
+			player.Map_3 = player.Map_A;
+			player.Hp_3 = player.Hp_A;
+			player.Mp_3 = player.Mp_A;
+			player.Money_3 = player.Money_A;
+			player.HpMax_3 = player.HpMax_A;
+			player.MpMax_3 = player.MpMax_A;
+			player.regenTime_3 = player.regenTime_A;
+			player.regenTimeMax_3 = player.regenTimeMax_A;
+			player.PosX_3 = player.PosX_A;
+			player.PosY_3 = player.PosY_A;
+			player.Walk_3 = player.Walk_A;
+			player.Frame_3 = player.Frame_A;
+			player.countFrame_3 = player.countFrame_A;
+			player.breakwalk_3 = player.breakwalk_A;
+			player.Target_3 = player.Target_A;
+			player.AtkTimer_3 = player.AtkTimer_A;
+			player.AtkTimerMax_3 = player.AtkTimerMax_A;
+			player.Casting_3 = player.Casting_A;
+			player.Atk_3 = player.Atk_A;
+			player.Def_3 = player.Def_A;
+			player.Evasion_3 = player.Evasion_A;
+			player.Side_3 = player.Side_A;
+			player.Weapon_3 = player.Weapon_A;
+			player.Crystal1_3 = player.Crystal1_A;
+			player.Crystal2_3 = player.Crystal2_A;
+			player.Crystal3_3 = player.Crystal3_A;
+			player.Crystal4_3 = player.Crystal4_A;
+			player.StatusPoint_3 = player.StatusPoint_A;
+			player.Str_3 = player.Str_A;
+			player.Agi_3 = player.Agi_A;
+			player.Vit_3 = player.Vit_A;
+			player.Dex_3 = player.Dex_A;
+			player.Wis_3 = player.Wis_A;
+			player.Stamina_3 = player.Stamina_A;
+			player.StaminaMax_3 = player.StaminaMax_A;
+			player.Quests_3 = player.Quests_A;
+			player.hotkey1_3 = player.hotkey1_A;
+			player.hotkey2_3 = player.hotkey2_A;
+			player.buffA_3 = player.buffA_A;
+			player.buffB_3 = player.buffB_A;
+			player.buffC_3 = player.buffC_A;
+			player.BuffTimeA_3 = player.BuffTimeA_A;
+			player.BuffTimeB_3 = player.BuffTimeB_A;
+			player.BuffTimeC_3 = player.BuffTimeC_A;
+			player.party_3 = player.party_A;
+			player.playerInBattle_3 = player.playerInBattle_A;
+			player.playerInAttack_3 = player.playerInAttack_A;
+			player.playerInCast_3 = player.playerInCast_A;
+			player.playerSit_3 = player.playerSit_A;
+			player.Itens_3 = player.Itens_A;
+			player.PlayerExpGet_3 = player.PlayerExpGet_A;
+		}
+	}
+	
 	
 
 	public void SetCharacter(int charnum) {
@@ -752,6 +949,8 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		
+		
 		if(element.equals("textbar")){
 			spr_master = atlas_ux.createSprite("textbar");
 		}
@@ -788,6 +987,13 @@ public class GameControl {
 		}
 		if(element.equals("textbar")){
 			spr_master = atlas_ux.createSprite("textbar");
+		}
+		
+		if(element.equals("btnsit")) {
+			spr_master = atlas_ux.createSprite("sentar");
+			spr_master.setSize(20,10);
+			spr_master.setPosition(cameraCoordsX - 45,cameraCoordsY + 87);
+			return spr_master;
 		}
 		
 		return spr_master;

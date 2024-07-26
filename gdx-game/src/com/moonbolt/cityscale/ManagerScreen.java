@@ -9,25 +9,22 @@ public class ManagerScreen implements Screen{
 	private MainGame game;
 	private GameControl gameControl;
 	private boolean network;
-	public String lservername = "cityserver.mysql.uhserver.com";
-	public String lusername = "citymaster";
-	public String lpassword = "City@key90";
-	public String ldbname = "cityserver";
+	private int playernum;
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
 		this.gameControl = new GameControl(); 
 	}
 	
-	public void screenSwitch(String tipo, boolean network){
+	public void screenSwitch(String tipo, boolean network, int playernum){
 		
 		if(tipo.equals("SplashScreen")){	
-			SplashScreen splashScreen = new SplashScreen(game, this);
+			SplashScreen splashScreen = new SplashScreen(game, this,playernum);
 			game.setScreen(splashScreen);
 		}
 		
 		if(tipo.equals("TitleScreen")){	
-			TitleScreen titleScreen = new TitleScreen(game,this);
+			TitleScreen titleScreen = new TitleScreen(game,this, this.playernum);
 			game.setScreen(titleScreen);
 		}
 		
@@ -37,25 +34,26 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("LoadingScreen")){	
-			LoadingScreen loadingScreen = new LoadingScreen(game,network);
+			LoadingScreen loadingScreen = new LoadingScreen(game,network,playernum);
 			game.setScreen(loadingScreen);
 		}
 		
 		if(tipo.equals("MetroStation")){
-			MetroStation MetroScreen = new MetroStation(game,this, network);
+			MetroStation MetroScreen = new MetroStation(game,this, network, playernum);
 			game.setScreen(MetroScreen);
 		}
 		
 		if(tipo.equals("GameMap")) {
-			GameMap gameMapScreen = new GameMap(game,this, network);
+			GameMap gameMapScreen = new GameMap(game,this, network,playernum);
 			game.setScreen(gameMapScreen);
 		}
 	}
 	
-	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControlAlt, boolean network){
+	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControlAlt, boolean network, int playernumberAlt){
 		this.game = maingameAlt;
 		this.gameControl = gameControlAlt;
 		this.network = network;
+		this.playernum = playernumberAlt;
 	}
 
 	@Override

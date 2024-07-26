@@ -1,5 +1,5 @@
 shops.png
-size: 800, 339
+size: 1600, 339
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -15,5 +15,12 @@ lojamaquina
   xy: 400, 0
   size: 400, 339
   orig: 400, 339
+  offset: 0, 0
+  index: -1
+shops
+  rotate: false
+  xy: 800, 0
+  size: 800, 339
+  orig: 800, 339
   offset: 0, 0
   index: -1

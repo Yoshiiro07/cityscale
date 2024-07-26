@@ -46,6 +46,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private GameControl gameControl;
 	    private String state = "main";
 	    private boolean network = true;
+	    private int playernum;
 	    
 	    //Manager
 	    private String systemMsg;
@@ -83,9 +84,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public TitleScreen(MainGame gameAlt, ManagerScreen screen) {
+		public TitleScreen(MainGame gameAlt, ManagerScreen screen, int playernumAlt) {
 			this.game = gameAlt;
 			this.screen = screen;
+			this.playernum = playernumAlt;
 			gameControl = new GameControl();
 			
 			//test dot
@@ -149,7 +151,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				
 				
 				if(state.equals("charselect")) {
-					this.screen.screenSwitch("CharacterSelectScreen", network);
+					this.screen.screenSwitch("CharacterSelectScreen", network,playernum);
 					dispose();
 				}
 				

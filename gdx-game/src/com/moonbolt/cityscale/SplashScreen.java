@@ -24,10 +24,12 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 	private int fadeInCount;
 	private int fadeOutCount;
 	private boolean network = false;
+	private int playernum;
 	
-	public SplashScreen(MainGame game, ManagerScreen screen){
+	public SplashScreen(MainGame game, ManagerScreen screen, int playernumAlt){
 		this.screen = screen;
 		this.game = game;
+		this.playernum = playernumAlt;
 		
 		camera = new OrthographicCamera();
 		viewport = new StretchViewport(100,100,camera);
@@ -70,7 +72,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		}
 		
 		if(countEffect >= 250 && interpolation == true){
-			this.screen.screenSwitch("TitleScreen", network);
+			this.screen.screenSwitch("TitleScreen", network,playernum);
 			dispose();
 		}
 		
@@ -157,7 +159,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 
 			if(coordsTouch.x >= 0 && coordsTouch.x <= 100 && coordsTouch.y >= 0 && coordsTouch.y <= 100){
-			    this.screen.screenSwitch("TitleScreen",network);
+			    this.screen.screenSwitch("TitleScreen",network,playernum);
 				dispose();
 			}
 		return false;

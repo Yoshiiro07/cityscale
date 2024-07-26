@@ -39,6 +39,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private boolean network = false;
 		private String shopname = "";
 	    private String menuoption = "";
+	    private int playernum = 0;
+	    
 		//Fonts
 		private BitmapFont font_master;
 		
@@ -77,6 +79,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private float touchSkillX;
 	    private float touchSkillY;
 	    private boolean selectAreaRanged = false;
+	    private Sprite spr_sit;
 	    
 		//Monster
 		private ArrayList<Monster> listMonsters;
@@ -136,11 +139,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);	
 		
-		public GameMap(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt) {
+		public GameMap(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt, int playernumber) {
 			this.game = gameAlt;	
 			this.screen = screenAlt;
 			this.randnumber = new Random();
 			this.network = networkAlt;
+			this.playernum = playernumber;
 
 			//Load Player Data
 			this.gameControl = new GameControl();
@@ -210,7 +214,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Save
 				savedataTime--;
 				if(savedataTime < 0) {
-					savedataTime = 700;
+					savedataTime = 500;
+					gameControl.SetSave(playernum);
 					gameControl.SaveData(player);
 				}
 				
@@ -275,6 +280,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.getData().setScale(0.15f,0.26f);
 				font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 98f, cameraCoordsY + 53.7f);
 				font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 78f, cameraCoordsY + 53.7f);
+				
+				spr_sit = gameControl.GetUX("btnsit", cameraCoordsX, cameraCoordsY);
+				spr_sit.draw(game.batch);
 				
 				
 				font_master.draw(game.batch, player.Name_A, cameraCoordsX - 88f, cameraCoordsY + 93.7f);
@@ -431,11 +439,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				//spr_testeDot.setPosition(cameraCoordsX + 79,cameraCoordsY - 66);
+				//spr_testeDot.setPosition(cameraCoordsX - 45,cameraCoordsY + 97);
 				//spr_testeDot.setSize(1, 1);
 				//spr_testeDot.draw(game.batch);
 
-				//spr_testeDot.setPosition(cameraCoordsX + 88,cameraCoordsY - 90);
+				//spr_testeDot.setPosition(cameraCoordsX - 25,cameraCoordsY + 86);
 				//spr_testeDot.setSize(1, 1);
 				//spr_testeDot.draw(game.batch);
 				
@@ -590,7 +598,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 44.5f;
 				player.PosY_A = -4.5f;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network);
+				this.screen.screenSwitch("LoadingScreen",network,playernum);
 				dispose();	
 			}
 			if(map.equals("StreetsAFromSewers")) {
@@ -598,7 +606,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 112.5f;
 				player.PosY_A = -142f;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network);
+				this.screen.screenSwitch("LoadingScreen",network,playernum);
 				dispose();
 			}
 		}
@@ -784,7 +792,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 0;
 				player.PosY_A = 0;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network);
+				this.screen.screenSwitch("LoadingScreen",network,playernum);
 			}
 		}
 		
@@ -1140,25 +1148,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Hotkey 1 / 2
 			if(player.hotkey1_A.equals("none")) {
 				spr_master = gameControl.GetCard("cardempty");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
 				spr_master.draw(game.batch);
 			}
 			
 			if(player.hotkey2_A.equals("none")) {
 				spr_master = gameControl.GetCard("cardempty");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
 				spr_master.draw(game.batch);
 			}
 			
 			if(player.hotkey1_A.equals("hpcan")) {
 				spr_master = gameControl.GetCard("cardhp");
-				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 30);
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
 				spr_master.draw(game.batch);
 			}
 			
 			if(player.hotkey2_A.equals("hpcan")) {
 				spr_master = gameControl.GetCard("cardhp");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
 				spr_master.draw(game.batch);
 			}
 			
@@ -2544,7 +2552,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Action
-				if(coordsTouch.x > cameraCoordsX + 46 && coordsTouch.x < cameraCoordsX + 57 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
+				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35)  {
 					CheckAction();
 					if(autoattack){
 						autoattack = false;
@@ -2556,9 +2564,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				//Block
-				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
-					return false;
-				}
+				//if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
+				//	return false;
+				//}
 				//Target
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
 					ChangeTarget();
@@ -2579,12 +2587,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				//Skill 3
-				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {
-					
+				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {			
 					return false;
 				}
 				//Sit 
-				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 24) {
+				if(coordsTouch.x > cameraCoordsX - 45 && coordsTouch.x < cameraCoordsX - 25 && coordsTouch.y > cameraCoordsY + 86 && coordsTouch.y < cameraCoordsY + 97) {
 					if(!player.playerInBattle_A.equals("yes")) {
 						if(player.playerSit_A.equals("none")) {
 							player.playerSit_A = "yes";
@@ -2605,7 +2612,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//hotkey2
-				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 6) {
+				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 24) {
 					if(!player.hotkey2_A.equals("none")) {
 						gameControl.UseItem(hotketcountitem2);
 					}

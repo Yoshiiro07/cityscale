@@ -26,6 +26,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	private GameControl gameControl;
 	private boolean network = false;
 	private Player player;
+	private int playernum;
 	
 	//Loading Variables
 	private boolean loading = true;
@@ -49,9 +50,10 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
     //Controller
     private final IntSet downKeys = new IntSet(20);
     
-	public LoadingScreen(MainGame gameAlt,boolean networkAlt) {
+	public LoadingScreen(MainGame gameAlt,boolean networkAlt, int playernumAlt) {
 		this.game = gameAlt;
 		this.network = networkAlt;
+		this.playernum = playernumAlt;
 		
 		this.gameControl = new GameControl();
 		player = gameControl.LoadData();
@@ -114,8 +116,8 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 		}
 		
 		if(changeScreen){
-			if(player.Map_A.equals("MetroStation")) { game.Switch("MetroStation", network); }
-			else { game.Switch("GameMap", network); }
+			if(player.Map_A.equals("MetroStation")) { game.Switch("MetroStation", network,playernum); }
+			else { game.Switch("GameMap", network,playernum); }
 		    			
 		}
 		
