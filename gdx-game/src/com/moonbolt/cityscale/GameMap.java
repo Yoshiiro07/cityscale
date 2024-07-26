@@ -80,6 +80,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private float touchSkillY;
 	    private boolean selectAreaRanged = false;
 	    private Sprite spr_sit;
+	    private int regenTime = 0;
 	    
 		//Monster
 		private ArrayList<Monster> listMonsters;
@@ -155,9 +156,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_Background = new Sprite(tex_Background);
 			
 			//Mobs
-			if(player.Map_A.equals("Sewers")) {
-				listMonsters = gameControl.LoadMonsters("Sewers");
-			}
+			if(player.Map_A.equals("Sewers")) { listMonsters = gameControl.LoadMonsters("Sewers"); }
 
 			//Damage/skill Stance
 			listDamage = new ArrayList<Damage>();
@@ -217,6 +216,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					savedataTime = 500;
 					gameControl.SetSave(playernum);
 					gameControl.SaveData(player);
+				}
+				
+				//Check Regen
+				player.regenTime_A--;
+				if(player.regenTime_A < 0) {
+					player.Hp_A = player.Hp_A + 10;
+					player.Mp_A = player.Mp_A + 10;
+					
+					if(player.Hp_A >= player.HpMax_A) { player.Hp_A = player.HpMax_A; }
+					if(player.Hp_A >= player.HpMax_A) { player.Hp_A = player.HpMax_A; }
+					
+					player.regenTime_A = player.regenTimeMax_A;
 				}
 				
 				//Background	
@@ -439,13 +450,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				//spr_testeDot.setPosition(cameraCoordsX - 45,cameraCoordsY + 97);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(cameraCoordsX - 45,cameraCoordsY + 97);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 
-				//spr_testeDot.setPosition(cameraCoordsX - 25,cameraCoordsY + 86);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(cameraCoordsX - 25,cameraCoordsY + 86);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
 				game.batch.end();
 			}
@@ -519,6 +530,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								    if(network) {
 								    	onlineresponse = gameControl.OnlineManager("ExpSharedSend",String.valueOf(listMonsters.get(i).MobExp),"");
 								    }
+								    else {
+								    	MobDead(i);
+								    }
 								    
 								    return;
 								}
@@ -588,8 +602,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    autoattack = false;
 		    
 		    ItemDrop(listMonsters.get(mobindex).MobName);
-		    player.Money_A = player.Money_A + 2;
 		    GiveExp(listMonsters.get(mobindex).MobExp);
+		    if(player.Money_A > 1500) { return; }
+		    player.Money_A = player.Money_A + 2;
+		    
 		}
 		
 		public void MapChange(String map) {

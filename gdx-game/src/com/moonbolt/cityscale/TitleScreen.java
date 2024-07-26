@@ -52,6 +52,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private String systemMsg;
 		private String conta = "";
 		private String avisoconta = "";
+		private int avisotimer = 0;
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -76,6 +77,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    
 	    //Sprites
 	    private Sprite spr_loginmenu;
+	    private Sprite spr_recovermenu;
 	    
 	    
 	    //Textures
@@ -155,16 +157,35 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 					dispose();
 				}
 				
+				if(state.equals("Recover")){
+					//Menus
+					spr_recovermenu = atlas_gameUI.createSprite("recover");
+					spr_recovermenu.setPosition(-23, -26);
+					spr_recovermenu.setSize(50,50);
+					spr_recovermenu.draw(game.batch);
+					
+					font_master.getData().setScale(0.15f,0.20f);
+					font_master.setUseIntegerPositions(false);				
+					font_master.draw(game.batch, conta , -17 , 11);
+					
+					if(avisotimer > 0) {	
+						font_master.draw(game.batch, avisoconta , -20 , -16);
+						avisotimer--;
+						if(avisotimer < 0) { avisotimer = 0; avisoconta = ""; conta = ""; }
+					}
+				}
+				
+				
 				font_master.setColor(Color.WHITE);
 				font_master.getData().setScale(0.07f,0.12f);
 				font_master.setUseIntegerPositions(false);			
-				font_master.draw(game.batch, "Versao: 1A" , -60 , -58);
+				font_master.draw(game.batch, "Versao: 0.2b" , -60 , -58);
 						
-				spr_testeDot.setPosition(19,-44);
+				spr_testeDot.setPosition(3,-2);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(60, -56);
+				spr_testeDot.setPosition(22, -15);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 					
@@ -173,7 +194,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		}
 		
 		@Override
-		public void input(String input) {	
+		public void input(String input) {
+			if (input.matches("\\d+")) {
+			    conta = input;
+			} 
 		}
 
 		@Override
@@ -228,25 +252,28 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			
 			if(state.equals("Recover")) {
 				//Voltar
-				if(coordsTouch.x >= 28 && coordsTouch.x <= 58 && coordsTouch.y >= -57 && coordsTouch.y <= -44) {
+				if(coordsTouch.x >= 3 && coordsTouch.x <= 22 && coordsTouch.y >= -15 && coordsTouch.y <= -2) {
 					state = "main";
 				}
 				//input acc
-				if(coordsTouch.x >= -57 && coordsTouch.x <= -2 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
+				if(coordsTouch.x >= -20 && coordsTouch.x <= 22 && coordsTouch.y >= 1 && coordsTouch.y <= 14) {
 					Gdx.input.getTextInput(this,"Digite o numero da conta:","","");
 					return false;
 				}
 				//Recuperar botao
-				if(coordsTouch.x >= -1 && coordsTouch.x <= 30 && coordsTouch.y >= 25 && coordsTouch.y <= 45) {
+				if(coordsTouch.x >= -20 && coordsTouch.x <= -2 && coordsTouch.y >= -15 && coordsTouch.y <= -2) {
 					try {
-						//GerenciamentoOnline("Download",conta);
+						String retorno = gameControl.TipoOperacaoOnline("Download",conta);
+						if (retorno.equals("Atualizado")) {
+							avisotimer = 500;
+							avisoconta = "Conta recuperada";
+						} else {
+							avisotimer = 0;
+							avisoconta = "Sem Registro";
+						}
 					} catch (Exception e) {
-						//avisoconta = "Nao foi possível efetuar operacao";
+						avisoconta = "Operacao falhou";
 					}
-				}
-				//delete acc
-				if(coordsTouch.x >= -57 && coordsTouch.x <= -1 && coordsTouch.y >= -55 && coordsTouch.y <= -36) {
-					return false;
 				}
 			}
 							

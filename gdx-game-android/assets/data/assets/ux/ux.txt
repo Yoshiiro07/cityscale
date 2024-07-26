@@ -1,5 +1,5 @@
 ux.png
-size: 995, 1724
+size: 993, 1578
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -33,14 +33,14 @@ bannerselect
   index: -1
 battlezone
   rotate: false
-  xy: 650, 206
+  xy: 325, 357
   size: 334, 200
   orig: 334, 200
   offset: 0, 0
   index: -1
 battlezoneA
   rotate: false
-  xy: 0, 406
+  xy: 659, 357
   size: 334, 200
   orig: 334, 200
   offset: 0, 0
@@ -75,21 +75,21 @@ btnexclude
   index: -1
 confirmtab
   rotate: false
-  xy: 0, 206
+  xy: 100, 196
   size: 325, 161
   orig: 325, 161
   offset: 0, 0
   index: -1
 create
   rotate: false
-  xy: 266, 1381
+  xy: 266, 1235
   size: 588, 343
   orig: 588, 343
   offset: 0, 0
   index: -1
 crystal
   rotate: false
-  xy: 588, 703
+  xy: 588, 557
   size: 266, 339
   orig: 266, 339
   offset: 0, 0
@@ -103,28 +103,28 @@ hand
   index: -1
 innerpad
   rotate: false
-  xy: 895, 106
+  xy: 0, 196
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 inventory
   rotate: false
-  xy: 0, 703
+  xy: 0, 557
   size: 588, 331
   orig: 588, 331
   offset: 0, 0
   index: -1
 jobmaster
   rotate: false
-  xy: 0, 1042
+  xy: 0, 896
   size: 800, 339
   orig: 800, 339
   offset: 0, 0
   index: -1
 login
   rotate: false
-  xy: 325, 206
+  xy: 425, 196
   size: 325, 161
   orig: 325, 161
   offset: 0, 0
@@ -152,9 +152,9 @@ playertag
   index: -1
 recover
   rotate: false
-  xy: 334, 406
-  size: 498, 297
-  orig: 498, 297
+  xy: 0, 357
+  size: 325, 161
+  orig: 325, 161
   offset: 0, 0
   index: -1
 selected
@@ -173,7 +173,7 @@ sentar
   index: -1
 shop
   rotate: false
-  xy: 0, 1381
+  xy: 0, 1235
   size: 266, 339
   orig: 266, 339
   offset: 0, 0

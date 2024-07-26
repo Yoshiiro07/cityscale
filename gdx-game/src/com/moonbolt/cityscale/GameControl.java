@@ -2607,7 +2607,7 @@ public class GameControl {
 						onlineresponse = GerenciamentoOnline("Upload","","");		
 					}
 					if(nomeOperacao.equals("Download")) {
-						onlineresponse = GerenciamentoOnline("Download","","");		
+						onlineresponse = GerenciamentoOnline("Download",subData,"");		
 					}
 					if(nomeOperacao.equals("ExpSharedSend")) {
 						onlineresponse = GerenciamentoOnline("ExpSharedSend",subData,"");		
@@ -2906,7 +2906,7 @@ public class GameControl {
 				if(tipoRequisicao.equals("Download")){
 					// Construct data
 					
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.AccountID) + ".txt", "UTF-8");
+					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(subData + ".txt", "UTF-8");
 					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
 			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
 			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
@@ -2930,7 +2930,8 @@ public class GameControl {
 			        	linhaLida = line;   
 			        	//Resultado: - Logado -. <br>done
 				        if (linhaLida.contains("Atualizado")) {            	
-			        		retornoOnline = "Atualizado";       		
+			        		retornoOnline = "Atualizado";
+			        		SaveDataFromServer(linhaLida);
 			            }	
 				        else {
 				        	retornoOnline = "Negado"; 
@@ -3025,9 +3026,15 @@ public class GameControl {
 				return linhaLida;
 			}
 			
+			public void SaveDataFromServer(String line) {
+				String[] lineSplit = line.split(":");
+				file = Gdx.files.local("SaveData/save.json");
+				file.writeString(lineSplit[0], false);
+			}
+			
 			public void UpdateExpGet(String line) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-				player.PlayerExpGet_1 = dtf.format(LocalDateTime.now());
+				player.PlayerExpGet_A = dtf.format(LocalDateTime.now());
 				
 				float expserver = 0;
 				String[] lineSplit = line.split(":");

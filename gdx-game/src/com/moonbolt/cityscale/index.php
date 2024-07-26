@@ -102,7 +102,8 @@
 	if ($lrequest == "ExpGiver")
 	{
 		$currentDateTime = date('Y-m-d H:i:s');
-		$sql = "SELECT * FROM ExpBank WHERE AccountID <> '$ldataaccount' AND Date > '$currentDateTime'";
+		$currentDate = date('Y-m-d');
+		$sql = "SELECT * FROM ExpBank WHERE AccountID <> '$ldataaccount' AND Date > '$currentDateTime' AND Date LIKE '$currentDate%'";
 		$result = $conn->query($sql);
 		if ($result === FALSE) { 
 			echo nl2br($sql); 
@@ -234,7 +235,8 @@
 				 echo nl2br ($linha);
 			}
 			fclose ($arquivo);
-			echo nl2br("Atualizado");
+			echo nl2br (":Atualizado:");
+			
 		}
 		else
 		{
