@@ -346,7 +346,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				catch(Exception ex) {}
 				
 				if(network) {
-					font_master.draw(game.batch, "Online Ativo", cameraCoordsX - 48, cameraCoordsY + 96);
+					font_master.draw(game.batch, "Online Ativo", cameraCoordsX - 28, cameraCoordsY + 96);
 				}
 				
 				//Checks e Cards
@@ -529,6 +529,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								if(listMonsters.get(i).MobHp <= 0) {  
 								    if(network) {
 								    	onlineresponse = gameControl.OnlineManager("ExpSharedSend",String.valueOf(listMonsters.get(i).MobExp),"");
+								    	MobDead(i);
 								    }
 								    else {
 								    	MobDead(i);
@@ -849,10 +850,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 
-		
-		
-		
-		
 		public boolean CheckMobEvade() {
 			int nextint = randnumber.nextInt(100);
 			
@@ -1302,13 +1299,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(levelup) {
 				if(player.Job_A.equals("Espadachim")) { player.HpMax_A = player.HpMax_A + 20; player.Atk_A = player.Atk_A + 5;}
 				
-				if(player.Job_A.equals("Feiticeiro")) { player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 3;}
+				if(player.Job_A.equals("Feiticeiro")) { player.MpMax_A = player.MpMax_A + 15; player.Atk_A = player.Atk_A + 3;}
 				
-				if(player.Job_A.equals("Medico")) { player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 3;}
+				if(player.Job_A.equals("Curandeiro")) { player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 3;}
 				
-				if(player.Job_A.equals("Pistoleiro")) { player.HpMax_A = player.HpMax_A + 10; player.Atk_A = player.Atk_A + 5; player.AtkTimerMax_A = player.AtkTimerMax_A -2;}
+				if(player.Job_A.equals("Pistoleiro")) { player.HpMax_A = player.HpMax_A + 8; player.Atk_A = player.Atk_A + 3; player.AtkTimerMax_A = player.AtkTimerMax_A -2;}
 				
-				if(player.Job_A.equals("Ladrao")) { player.HpMax_A = player.HpMax_A + 10; player.Atk_A = player.Atk_A + 5; player.AtkTimerMax_A = player.AtkTimerMax_A -5;}		
+				if(player.Job_A.equals("Ladrao")) { player.HpMax_A = player.HpMax_A + 10; player.Atk_A = player.Atk_A + 2; player.AtkTimerMax_A = player.AtkTimerMax_A -4;}		
 			}	
 			
 			levelup = false;
@@ -1322,7 +1319,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(num == 1 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("fireball"); }
 			if(num == 1 && player.Job_A.equals("Batedor")) { SetUseSkill("hammercrash"); }
 			if(num == 1 && player.Job_A.equals("Pistoleiro")) { SetUseSkill("bulletrain"); }
-			if(num == 1 && player.Job_A.equals("Medico")) { SetUseSkill("heal"); }
+			if(num == 1 && player.Job_A.equals("Curandeiro")) { SetUseSkill("heal"); }
 			if(num == 1 && player.Job_A.equals("Ladrao")) { SetUseSkill("poisonhit"); }
 			
 			if(num == 2 && player.Job_A.equals("Aprendiz")) { SetUseSkill("rockbound"); }
@@ -1330,14 +1327,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(num == 2 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("thundercloud"); }
 			if(num == 2 && player.Job_A.equals("Batedor")) { SetUseSkill("overpower"); }
 			if(num == 2 && player.Job_A.equals("Pistoleiro")) { SetUseSkill("mine"); }
-			if(num == 2 && player.Job_A.equals("Medico")) { SetUseSkill("holyprism"); }
+			if(num == 2 && player.Job_A.equals("Curandeiro")) { SetUseSkill("holyprism"); }
 			if(num == 2 && player.Job_A.equals("Ladrao")) { SetUseSkill("invisibility"); }
 			
 			if(num == 3 && player.Job_A.equals("Espadachim")) { SetUseSkill("healthboost"); }
 			if(num == 3 && player.Job_A.equals("Feiticeiro")) { SetUseSkill("icecrystal"); }
 			if(num == 3 && player.Job_A.equals("Batedor")) { SetUseSkill("berserk"); }
 			if(num == 3 && player.Job_A.equals("Pistoleiro")) { SetUseSkill("lockshot"); }
-			if(num == 3 && player.Job_A.equals("Medico")) { SetUseSkill("defboost"); }
+			if(num == 3 && player.Job_A.equals("Curandeiro")) { SetUseSkill("defboost"); }
 			if(num == 3 && player.Job_A.equals("Ladrao")) { SetUseSkill("steal"); }			
 		}
 		
@@ -1578,7 +1575,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(rangedAttack) {	
 					
 						if(skillname.equals("heal")) {
-							player.Hp_A = player.Hp_A + (player.Wis_A * 10);
+							player.Hp_A = player.Hp_A + (player.Wis_A * 3);
 							if(player.Hp_A > player.HpMax_A) {player.Hp_A = player.HpMax_A; }
 							rangedAttack = false; 
 							skillEffect = true;

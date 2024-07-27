@@ -1913,32 +1913,32 @@ public class GameControl {
 					
 					//Feiticeiro
 					if(itemName.equals("stickrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Medico")){ return; } 
+						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
 						if(player.Weapon_A.equals("stickrod")){ return; } 
 						if(!player.Weapon_A.equals("stickrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "stickrod"; lstItem = player.Itens_A.split("-"); }
 					}
 					if(itemName.equals("gloomrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Medico")){ return; } 
+						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
 						if(player.Weapon_A.equals("gloomrod")){ return; } 
 						if(!player.Weapon_A.equals("gloomrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "gloomrod"; lstItem = player.Itens_A.split("-"); }
 					}
 					if(itemName.equals("gemrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Medico")){ return; } 
+						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
 						if(player.Weapon_A.equals("gemrod")){ return; } 
 						if(!player.Weapon_A.equals("gemrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "gemrod"; lstItem = player.Itens_A.split("-"); }
 					}
 					if(itemName.equals("lightwieldrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Medico")){ return; } 
+						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
 						if(player.Weapon_A.equals("lightwieldrod")){ return; } 
 						if(!player.Weapon_A.equals("lightwieldrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "lightwieldrod"; lstItem = player.Itens_A.split("-"); }
 					}
 					if(itemName.equals("serpentrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Medico")){ return; } 
+						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
 						if(player.Weapon_A.equals("serpentrod")){ return; } 
 						if(!player.Weapon_A.equals("serpentrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "serpentrod"; lstItem = player.Itens_A.split("-"); }
 					}
 					if(itemName.equals("clerigrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Medico")){ return; } 
+						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
 						if(player.Weapon_A.equals("clerigrod")){ return; } 
 						if(!player.Weapon_A.equals("clerigrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "clerigrod"; lstItem = player.Itens_A.split("-"); }
 					}
@@ -2337,7 +2337,7 @@ public class GameControl {
 				if(playerUse.Job_A.equals("Feiticeiro")) { atlas_weapongeneric = atlas_rods; }
 				if(playerUse.Job_A.equals("Batedor")) { atlas_weapongeneric = atlas_axes; }
 				if(playerUse.Job_A.equals("Pistoleiro")) { atlas_weapongeneric = atlas_pistols; }
-				if(playerUse.Job_A.equals("Medico")) { atlas_weapongeneric = atlas_rods; }
+				if(playerUse.Job_A.equals("Curandeiro")) { atlas_weapongeneric = atlas_rods; }
 				if(playerUse.Job_A.equals("Ladrao")) { atlas_weapongeneric = atlas_daggers; }
 					
 				if(playerUse.playerInBattle_A.equals("yes")) {
