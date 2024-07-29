@@ -33,6 +33,7 @@ public class GameControl {
 	private Random randnumber;
 	private Player player;
 	private int FrameAtkPlayer = 0;
+	private int charNumber = 0;
 	
 	private ArrayList<Monster> lstMonsters;
 	private Monster placeholderMonster;
@@ -55,12 +56,13 @@ public class GameControl {
 	private boolean onlineAuth = false;
     private boolean versionDif = false; 
     private boolean uploadDone = false;
-    private String lservername = "cityserver.mysql.uhserver.com";  //"cityscale.mysql.uhserver.com", "UTF-8"
+    private String lservername = "cityserver.mysql.uhserver.com";
     private String lusername = "citymaster";
     private String lpassword = "P@titos07";
     private String ldbname = "cityserver";
     private String onlineresponse = "";
     private ArrayList<String> lstChats;
+    private int ExpSharedOnline = 0;
 	
 	//Texture Atlas
 	private TextureAtlas atlas_hairs1;
@@ -201,6 +203,10 @@ public class GameControl {
 	//[Interface]//
 	//[Character]//
 	//[Monsters]//
+	//[Skills]//
+	//[Online]//
+	//[Exp/Drop]//
+	
 	
 	//[Account]//
 	public void CheckData() {
@@ -210,9 +216,9 @@ public class GameControl {
 		if (!file.exists()) {
 				try {
 					Player player = new Player();
-					int accNumber = randnumber.nextInt(999999);
-					while(accNumber < 10000){
-						accNumber = randnumber.nextInt(999999);
+					int accNumber = randnumber.nextInt(99999999);
+					while(accNumber < 1000000){
+						accNumber = randnumber.nextInt(99999999);
 					}
 					player.AccountID = String.valueOf(accNumber);
 					player.Name_1 = "none";
@@ -320,8 +326,7 @@ public class GameControl {
 			player.playerInCast_1 = "none";
 			player.playerSit_1 = "none";
 			player.SyncPlayerMob_1 = "none";
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-			player.PlayerExpGet_1 = dtf.format(LocalDateTime.now());
+			player.PlayerExpGet_1 = "0";
 			
 			String itensList = "";
 	        for(int i = 0; i < 16; i++) {
@@ -394,8 +399,7 @@ public class GameControl {
 			player.playerInCast_2 = "none";
 			player.playerSit_2 = "none";
 			player.SyncPlayerMob_2 = "none";
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-			player.PlayerExpGet_2 = dtf.format(LocalDateTime.now());
+			player.PlayerExpGet_2 = "0";
 			
 			String itensList = "";
 			for(int i = 0; i < 16; i++) {
@@ -468,8 +472,7 @@ public class GameControl {
 			player.playerInCast_3 = "none";
 			player.playerSit_3 = "none";
 			player.SyncPlayerMob_3 = "none";
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-			player.PlayerExpGet_3 = dtf.format(LocalDateTime.now());
+			player.PlayerExpGet_3 = "0";
 			
 			String itensList = "";
 			for(int i = 0; i < 16; i++) {
@@ -489,6 +492,10 @@ public class GameControl {
 
 	public void UpdatePlayer(Player viewplayer){
 		this.player = viewplayer;
+	}
+	
+	public void SetCharNumber(int num) {
+		charNumber = num;
 	}
 	
 	public void SetSave(int charnum) {
@@ -2559,7 +2566,110 @@ public class GameControl {
 				return spr_skill;
 			}
 			
+			//[Exp/Drop]//
+			//Give EXP
+			public void GiveExp(int exp) {
+				boolean levelup = false;
+				if(player.Level_A == 10) {
+					ExpSharedOnline = exp;
+					return;
+				}
+				
+				if(player.Level_A == 50) {
+					ExpSharedOnline = exp;
+					return;
+				}
+				
+				player.Exp_A = player.Exp_A + exp;
+				ExpSharedOnline = exp;
+				
+				//Sewers   
+				if(player.Level_A == 1 && player.Exp_A >= 100) {  player.Level_A = 2; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true; }
+				if(player.Level_A == 2 && player.Exp_A >= 150) {  player.Level_A = 3; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 3 && player.Exp_A >= 250) {  player.Level_A = 4; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 4 && player.Exp_A >= 360) {  player.Level_A = 5; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 5 && player.Exp_A >= 430) {  player.Level_A = 6; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 6 && player.Exp_A >= 500) {  player.Level_A = 7; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 7 && player.Exp_A >= 730) {  player.Level_A = 8; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 8 && player.Exp_A >= 1000) {  player.Level_A = 9; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 9 && player.Exp_A >= 1450) {  player.Level_A = 10; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				
+				//Watercave
+				if(player.Level_A == 10 && player.Exp_A >= 1840) {  player.Level_A = 11; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 11 && player.Exp_A >= 3330) {  player.Level_A = 12; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 12 && player.Exp_A >= 5500) {  player.Level_A = 13; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 13 && player.Exp_A >= 7600) {  player.Level_A = 14; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 14 && player.Exp_A >= 9929) {  player.Level_A = 15; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 15 && player.Exp_A >= 12820) {  player.Level_A = 16; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 16 && player.Exp_A >= 15293) {  player.Level_A = 17; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 17 && player.Exp_A >= 17300) {  player.Level_A = 18; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 18 && player.Exp_A >= 22402) {  player.Level_A = 19; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 19 && player.Exp_A >= 26902) {  player.Level_A = 20; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				
+				//Mines
+				if(player.Level_A == 20 && player.Exp_A >= 34592) {  player.Level_A = 21; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 21 && player.Exp_A >= 46923) {  player.Level_A = 22; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 22 && player.Exp_A >= 75829) {  player.Level_A = 23; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 23 && player.Exp_A >= 90234) {  player.Level_A = 24; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 24 && player.Exp_A >= 153042) {  player.Level_A = 25; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 25 && player.Exp_A >= 179232) {  player.Level_A = 26; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 26 && player.Exp_A >= 221011) {  player.Level_A = 27; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 27 && player.Exp_A >= 259323) {  player.Level_A = 28; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 28 && player.Exp_A >= 279293) {  player.Level_A = 29; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 29 && player.Exp_A >= 383421) {  player.Level_A = 30; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				
+				//Snowpalace
+				if(player.Level_A == 30 && player.Exp_A >= 593421)  {  player.Level_A = 31; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 31 && player.Exp_A >= 814402)  {  player.Level_A = 32; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 32 && player.Exp_A >= 1534611) {  player.Level_A = 33; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 33 && player.Exp_A >= 1839770) {  player.Level_A = 34; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 34 && player.Exp_A >= 2433026) {  player.Level_A = 35; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 35 && player.Exp_A >= 2792074) {  player.Level_A = 36; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 36 && player.Exp_A >= 2931441) {  player.Level_A = 37; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 37 && player.Exp_A >= 3304900) {  player.Level_A = 38; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 38 && player.Exp_A >= 3588905) {  player.Level_A = 39; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 39 && player.Exp_A >= 4987320) {  player.Level_A = 40; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				
+				//Tower												   
+				if(player.Level_A == 40 && player.Exp_A >= 9188696000f) {  player.Level_A = 41; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 41 && player.Exp_A >= 9288526000f) {  player.Level_A = 42; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 42 && player.Exp_A >= 9488446000f) {  player.Level_A = 43; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 43 && player.Exp_A >= 9588316000f) {  player.Level_A = 44; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 44 && player.Exp_A >= 9688236000f) {  player.Level_A = 45; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 45 && player.Exp_A >= 9798126000f) {  player.Level_A = 46; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 46 && player.Exp_A >= 9828646000f) {  player.Level_A = 47; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 47 && player.Exp_A >= 9878756009f) {  player.Level_A = 48; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 48 && player.Exp_A >= 9888866009f) {  player.Level_A = 49; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level_A == 49 && player.Exp_A >= 9999999999f) {  player.Level_A = 50; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				
+				if(levelup) {
+					if(player.Job_A.equals("Espadachim")) { player.HpMax_A = player.HpMax_A + 20; player.Atk_A = player.Atk_A + 5;}
+					
+					if(player.Job_A.equals("Feiticeiro")) { player.MpMax_A = player.MpMax_A + 15; player.Atk_A = player.Atk_A + 3;}
+					
+					if(player.Job_A.equals("Curandeiro")) { player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 3;}
+					
+					if(player.Job_A.equals("Pistoleiro")) { player.HpMax_A = player.HpMax_A + 8; player.Atk_A = player.Atk_A + 3; player.AtkTimerMax_A = player.AtkTimerMax_A -2;}
+					
+					if(player.Job_A.equals("Ladrao")) { player.HpMax_A = player.HpMax_A + 10; player.Atk_A = player.Atk_A + 2; player.AtkTimerMax_A = player.AtkTimerMax_A -4;}		
+				}	
+				
+				levelup = false;
+			}
 			
+			public String ItemDrop(String mob) {
+				int chance = randnumber.nextInt(100);
+				
+				if(mob.equals("slime")) {
+					if(chance <= 40) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+					//if(chance >= 40 && chance <= 95) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
+					//if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
+					//if(chance >= 98) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP pequeno (P)"; showDropMsg = 100; return; }
+				}
+				return "";
+			}
+			
+			//[online]//
 			public String OnlineManager(String operation, String subData, String extraData) {
 				try {
 					if(operation.equals("CheckVersion")) {  
@@ -2685,7 +2795,7 @@ public class GameControl {
 			        
 			        // Send data
 			        //URL url = new URL("http://moonboltprojects.online/conector/online.php");	        
-			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URL url = new URL("http://moonboltprojects.online/server/index.php");
 			        //URL url = new URL("http://localhost/default.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
@@ -2727,7 +2837,7 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("lchat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
 			            
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URL url = new URL("http://moonboltprojects.online/server/index.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -2759,7 +2869,7 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 			            
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URL url = new URL("http://moonboltprojects.online/server/index.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -2833,7 +2943,7 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("lexpshared", "UTF-8") + "=" + URLEncoder.encode("0", "UTF-8"); 
 			        
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URL url = new URL("http://moonboltprojects.online/server/index.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -2875,7 +2985,7 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(arq, "UTF-8");
 			        
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URL url = new URL("http://moonboltprojects.online/server/index.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -2914,7 +3024,7 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 			        
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/online.php");
+			        URL url = new URL("http://moonboltprojects.online/server/index.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -2956,7 +3066,7 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("lexpsend", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
 			            
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URL url = new URL("http://moonboltprojects.online/server/index.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -2988,10 +3098,10 @@ public class GameControl {
 			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
 			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
 			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldateExp", "UTF-8") + "=" + URLEncoder.encode(player.PlayerExpGet_A, "UTF-8");
+			        data += "&" + URLEncoder.encode("lplayerIDEXP", "UTF-8") + "=" + URLEncoder.encode(player.PlayerExpGet_A, "UTF-8");
 			            
 			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/index.php");
+			        URL url = new URL("http://moonboltprojects.online/server/index.php");
 			        URLConnection conn = url.openConnection();
 			        conn.setDoOutput(true);
 			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
@@ -3033,12 +3143,14 @@ public class GameControl {
 			}
 			
 			public void UpdateExpGet(String line) {
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-				player.PlayerExpGet_A = dtf.format(LocalDateTime.now());
-				
-				float expserver = 0;
+				int expserver = 0;
 				String[] lineSplit = line.split(":");
-				expserver = Float.parseFloat(lineSplit[4]);
+				expserver = Integer.parseInt(lineSplit[4]);
+				player.PlayerExpGet_A = lineSplit[6];
+				int dv = expserver / 5;
+				GiveExp(dv);
+				SetSave(charNumber);
+				SaveData(player);
 			}
 			
 			public void UpdateListOnlineChats(String line) {

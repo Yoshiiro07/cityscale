@@ -117,7 +117,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private Sprite spr_weaponOnline;
 	    private boolean onlineAuth = false;
 	    private String onlineresponse = "";
-	    private int ExpSharedOnline = 0;
 	    private boolean SyncStart = false;
 		
 		
@@ -150,6 +149,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Load Player Data
 			this.gameControl = new GameControl();
 			player = gameControl.LoadData();
+			gameControl.SetCharNumber(playernum);
 			
 			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); }	
 			if(player.Map_A.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png")); }	
@@ -225,7 +225,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					player.Mp_A = player.Mp_A + 10;
 					
 					if(player.Hp_A >= player.HpMax_A) { player.Hp_A = player.HpMax_A; }
-					if(player.Hp_A >= player.HpMax_A) { player.Hp_A = player.HpMax_A; }
+					if(player.Mp_A >= player.MpMax_A) { player.Mp_A = player.MpMax_A; }
 					
 					player.regenTime_A = player.regenTimeMax_A;
 				}
@@ -346,7 +346,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				catch(Exception ex) {}
 				
 				if(network) {
-					font_master.draw(game.batch, "Online Ativo", cameraCoordsX - 28, cameraCoordsY + 96);
+					font_master.draw(game.batch, "Online Ativo", cameraCoordsX - 18, cameraCoordsY + 96);
 				}
 				
 				//Checks e Cards
@@ -602,8 +602,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    player.playerInCast_A = "no";	
 		    autoattack = false;
 		    
-		    ItemDrop(listMonsters.get(mobindex).MobName);
-		    GiveExp(listMonsters.get(mobindex).MobExp);
+		    gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
+		    gameControl.GiveExp(listMonsters.get(mobindex).MobExp);
 		    if(player.Money_A > 1500) { return; }
 		    player.Money_A = player.Money_A + 2;
 		    
@@ -1101,18 +1101,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 
-		public void ItemDrop(String mob) {
-			int chance = randnumber.nextInt(100);
-			
-			if(mob.equals("slime")) {
-				if(chance <= 40) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
-				if(chance >= 40 && chance <= 95) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
-				if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
-				if(chance >= 98) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP pequeno (P)"; showDropMsg = 100; return; }
-			}
-		
-		}
-
 		public void AddItemBag(String itemName) {
 			String[] lstItem = player.Itens_A.split("-");
 			String[] itemSplit;
@@ -1221,95 +1209,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_master.draw(game.batch);
 		}
 		
-		//Give EXP
-		public void GiveExp(int exp) {
-			boolean levelup = false;
-			if(player.Level_A == 10) {
-				ExpSharedOnline = exp;
-				return;
-			}
-			
-			if(player.Level_A == 50) {
-				ExpSharedOnline = exp;
-				return;
-			}
-			
-			player.Exp_A = player.Exp_A + exp;
-			ExpSharedOnline = exp;
-			
-			//Sewers   
-			if(player.Level_A == 1 && player.Exp_A >= 100) {  player.Level_A = 2; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true; }
-			if(player.Level_A == 2 && player.Exp_A >= 150) {  player.Level_A = 3; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 3 && player.Exp_A >= 250) {  player.Level_A = 4; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 4 && player.Exp_A >= 360) {  player.Level_A = 5; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 5 && player.Exp_A >= 430) {  player.Level_A = 6; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 6 && player.Exp_A >= 500) {  player.Level_A = 7; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 7 && player.Exp_A >= 730) {  player.Level_A = 8; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 8 && player.Exp_A >= 1000) {  player.Level_A = 9; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 9 && player.Exp_A >= 1450) {  player.Level_A = 10; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			
-			//Watercave
-			if(player.Level_A == 10 && player.Exp_A >= 1840) {  player.Level_A = 11; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 11 && player.Exp_A >= 3330) {  player.Level_A = 12; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 12 && player.Exp_A >= 5500) {  player.Level_A = 13; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 13 && player.Exp_A >= 7600) {  player.Level_A = 14; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 14 && player.Exp_A >= 9929) {  player.Level_A = 15; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 15 && player.Exp_A >= 12820) {  player.Level_A = 16; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 16 && player.Exp_A >= 15293) {  player.Level_A = 17; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 17 && player.Exp_A >= 17300) {  player.Level_A = 18; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 18 && player.Exp_A >= 22402) {  player.Level_A = 19; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 19 && player.Exp_A >= 26902) {  player.Level_A = 20; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			
-			//Mines
-			if(player.Level_A == 20 && player.Exp_A >= 34592) {  player.Level_A = 21; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 21 && player.Exp_A >= 46923) {  player.Level_A = 22; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 22 && player.Exp_A >= 75829) {  player.Level_A = 23; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 23 && player.Exp_A >= 90234) {  player.Level_A = 24; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 24 && player.Exp_A >= 153042) {  player.Level_A = 25; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 25 && player.Exp_A >= 179232) {  player.Level_A = 26; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 26 && player.Exp_A >= 221011) {  player.Level_A = 27; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 27 && player.Exp_A >= 259323) {  player.Level_A = 28; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 28 && player.Exp_A >= 279293) {  player.Level_A = 29; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 29 && player.Exp_A >= 383421) {  player.Level_A = 30; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			
-			//Snowpalace
-			if(player.Level_A == 30 && player.Exp_A >= 593421)  {  player.Level_A = 31; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 31 && player.Exp_A >= 814402)  {  player.Level_A = 32; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 32 && player.Exp_A >= 1534611) {  player.Level_A = 33; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 33 && player.Exp_A >= 1839770) {  player.Level_A = 34; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 34 && player.Exp_A >= 2433026) {  player.Level_A = 35; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 35 && player.Exp_A >= 2792074) {  player.Level_A = 36; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 36 && player.Exp_A >= 2931441) {  player.Level_A = 37; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 37 && player.Exp_A >= 3304900) {  player.Level_A = 38; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 38 && player.Exp_A >= 3588905) {  player.Level_A = 39; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 39 && player.Exp_A >= 4987320) {  player.Level_A = 40; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			
-			//Tower												   
-			if(player.Level_A == 40 && player.Exp_A >= 9188696000f) {  player.Level_A = 41; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 41 && player.Exp_A >= 9288526000f) {  player.Level_A = 42; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 42 && player.Exp_A >= 9488446000f) {  player.Level_A = 43; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 43 && player.Exp_A >= 9588316000f) {  player.Level_A = 44; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 44 && player.Exp_A >= 9688236000f) {  player.Level_A = 45; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 45 && player.Exp_A >= 9798126000f) {  player.Level_A = 46; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 46 && player.Exp_A >= 9828646000f) {  player.Level_A = 47; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 47 && player.Exp_A >= 9878756009f) {  player.Level_A = 48; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 48 && player.Exp_A >= 9888866009f) {  player.Level_A = 49; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			if(player.Level_A == 49 && player.Exp_A >= 9999999999f) {  player.Level_A = 50; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-			
-			if(levelup) {
-				if(player.Job_A.equals("Espadachim")) { player.HpMax_A = player.HpMax_A + 20; player.Atk_A = player.Atk_A + 5;}
-				
-				if(player.Job_A.equals("Feiticeiro")) { player.MpMax_A = player.MpMax_A + 15; player.Atk_A = player.Atk_A + 3;}
-				
-				if(player.Job_A.equals("Curandeiro")) { player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 3;}
-				
-				if(player.Job_A.equals("Pistoleiro")) { player.HpMax_A = player.HpMax_A + 8; player.Atk_A = player.Atk_A + 3; player.AtkTimerMax_A = player.AtkTimerMax_A -2;}
-				
-				if(player.Job_A.equals("Ladrao")) { player.HpMax_A = player.HpMax_A + 10; player.Atk_A = player.Atk_A + 2; player.AtkTimerMax_A = player.AtkTimerMax_A -4;}		
-			}	
-			
-			levelup = false;
-		}
+		
 		
 		//SKILL
 		public void CheckSkill(int num) {
@@ -2249,66 +2149,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					listSkills.remove(listSkills.get(i));
 				}
 			}
-		}
-		
-		public int CheckLevelExpPercent() {
-			//Sewers
-			if(player.Level_A == 1) {  return 150;  }
-			if(player.Level_A == 2) {  return 250;  }
-			if(player.Level_A == 3) {  return 350; }
-			if(player.Level_A == 4) {  return 460; }
-			if(player.Level_A == 5) {  return 530;  }
-			if(player.Level_A == 6) {  return 600;  }
-			if(player.Level_A == 7) {  return 830; }
-			if(player.Level_A == 8) {  return 1000;  }
-			if(player.Level_A == 9) {  return 1450; }
-			//Watercave
-			if(player.Level_A == 10) {  return 1840;}
-			if(player.Level_A == 11) {  return 3330;}
-			if(player.Level_A == 12) {  return 5500;}
-			if(player.Level_A == 13) {  return 7600;}
-			if(player.Level_A == 14) {  return 9929;}
-			if(player.Level_A == 15) {  return 12820;}
-			if(player.Level_A == 16) {  return 15293;}
-			if(player.Level_A == 17) {  return 17300;}
-			if(player.Level_A == 18) {  return 22402;}
-			if(player.Level_A == 19) {  return 26902;}
-			//Mines
-			if(player.Level_A == 20) {  return 34592; }
-			if(player.Level_A == 21) {  return 46923;}
-			if(player.Level_A == 22) {  return 75829;}
-			if(player.Level_A == 23) {  return 90234;}
-			if(player.Level_A == 24) {  return 153042;}
-			if(player.Level_A == 25) {  return 179232;}
-			if(player.Level_A == 26) {  return 221011;}
-			if(player.Level_A == 27) {  return 259323;}
-			if(player.Level_A == 28) {  return 279293;}
-			if(player.Level_A == 29) {  return 383421;}
-			//Snowpalace
-			if(player.Level_A == 30)  {  return 593421;}
-			if(player.Level_A == 31)  {  return 814402;}
-			if(player.Level_A == 32) {  return 1534611;}
-			if(player.Level_A == 33) {  return 1839770;}
-			if(player.Level_A == 34) {  return 2433026;}
-			if(player.Level_A == 35) {  return 2792074;}
-			if(player.Level_A == 36) {  return 2931441;}
-			if(player.Level_A == 37) {  return 3304900;}
-			if(player.Level_A == 38) {  return 3588905;}
-			if(player.Level_A == 39) {  return 4987320;}
-			//Tower															   
-			if(player.Level_A == 40) {  return 159432300;}
-			if(player.Level_A == 41) {  return 318864600;}
-			if(player.Level_A == 42) {  return 418864600;}
-			if(player.Level_A == 43) {  return 518864600;}
-			if(player.Level_A == 44) {  return 618864600;}
-			if(player.Level_A == 45) {  return 718864600;}
-			if(player.Level_A == 46) {  return 818864600;}
-			if(player.Level_A == 47) {  return 918864600;}
-			if(player.Level_A == 48) {  return 958864600;}
-			if(player.Level_A == 49) {  return 999999999;}
-			if(player.Level_A == 50) {  return 999999999;}
-			
-			return 1000;
 		}
 		
 		//Hotkey

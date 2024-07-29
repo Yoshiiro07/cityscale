@@ -79,7 +79,6 @@
 					<li>Adicionar bot de sincronia de monstros</li>				
 					<li>Ajustar opções do menu</li>
 					<li>Evitar lock ao crashar</li>
-					<li>Gerenciador de contas</li>
 				</ul>
 			</div>
 			<div class="col-lg-6">
@@ -89,6 +88,7 @@
 					<li>Corrigir problema com Regen</li>
 					<li>Recuperação de conta</li>
 					<li>Ajustar código de receber exp do servidor</li>
+					<li>Gerenciador de contas</li>
 				</ul>
 			</div>
 		</div>
