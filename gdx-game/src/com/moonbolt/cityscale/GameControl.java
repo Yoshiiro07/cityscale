@@ -1842,8 +1842,8 @@ public class GameControl {
 		return spr_master;
 	}
 	
-			//[BAG]
-			public void UseItem(int numItem) {
+				//[BAG]
+				public void UseItem(int numItem) {
 				String[] lstItem = player.Itens_A.split("-");
 				String[] itemSplit;
 				String item = "";
@@ -1881,6 +1881,9 @@ public class GameControl {
 					if(itemName.equals("basicknife")) {  
 						if(player.Weapon_A.equals("basicknife")){ return; } 
 						if(!player.Weapon_A.equals("basicknife")) { AddItemBag(player.Weapon_A); player.Weapon_A = "basic_knife"; lstItem = player.Itens_A.split("-"); }
+						
+						if(player.Weapon_A.equals("doubleedgeknife")){ return; } 
+						if(!player.Weapon_A.equals("doubleedgeknife")) { AddItemBag(player.Weapon_A); player.Weapon_A = "doubleedgeknife"; lstItem = player.Itens_A.split("-"); }
 					}
 					if(itemName.equals("doubleedgeknife")) {  
 						if(player.Weapon_A.equals("doubleedgeknife")){ return; } 
@@ -2198,30 +2201,37 @@ public class GameControl {
 				if(item.equals("blue_crystal_intextra_1")) { player.Wis_A = player.Wis_A + 2; player.MpMax_A = player.MpMax_A + 20; }	
 				if(item.equals("blue_crystal_intextra_2")) { player.Wis_A = player.Wis_A + 5; player.MpMax_A = player.MpMax_A + 50; }
 				if(item.equals("blue_crystal_intextra_3")) { player.Wis_A = player.Wis_A + 10; player.MpMax_A = player.MpMax_A + 100; }
+				if(item.equals("blue_crystal_intextra_4")) { player.Wis_A = player.Wis_A + 15; player.MpMax_A = player.MpMax_A + 200; }
 				
 				if(item.equals("green_crystal_lukextra_1")) { player.Luk_A = player.Luk_A + 2;  }	
 				if(item.equals("green_crystal_lukextra_2")) { player.Luk_A = player.Luk_A + 5;  }
 				if(item.equals("green_crystal_lukextra_3")) { player.Luk_A = player.Luk_A + 10; }
+				if(item.equals("green_crystal_lukextra_4")) { player.Luk_A = player.Luk_A + 15; }
 				
 				if(item.equals("purple_crystal_vitextra_1")) { player.Vit_A = player.Vit_A + 2; player.MpMax_A = player.HpMax_A + 20; }	
 				if(item.equals("purple_crystal_vitextra_2")) { player.Vit_A = player.Vit_A + 5; player.MpMax_A = player.HpMax_A + 50; }
 				if(item.equals("purple_crystal_vitextra_3")) { player.Vit_A = player.Vit_A + 10; player.MpMax_A = player.HpMax_A + 100; }
+				if(item.equals("purple_crystal_vitextra_4")) { player.Vit_A = player.Vit_A + 15; player.MpMax_A = player.HpMax_A + 200; }
 				
 				if(item.equals("yellow_crystal_agiextra_1")) { player.Agi_A = player.Agi_A + 2; player.AtkTimerMax_A = player.AtkTimerMax_A - 2; }	
 				if(item.equals("yellow_crystal_agiextra_2")) { player.Agi_A = player.Agi_A + 5; player.AtkTimerMax_A = player.AtkTimerMax_A - 4; }
 				if(item.equals("yellow_crystal_agiextra_3")) { player.Agi_A = player.Agi_A + 10; player.AtkTimerMax_A = player.AtkTimerMax_A - 6; }
+				if(item.equals("yellow_crystal_agiextra_4")) { player.Agi_A = player.Agi_A + 15; player.AtkTimerMax_A = player.AtkTimerMax_A - 8; }
 				
 				if(item.equals("red_crystal_strextra_1")) { player.Str_A = player.Str_A + 2; }	
 				if(item.equals("red_crystal_strextra_2")) { player.Str_A = player.Str_A + 5; }
 				if(item.equals("red_crystal_strextra_3")) { player.Str_A = player.Str_A + 10; }
+				if(item.equals("red_crystal_strextra_4")) { player.Str_A = player.Str_A + 15; }
 				
 				if(item.equals("grey_crystal_dexextra_1")) { player.Dex_A = player.Dex_A + 2; }	
 				if(item.equals("grey_crystal_dexextra_2")) { player.Dex_A = player.Dex_A + 5; }
 				if(item.equals("grey_crystal_dexextra_3")) { player.Dex_A = player.Dex_A + 10; }
+				if(item.equals("grey_crystal_dexextra_4")) { player.Dex_A = player.Dex_A + 15; }
 				
-				if(item.equals("orange_crystal_resextra_1")) { player.Res_A = player.Res_A + 2; player.StaminaMax_A = player.StaminaMax_A + 20; player.regenTimeMax_A = player.regenTimeMax_A - 300; }	
-				if(item.equals("orange_crystal_resextra_2")) { player.Res_A = player.Res_A + 5; player.StaminaMax_A = player.StaminaMax_A + 50; player.regenTimeMax_A = player.regenTimeMax_A - 500; }
-				if(item.equals("orange_crystal_resextra_3")) { player.Res_A = player.Res_A + 10; player.StaminaMax_A = player.StaminaMax_A + 100; player.regenTimeMax_A = player.regenTimeMax_A - 700; }
+				if(item.equals("orange_crystal_resextra_1")) { player.Res_A = player.Res_A + 2; player.StaminaMax_A = player.StaminaMax_A + 20; player.regenTimeMax_A = player.regenTimeMax_A - 200; }	
+				if(item.equals("orange_crystal_resextra_2")) { player.Res_A = player.Res_A + 5; player.StaminaMax_A = player.StaminaMax_A + 50; player.regenTimeMax_A = player.regenTimeMax_A - 400; }
+				if(item.equals("orange_crystal_resextra_3")) { player.Res_A = player.Res_A + 10; player.StaminaMax_A = player.StaminaMax_A + 100; player.regenTimeMax_A = player.regenTimeMax_A - 600; }
+				if(item.equals("orange_crystal_resextra_4")) { player.Res_A = player.Res_A + 15; player.StaminaMax_A = player.StaminaMax_A + 200; player.regenTimeMax_A = player.regenTimeMax_A - 800; }
 				
 			}
 			
@@ -2242,6 +2252,12 @@ public class GameControl {
 				if(num == 3 && player.Crystal3_A.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal3_A = "none"; return; }	
 				if(num == 4 && player.Crystal4_A.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal4_A = "none"; return; }
 				
+				if(num == 1 && player.Crystal1_A.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal1_A = "none"; return; }	
+				if(num == 2 && player.Crystal2_A.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal2_A = "none"; return; }	
+				if(num == 3 && player.Crystal3_A.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal3_A = "none"; return; }	
+				if(num == 4 && player.Crystal4_A.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal4_A = "none"; return; }
+				
+				
 				if(num == 1 && player.Crystal1_A.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal1_A = "none"; return; }	
 				if(num == 2 && player.Crystal2_A.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal2_A = "none"; return; }	
 				if(num == 3 && player.Crystal3_A.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal3_A = "none"; return; }	
@@ -2256,6 +2272,11 @@ public class GameControl {
 				if(num == 2 && player.Crystal2_A.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal2_A = "none"; return; }	
 				if(num == 3 && player.Crystal3_A.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal3_A = "none"; return; }	
 				if(num == 4 && player.Crystal4_A.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal4_A = "none"; return; }
+				
+				if(num == 1 && player.Crystal1_A.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal1_A = "none"; return; }	
+				if(num == 2 && player.Crystal2_A.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal2_A = "none"; return; }	
+				if(num == 3 && player.Crystal3_A.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal3_A = "none"; return; }	
+				if(num == 4 && player.Crystal4_A.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal4_A = "none"; return; }
 				
 				if(num == 1 && player.Crystal1_A.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal1_A = "none"; player.MpMax_A = player.HpMax_A - 20; return; }	
 				if(num == 2 && player.Crystal2_A.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 20; return; }	
@@ -2272,6 +2293,12 @@ public class GameControl {
 				if(num == 3 && player.Crystal3_A.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }	
 				if(num == 4 && player.Crystal4_A.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }
 				
+				if(num == 1 && player.Crystal1_A.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal1_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
+				if(num == 2 && player.Crystal2_A.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
+				if(num == 3 && player.Crystal3_A.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
+				if(num == 4 && player.Crystal4_A.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }
+				
+				
 				if(num == 1 && player.Crystal1_A.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal1_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
 				if(num == 2 && player.Crystal2_A.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal2_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
 				if(num == 3 && player.Crystal3_A.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal3_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
@@ -2286,6 +2313,12 @@ public class GameControl {
 				if(num == 2 && player.Crystal2_A.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal2_A = "none";  return; }	
 				if(num == 3 && player.Crystal3_A.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal3_A = "none";  return; }	
 				if(num == 4 && player.Crystal4_A.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal4_A = "none";  return; }
+				
+				if(num == 1 && player.Crystal1_A.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal1_A = "none"; return; }	
+				if(num == 2 && player.Crystal2_A.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal2_A = "none";  return; }	
+				if(num == 3 && player.Crystal3_A.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal3_A = "none";  return; }	
+				if(num == 4 && player.Crystal4_A.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal4_A = "none";  return; }
+				
 				
 				if(num == 1 && player.Crystal1_A.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal1_A = "none";  return; }	
 				if(num == 2 && player.Crystal2_A.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal2_A = "none";  return; }	
@@ -2302,6 +2335,11 @@ public class GameControl {
 				if(num == 3 && player.Crystal3_A.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal3_A = "none";  return; }	
 				if(num == 4 && player.Crystal4_A.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal4_A = "none";  return; }
 				
+				if(num == 1 && player.Crystal1_A.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal1_A = "none";  return; }	
+				if(num == 2 && player.Crystal2_A.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal2_A = "none";  return; }	
+				if(num == 3 && player.Crystal3_A.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal3_A = "none";  return; }	
+				if(num == 4 && player.Crystal4_A.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal4_A = "none";  return; }
+				
 				if(num == 1 && player.Crystal1_A.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal1_A = "none";  return; }	
 				if(num == 2 && player.Crystal2_A.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal2_A = "none";  return; }	
 				if(num == 3 && player.Crystal3_A.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal3_A = "none";  return; }	
@@ -2317,20 +2355,30 @@ public class GameControl {
 				if(num == 3 && player.Crystal3_A.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal3_A = "none";  return; }	
 				if(num == 4 && player.Crystal4_A.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal4_A = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 10; player.regenTimeMax_A = player.regenTimeMax_A + 300; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 10; player.regenTimeMax_A = player.regenTimeMax_A + 300; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 10; player.regenTimeMax_A = player.regenTimeMax_A + 300; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 10; player.regenTimeMax_A = player.regenTimeMax_A + 300; player.Crystal4_A = "none";  return; }	
+				if(num == 1 && player.Crystal1_A.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal1_A = "none";  return; }	
+				if(num == 2 && player.Crystal2_A.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal2_A = "none";  return; }	
+				if(num == 3 && player.Crystal3_A.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal3_A = "none";  return; }	
+				if(num == 4 && player.Crystal4_A.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal4_A = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 500; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 500; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 500; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 500; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal1_A = "none"; return; }	
+				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal2_A = "none";  return; }	
+				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal3_A = "none";  return; }	
+				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal4_A = "none";  return; }	
 				
-				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 700; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 700; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 700; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 700; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal1_A = "none";  return; }	
+				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal2_A = "none";  return; }	
+				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal3_A = "none";  return; }	
+				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal4_A = "none";  return; }
+				
+				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal1_A = "none";  return; }	
+				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal2_A = "none";  return; }	
+				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal3_A = "none";  return; }	
+				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal4_A = "none";  return; }
+				
+				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal1_A = "none";  return; }	
+				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal2_A = "none";  return; }	
+				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal3_A = "none";  return; }	
+				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal4_A = "none";  return; }
 			}
 			
 			

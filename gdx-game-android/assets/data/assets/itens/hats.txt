@@ -1,0 +1,152 @@
+hats.png
+size: 903, 43
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hatbanana
+  rotate: false
+  xy: 0, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatbat
+  rotate: false
+  xy: 43, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatbear
+  rotate: false
+  xy: 86, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatblackglass
+  rotate: false
+  xy: 129, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatbluecold
+  rotate: false
+  xy: 172, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatbrazilflag
+  rotate: false
+  xy: 215, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatbrown
+  rotate: false
+  xy: 258, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatbunny
+  rotate: false
+  xy: 301, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatbutterfly
+  rotate: false
+  xy: 344, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatcapoult
+  rotate: false
+  xy: 387, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatcooker
+  rotate: false
+  xy: 430, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hateyepatch
+  rotate: false
+  xy: 473, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatfashionglasses
+  rotate: false
+  xy: 516, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatheadset
+  rotate: false
+  xy: 559, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatmagician
+  rotate: false
+  xy: 602, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatpirate
+  rotate: false
+  xy: 645, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatredcap
+  rotate: false
+  xy: 688, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatsanta
+  rotate: false
+  xy: 731, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatslime
+  rotate: false
+  xy: 774, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hatsunglasses
+  rotate: false
+  xy: 817, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hattimer
+  rotate: false
+  xy: 860, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
