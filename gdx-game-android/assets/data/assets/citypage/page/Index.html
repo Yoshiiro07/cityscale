@@ -53,13 +53,13 @@
 	<div class="container mt-2">	
 		<div class="row">
 			<div class="col-lg-3"></div>
-			<div class="col-lg-3 text-center"><a href="downloads/cityscale02.apk"><img src="imagens/btnandroid.png"></a></div>
-			<div class="col-lg-3 text-center"><a href="downloads/cityscale02.zip"><img src="imagens/btnpc.png"></a></div>
+			<div class="col-lg-3 text-center"><a href="downloads/cityscale03.apk"><img src="imagens/btnandroid.png"></a></div>
+			<div class="col-lg-3 text-center"><a href="downloads/cityscale03.zip"><img src="imagens/btnpc.png"></a></div>
 			<div class="col-lg-3"></div>
 		</div>
 		<div class="row mt-2">
 			<b>Log de Atualizações -: 
-				Versão Atual 0.2b</b>
+				Versão Atual 0.3b</b>
 		</div>
 
 		<div class="row mt-2">
@@ -89,6 +89,7 @@
 					<li>Recuperação de conta</li>
 					<li>Ajustar código de receber exp do servidor</li>
 					<li>Gerenciador de contas</li>
+					<li>Correções em varios aspectos</li>
 				</ul>
 			</div>
 		</div>
