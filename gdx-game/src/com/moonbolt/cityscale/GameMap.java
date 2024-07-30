@@ -300,7 +300,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.draw(game.batch, String.valueOf(player.Hp_A + "/" + player.HpMax_A), cameraCoordsX - 85f, cameraCoordsY + 82f);
 				font_master.draw(game.batch, String.valueOf(player.Mp_A + "/" + player.MpMax_A), cameraCoordsX - 85f, cameraCoordsY + 73.7f);
 				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 88f, cameraCoordsY + 64f);
-				font_master.draw(game.batch, String.valueOf(player.Exp_A) + "%", cameraCoordsX - 72f, cameraCoordsY + 64f);
+				font_master.draw(game.batch, gameControl.ExpPercent() + "%", cameraCoordsX - 72f, cameraCoordsY + 64f);
 				
 				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
 				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
@@ -381,6 +381,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					font_master.draw(game.batch, String.valueOf(player.Dex_A), cameraCoordsX - 21f, cameraCoordsY - 50f);
 					font_master.draw(game.batch, String.valueOf(player.StatusPoint_A), cameraCoordsX - 43f, cameraCoordsY - 67f);
 					
+					font_master.draw(game.batch,"Dinheiro:" + String.valueOf(player.Money_A),cameraCoordsX - 10f, cameraCoordsY - 67f);		
+					font_master.draw(game.batch,"Exp:" + String.valueOf(player.Money_A),cameraCoordsX + 20f, cameraCoordsY - 67f);			
 					
 					//CharacterShow
 					spr_playerhair = gameControl.GetHairChar(player, "Show", cameraCoordsX, cameraCoordsY);
@@ -602,7 +604,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    player.playerInCast_A = "no";	
 		    autoattack = false;
 		    
-		    gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
+		    showDropMsg = 100;
+		    itemdropname = gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
 		    gameControl.GiveExp(listMonsters.get(mobindex).MobExp);
 		    if(player.Money_A > 1500) { return; }
 		    player.Money_A = player.Money_A + 2;
@@ -677,7 +680,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void CheckStatus(String status) {
-			if(player.StatusPoint_A > 1) {
+			if(player.StatusPoint_A >= 1) {
 				if(status.equals("Str")) {
 					player.Str_A = player.Str_A + 1;
 					player.StatusPoint_A = player.StatusPoint_A - 1;
@@ -2457,7 +2460,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//hotkey1
-				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 72 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 6) {
+				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 6) {
 					if(!player.hotkey1_A.equals("none")) {
 						gameControl.UseItem(hotketcountitem1);
 					}

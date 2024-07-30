@@ -2570,7 +2570,7 @@ public class GameControl {
 			//Give EXP
 			public void GiveExp(int exp) {
 				boolean levelup = false;
-				if(player.Level_A == 10) {
+				if(player.Level_A >= 10) {
 					ExpSharedOnline = exp;
 					return;
 				}
@@ -2643,6 +2643,8 @@ public class GameControl {
 				if(player.Level_A == 49 && player.Exp_A >= 9999999999f) {  player.Level_A = 50; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
 				
 				if(levelup) {
+					if(player.Job_A.equals("Aprendiz")) { player.HpMax_A = player.HpMax_A + 10; player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 1; }
+					
 					if(player.Job_A.equals("Espadachim")) { player.HpMax_A = player.HpMax_A + 20; player.Atk_A = player.Atk_A + 5;}
 					
 					if(player.Job_A.equals("Feiticeiro")) { player.MpMax_A = player.MpMax_A + 15; player.Atk_A = player.Atk_A + 3;}
@@ -2657,14 +2659,79 @@ public class GameControl {
 				levelup = false;
 			}
 			
+			public String ExpPercent() {
+				
+				float percent = player.getExp_A();
+			    float totalExp = 0;
+			    
+			    if(player.Level_A == 1) { totalExp = 100; }
+			    if(player.Level_A == 2) { totalExp = 150; }
+			    if(player.Level_A == 3) { totalExp = 250; }
+			    if(player.Level_A == 4) { totalExp = 360; }
+			    if(player.Level_A == 5) { totalExp = 430; }
+			    if(player.Level_A == 6) { totalExp = 500; }
+			    if(player.Level_A == 7) { totalExp = 730; }
+			    if(player.Level_A == 8) { totalExp = 1000; }
+			    if(player.Level_A == 9) { totalExp = 1450; }
+			    
+			    if(player.Level_A == 10) { totalExp = 1840; }
+			    if(player.Level_A == 11) { totalExp = 3330; }
+			    if(player.Level_A == 12) { totalExp = 5500; }
+			    if(player.Level_A == 13) { totalExp = 7600; }
+			    if(player.Level_A == 14) { totalExp = 9929; }
+			    if(player.Level_A == 15) { totalExp = 12820; }
+			    if(player.Level_A == 16) { totalExp = 15293; }
+			    if(player.Level_A == 17) { totalExp = 17300; }
+			    if(player.Level_A == 18) { totalExp = 22402; }
+			    if(player.Level_A == 19) { totalExp = 26902; }
+			    
+			    if(player.Level_A == 20) { totalExp = 34592; }
+			    if(player.Level_A == 21) { totalExp = 46923; }
+			    if(player.Level_A == 22) { totalExp = 75829; }
+			    if(player.Level_A == 23) { totalExp = 90234; }
+			    if(player.Level_A == 24) { totalExp = 153042; }
+			    if(player.Level_A == 25) { totalExp = 179232; }
+			    if(player.Level_A == 26) { totalExp = 221011; }
+			    if(player.Level_A == 27) { totalExp = 259323; }
+			    if(player.Level_A == 28) { totalExp = 279293; }
+			    if(player.Level_A == 29) { totalExp = 383421; }
+			    
+			    if(player.Level_A == 30) { totalExp = 593421; }
+			    if(player.Level_A == 31) { totalExp = 814402; }
+			    if(player.Level_A == 32) { totalExp = 1534611; }
+			    if(player.Level_A == 33) { totalExp = 1839770; }
+			    if(player.Level_A == 34) { totalExp = 2433026; }
+			    if(player.Level_A == 35) { totalExp = 2792074; }
+			    if(player.Level_A == 36) { totalExp = 2931441; }
+			    if(player.Level_A == 37) { totalExp = 3304900; }
+			    if(player.Level_A == 38) { totalExp = 3588905; }
+			    if(player.Level_A == 39) { totalExp = 4987320; }
+			    
+			    if(player.Level_A == 40) { totalExp = 6987320; }
+			    if(player.Level_A == 41) { totalExp = 8987320; }
+			    if(player.Level_A == 42) { totalExp = 92198732; }
+			    if(player.Level_A == 43) { totalExp = 95883160f; }
+			    if(player.Level_A == 44) { totalExp = 96882360f; }
+			    if(player.Level_A == 45) { totalExp = 97981260f; }
+			    if(player.Level_A == 46) { totalExp = 98286460f; }
+			    if(player.Level_A == 47) { totalExp = 987875600f; }
+			    if(player.Level_A == 48) { totalExp = 988886600f; }
+			    if(player.Level_A == 49) { totalExp = 9999999999f; }
+			    									      
+			    float result = (float)((percent*100)/totalExp);
+			    return String.valueOf(result);
+			    
+			    //int k = (int)(value*(percentage/100.0f));
+			}
+			
 			public String ItemDrop(String mob) {
-				int chance = randnumber.nextInt(100);
+				int chance = randnumber.nextInt(1000);
 				
 				if(mob.equals("slime")) {
-					if(chance <= 40) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
-					//if(chance >= 40 && chance <= 95) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
-					//if(chance >= 95 && chance <= 98) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP (P)"; showDropMsg = 100; return; }
-					//if(chance >= 98) { AddItemBag("hpcan"); itemdropname = "Adicionado Refrigerante de HP pequeno (P)"; showDropMsg = 100; return; }
+					if(chance <= 500) { AddItemBag("hpcan"); AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+					if(chance >= 500 && chance <= 700) { AddItemBag("hpcan"); AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+					if(chance >= 700 && chance <= 980) { AddItemBag("hpcan"); AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+					if(chance >= 980 && chance <= 1000) { AddItemBag("hpcan"); AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 				}
 				return "";
 			}
