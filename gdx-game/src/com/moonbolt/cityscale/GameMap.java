@@ -865,48 +865,31 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void CheckMobDeadRespawn() {
-			if(!network) {
-				if(player.Map_A.equals("Sewers")) {
-					for(int num = 0; num < listMonsters.size(); num++) {
+			if(player.Map_A.equals("Sewers")) {
+				for(int num = 0; num < listMonsters.size(); num++) {
+					
+					if(listMonsters.get(num).MobHp <= 0) {
+						listMonsters.get(num).MobHp = 0; 
+						listMonsters.get(num).MobDead = "yes";   
+					}
+					
+					if(listMonsters.get(num).MobDead.equals("yes")) {
+						listMonsters.get(num).MobPosX = 200;
+						listMonsters.get(num).MobPosY = 200;
+						listMonsters.get(num).MobTimeDead--;
 						
-						if(listMonsters.get(num).MobHp <= 0) {
-							listMonsters.get(num).MobHp = 0; 
-							listMonsters.get(num).MobDead = "yes";   
-						}
-						
-						if(listMonsters.get(num).MobDead.equals("yes")) {
-							listMonsters.get(num).MobPosX = 200;
-							listMonsters.get(num).MobPosY = 200;
-							listMonsters.get(num).MobTimeDead--;
-							
-							if(listMonsters.get(num).MobTimeDead <= 0) {
-								listMonsters.get(num).MobTimeDead = 250;
-								listMonsters.get(num).MobDead = "no";
-								listMonsters.get(num).MobHp = listMonsters.get(num).MobHpMax;
-								listMonsters.get(num).MobMp = listMonsters.get(num).MobMpMax;
-								listMonsters.get(num).MobTarget = "none";
-								listMonsters.get(num).MobPosX = 0;
-								listMonsters.get(num).MobPosY = 0;
-							}
+						if(listMonsters.get(num).MobTimeDead <= 0) {
+							listMonsters.get(num).MobTimeDead = 250;
+							listMonsters.get(num).MobDead = "no";
+							listMonsters.get(num).MobHp = listMonsters.get(num).MobHpMax;
+							listMonsters.get(num).MobMp = listMonsters.get(num).MobMpMax;
+							listMonsters.get(num).MobTarget = "none";
+							listMonsters.get(num).MobPosX = 0;
+							listMonsters.get(num).MobPosY = 0;
 						}
 					}
-			    }
-			}
-			
-			if(network) {
-				if(player.Map_A.equals("Sewers")) {
-					for(int num = 0; num < listMonsters.size(); num++) {
-						
-						if(listMonsters.get(num).MobDead.equals("yes")) { 
-							if(listMonsters.get(num).MobHp <= 0) {
-								listMonsters.get(num).MobHp = 0; 
-								listMonsters.get(num).MobPosX = 200;
-								listMonsters.get(num).MobPosY = 200;
-							}
-						}
-					}
-			    }
-			}
+				}
+		    }	
 		}
 		
 		public void ChangeTarget() {
@@ -2670,7 +2653,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				//DES
 				if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 14 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
-					CheckStatus("Des");
+					CheckStatus("Dex");
 					return false;
 				}
 				

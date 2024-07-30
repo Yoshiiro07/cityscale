@@ -2721,7 +2721,6 @@ public class GameControl {
 			    float result = (float)((percent*100)/totalExp);
 			    return String.valueOf(result);
 			    
-			    //int k = (int)(value*(percentage/100.0f));
 			}
 			
 			public String ItemDrop(String mob) {
