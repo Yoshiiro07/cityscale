@@ -426,7 +426,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						if(msgShowTime < 0) {
 							msgShowTime = 0;
 						}
-					}	
+					}
+					
+
+					if(menuoption.equals("hotkey1")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 16, cameraCoordsY - 23); spr_master.draw(game.batch);  }
+					if(menuoption.equals("hotkey2")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 36, cameraCoordsY - 23); spr_master.draw(game.batch); }
 				}
 				
 				if(state.equals("Shop")) {
@@ -452,13 +456,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				//spr_testeDot.setPosition(cameraCoordsX - 45,cameraCoordsY + 97);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(cameraCoordsX - 45,cameraCoordsY + 97);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 
-				//spr_testeDot.setPosition(cameraCoordsX - 25,cameraCoordsY + 86);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(cameraCoordsX - 25,cameraCoordsY + 86);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
 				game.batch.end();
 			}
@@ -2455,6 +2459,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(!player.hotkey2_A.equals("none")) {
 						gameControl.UseItem(hotketcountitem2);
 					}
+					return false;
+				}
+				
+				//Descartar
+				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 24) {
+					
 					return false;
 				}
 				
