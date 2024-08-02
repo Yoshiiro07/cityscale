@@ -185,13 +185,13 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				CheckColision();
 											
 				//Teste				
-				//spr_testeDot.setPosition(59.5f, -65);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(59.5f, -65);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
-				//spr_testeDot.setPosition(-51.5f, -50f);
-				//spr_testeDot.setSize(1, 1);
-				//spr_testeDot.draw(game.batch);
+				spr_testeDot.setPosition(-51.5f, -50f);
+				spr_testeDot.setSize(1, 1);
+				spr_testeDot.draw(game.batch);
 				
 				game.batch.end();
 			}

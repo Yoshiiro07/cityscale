@@ -2571,7 +2571,7 @@ public class GameControl {
 				
 				//Give Money
 				money = player.Money_A;
-				if(money > 5000) { return; }
+				if(money > 1500) { return; }
 				int moneygave = randnumber.nextInt(5);
 				while(moneygave < 2) { moneygave = randnumber.nextInt(5); }
 				money = money + (moneygave * 2);
