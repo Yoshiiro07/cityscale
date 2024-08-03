@@ -1029,6 +1029,20 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		if(element.equals("descartar")) {
+			spr_master = atlas_ux.createSprite("placebox2");
+			spr_master.setSize(30,16);
+			spr_master.setPosition(cameraCoordsX - 45,cameraCoordsY + 87);
+			return spr_master;
+		}
+		
+		if(element.equals("controlPC")) {
+			spr_master = atlas_ux.createSprite("handoff");
+			spr_master.setSize(30,16);
+			spr_master.setPosition(cameraCoordsX - 45,cameraCoordsY + 87);
+			return spr_master;
+		}
+		
 		return spr_master;
 	}
 	
@@ -2800,10 +2814,15 @@ public class GameControl {
 				int chance = randnumber.nextInt(1000);
 				
 				if(mob.equals("slime")) {
-					if(chance <= 500) { AddItemBag("hpcan"); AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+					//if(chance <= 500) { AddItemBag("hpcan"); AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+					//if(chance >= 500 && chance <= 700) { AddItemBag("lootblop");  return "Adicionado Gosma"; }
+					//if(chance >= 700 && chance <= 980) { AddItemBag("hatslime");  return "Adicionado Chapeu de Slime"; }
+					//if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
+					
+					if(chance <= 500) { AddItemBag("hpcan"); AddItemBag("lootblop"); return "Adicionado Refrigerante de HP (P)"; }
 					if(chance >= 500 && chance <= 700) { AddItemBag("lootblop");  return "Adicionado Gosma"; }
-					if(chance >= 700 && chance <= 980) { AddItemBag("hatslime");  return "Adicionado Chapeu de Slime"; }
-					if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
+					if(chance >= 700 && chance <= 980) { AddItemBag("lootblop");  return "Adicionado Chapeu de Slime"; }
+					if(chance >= 980 && chance <= 1000) { AddItemBag("lootblop"); return "Adicionado Fragmento Azul"; }
 				}
 				return "";
 			}

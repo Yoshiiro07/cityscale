@@ -40,6 +40,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		private String shopname = "";
 	    private String menuoption = "";
 	    private int playernum = 0;
+	    private String controlstate = "Mobile";
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -428,8 +429,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						}
 					}
 					
-					if(menuoption.equals("hotkey1")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 16, cameraCoordsY - 23); spr_master.draw(game.batch);  }
+					if(menuoption.equals("hotkey1")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 16, cameraCoordsY - 23); spr_master.draw(game.batch); }
 					if(menuoption.equals("hotkey2")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 36, cameraCoordsY - 23); spr_master.draw(game.batch); }
+					if(menuoption.equals("descartar")) { 
+						spr_master = gameControl.GetUX("descartar",cameraCoordsX, cameraCoordsY); 
+						spr_master.setPosition(cameraCoordsX - 12, cameraCoordsY - 63);
+						spr_master.draw(game.batch); 
+					}
+					
+					if (controlstate.equals("PC")) {
+						spr_master = gameControl.GetUX("controlPC", cameraCoordsX, cameraCoordsY);
+						spr_master.setPosition(cameraCoordsX - 40, cameraCoordsY - 40);
+						spr_master.draw(game.batch);
+					}
+					
+					
 				}
 				
 				if(state.equals("Shop")) {
@@ -455,11 +469,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX + 17,cameraCoordsY - 64);
+				spr_testeDot.setPosition(cameraCoordsX + 13,cameraCoordsY - 13);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX - 12,cameraCoordsY - 48);
+				spr_testeDot.setPosition(cameraCoordsX + 25,cameraCoordsY - 35);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -925,11 +939,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		public int CheckWeapon() {  
 		
-			if(player.Weapon_A.equals("basic_knife")) { return 6;}			
-			if(player.Weapon_A.equals("doubleedgeknife")) { return 3; }		
+			if(player.Weapon_A.equals("basic_knife")) { return 2;}			
+			if(player.Weapon_A.equals("doubleedgeknife")) { return 5; }		
 			if(player.Weapon_A.equals("woodsword")) { return 10;}							
 			if(player.Weapon_A.equals("basicpistol")) { return 8;}			
-			if(player.Weapon_A.equals("basicdagger")) { return 7;}		
+			if(player.Weapon_A.equals("basicdagger")) { return 8;}		
 			if(player.Weapon_A.equals("stickrod")) { return 6;}	
 			if(player.Weapon_A.equals("basicaxe")) { return 12;}
 			
@@ -2492,6 +2506,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Voltar
 				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 82 && coordsTouch.y > cameraCoordsY + 69 && coordsTouch.y < cameraCoordsY + 84) {
 					state = "Main";
+					menuoption = "";
 					return false;
 				}
 				
@@ -2507,12 +2522,26 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				
+				//Descartar
+				if(coordsTouch.x > cameraCoordsX - 12 && coordsTouch.x < cameraCoordsX + 17 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 48) {
+					menuoption = "descartar";
+					return false;
+				}
+				
+				
+				//Desligar touch
+				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 25 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 48) {
+					if(controlstate.equals("PC")) { controlstate = "Mobile"; }
+					else { controlstate = "Mobile"; }		
+					return false;
+				}
+				
 				
 				//Item 1
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(0,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(0,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(1); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(0); menuoption = ""; return false; }
 					gameControl.UseItem(0);
 					return false;
 				}
@@ -2521,7 +2550,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(1,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(1,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(1); menuoption = ""; return false; }
 					gameControl.UseItem(1);
 					return false;
 				}
@@ -2530,7 +2559,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(2,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(2,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(3); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(2); menuoption = ""; return false; }
 					gameControl.UseItem(2);
 					return false;
 				}
@@ -2539,7 +2568,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(3,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(3,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(4); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(3); menuoption = ""; return false; }
 					gameControl.UseItem(3);
 					return false;
 				}
@@ -2550,7 +2579,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(4,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(4,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(5); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(4); menuoption = ""; return false; }
 					gameControl.UseItem(4);
 					return false;
 				}
@@ -2559,7 +2588,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(5,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(5,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(6); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(5); menuoption = ""; return false; }
 					gameControl.UseItem(5);
 					return false;
 				}
@@ -2568,7 +2597,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(6,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(6,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(7); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(6); menuoption = ""; return false; }
 					gameControl.UseItem(6);
 					return false;
 				}
@@ -2577,7 +2606,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(7,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(7,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(8); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(7); menuoption = ""; return false; }
 					gameControl.UseItem(7);
 					return false;
 				}
@@ -2586,7 +2615,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(8,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(8,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(9); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(8); menuoption = ""; return false; }
 					gameControl.UseItem(8);
 					return false;
 				}
@@ -2595,7 +2624,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(9,1); menuoption = ""; return false; }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(9,2); menuoption = ""; return false; }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(10); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(9); menuoption = ""; return false; }
 					gameControl.UseItem(9);
 					return false;
 				}
@@ -2604,7 +2633,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(10,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(10,2); menuoption = ""; return false;  }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(11); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(10); menuoption = ""; return false; }
 					gameControl.UseItem(10);
 					return false;
 				}
@@ -2613,7 +2642,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(11,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(11,2); menuoption = ""; return false;  }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(12); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(11); menuoption = ""; return false; }
 					gameControl.UseItem(11);
 					return false;
 				}
@@ -2622,7 +2651,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(12,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(12,2); menuoption = ""; return false;  }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(13); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(12); menuoption = ""; return false; }
 					gameControl.UseItem(12);
 					return false;
 				}
@@ -2631,7 +2660,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(13,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(13,2); menuoption = ""; return false;  }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(14); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(13); menuoption = ""; return false; }
 					gameControl.UseItem(13);
 					return false;
 				}
@@ -2640,7 +2669,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(14,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(14,2); menuoption = ""; return false;  }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(15); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(14); menuoption = ""; return false; }
 					gameControl.UseItem(14);
 					return false;
 				}
@@ -2649,7 +2678,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(15,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(15,2); menuoption = ""; return false;  }
-					if(menuoption.equals("descartar")) { gameControl.DiscartItem(16); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(15); menuoption = ""; return false; }
 					gameControl.UseItem(15);
 					return false;
 				}
