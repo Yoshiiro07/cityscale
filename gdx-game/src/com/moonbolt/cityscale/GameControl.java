@@ -1279,7 +1279,6 @@ public class GameControl {
 	
 	public Sprite GetHairCharTagStation(Player player) {
 		
-		
 		//hair1_front_green_M
 		if(player.Hair_A.equals("hair1")){ spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
 		if(player.Hair_A.equals("hair2")){ spr_master = atlas_hairs2.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
@@ -1320,6 +1319,13 @@ public class GameControl {
 		
 		return spr_master;
 	}
+	
+	public Sprite GetHatChar(Player player,float cameraCoordsX,float cameraCoordsY) {
+		
+		
+		
+	}
+	
 	
 	
 	//[Char movement]//

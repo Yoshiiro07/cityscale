@@ -41,6 +41,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private String menuoption = "";
 	    private int playernum = 0;
 	    private String controlstate = "Mobile";
+	    private int flipzone = 0;
 	    
 		//Fonts
 		private BitmapFont font_master;
@@ -56,6 +57,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private float playerPosX;
 	    private float playerPosY;
 	    private Sprite spr_playerTagHair;
+	    private Sprite spr_playerhat;
 	    private Sprite spr_playerhair;
 	    private Sprite spr_playertop;
 	    private Sprite spr_playerbottom;
@@ -132,6 +134,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    //Sprites Background
 	    private Sprite spr_Background;
 	    private Texture tex_Background;
+	    private Texture tex_BackgroundOver;
 	    
 	    //Teste Dot
 	    private Sprite spr_testeDot;
@@ -153,7 +156,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			gameControl.SetCharNumber(playernum);
 			
 			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); }	
-			if(player.Map_A.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png")); }	
+			if(player.Map_A.equals("Sewers")) { 
+				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png")); 
+				tex_BackgroundOver = new Texture(Gdx.files.internal("data/assets/maps/sewers2.png"));
+			}	
 			spr_Background = new Sprite(tex_Background);
 			
 			//Mobs
@@ -231,10 +237,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					player.regenTime_A = player.regenTimeMax_A;
 				}
 				
+				if(player.Map_A.equals("StreetsA")) {
+					spr_Background.setPosition(-81,-194);
+					spr_Background.setSize(270, 270);
+					spr_Background.draw(game.batch);
+				}
+				
 				//Background	
-				spr_Background.setPosition(-81,-194);
-				spr_Background.setSize(270, 270);
-				spr_Background.draw(game.batch);
+				if(player.Map_A.equals("Sewers")) {
+					flipzone++;
+					if (flipzone >= 0 && flipzone <= 20) {
+						spr_Background.setPosition(-81, -194);
+						spr_Background.setSize(270, 270);
+						spr_Background.draw(game.batch);
+					}
+					if (flipzone >= 20 && flipzone <= 40) {
+						spr_Background.setPosition(-81, -194);
+						spr_Background.setSize(270, 270);
+						spr_Background.draw(game.batch);
+					}
+					if (flipzone >= 40) { flipzone = 0; }
+				}
 				
 				//npcs
 				ShowOnlinePlayers();
@@ -270,6 +293,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
 				spr_playerhair.draw(game.batch);
+				
+				spr_playerhat = gameControl.GetHatChar(player, "no",0,0);
+				spr_playerhat.draw(game.batch);
+				
 				
 				if(player.playerInBattle_A.equals("yes") || player.playerInBattle_A.equals("yes") || player.playerInBattle_A.equals("yes")) {
 					spr_playerweapon = gameControl.SetWeapon(player);
