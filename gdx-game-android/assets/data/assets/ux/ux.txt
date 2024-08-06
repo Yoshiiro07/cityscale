@@ -47,28 +47,28 @@ battlezoneA
   index: -1
 btnback
   rotate: false
-  xy: 82, 40
+  xy: 125, 40
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btnconfirm
   rotate: false
-  xy: 275, 40
+  xy: 318, 40
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btncreatenew
   rotate: false
-  xy: 468, 40
+  xy: 511, 40
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btnexclude
   rotate: false
-  xy: 661, 40
+  xy: 704, 40
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
@@ -96,7 +96,7 @@ crystal
   index: -1
 hand
   rotate: false
-  xy: 37, 40
+  xy: 80, 40
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
@@ -134,6 +134,13 @@ moon
   xy: 888, 0
   size: 46, 40
   orig: 46, 40
+  offset: 0, 0
+  index: -1
+off
+  rotate: false
+  xy: 37, 40
+  size: 43, 43
+  orig: 43, 43
   offset: 0, 0
   index: -1
 partytag

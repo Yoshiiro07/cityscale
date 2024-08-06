@@ -70,6 +70,7 @@ public class GameControl {
 	private TextureAtlas atlas_hairs3;
 	private TextureAtlas atlas_hairs4;
 	private TextureAtlas atlas_basicset;
+	private TextureAtlas atlas_hats;
 	private TextureAtlas atlas_ux;
 	private TextureAtlas atlas_shops;
 	private TextureAtlas atlas_genericset;
@@ -83,7 +84,7 @@ public class GameControl {
 	private TextureAtlas atlas_cloth;
 	private TextureAtlas atlas_cristais;
 	private TextureAtlas atlas_food;
-	private TextureAtlas atlas_hats;
+	private TextureAtlas atlas_hatsitem;
 	private TextureAtlas atlas_lootmob;
 	
 	private TextureAtlas atlas_weapongeneric;
@@ -150,6 +151,7 @@ public class GameControl {
 		atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair2.txt"));
 		atlas_hairs3 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair3.txt"));
 		atlas_hairs4 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair4.txt"));
+		atlas_hats = new TextureAtlas(Gdx.files.internal("data/assets/characters/hats/hats.txt"));
 		
 
 		atlas_genericset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
@@ -166,7 +168,7 @@ public class GameControl {
 		atlas_cloth = new TextureAtlas(Gdx.files.internal("data/assets/itens/cloth.txt"));
 		atlas_cristais = new TextureAtlas(Gdx.files.internal("data/assets/itens/cristais.txt"));
 		atlas_food = new TextureAtlas(Gdx.files.internal("data/assets/itens/food.txt"));
-		atlas_hats = new TextureAtlas(Gdx.files.internal("data/assets/itens/hats.txt"));
+		atlas_hatsitem = new TextureAtlas(Gdx.files.internal("data/assets/itens/hats.txt"));
 		atlas_lootmob = new TextureAtlas(Gdx.files.internal("data/assets/itens/lootmob.txt"));
 		
 		atlas_weapongeneric = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/nknifes.txt"));
@@ -1037,7 +1039,7 @@ public class GameControl {
 		}
 		
 		if(element.equals("controlPC")) {
-			spr_master = atlas_ux.createSprite("handoff");
+			spr_master = atlas_ux.createSprite("off");
 			spr_master.setSize(30,16);
 			spr_master.setPosition(cameraCoordsX - 45,cameraCoordsY + 87);
 			return spr_master;
@@ -1320,10 +1322,52 @@ public class GameControl {
 		return spr_master;
 	}
 	
-	public Sprite GetHatChar(Player player,float cameraCoordsX,float cameraCoordsY) {
+	public Sprite GetHatChar(Player player,String type,float cameraX,float cameraY) {
 		
+		String side = player.Side_A;
 		
+		if(side.equals("front")) { 
+			if(player.Hat_A.equals("hatbunny")) { 
+				spr_master = atlas_hats.createSprite("bunnyhat_front");
+				spr_master.setPosition(player.PosX_A - 20,player.PosY_A + 15);
+				spr_master.setScale(0.23f,0.5f);
+			}		
+		}
 		
+		if(side.equals("right")) { 
+			if(player.Hat_A.equals("hatbunny")) { 
+				spr_master = atlas_hats.createSprite("bunnyhat_right");
+				spr_master.setPosition(player.PosX_A - 20,player.PosY_A + 10);
+				spr_master.setScale(0.21f,0.5f);	
+			}		
+		}
+		
+		if(side.equals("left")) { 
+			if(player.Hat_A.equals("hatbunny")) { 
+				spr_master = atlas_hats.createSprite("bunnyhat_left");
+				spr_master.setPosition(player.PosX_A - 20,player.PosY_A + 10);
+				spr_master.setScale(0.21f,0.5f);	
+			}		
+		}
+		
+		if(side.equals("back")) { 
+			if(player.Hat_A.equals("hatbunny")) { 
+				spr_master = atlas_hats.createSprite("bunnyhat_up");
+				spr_master.setPosition(player.PosX_A - 20,player.PosY_A + 12);
+				spr_master.setScale(0.23f,0.5f);
+			}		
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetHatItem(Player player, float cameraX, float cameraY) {
+		if(player.Hat_A.equals("hatbunny")) {
+			spr_master = atlas_hatsitem.createSprite("hatbunny");
+			return spr_master;
+		}
+		
+		return spr_master;
 	}
 	
 	
@@ -1854,20 +1898,21 @@ public class GameControl {
 		if(nameItem.equals("mpcan")) { spr_master = atlas_food.createSprite("mpcan"); }
 		if(nameItem.equals("stcan")) { spr_master = atlas_food.createSprite("stcan"); }
 		
-		if(nameItem.equals("hatbear")) { spr_master = atlas_hats.createSprite("hatbear"); }
-		if(nameItem.equals("hatblackglass")) { spr_master = atlas_hats.createSprite("hatblackglass"); }
-		if(nameItem.equals("hatheadset")) { spr_master = atlas_hats.createSprite("hatheadset"); }
-		if(nameItem.equals("hatmagician")) { spr_master = atlas_hats.createSprite("hatmagician"); }
-		if(nameItem.equals("hatpirate")) { spr_master = atlas_hats.createSprite("hatpirate"); }
-		if(nameItem.equals("hatsanta")) { spr_master = atlas_hats.createSprite("hatsanta"); }
-		if(nameItem.equals("hatslime")) { spr_master = atlas_hats.createSprite("hatslime"); }
-		if(nameItem.equals("hatsunglasses")) { spr_master = atlas_hats.createSprite("hatsunglasses"); }
-		if(nameItem.equals("hatslime")) { spr_master = atlas_hats.createSprite("hatslime"); }
-		if(nameItem.equals("hattimer")) { spr_master = atlas_hats.createSprite("hattimer"); }
-		if(nameItem.equals("hatbutterfly")) { spr_master = atlas_hats.createSprite("hatbutterfly"); }
-		if(nameItem.equals("hatcapoult")) { spr_master = atlas_hats.createSprite("hatcapoult"); }
-		if(nameItem.equals("hatcooker")) { spr_master = atlas_hats.createSprite("hatcooker"); }
-		if(nameItem.equals("hatfashionglasses")) { spr_master = atlas_hats.createSprite("hatfashionglasses"); }
+		if(nameItem.equals("hatbear")) { spr_master = atlas_hatsitem.createSprite("hatbear"); }
+		if(nameItem.equals("hatblackglass")) { spr_master = atlas_hatsitem.createSprite("hatblackglass"); }
+		if(nameItem.equals("hatheadset")) { spr_master = atlas_hatsitem.createSprite("hatheadset"); }
+		if(nameItem.equals("hatmagician")) { spr_master = atlas_hatsitem.createSprite("hatmagician"); }
+		if(nameItem.equals("hatpirate")) { spr_master = atlas_hatsitem.createSprite("hatpirate"); }
+		if(nameItem.equals("hatsanta")) { spr_master = atlas_hatsitem.createSprite("hatsanta"); }
+		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); }
+		if(nameItem.equals("hatsunglasses")) { spr_master = atlas_hatsitem.createSprite("hatsunglasses"); }
+		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); }
+		if(nameItem.equals("hattimer")) { spr_master = atlas_hatsitem.createSprite("hattimer"); }
+		if(nameItem.equals("hatbutterfly")) { spr_master = atlas_hatsitem.createSprite("hatbutterfly"); }
+		if(nameItem.equals("hatcapoult")) { spr_master = atlas_hatsitem.createSprite("hatcapoult"); }
+		if(nameItem.equals("hatcooker")) { spr_master = atlas_hatsitem.createSprite("hatcooker"); }
+		if(nameItem.equals("hatfashionglasses")) { spr_master = atlas_hatsitem.createSprite("hatfashionglasses"); }
+		if(nameItem.equals("hatbunny")) { spr_master = atlas_hatsitem.createSprite("hatbunny"); }
 		
 		
 		if(nameItem.equals("lootfragmentoamarelo")) { spr_master = atlas_cristais.createSprite("lootfragmentoamarelo"); }
@@ -1921,6 +1966,7 @@ public class GameControl {
 					if(itemName.equals("basicbottom")) {  if(player.SetUpper_A.equals("basicbottom")){ return; } else { AddItemBag(player.SetUpper_A); player.SetUpper_A = "basicbottom"; lstItem = player.Itens_A.split("-"); }}
 					if(itemName.equals("basicfooter")) {  if(player.SetUpper_A.equals("basicfooter")){ return; } else { AddItemBag(player.SetUpper_A); player.SetUpper_A = "basicfooter"; lstItem = player.Itens_A.split("-"); }}
 						
+					
 					
 					//aprendiz
 					if(itemName.equals("basicknife")) {  
@@ -2095,70 +2141,13 @@ public class GameControl {
 					}
 								
 					//Hats
-					if(itemName.equals("pirate_hat")) {  
-						if(player.Hat_A.equals("pirate_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "pirate_hat"; lstItem = player.Itens_A.split("-");  }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "pirate_hat";}
-					}
-							
-					if(itemName.equals("magician_hat")) {  
-						if(player.Hat_A.equals("magician_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "magician_hat";  lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "magician_hat";}
+					
+					if(itemName.equals("hatbunny")) { 
+						if(player.Hat_A.equals("hatbunny")){ return; }
+						if(player.Hat_A.equals("none")){ player.Hat_A = "hatbunny"; }
+						if(!player.Hat_A.equals("hatbunny")) { AddItemBag(player.Hat_A); player.Hat_A = "hatbunny"; lstItem = player.Itens_A.split("-"); equipable = true; }	
 					}
 					
-					if(itemName.equals("bunny_hat")) {  
-						if(player.Hat_A.equals("bunny_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "bunny_hat";  lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "bunny_hat";}
-					}
-					
-					if(itemName.equals("slime_hat")) {  
-						if(player.Hat_A.equals("slime_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "slime_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "slime_hat";}
-					}
-					if(itemName.equals("bear_hat")) {  
-						if(player.Hat_A.equals("bear_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "bear_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "bear_hat";}
-					}
-					if(itemName.equals("santa_hat")) {  
-						if(player.Hat_A.equals("santa_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "santa_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "santa_hat";}
-					}
-					if(itemName.equals("beachglass_hat")) {  
-						if(player.Hat_A.equals("beachglass_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "beachglass_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "beachglass_hat";}
-					}
-					if(itemName.equals("capoult_hat")) {  
-						if(player.Hat_A.equals("capoult_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "capoult_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "capoult_hat";}
-					}
-					if(itemName.equals("clock_hat")) {  
-						if(player.Hat_A.equals("clock_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "clock_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "clock_hat";}
-					}
-					if(itemName.equals("brazilflag_hat")) {  
-						if(player.Hat_A.equals("brazilflag_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "brazilflag_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "brazilflag_hat";}
-					}
-					
-					if(itemName.equals("headphone_hat")) {  
-						if(player.Hat_A.equals("headphone_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "headphone_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "headphone_hat";}
-					}
-					if(itemName.equals("sunglass_hat")) {  
-						if(player.Hat_A.equals("sunglass_hat")){ return; } 
-						if(!player.Hat_A.equals("none")) { AddItemBag(player.Hat_A); player.Hat_A = "sunglass_hat"; lstItem = player.Itens_A.split("-"); }
-						if(player.Hat_A.equals("none")) { player.Hat_A = "sunglass_hat";}
-					}
 					
 					//orbs
 					if(itemName.equals("blue_orb")) { return; }
@@ -2825,10 +2814,10 @@ public class GameControl {
 					//if(chance >= 700 && chance <= 980) { AddItemBag("hatslime");  return "Adicionado Chapeu de Slime"; }
 					//if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
 					
-					if(chance <= 500) { AddItemBag("hpcan"); AddItemBag("lootblop"); return "Adicionado Refrigerante de HP (P)"; }
-					if(chance >= 500 && chance <= 700) { AddItemBag("lootblop");  return "Adicionado Gosma"; }
-					if(chance >= 700 && chance <= 980) { AddItemBag("lootblop");  return "Adicionado Chapeu de Slime"; }
-					if(chance >= 980 && chance <= 1000) { AddItemBag("lootblop"); return "Adicionado Fragmento Azul"; }
+					if(chance <= 500) { AddItemBag("hpcan"); AddItemBag("hatbunny"); return "Adicionado Refrigerante de HP (P)"; }
+					if(chance >= 500 && chance <= 700) { AddItemBag("hatbunny");  return "Adicionado Gosma"; }
+					if(chance >= 700 && chance <= 980) { AddItemBag("hatbunny");  return "Adicionado Chapeu de Slime"; }
+					if(chance >= 980 && chance <= 1000) { AddItemBag("hatbunny"); return "Adicionado Fragmento Azul"; }
 				}
 				return "";
 			}

@@ -57,6 +57,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	    private float playerPosX;
 	    private float playerPosY;
 	    private Sprite spr_playerTagHair;
+	    private Sprite spr_playerhatmenu;
 	    private Sprite spr_playerhat;
 	    private Sprite spr_playerhair;
 	    private Sprite spr_playertop;
@@ -158,7 +159,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map_A.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png")); }	
 			if(player.Map_A.equals("Sewers")) { 
 				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png")); 
-				tex_BackgroundOver = new Texture(Gdx.files.internal("data/assets/maps/sewers2.png"));
+				tex_BackgroundOver = new Texture(Gdx.files.internal("data/assets/maps/sewersB.png"));
 			}	
 			spr_Background = new Sprite(tex_Background);
 			
@@ -294,8 +295,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
 				spr_playerhair.draw(game.batch);
 				
-				spr_playerhat = gameControl.GetHatChar(player, "no",0,0);
-				spr_playerhat.draw(game.batch);
+				if(!player.Hat_A.equals("none")) {
+					spr_playerhat = gameControl.GetHatChar(player,"",0,0);
+					spr_playerhat.draw(game.batch);
+				}
 				
 				
 				if(player.playerInBattle_A.equals("yes") || player.playerInBattle_A.equals("yes") || player.playerInBattle_A.equals("yes")) {
@@ -304,9 +307,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 
 				//Show Mobs
-				if(player.Map_A.equals("Sewers")){
-					ShowMobs();
-				}
+				if(player.Map_A.equals("Sewers")){ ShowMobs(); }
 			
 				//UX
 				spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
@@ -424,6 +425,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					spr_playertop = gameControl.GetTopChar(player, "Show", cameraCoordsX, cameraCoordsY);
 					spr_playertop.draw(game.batch);
+					
+					if(!player.Hat_A.equals("none")) {
+						spr_playerhatmenu = gameControl.GetHatChar(player,"",cameraCoordsX, cameraCoordsY);
+						spr_playerhatmenu.setScale(0.5f, 0.7f);
+						spr_playerhatmenu.setPosition(cameraCoordsX - 84, cameraCoordsY + 42);
+						spr_playerhatmenu.draw(game.batch);
+					}
+					
 
 					//Show Character
 					//Itens Equipped
@@ -447,6 +456,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_playerweapon.setSize(13, 22);
 					spr_playerweapon.draw(game.batch);
 					
+					if(!player.Hat_A.equals("none")) { 
+						spr_playerhat = gameControl.GetHatItem(player,0,0);
+						spr_playerhat.setPosition(cameraCoordsX + 67.8f, cameraCoordsY + 41);
+						spr_playerhat.setSize(13, 22);
+						spr_playerhat.draw(game.batch);
+					}
+					
 					ShowBag();
 					if(msgShowTime > 0) {
 						msgShowTime--;
@@ -466,7 +482,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					if (controlstate.equals("PC")) {
 						spr_master = gameControl.GetUX("controlPC", cameraCoordsX, cameraCoordsY);
-						spr_master.setPosition(cameraCoordsX - 40, cameraCoordsY - 40);
+						spr_master.setPosition(cameraCoordsX + 14, cameraCoordsY - 34);
+						spr_master.setSize(12, 22);
 						spr_master.draw(game.batch);
 					}
 					
@@ -496,11 +513,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master.draw(game.batch);
 				}
 				
-				spr_testeDot.setPosition(cameraCoordsX + 13,cameraCoordsY - 13);
+				spr_testeDot.setPosition(cameraCoordsX + 68,cameraCoordsY + 62);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(cameraCoordsX + 25,cameraCoordsY - 35);
+				spr_testeDot.setPosition(cameraCoordsX + 80,cameraCoordsY + 40);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 				
@@ -2557,9 +2574,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				
 				//Desligar touch
-				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 25 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 48) {
+				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 25 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 13) {
 					if(controlstate.equals("PC")) { controlstate = "Mobile"; }
-					else { controlstate = "Mobile"; }		
+					else { controlstate = "PC"; }		
 					return false;
 				}
 				
@@ -2735,6 +2752,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//DES
 				if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 14 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
 					CheckStatus("Dex");
+					return false;
+				}
+				
+				//unequip
+				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 80 && coordsTouch.y > cameraCoordsY + 40 && coordsTouch.y < cameraCoordsY + 62) {
+					gameControl.UnequipHat();
 					return false;
 				}
 				
