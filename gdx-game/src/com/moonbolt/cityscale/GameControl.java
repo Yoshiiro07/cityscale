@@ -1,12 +1,12 @@
 package com.moonbolt.cityscale;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
+////import java.io.OutputStreamWriter;
+//import java.net.URL;
+//import java.net.URLConnection;
+//import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,6 +24,10 @@ import com.badlogic.gdx.utils.Json;
 import com.moonbolt.cityscale.models.Monster;
 import com.moonbolt.cityscale.models.Player;
 import com.badlogic.gdx.files.FileHandle;
+//import com.google.gwt.core.client.GWT;
+//import com.google.gwt.core.client.RunAsyncCallback;
+//import com.google.gwt.core.client.Scheduler;
+//import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
 public class GameControl {
 	
@@ -2838,10 +2842,12 @@ public class GameControl {
 						TipoOperacaoOnline("Download", subData);
 					}
 					if(operation.equals("SyncChats")) {
-						ThreadsSyncStartChat();				
+						//ThreadsSyncStartChat();	
+						//SyncChatGWT();
 					}
 					if(operation.equals("SyncPlayer")) {
-						ThreadsSyncStartPlayer();				
+						//ThreadsSyncStartPlayer();
+						//SyncPlayersGWT();
 					}
 					if(operation.equals("ExpSharedSend")){
 						TipoOperacaoOnline("ExpSharedSend", subData);
@@ -2880,11 +2886,14 @@ public class GameControl {
 					}
 					if(nomeOperacao.equals("SyncChats")) {
 						
-						ThreadsSyncStartChat();		
+						//SyncChatGWT();
+						//ThreadsSyncStartChat();	
+						
 					}	
 					if(nomeOperacao.equals("SyncPlayer")) {
 						
-						ThreadsSyncStartPlayer();		
+						//ThreadsSyncStartPlayer();		
+						//SyncPlayersGWT();
 					}
 					return onlineresponse;
 				}
@@ -2892,7 +2901,9 @@ public class GameControl {
 				catch(Exception ex) { return "none"; }	
 			}
 			
-			private void ThreadsSyncStartChat() {
+			
+			//[USING THREADS]//
+			/*private void ThreadsSyncStartChat() {
 				thrOnlineSyncChat = new Thread(t1);
 				thrOnlineSyncChat.start();
 			}
@@ -2929,8 +2940,49 @@ public class GameControl {
 					}	
 				}
 			};
+			*/
 			
-			public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData) throws IOException {
+			//[USING GWT SCHEDULER]//
+			/*public void SyncChatGWT() {
+				GWT.runAsync(new RunAsyncCallback() {
+					public void onFailure(Throwable reason) {
+						// Show the error
+					}
+
+					public void onSuccess() {
+						try {
+							GerenciamentoOnline("SyncChats", "", "");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+			
+			public void SyncPlayersGWT() {
+				GWT.runAsync(new RunAsyncCallback() {
+					public void onFailure(Throwable reason) {
+						// Show the error
+					}
+
+					public void onSuccess() {
+						try {
+							GerenciamentoOnline("SyncPlayer","","");  
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+			}*/
+			
+			public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData){
+				return "";
+			}
+			
+			
+			/*public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData) throws IOException {
 		    	
 				String linhaLida = "";
 				try {
@@ -3287,7 +3339,11 @@ public class GameControl {
 					linhaLida = ex.getMessage();
 				}
 				return linhaLida;
+				
+				
 			}
+			
+			*/
 			
 			public void SaveDataFromServer(String line) {
 				String[] lineSplit = line.split(":");

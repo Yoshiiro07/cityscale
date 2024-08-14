@@ -331,9 +331,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.draw(game.batch, String.valueOf(player.Level_A), cameraCoordsX - 88f, cameraCoordsY + 64f);
 				font_master.draw(game.batch, gameControl.ExpPercent() + "%", cameraCoordsX - 72f, cameraCoordsY + 64f);
 				
+				if(!controlstate.equals("PC")) {
 				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
 				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
 				spr_master.draw(game.batch);
+				}
 				
 				//Ranged Skill
 				if(selectAreaRanged) {
