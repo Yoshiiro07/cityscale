@@ -1049,6 +1049,13 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		if(element.equals("login")) {
+			spr_master = atlas_ux.createSprite("login");
+			spr_master.setSize(30,16);
+			spr_master.setPosition(cameraCoordsX - 45,cameraCoordsY + 87);
+			return spr_master;
+		}
+		
 		return spr_master;
 	}
 	

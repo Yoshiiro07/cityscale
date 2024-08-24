@@ -25,12 +25,12 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 	private int fadeOutCount;
 	private boolean network = false;
 	private int playernum;
-	
+
 	public SplashScreen(MainGame game, ManagerScreen screen, int playernumAlt){
 		this.screen = screen;
 		this.game = game;
 		this.playernum = playernumAlt;
-		
+
 		camera = new OrthographicCamera();
 		viewport = new StretchViewport(100,100,camera);
 		viewport.apply();
@@ -51,10 +51,10 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 	{
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		camera.update();
 	    game.batch.setProjectionMatrix(camera.combined);
-		
+
 		if(countEffect < 250 && interpolation == false){
 			spr_Logo.setAlpha(fadeInCount);
 			fadeInCount -= 1.5f;
@@ -64,24 +64,24 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 			interpolation = true;
 			countEffect = 0;
 		}
-		
+
 		if(countEffect < 250 && interpolation == true){
 			spr_Logo.setAlpha(fadeOutCount);
 			fadeOutCount += 1.5f;
 		    countEffect += 1.5f;
 		}
-		
+
 		if(countEffect >= 250 && interpolation == true){
 			this.screen.screenSwitch("TitleScreen", network,playernum);
 			dispose();
 		}
-		
+
 		game.batch.begin();
 		spr_Logo.draw(game.batch);
 		game.batch.end();
-		
+
 	}
-	
+
 	@Override
 	public void resize(int p1, int p2)
 	{
@@ -97,7 +97,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 	@Override
 	public void show()
 	{
-		
+
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		game.dispose();
 		tex_logo.dispose();
 	}
-	
+
 	@Override
 	public void create()
 	{
@@ -130,7 +130,7 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 	{
 		// TODO: Implement this method
 	}
-	
+
 	@Override
 	public boolean keyDown(int p1)
 	{
@@ -186,10 +186,21 @@ public class SplashScreen implements Screen, ApplicationListener, InputProcessor
 		return false;
 	}
 
-	@Override
 	public boolean scrolled(int p1)
 	{
 		// TODO: Implement this method
 		return false;
+	}
+
+	@Override
+	public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
+	}
+
+	@Override
+	public boolean scrolled(float amountX, float amountY) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
 	}
 }

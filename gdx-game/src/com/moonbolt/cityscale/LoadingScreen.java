@@ -27,73 +27,73 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	private boolean network = false;
 	private Player player;
 	private int playernum;
-	
+
 	//Loading Variables
 	private boolean loading = true;
 	private int loadtime = 100;
 	private int loadanimationtime = 0;
-	
+
 	//Sprites
 	private Sprite spr_loadingBlack;
 	private Texture tex_loadingBlack;
-	
+
 	//Primitives
 	private boolean changeScreen = false;
-	
+
 	//fonts
 	private BitmapFont font_master;
-	
+
 	//Camera
 	private OrthographicCamera camera;
     private Viewport viewport;
-    
+
     //Controller
     private final IntSet downKeys = new IntSet(20);
-    
+
 	public LoadingScreen(MainGame gameAlt,boolean networkAlt, int playernumAlt) {
 		this.game = gameAlt;
 		this.network = networkAlt;
 		this.playernum = playernumAlt;
-		
+
 		this.gameControl = new GameControl();
 		player = gameControl.LoadData();
-			
+
 		//Camera and Inputs
 		camera = new OrthographicCamera();
 	    viewport = new StretchViewport(100,100,camera);
 		viewport.apply();
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		Gdx.input.setInputProcessor(this);
-		
+
 		//font
 		font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 		font_master.setColor(Color.WHITE);
 		font_master.getData().setScale(0.11f,0.23f);
 		font_master.setUseIntegerPositions(false);
-		
+
 		//Sprites
-		tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/etc/blackscreen.png"));		
+		tex_loadingBlack = new Texture(Gdx.files.internal("data/assets/etc/blackscreen.png"));
 		spr_loadingBlack = new Sprite(tex_loadingBlack);
 		spr_loadingBlack.setSize(100, 100);
 	}
-	
-	
+
+
 	@Override
 	public void render(float delta) {
-		
+
 		Gdx.gl.glClearColor(1,1,1,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		camera.update();
-	    game.batch.setProjectionMatrix(camera.combined);	
+	    game.batch.setProjectionMatrix(camera.combined);
 		game.batch.begin();
-		
+
 		//Change Screen
 		if(loading) {
 			spr_loadingBlack.setSize(200, 200);
 			spr_loadingBlack.setPosition(0, 0);
 			spr_loadingBlack.draw(game.batch);
-			
+
 			loadanimationtime++;
 			if(loadanimationtime >= 0 && loadanimationtime <= 10) {
 				font_master.draw(game.batch, "Car",80,10);
@@ -107,27 +107,27 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 			if(loadanimationtime > 29) {
 				loadanimationtime = 0;
 			}
-			
+
 			loadtime--;
 			if(loadtime < 0) {
 				loading = false;
 				changeScreen = true;
 			}
 		}
-		
+
 		if(changeScreen){
 			if(player.Map_A.equals("MetroStation")) { game.Switch("MetroStation", network,playernum); }
 			else { game.Switch("GameMap", network,playernum); }
-		    			
+
 		}
-		
-		game.batch.end();	
+
+		game.batch.end();
 	}
-	
+
 	@Override
 	public boolean touchDown(int p1, int p2, int pointer, int button) {
-		if(loading) { return false; }	
-		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));		
+		if(loading) { return false; }
+		Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 		return false;
 	}
 	@Override
@@ -135,17 +135,16 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	{
 		viewport.update(p1,p2);
 		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
-	}	
+	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {return false;}
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {return false;}
-	
-	private void onMultipleKeysDown (int mostRecentKeycode){}	
+
+	private void onMultipleKeysDown (int mostRecentKeycode){}
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {return false;}
-	@Override
 	public boolean scrolled(int amount) {return false;}
 	@Override
 	public void create() {}
@@ -161,7 +160,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	public void hide() {}
 	@Override
 	public void dispose() {
-		
+
 		tex_loadingBlack.dispose();
 	}
 	@Override
@@ -174,4 +173,18 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	public boolean keyUp(int keycode) { downKeys.remove(keycode); return false;}
 	@Override
 	public boolean keyTyped(char character) {return false;}
+
+
+	@Override
+	public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
+	}
+
+
+	@Override
+	public boolean scrolled(float amountX, float amountY) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
+	}
 }

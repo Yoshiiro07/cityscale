@@ -36,7 +36,7 @@ import com.moonbolt.cityscale.models.Player;
 
 
 public class MetroStation implements Screen, ApplicationListener, InputProcessor, TextInputListener {
-	
+
 		//Objects
 	    private MainGame game;
 	    private ManagerScreen screen;
@@ -45,16 +45,16 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    private Sprite spr_master;
 	    private boolean network = false;
 	    private int playernum;
-	    
+
 		//Fonts
 		private BitmapFont font_master;
-		
+
 	    //Camera
 	    private OrthographicCamera camera;
 	    private Viewport viewport;
 	    private float cameraCoordsX = 0;
 	    private float cameraCoordsY = 0;
-	    
+
 	    //Player
 	    public Player player;
 	    private float playerPosX;
@@ -68,137 +68,137 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 	    private boolean movement = false;
 	    private String breakwalk = "";
 	    private int countFrame = 1;
-	    
+
 	    //UX
 	    private float padmoveX = -56;
 	    private float padmoveY =  -50;
 	    private String padmove = "center";
 	    private Sprite spr_playerTag;
-	     
+
 	    //Sprites Background
 	    private Sprite spr_Background;
 	    private Texture tex_Background;
-	    
+
 	    private Sprite spr_metro;
 	    private Texture tex_metro;
 	    private float metroX = -189;
-	    
+
 	    //Teste Dot
 	    private Sprite spr_testeDot;
 	    private Texture tex_testeDot;
 	    private float testX;
 	    private float testY;
-	    
+
 	    //Controller
-	    private final IntSet downKeys = new IntSet(20);	
-		
+	    private final IntSet downKeys = new IntSet(20);
+
 		public MetroStation(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt,int playernumAlt) {
-			this.game = gameAlt;	
+			this.game = gameAlt;
 			this.screen = screenAlt;
 			this.network = networkAlt;
 			this.playernum = playernumAlt;
-			
+
 			//Load Player Data
 			this.gameControl = new GameControl();
 			player = gameControl.LoadData();
-			
+
 			//Load Title
-			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png")); 
-			tex_metro = new Texture(Gdx.files.internal("data/assets/etc/metro.png")); 
+			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));
+			tex_metro = new Texture(Gdx.files.internal("data/assets/etc/metro.png"));
 			spr_metro = new Sprite(tex_metro);
 			spr_Background = new Sprite(tex_Background);
-					
+
 			//Camera and Inputs
 			camera = new OrthographicCamera();
 		    viewport = new StretchViewport(135,135,camera);
 			viewport.apply();
 			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
-			
+
 			Gdx.input.setInputProcessor(this);
-	
+
 			//font
 			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.11f);
 			font_master.setUseIntegerPositions(false);
-			
+
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 		}
-			
+
 		@Override
 		public void render(float delta) {
 				//Just for coloring
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-				
+
 				//Camera Ajustments
 				cameraCoordsX = playerPosX;
 				cameraCoordsY = playerPosY;
-				
+
 				//Follow camera
 				if(playerPosX <= -25f) 	{ cameraCoordsX = -25; 	 }
 				if(playerPosX >= 175) 	{ cameraCoordsX = 175; 	 }
 				if(playerPosY >= 91.5f) { cameraCoordsY = 91.5f; }
 				if(playerPosY <= -105) 	{ cameraCoordsY = -105;  }
-				
+
 				//Update camera and start drawling
 				camera.position.set(cameraCoordsX -2,cameraCoordsY+1,0);
 				camera.update();
-			    game.batch.setProjectionMatrix(camera.combined);	    
+			    game.batch.setProjectionMatrix(camera.combined);
 				game.batch.begin();
-				
-				//Background	
+
+				//Background
 				spr_Background.setPosition(-70,-70);
 				spr_Background.setSize(136, 140);
 				spr_Background.draw(game.batch);
-				
+
 				metroX++;
 				spr_metro.setSize(100, 40);
 				spr_metro.setPosition(metroX, 36);
 				spr_metro.draw(game.batch);
 				if(metroX > 100) { metroX = -189; }
-				
-				//UX						
+
+				//UX
 				spr_master = gameControl.GetUXSmall("innerpad");
 				spr_master.setPosition(padmoveX, padmoveY);
 				spr_master.draw(game.batch);
-				
-				
+
+
 				//Char
 				player = gameControl.SetCharMov(player, player.breakwalk_A);
 				spr_playerhair = gameControl.GetHairChar(player, "no", 0, 0);
 				spr_playerhair.draw(game.batch);
-				
+
 				spr_playerfooter = gameControl.GetFooterChar(player,"no", 0, 0);
 				spr_playerfooter.draw(game.batch);
-				
+
 				spr_playerbottom = gameControl.GetBottomChar(player,"no", 0, 0);
 				spr_playerbottom.draw(game.batch);
-				
+
 				spr_playertop = gameControl.GetTopChar(player,"no", 0, 0);
 				spr_playertop.draw(game.batch);
-				
-				
+
+
 				//Colision
 				CheckColision();
-											
-				//Teste				
+
+				//Teste
 				spr_testeDot.setPosition(59.5f, -65);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
-				
+
 				spr_testeDot.setPosition(-51.5f, -50f);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
-				
+
 				game.batch.end();
 			}
-			
-			
-		
-		
+
+
+
+
 		public void CheckColision() {
 			if(player.Map_A.equals("MetroStation")) {
 				if(player.PosX_A > 32 && player.PosX_A < 36 && player.PosY_A > - 68 && player.PosY_A < -47) {
@@ -210,26 +210,26 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				}
 			}
 		}
-		
+
 
 		@Override
 		public void input(String text) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void canceled() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public boolean keyDown(int keycode) {
 			if(playerDead) { return false; }
-			
+
 			if(state.equals("Main")) {
-				movement = true;		
+				movement = true;
 				downKeys.add(keycode);
 		        if (downKeys.size >= 2){
 		            onMultipleKeysDown(keycode);
@@ -237,12 +237,12 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		        if(downKeys.size == 1) {
 		        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
 		        		player.Side_A = "left";
-		        		player.Walk_A = "walk"; 
+		        		player.Walk_A = "walk";
 		        		padmoveX = -66;
 		        		player.playerInBattle_A = "no";
 		        		return false;
 		            }
-		    		
+
 		    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
 		    			player.Side_A = "back";
 		    			player.Walk_A = "walk";
@@ -250,27 +250,27 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		    			player.playerInBattle_A = "no";
 		    			return false;
 		            }
-		    		
+
 		    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
 		    			player.Side_A = "front";
-		    			player.Walk_A = "walk";	
+		    			player.Walk_A = "walk";
 		    			padmoveY = -60;
 		    			player.playerInBattle_A = "no";
 		    			return false;
 		            }
-		    		
+
 		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
 		    			player.Side_A = "right";
 		    			player.Walk_A = "walk";
 		    			padmoveX = -55;
 		    			player.playerInBattle_A = "no";
 		    			return false;
-		            } 
+		            }
 		        }
 			}
-			
-			
-			
+
+
+
 			return false;
 		}
 
@@ -284,7 +284,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			padmoveX = -60;
 			padmoveY = -55;
 			player.breakwalk_A = "";
-			
+
 			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
 			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
 			if(player.Side_A.equals("right-back")) { player.Side_A = "front";}
@@ -293,20 +293,20 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			if(player.Side_A.equals("back-left")) { player.Side_A = "front";}
 			if(player.Side_A.equals("front-right")) { player.Side_A = "front";}
 			if(player.Side_A.equals("front-left")) { player.Side_A = "front"; }
-			
+
 			return false;
 		}
-		
+
 		private void onMultipleKeysDown (int mostRecentKeycode){
-			
+
 			if(state.equals("menu")) { return; }
-			
+
 			//For multiple key presses
 		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
 		        	//player.Side_A = "left-front";
 		        	player.Side_A = "left";
-		        	player.Walk_A = "walk";  	
+		        	player.Walk_A = "walk";
 		        	padmoveX = -66;
 		        	padmoveY = -60;
 		        	player.playerInBattle_A = "no";
@@ -318,7 +318,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		        	player.Side_A = "left";
 		        	player.Walk_A = "walk";
 		        	padmoveX = -66;
-		        	padmoveY = -50; 
+		        	padmoveY = -50;
 		        	player.playerInBattle_A = "no";
 		        }
 		    }
@@ -326,7 +326,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
 		    		//player.Side_A = "right-back";
 		    		player.Side_A = "right";
-		    		player.Walk_A = "walk";	
+		    		player.Walk_A = "walk";
 		    		padmoveX = -55;
 		    		padmoveY = -50;
 		    		player.playerInBattle_A = "no";
@@ -336,7 +336,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
 		    		//player.Side_A = "right-front";
 		    		player.Side_A = "right";
-		    		player.Walk_A = "walk";	
+		    		player.Walk_A = "walk";
 		    		padmoveX = -55;
 		    		padmoveY = -60;
 		    		player.playerInBattle_A = "no";
@@ -376,13 +376,13 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
 		        	//player.Side_A = "front-left";
 		        	player.Side_A = "front";
-		        	player.Walk_A = "walk";	
+		        	player.Walk_A = "walk";
 		        	padmoveX = -66;
 		        	padmoveY = -60;
 		        	player.playerInBattle_A = "no";
 		        }
 		    }
-		}	
+		}
 
 		@Override
 		public boolean keyTyped(char character) {
@@ -392,23 +392,23 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 
 		@Override
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
-			
+
 			if(playerDead) { return false; }
-			
+
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
-			
+
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
 				if(player.playerInCast_A.equals("none")) { movement = true; } else { movement = false; }
-				
+
 				//Menu
 				if(coordsTouch.x > -70f && coordsTouch.x < -39f && coordsTouch.y > 39f && coordsTouch.y < 67f) {
 					state = "menu";
 					return false;
-				}	
+				}
 			}
-			
+
 			return false;
 		}
 
@@ -419,7 +419,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			player.Walk_A = "no";
 			padmoveX = -60;
 			padmoveY = -55;
-			
+
 			if(player.Side_A.equals("left-front")) { player.Side_A = "front"; }
 			if(player.Side_A.equals("left-back")) { player.Side_A = "front";}
 			if(player.Side_A.equals("right-back")) { player.Side_A = "front";}
@@ -434,14 +434,14 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
 			if(playerDead) { return false; }
-			
+
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
-			
-			if(movement){	
+
+			if(movement){
 				//Right
      				if(coordsTouch.x >= -53.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42f) {
 					player.Side_A = "right";
-					player.Walk_A = "walk";	
+					player.Walk_A = "walk";
 					padmoveX = -55;
 					player.playerInBattle_A = "no";
 					return false;
@@ -449,15 +449,15 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				//Left
 				if(coordsTouch.x >= -57.5f && coordsTouch.x <= -45.5f && coordsTouch.y > -50f && coordsTouch.y < -42) {
 					player.Side_A = "left";
-					player.Walk_A = "walk";	
-					padmoveX = -66;		
+					player.Walk_A = "walk";
+					padmoveX = -66;
 					player.playerInBattle_A = "no";
 					return false;
 				}
 				//Front
 				if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -65 && coordsTouch.y < -50f) {
 					player.Side_A = "front";
-					player.Walk_A = "walk";	
+					player.Walk_A = "walk";
 					padmoveY = -60;
 					player.playerInBattle_A = "no";
 					return false;
@@ -465,7 +465,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 				//Back
 				if(coordsTouch.x > -59.5f && coordsTouch.x < -51.5f && coordsTouch.y > -42f && coordsTouch.y < -27) {
 					player.Side_A = "back";
-					player.Walk_A = "walk";	
+					player.Walk_A = "walk";
 					padmoveY = -50;
 					player.playerInBattle_A = "no";
 					return false;
@@ -480,7 +480,6 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 			return false;
 		}
 
-		@Override
 		public boolean scrolled(int amount) {
 			// TODO Auto-generated method stub
 			return false;
@@ -489,51 +488,63 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 		@Override
 		public void create() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void render() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void show() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void resize(int p1, int p2) {
 			viewport.update(p1,p2);
-			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);	
+			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 		}
 
 		@Override
 		public void pause() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void resume() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void hide() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void dispose() {
 			// TODO Auto-generated method stub
-			
+
 		}
-		
-		
-		
+
+		@Override
+		public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
+		}
+
+		@Override
+		public boolean scrolled(float amountX, float amountY) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
+		}
+
+
+
 }
