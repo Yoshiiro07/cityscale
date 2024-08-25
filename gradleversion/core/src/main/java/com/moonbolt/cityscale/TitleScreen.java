@@ -83,6 +83,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	    private Sprite spr_mainmenu;
 	    private Sprite spr_recovermenu;
 	    private Sprite spr_loginmenu;
+	    
+	    //keyboard
+	    private Texture tex_keyboard;
+	    private Sprite spr_keyboard;
+	    private String keyboardText = "";
 
 
 	    //Textures
@@ -100,6 +105,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
+			
+			//keyboard
+			tex_keyboard = new Texture(Gdx.files.internal("data/assets/ux/keyboard.png"));
+			spr_keyboard = new Sprite(tex_keyboard);
 
 			//Load Title
 			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/titlemap.png"));
@@ -159,6 +168,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 					spr_mainmenu.setPosition(15, -60);
 					spr_mainmenu.setSize(50,50);
 					spr_mainmenu.draw(game.batch);
+					
+					font_master.setColor(Color.WHITE);
+					font_master.getData().setScale(0.07f,0.12f);
+					font_master.setUseIntegerPositions(false);
+					font_master.draw(game.batch, "Versao: 0.2b" , -60 , -58);
 				}
 
 				if(state.equals("Recover")){
@@ -180,9 +194,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				}
 				
 				if(state.equals("Login")){
-
-					
-					
 					//Menus
 					spr_loginmenu = atlas_gameUI.createSprite("login");
 					spr_loginmenu.setPosition(-23, -26);
@@ -200,18 +211,24 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 					}
 				}
 				
-				//state = "Login";
-
-				font_master.setColor(Color.WHITE);
-				font_master.getData().setScale(0.07f,0.12f);
-				font_master.setUseIntegerPositions(false);
-				font_master.draw(game.batch, "Versao: 0.2b" , -60 , -58);
-
-				spr_testeDot.setPosition(-20,14);
+				if(state.equals("keyboard-login")) {
+					spr_keyboard.setPosition(-70, -69);
+					spr_keyboard.setSize(140,130);
+					spr_keyboard.draw(game.batch);
+					
+					font_master.getData().setScale(0.15f,0.20f);
+					font_master.setUseIntegerPositions(false);
+					font_master.draw(game.batch, keyboardText , -65 ,55);
+				}
+				
+				
+				
+				//Teste
+				spr_testeDot.setPosition(47,37);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(22, 0);
+				spr_testeDot.setPosition(57, 17);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
@@ -219,10 +236,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 
 		}
 		
-		public void showLoginDialog() {
-	        Gdx.input.getTextInput(this, "Login", "", "Enter your account number");
-	    }
-
 		@Override
 		public void input(String text) {
 			System.out.println("Input: " + text);
@@ -288,7 +301,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			if(state.equals("Login")) {
 				//[Input Login] //
 				if(coordsTouch.x >= -20 && coordsTouch.x <= 22 && coordsTouch.y >= 0 && coordsTouch.y <= 14) {	
-					showLoginDialog();
+					state = "keyboard-login";
 					return false;
 				}
 			}
@@ -320,9 +333,28 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 					}
 				}
 			}
+			
+			if(state.contains("keyboard")) {
+				this.KeyboardKeyPressed(coordsTouch.x,coordsTouch.y);
+				return false;
+			}
 
 			return false;
 		}
+		
+		public void KeyboardKeyPressed(float x, float y) {
+			if(x >= -66 && x <= -56 && y >= 17 && y <= 37) { keyboardText = keyboardText + "1";  }
+			if(x >= -54 && x <= -44 && y >= 17 && y <= 37) { keyboardText = keyboardText + "2"; }
+			if(x >= -41 && x <= -31 && y >= 17 && y <= 37) { keyboardText = keyboardText + "3";  }
+			if(x >= -28 && x <= -18 && y >= 17 && y <= 37) { keyboardText = keyboardText + "4"; }
+			if(x >= -15 && x <= -6 && y >= 17 && y <= 37) { keyboardText = keyboardText + "5";  }
+			if(x >= -3 && x <= 7 && y >= 17 && y <= 37) { keyboardText = keyboardText + "6";  }
+			if(x >= 10 && x <= 19 && y >= 17 && y <= 37) { keyboardText = keyboardText + "7";  }
+			if(x >= 22 && x <= 32 && y >= 17 && y <= 37) { keyboardText = keyboardText + "8";  }
+			if(x >= 35 && x <= 45 && y >= 17 && y <= 37) { keyboardText = keyboardText + "9";  }
+			if(x >= 47 && x <= 57 && y >= 17 && y <= 37) { keyboardText = keyboardText + "0"; }
+		}
+		
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
