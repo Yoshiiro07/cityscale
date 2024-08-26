@@ -202,7 +202,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 
 					font_master.getData().setScale(0.15f,0.20f);
 					font_master.setUseIntegerPositions(false);
-					font_master.draw(game.batch, conta , -17 , 11);
+					font_master.draw(game.batch, keyboardText , -17 , 11);
 
 					if(avisotimer > 0) {
 						font_master.draw(game.batch, avisoconta , -20 , -16);
@@ -224,11 +224,11 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				
 				
 				//Teste
-				spr_testeDot.setPosition(47,37);
+				spr_testeDot.setPosition(4,-2);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
-				spr_testeDot.setPosition(57, 17);
+				spr_testeDot.setPosition(23, -14);
 				spr_testeDot.setSize(1, 1);
 				spr_testeDot.draw(game.batch);
 
@@ -304,6 +304,19 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 					state = "keyboard-login";
 					return false;
 				}
+				
+				//[Acessar] //
+				if(coordsTouch.x >= -20 && coordsTouch.x <= -1 && coordsTouch.y >= -14 && coordsTouch.y <= -2) {	
+					gameControl.CheckData();
+					state = "charselect";
+					return false;
+				}
+				
+				//[Voltar] //
+				if(coordsTouch.x >= 4 && coordsTouch.x <= 23 && coordsTouch.y >= -14 && coordsTouch.y <= -2) {						
+					state = "main";
+					return false;
+				}
 			}
 			
 
@@ -353,6 +366,47 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			if(x >= 22 && x <= 32 && y >= 17 && y <= 37) { keyboardText = keyboardText + "8";  }
 			if(x >= 35 && x <= 45 && y >= 17 && y <= 37) { keyboardText = keyboardText + "9";  }
 			if(x >= 47 && x <= 57 && y >= 17 && y <= 37) { keyboardText = keyboardText + "0"; }
+			
+			if(x >= -59 && x <= -48 && y >= -6 && y <= 12) { keyboardText = keyboardText + "Q"; }
+			if(x >= -46 && x <= -36 && y >= -6 && y <= 12) { keyboardText = keyboardText + "W"; }
+			if(x >= -34 && x <= -24 && y >= -6 && y <= 12) { keyboardText = keyboardText + "E"; }
+			if(x >= -21 && x <= -12 && y >= -6 && y <= 12) { keyboardText = keyboardText + "R"; }
+			if(x >= -9 && x <= 1 && y >= -6 && y <= 12) { keyboardText = keyboardText + "T"; }
+			if(x >= 3 && x <= 13 && y >= -6 && y <= 12) { keyboardText = keyboardText + "Y"; }
+			if(x >= 15 && x <= 25 && y >= -6 && y <= 12) { keyboardText = keyboardText + "U"; }
+			if(x >= 28 && x <= 37 && y >= -6 && y <= 12) { keyboardText = keyboardText + "I"; }
+			if(x >= 40 && x <= 50 && y >= -6 && y <= 12) { keyboardText = keyboardText + "O"; }
+			if(x >= 52 && x <= 62 && y >= -6 && y <= 12) { keyboardText = keyboardText + "P"; }
+			
+			if(x >= -52 && x <= -42 && y >= -26 && y <= -9) { keyboardText = keyboardText + "A"; }
+			if(x >= -40 && x <= -30 && y >= -26 && y <= -9) { keyboardText = keyboardText + "S"; }
+			if(x >= -27 && x <= -18 && y >= -26 && y <= -9) { keyboardText = keyboardText + "D"; }
+			if(x >= -15 && x <= -6 && y >= -26 && y <= -9) { keyboardText = keyboardText + "F"; }
+			if(x >= -3 && x <= 7 && y >= -26 && y <= -9) { keyboardText = keyboardText + "G"; }
+			if(x >= 9 && x <= 19 && y >= -26 && y <= -9) { keyboardText = keyboardText + "H"; }
+			if(x >= 21 && x <= 31 && y >= -26 && y <= -9) { keyboardText = keyboardText + "J"; }
+			if(x >= 34 && x <= 43 && y >= -26 && y <= -9) { keyboardText = keyboardText + "K"; }
+			if(x >= 46 && x <= 56 && y >= -26 && y <= -9) { keyboardText = keyboardText + "L"; }
+			
+			if(x >= -40 && x <= -30 && y >= -46 && y <= -29) { keyboardText = keyboardText + "Z"; }
+			if(x >= -27 && x <= -18 && y >= -46 && y <= -29) { keyboardText = keyboardText + "X"; }
+			if(x >= -15 && x <= -6 && y >= -46 && y <= -29) { keyboardText = keyboardText + "C"; }
+			if(x >= -3 && x <= 7 && y >= -46 && y <= -29) { keyboardText = keyboardText + "V"; }
+			if(x >= 9 && x <= 19 && y >= -46 && y <= -29) { keyboardText = keyboardText + "B"; }
+			if(x >= 21 && x <= 31 && y >= -46 && y <= -29) { keyboardText = keyboardText + "N"; }
+			if(x >= 34 && x <= 43 && y >= -46 && y <= -29) { keyboardText = keyboardText + "M"; }
+			
+			
+			if(x >= -40 && x <= 20 && y >= -66 && y <= -50) { keyboardText = keyboardText + " "; }
+			if(x >= 23 && x <= 43 && y >= -66 && y <= -50) { 
+			    if (!keyboardText.isEmpty()) {
+			        keyboardText = keyboardText.substring(0, keyboardText.length() - 1);
+			    }
+			}
+			
+			if(x >= 50 && x <= 67 && y >= -66 && y <= -50) { state = "Login"; }
+			
+			
 		}
 		
 
@@ -431,12 +485,14 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		@Override
 		public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
 			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
+			//throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
+			return false;
 		}
 
 		@Override
 		public boolean scrolled(float amountX, float amountY) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
+			//// TODO Auto-generated method stub
+			return false;
+			//throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
 		}
 }
