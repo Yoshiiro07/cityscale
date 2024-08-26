@@ -1,5 +1,7 @@
 package com.moonbolt.cityscale;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 //import java.io.BufferedReader;
 //import java.io.IOException;
 //import java.io.InputStreamReader;
@@ -17,6 +19,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.TextInputListener;
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -2875,22 +2878,22 @@ public class GameControl {
 				
 				try {
 					if(nomeOperacao.equals("CheckVersion")) {
-						onlineresponse = GerenciamentoOnline("CheckVersion","","");		
+						onlineresponse = GerenciamentoOnlineHTML("CheckVersion","","");		
 					}
 					if(nomeOperacao.equals("Chat")) {
-						onlineresponse = GerenciamentoOnline("Chat",subData,"");		
+						onlineresponse = GerenciamentoOnlineHTML("Chat",subData,"");		
 					}
 					if(nomeOperacao.equals("Upload")) {
-						onlineresponse = GerenciamentoOnline("Upload","","");		
+						onlineresponse = GerenciamentoOnlineHTML("Upload","","");		
 					}
 					if(nomeOperacao.equals("Download")) {
-						onlineresponse = GerenciamentoOnline("Download",subData,"");		
+						onlineresponse = GerenciamentoOnlineHTML("Download",subData,"");		
 					}
 					if(nomeOperacao.equals("ExpSharedSend")) {
-						onlineresponse = GerenciamentoOnline("ExpSharedSend",subData,"");		
+						onlineresponse = GerenciamentoOnlineHTML("ExpSharedSend",subData,"");		
 					}
 					if(nomeOperacao.equals("ExpGiver")) {
-						onlineresponse = GerenciamentoOnline("ExpGiver","","");		
+						onlineresponse = GerenciamentoOnlineHTML("ExpGiver","","");		
 					}
 					if(nomeOperacao.equals("SyncChats")) {
 						
@@ -2985,7 +2988,45 @@ public class GameControl {
 				});
 			}*/
 			
-			public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData){
+			public String GerenciamentoOnlineHTML(String tipoRequisicao, String subData, String extraData) throws UnsupportedEncodingException{
+				
+				Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+				request.setUrl("http://moonboltprojects.online/conector/online.php");
+				request.setContent("application/x-www-form-urlencoded");
+
+				// Prepare the data to post
+				Map<String, String> parameters = new HashMap<String, String>();
+				parameters.put("key1", "value1");
+				// Convert the parameters into URL encoded form
+				String content = "";
+				for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+				    if (content.length() > 0) {
+				        content += "&";
+				    }
+				    content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+				}
+
+				request.setContent(content);
+
+				Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+				    public void handleHttpResponse(Net.HttpResponse httpResponse) {
+				        String response = httpResponse.getResultAsString();
+				        // process the response
+				        System.out.println(response);
+				    }
+
+				    public void failed(Throwable t) {
+				        String message = "Request failed";
+				        System.out.println(message);
+				    }
+
+				    @Override
+				    public void cancelled() {
+				        String message = "Request cancelled";
+				        System.out.println(message);
+				    }
+				});
+				
 				return "";
 			}
 			
