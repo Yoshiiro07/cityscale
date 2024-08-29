@@ -1,5 +1,7 @@
 package com.moonbolt.cityscale;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 //import java.io.BufferedReader;
 //import java.io.IOException;
 //import java.io.InputStreamReader;
@@ -16,6 +18,8 @@ import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.TextInputListener;
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -29,7 +33,7 @@ import com.badlogic.gdx.files.FileHandle;
 //import com.google.gwt.core.client.Scheduler;
 //import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
-public class GameControl {
+public class GameControlHTML {
 	
 	//Manager
 	private Json json;
@@ -130,11 +134,7 @@ public class GameControl {
     private TextureAtlas atlas_bulletrain;
     private TextureAtlas atlas_dashkick;
 	
-	
-	
-	
-		
-	public GameControl() {
+	public GameControlHTML() {
 		
 		json = new Json();
 		randnumber = new Random();
@@ -256,7 +256,37 @@ public class GameControl {
 			player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
 		}
 	}
+	
+	public String CreateNewAccount() {
+		try {
+			Player player = new Player();
+			int accNumber = randnumber.nextInt(99999999);
+			while(accNumber < 1000000){
+				accNumber = randnumber.nextInt(99999999);
+			}
+			player.AccountID = String.valueOf(accNumber);
+			player.Name_1 = "none";
+			player.Name_2 = "none";
+			player.Name_3 = "none";
+			String result = OnlineManager("NewAccount", String.valueOf(accNumber),"");
+			return result;
+		} 
+		catch (Exception e) 
+		{
+			String test = e.getMessage();
+			return "fail";
+		}
+	}
 
+	public Player LoadDataHTML(String accountNumber) {
+		String result = OnlineManager("LoadData", accountNumber,"");
+		if (result.equals("fail")) {
+			return null;
+		} else {
+			return player;
+		}
+	}
+	
 	public void SaveData(Player acPlayer) {
 		file = Gdx.files.local("SaveData/save.json");
 		file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
@@ -276,6 +306,235 @@ public class GameControl {
 	}
 	
 	public void CreateNewChar(String name, String sex, String hair, String color) {
+		boolean created = false;
+		player = new Player();
+		
+		FileHandle file = Gdx.files.local("SaveData/save.json");		
+		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
+		
+		if(player.Name_1.equals("none") && !created) {
+			player.Name_1 = name;
+			player.Sex_1 = sex;
+			player.Hair_1 = hair;
+			player.Color_1 = color;
+			player.Hat_1 = "none";
+			player.Job_1 = "Aprendiz";
+			player.SetUpper_1 = "basictop";
+			player.SetBottom_1 = "basicbottom";
+			player.SetFooter_1 = "basicfooter";
+			player.Level_1 = 1;
+			player.Exp_1 = 0;
+			player.Map_1 = "MetroStation";
+			player.Hp_1 = 30;
+			player.Mp_1 = 20;
+			player.Money_1 = 50;
+			player.HpMax_1 = 30;
+			player.MpMax_1 = 20;
+			player.regenTime_1 = 6000;
+			player.regenTimeMax_1 = 6000;
+			player.PosX_1 = 0;
+			player.PosY_1 = 0;
+			player.Walk_1 = "no";
+			player.Frame_1 = 1;
+			player.countFrame_1 = 1;
+			player.breakwalk_1 = "";
+			player.Target_1 = "none";
+			player.AtkTimer_1 = 300;
+			player.AtkTimerMax_1 = 300;
+			player.Casting_1 = "no";
+			player.Atk_1 = 5;
+			player.Def_1 = 1;
+			player.Evasion_1 = 0;
+			player.Side_1 =	"front";
+			player.Weapon_1 = "basicknife";
+			player.Crystal1_1 = "none";
+			player.Crystal2_1 = "none";
+			player.Crystal3_1 = "none";
+			player.Crystal4_1 = "none";
+			player.StatusPoint_1 = 0;
+			player.Str_1 = 1;
+			player.Agi_1 = 1;
+			player.Vit_1 = 1;
+			player.Dex_1 = 1;
+			player.Wis_1 = 1;
+			player.Stamina_1 = 100;
+			player.StaminaMax_1 = 100;
+			player.Quests_1 = "none";
+			player.hotkey1_1 = "none";
+			player.hotkey2_1 = "none";
+			player.buffA_1 = "none";
+			player.buffB_1 = "none";
+			player.buffC_1 = "none";
+			player.BuffTimeA_1 = 0;
+			player.BuffTimeB_1 = 0;
+			player.BuffTimeC_1 = 0;
+			player.party_1 = "none";
+			player.playerInBattle_1 = "none";
+			player.playerInAttack_1 = "none";
+			player.playerInCast_1 = "none";
+			player.playerSit_1 = "none";
+			player.SyncPlayerMob_1 = "none";
+			player.PlayerExpGet_1 = "0";
+			
+			String itensList = "";
+	        for(int i = 0; i < 16; i++) {
+	            if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
+	            if(i > 0) { itensList = itensList + "[NONE]-"; }          
+	        }
+	        player.Itens_1 = itensList;
+	        created = true;
+		}
+		
+		if(player.Name_2.equals("none") && !created) {
+			player.Name_2 = name;
+			player.Sex_2 = sex;
+			player.Hair_2 = hair;
+			player.Color_2 = color;
+			player.Hat_2 = "none";
+			player.Job_2 = "Aprendiz";
+			player.SetUpper_2 = "basictop";
+			player.SetBottom_2 = "basicbottom";
+			player.SetFooter_2 = "basicfooter";
+			player.Level_2 = 1;
+			player.Exp_2 = 0;
+			player.Map_2 = "MetroStation";
+			player.Hp_2 = 30;
+			player.Mp_2 = 20;
+			player.Money_2 = 50;
+			player.HpMax_2 = 30;
+			player.MpMax_2 = 20;
+			player.regenTime_2 = 6000;
+			player.regenTimeMax_2 = 6000;
+			player.PosX_2 = 0;
+			player.PosY_2 = 0;
+			player.Walk_2 = "no";
+			player.Frame_2 = 1;
+			player.countFrame_2 = 1;
+			player.breakwalk_2 = "";
+			player.Target_2 = "none";
+			player.AtkTimer_2 = 300;
+			player.AtkTimerMax_2 = 300;
+			player.Casting_2 = "no";
+			player.Atk_2 = 5;
+			player.Def_2 = 1;
+			player.Evasion_2 = 0;
+			player.Side_2 =	"front";
+			player.Weapon_2 = "basicknife";
+			player.Crystal1_2 = "none";
+			player.Crystal2_2 = "none";
+			player.Crystal3_2 = "none";
+			player.Crystal4_2 = "none";
+			player.StatusPoint_2 = 0;
+			player.Str_2 = 1;
+			player.Agi_2 = 1;
+			player.Vit_2 = 1;
+			player.Dex_2 = 1;
+			player.Wis_2 = 1;
+			player.Stamina_2 = 100;
+			player.StaminaMax_2 = 100;
+			player.Quests_2 = "none";
+			player.hotkey1_2 = "none";
+			player.hotkey2_2 = "none";
+			player.buffA_2 = "none";
+			player.buffB_2 = "none";
+			player.buffC_2 = "none";
+			player.BuffTimeA_2 = 0;
+			player.BuffTimeB_2 = 0;
+			player.BuffTimeC_2 = 0;
+			player.party_2 = "none";
+			player.playerInBattle_2 = "none";
+			player.playerInAttack_2 = "none";
+			player.playerInCast_2 = "none";
+			player.playerSit_2 = "none";
+			player.SyncPlayerMob_2 = "none";
+			player.PlayerExpGet_2 = "0";
+			
+			String itensList = "";
+			for(int i = 0; i < 16; i++) {
+				if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
+	            if(i > 0) { itensList = itensList + "[NONE]-"; }        
+	        }
+	        player.Itens_2 = itensList;
+	        created = true;
+		}
+		
+		if(player.Name_3.equals("none") && !created) {
+			player.Name_3 = name;
+			player.Sex_3 = sex;
+			player.Hair_3 = hair;
+			player.Color_3 = color;
+			player.Hat_3 = "none";
+			player.Job_3 = "Aprendiz";
+			player.SetUpper_3 = "basictop";
+			player.SetBottom_3 = "basicbottom";
+			player.SetFooter_3 = "basicfooter";
+			player.Level_3 = 1;
+			player.Exp_3 = 0;
+			player.Map_3 = "MetroStation";
+			player.Hp_3 = 30;
+			player.Mp_3 = 20;
+			player.Money_3 = 50;
+			player.HpMax_3 = 30;
+			player.MpMax_3 = 20;
+			player.regenTime_3 = 6000;
+			player.regenTimeMax_3 = 6000;
+			player.PosX_3 = 0;
+			player.PosY_3 = 0;
+			player.Walk_3 = "no";
+			player.Frame_3 = 1;
+			player.countFrame_3 = 1;
+			player.breakwalk_3 = "";
+			player.Target_3 = "none";
+			player.AtkTimer_3 = 300;
+			player.AtkTimerMax_3 = 300;
+			player.Casting_3 = "no";
+			player.Atk_3 = 5;
+			player.Def_3 = 1;
+			player.Evasion_3 = 0;
+			player.Side_3 =	"front";
+			player.Weapon_3 = "basicknife";
+			player.Crystal1_3 = "none";
+			player.Crystal2_3 = "none";
+			player.Crystal3_3 = "none";
+			player.Crystal4_3 = "none";
+			player.StatusPoint_3 = 0;
+			player.Str_3 = 1;
+			player.Agi_3 = 1;
+			player.Vit_3 = 1;
+			player.Dex_3 = 1;
+			player.Wis_3 = 1;
+			player.Stamina_3 = 100;
+			player.StaminaMax_3 = 100;
+			player.Quests_3 = "none";
+			player.hotkey1_3 = "none";
+			player.hotkey2_3 = "none";
+			player.buffA_3 = "none";
+			player.buffB_3 = "none";
+			player.buffC_3 = "none";
+			player.BuffTimeA_3 = 0;
+			player.BuffTimeB_3 = 0;
+			player.BuffTimeC_3 = 0;
+			player.party_3 = "none";
+			player.playerInBattle_3 = "none";
+			player.playerInAttack_3 = "none";
+			player.playerInCast_3 = "none";
+			player.playerSit_3 = "none";
+			player.SyncPlayerMob_3 = "none";
+			player.PlayerExpGet_3 = "0";
+			
+			String itensList = "";
+			for(int i = 0; i < 16; i++) {
+				if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
+	            if(i > 0) { itensList = itensList + "[NONE]-"; }          
+	        }
+	        player.Itens_3 = itensList;
+	        created = true;
+		}
+		
+		SaveData(player);		
+	}
+	
+	public void CreateNewCharHTML(String name, String sex, String hair, String color) {
 		boolean created = false;
 		player = new Player();
 		
@@ -1044,6 +1303,13 @@ public class GameControl {
 		
 		if(element.equals("controlPC")) {
 			spr_master = atlas_ux.createSprite("off");
+			spr_master.setSize(30,16);
+			spr_master.setPosition(cameraCoordsX - 45,cameraCoordsY + 87);
+			return spr_master;
+		}
+		
+		if(element.equals("login")) {
+			spr_master = atlas_ux.createSprite("login");
 			spr_master.setSize(30,16);
 			spr_master.setPosition(cameraCoordsX - 45,cameraCoordsY + 87);
 			return spr_master;
@@ -2829,7 +3095,10 @@ public class GameControl {
 			//[online]//
 			public String OnlineManager(String operation, String subData, String extraData) {
 				try {
-					if(operation.equals("CheckVersion")) {  
+					if(operation.equals("NewAccount")) {  
+						GerenciamentoOnlineHTML("NewAccount", subData, extraData);
+					}
+					/*if(operation.equals("CheckVersion")) {  
 						TipoOperacaoOnline("CheckVersion", subData);
 					}
 					if(operation.equals("Chat")) {  
@@ -2854,7 +3123,7 @@ public class GameControl {
 					}
 					if(operation.equals("ExpGiver")){
 						TipoOperacaoOnline("ExpGiver", subData);
-					}
+					}*/
 					return onlineresponse;
 				}
 				
@@ -2862,45 +3131,6 @@ public class GameControl {
 					return onlineresponse;
 				}
 			}
-		
-			public String TipoOperacaoOnline(String nomeOperacao, String subData) {
-				
-				try {
-					if(nomeOperacao.equals("CheckVersion")) {
-						onlineresponse = GerenciamentoOnline("CheckVersion","","");		
-					}
-					if(nomeOperacao.equals("Chat")) {
-						onlineresponse = GerenciamentoOnline("Chat",subData,"");		
-					}
-					if(nomeOperacao.equals("Upload")) {
-						onlineresponse = GerenciamentoOnline("Upload","","");		
-					}
-					if(nomeOperacao.equals("Download")) {
-						onlineresponse = GerenciamentoOnline("Download",subData,"");		
-					}
-					if(nomeOperacao.equals("ExpSharedSend")) {
-						onlineresponse = GerenciamentoOnline("ExpSharedSend",subData,"");		
-					}
-					if(nomeOperacao.equals("ExpGiver")) {
-						onlineresponse = GerenciamentoOnline("ExpGiver","","");		
-					}
-					if(nomeOperacao.equals("SyncChats")) {
-						
-						//SyncChatGWT();
-						//ThreadsSyncStartChat();	
-						
-					}	
-					if(nomeOperacao.equals("SyncPlayer")) {
-						
-						//ThreadsSyncStartPlayer();		
-						//SyncPlayersGWT();
-					}
-					return onlineresponse;
-				}
-				
-				catch(Exception ex) { return "none"; }	
-			}
-			
 			
 			//[USING THREADS]//
 			/*private void ThreadsSyncStartChat() {
@@ -2977,10 +3207,63 @@ public class GameControl {
 				});
 			}*/
 			
-			public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData){
-				return "";
+			public String GerenciamentoOnlineHTML(String tipoRequisicao, String subData, String extraData) throws UnsupportedEncodingException{
+				
+				onlineresponse = "";
+				if(tipoRequisicao.equals("NewAccount")) 
+				{
+				
+					Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+					request.setUrl("http://moonboltprojects.online/server/index.php");
+					request.setContent("application/x-www-form-urlencoded");
+	
+					// Prepare the data to post
+					Map<String, String> parameters = new HashMap<String, String>();
+					parameters.put("lservername", lservername);
+					parameters.put("lusername", lusername);
+					parameters.put("lpassword", lpassword);
+					parameters.put("ldbname", ldbname);
+					parameters.put("lrequest", tipoRequisicao);
+					parameters.put("ldataaccount", subData);
+					
+					// Convert the parameters into URL encoded form
+					String content = "";
+					for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+					    if (content.length() > 0) {
+					        content += "&";
+					    }
+					    content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+					}
+	
+					request.setContent(content);
+	
+					Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+					    public void handleHttpResponse(Net.HttpResponse httpResponse) {
+					        String response = httpResponse.getResultAsString();
+					        // process the response
+					        System.out.println(response);
+					        onlineresponse = "success";
+					    }
+	
+					    public void failed(Throwable t) {
+					        String message = "Request failed";
+					        System.out.println(message);
+					        onlineresponse = "fail";
+					    }
+	
+					    @Override
+					    public void cancelled() {
+					        String message = "Request cancelled";
+					        System.out.println(message);
+					        onlineresponse= "cancel";
+					    }
+					});
+				
+					return onlineresponse;
+				}
+				
+				return onlineresponse;
 			}
-			
 			
 			/*public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData) throws IOException {
 		    	
@@ -3419,7 +3702,8 @@ public class GameControl {
 				lstOnlinePlayers.clear();
 				lstOnlinePlayers.addAll(playersMap.values());
 			}
-			
+
+		
 			
 			
 }

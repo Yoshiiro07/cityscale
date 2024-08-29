@@ -24,7 +24,7 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("TitleScreen")){	
-			TitleScreen titleScreen = new TitleScreen(game,this, this.playernum);
+			TitleScreenHTML titleScreen = new TitleScreenHTML(game,this, this.playernum);
 			game.setScreen(titleScreen);
 		}
 		
