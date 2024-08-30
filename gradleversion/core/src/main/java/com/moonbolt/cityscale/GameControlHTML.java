@@ -92,7 +92,7 @@ public class GameControlHTML {
 	private TextureAtlas atlas_nknifes;
 	private TextureAtlas atlas_swords;
 	private TextureAtlas atlas_rods;
-	private TextureAtlas atlas_axes;
+	private TextureAtlas atlasxes;
 	private TextureAtlas atlas_pistols;
 	private TextureAtlas atlas_daggers;
 	
@@ -173,7 +173,7 @@ public class GameControlHTML {
 		atlas_nknifes = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/nknifes.txt"));
 		atlas_swords = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/swords.txt"));
 		atlas_rods = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/rods.txt"));
-		atlas_axes = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/axes.txt"));
+		atlasxes = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/axes.txt"));
 		atlas_pistols = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/pistols.txt"));
 		atlas_daggers = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapons/daggers.txt"));
 		
@@ -646,24 +646,24 @@ public class GameControlHTML {
 		//basictopM_front1
 		if(type.equals("upper")) {
 			if(num == 1) {
-				if(player.SetUpper_1.equals("basictop")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetUpper_1 + player.Sex_1 + "_front1");
-				if(player.Sex_1.equals("M")) { spr_master.setPosition(-64, -36); spr_master.setScale(-0.3f,0.5f); }
-				if(player.Sex_1.equals("F")) { spr_master.setPosition(-64, -36); spr_master.setScale(-0.3f,0.5f); }
+				if(player.SetUpper.equals("basictop")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-64, -36); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-64, -36); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;
 			}
 			if(num == 2) {
-				if(player.SetUpper_2.equals("basictop")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetUpper_2 + player.Sex_2 + "_front1");
-				if(player.Sex_2.equals("M")) { spr_master.setPosition(-25, -36); spr_master.setScale(-0.3f,0.5f);  }
-				if(player.Sex_2.equals("F")) { spr_master.setPosition(-25, -36); spr_master.setScale(-0.3f,0.5f);  }
+				if(player.SetUpper.equals("basictop")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-25, -36); spr_master.setScale(-0.3f,0.5f);  }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-25, -36); spr_master.setScale(-0.3f,0.5f);  }
 				return spr_master;
 			}
 			if(num == 3) {
-				if(player.SetUpper_3.equals("basictop")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetUpper_3 + player.Sex_3 + "_front1");
-				if(player.Sex_3.equals("M")) { spr_master.setPosition(10, -36); spr_master.setScale(-0.3f,0.5f); }
-				if(player.Sex_3.equals("F")) { spr_master.setPosition(10, -36); spr_master.setScale(-0.3f,0.5f); }
+				if(player.SetUpper.equals("basictop")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(10, -36); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(10, -36); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;
 			}
 		}
@@ -672,24 +672,24 @@ public class GameControlHTML {
 		//basicbottomM_front1
 		if(type.equals("bottom")) { 
 			if(num == 1) {
-				if(player.SetUpper_1.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetBottom_1 + player.Sex_1 + "_front1");
-				if(player.Sex_1.equals("M")) { spr_master.setPosition(-64, -48); spr_master.setScale(-0.3f,0.5f);}
-				if(player.Sex_1.equals("F")) { spr_master.setPosition(-64, -48); spr_master.setScale(-0.3f,0.5f); }
+				if(player.SetUpper.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-64, -48); spr_master.setScale(-0.3f,0.5f);}
+				if(player.Sex.equals("F")) { spr_master.setPosition(-64, -48); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;	
 			}
 			if(num == 2) {
-				if(player.SetUpper_2.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetBottom_2 + player.Sex_2 + "_front1");
-				if(player.Sex_2.equals("M")) { spr_master.setPosition(-25f, -48); spr_master.setScale(-0.3f,0.5f); }
-				if(player.Sex_2.equals("F")) { spr_master.setPosition(-25f, -48); spr_master.setScale(-0.3f,0.5f); }
+				if(player.SetUpper.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-25f, -48); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-25f, -48); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;	
 			}
 			if(num == 3) {
-				if(player.SetUpper_3.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetBottom_3 + player.Sex_3 + "_front1");
-				if(player.Sex_3.equals("M")) { spr_master.setPosition(10, -48); spr_master.setScale(-0.3f,0.5f); }
-				if(player.Sex_3.equals("F")) { spr_master.setPosition(10, -48); spr_master.setScale(-0.3f,0.5f); }
+				if(player.SetUpper.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(10, -48); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(10, -48); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;	
 			}
 		}
@@ -698,24 +698,24 @@ public class GameControlHTML {
 		//basicfooterM_front1
 		if(type.equals("footer")) { 
 			if(num == 1) {
-				if(player.SetUpper_1.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetFooter_1 + player.Sex_1 + "_front1");
-				if(player.Sex_1.equals("M")) { spr_master.setPosition(-64, -55); spr_master.setScale(-0.3f,0.5f); }
-				if(player.Sex_1.equals("F")) { spr_master.setPosition(-64.5f, -60); spr_master.setScale(-0.3f,0.5f); }
+				if(player.SetUpper.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-64, -55); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-64.5f, -60); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;	
 			}
 			if(num == 2) {
-				if(player.SetUpper_2.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetFooter_2 + player.Sex_2 + "_front1");
-				if(player.Sex_2.equals("M")) { spr_master.setPosition(-25f, -55); spr_master.setScale(-0.3f,0.5f); }
-				if(player.Sex_2.equals("F")) { spr_master.setPosition(-25.5f, -60); spr_master.setScale(-0.3f,0.5f); }
+				if(player.SetUpper.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-25f, -55); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-25.5f, -60); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;	
 			}
 			if(num == 3) {
-				if(player.SetUpper_3.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
-				spr_master = atlas_genericset.createSprite(player.SetFooter_3 + player.Sex_3 + "_front1");
-				if(player.Sex_3.equals("M")) { spr_master.setPosition(10, -55); spr_master.setScale(-0.3f,0.5f); }
-				if(player.Sex_3.equals("F")) { spr_master.setPosition(10, -60); spr_master.setScale(-0.3f,0.5f); }
+				if(player.SetUpper.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(10, -55); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(10, -60); spr_master.setScale(-0.3f,0.5f); }
 				return spr_master;	
 			}
 		}		
@@ -725,16 +725,16 @@ public class GameControlHTML {
 	public Sprite GetHairCharTagStation(Player player) {
 		
 		//hair1_front_green_M
-		if(player.Hair_A.equals("hair1")){ spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
-		if(player.Hair_A.equals("hair2")){ spr_master = atlas_hairs2.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
-		if(player.Hair_A.equals("hair3")){ spr_master = atlas_hairs3.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
-		if(player.Hair_A.equals("hair4")){ spr_master = atlas_hairs4.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);}
+		if(player.Hair.equals("hair1")){ spr_master = atlas_hairs1.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);}
+		if(player.Hair.equals("hair2")){ spr_master = atlas_hairs2.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);}
+		if(player.Hair.equals("hair3")){ spr_master = atlas_hairs3.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);}
+		if(player.Hair.equals("hair4")){ spr_master = atlas_hairs4.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);}
 		
-		if(player.Sex_A.equals("M")) {
+		if(player.Sex.equals("M")) {
 			spr_master.setPosition(-86, 42); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
-		if(player.Sex_A.equals("F")) {
+		if(player.Sex.equals("F")) {
 			spr_master.setPosition(-86, 42); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
@@ -744,20 +744,20 @@ public class GameControlHTML {
 
 	public Sprite GetHairCharTag(Player player,float cameraCoordsX,float cameraCoordsY) {
 		
-		if(player.Hair_A.equals("hair1")) { atlas_generichair = atlas_hairs1;}
-		if(player.Hair_A.equals("hair2")) { atlas_generichair = atlas_hairs2;}
-		if(player.Hair_A.equals("hair3")) { atlas_generichair = atlas_hairs3;}
-		if(player.Hair_A.equals("hair4")) { atlas_generichair = atlas_hairs4;}
-		//if(player.Hair_A.equals("hair5")) { atlas_generichair = atlas_hairs5;}
+		if(player.Hair.equals("hair1")) { atlas_generichair = atlas_hairs1;}
+		if(player.Hair.equals("hair2")) { atlas_generichair = atlas_hairs2;}
+		if(player.Hair.equals("hair3")) { atlas_generichair = atlas_hairs3;}
+		if(player.Hair.equals("hair4")) { atlas_generichair = atlas_hairs4;}
+		//if(player.Hair.equals("hair5")) { atlas_generichair = atlas_hairs5;}
 		
 		//hair1_front_green_M
-		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_generichair.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+		if(player.Sex.equals("M")) {
+			spr_master = atlas_generichair.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);
 			spr_master.setPosition(cameraCoordsX -115,cameraCoordsY + 71); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
-		if(player.Sex_A.equals("F")) {
-			spr_master = atlas_generichair.createSprite(player.Hair_A + "_" + "front" + "_" + player.Color_A + "_" + player.Sex_A);
+		if(player.Sex.equals("F")) {
+			spr_master = atlas_generichair.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);
 			spr_master.setPosition(cameraCoordsX -115,cameraCoordsY + 71); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
@@ -767,36 +767,36 @@ public class GameControlHTML {
 	
 	public Sprite GetHatChar(Player player,String type,float cameraX,float cameraY) {
 		
-		String side = player.Side_A;
+		String side = player.Side;
 		
 		if(side.equals("front")) { 
-			if(player.Hat_A.equals("hatbunny")) { 
+			if(player.Hat.equals("hatbunny")) { 
 				spr_master = atlas_hats.createSprite("bunnyhat_front");
-				spr_master.setPosition(player.PosX_A - 20,player.PosY_A + 15);
+				spr_master.setPosition(player.PosX - 20,player.PosY + 15);
 				spr_master.setScale(0.23f,0.5f);
 			}		
 		}
 		
 		if(side.equals("right")) { 
-			if(player.Hat_A.equals("hatbunny")) { 
+			if(player.Hat.equals("hatbunny")) { 
 				spr_master = atlas_hats.createSprite("bunnyhat_right");
-				spr_master.setPosition(player.PosX_A - 20,player.PosY_A + 10);
+				spr_master.setPosition(player.PosX - 20,player.PosY + 10);
 				spr_master.setScale(0.21f,0.5f);	
 			}		
 		}
 		
 		if(side.equals("left")) { 
-			if(player.Hat_A.equals("hatbunny")) { 
+			if(player.Hat.equals("hatbunny")) { 
 				spr_master = atlas_hats.createSprite("bunnyhat_left");
-				spr_master.setPosition(player.PosX_A - 20,player.PosY_A + 10);
+				spr_master.setPosition(player.PosX - 20,player.PosY + 10);
 				spr_master.setScale(0.21f,0.5f);	
 			}		
 		}
 		
 		if(side.equals("back")) { 
-			if(player.Hat_A.equals("hatbunny")) { 
+			if(player.Hat.equals("hatbunny")) { 
 				spr_master = atlas_hats.createSprite("bunnyhat_up");
-				spr_master.setPosition(player.PosX_A - 20,player.PosY_A + 12);
+				spr_master.setPosition(player.PosX - 20,player.PosY + 12);
 				spr_master.setScale(0.23f,0.5f);
 			}		
 		}
@@ -805,7 +805,7 @@ public class GameControlHTML {
 	}
 	
 	public Sprite GetHatItem(Player player, float cameraX, float cameraY) {
-		if(player.Hat_A.equals("hatbunny")) {
+		if(player.Hat.equals("hatbunny")) {
 			spr_master = atlas_hatsitem.createSprite("hatbunny");
 			return spr_master;
 		}
@@ -822,22 +822,22 @@ public class GameControlHTML {
 	
 	public Player SetCharMov(Player playerUse, String type) {			
 		//Check MovePosition
-		if(playerUse.Walk_A.equals("walk")) {
-			if(playerUse.Side_A.equals("front") && !player.breakwalk_A.equals("front")) { playerUse.PosY_A = playerUse.PosY_A - 0.5f; }
-			if(playerUse.Side_A.equals("back") && !player.breakwalk_A.equals("back")) { playerUse.PosY_A = playerUse.PosY_A + 0.5f; }
-			if(playerUse.Side_A.equals("left") && !player.breakwalk_A.equals("left")) { playerUse.PosX_A = playerUse.PosX_A - 0.5f; }
-			if(playerUse.Side_A.equals("right") && !player.breakwalk_A.equals("right")) { playerUse.PosX_A = playerUse.PosX_A + 0.5f; }
+		if(playerUse.Walk.equals("walk")) {
+			if(playerUse.Side.equals("front") && !player.breakwalk.equals("front")) { playerUse.PosY = playerUse.PosY - 0.5f; }
+			if(playerUse.Side.equals("back") && !player.breakwalk.equals("back")) { playerUse.PosY = playerUse.PosY + 0.5f; }
+			if(playerUse.Side.equals("left") && !player.breakwalk.equals("left")) { playerUse.PosX = playerUse.PosX - 0.5f; }
+			if(playerUse.Side.equals("right") && !player.breakwalk.equals("right")) { playerUse.PosX = playerUse.PosX + 0.5f; }
 		}
 		
 		//Check Frames
-		if(!playerUse.Walk_A.equals("no")) { player.countFrame_A = player.countFrame_A + 1; }
-		if(playerUse.playerInBattle_A.equals("yes")) { player.countFrame_A = player.countFrame_A + 1; }
-		if(playerUse.Walk_A.equals("no")) { playerUse.Frame_A = 1; }
-		if(player.countFrame_A > 1 && player.countFrame_A <= 10) { playerUse.Frame_A = 2; }
-		if(player.countFrame_A >= 10 && player.countFrame_A <= 20) { playerUse.Frame_A = 1; }
-		if(player.countFrame_A >= 20 && player.countFrame_A <= 30) { playerUse.Frame_A = 3; }
-		if(player.countFrame_A >= 30 && player.countFrame_A <= 40) { playerUse.Frame_A = 1; }
-		if(player.countFrame_A >= 40) { player.countFrame_A = 1; }
+		if(!playerUse.Walk.equals("no")) { player.countFrame = player.countFrame + 1; }
+		if(playerUse.playerInBattle.equals("yes")) { player.countFrame = player.countFrame + 1; }
+		if(playerUse.Walk.equals("no")) { playerUse.Frame = 1; }
+		if(player.countFrame > 1 && player.countFrame <= 10) { playerUse.Frame = 2; }
+		if(player.countFrame >= 10 && player.countFrame <= 20) { playerUse.Frame = 1; }
+		if(player.countFrame >= 20 && player.countFrame <= 30) { playerUse.Frame = 3; }
+		if(player.countFrame >= 30 && player.countFrame <= 40) { playerUse.Frame = 1; }
+		if(player.countFrame >= 40) { player.countFrame = 1; }
 				
 		return player;
 	}
@@ -845,72 +845,72 @@ public class GameControlHTML {
 	public Sprite GetHairChar(Player player, String menu, float cameraX, float cameraY) {
 		
 		//hair1_front_green_M
-		float posX = player.PosX_A;
-		float posY = player.PosY_A;
-		if(player.Sex_A.equals("M")) {
-			if(player.Hair_A.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
+		float posX = player.PosX;
+		float posY = player.PosY;
+		if(player.Sex.equals("M")) {
+			if(player.Hair.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
 			
-			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -20, posY + 10);  }
-			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -20, posY + 10);  }
-			if(player.Side_A.equals("left")) {  spr_master.setPosition(posX -21, posY + 10); }
-			if(player.Side_A.equals("right")) { spr_master.setPosition(posX -19.5f, posY + 10);  }
+			if(player.Side.equals("front")) { spr_master.setPosition(posX -20, posY + 10);  }
+			if(player.Side.equals("back")) { spr_master.setPosition(posX -20, posY + 10);  }
+			if(player.Side.equals("left")) {  spr_master.setPosition(posX -21, posY + 10); }
+			if(player.Side.equals("right")) { spr_master.setPosition(posX -19.5f, posY + 10);  }
 			spr_master.setScale(0.2f,0.4f);
 		}
-		if(player.Sex_A.equals("F")) {
-			if(player.Hair_A.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
+		if(player.Sex.equals("F")) {
+			if(player.Hair.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
 			
-			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -20, posY + 10);  }
-			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -20, posY + 10);  }
-			if(player.Side_A.equals("left")) {  spr_master.setPosition(posX -20.7f, posY + 8.8f); }
-			if(player.Side_A.equals("right")) { spr_master.setPosition(posX -19.5f, posY + 8.8f);  }
+			if(player.Side.equals("front")) { spr_master.setPosition(posX -20, posY + 10);  }
+			if(player.Side.equals("back")) { spr_master.setPosition(posX -20, posY + 10);  }
+			if(player.Side.equals("left")) {  spr_master.setPosition(posX -20.7f, posY + 8.8f); }
+			if(player.Side.equals("right")) { spr_master.setPosition(posX -19.5f, posY + 8.8f);  }
 			spr_master.setScale(0.2f,0.4f);
 		}
 
 		if(menu.equals("yes")){
-			player.Side_A = "front";
-			if(player.Hair_A.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
+			player.Side = "front";
+			if(player.Hair.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
 			
-			if(player.Sex_A.equals("M")) {
+			if(player.Sex.equals("M")) {
 				spr_master.setPosition(posX -20, posY + 10);
 				spr_master.setScale(0.2f,0.4f);
 			}
-			if(player.Sex_A.equals("F")) {
+			if(player.Sex.equals("F")) {
 				spr_master.setPosition(posX -20, posY + 10);
 				spr_master.setScale(0.2f,0.4f);
 			}
 		}
 
 		if(menu.equals("Show")){
-			player.Side_A = "front";
-			if(player.Hair_A.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair_A + "_" + player.Side_A + "_" + player.Color_A + "_" + player.Sex_A); }
+			player.Side = "front";
+			if(player.Hair.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
 			
-			if(player.Sex_A.equals("M")) {
+			if(player.Sex.equals("M")) {
 				spr_master.setPosition(cameraX -84.4f, cameraY + 34.8f);
 				spr_master.setScale(0.4f,0.7f);
 			}
-			if(player.Sex_A.equals("F")) {
+			if(player.Sex.equals("F")) {
 				spr_master.setPosition(cameraX -84.4f, cameraY + 34.8f);
 				spr_master.setScale(0.4f,0.7f);
 			}
 		}
 
-		if(player.playerInBattle_A.equals("yes")){
-			if(player.Hair_A.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair_A + "_attack_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair_A + "_attack_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair_A + "_attack_" + player.Color_A + "_" + player.Sex_A); }
-			if(player.Hair_A.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair_A + "_attack_" + player.Color_A + "_" + player.Sex_A); }
+		if(player.playerInBattle.equals("yes")){
+			if(player.Hair.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair + "ttack_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair + "ttack_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair + "ttack_" + player.Color + "_" + player.Sex); }
+			if(player.Hair.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair + "ttack_" + player.Color + "_" + player.Sex); }
 			
 			spr_master.setPosition(posX -20, posY + 10);
 			spr_master.setScale(0.2f,0.4f);
@@ -921,92 +921,92 @@ public class GameControlHTML {
 	
 	public Sprite GetTopChar(Player player , String menu, float cameraX, float cameraY) {
 		//Top 1
-		if(player.SetUpper_A.equals("basictop")) { atlas_genericset = atlas_basicset; }
+		if(player.SetUpper.equals("basictop")) { atlas_genericset = atlas_basicset; }
 		
-		float posX = player.PosX_A;
-		float posY = player.PosY_A;
+		float posX = player.PosX;
+		float posY = player.PosY;
 		//[MALE]
-		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
-			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25,posY -5);  }
-			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
-			if(player.Side_A.equals("left")) { spr_master.setPosition(posX -25,posY -5);  }
-			if(player.Side_A.equals("right")) { spr_master.setPosition(posX -25,posY -5);  }
+		if(player.Sex.equals("M")) {
+			spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_" + player.Side + player.Frame);
+			if(player.Side.equals("front")) { spr_master.setPosition(posX -25,posY -5);  }
+			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
+			if(player.Side.equals("left")) { spr_master.setPosition(posX -25,posY -5);  }
+			if(player.Side.equals("right")) { spr_master.setPosition(posX -25,posY -5);  }
 			spr_master.setScale(0.2f,0.4f);	
 			
-			if(player.playerInBattle_A.equals("yes")){
-				if(player.Frame_A == 3) { player.Frame_A = 2; }
-				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack" + player.Frame_A);
+			if(player.playerInBattle.equals("yes")){
+				if(player.Frame == 3) { player.Frame = 2; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "ttack" + player.Frame);
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);							
 			}
 			
-			if(player.playerInAttack_A.equals("yes")){
+			if(player.playerInAttack.equals("yes")){
 				if(FrameAtkPlayer > 0) {
-				if(player.Frame_A == 3) { player.Frame_A = 1; }
-					spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack4");
+				if(player.Frame == 3) { player.Frame = 1; }
+					spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "ttack4");
 					spr_master.setPosition(posX -25,posY -5);
 					spr_master.setScale(0.2f,0.4f);	
 					FrameAtkPlayer--;
 				}
 				if(FrameAtkPlayer <= 0) {
 					FrameAtkPlayer = 0;
-					player.playerInAttack_A = "no";
+					player.playerInAttack = "no";
 				}
 			}
 			
 			//basictopM_sit
-			if(player.playerSit_A.equals("yes")) {
-				player.Frame_A = 1;
-				player.Side_A = "front";
-				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_sit");
+			if(player.playerSit.equals("yes")) {
+				player.Frame = 1;
+				player.Side = "front";
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_sit");
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 		}
 
 		//[FEMALE]//
-		if(player.Sex_A.equals("F")) {
-			spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
-			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25,posY -4.5f);  }
-			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
-			if(player.Side_A.equals("left")) { 
+		if(player.Sex.equals("F")) {
+			spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_" + player.Side + player.Frame);
+			if(player.Side.equals("front")) { spr_master.setPosition(posX -25,posY -4.5f);  }
+			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
+			if(player.Side.equals("left")) { 
 				spr_master.setPosition(posX -25,posY -5);  
-				if(player.Frame_A == 2) { spr_master.setPosition(posX -25,posY -4.5f);   }
-				if(player.Frame_A == 3) { spr_master.setPosition(posX -26,posY -5.2f);   }
+				if(player.Frame == 2) { spr_master.setPosition(posX -25,posY -4.5f);   }
+				if(player.Frame == 3) { spr_master.setPosition(posX -26,posY -5.2f);   }
 			}
-			if(player.Side_A.equals("right")) { spr_master.setPosition(posX -25,posY -5);  }
+			if(player.Side.equals("right")) { spr_master.setPosition(posX -25,posY -5);  }
 			spr_master.setScale(0.2f,0.35f);	
 			
-			if(player.playerInBattle_A.equals("yes")){
-				if(player.Frame_A == 3) { player.Frame_A = 2; }
-				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_attack" + player.Frame_A);
+			if(player.playerInBattle.equals("yes")){
+				if(player.Frame == 3) { player.Frame = 2; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "ttack" + player.Frame);
 				spr_master.setPosition(posX -25,posY -4); 
 				spr_master.setScale(0.2f,0.4f);
 			}
 			
 			//basictopM_sit
-			if(player.playerSit_A.equals("yes")) {
-				player.Frame_A = 1;
-				player.Side_A = "front";
-				spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_sit");
+			if(player.playerSit.equals("yes")) {
+				player.Frame = 1;
+				player.Side = "front";
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_sit");
 				spr_master.setPosition(posX -25.2f,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 		}
 
 		if(menu.equals("yes")){
-			player.Side_A = "front";
-			spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + 1);
-			if(player.Side_A.equals("front")) { 
+			player.Side = "front";
+			spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_" + player.Side + 1);
+			if(player.Side.equals("front")) { 
 				spr_master.setPosition(cameraX + 8, cameraY + 27);
 				spr_master.setScale(0.2f,0.4f);
 			}
 		}
 		if(menu.equals("Show")){
-			player.Side_A = "front";
-			spr_master = atlas_genericset.createSprite(player.SetUpper_A + player.Sex_A + "_" + player.Side_A + 1);
-			if(player.Side_A.equals("front")) { 
+			player.Side = "front";
+			spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_" + player.Side + 1);
+			if(player.Side.equals("front")) { 
 				spr_master.setPosition(cameraX -89, cameraY + 11.5f);
 				spr_master.setScale(0.4f,0.7f);
 			}
@@ -1017,63 +1017,63 @@ public class GameControlHTML {
 	/// [BOTTOM ] //////
 	public Sprite GetBottomChar(Player player , String menu, float cameraX, float cameraY) {
 		//Top 1
-		if(player.SetBottom_A.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
+		if(player.SetBottom.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
 		
-		float posX = player.PosX_A;
-		float posY = player.PosY_A;
+		float posX = player.PosX;
+		float posY = player.PosY;
 		
 		/// [BOTTOM MALE] //////
-		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_basicset.createSprite(player.SetBottom_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
-			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25,posY -15); }
-			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -14.6f); }
-			if(player.Side_A.equals("right")) { spr_master.setPosition(posX -25,posY -15); }
-			if(player.Side_A.equals("left")) { 	spr_master.setPosition(posX -25,posY -15); }	
+		if(player.Sex.equals("M")) {
+			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + player.Frame);
+			if(player.Side.equals("front")) { spr_master.setPosition(posX -25,posY -15); }
+			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -14.6f); }
+			if(player.Side.equals("right")) { spr_master.setPosition(posX -25,posY -15); }
+			if(player.Side.equals("left")) { 	spr_master.setPosition(posX -25,posY -15); }	
 			spr_master.setScale(0.2f,0.4f);
 
-			if(player.playerInBattle_A.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetBottom_A + player.Sex_A + "_attack1");
+			if(player.playerInBattle.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "ttack1");
 				spr_master.setPosition(posX -24.5f,posY -15);
 				spr_master.setScale(0.2f,0.4f);					
 			}
 			
 			//basictopM_sit
-			if(player.playerSit_A.equals("yes")) {
-				player.Frame_A = 1;
-				player.Side_A = "front";
-				spr_master = atlas_genericset.createSprite(player.SetBottom_A + player.Sex_A + "_sit");
+			if(player.playerSit.equals("yes")) {
+				player.Frame = 1;
+				player.Side = "front";
+				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_sit");
 				spr_master.setPosition(posX -25,posY -15);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 		}
 		
 		/// [BOTTOM FEMALE] //////
-		if(player.Sex_A.equals("F")) {
-			spr_master = atlas_basicset.createSprite(player.SetBottom_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
-			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25.2f,posY -13f); }
-			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -14.6f); }
-			if(player.Side_A.equals("right")) { 
+		if(player.Sex.equals("F")) {
+			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + player.Frame);
+			if(player.Side.equals("front")) { spr_master.setPosition(posX -25.2f,posY -13f); }
+			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -14.6f); }
+			if(player.Side.equals("right")) { 
 				spr_master.setPosition(posX -25f,posY -13);
-				if(player.Frame_A == 2) { spr_master.setPosition(posX -25f,posY -13f);   }
-				if(player.Frame_A == 3) { spr_master.setPosition(posX -25.5f,posY -14f);   }
+				if(player.Frame == 2) { spr_master.setPosition(posX -25f,posY -13f);   }
+				if(player.Frame == 3) { spr_master.setPosition(posX -25.5f,posY -14f);   }
 			}
-			if(player.Side_A.equals("left")) { 	
+			if(player.Side.equals("left")) { 	
 				spr_master.setPosition(posX -25f,posY -13);
-				if(player.Frame_A == 2) { spr_master.setPosition(posX -24.6f,posY -13f);   }
-				if(player.Frame_A == 3) { spr_master.setPosition(posX -24.8f,posY -14f);   }
+				if(player.Frame == 2) { spr_master.setPosition(posX -24.6f,posY -13f);   }
+				if(player.Frame == 3) { spr_master.setPosition(posX -24.8f,posY -14f);   }
 			}
 			
-			if(player.playerInBattle_A.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetBottom_A + player.Sex_A + "_attack1");
+			if(player.playerInBattle.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "ttack1");
 				spr_master.setPosition(posX -25.2f,posY -13f);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 			
 			//basictopM_sit
-			if(player.playerSit_A.equals("yes")) {
-				player.Frame_A = 1;
-				player.Side_A = "front";
-				spr_master = atlas_genericset.createSprite(player.SetBottom_A + player.Sex_A + "_sit");
+			if(player.playerSit.equals("yes")) {
+				player.Frame = 1;
+				player.Side = "front";
+				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_sit");
 				spr_master.setPosition(posX -25.2f,posY -12);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1082,21 +1082,21 @@ public class GameControlHTML {
 		}
 
 		if(menu.equals("yes")){
-			player.Side_A = "front";
-			spr_master = atlas_basicset.createSprite(player.SetBottom_A + player.Sex_A + "_" + player.Side_A + 1);
-			if(player.Side_A.equals("front")) { 
+			player.Side = "front";
+			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + 1);
+			if(player.Side.equals("front")) { 
 				spr_master.setPosition(cameraX - 5.5f, cameraY + 27);
 				spr_master.setScale(0.2f,0.4f);
 			}
 		}
 		if(menu.equals("Show")){
-			player.Side_A = "front";
-			spr_master = atlas_basicset.createSprite(player.SetBottom_A + player.Sex_A + "_" + player.Side_A + 1);
-			if(player.Sex_A.equals("M")) { 
+			player.Side = "front";
+			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + 1);
+			if(player.Sex.equals("M")) { 
 				spr_master.setPosition(cameraX -89, cameraY - 5);
 				spr_master.setScale(0.4f,0.7f);
 			}
-			if(player.Sex_A.equals("F")) { 
+			if(player.Sex.equals("F")) { 
 				spr_master.setPosition(cameraX -89, cameraY - 5);
 				spr_master.setScale(0.4f,0.7f);
 			}
@@ -1108,97 +1108,97 @@ public class GameControlHTML {
 	/// [FOOTER ] //////
 	public Sprite GetFooterChar(Player player , String menu, float cameraX, float cameraY) {
 		//Top 1
-		if(player.SetFooter_A.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
+		if(player.SetFooter.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
 		
-		float posX = player.PosX_A;
-		float posY = player.PosY_A;
+		float posX = player.PosX;
+		float posY = player.PosY;
 		/// [FOOTER MALE ] //////
-		if(player.Sex_A.equals("M")) {
-			spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
-			if(player.Side_A.equals("front")) { spr_master.setPosition(posX -25,posY -21); }
-			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -21); }	
-			if(player.Side_A.equals("left")) { 
+		if(player.Sex.equals("M")) {
+			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + player.Frame);
+			if(player.Side.equals("front")) { spr_master.setPosition(posX -25,posY -21); }
+			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -21); }	
+			if(player.Side.equals("left")) { 
 				spr_master.setPosition(posX -25.4f,posY -19.5f); 
-				if(player.Frame_A == 2) { spr_master.setPosition(posX -24.8f,posY -18f);   }
-				if(player.Frame_A == 3) { spr_master.setPosition(posX -24.8f,posY -18f);   }
+				if(player.Frame == 2) { spr_master.setPosition(posX -24.8f,posY -18f);   }
+				if(player.Frame == 3) { spr_master.setPosition(posX -24.8f,posY -18f);   }
 			}	
-			if(player.Side_A.equals("right")) { 
+			if(player.Side.equals("right")) { 
 				spr_master.setPosition(posX -24.8f,posY -19.2f); 
-				if(player.Frame_A == 2) { spr_master.setPosition(posX -24.8f,posY -18f);   }
-				if(player.Frame_A == 3) { spr_master.setPosition(posX -24.8f,posY -18f);   }
+				if(player.Frame == 2) { spr_master.setPosition(posX -24.8f,posY -18f);   }
+				if(player.Frame == 3) { spr_master.setPosition(posX -24.8f,posY -18f);   }
 			}
 			spr_master.setScale(0.2f,0.4f);	
 			
-			if(player.playerInBattle_A.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_front2");
+			if(player.playerInBattle.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_front2");
 				spr_master.setPosition(posX -25,posY -21);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 			
 			//basictopM_sit
-			if(player.playerSit_A.equals("yes")) {
-				player.Frame_A = 1;
-				player.Side_A = "front";
-				spr_master = atlas_genericset.createSprite(player.SetFooter_A + player.Sex_A + "_sit");
+			if(player.playerSit.equals("yes")) {
+				player.Frame = 1;
+				player.Side = "front";
+				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_sit");
 				spr_master.setPosition(posX -25,posY -18);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 		}
 		
 		/// [FOOTER FEMALE ] //////
-		if(player.Sex_A.equals("F")) {
-			spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_" + player.Side_A + player.Frame_A);
-			if(player.Side_A.equals("front")) { 
+		if(player.Sex.equals("F")) {
+			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + player.Frame);
+			if(player.Side.equals("front")) { 
 				spr_master.setPosition(posX -25f,posY -22.5f);
-				if(player.Frame_A == 2) { spr_master.setPosition(posX -25f,posY -18.5f);   }
-				if(player.Frame_A == 3) { spr_master.setPosition(posX -25f,posY -18.5f);   }
+				if(player.Frame == 2) { spr_master.setPosition(posX -25f,posY -18.5f);   }
+				if(player.Frame == 3) { spr_master.setPosition(posX -25f,posY -18.5f);   }
 			
 			}
-			if(player.Side_A.equals("back")) { spr_master.setPosition(posX -25,posY -21); }	
-			if(player.Side_A.equals("left")) { 
+			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -21); }	
+			if(player.Side.equals("left")) { 
 				spr_master.setPosition(posX -25.4f,posY -21.5f); 
-				if(player.Frame_A == 2) { spr_master.setPosition(posX -25f,posY -22f);   }
-				if(player.Frame_A == 3) { spr_master.setPosition(posX -25.5f,posY -23f);   }
+				if(player.Frame == 2) { spr_master.setPosition(posX -25f,posY -22f);   }
+				if(player.Frame == 3) { spr_master.setPosition(posX -25.5f,posY -23f);   }
 			}	
-			if(player.Side_A.equals("right")) { 
+			if(player.Side.equals("right")) { 
 				spr_master.setPosition(posX -24.5f,posY -21.5f); 
-				if(player.Frame_A == 2) { spr_master.setPosition(posX -24.6f,posY -22f);   }
-				if(player.Frame_A == 3) { spr_master.setPosition(posX -25.6f,posY -23f);  }
+				if(player.Frame == 2) { spr_master.setPosition(posX -24.6f,posY -22f);   }
+				if(player.Frame == 3) { spr_master.setPosition(posX -25.6f,posY -23f);  }
 			}
 			spr_master.setScale(0.2f,0.4f);
 			
-			if(player.playerInBattle_A.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_attack1");
+			if(player.playerInBattle.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "ttack1");
 				spr_master.setPosition(posX -25f,posY -19.5f);
 				spr_master.setScale(0.2f,0.4f);								
 			}
 			
 			//basictopM_sit
-			if(player.playerSit_A.equals("yes")) {
-				player.Frame_A = 1;
-				player.Side_A = "front";
-				spr_master = atlas_genericset.createSprite(player.SetFooter_A + player.Sex_A + "_sit");
+			if(player.playerSit.equals("yes")) {
+				player.Frame = 1;
+				player.Side = "front";
+				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_sit");
 				spr_master.setPosition(posX -25.2f,posY -12);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 		}
 
 		if(menu.equals("yes")){
-			player.Side_A = "front";
-			spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_" + player.Side_A + 1);
-			if(player.Side_A.equals("front")) { 
+			player.Side = "front";
+			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + 1);
+			if(player.Side.equals("front")) { 
 				spr_master.setPosition(cameraX + 22, cameraY + 27);
 				spr_master.setScale(0.2f,0.4f);
 			}
 		}
 		if(menu.equals("Show")){
-			player.Side_A = "front";
-			spr_master = atlas_basicset.createSprite(player.SetFooter_A + player.Sex_A + "_" + player.Side_A + 1);
-			if(player.Sex_A.equals("M")) { 
+			player.Side = "front";
+			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + 1);
+			if(player.Sex.equals("M")) { 
 				spr_master.setPosition(cameraX -89, cameraY - 15);
 				spr_master.setScale(0.4f,0.7f);
 			}
-			if(player.Sex_A.equals("F")) { 
+			if(player.Sex.equals("F")) { 
 				spr_master.setPosition(cameraX -88.6f, cameraY - 21);
 				spr_master.setScale(0.4f,0.7f);
 			}
@@ -1264,13 +1264,13 @@ public class GameControlHTML {
 	
 	public Sprite GetItem(String nameItem) {
 		
-		if(player.Sex_A.equals("M")) {
+		if(player.Sex.equals("M")) {
 			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopM");}
 			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomM"); }
 			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterM"); }
 		}
 		
-		if(player.Sex_A.equals("F")) {
+		if(player.Sex.equals("F")) {
 			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopF"); }
 			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomF"); }
 			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterF"); }
@@ -1332,8 +1332,8 @@ public class GameControlHTML {
 		if(nameItem.equals("hammeraxe")) { spr_master = atlas_weapon.createSprite("hammeraxe"); }		
 		if(nameItem.equals("scytheaxe")) { spr_master = atlas_weapon.createSprite("scytheaxe"); }
 		if(nameItem.equals("anchoraxe")) { spr_master = atlas_weapon.createSprite("anchoraxe"); }
-		//if(nameItem.equals("guitar_axe")) { spr_master = atlas_items.createSprite("guitaraxe"); }
-		//if(nameItem.equals("bloodteeth_axe")) { spr_master = atlas_items.createSprite("bloodteethaxe"); }
+		//if(nameItem.equals("guitarxe")) { spr_master = atlas_items.createSprite("guitaraxe"); }
+		//if(nameItem.equals("bloodteethxe")) { spr_master = atlas_items.createSprite("bloodteethaxe"); }
 		
 		
 		
@@ -1377,7 +1377,7 @@ public class GameControlHTML {
 	
 				//[BAG]
 				public void UseItem(int numItem) {
-				String[] lstItem = player.Itens_A.split("-");
+				String[] lstItem = player.Itens.split("-");
 				String[] itemSplit;
 				String item = "";
 				String itemName = "";
@@ -1396,199 +1396,199 @@ public class GameControlHTML {
 					
 					
 					//Consumable
-					if(itemName.equals("hpcan")) { player.Hp_A = player.Hp_A + 10; if(player.Hp_A > player.HpMax_A) { player.Hp_A = player.HpMax_A; } equipable = false;}	
-					if(itemName.equals("garrafadrink")) { player.Hp_A = player.Hp_A + 100; if(player.Hp_A > player.HpMax_A) { player.Hp_A = player.HpMax_A; }equipable = false;}			
-					if(itemName.equals("mpcan")) { player.Mp_A = player.Mp_A + 25; if(player.Mp_A > player.MpMax_A) { player.Mp_A = player.MpMax_A; } equipable = false;}	
-					if(itemName.equals("garrafamagica")) { player.Mp_A = player.Mp_A + 50; if(player.Mp_A > player.MpMax_A) { player.Mp_A = player.MpMax_A; } equipable = false;}
-					if(itemName.equals("stcan")) { player.Stamina_A = player.Stamina_A + 5; if(player.Stamina_A > player.StaminaMax_A) { player.Stamina_A = player.StaminaMax_A; } equipable = false;}	
-					if(itemName.equals("garrafasuco")) { player.Stamina_A = player.Stamina_A + 30; if(player.Stamina_A > player.StaminaMax_A) { player.Stamina_A = player.StaminaMax_A; } equipable = false;}
-					if(itemName.equals("fries")) { player.Stamina_A = player.Stamina_A + 15; if(player.Stamina_A > player.StaminaMax_A) { player.Stamina_A = player.StaminaMax_A; } equipable = false;}	
-					if(itemName.equals("pizza")) { player.Stamina_A = player.Stamina_A + 5; if(player.Stamina_A > player.StaminaMax_A) { player.Stamina_A = player.StaminaMax_A; } } player.Hp_A = player.Hp_A + 30; if(player.Hp_A > player.HpMax_A) { player.Hp_A = player.HpMax_A; equipable = false;}	
+					if(itemName.equals("hpcan")) { player.Hp = player.Hp + 10; if(player.Hp > player.HpMax) { player.Hp = player.HpMax; } equipable = false;}	
+					if(itemName.equals("garrafadrink")) { player.Hp = player.Hp + 100; if(player.Hp > player.HpMax) { player.Hp = player.HpMax; }equipable = false;}			
+					if(itemName.equals("mpcan")) { player.Mp = player.Mp + 25; if(player.Mp > player.MpMax) { player.Mp = player.MpMax; } equipable = false;}	
+					if(itemName.equals("garrafamagica")) { player.Mp = player.Mp + 50; if(player.Mp > player.MpMax) { player.Mp = player.MpMax; } equipable = false;}
+					if(itemName.equals("stcan")) { player.Stamina = player.Stamina + 5; if(player.Stamina > player.StaminaMax) { player.Stamina = player.StaminaMax; } equipable = false;}	
+					if(itemName.equals("garrafasuco")) { player.Stamina = player.Stamina + 30; if(player.Stamina > player.StaminaMax) { player.Stamina = player.StaminaMax; } equipable = false;}
+					if(itemName.equals("fries")) { player.Stamina = player.Stamina + 15; if(player.Stamina > player.StaminaMax) { player.Stamina = player.StaminaMax; } equipable = false;}	
+					if(itemName.equals("pizza")) { player.Stamina = player.Stamina + 5; if(player.Stamina > player.StaminaMax) { player.Stamina = player.StaminaMax; } } player.Hp = player.Hp + 30; if(player.Hp > player.HpMax) { player.Hp = player.HpMax; equipable = false;}	
 					
-					if(itemName.equals("basictop")) {  if(player.SetUpper_A.equals("basictop")){ return; } else { AddItemBag(player.SetUpper_A); player.SetUpper_A = "basictop"; lstItem = player.Itens_A.split("-"); }}
-					if(itemName.equals("basicbottom")) {  if(player.SetUpper_A.equals("basicbottom")){ return; } else { AddItemBag(player.SetUpper_A); player.SetUpper_A = "basicbottom"; lstItem = player.Itens_A.split("-"); }}
-					if(itemName.equals("basicfooter")) {  if(player.SetUpper_A.equals("basicfooter")){ return; } else { AddItemBag(player.SetUpper_A); player.SetUpper_A = "basicfooter"; lstItem = player.Itens_A.split("-"); }}
+					if(itemName.equals("basictop")) {  if(player.SetUpper.equals("basictop")){ return; } else { AddItemBag(player.SetUpper); player.SetUpper = "basictop"; lstItem = player.Itens.split("-"); }}
+					if(itemName.equals("basicbottom")) {  if(player.SetUpper.equals("basicbottom")){ return; } else { AddItemBag(player.SetUpper); player.SetUpper = "basicbottom"; lstItem = player.Itens.split("-"); }}
+					if(itemName.equals("basicfooter")) {  if(player.SetUpper.equals("basicfooter")){ return; } else { AddItemBag(player.SetUpper); player.SetUpper = "basicfooter"; lstItem = player.Itens.split("-"); }}
 						
 					
 					
 					//aprendiz
 					if(itemName.equals("basicknife")) {  
-						if(player.Weapon_A.equals("basicknife")){ return; } 
-						if(!player.Weapon_A.equals("basicknife")) { AddItemBag(player.Weapon_A); player.Weapon_A = "basic_knife"; lstItem = player.Itens_A.split("-"); }
+						if(player.Weapon.equals("basicknife")){ return; } 
+						if(!player.Weapon.equals("basicknife")) { AddItemBag(player.Weapon); player.Weapon = "basic_knife"; lstItem = player.Itens.split("-"); }
 						
-						if(player.Weapon_A.equals("doubleedgeknife")){ return; } 
-						if(!player.Weapon_A.equals("doubleedgeknife")) { AddItemBag(player.Weapon_A); player.Weapon_A = "doubleedgeknife"; lstItem = player.Itens_A.split("-"); }
+						if(player.Weapon.equals("doubleedgeknife")){ return; } 
+						if(!player.Weapon.equals("doubleedgeknife")) { AddItemBag(player.Weapon); player.Weapon = "doubleedgeknife"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("doubleedgeknife")) {  
-						if(player.Weapon_A.equals("doubleedgeknife")){ return; } 
-						if(!player.Weapon_A.equals("doubleedgeknife")) { AddItemBag(player.Weapon_A); player.Weapon_A = "doubleedgeknife"; lstItem = player.Itens_A.split("-"); }
+						if(player.Weapon.equals("doubleedgeknife")){ return; } 
+						if(!player.Weapon.equals("doubleedgeknife")) { AddItemBag(player.Weapon); player.Weapon = "doubleedgeknife"; lstItem = player.Itens.split("-"); }
 					}
 					//espadachim
 					if(itemName.equals("woodsword")) {  
-						if(!player.Job_A.equals("Espadachim")){ return; } 
-						if(player.Weapon_A.equals("woodsword")){ return; } 
-						if(!player.Weapon_A.equals("woodsword")) { AddItemBag(player.Weapon_A); player.Weapon_A = "woodsword"; lstItem = player.Itens_A.split("-"); }					
+						if(!player.Job.equals("Espadachim")){ return; } 
+						if(player.Weapon.equals("woodsword")){ return; } 
+						if(!player.Weapon.equals("woodsword")) { AddItemBag(player.Weapon); player.Weapon = "woodsword"; lstItem = player.Itens.split("-"); }					
 					}
 					if(itemName.equals("sabersword")) {  
-						if(!player.Job_A.equals("Espadachim")){ return; } 
-						if(player.Weapon_A.equals("sabersword")){ return; } 
-						if(!player.Weapon_A.equals("sabersword")) { AddItemBag(player.Weapon_A); player.Weapon_A = "sabersword"; lstItem = player.Itens_A.split("-"); }		
+						if(!player.Job.equals("Espadachim")){ return; } 
+						if(player.Weapon.equals("sabersword")){ return; } 
+						if(!player.Weapon.equals("sabersword")) { AddItemBag(player.Weapon); player.Weapon = "sabersword"; lstItem = player.Itens.split("-"); }		
 					}
 					if(itemName.equals("venomsword")) {  
-						if(!player.Job_A.equals("Espadachim")){ return; } 
-						if(player.Weapon_A.equals("venomsword")){ return; } 
-						if(!player.Weapon_A.equals("venomsword")) { AddItemBag(player.Weapon_A); player.Weapon_A = "venomsword"; lstItem = player.Itens_A.split("-"); }		
+						if(!player.Job.equals("Espadachim")){ return; } 
+						if(player.Weapon.equals("venomsword")){ return; } 
+						if(!player.Weapon.equals("venomsword")) { AddItemBag(player.Weapon); player.Weapon = "venomsword"; lstItem = player.Itens.split("-"); }		
 					}
 					if(itemName.equals("edgesword")) {  
-						if(!player.Job_A.equals("Espadachim")){ return; } 
-						if(player.Weapon_A.equals("edgesword")){ return; } 
-						if(!player.Weapon_A.equals("edgesword")) { AddItemBag(player.Weapon_A); player.Weapon_A = "edgesword"; lstItem = player.Itens_A.split("-"); }		
+						if(!player.Job.equals("Espadachim")){ return; } 
+						if(player.Weapon.equals("edgesword")){ return; } 
+						if(!player.Weapon.equals("edgesword")) { AddItemBag(player.Weapon); player.Weapon = "edgesword"; lstItem = player.Itens.split("-"); }		
 					}
 					if(itemName.equals("knightsword")) {  
-						if(!player.Job_A.equals("Espadachim")){ return; } 
-						if(player.Weapon_A.equals("knightsword")){ return; } 
-						if(!player.Weapon_A.equals("knightsword")) { AddItemBag(player.Weapon_A); player.Weapon_A = "knightsword"; lstItem = player.Itens_A.split("-"); }		
+						if(!player.Job.equals("Espadachim")){ return; } 
+						if(player.Weapon.equals("knightsword")){ return; } 
+						if(!player.Weapon.equals("knightsword")) { AddItemBag(player.Weapon); player.Weapon = "knightsword"; lstItem = player.Itens.split("-"); }		
 					}
 					if(itemName.equals("ragesword")) {  
-						if(!player.Job_A.equals("Espadachim")){ return; } 
-						if(player.Weapon_A.equals("ragesword")){ return; } 
-						if(!player.Weapon_A.equals("ragesword")) { AddItemBag(player.Weapon_A); player.Weapon_A = "ragesword"; lstItem = player.Itens_A.split("-"); }		
+						if(!player.Job.equals("Espadachim")){ return; } 
+						if(player.Weapon.equals("ragesword")){ return; } 
+						if(!player.Weapon.equals("ragesword")) { AddItemBag(player.Weapon); player.Weapon = "ragesword"; lstItem = player.Itens.split("-"); }		
 					}
 					
 					//Feiticeiro
 					if(itemName.equals("stickrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
-						if(player.Weapon_A.equals("stickrod")){ return; } 
-						if(!player.Weapon_A.equals("stickrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "stickrod"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Feiticeiro") || !player.Job.equals("Curandeiro")){ return; } 
+						if(player.Weapon.equals("stickrod")){ return; } 
+						if(!player.Weapon.equals("stickrod")) { AddItemBag(player.Weapon); player.Weapon = "stickrod"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("gloomrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
-						if(player.Weapon_A.equals("gloomrod")){ return; } 
-						if(!player.Weapon_A.equals("gloomrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "gloomrod"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Feiticeiro") || !player.Job.equals("Curandeiro")){ return; } 
+						if(player.Weapon.equals("gloomrod")){ return; } 
+						if(!player.Weapon.equals("gloomrod")) { AddItemBag(player.Weapon); player.Weapon = "gloomrod"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("gemrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
-						if(player.Weapon_A.equals("gemrod")){ return; } 
-						if(!player.Weapon_A.equals("gemrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "gemrod"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Feiticeiro") || !player.Job.equals("Curandeiro")){ return; } 
+						if(player.Weapon.equals("gemrod")){ return; } 
+						if(!player.Weapon.equals("gemrod")) { AddItemBag(player.Weapon); player.Weapon = "gemrod"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("lightwieldrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
-						if(player.Weapon_A.equals("lightwieldrod")){ return; } 
-						if(!player.Weapon_A.equals("lightwieldrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "lightwieldrod"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Feiticeiro") || !player.Job.equals("Curandeiro")){ return; } 
+						if(player.Weapon.equals("lightwieldrod")){ return; } 
+						if(!player.Weapon.equals("lightwieldrod")) { AddItemBag(player.Weapon); player.Weapon = "lightwieldrod"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("serpentrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
-						if(player.Weapon_A.equals("serpentrod")){ return; } 
-						if(!player.Weapon_A.equals("serpentrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "serpentrod"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Feiticeiro") || !player.Job.equals("Curandeiro")){ return; } 
+						if(player.Weapon.equals("serpentrod")){ return; } 
+						if(!player.Weapon.equals("serpentrod")) { AddItemBag(player.Weapon); player.Weapon = "serpentrod"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("clerigrod")) { 
-						if(!player.Job_A.equals("Feiticeiro") || !player.Job_A.equals("Curandeiro")){ return; } 
-						if(player.Weapon_A.equals("clerigrod")){ return; } 
-						if(!player.Weapon_A.equals("clerigrod")) { AddItemBag(player.Weapon_A); player.Weapon_A = "clerigrod"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Feiticeiro") || !player.Job.equals("Curandeiro")){ return; } 
+						if(player.Weapon.equals("clerigrod")){ return; } 
+						if(!player.Weapon.equals("clerigrod")) { AddItemBag(player.Weapon); player.Weapon = "clerigrod"; lstItem = player.Itens.split("-"); }
 					}
 					
 					//Pistoleiro
 					if(itemName.equals("basicpistol")) { 
-						if(!player.Job_A.equals("Pistoleiro")){ return; } 
-						if(player.Weapon_A.equals("basicpistol")){ return; } 
-						if(!player.Weapon_A.equals("basicpistol")) {  AddItemBag(player.Weapon_A); player.Weapon_A = "basicpistol"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Pistoleiro")){ return; } 
+						if(player.Weapon.equals("basicpistol")){ return; } 
+						if(!player.Weapon.equals("basicpistol")) {  AddItemBag(player.Weapon); player.Weapon = "basicpistol"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("revolverpistol")) { 
-						if(!player.Job_A.equals("Pistoleiro")){ return; } 
-						if(player.Weapon_A.equals("revolverpistol")){ return; } 
-						if(!player.Weapon_A.equals("revolverpistol")) {  AddItemBag(player.Weapon_A); player.Weapon_A = "revolverpistol"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Pistoleiro")){ return; } 
+						if(player.Weapon.equals("revolverpistol")){ return; } 
+						if(!player.Weapon.equals("revolverpistol")) {  AddItemBag(player.Weapon); player.Weapon = "revolverpistol"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("lightpistol")) { 
-						if(!player.Job_A.equals("Pistoleiro")){ return; } 
-						if(player.Weapon_A.equals("lightpistol")){ return; } 
-						if(!player.Weapon_A.equals("lightpistol")) {  AddItemBag(player.Weapon_A); player.Weapon_A = "lightpistol"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Pistoleiro")){ return; } 
+						if(player.Weapon.equals("lightpistol")){ return; } 
+						if(!player.Weapon.equals("lightpistol")) {  AddItemBag(player.Weapon); player.Weapon = "lightpistol"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("turretpistol")) { 
-						if(!player.Job_A.equals("Pistoleiro")){ return; } 
-						if(player.Weapon_A.equals("turretpistol")){ return; } 
-						if(!player.Weapon_A.equals("turretpistol")) {  AddItemBag(player.Weapon_A); player.Weapon_A = "turretpistol"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Pistoleiro")){ return; } 
+						if(player.Weapon.equals("turretpistol")){ return; } 
+						if(!player.Weapon.equals("turretpistol")) {  AddItemBag(player.Weapon); player.Weapon = "turretpistol"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("riflepistol")) { 
-						if(!player.Job_A.equals("Pistoleiro")){ return; } 
-						if(player.Weapon_A.equals("riflepistol")){ return; } 
-						if(!player.Weapon_A.equals("riflepistol")) {  AddItemBag(player.Weapon_A); player.Weapon_A = "riflepistol"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Pistoleiro")){ return; } 
+						if(player.Weapon.equals("riflepistol")){ return; } 
+						if(!player.Weapon.equals("riflepistol")) {  AddItemBag(player.Weapon); player.Weapon = "riflepistol"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("shooterpistol")) { 
-						if(!player.Job_A.equals("Pistoleiro")){ return; } 
-						if(player.Weapon_A.equals("shooterpistol")){ return; } 
-						if(!player.Weapon_A.equals("shooterpistol")) {  AddItemBag(player.Weapon_A); player.Weapon_A = "shooterpistol"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Pistoleiro")){ return; } 
+						if(player.Weapon.equals("shooterpistol")){ return; } 
+						if(!player.Weapon.equals("shooterpistol")) {  AddItemBag(player.Weapon); player.Weapon = "shooterpistol"; lstItem = player.Itens.split("-"); }
 					}
 					
 					//Ladrao
 					if(itemName.equals("basicdagger")) { 
-						if(!player.Job_A.equals("Ladrao")){ return; } 
-						if(player.Weapon_A.equals("basicdagger")){ return; } 
-						if(!player.Weapon_A.equals("basicdagger")) { AddItemBag(player.Weapon_A); player.Weapon_A = "basicdagger"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Ladrao")){ return; } 
+						if(player.Weapon.equals("basicdagger")){ return; } 
+						if(!player.Weapon.equals("basicdagger")) { AddItemBag(player.Weapon); player.Weapon = "basicdagger"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("edgedagger")) { 
-						if(!player.Job_A.equals("Ladrao")){ return; } 
-						if(player.Weapon_A.equals("edgedagger")){ return; } 
-						if(!player.Weapon_A.equals("edgedagger")) { AddItemBag(player.Weapon_A); player.Weapon_A = "edgedagger"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Ladrao")){ return; } 
+						if(player.Weapon.equals("edgedagger")){ return; } 
+						if(!player.Weapon.equals("edgedagger")) { AddItemBag(player.Weapon); player.Weapon = "edgedagger"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("poisondagger")) { 
-						if(!player.Job_A.equals("Ladrao")){ return; } 
-						if(player.Weapon_A.equals("poisondagger")){ return; } 
-						if(!player.Weapon_A.equals("poisondagger")) { AddItemBag(player.Weapon_A); player.Weapon_A = "poisondagger"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Ladrao")){ return; } 
+						if(player.Weapon.equals("poisondagger")){ return; } 
+						if(!player.Weapon.equals("poisondagger")) { AddItemBag(player.Weapon); player.Weapon = "poisondagger"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("marinedagger")) { 
-						if(!player.Job_A.equals("Ladrao")){ return; } 
-						if(player.Weapon_A.equals("marinedagger")){ return; } 
-						if(!player.Weapon_A.equals("marinedagger")) { AddItemBag(player.Weapon_A); player.Weapon_A = "marinedagger"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Ladrao")){ return; } 
+						if(player.Weapon.equals("marinedagger")){ return; } 
+						if(!player.Weapon.equals("marinedagger")) { AddItemBag(player.Weapon); player.Weapon = "marinedagger"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("triplodagger")) { 
-						if(!player.Job_A.equals("Ladrao")){ return; } 
-						if(player.Weapon_A.equals("triplodagger")){ return; } 
-						if(!player.Weapon_A.equals("triplodagger")) { AddItemBag(player.Weapon_A); player.Weapon_A = "triplodagger"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Ladrao")){ return; } 
+						if(player.Weapon.equals("triplodagger")){ return; } 
+						if(!player.Weapon.equals("triplodagger")) { AddItemBag(player.Weapon); player.Weapon = "triplodagger"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("thunderdagger")) { 
-						if(!player.Job_A.equals("Ladrao")){ return; } 
-						if(player.Weapon_A.equals("thunderdagger")){ return; } 
-						if(!player.Weapon_A.equals("thunderdagger")) { AddItemBag(player.Weapon_A); player.Weapon_A = "thunderdagger"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Ladrao")){ return; } 
+						if(player.Weapon.equals("thunderdagger")){ return; } 
+						if(!player.Weapon.equals("thunderdagger")) { AddItemBag(player.Weapon); player.Weapon = "thunderdagger"; lstItem = player.Itens.split("-"); }
 					}
 					
 					//Batedor
 					if(itemName.equals("basicaxe")) { 
-						if(!player.Job_A.equals("Batedor")){ return; } 
-						if(player.Weapon_A.equals("basicaxe")){ return; } 
-						if(!player.Weapon_A.equals("basicaxe")) { AddItemBag(player.Weapon_A); player.Weapon_A = "basicaxe"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Batedor")){ return; } 
+						if(player.Weapon.equals("basicaxe")){ return; } 
+						if(!player.Weapon.equals("basicaxe")) { AddItemBag(player.Weapon); player.Weapon = "basicaxe"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("pickaxe")) { 
-						if(!player.Job_A.equals("Batedor")){ return; } 
-						if(player.Weapon_A.equals("pickaxe")){ return; } 
-						if(!player.Weapon_A.equals("pickaxe")) { AddItemBag(player.Weapon_A); player.Weapon_A = "pickaxe"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Batedor")){ return; } 
+						if(player.Weapon.equals("pickaxe")){ return; } 
+						if(!player.Weapon.equals("pickaxe")) { AddItemBag(player.Weapon); player.Weapon = "pickaxe"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("killeraxe")) { 
-						if(!player.Job_A.equals("Batedor")){ return; } 
-						if(player.Weapon_A.equals("killeraxe")){ return; } 
-						if(!player.Weapon_A.equals("killeraxe")) { AddItemBag(player.Weapon_A); player.Weapon_A = "killeraxe"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Batedor")){ return; } 
+						if(player.Weapon.equals("killeraxe")){ return; } 
+						if(!player.Weapon.equals("killeraxe")) { AddItemBag(player.Weapon); player.Weapon = "killeraxe"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("hammeraxe")) { 
-						if(!player.Job_A.equals("Batedor")){ return; } 
-						if(player.Weapon_A.equals("hammeraxe")){ return; } 
-						if(!player.Weapon_A.equals("hammeraxe")) { AddItemBag(player.Weapon_A); player.Weapon_A = "hammeraxe"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Batedor")){ return; } 
+						if(player.Weapon.equals("hammeraxe")){ return; } 
+						if(!player.Weapon.equals("hammeraxe")) { AddItemBag(player.Weapon); player.Weapon = "hammeraxe"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("scytheaxe")) { 
-						if(!player.Job_A.equals("Batedor")){ return; } 
-						if(player.Weapon_A.equals("scytheaxe")){ return; } 
-						if(!player.Weapon_A.equals("scytheaxe")) { AddItemBag(player.Weapon_A); player.Weapon_A = "scytheaxe"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Batedor")){ return; } 
+						if(player.Weapon.equals("scytheaxe")){ return; } 
+						if(!player.Weapon.equals("scytheaxe")) { AddItemBag(player.Weapon); player.Weapon = "scytheaxe"; lstItem = player.Itens.split("-"); }
 					}
 					if(itemName.equals("anchoraxe")) { 
-						if(!player.Job_A.equals("Batedor")){ return; } 
-						if(player.Weapon_A.equals("anchoraxe")){ return; } 
-						if(!player.Weapon_A.equals("anchoraxe")) { AddItemBag(player.Weapon_A); player.Weapon_A = "anchoraxe"; lstItem = player.Itens_A.split("-"); }
+						if(!player.Job.equals("Batedor")){ return; } 
+						if(player.Weapon.equals("anchoraxe")){ return; } 
+						if(!player.Weapon.equals("anchoraxe")) { AddItemBag(player.Weapon); player.Weapon = "anchoraxe"; lstItem = player.Itens.split("-"); }
 					}
 								
 					//Hats
 					
 					if(itemName.equals("hatbunny")) { 
-						if(player.Hat_A.equals("hatbunny")){ return; }
-						if(player.Hat_A.equals("none")){ player.Hat_A = "hatbunny"; }
-						if(!player.Hat_A.equals("hatbunny")) { AddItemBag(player.Hat_A); player.Hat_A = "hatbunny"; lstItem = player.Itens_A.split("-"); equipable = true; }	
+						if(player.Hat.equals("hatbunny")){ return; }
+						if(player.Hat.equals("none")){ player.Hat = "hatbunny"; }
+						if(!player.Hat.equals("hatbunny")) { AddItemBag(player.Hat); player.Hat = "hatbunny"; lstItem = player.Itens.split("-"); equipable = true; }	
 					}
 					
 					
@@ -1604,33 +1604,33 @@ public class GameControlHTML {
 					if(itemName.equals("green_orb")) { return; }
 					
 					//Crystals
-					if(itemName.equals("blue_crystal_intextra_1") && !equipable) { UseCrystal(itemName); equipable = true;  }
-					if(itemName.equals("blue_crystal_intextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("blue_crystal_intextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("blue_crystal_intextra") && !equipable) { UseCrystal(itemName); equipable = true;  }
+					if(itemName.equals("blue_crystal_intextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("blue_crystal_intextra") && !equipable) { UseCrystal(itemName); equipable = true; }
 					
-					if(itemName.equals("green_crystal_lukextra_1") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("green_crystal_lukextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("green_crystal_lukextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("green_crystal_lukextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("green_crystal_lukextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("green_crystal_lukextra") && !equipable) { UseCrystal(itemName); equipable = true; }
 								
-					if(itemName.equals("purple_crystal_vitextra_1") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("purple_crystal_vitextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("purple_crystal_vitextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("purple_crystal_vitextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("purple_crystal_vitextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("purple_crystal_vitextra") && !equipable) { UseCrystal(itemName); equipable = true; }
 					
-					if(itemName.equals("yellow_crystal_agiextra_1") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("yellow_crystal_agiextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("yellow_crystal_agiextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("yellow_crystalgiextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("yellow_crystalgiextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("yellow_crystalgiextra") && !equipable) { UseCrystal(itemName); equipable = true; }
 					
-					if(itemName.equals("red_crystal_strextra_1") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("red_crystal_strextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("red_crystal_strextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("red_crystal_strextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("red_crystal_strextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("red_crystal_strextra") && !equipable) { UseCrystal(itemName); equipable = true; }
 					
-					if(itemName.equals("grey_crystal_dexextra_1") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("grey_crystal_dexextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("grey_crystal_dexextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("grey_crystal_dexextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("grey_crystal_dexextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("grey_crystal_dexextra") && !equipable) { UseCrystal(itemName); equipable = true; }
 					
-					if(itemName.equals("orange_crystal_resextra_1") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("orange_crystal_resextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
-					if(itemName.equals("orange_crystal_resextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("orange_crystal_resextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("orange_crystal_resextra") && !equipable) { UseCrystal(itemName); equipable = true; }
+					if(itemName.equals("orange_crystal_resextra") && !equipable) { UseCrystal(itemName); equipable = true; }
 					
 					if(itemName.equals("green_orb")) { return; }
 					if(itemName.equals("yellow_orb")) { return; }
@@ -1646,216 +1646,216 @@ public class GameControlHTML {
 						lstItem[numItem] = itemName;
 						lstitensFinal = Arrays.toString(lstItem).replace(", ","-");
 						lstitensFinal = lstitensFinal.substring(1, lstitensFinal.length() -1);
-						player.Itens_A = lstitensFinal;
+						player.Itens = lstitensFinal;
 					}
 					else {
 						itemName = "[" + itemName + "#" + qtd + "]"; 
 						lstItem[numItem] = itemName;
 						lstitensFinal = Arrays.toString(lstItem).replace(", ","-");
 						lstitensFinal = lstitensFinal.substring(1, lstitensFinal.length() -1);
-						player.Itens_A = lstitensFinal;
+						player.Itens = lstitensFinal;
 					}			
 				}
 			}
 			
 			public void UnequipHat() {
-				String nameHat = player.Hat_A;
+				String nameHat = player.Hat;
 				if(nameHat.equals("none")) { return; }
-				player.Hat_A = "none";
+				player.Hat = "none";
 				AddItemBag(nameHat);
 			}
 			
 			
 			public void UseCrystal(String item) {
-				if(player.Crystal1_A.equals("none")) { player.Crystal1_A = item; ApplyCrystals(item); return; }
-				if(player.Crystal2_A.equals("none")) { player.Crystal2_A = item; ApplyCrystals(item); return; }
-				if(player.Crystal3_A.equals("none")) { player.Crystal3_A = item; ApplyCrystals(item); return; }
-				if(player.Crystal4_A.equals("none")) { player.Crystal4_A = item; ApplyCrystals(item); return; }
+				if(player.Crystal1.equals("none")) { player.Crystal1 = item; ApplyCrystals(item); return; }
+				if(player.Crystal2.equals("none")) { player.Crystal2 = item; ApplyCrystals(item); return; }
+				if(player.Crystal3.equals("none")) { player.Crystal3 = item; ApplyCrystals(item); return; }
+				if(player.Crystal4.equals("none")) { player.Crystal4 = item; ApplyCrystals(item); return; }
 			}
 			
 			public void ApplyCrystals(String item) {
 				
-				if(item.equals("blue_crystal_intextra_1")) { player.Wis_A = player.Wis_A + 2; player.MpMax_A = player.MpMax_A + 20; }	
-				if(item.equals("blue_crystal_intextra_2")) { player.Wis_A = player.Wis_A + 5; player.MpMax_A = player.MpMax_A + 50; }
-				if(item.equals("blue_crystal_intextra_3")) { player.Wis_A = player.Wis_A + 10; player.MpMax_A = player.MpMax_A + 100; }
-				if(item.equals("blue_crystal_intextra_4")) { player.Wis_A = player.Wis_A + 15; player.MpMax_A = player.MpMax_A + 200; }
+				if(item.equals("blue_crystal_intextra")) { player.Wis = player.Wis + 2; player.MpMax = player.MpMax + 20; }	
+				if(item.equals("blue_crystal_intextra")) { player.Wis = player.Wis + 5; player.MpMax = player.MpMax + 50; }
+				if(item.equals("blue_crystal_intextra")) { player.Wis = player.Wis + 10; player.MpMax = player.MpMax + 100; }
+				if(item.equals("blue_crystal_intextra_4")) { player.Wis = player.Wis + 15; player.MpMax = player.MpMax + 200; }
 				
-				if(item.equals("green_crystal_lukextra_1")) { player.Luk_A = player.Luk_A + 2;  }	
-				if(item.equals("green_crystal_lukextra_2")) { player.Luk_A = player.Luk_A + 5;  }
-				if(item.equals("green_crystal_lukextra_3")) { player.Luk_A = player.Luk_A + 10; }
-				if(item.equals("green_crystal_lukextra_4")) { player.Luk_A = player.Luk_A + 15; }
+				if(item.equals("green_crystal_lukextra")) { player.Luk = player.Luk + 2;  }	
+				if(item.equals("green_crystal_lukextra")) { player.Luk = player.Luk + 5;  }
+				if(item.equals("green_crystal_lukextra")) { player.Luk = player.Luk + 10; }
+				if(item.equals("green_crystal_lukextra_4")) { player.Luk = player.Luk + 15; }
 				
-				if(item.equals("purple_crystal_vitextra_1")) { player.Vit_A = player.Vit_A + 2; player.MpMax_A = player.HpMax_A + 20; }	
-				if(item.equals("purple_crystal_vitextra_2")) { player.Vit_A = player.Vit_A + 5; player.MpMax_A = player.HpMax_A + 50; }
-				if(item.equals("purple_crystal_vitextra_3")) { player.Vit_A = player.Vit_A + 10; player.MpMax_A = player.HpMax_A + 100; }
-				if(item.equals("purple_crystal_vitextra_4")) { player.Vit_A = player.Vit_A + 15; player.MpMax_A = player.HpMax_A + 200; }
+				if(item.equals("purple_crystal_vitextra")) { player.Vit = player.Vit + 2; player.MpMax = player.HpMax + 20; }	
+				if(item.equals("purple_crystal_vitextra")) { player.Vit = player.Vit + 5; player.MpMax = player.HpMax + 50; }
+				if(item.equals("purple_crystal_vitextra")) { player.Vit = player.Vit + 10; player.MpMax = player.HpMax + 100; }
+				if(item.equals("purple_crystal_vitextra_4")) { player.Vit = player.Vit + 15; player.MpMax = player.HpMax + 200; }
 				
-				if(item.equals("yellow_crystal_agiextra_1")) { player.Agi_A = player.Agi_A + 2; player.AtkTimerMax_A = player.AtkTimerMax_A - 2; }	
-				if(item.equals("yellow_crystal_agiextra_2")) { player.Agi_A = player.Agi_A + 5; player.AtkTimerMax_A = player.AtkTimerMax_A - 4; }
-				if(item.equals("yellow_crystal_agiextra_3")) { player.Agi_A = player.Agi_A + 10; player.AtkTimerMax_A = player.AtkTimerMax_A - 6; }
-				if(item.equals("yellow_crystal_agiextra_4")) { player.Agi_A = player.Agi_A + 15; player.AtkTimerMax_A = player.AtkTimerMax_A - 8; }
+				if(item.equals("yellow_crystalgiextra")) { player.Agi = player.Agi + 2; player.AtkTimerMax = player.AtkTimerMax - 2; }	
+				if(item.equals("yellow_crystalgiextra")) { player.Agi = player.Agi + 5; player.AtkTimerMax = player.AtkTimerMax - 4; }
+				if(item.equals("yellow_crystalgiextra")) { player.Agi = player.Agi + 10; player.AtkTimerMax = player.AtkTimerMax - 6; }
+				if(item.equals("yellow_crystalgiextra_4")) { player.Agi = player.Agi + 15; player.AtkTimerMax = player.AtkTimerMax - 8; }
 				
-				if(item.equals("red_crystal_strextra_1")) { player.Str_A = player.Str_A + 2; }	
-				if(item.equals("red_crystal_strextra_2")) { player.Str_A = player.Str_A + 5; }
-				if(item.equals("red_crystal_strextra_3")) { player.Str_A = player.Str_A + 10; }
-				if(item.equals("red_crystal_strextra_4")) { player.Str_A = player.Str_A + 15; }
+				if(item.equals("red_crystal_strextra")) { player.Str = player.Str + 2; }	
+				if(item.equals("red_crystal_strextra")) { player.Str = player.Str + 5; }
+				if(item.equals("red_crystal_strextra")) { player.Str = player.Str + 10; }
+				if(item.equals("red_crystal_strextra_4")) { player.Str = player.Str + 15; }
 				
-				if(item.equals("grey_crystal_dexextra_1")) { player.Dex_A = player.Dex_A + 2; }	
-				if(item.equals("grey_crystal_dexextra_2")) { player.Dex_A = player.Dex_A + 5; }
-				if(item.equals("grey_crystal_dexextra_3")) { player.Dex_A = player.Dex_A + 10; }
-				if(item.equals("grey_crystal_dexextra_4")) { player.Dex_A = player.Dex_A + 15; }
+				if(item.equals("grey_crystal_dexextra")) { player.Dex = player.Dex + 2; }	
+				if(item.equals("grey_crystal_dexextra")) { player.Dex = player.Dex + 5; }
+				if(item.equals("grey_crystal_dexextra")) { player.Dex = player.Dex + 10; }
+				if(item.equals("grey_crystal_dexextra_4")) { player.Dex = player.Dex + 15; }
 				
-				if(item.equals("orange_crystal_resextra_1")) { player.Res_A = player.Res_A + 2; player.StaminaMax_A = player.StaminaMax_A + 20; player.regenTimeMax_A = player.regenTimeMax_A - 200; }	
-				if(item.equals("orange_crystal_resextra_2")) { player.Res_A = player.Res_A + 5; player.StaminaMax_A = player.StaminaMax_A + 50; player.regenTimeMax_A = player.regenTimeMax_A - 400; }
-				if(item.equals("orange_crystal_resextra_3")) { player.Res_A = player.Res_A + 10; player.StaminaMax_A = player.StaminaMax_A + 100; player.regenTimeMax_A = player.regenTimeMax_A - 600; }
-				if(item.equals("orange_crystal_resextra_4")) { player.Res_A = player.Res_A + 15; player.StaminaMax_A = player.StaminaMax_A + 200; player.regenTimeMax_A = player.regenTimeMax_A - 800; }
+				if(item.equals("orange_crystal_resextra")) { player.Res = player.Res + 2; player.StaminaMax = player.StaminaMax + 20; player.regenTimeMax = player.regenTimeMax - 200; }	
+				if(item.equals("orange_crystal_resextra")) { player.Res = player.Res + 5; player.StaminaMax = player.StaminaMax + 50; player.regenTimeMax = player.regenTimeMax - 400; }
+				if(item.equals("orange_crystal_resextra")) { player.Res = player.Res + 10; player.StaminaMax = player.StaminaMax + 100; player.regenTimeMax = player.regenTimeMax - 600; }
+				if(item.equals("orange_crystal_resextra_4")) { player.Res = player.Res + 15; player.StaminaMax = player.StaminaMax + 200; player.regenTimeMax = player.regenTimeMax - 800; }
 				
 			}
 			
 			public void RemoveCrystals(int num) {
 				
-				if(num == 1 && player.Crystal1_A.equals("blue_crystal_intextra_1")) { AddItemBag("blue_crystal_intextra_1"); player.Wis_A = player.Wis_A - 2; player.MpMax_A = player.MpMax_A - 20; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("blue_crystal_intextra_1")) { AddItemBag("blue_crystal_intextra_1"); player.Wis_A = player.Wis_A - 2; player.MpMax_A = player.MpMax_A - 20; player.Crystal2_A = "none";return; }	
-				if(num == 3 && player.Crystal3_A.equals("blue_crystal_intextra_1")) { AddItemBag("blue_crystal_intextra_1"); player.Wis_A = player.Wis_A - 2; player.MpMax_A = player.MpMax_A - 20; player.Crystal3_A = "none"; return; }	
-				if(num == 4 && player.Crystal4_A.equals("blue_crystal_intextra_1")) { AddItemBag("blue_crystal_intextra_1"); player.Wis_A = player.Wis_A - 2; player.MpMax_A = player.MpMax_A - 20; player.Crystal4_A = "none"; return; }	
+				if(num == 1 && player.Crystal1.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 2; player.MpMax = player.MpMax - 20; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 2; player.MpMax = player.MpMax - 20; player.Crystal2 = "none";return; }	
+				if(num == 3 && player.Crystal3.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 2; player.MpMax = player.MpMax - 20; player.Crystal3 = "none"; return; }	
+				if(num == 4 && player.Crystal4.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 2; player.MpMax = player.MpMax - 20; player.Crystal4 = "none"; return; }	
 				
-				if(num == 1 && player.Crystal1_A.equals("blue_crystal_intextra_2")) { AddItemBag("blue_crystal_intextra_2"); player.Wis_A = player.Wis_A - 5; player.MpMax_A = player.MpMax_A - 50; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("blue_crystal_intextra_2")) { AddItemBag("blue_crystal_intextra_2"); player.Wis_A = player.Wis_A - 5; player.MpMax_A = player.MpMax_A - 50; player.Crystal2_A = "none"; return; }	
-				if(num == 3 && player.Crystal3_A.equals("blue_crystal_intextra_2")) { AddItemBag("blue_crystal_intextra_2"); player.Wis_A = player.Wis_A - 5; player.MpMax_A = player.MpMax_A - 50; player.Crystal3_A = "none"; return; }	
-				if(num == 4 && player.Crystal4_A.equals("blue_crystal_intextra_2")) { AddItemBag("blue_crystal_intextra_2"); player.Wis_A = player.Wis_A - 5; player.MpMax_A = player.MpMax_A - 50; player.Crystal4_A = "none"; return; }
+				if(num == 1 && player.Crystal1.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 5; player.MpMax = player.MpMax - 50; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 5; player.MpMax = player.MpMax - 50; player.Crystal2 = "none"; return; }	
+				if(num == 3 && player.Crystal3.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 5; player.MpMax = player.MpMax - 50; player.Crystal3 = "none"; return; }	
+				if(num == 4 && player.Crystal4.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 5; player.MpMax = player.MpMax - 50; player.Crystal4 = "none"; return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal2_A = "none"; return; }	
-				if(num == 3 && player.Crystal3_A.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal3_A = "none"; return; }	
-				if(num == 4 && player.Crystal4_A.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal4_A = "none"; return; }
+				if(num == 1 && player.Crystal1.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 10; player.MpMax = player.MpMax - 100; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 10; player.MpMax = player.MpMax - 100; player.Crystal2 = "none"; return; }	
+				if(num == 3 && player.Crystal3.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 10; player.MpMax = player.MpMax - 100; player.Crystal3 = "none"; return; }	
+				if(num == 4 && player.Crystal4.equals("blue_crystal_intextra")) { AddItemBag("blue_crystal_intextra"); player.Wis = player.Wis - 10; player.MpMax = player.MpMax - 100; player.Crystal4 = "none"; return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal2_A = "none"; return; }	
-				if(num == 3 && player.Crystal3_A.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal3_A = "none"; return; }	
-				if(num == 4 && player.Crystal4_A.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal4_A = "none"; return; }
-				
-				
-				if(num == 1 && player.Crystal1_A.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal2_A = "none"; return; }	
-				if(num == 3 && player.Crystal3_A.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal3_A = "none"; return; }	
-				if(num == 4 && player.Crystal4_A.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal4_A = "none"; return; }	
-				
-				if(num == 1 && player.Crystal1_A.equals("green_crystal_lukextra_2")) { AddItemBag("green_crystal_lukextra_2"); player.Luk_A = player.Luk_A - 5; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("green_crystal_lukextra_2")) { AddItemBag("green_crystal_lukextra_2"); player.Luk_A = player.Luk_A - 5; player.Crystal2_A = "none"; return; }	
-				if(num == 3 && player.Crystal3_A.equals("green_crystal_lukextra_2")) { AddItemBag("green_crystal_lukextra_2"); player.Luk_A = player.Luk_A - 5; player.Crystal3_A = "none"; return; }	
-				if(num == 4 && player.Crystal4_A.equals("green_crystal_lukextra_2")) { AddItemBag("green_crystal_lukextra_2"); player.Luk_A = player.Luk_A- 5;  player.Crystal4_A = "none"; return; }
-				
-				if(num == 1 && player.Crystal1_A.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal2_A = "none"; return; }	
-				if(num == 3 && player.Crystal3_A.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal3_A = "none"; return; }	
-				if(num == 4 && player.Crystal4_A.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal4_A = "none"; return; }
-				
-				if(num == 1 && player.Crystal1_A.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal2_A = "none"; return; }	
-				if(num == 3 && player.Crystal3_A.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal3_A = "none"; return; }	
-				if(num == 4 && player.Crystal4_A.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal4_A = "none"; return; }
-				
-				if(num == 1 && player.Crystal1_A.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal1_A = "none"; player.MpMax_A = player.HpMax_A - 20; return; }	
-				if(num == 2 && player.Crystal2_A.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 20; return; }	
-				if(num == 3 && player.Crystal3_A.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 20; return; }	
-				if(num == 4 && player.Crystal4_A.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 20; return; }	
-				
-				if(num == 1 && player.Crystal1_A.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit_A = player.Vit_A - 5; player.Crystal1_A = "none";  player.MpMax_A = player.HpMax_A - 50; return; }	
-				if(num == 2 && player.Crystal2_A.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit_A = player.Vit_A - 5; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 50; return; }	
-				if(num == 3 && player.Crystal3_A.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit_A = player.Vit_A - 5; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 50; return; }	
-				if(num == 4 && player.Crystal4_A.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit_A = player.Vit_A - 5; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 50; return; }
-				
-				if(num == 1 && player.Crystal1_A.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal1_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }	
-				if(num == 2 && player.Crystal2_A.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }	
-				if(num == 3 && player.Crystal3_A.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }	
-				if(num == 4 && player.Crystal4_A.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }
-				
-				if(num == 1 && player.Crystal1_A.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal1_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
-				if(num == 2 && player.Crystal2_A.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
-				if(num == 3 && player.Crystal3_A.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
-				if(num == 4 && player.Crystal4_A.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }
+				if(num == 1 && player.Crystal1.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis = player.Wis - 15; player.MpMax = player.MpMax - 200; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis = player.Wis - 15; player.MpMax = player.MpMax - 200; player.Crystal2 = "none"; return; }	
+				if(num == 3 && player.Crystal3.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis = player.Wis - 15; player.MpMax = player.MpMax - 200; player.Crystal3 = "none"; return; }	
+				if(num == 4 && player.Crystal4.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis = player.Wis - 15; player.MpMax = player.MpMax - 200; player.Crystal4 = "none"; return; }
 				
 				
-				if(num == 1 && player.Crystal1_A.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal1_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
-				if(num == 2 && player.Crystal2_A.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal2_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
-				if(num == 3 && player.Crystal3_A.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal3_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
-				if(num == 4 && player.Crystal4_A.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal4_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
+				if(num == 1 && player.Crystal1.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 2; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 2; player.Crystal2 = "none"; return; }	
+				if(num == 3 && player.Crystal3.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 2; player.Crystal3 = "none"; return; }	
+				if(num == 4 && player.Crystal4.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 2; player.Crystal4 = "none"; return; }	
 				
-				if(num == 1 && player.Crystal1_A.equals("yellow_crystal_agiextra_2")) { AddItemBag("yellow_crystal_agiextra_2"); player.Agi_A = player.Agi_A - 5; player.AtkTimerMax_A = player.AtkTimerMax_A + 4;  player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("yellow_crystal_agiextra_2")) { AddItemBag("yellow_crystal_agiextra_2"); player.Agi_A = player.Agi_A - 5; player.AtkTimerMax_A = player.AtkTimerMax_A + 4;  player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("yellow_crystal_agiextra_2")) { AddItemBag("yellow_crystal_agiextra_2"); player.Agi_A = player.Agi_A - 5; player.AtkTimerMax_A = player.AtkTimerMax_A + 4;  player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("yellow_crystal_agiextra_2")) { AddItemBag("yellow_crystal_agiextra_2"); player.Agi_A = player.Agi_A - 5; player.AtkTimerMax_A = player.AtkTimerMax_A + 4;  player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 5; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 5; player.Crystal2 = "none"; return; }	
+				if(num == 3 && player.Crystal3.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 5; player.Crystal3 = "none"; return; }	
+				if(num == 4 && player.Crystal4.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk- 5;  player.Crystal4 = "none"; return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A= player.AtkTimerMax_A + 6; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 10; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 10; player.Crystal2 = "none"; return; }	
+				if(num == 3 && player.Crystal3.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 10; player.Crystal3 = "none"; return; }	
+				if(num == 4 && player.Crystal4.equals("green_crystal_lukextra")) { AddItemBag("green_crystal_lukextra"); player.Luk = player.Luk - 10; player.Crystal4 = "none"; return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk = player.Luk - 15; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk = player.Luk - 15; player.Crystal2 = "none"; return; }	
+				if(num == 3 && player.Crystal3.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk = player.Luk - 15; player.Crystal3 = "none"; return; }	
+				if(num == 4 && player.Crystal4.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk = player.Luk - 15; player.Crystal4 = "none"; return; }
+				
+				if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 2; player.Crystal1 = "none"; player.MpMax = player.HpMax - 20; return; }	
+				if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 2; player.Crystal2 = "none";  player.MpMax = player.HpMax - 20; return; }	
+				if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 2; player.Crystal3 = "none";  player.MpMax = player.HpMax - 20; return; }	
+				if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 2; player.Crystal4 = "none";  player.MpMax = player.HpMax - 20; return; }	
+				
+				if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 5; player.Crystal1 = "none";  player.MpMax = player.HpMax - 50; return; }	
+				if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 5; player.Crystal2 = "none";  player.MpMax = player.HpMax - 50; return; }	
+				if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 5; player.Crystal3 = "none";  player.MpMax = player.HpMax - 50; return; }	
+				if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 5; player.Crystal4 = "none";  player.MpMax = player.HpMax - 50; return; }
+				
+				if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 10; player.Crystal1 = "none";  player.MpMax = player.HpMax - 100; return; }	
+				if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 10; player.Crystal2 = "none";  player.MpMax = player.HpMax - 100; return; }	
+				if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 10; player.Crystal3 = "none";  player.MpMax = player.HpMax - 100; return; }	
+				if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra")) { AddItemBag("purple_crystal_vitextra"); player.Vit = player.Vit - 10; player.Crystal4 = "none";  player.MpMax = player.HpMax - 100; return; }
+				
+				if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit = player.Vit - 15; player.Crystal1 = "none";  player.MpMax = player.HpMax - 200; return; }	
+				if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit = player.Vit - 15; player.Crystal2 = "none";  player.MpMax = player.HpMax - 200; return; }	
+				if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit = player.Vit - 15; player.Crystal3 = "none";  player.MpMax = player.HpMax - 200; return; }	
+				if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit = player.Vit - 15; player.Crystal4 = "none";  player.MpMax = player.HpMax - 200; return; }
 				
 				
-				if(num == 1 && player.Crystal1_A.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal4_A = "none";  return; }	
+				if(num == 1 && player.Crystal1.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 2; player.Crystal1 = "none";  player.AtkTimerMax = player.AtkTimerMax + 2; return; }	
+				if(num == 2 && player.Crystal2.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 2; player.Crystal2 = "none";  player.AtkTimerMax = player.AtkTimerMax + 2; return; }	
+				if(num == 3 && player.Crystal3.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 2; player.Crystal3 = "none";  player.AtkTimerMax = player.AtkTimerMax + 2; return; }	
+				if(num == 4 && player.Crystal4.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 2; player.Crystal4 = "none";  player.AtkTimerMax = player.AtkTimerMax + 2; return; }	
 				
-				if(num == 1 && player.Crystal1_A.equals("red_crystal_strextra_2")) { AddItemBag("red_crystal_strextra_2"); player.Str_A = player.Str_A - 5; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("red_crystal_strextra_2")) { AddItemBag("red_crystal_strextra_2"); player.Str_A = player.Str_A - 5; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("red_crystal_strextra_2")) { AddItemBag("red_crystal_strextra_2"); player.Str_A = player.Str_A - 5; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("red_crystal_strextra_2")) { AddItemBag("red_crystal_strextra_2"); player.Str_A = player.Str_A - 5; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 5; player.AtkTimerMax = player.AtkTimerMax + 4;  player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 5; player.AtkTimerMax = player.AtkTimerMax + 4;  player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 5; player.AtkTimerMax = player.AtkTimerMax + 4;  player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 5; player.AtkTimerMax = player.AtkTimerMax + 4;  player.Crystal4 = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 10; player.AtkTimerMax= player.AtkTimerMax + 6; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 10; player.AtkTimerMax = player.AtkTimerMax + 6; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 10; player.AtkTimerMax = player.AtkTimerMax + 6; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("yellow_crystalgiextra")) { AddItemBag("yellow_crystalgiextra"); player.Agi = player.Agi - 10; player.AtkTimerMax = player.AtkTimerMax + 6; player.Crystal4 = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("yellow_crystalgiextra_4")) { AddItemBag("yellow_crystalgiextra_4"); player.Agi = player.Agi - 15; player.AtkTimerMax = player.AtkTimerMax + 8; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("yellow_crystalgiextra_4")) { AddItemBag("yellow_crystalgiextra_4"); player.Agi = player.Agi - 15; player.AtkTimerMax = player.AtkTimerMax + 8; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("yellow_crystalgiextra_4")) { AddItemBag("yellow_crystalgiextra_4"); player.Agi = player.Agi - 15; player.AtkTimerMax = player.AtkTimerMax + 8; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("yellow_crystalgiextra_4")) { AddItemBag("yellow_crystalgiextra_4"); player.Agi = player.Agi - 15; player.AtkTimerMax = player.AtkTimerMax + 8; player.Crystal4 = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal4_A = "none";  return; }	
 				
-				if(num == 1 && player.Crystal1_A.equals("grey_crystal_dexextra_2")) { AddItemBag("grey_crystal_dexextra_2"); player.Dex_A = player.Dex_A - 5; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("grey_crystal_dexextra_2")) { AddItemBag("grey_crystal_dexextra_2"); player.Dex_A = player.Dex_A - 5; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("grey_crystal_dexextra_2")) { AddItemBag("grey_crystal_dexextra_2"); player.Dex_A = player.Dex_A - 5; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("grey_crystal_dexextra_2")) { AddItemBag("grey_crystal_dexextra_2"); player.Dex_A = player.Dex_A - 5; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 2; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 2; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 2; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 2; player.Crystal4 = "none";  return; }	
 				
-				if(num == 1 && player.Crystal1_A.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 5; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 5; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 5; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 5; player.Crystal4 = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 10; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 10; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 10; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("red_crystal_strextra")) { AddItemBag("red_crystal_strextra"); player.Str = player.Str - 10; player.Crystal4 = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal1_A = "none"; return; }	
-				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal4_A = "none";  return; }	
+				if(num == 1 && player.Crystal1.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str = player.Str - 15; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str = player.Str - 15; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str = player.Str - 15; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str = player.Str - 15; player.Crystal4 = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 2; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 2; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 2; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 2; player.Crystal4 = "none";  return; }	
 				
-				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 5; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 5; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 5; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 5; player.Crystal4 = "none";  return; }
 				
-				if(num == 1 && player.Crystal1_A.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal1_A = "none";  return; }	
-				if(num == 2 && player.Crystal2_A.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal2_A = "none";  return; }	
-				if(num == 3 && player.Crystal3_A.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal3_A = "none";  return; }	
-				if(num == 4 && player.Crystal4_A.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal4_A = "none";  return; }
+				if(num == 1 && player.Crystal1.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 10; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 10; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 10; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("grey_crystal_dexextra")) { AddItemBag("grey_crystal_dexextra"); player.Dex = player.Dex - 10; player.Crystal4 = "none";  return; }
+				
+				if(num == 1 && player.Crystal1.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex = player.Dex - 15; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex = player.Dex - 15; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex = player.Dex - 15; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex = player.Dex - 15; player.Crystal4 = "none";  return; }
+				
+				if(num == 1 && player.Crystal1.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 2; player.StaminaMax = player.StaminaMax - 20; player.regenTimeMax = player.regenTimeMax + 200; player.Crystal1 = "none"; return; }	
+				if(num == 2 && player.Crystal2.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 2; player.StaminaMax = player.StaminaMax - 20; player.regenTimeMax = player.regenTimeMax + 200; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 2; player.StaminaMax = player.StaminaMax - 20; player.regenTimeMax = player.regenTimeMax + 200; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 2; player.StaminaMax = player.StaminaMax - 20; player.regenTimeMax = player.regenTimeMax + 200; player.Crystal4 = "none";  return; }	
+				
+				if(num == 1 && player.Crystal1.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 400; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 400; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 400; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 5; player.StaminaMax = player.StaminaMax - 50; player.regenTimeMax = player.regenTimeMax + 400; player.Crystal4 = "none";  return; }
+				
+				if(num == 1 && player.Crystal1.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 600; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 600; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 600; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("orange_crystal_resextra")) { AddItemBag("orange_crystal_resextra"); player.Res = player.Res - 10; player.StaminaMax = player.StaminaMax - 100; player.regenTimeMax = player.regenTimeMax + 600; player.Crystal4 = "none";  return; }
+				
+				if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res = player.Res - 15; player.StaminaMax = player.StaminaMax - 200; player.regenTimeMax = player.regenTimeMax + 800; player.Crystal1 = "none";  return; }	
+				if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res = player.Res - 15; player.StaminaMax = player.StaminaMax - 200; player.regenTimeMax = player.regenTimeMax + 800; player.Crystal2 = "none";  return; }	
+				if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res = player.Res - 15; player.StaminaMax = player.StaminaMax - 200; player.regenTimeMax = player.regenTimeMax + 800; player.Crystal3 = "none";  return; }	
+				if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res = player.Res - 15; player.StaminaMax = player.StaminaMax - 200; player.regenTimeMax = player.regenTimeMax + 800; player.Crystal4 = "none";  return; }
 			}
 			
 			
@@ -1864,96 +1864,96 @@ public class GameControlHTML {
 				//player.playerInBattle = "no";
 				//playerInAttack = true;
 				
-				if(playerUse.Job_A.equals("Aprendiz")) { atlas_weapongeneric = atlas_nknifes; }
-				if(playerUse.Job_A.equals("Espadachim")) { atlas_weapongeneric = atlas_swords; }
-				if(playerUse.Job_A.equals("Feiticeiro")) { atlas_weapongeneric = atlas_rods; }
-				if(playerUse.Job_A.equals("Batedor")) { atlas_weapongeneric = atlas_axes; }
-				if(playerUse.Job_A.equals("Pistoleiro")) { atlas_weapongeneric = atlas_pistols; }
-				if(playerUse.Job_A.equals("Curandeiro")) { atlas_weapongeneric = atlas_rods; }
-				if(playerUse.Job_A.equals("Ladrao")) { atlas_weapongeneric = atlas_daggers; }
+				if(playerUse.Job.equals("Aprendiz")) { atlas_weapongeneric = atlas_nknifes; }
+				if(playerUse.Job.equals("Espadachim")) { atlas_weapongeneric = atlas_swords; }
+				if(playerUse.Job.equals("Feiticeiro")) { atlas_weapongeneric = atlas_rods; }
+				if(playerUse.Job.equals("Batedor")) { atlas_weapongeneric = atlasxes; }
+				if(playerUse.Job.equals("Pistoleiro")) { atlas_weapongeneric = atlas_pistols; }
+				if(playerUse.Job.equals("Curandeiro")) { atlas_weapongeneric = atlas_rods; }
+				if(playerUse.Job.equals("Ladrao")) { atlas_weapongeneric = atlas_daggers; }
 					
-				if(playerUse.playerInBattle_A.equals("yes")) {
-					if(playerUse.Job_A.equals("Aprendiz")) {
-						if(playerUse.Weapon_A.equals("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 13.5f, playerUse.PosY_A + 11f); }
-						if(playerUse.Weapon_A.equals("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
+				if(playerUse.playerInBattle.equals("yes")) {
+					if(playerUse.Job.equals("Aprendiz")) {
+						if(playerUse.Weapon.equals("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 13.5f, playerUse.PosY + 11f); }
+						if(playerUse.Weapon.equals("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
 					}
-					if(playerUse.Job_A.equals("Espadachim")) {
-						if(playerUse.Weapon_A.equals("woodsword")) { spr_master = atlas_nknifes.createSprite("wood_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("sabersword")) { spr_master = atlas_nknifes.createSprite("saber_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("venomsword")) { spr_master = atlas_nknifes.createSprite("venom_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("edgesword")) { spr_master = atlas_nknifes.createSprite("edge_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("knightsword")) { spr_master = atlas_nknifes.createSprite("knight_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("ragesword")) { spr_master = atlas_nknifes.createSprite("rage_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }						
-					}
-					
-					if(playerUse.Job_A.equals("Feiticeiro")) {
-						if(playerUse.Weapon_A.equals("stickrod")) { spr_master = atlas_nknifes.createSprite("stick_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 13.5f, playerUse.PosY_A + 11f); }
-						if(playerUse.Weapon_A.equals("gloomrod")) { spr_master = atlas_nknifes.createSprite("gloom_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("gemrod")) { spr_master = atlas_nknifes.createSprite("gem_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("lightwieldrod")) { spr_master = atlas_nknifes.createSprite("lightwield_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("serpentrod")) { spr_master = atlas_nknifes.createSprite("serpent_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("clerigrod")) { spr_master = atlas_nknifes.createSprite("clerig_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }										
+					if(playerUse.Job.equals("Espadachim")) {
+						if(playerUse.Weapon.equals("woodsword")) { spr_master = atlas_nknifes.createSprite("wood_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("sabersword")) { spr_master = atlas_nknifes.createSprite("saber_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("venomsword")) { spr_master = atlas_nknifes.createSprite("venom_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("edgesword")) { spr_master = atlas_nknifes.createSprite("edge_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("knightsword")) { spr_master = atlas_nknifes.createSprite("knight_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("ragesword")) { spr_master = atlas_nknifes.createSprite("rage_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }						
 					}
 					
-					if(playerUse.Job_A.equals("Pistoleiro")) {
-						if(playerUse.Weapon_A.equals("basicpistol")) { spr_master = atlas_nknifes.createSprite("basic_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 13.5f, playerUse.PosY_A + 11f); }
-						if(playerUse.Weapon_A.equals("revolverpistol")) { spr_master = atlas_nknifes.createSprite("revolver_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("lightpistol")) { spr_master = atlas_nknifes.createSprite("light_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("turretpistol")) { spr_master = atlas_nknifes.createSprite("turret_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("riflepistol")) { spr_master = atlas_nknifes.createSprite("rifle_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("shooterpistol")) { spr_master = atlas_nknifes.createSprite("shooter_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }										
+					if(playerUse.Job.equals("Feiticeiro")) {
+						if(playerUse.Weapon.equals("stickrod")) { spr_master = atlas_nknifes.createSprite("stick_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 13.5f, playerUse.PosY + 11f); }
+						if(playerUse.Weapon.equals("gloomrod")) { spr_master = atlas_nknifes.createSprite("gloom_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("gemrod")) { spr_master = atlas_nknifes.createSprite("gem_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("lightwieldrod")) { spr_master = atlas_nknifes.createSprite("lightwield_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("serpentrod")) { spr_master = atlas_nknifes.createSprite("serpent_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("clerigrod")) { spr_master = atlas_nknifes.createSprite("clerig_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }										
 					}
 					
-					if(playerUse.Job_A.equals("Ladrao")) {
-						if(playerUse.Weapon_A.equals("basicdagger")) { spr_master = atlas_nknifes.createSprite("basic_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 13.5f, playerUse.PosY_A + 11f); }
-						if(playerUse.Weapon_A.equals("edgedagger")) { spr_master = atlas_nknifes.createSprite("edge_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("poisondagger")) { spr_master = atlas_nknifes.createSprite("poison_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("marinedagger")) { spr_master = atlas_nknifes.createSprite("marine_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("triplodagger")) { spr_master = atlas_nknifes.createSprite("triplo_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }
-						if(playerUse.Weapon_A.equals("thunderdagger")) { spr_master = atlas_nknifes.createSprite("thunder_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 2.9f, playerUse.PosY_A + 6f); }										
+					if(playerUse.Job.equals("Pistoleiro")) {
+						if(playerUse.Weapon.equals("basicpistol")) { spr_master = atlas_nknifes.createSprite("basic_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 13.5f, playerUse.PosY + 11f); }
+						if(playerUse.Weapon.equals("revolverpistol")) { spr_master = atlas_nknifes.createSprite("revolver_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("lightpistol")) { spr_master = atlas_nknifes.createSprite("light_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("turretpistol")) { spr_master = atlas_nknifes.createSprite("turret_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("riflepistol")) { spr_master = atlas_nknifes.createSprite("rifle_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("shooterpistol")) { spr_master = atlas_nknifes.createSprite("shooter_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }										
+					}
+					
+					if(playerUse.Job.equals("Ladrao")) {
+						if(playerUse.Weapon.equals("basicdagger")) { spr_master = atlas_nknifes.createSprite("basic_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 13.5f, playerUse.PosY + 11f); }
+						if(playerUse.Weapon.equals("edgedagger")) { spr_master = atlas_nknifes.createSprite("edge_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("poisondagger")) { spr_master = atlas_nknifes.createSprite("poison_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("marinedagger")) { spr_master = atlas_nknifes.createSprite("marine_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("triplodagger")) { spr_master = atlas_nknifes.createSprite("triplo_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }
+						if(playerUse.Weapon.equals("thunderdagger")) { spr_master = atlas_nknifes.createSprite("thunder_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 2.9f, playerUse.PosY + 6f); }										
 					}
 				}
 				
-				if(playerUse.playerInAttack_A.equals("yes")) {
-					if(playerUse.Job_A.equals("Aprendiz")) {
-						if(playerUse.Weapon_A.equals("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knife_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+				if(playerUse.playerInAttack.equals("yes")) {
+					if(playerUse.Job.equals("Aprendiz")) {
+						if(playerUse.Weapon.equals("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knifettack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
 					}
 					
-					if(playerUse.Job_A.equals("Espadachim")) {
-						if(playerUse.Weapon_A.equals("woodsword")) { spr_master = atlas_nknifes.createSprite("wood_sword_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("sabersword")) { spr_master = atlas_nknifes.createSprite("saber_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("venomsword")) { spr_master = atlas_nknifes.createSprite("venom_sword_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("edgesword")) { spr_master = atlas_nknifes.createSprite("edge_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("knightsword")) { spr_master = atlas_nknifes.createSprite("knight_sword_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("ragesword")) { spr_master = atlas_nknifes.createSprite("rage_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+					if(playerUse.Job.equals("Espadachim")) {
+						if(playerUse.Weapon.equals("woodsword")) { spr_master = atlas_nknifes.createSprite("wood_swordttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("sabersword")) { spr_master = atlas_nknifes.createSprite("saber_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("venomsword")) { spr_master = atlas_nknifes.createSprite("venom_swordttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("edgesword")) { spr_master = atlas_nknifes.createSprite("edge_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("knightsword")) { spr_master = atlas_nknifes.createSprite("knight_swordttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("ragesword")) { spr_master = atlas_nknifes.createSprite("rage_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
 					}
 					
-					if(playerUse.Job_A.equals("Feiticeiro")) {
-						if(playerUse.Weapon_A.equals("stickrod")) { spr_master = atlas_nknifes.createSprite("stick_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("gloomrod")) { spr_master = atlas_nknifes.createSprite("gloom_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("gemrod")) { spr_master = atlas_nknifes.createSprite("gem_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("lightwieldrod")) { spr_master = atlas_nknifes.createSprite("lightwield_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("serpentrod")) { spr_master = atlas_nknifes.createSprite("serpent_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("clerigrod")) { spr_master = atlas_nknifes.createSprite("clerig_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+					if(playerUse.Job.equals("Feiticeiro")) {
+						if(playerUse.Weapon.equals("stickrod")) { spr_master = atlas_nknifes.createSprite("stick_rodttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("gloomrod")) { spr_master = atlas_nknifes.createSprite("gloom_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("gemrod")) { spr_master = atlas_nknifes.createSprite("gem_rodttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("lightwieldrod")) { spr_master = atlas_nknifes.createSprite("lightwield_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("serpentrod")) { spr_master = atlas_nknifes.createSprite("serpent_rodttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("clerigrod")) { spr_master = atlas_nknifes.createSprite("clerig_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
 					}
 					
-					if(playerUse.Job_A.equals("Pistoleiro")) {
-						if(playerUse.Weapon_A.equals("basicpistol")) { spr_master = atlas_nknifes.createSprite("basic_pistol_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("revolverpistol")) { spr_master = atlas_nknifes.createSprite("revolver_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("lightpistol")) { spr_master = atlas_nknifes.createSprite("light_pistol_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("turretpistol")) { spr_master = atlas_nknifes.createSprite("turret_pistol_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("riflepistol")) { spr_master = atlas_nknifes.createSprite("rifle_pistol_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("shooterpistol")) { spr_master = atlas_nknifes.createSprite("shooter_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+					if(playerUse.Job.equals("Pistoleiro")) {
+						if(playerUse.Weapon.equals("basicpistol")) { spr_master = atlas_nknifes.createSprite("basic_pistolttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("revolverpistol")) { spr_master = atlas_nknifes.createSprite("revolver_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("lightpistol")) { spr_master = atlas_nknifes.createSprite("light_pistolttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("turretpistol")) { spr_master = atlas_nknifes.createSprite("turret_pistol_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("riflepistol")) { spr_master = atlas_nknifes.createSprite("rifle_pistolttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("shooterpistol")) { spr_master = atlas_nknifes.createSprite("shooter_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
 					}
 					
-					if(playerUse.Job_A.equals("Ladrao")) {
-						if(playerUse.Weapon_A.equals("basicdagger")) { spr_master = atlas_nknifes.createSprite("basic_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("edgedagger")) { spr_master = atlas_nknifes.createSprite("edge_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("poisondagger")) { spr_master = atlas_nknifes.createSprite("poison_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("marinedagger")) { spr_master = atlas_nknifes.createSprite("marine_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("triplodagger")) { spr_master = atlas_nknifes.createSprite("triplo_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
-						if(playerUse.Weapon_A.equals("thunderdagger")) { spr_master = atlas_nknifes.createSprite("thunder_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX_A - 4.8f, playerUse.PosY_A + 2f);  }
+					if(playerUse.Job.equals("Ladrao")) {
+						if(playerUse.Weapon.equals("basicdagger")) { spr_master = atlas_nknifes.createSprite("basic_daggerttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("edgedagger")) { spr_master = atlas_nknifes.createSprite("edge_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("poisondagger")) { spr_master = atlas_nknifes.createSprite("poison_daggerttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("marinedagger")) { spr_master = atlas_nknifes.createSprite("marine_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("triplodagger")) { spr_master = atlas_nknifes.createSprite("triplo_daggerttack_right"); spr_master.setSize(20, 30); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
+						if(playerUse.Weapon.equals("thunderdagger")) { spr_master = atlas_nknifes.createSprite("thunder_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(playerUse.PosX - 4.8f, playerUse.PosY + 2f);  }
 					}
 				}
 				
@@ -1962,7 +1962,7 @@ public class GameControlHTML {
 			}
 			
 			public void AddItemBag(String itemName) {
-				String[] lstItem = player.Itens_A.split("-");
+				String[] lstItem = player.Itens.split("-");
 				String[] itemSplit;
 				boolean exist = false;
 				int qtd = 0;
@@ -1984,7 +1984,7 @@ public class GameControlHTML {
 						lstItem[posicaoItem] = "[" + itemSplit[0].replace("[", "") + "#" + String.valueOf(qtd) + "]";
 						listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
 						listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
-						player.Itens_A = listaItemFinal;
+						player.Itens = listaItemFinal;
 				}
 				else {
 					for(int i = 0; i < lstItem.length; i++) {
@@ -1998,13 +1998,13 @@ public class GameControlHTML {
 						lstItem[posicaoItem] = "[" + itemName + "#" + "1" + "]";
 						listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
 						listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
-						player.Itens_A = listaItemFinal;
+						player.Itens = listaItemFinal;
 					}
 				}
 			}
 			
 			public void DiscartItem(int itemNum) {
-				String[] lstItem = player.Itens_A.split("-");
+				String[] lstItem = player.Itens.split("-");
 				String listaItemFinal = "";
 				String[] itemSplit;
 				String item;
@@ -2022,18 +2022,18 @@ public class GameControlHTML {
 				qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
 				
 				//Give Money
-				money = player.Money_A;
+				money = player.Money;
 				if(money > 1500) { return; }
 				int moneygave = randnumber.nextInt(5);
 				while(moneygave < 2) { moneygave = randnumber.nextInt(5); }
 				money = money + (moneygave * 2);
-				player.Money_A = money;
+				player.Money = money;
 				
 				//Clean Item placebox
 				lstItem[itemNum] = "[NONE]";
 				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
 				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
-				player.Itens_A = listaItemFinal;	
+				player.Itens = listaItemFinal;	
 			}
 			
 			//Shops
@@ -2042,10 +2042,10 @@ public class GameControlHTML {
 				String SysMsg = "";
 				if(shop.equals("refrishop")) {
 					if(num == 1) {  
-						if(player.Money_A >= 2) {  
+						if(player.Money >= 2) {  
 							AddItemBag("hpcan"); 
-							player.Money_A = player.Money_A - 2; 
-							if(player.Money_A < 0) { player.Money_A = 0; } 	
+							player.Money = player.Money - 2; 
+							if(player.Money < 0) { player.Money = 0; } 	
 							SysMsg = "Comprado!";
 						}
 						else {
@@ -2095,90 +2095,90 @@ public class GameControlHTML {
 			//Give EXP
 			public void GiveExp(int exp) {
 				boolean levelup = false;
-				if(player.Level_A >= 10) {
+				if(player.Level >= 10) {
 					ExpSharedOnline = exp;
 					return;
 				}
 				
-				if(player.Level_A == 50) {
+				if(player.Level == 50) {
 					ExpSharedOnline = exp;
 					return;
 				}
 				
-				player.Exp_A = player.Exp_A + exp;
+				player.Exp = player.Exp + exp;
 				ExpSharedOnline = exp;
 				
 				//Sewers   
-				if(player.Level_A == 1 && player.Exp_A >= 100) {  player.Level_A = 2; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true; }
-				if(player.Level_A == 2 && player.Exp_A >= 150) {  player.Level_A = 3; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 3 && player.Exp_A >= 250) {  player.Level_A = 4; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 4 && player.Exp_A >= 360) {  player.Level_A = 5; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 5 && player.Exp_A >= 430) {  player.Level_A = 6; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 6 && player.Exp_A >= 500) {  player.Level_A = 7; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 7 && player.Exp_A >= 730) {  player.Level_A = 8; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 8 && player.Exp_A >= 1000) {  player.Level_A = 9; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 9 && player.Exp_A >= 1450) {  player.Level_A = 10; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level == 1 && player.Exp >= 100) {  player.Level = 2; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true; }
+				if(player.Level == 2 && player.Exp >= 150) {  player.Level = 3; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 3 && player.Exp >= 250) {  player.Level = 4; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 4 && player.Exp >= 360) {  player.Level = 5; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 5 && player.Exp >= 430) {  player.Level = 6; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 6 && player.Exp >= 500) {  player.Level = 7; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 7 && player.Exp >= 730) {  player.Level = 8; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 8 && player.Exp >= 1000) {  player.Level = 9; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 9 && player.Exp >= 1450) {  player.Level = 10; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
 				
 				//Watercave
-				if(player.Level_A == 10 && player.Exp_A >= 1840) {  player.Level_A = 11; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 11 && player.Exp_A >= 3330) {  player.Level_A = 12; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 12 && player.Exp_A >= 5500) {  player.Level_A = 13; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 13 && player.Exp_A >= 7600) {  player.Level_A = 14; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 14 && player.Exp_A >= 9929) {  player.Level_A = 15; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 15 && player.Exp_A >= 12820) {  player.Level_A = 16; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 16 && player.Exp_A >= 15293) {  player.Level_A = 17; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 17 && player.Exp_A >= 17300) {  player.Level_A = 18; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 18 && player.Exp_A >= 22402) {  player.Level_A = 19; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 19 && player.Exp_A >= 26902) {  player.Level_A = 20; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level == 10 && player.Exp >= 1840) {  player.Level = 11; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 11 && player.Exp >= 3330) {  player.Level = 12; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 12 && player.Exp >= 5500) {  player.Level = 13; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 13 && player.Exp >= 7600) {  player.Level = 14; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 14 && player.Exp >= 9929) {  player.Level = 15; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 15 && player.Exp >= 12820) {  player.Level = 16; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 16 && player.Exp >= 15293) {  player.Level = 17; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 17 && player.Exp >= 17300) {  player.Level = 18; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 18 && player.Exp >= 22402) {  player.Level = 19; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 19 && player.Exp >= 26902) {  player.Level = 20; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
 				
 				//Mines
-				if(player.Level_A == 20 && player.Exp_A >= 34592) {  player.Level_A = 21; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 21 && player.Exp_A >= 46923) {  player.Level_A = 22; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 22 && player.Exp_A >= 75829) {  player.Level_A = 23; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 23 && player.Exp_A >= 90234) {  player.Level_A = 24; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 24 && player.Exp_A >= 153042) {  player.Level_A = 25; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 25 && player.Exp_A >= 179232) {  player.Level_A = 26; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 26 && player.Exp_A >= 221011) {  player.Level_A = 27; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 27 && player.Exp_A >= 259323) {  player.Level_A = 28; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 28 && player.Exp_A >= 279293) {  player.Level_A = 29; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 29 && player.Exp_A >= 383421) {  player.Level_A = 30; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level == 20 && player.Exp >= 34592) {  player.Level = 21; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 21 && player.Exp >= 46923) {  player.Level = 22; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 22 && player.Exp >= 75829) {  player.Level = 23; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 23 && player.Exp >= 90234) {  player.Level = 24; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 24 && player.Exp >= 153042) {  player.Level = 25; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 25 && player.Exp >= 179232) {  player.Level = 26; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 26 && player.Exp >= 221011) {  player.Level = 27; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 27 && player.Exp >= 259323) {  player.Level = 28; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 28 && player.Exp >= 279293) {  player.Level = 29; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 29 && player.Exp >= 383421) {  player.Level = 30; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
 				
 				//Snowpalace
-				if(player.Level_A == 30 && player.Exp_A >= 593421)  {  player.Level_A = 31; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 31 && player.Exp_A >= 814402)  {  player.Level_A = 32; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 32 && player.Exp_A >= 1534611) {  player.Level_A = 33; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 33 && player.Exp_A >= 1839770) {  player.Level_A = 34; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 34 && player.Exp_A >= 2433026) {  player.Level_A = 35; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 35 && player.Exp_A >= 2792074) {  player.Level_A = 36; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 36 && player.Exp_A >= 2931441) {  player.Level_A = 37; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 37 && player.Exp_A >= 3304900) {  player.Level_A = 38; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 38 && player.Exp_A >= 3588905) {  player.Level_A = 39; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 39 && player.Exp_A >= 4987320) {  player.Level_A = 40; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level == 30 && player.Exp >= 593421)  {  player.Level = 31; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 31 && player.Exp >= 814402)  {  player.Level = 32; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 32 && player.Exp >= 1534611) {  player.Level = 33; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 33 && player.Exp >= 1839770) {  player.Level = 34; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 34 && player.Exp >= 2433026) {  player.Level = 35; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 35 && player.Exp >= 2792074) {  player.Level = 36; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 36 && player.Exp >= 2931441) {  player.Level = 37; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 37 && player.Exp >= 3304900) {  player.Level = 38; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 38 && player.Exp >= 3588905) {  player.Level = 39; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 39 && player.Exp >= 4987320) {  player.Level = 40; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
 				
 				//Tower												   
-				if(player.Level_A == 40 && player.Exp_A >= 9188696000f) {  player.Level_A = 41; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 41 && player.Exp_A >= 9288526000f) {  player.Level_A = 42; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 42 && player.Exp_A >= 9488446000f) {  player.Level_A = 43; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 43 && player.Exp_A >= 9588316000f) {  player.Level_A = 44; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 44 && player.Exp_A >= 9688236000f) {  player.Level_A = 45; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 45 && player.Exp_A >= 9798126000f) {  player.Level_A = 46; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 46 && player.Exp_A >= 9828646000f) {  player.Level_A = 47; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 47 && player.Exp_A >= 9878756009f) {  player.Level_A = 48; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 48 && player.Exp_A >= 9888866009f) {  player.Level_A = 49; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
-				if(player.Level_A == 49 && player.Exp_A >= 9999999999f) {  player.Level_A = 50; player.Exp_A = 0; player.HpMax_A = player.HpMax_A + 10; player.StatusPoint_A = player.StatusPoint_A + 6; levelup = true;}
+				if(player.Level == 40 && player.Exp >= 9188696000f) {  player.Level = 41; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 41 && player.Exp >= 9288526000f) {  player.Level = 42; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 42 && player.Exp >= 9488446000f) {  player.Level = 43; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 43 && player.Exp >= 9588316000f) {  player.Level = 44; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 44 && player.Exp >= 9688236000f) {  player.Level = 45; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 45 && player.Exp >= 9798126000f) {  player.Level = 46; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 46 && player.Exp >= 9828646000f) {  player.Level = 47; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 47 && player.Exp >= 9878756009f) {  player.Level = 48; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 48 && player.Exp >= 9888866009f) {  player.Level = 49; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
+				if(player.Level == 49 && player.Exp >= 9999999999f) {  player.Level = 50; player.Exp = 0; player.HpMax = player.HpMax + 10; player.StatusPoint = player.StatusPoint + 6; levelup = true;}
 				
 				if(levelup) {
-					if(player.Job_A.equals("Aprendiz")) { player.HpMax_A = player.HpMax_A + 10; player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 1; }
+					if(player.Job.equals("Aprendiz")) { player.HpMax = player.HpMax + 10; player.MpMax = player.MpMax + 10; player.Atk = player.Atk + 1; }
 					
-					if(player.Job_A.equals("Espadachim")) { player.HpMax_A = player.HpMax_A + 20; player.Atk_A = player.Atk_A + 5;}
+					if(player.Job.equals("Espadachim")) { player.HpMax = player.HpMax + 20; player.Atk = player.Atk + 5;}
 					
-					if(player.Job_A.equals("Feiticeiro")) { player.MpMax_A = player.MpMax_A + 15; player.Atk_A = player.Atk_A + 3;}
+					if(player.Job.equals("Feiticeiro")) { player.MpMax = player.MpMax + 15; player.Atk = player.Atk + 3;}
 					
-					if(player.Job_A.equals("Curandeiro")) { player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 3;}
+					if(player.Job.equals("Curandeiro")) { player.MpMax = player.MpMax + 10; player.Atk = player.Atk + 3;}
 					
-					if(player.Job_A.equals("Pistoleiro")) { player.HpMax_A = player.HpMax_A + 8; player.Atk_A = player.Atk_A + 3; player.AtkTimerMax_A = player.AtkTimerMax_A -2;}
+					if(player.Job.equals("Pistoleiro")) { player.HpMax = player.HpMax + 8; player.Atk = player.Atk + 3; player.AtkTimerMax = player.AtkTimerMax -2;}
 					
-					if(player.Job_A.equals("Ladrao")) { player.HpMax_A = player.HpMax_A + 10; player.Atk_A = player.Atk_A + 2; player.AtkTimerMax_A = player.AtkTimerMax_A -4;}		
+					if(player.Job.equals("Ladrao")) { player.HpMax = player.HpMax + 10; player.Atk = player.Atk + 2; player.AtkTimerMax = player.AtkTimerMax -4;}		
 				}	
 				
 				levelup = false;
@@ -2186,62 +2186,62 @@ public class GameControlHTML {
 			
 			public String ExpPercent() {
 				
-				float percent = player.getExp_A();
+				float percent = player.Exp;
 			    float totalExp = 0;
 			    
-			    if(player.Level_A == 1) { totalExp = 100; }
-			    if(player.Level_A == 2) { totalExp = 150; }
-			    if(player.Level_A == 3) { totalExp = 250; }
-			    if(player.Level_A == 4) { totalExp = 360; }
-			    if(player.Level_A == 5) { totalExp = 430; }
-			    if(player.Level_A == 6) { totalExp = 500; }
-			    if(player.Level_A == 7) { totalExp = 730; }
-			    if(player.Level_A == 8) { totalExp = 1000; }
-			    if(player.Level_A == 9) { totalExp = 1450; }
+			    if(player.Level == 1) { totalExp = 100; }
+			    if(player.Level == 2) { totalExp = 150; }
+			    if(player.Level == 3) { totalExp = 250; }
+			    if(player.Level == 4) { totalExp = 360; }
+			    if(player.Level == 5) { totalExp = 430; }
+			    if(player.Level == 6) { totalExp = 500; }
+			    if(player.Level == 7) { totalExp = 730; }
+			    if(player.Level == 8) { totalExp = 1000; }
+			    if(player.Level == 9) { totalExp = 1450; }
 			    
-			    if(player.Level_A == 10) { totalExp = 1840; }
-			    if(player.Level_A == 11) { totalExp = 3330; }
-			    if(player.Level_A == 12) { totalExp = 5500; }
-			    if(player.Level_A == 13) { totalExp = 7600; }
-			    if(player.Level_A == 14) { totalExp = 9929; }
-			    if(player.Level_A == 15) { totalExp = 12820; }
-			    if(player.Level_A == 16) { totalExp = 15293; }
-			    if(player.Level_A == 17) { totalExp = 17300; }
-			    if(player.Level_A == 18) { totalExp = 22402; }
-			    if(player.Level_A == 19) { totalExp = 26902; }
+			    if(player.Level == 10) { totalExp = 1840; }
+			    if(player.Level == 11) { totalExp = 3330; }
+			    if(player.Level == 12) { totalExp = 5500; }
+			    if(player.Level == 13) { totalExp = 7600; }
+			    if(player.Level == 14) { totalExp = 9929; }
+			    if(player.Level == 15) { totalExp = 12820; }
+			    if(player.Level == 16) { totalExp = 15293; }
+			    if(player.Level == 17) { totalExp = 17300; }
+			    if(player.Level == 18) { totalExp = 22402; }
+			    if(player.Level == 19) { totalExp = 26902; }
 			    
-			    if(player.Level_A == 20) { totalExp = 34592; }
-			    if(player.Level_A == 21) { totalExp = 46923; }
-			    if(player.Level_A == 22) { totalExp = 75829; }
-			    if(player.Level_A == 23) { totalExp = 90234; }
-			    if(player.Level_A == 24) { totalExp = 153042; }
-			    if(player.Level_A == 25) { totalExp = 179232; }
-			    if(player.Level_A == 26) { totalExp = 221011; }
-			    if(player.Level_A == 27) { totalExp = 259323; }
-			    if(player.Level_A == 28) { totalExp = 279293; }
-			    if(player.Level_A == 29) { totalExp = 383421; }
+			    if(player.Level == 20) { totalExp = 34592; }
+			    if(player.Level == 21) { totalExp = 46923; }
+			    if(player.Level == 22) { totalExp = 75829; }
+			    if(player.Level == 23) { totalExp = 90234; }
+			    if(player.Level == 24) { totalExp = 153042; }
+			    if(player.Level == 25) { totalExp = 179232; }
+			    if(player.Level == 26) { totalExp = 221011; }
+			    if(player.Level == 27) { totalExp = 259323; }
+			    if(player.Level == 28) { totalExp = 279293; }
+			    if(player.Level == 29) { totalExp = 383421; }
 			    
-			    if(player.Level_A == 30) { totalExp = 593421; }
-			    if(player.Level_A == 31) { totalExp = 814402; }
-			    if(player.Level_A == 32) { totalExp = 1534611; }
-			    if(player.Level_A == 33) { totalExp = 1839770; }
-			    if(player.Level_A == 34) { totalExp = 2433026; }
-			    if(player.Level_A == 35) { totalExp = 2792074; }
-			    if(player.Level_A == 36) { totalExp = 2931441; }
-			    if(player.Level_A == 37) { totalExp = 3304900; }
-			    if(player.Level_A == 38) { totalExp = 3588905; }
-			    if(player.Level_A == 39) { totalExp = 4987320; }
+			    if(player.Level == 30) { totalExp = 593421; }
+			    if(player.Level == 31) { totalExp = 814402; }
+			    if(player.Level == 32) { totalExp = 1534611; }
+			    if(player.Level == 33) { totalExp = 1839770; }
+			    if(player.Level == 34) { totalExp = 2433026; }
+			    if(player.Level == 35) { totalExp = 2792074; }
+			    if(player.Level == 36) { totalExp = 2931441; }
+			    if(player.Level == 37) { totalExp = 3304900; }
+			    if(player.Level == 38) { totalExp = 3588905; }
+			    if(player.Level == 39) { totalExp = 4987320; }
 			    
-			    if(player.Level_A == 40) { totalExp = 6987320; }
-			    if(player.Level_A == 41) { totalExp = 8987320; }
-			    if(player.Level_A == 42) { totalExp = 92198732; }
-			    if(player.Level_A == 43) { totalExp = 95883160f; }
-			    if(player.Level_A == 44) { totalExp = 96882360f; }
-			    if(player.Level_A == 45) { totalExp = 97981260f; }
-			    if(player.Level_A == 46) { totalExp = 98286460f; }
-			    if(player.Level_A == 47) { totalExp = 987875600f; }
-			    if(player.Level_A == 48) { totalExp = 988886600f; }
-			    if(player.Level_A == 49) { totalExp = 9999999999f; }
+			    if(player.Level == 40) { totalExp = 6987320; }
+			    if(player.Level == 41) { totalExp = 8987320; }
+			    if(player.Level == 42) { totalExp = 92198732; }
+			    if(player.Level == 43) { totalExp = 95883160f; }
+			    if(player.Level == 44) { totalExp = 96882360f; }
+			    if(player.Level == 45) { totalExp = 97981260f; }
+			    if(player.Level == 46) { totalExp = 98286460f; }
+			    if(player.Level == 47) { totalExp = 987875600f; }
+			    if(player.Level == 48) { totalExp = 988886600f; }
+			    if(player.Level == 49) { totalExp = 9999999999f; }
 			    									      
 			    float result = (float)((percent*100)/totalExp);
 			    return String.valueOf(result);
@@ -2424,275 +2424,72 @@ public class GameControlHTML {
 				Player playerload = new Player();
 
 				playerload.AccountID = fields[2];
-				playerload.Name_1 = fields[4];
-				playerload.Sex_1 = fields[6];
-				playerload.Hair_1 = fields[8];
-				playerload.Color_1 = fields[10];
-				playerload.Hat_1 = fields[12];
-				playerload.Job_1 = fields[14];
-				playerload.SetUpper_1 = fields[16];
-				playerload.SetBottom_1 = fields[18];
-				playerload.SetFooter_1 = fields[20];
-				playerload.Level_1 = Integer.parseInt(fields[22]);
-				playerload.Exp_1 = Float.parseFloat(fields[24]);
-				playerload.Map_1 = fields[26];
-				playerload.Hp_1 = Integer.parseInt(fields[28]);
-				playerload.Mp_1 = Integer.parseInt(fields[30]);
-				playerload.Money_1 = Integer.parseInt(fields[32]);
-				playerload.HpMax_1 = Integer.parseInt(fields[34]);
-				playerload.MpMax_1 = Integer.parseInt(fields[36]);
-				playerload.regenTime_1 = Integer.parseInt(fields[38]);
-				playerload.regenTimeMax_1 = Integer.parseInt(fields[40]);
-				playerload.PosX_1 = Float.parseFloat(fields[42]);
-				playerload.PosY_1 = Float.parseFloat(fields[44]);
-				playerload.Walk_1 = fields[46];
-				playerload.Frame_1 = Integer.parseInt(fields[48]);
-				playerload.countFrame_1 = Integer.parseInt(fields[50]);
-				playerload.breakwalk_1 = fields[52];
-				playerload.Target_1 = fields[54];
-				playerload.AtkTimer_1 = Integer.parseInt(fields[56]);
-				playerload.AtkTimerMax_1 = Integer.parseInt(fields[58]);
-				playerload.Casting_1 = fields[60];
-				playerload.Atk_1 = Integer.parseInt(fields[62]);
-				playerload.Def_1 = Integer.parseInt(fields[64]);
-				playerload.Evasion_1 = Integer.parseInt(fields[66]);
-				playerload.Side_1 = fields[68];
-				playerload.Weapon_1 = fields[70];
-				playerload.Crystal1_1 = fields[72];
-				playerload.Crystal2_1 = fields[74];
-				playerload.Crystal3_1 = fields[76];
-				playerload.Crystal4_1 = fields[78];
-				playerload.StatusPoint_1 = Integer.parseInt(fields[80]);
-				playerload.Str_1 = Integer.parseInt(fields[82]);
-				playerload.Agi_1 = Integer.parseInt(fields[84]);
-				playerload.Vit_1 = Integer.parseInt(fields[86]);
-				playerload.Dex_1 = Integer.parseInt(fields[88]);
-				playerload.Wis_1 = Integer.parseInt(fields[90]);
-				playerload.Luk_1 = Integer.parseInt(fields[92]);
-				playerload.Res_1 = Integer.parseInt(fields[94]);
-				playerload.Stamina_1 = Integer.parseInt(fields[96]);
-				playerload.StaminaMax_1 = Integer.parseInt(fields[98]);
-				playerload.Itens_1 = fields[100];
-				playerload.Quests_1 = fields[102];
-				playerload.hotkey1_1 = fields[104];
-				playerload.hotkey2_1 = fields[106];
-				playerload.buffA_1 = fields[108];
-				playerload.buffB_1 = fields[110];
-				playerload.buffC_1 = fields[112];
-				playerload.BuffTimeA_1 = Integer.parseInt(fields[114]);
-				playerload.BuffTimeB_1 = Integer.parseInt(fields[116]);
-				playerload.BuffTimeC_1 = Integer.parseInt(fields[118]);
-				playerload.party_1 = fields[120];
-				playerload.playerInBattle_1 = fields[122];
-				playerload.playerInAttack_1 = fields[124];
-				playerload.playerInCast_1 = fields[126];
-				playerload.playerSit_1 = fields[128];
-				playerload.SyncPlayerMob_1 = fields[130];
-				playerload.PlayerExpGet_1 = fields[132];
+				playerload.Name = fields[4];
+				playerload.Sex = fields[6];
+				playerload.Hair = fields[8];
+				playerload.Color = fields[10];
+				playerload.Hat = fields[12];
+				playerload.Job = fields[14];
+				playerload.SetUpper = fields[16];
+				playerload.SetBottom = fields[18];
+				playerload.SetFooter = fields[20];
+				playerload.Level = Integer.parseInt(fields[22]);
+				playerload.Exp = Float.parseFloat(fields[24]);
+				playerload.Map = fields[26];
+				playerload.Hp = Integer.parseInt(fields[28]);
+				playerload.Mp = Integer.parseInt(fields[30]);
+				playerload.Money = Integer.parseInt(fields[32]);
+				playerload.HpMax = Integer.parseInt(fields[34]);
+				playerload.MpMax = Integer.parseInt(fields[36]);
+				playerload.regenTime = Integer.parseInt(fields[38]);
+				playerload.regenTimeMax = Integer.parseInt(fields[40]);
+				playerload.PosX = Float.parseFloat(fields[42]);
+				playerload.PosY = Float.parseFloat(fields[44]);
+				playerload.Walk = fields[46];
+				playerload.Frame = Integer.parseInt(fields[48]);
+				playerload.countFrame = Integer.parseInt(fields[50]);
+				playerload.breakwalk = fields[52];
+				playerload.Target = fields[54];
+				playerload.AtkTimer = Integer.parseInt(fields[56]);
+				playerload.AtkTimerMax = Integer.parseInt(fields[58]);
+				playerload.Casting = fields[60];
+				playerload.Atk = Integer.parseInt(fields[62]);
+				playerload.Def = Integer.parseInt(fields[64]);
+				playerload.Evasion = Integer.parseInt(fields[66]);
+				playerload.Side = fields[68];
+				playerload.Weapon = fields[70];
+				playerload.Crystal1 = fields[72];
+				playerload.Crystal2 = fields[74];
+				playerload.Crystal3 = fields[76];
+				playerload.Crystal4 = fields[78];
+				playerload.StatusPoint = Integer.parseInt(fields[80]);
+				playerload.Str = Integer.parseInt(fields[82]);
+				playerload.Agi = Integer.parseInt(fields[84]);
+				playerload.Vit = Integer.parseInt(fields[86]);
+				playerload.Dex = Integer.parseInt(fields[88]);
+				playerload.Wis = Integer.parseInt(fields[90]);
+				playerload.Luk = Integer.parseInt(fields[92]);
+				playerload.Res = Integer.parseInt(fields[94]);
+				playerload.Stamina = Integer.parseInt(fields[96]);
+				playerload.StaminaMax = Integer.parseInt(fields[98]);
+				playerload.Itens = fields[100];
+				playerload.Quests = fields[102];
+				playerload.hotkey1 = fields[104];
+				playerload.hotkey2 = fields[106];
+				playerload.buffA = fields[108];
+				playerload.buffB = fields[110];
+				playerload.buffC = fields[112];
+				playerload.BuffTimeA = Integer.parseInt(fields[114]);
+				playerload.BuffTimeB = Integer.parseInt(fields[116]);
+				playerload.BuffTimeC = Integer.parseInt(fields[118]);
+				playerload.party = fields[120];
+				playerload.playerInBattle = fields[122];
+				playerload.playerInAttack = fields[124];
+				playerload.playerInCast = fields[126];
+				playerload.playerSit = fields[128];
+				playerload.SyncPlayerMob = fields[130];
+				playerload.PlayerExpGet = fields[132];
 
-				playerload.Name_2 = fields[134];
-				playerload.Sex_2 = fields[136];
-				playerload.Hair_2 = fields[138];
-				playerload.Color_2 = fields[140];
-				playerload.Hat_2 = fields[142];
-				playerload.Job_2 = fields[144];
-				playerload.SetUpper_2 = fields[146];
-				playerload.SetBottom_2 = fields[148];
-				playerload.SetFooter_2 = fields[150];
-				playerload.Level_2 = Integer.parseInt(fields[152]);
-				playerload.Exp_2 = Float.parseFloat(fields[154]);
-				playerload.Map_2 = fields[156];
-				playerload.Hp_2 = Integer.parseInt(fields[158]);
-				playerload.Mp_2 = Integer.parseInt(fields[160]);
-				playerload.Money_2 = Integer.parseInt(fields[162]);
-				playerload.HpMax_2 = Integer.parseInt(fields[164]);
-				playerload.MpMax_2 = Integer.parseInt(fields[166]);
-				playerload.regenTime_2 = Integer.parseInt(fields[168]);
-				playerload.regenTimeMax_2 = Integer.parseInt(fields[170]);
-				playerload.PosX_2 = Float.parseFloat(fields[172]);
-				playerload.PosY_2 = Float.parseFloat(fields[174]);
-				playerload.Walk_2 = fields[176];
-				playerload.Frame_2 = Integer.parseInt(fields[178]);
-				playerload.countFrame_2 = Integer.parseInt(fields[180]);
-				playerload.breakwalk_2 = fields[182];
-				playerload.Target_2 = fields[184];
-				playerload.AtkTimer_2 = Integer.parseInt(fields[186]);
-				playerload.AtkTimerMax_2 = Integer.parseInt(fields[188]);
-				playerload.Casting_2 = fields[190];
-				playerload.Atk_2 = Integer.parseInt(fields[192]);
-				playerload.Def_2 = Integer.parseInt(fields[194]);
-				playerload.Evasion_2 = Integer.parseInt(fields[196]);
-				playerload.Side_2 = fields[198];
-				playerload.Weapon_2 = fields[200];
-				playerload.Crystal1_2 = fields[202];
-				playerload.Crystal2_2 = fields[204];
-				playerload.Crystal3_2 = fields[206];
-				playerload.Crystal4_2 = fields[208];
-				playerload.StatusPoint_2 = Integer.parseInt(fields[210]);
-				playerload.Str_2 = Integer.parseInt(fields[212]);
-				playerload.Agi_2 = Integer.parseInt(fields[214]);
-				playerload.Vit_2 = Integer.parseInt(fields[216]);
-				playerload.Dex_2 = Integer.parseInt(fields[218]);
-				playerload.Wis_2 = Integer.parseInt(fields[220]);
-				playerload.Luk_2 = Integer.parseInt(fields[222]);
-				playerload.Res_2 = Integer.parseInt(fields[224]);
-				playerload.Stamina_2 = Integer.parseInt(fields[226]);
-				playerload.StaminaMax_2 = Integer.parseInt(fields[228]);
-				playerload.Itens_2 = fields[230];
-				playerload.Quests_2 = fields[232];
-				playerload.hotkey1_2 = fields[234];
-				playerload.hotkey2_2 = fields[236];
-				playerload.buffA_2 = fields[238];
-				playerload.buffB_2 = fields[240];
-				playerload.buffC_2 = fields[242];
-				playerload.BuffTimeA_2 = Integer.parseInt(fields[244]);
-				playerload.BuffTimeB_2 = Integer.parseInt(fields[246]);
-				playerload.BuffTimeC_2 = Integer.parseInt(fields[248]);
-				playerload.party_2 = fields[250];
-				playerload.playerInBattle_2 = fields[252];
-				playerload.playerInAttack_2 = fields[254];
-				playerload.playerInCast_2 = fields[256];
-				playerload.playerSit_2 = fields[258];
-				playerload.SyncPlayerMob_2 = fields[260];
-				playerload.PlayerExpGet_2 = fields[262];
-
-				playerload.Name_3 = fields[264];
-				playerload.Sex_3 = fields[266];
-				playerload.Hair_3 = fields[268];
-				playerload.Color_3 = fields[270];
-				playerload.Hat_3 = fields[272];
-				playerload.Job_3 = fields[274];
-				playerload.SetUpper_3 = fields[276];
-				playerload.SetBottom_3 = fields[278];
-				playerload.SetFooter_3 = fields[280];
-				playerload.Level_3 = Integer.parseInt(fields[282]);
-				playerload.Exp_3 = Float.parseFloat(fields[284]);
-				playerload.Map_3 = fields[286];
-				playerload.Hp_3 = Integer.parseInt(fields[288]);
-				playerload.Mp_3 = Integer.parseInt(fields[290]);
-				playerload.Money_3 = Integer.parseInt(fields[292]);
-				playerload.HpMax_3 = Integer.parseInt(fields[294]);
-				playerload.MpMax_3 = Integer.parseInt(fields[296]);
-				playerload.regenTime_3 = Integer.parseInt(fields[298]);
-				playerload.regenTimeMax_3 = Integer.parseInt(fields[300]);
-				playerload.PosX_3 = Float.parseFloat(fields[302]);
-				playerload.PosY_3 = Float.parseFloat(fields[304]);
-				playerload.Walk_3 = fields[306];
-				playerload.Frame_3 = Integer.parseInt(fields[308]);
-				playerload.countFrame_3 = Integer.parseInt(fields[310]);
-				playerload.breakwalk_3 = fields[312];
-				playerload.Target_3 = fields[314];
-				playerload.AtkTimer_3 = Integer.parseInt(fields[316]);
-				playerload.AtkTimerMax_3 = Integer.parseInt(fields[318]);
-				playerload.Casting_3 = fields[320];
-				playerload.Atk_3 = Integer.parseInt(fields[322]);
-				playerload.Def_3 = Integer.parseInt(fields[324]);
-				playerload.Evasion_3 = Integer.parseInt(fields[326]);
-				playerload.Side_3 = fields[328];
-				playerload.Weapon_3 = fields[330];
-				playerload.Crystal1_3 = fields[332];
-				playerload.Crystal2_3 = fields[334];
-				playerload.Crystal3_3 = fields[336];
-				playerload.Crystal4_3 = fields[338];
-				playerload.StatusPoint_3 = Integer.parseInt(fields[340]);
-				playerload.Str_3 = Integer.parseInt(fields[342]);
-				playerload.Agi_3 = Integer.parseInt(fields[344]);
-				playerload.Vit_3 = Integer.parseInt(fields[346]);
-				playerload.Dex_3 = Integer.parseInt(fields[348]);
-				playerload.Wis_3 = Integer.parseInt(fields[350]);
-				playerload.Luk_3 = Integer.parseInt(fields[352]);
-				playerload.Res_3 = Integer.parseInt(fields[354]);
-				playerload.Stamina_3 = Integer.parseInt(fields[356]);
-				playerload.StaminaMax_3 = Integer.parseInt(fields[358]);
-				playerload.Itens_3 = fields[360];
-				playerload.Quests_3 = fields[362];
-				playerload.hotkey1_3 = fields[364];
-				playerload.hotkey2_3 = fields[366];
-				playerload.buffA_3 = fields[368];
-				playerload.buffB_3 = fields[370];
-				playerload.buffC_3 = fields[372];
-				playerload.BuffTimeA_3 = Integer.parseInt(fields[374]);
-				playerload.BuffTimeB_3 = Integer.parseInt(fields[376]);
-				playerload.BuffTimeC_3 = Integer.parseInt(fields[378]);
-				playerload.party_3 = fields[380];
-				playerload.playerInBattle_3 = fields[382];
-				playerload.playerInAttack_3 = fields[384];
-				playerload.playerInCast_3 = fields[386];
-				playerload.playerSit_3 = fields[388];
-				playerload.SyncPlayerMob_3 = fields[390];
-				playerload.PlayerExpGet_3 = fields[392];
-			}
-			
-			public void UpdateExpGet(String line) {
-				int expserver = 0;
-				String[] lineSplit = line.split(":");
-				expserver = Integer.parseInt(lineSplit[4]);
-				player.PlayerExpGet_A = lineSplit[6];
-				int dv = expserver / 5;
-				GiveExp(dv);
-				SetSave(charNumber);
-				//SaveData(player);
-			}
-			
-			public void UpdateListOnlineChats(String line) {
-				lstChats.add(line);		
-			}
-			
-			public ArrayList<String> GetChatList() {
-				return lstChats;
-			}
-			
-			public ArrayList<Player> GetListOnlinePlayers(){
-				return lstOnlinePlayers;
-			}
-			
-			public void UpdateOnlinePlayers(String line) {
 				
-				String[] lineSplit = line.split(":");
-				playerOnline = new Player();
-				playerOnline.AccountID = lineSplit[4];
-				playerOnline.Name_A = lineSplit[2];
-				playerOnline.Level_A = Integer.parseInt(lineSplit[6]);
-				playerOnline.Map_A = lineSplit[8];
-				playerOnline.Hp_A = Integer.parseInt(lineSplit[10]);
-				playerOnline.Mp_A = Integer.parseInt(lineSplit[12]);
-				playerOnline.PosX_A = Float.parseFloat(lineSplit[14]);
-				playerOnline.PosY_A = Float.parseFloat(lineSplit[16]);
-				playerOnline.Walk_A = lineSplit[18];
-				playerOnline.Weapon_A = lineSplit[20];
-				playerOnline.Frame_A = Integer.parseInt(lineSplit[22]);
-				playerOnline.SyncPlayerMob_A = lineSplit[24];
-				playerOnline.SetUpper_A = lineSplit[26];
-				playerOnline.SetBottom_A = lineSplit[28];
-				playerOnline.SetFooter_A = lineSplit[30];
-				playerOnline.Hair_A = lineSplit[32];
-				playerOnline.Sex_A = lineSplit[34];
-				playerOnline.Color_A = lineSplit[36];
-				playerOnline.Hat_A = lineSplit[38];
-				playerOnline.Side_A = lineSplit[40];
-				playerOnline.Job_A = lineSplit[42];
-				playerOnline.playerInBattle_A = lineSplit[44];
-				playerOnline.playerInAttack_A = lineSplit[46];
-				playerOnline.playerInCast_A = lineSplit[48];
-				playerOnline.playerSit_A = lineSplit[50];
-				playerOnline.party_A = lineSplit[52];
-				playerOnline.Exp_A = Integer.parseInt(lineSplit[54]);
-				
-				if(!player.AccountID.equals(playerOnline.AccountID)) { 
-					lstOnlinePlayers.add(playerOnline); 
-				}
-
-				Map<String, Player> playersMap = new HashMap<String, Player>();
-
-				for (Player player : lstOnlinePlayers) {
-				    playersMap.put(player.getAccountID(), player);
-				}
-
-				lstOnlinePlayers.clear();
-				lstOnlinePlayers.addAll(playersMap.values());
 			}
-
-		
-			
-			
 }

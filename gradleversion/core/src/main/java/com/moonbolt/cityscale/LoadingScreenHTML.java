@@ -58,7 +58,7 @@ public class LoadingScreenHTML implements Screen, ApplicationListener, InputProc
 		this.playernumber = _playernumber;
 
 		this.gameControl = new GameControl();
-		player = gameControl.LoadData();
+		//player = gameControl.LoadData();
 
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -118,7 +118,7 @@ public class LoadingScreenHTML implements Screen, ApplicationListener, InputProc
 		}
 
 		if(changeScreen){
-			if(player.Map_A.equals("MetroStation")) { game.Switch("MetroStation", network,account,playernumber); }
+			if(player.Map.equals("MetroStation")) { game.Switch("MetroStation", network,account,playernumber); }
 			else { game.Switch("GameMap", network,account,playernumber); }
 
 		}

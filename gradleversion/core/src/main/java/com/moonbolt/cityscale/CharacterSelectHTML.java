@@ -72,11 +72,11 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);
 
-		public CharacterSelectHTML(MainGame _game, ManagerScreen _screen,boolean _network, String _account, int _playernumber) {
+		public CharacterSelectHTML(MainGame _game, ManagerScreen _screen,boolean _network, String ccount, int _playernumber) {
 			this.game = _game;
 			this.screen = _screen;
 			this.network = _network;
-			this.account = _account;
+			this.account = ccount;
 			this.playernumber = _playernumber;
 			this.gameControlHTML = new GameControlHTML();
 
@@ -159,7 +159,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 					spr_master = gameControlHTML.GetUXSmall("btnexclude");
 					spr_master.draw(game.batch);
 
-					if(!player.Name_1.equals("none")) {
+					if(!player.Name.equals("none")) {
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",1);
 						spr_master.draw(game.batch);
 
@@ -169,10 +169,10 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,1);
 						spr_master.draw(game.batch);
 					}
-					if(!player.Name_2.equals("none")) {
+					if(!player.Name.equals("none")) {
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",2);
 						spr_master.draw(game.batch);
 
@@ -182,10 +182,10 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,2);
 						spr_master.draw(game.batch);
 					}
-					if(!player.Name_3.equals("none")) {
+					if(!player.Name.equals("none")) {
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",3);
 						spr_master.draw(game.batch);
 
@@ -195,7 +195,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,3);
 						spr_master.draw(game.batch);
 					}
 				}
@@ -240,7 +240,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 
 
 
-					if(!player.Name_1.equals("none")) {
+					if(!player.Name.equals("none")) {
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",1);
 						spr_master.draw(game.batch);
 
@@ -250,10 +250,10 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,1);
 						spr_master.draw(game.batch);
 					}
-					if(!player.Name_2.equals("none")) {
+					if(!player.Name.equals("none")) {
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",2);
 						spr_master.draw(game.batch);
 
@@ -263,10 +263,10 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,2);
 						spr_master.draw(game.batch);
 					}
-					if(!player.Name_3.equals("none")) {
+					if(!player.Name.equals("none")) {
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",3);
 						spr_master.draw(game.batch);
 
@@ -276,7 +276,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,3);
 						spr_master.draw(game.batch);
 					}
 				}
@@ -294,7 +294,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 					font_master.setUseIntegerPositions(false);
 
 
-					if(!player.Name_1.equals("none") && selectedchar == 1) {
+					if(!player.Name.equals("none") && selectedchar == 1) {
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",1);
 						spr_master.draw(game.batch);
 
@@ -304,14 +304,14 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,1);
 						spr_master.draw(game.batch);
 
-						font_master.draw(game.batch, player.Name_1 , 25 , 48);
-						font_master.draw(game.batch, String.valueOf(player.Level_1), 25 , 42);
-						font_master.draw(game.batch, player.Map_1 , 25 , 35);
+						font_master.draw(game.batch, player.Name , 25 , 48);
+						font_master.draw(game.batch, String.valueOf(player.Level), 25 , 42);
+						font_master.draw(game.batch, player.Map , 25 , 35);
 					}
-					if(!player.Name_2.equals("none")  && selectedchar == 2) {
+					if(!player.Name.equals("none")  && selectedchar == 2) {
 
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",2);
 						spr_master.draw(game.batch);
@@ -322,14 +322,14 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,2);
 						spr_master.draw(game.batch);
 
-						font_master.draw(game.batch, player.Name_2 , 25 , 48);
-						font_master.draw(game.batch, String.valueOf(player.Level_2), 25 , 42);
-						font_master.draw(game.batch, player.Map_2 , 25 , 35);
+						font_master.draw(game.batch, player.Name , 25 , 48);
+						font_master.draw(game.batch, String.valueOf(player.Level), 25 , 42);
+						font_master.draw(game.batch, player.Map , 25 , 35);
 					}
-					if(!player.Name_3.equals("none")  && selectedchar == 3) {
+					if(!player.Name.equals("none")  && selectedchar == 3) {
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",3);
 						spr_master.draw(game.batch);
 
@@ -339,17 +339,17 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex, player.Hair,player.Color,3);
 						spr_master.draw(game.batch);
 
-						font_master.draw(game.batch, player.Name_3 , 25 , 48);
-						font_master.draw(game.batch, String.valueOf(player.Level_3), 25 , 42);
-						font_master.draw(game.batch, player.Map_3 , 25 , 35);
+						font_master.draw(game.batch, player.Name , 25 , 48);
+						font_master.draw(game.batch, String.valueOf(player.Level), 25 , 42);
+						font_master.draw(game.batch, player.Map , 25 , 35);
 					}
 				}
 
 				if(state.equals("Change")) {
-					player.Map_A.equals("MetroStation");
+					player.Map.equals("MetroStation");
 					//gameControlHTML.SaveData(player);
 					this.screen.screenSwitch("LoadingScreen", network, account,playernumber);
 					dispose();
@@ -455,7 +455,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 				}
 				//select char 1
 				if(coordsTouch.x >=  -52 && coordsTouch.x <= -28 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					if(!player.Name_1.equals("none")) {
+					if(!player.Name.equals("none")) {
 						selectedchar = 1;
 						state = "Selected";
 					}
@@ -463,7 +463,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 				}
 				//select char 2
 				if(coordsTouch.x >=  -15 && coordsTouch.x <= 15 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					if(!player.Name_2.equals("none")) {
+					if(!player.Name.equals("none")) {
 						selectedchar = 2;
 						state = "Selected";
 					}
@@ -471,7 +471,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 				}
 				//select char 3
 				if(coordsTouch.x >=  22 && coordsTouch.x <= 44 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					if(!player.Name_3.equals("none")) {
+					if(!player.Name.equals("none")) {
 						selectedchar = 3;
 						state = "Selected";
 					}
@@ -570,7 +570,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 
 				//Confirmar
 				if(coordsTouch.x >= 28 && coordsTouch.x <= 54 && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
-					gameControlHTML.CreateNewChar(name, sex, hair, color);
+					//gameControlHTML.CreateNewChar(name, sex, hair, color);
 					//player = gameControlHTML.LoadData();
 					state = "Main";
 					return false;
@@ -614,7 +614,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 				}
 				//Selected
 				if(coordsTouch.x >=  + 40 && coordsTouch.x <= 63 && coordsTouch.y >= 11 && coordsTouch.y <= 24) {
-					gameControlHTML.SetCharacter(selectedchar);
+					//gameControlHTML.SetCharacter(selectedchar);
 					state = "Change";
 					return false;
 				}
