@@ -16,7 +16,7 @@ public class ManagerScreen implements Screen{
 		this.gameControl = new GameControl(); 
 	}
 	
-	public void screenSwitch(String tipo, boolean network, int playernum){
+	public void screenSwitch(String tipo, boolean network, String account, int playernum){
 		
 		if(tipo.equals("SplashScreen")){	
 			SplashScreen splashScreen = new SplashScreen(game, this,playernum);
@@ -29,22 +29,22 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("CharacterSelectScreen")){	
-			CharacterSelect CharacterSelectScreen = new CharacterSelect(game,this, network);
+			CharacterSelectHTML CharacterSelectScreen = new CharacterSelectHTML(game,this, network,account, playernum);
 			game.setScreen(CharacterSelectScreen);
 		}
 		
 		if(tipo.equals("LoadingScreen")){	
-			LoadingScreen loadingScreen = new LoadingScreen(game,network,playernum);
+			LoadingScreenHTML loadingScreen = new LoadingScreenHTML(game,network,account,playernum);
 			game.setScreen(loadingScreen);
 		}
 		
 		if(tipo.equals("MetroStation")){
-			MetroStation MetroScreen = new MetroStation(game,this, network, playernum);
+			MetroStationHTML MetroScreen = new MetroStationHTML(game,this, network,account, playernum);
 			game.setScreen(MetroScreen);
 		}
 		
 		if(tipo.equals("GameMap")) {
-			GameMap gameMapScreen = new GameMap(game,this, network,playernum);
+			GameMapHTML gameMapScreen = new GameMapHTML(game,this, network,account, playernum);
 			game.setScreen(gameMapScreen);
 		}
 	}

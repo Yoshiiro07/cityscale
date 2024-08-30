@@ -681,7 +681,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 44.5f;
 				player.PosY_A = -4.5f;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network,playernum);
+				//this.screen.screenSwitch("LoadingScreen",network,playernum);
 				dispose();
 			}
 			if(map.equals("StreetsAFromSewers")) {
@@ -689,7 +689,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 112.5f;
 				player.PosY_A = -142f;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network,playernum);
+				//this.screen.screenSwitch("LoadingScreen",network,playernum);
 				dispose();
 			}
 		}
@@ -875,7 +875,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.PosX_A = 0;
 				player.PosY_A = 0;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network,playernum);
+				//this.screen.screenSwitch("LoadingScreen",network,playernum);
 			}
 		}
 

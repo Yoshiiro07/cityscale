@@ -153,7 +153,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				
 				
 				if(state.equals("charselect")) {
-					this.screen.screenSwitch("CharacterSelectScreen", network,playernum);
+					//this.screen.screenSwitch("CharacterSelectScreen", network,playernum);
 					dispose();
 				}
 				

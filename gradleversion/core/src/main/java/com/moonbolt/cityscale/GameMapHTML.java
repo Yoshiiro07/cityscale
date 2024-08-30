@@ -34,6 +34,8 @@ public class GameMapHTML implements Screen, ApplicationListener, InputProcessor,
 	    private ManagerScreen screen;
 	    private GameControl gameControl;
 	    private String state = "Main";
+	    private String account = "";
+	    private int playernumber = 0;
 	    private Sprite spr_master;
 		private Random randnumber;
 		private boolean network = false;
@@ -144,12 +146,13 @@ public class GameMapHTML implements Screen, ApplicationListener, InputProcessor,
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);
 
-		public GameMapHTML(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt, int playernumber) {
+		public GameMapHTML(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt,String accountAlt, int playernumberAlt) {
 			this.game = gameAlt;
 			this.screen = screenAlt;
 			this.randnumber = new Random();
 			this.network = networkAlt;
-			this.playernum = playernumber;
+			this.account = accountAlt;
+			this.playernum = playernumberAlt;
 
 			//Load Player Data
 			this.gameControl = new GameControl();
@@ -681,7 +684,7 @@ public class GameMapHTML implements Screen, ApplicationListener, InputProcessor,
 				player.PosX_A = 44.5f;
 				player.PosY_A = -4.5f;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network,playernum);
+				this.screen.screenSwitch("LoadingScreen",network,account,playernumber);
 				dispose();
 			}
 			if(map.equals("StreetsAFromSewers")) {
@@ -689,7 +692,7 @@ public class GameMapHTML implements Screen, ApplicationListener, InputProcessor,
 				player.PosX_A = 112.5f;
 				player.PosY_A = -142f;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network,playernum);
+				this.screen.screenSwitch("LoadingScreen",network,account,playernumber);
 				dispose();
 			}
 		}
@@ -875,7 +878,7 @@ public class GameMapHTML implements Screen, ApplicationListener, InputProcessor,
 				player.PosX_A = 0;
 				player.PosY_A = 0;
 				gameControl.SaveData(player);
-				this.screen.screenSwitch("LoadingScreen",network,playernum);
+				this.screen.screenSwitch("LoadingScreen",network,account,playernumber);
 			}
 		}
 

@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.TextInputListener;
@@ -42,6 +43,7 @@ public class GameControlHTML {
 	private Player player;
 	private int FrameAtkPlayer = 0;
 	private int charNumber = 0;
+	private String accountID = "";
 	
 	private ArrayList<Monster> lstMonsters;
 	private Monster placeholderMonster;
@@ -55,16 +57,7 @@ public class GameControlHTML {
 	private Player playerOnline = new Player();
     private int countCleanOnline = 800;
 	private String retornoOnline = "";
-	private int threahCountSyncPlayer = 0;
-	private int threahCountSyncChat = 0;
-	private int threahCountSyncMob = 0;
-	private Thread thrOnlineSyncPlayer;
-	private Thread thrOnlineSyncChat;
-	private Thread thrOnlineSyncMob;
-	private boolean onlineAuth = false;
-    private boolean versionDif = false; 
-    private boolean uploadDone = false;
-    private String lservername = "cityserver.mysql.uhserver.com";
+	private String lservername = "cityserver.mysql.uhserver.com";
     private String lusername = "citymaster";
     private String lpassword = "P@titos07";
     private String ldbname = "cityserver";
@@ -138,6 +131,7 @@ public class GameControlHTML {
 		
 		json = new Json();
 		randnumber = new Random();
+		player = new Player();
 		
 		//Chats
 		lstChats = new ArrayList<String>();
@@ -227,36 +221,6 @@ public class GameControlHTML {
 	
 	
 	//[Account]//
-	public void CheckData() {
-		file = Gdx.files.local("SaveData/save.json");
-		
-		//Creating a new one
-		if (!file.exists()) {
-				try {
-					Player player = new Player();
-					int accNumber = randnumber.nextInt(99999999);
-					while(accNumber < 1000000){
-						accNumber = randnumber.nextInt(99999999);
-					}
-					player.AccountID = String.valueOf(accNumber);
-					player.Name_1 = "none";
-					player.Name_2 = "none";
-					player.Name_3 = "none";
-					file.writeString(Base64Coder.encodeString(json.prettyPrint(player)), false);
-				} 
-				catch (Exception e) 
-				{
-					String test = e.getMessage();
-				}
-		}
-		
-		else 
-		{
-			FileHandle file = Gdx.files.local("SaveData/save.json");		
-			player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
-		}
-	}
-	
 	public String CreateNewAccount() {
 		try {
 			Player player = new Player();
@@ -265,9 +229,7 @@ public class GameControlHTML {
 				accNumber = randnumber.nextInt(99999999);
 			}
 			player.AccountID = String.valueOf(accNumber);
-			player.Name_1 = "none";
-			player.Name_2 = "none";
-			player.Name_3 = "none";
+			accountID = String.valueOf(accNumber);
 			String result = OnlineManager("NewAccount", String.valueOf(accNumber),"");
 			return result;
 		} 
@@ -280,487 +242,90 @@ public class GameControlHTML {
 
 	public Player LoadDataHTML(String accountNumber) {
 		String result = OnlineManager("LoadData", accountNumber,"");
-		if (result.equals("fail")) {
-			return null;
-		} else {
-			return player;
-		}
-	}
-	
-	public void SaveData(Player acPlayer) {
-		file = Gdx.files.local("SaveData/save.json");
-		file.writeString(Base64Coder.encodeString(json.prettyPrint(acPlayer)), false);
-		this.player = acPlayer;
-	}
-
-	public Player LoadData(){
-		FileHandle file = Gdx.files.local("SaveData/save.json");		
-		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
+		if(result.equals("fail")) {return null;}
 		return player;
 	}
 	
-	public void DeleteChar(int num) {
-		if(num == 1) { player.Name_1 = "none"; SaveData(player); }
-		if(num == 2) { player.Name_2 = "none"; SaveData(player); }
-		if(num == 3) { player.Name_3 = "none"; SaveData(player); }
-	}
-	
-	public void CreateNewChar(String name, String sex, String hair, String color) {
-		boolean created = false;
-		player = new Player();
-		
-		FileHandle file = Gdx.files.local("SaveData/save.json");		
-		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
-		
-		if(player.Name_1.equals("none") && !created) {
-			player.Name_1 = name;
-			player.Sex_1 = sex;
-			player.Hair_1 = hair;
-			player.Color_1 = color;
-			player.Hat_1 = "none";
-			player.Job_1 = "Aprendiz";
-			player.SetUpper_1 = "basictop";
-			player.SetBottom_1 = "basicbottom";
-			player.SetFooter_1 = "basicfooter";
-			player.Level_1 = 1;
-			player.Exp_1 = 0;
-			player.Map_1 = "MetroStation";
-			player.Hp_1 = 30;
-			player.Mp_1 = 20;
-			player.Money_1 = 50;
-			player.HpMax_1 = 30;
-			player.MpMax_1 = 20;
-			player.regenTime_1 = 6000;
-			player.regenTimeMax_1 = 6000;
-			player.PosX_1 = 0;
-			player.PosY_1 = 0;
-			player.Walk_1 = "no";
-			player.Frame_1 = 1;
-			player.countFrame_1 = 1;
-			player.breakwalk_1 = "";
-			player.Target_1 = "none";
-			player.AtkTimer_1 = 300;
-			player.AtkTimerMax_1 = 300;
-			player.Casting_1 = "no";
-			player.Atk_1 = 5;
-			player.Def_1 = 1;
-			player.Evasion_1 = 0;
-			player.Side_1 =	"front";
-			player.Weapon_1 = "basicknife";
-			player.Crystal1_1 = "none";
-			player.Crystal2_1 = "none";
-			player.Crystal3_1 = "none";
-			player.Crystal4_1 = "none";
-			player.StatusPoint_1 = 0;
-			player.Str_1 = 1;
-			player.Agi_1 = 1;
-			player.Vit_1 = 1;
-			player.Dex_1 = 1;
-			player.Wis_1 = 1;
-			player.Stamina_1 = 100;
-			player.StaminaMax_1 = 100;
-			player.Quests_1 = "none";
-			player.hotkey1_1 = "none";
-			player.hotkey2_1 = "none";
-			player.buffA_1 = "none";
-			player.buffB_1 = "none";
-			player.buffC_1 = "none";
-			player.BuffTimeA_1 = 0;
-			player.BuffTimeB_1 = 0;
-			player.BuffTimeC_1 = 0;
-			player.party_1 = "none";
-			player.playerInBattle_1 = "none";
-			player.playerInAttack_1 = "none";
-			player.playerInCast_1 = "none";
-			player.playerSit_1 = "none";
-			player.SyncPlayerMob_1 = "none";
-			player.PlayerExpGet_1 = "0";
-			
-			String itensList = "";
-	        for(int i = 0; i < 16; i++) {
-	            if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
-	            if(i > 0) { itensList = itensList + "[NONE]-"; }          
-	        }
-	        player.Itens_1 = itensList;
-	        created = true;
-		}
-		
-		if(player.Name_2.equals("none") && !created) {
-			player.Name_2 = name;
-			player.Sex_2 = sex;
-			player.Hair_2 = hair;
-			player.Color_2 = color;
-			player.Hat_2 = "none";
-			player.Job_2 = "Aprendiz";
-			player.SetUpper_2 = "basictop";
-			player.SetBottom_2 = "basicbottom";
-			player.SetFooter_2 = "basicfooter";
-			player.Level_2 = 1;
-			player.Exp_2 = 0;
-			player.Map_2 = "MetroStation";
-			player.Hp_2 = 30;
-			player.Mp_2 = 20;
-			player.Money_2 = 50;
-			player.HpMax_2 = 30;
-			player.MpMax_2 = 20;
-			player.regenTime_2 = 6000;
-			player.regenTimeMax_2 = 6000;
-			player.PosX_2 = 0;
-			player.PosY_2 = 0;
-			player.Walk_2 = "no";
-			player.Frame_2 = 1;
-			player.countFrame_2 = 1;
-			player.breakwalk_2 = "";
-			player.Target_2 = "none";
-			player.AtkTimer_2 = 300;
-			player.AtkTimerMax_2 = 300;
-			player.Casting_2 = "no";
-			player.Atk_2 = 5;
-			player.Def_2 = 1;
-			player.Evasion_2 = 0;
-			player.Side_2 =	"front";
-			player.Weapon_2 = "basicknife";
-			player.Crystal1_2 = "none";
-			player.Crystal2_2 = "none";
-			player.Crystal3_2 = "none";
-			player.Crystal4_2 = "none";
-			player.StatusPoint_2 = 0;
-			player.Str_2 = 1;
-			player.Agi_2 = 1;
-			player.Vit_2 = 1;
-			player.Dex_2 = 1;
-			player.Wis_2 = 1;
-			player.Stamina_2 = 100;
-			player.StaminaMax_2 = 100;
-			player.Quests_2 = "none";
-			player.hotkey1_2 = "none";
-			player.hotkey2_2 = "none";
-			player.buffA_2 = "none";
-			player.buffB_2 = "none";
-			player.buffC_2 = "none";
-			player.BuffTimeA_2 = 0;
-			player.BuffTimeB_2 = 0;
-			player.BuffTimeC_2 = 0;
-			player.party_2 = "none";
-			player.playerInBattle_2 = "none";
-			player.playerInAttack_2 = "none";
-			player.playerInCast_2 = "none";
-			player.playerSit_2 = "none";
-			player.SyncPlayerMob_2 = "none";
-			player.PlayerExpGet_2 = "0";
-			
-			String itensList = "";
-			for(int i = 0; i < 16; i++) {
-				if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
-	            if(i > 0) { itensList = itensList + "[NONE]-"; }        
-	        }
-	        player.Itens_2 = itensList;
-	        created = true;
-		}
-		
-		if(player.Name_3.equals("none") && !created) {
-			player.Name_3 = name;
-			player.Sex_3 = sex;
-			player.Hair_3 = hair;
-			player.Color_3 = color;
-			player.Hat_3 = "none";
-			player.Job_3 = "Aprendiz";
-			player.SetUpper_3 = "basictop";
-			player.SetBottom_3 = "basicbottom";
-			player.SetFooter_3 = "basicfooter";
-			player.Level_3 = 1;
-			player.Exp_3 = 0;
-			player.Map_3 = "MetroStation";
-			player.Hp_3 = 30;
-			player.Mp_3 = 20;
-			player.Money_3 = 50;
-			player.HpMax_3 = 30;
-			player.MpMax_3 = 20;
-			player.regenTime_3 = 6000;
-			player.regenTimeMax_3 = 6000;
-			player.PosX_3 = 0;
-			player.PosY_3 = 0;
-			player.Walk_3 = "no";
-			player.Frame_3 = 1;
-			player.countFrame_3 = 1;
-			player.breakwalk_3 = "";
-			player.Target_3 = "none";
-			player.AtkTimer_3 = 300;
-			player.AtkTimerMax_3 = 300;
-			player.Casting_3 = "no";
-			player.Atk_3 = 5;
-			player.Def_3 = 1;
-			player.Evasion_3 = 0;
-			player.Side_3 =	"front";
-			player.Weapon_3 = "basicknife";
-			player.Crystal1_3 = "none";
-			player.Crystal2_3 = "none";
-			player.Crystal3_3 = "none";
-			player.Crystal4_3 = "none";
-			player.StatusPoint_3 = 0;
-			player.Str_3 = 1;
-			player.Agi_3 = 1;
-			player.Vit_3 = 1;
-			player.Dex_3 = 1;
-			player.Wis_3 = 1;
-			player.Stamina_3 = 100;
-			player.StaminaMax_3 = 100;
-			player.Quests_3 = "none";
-			player.hotkey1_3 = "none";
-			player.hotkey2_3 = "none";
-			player.buffA_3 = "none";
-			player.buffB_3 = "none";
-			player.buffC_3 = "none";
-			player.BuffTimeA_3 = 0;
-			player.BuffTimeB_3 = 0;
-			player.BuffTimeC_3 = 0;
-			player.party_3 = "none";
-			player.playerInBattle_3 = "none";
-			player.playerInAttack_3 = "none";
-			player.playerInCast_3 = "none";
-			player.playerSit_3 = "none";
-			player.SyncPlayerMob_3 = "none";
-			player.PlayerExpGet_3 = "0";
-			
-			String itensList = "";
-			for(int i = 0; i < 16; i++) {
-				if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
-	            if(i > 0) { itensList = itensList + "[NONE]-"; }          
-	        }
-	        player.Itens_3 = itensList;
-	        created = true;
-		}
-		
-		SaveData(player);		
+	public String GetAccount() {
+		return accountID;
 	}
 	
 	public void CreateNewCharHTML(String name, String sex, String hair, String color) {
 		boolean created = false;
 		player = new Player();
 		
-		FileHandle file = Gdx.files.local("SaveData/save.json");		
-		player = json.fromJson(Player.class, Base64Coder.decodeString(file.readString()));
-		
-		if(player.Name_1.equals("none") && !created) {
-			player.Name_1 = name;
-			player.Sex_1 = sex;
-			player.Hair_1 = hair;
-			player.Color_1 = color;
-			player.Hat_1 = "none";
-			player.Job_1 = "Aprendiz";
-			player.SetUpper_1 = "basictop";
-			player.SetBottom_1 = "basicbottom";
-			player.SetFooter_1 = "basicfooter";
-			player.Level_1 = 1;
-			player.Exp_1 = 0;
-			player.Map_1 = "MetroStation";
-			player.Hp_1 = 30;
-			player.Mp_1 = 20;
-			player.Money_1 = 50;
-			player.HpMax_1 = 30;
-			player.MpMax_1 = 20;
-			player.regenTime_1 = 6000;
-			player.regenTimeMax_1 = 6000;
-			player.PosX_1 = 0;
-			player.PosY_1 = 0;
-			player.Walk_1 = "no";
-			player.Frame_1 = 1;
-			player.countFrame_1 = 1;
-			player.breakwalk_1 = "";
-			player.Target_1 = "none";
-			player.AtkTimer_1 = 300;
-			player.AtkTimerMax_1 = 300;
-			player.Casting_1 = "no";
-			player.Atk_1 = 5;
-			player.Def_1 = 1;
-			player.Evasion_1 = 0;
-			player.Side_1 =	"front";
-			player.Weapon_1 = "basicknife";
-			player.Crystal1_1 = "none";
-			player.Crystal2_1 = "none";
-			player.Crystal3_1 = "none";
-			player.Crystal4_1 = "none";
-			player.StatusPoint_1 = 0;
-			player.Str_1 = 1;
-			player.Agi_1 = 1;
-			player.Vit_1 = 1;
-			player.Dex_1 = 1;
-			player.Wis_1 = 1;
-			player.Stamina_1 = 100;
-			player.StaminaMax_1 = 100;
-			player.Quests_1 = "none";
-			player.hotkey1_1 = "none";
-			player.hotkey2_1 = "none";
-			player.buffA_1 = "none";
-			player.buffB_1 = "none";
-			player.buffC_1 = "none";
-			player.BuffTimeA_1 = 0;
-			player.BuffTimeB_1 = 0;
-			player.BuffTimeC_1 = 0;
-			player.party_1 = "none";
-			player.playerInBattle_1 = "none";
-			player.playerInAttack_1 = "none";
-			player.playerInCast_1 = "none";
-			player.playerSit_1 = "none";
-			player.SyncPlayerMob_1 = "none";
-			player.PlayerExpGet_1 = "0";
+		if(player.Name.equals("none")) {
+			player.Name = name;
+			player.Sex = sex;
+			player.Hair = hair;
+			player.Color = color;
+			player.Hat = "none";
+			player.Job = "Aprendiz";
+			player.SetUpper = "basictop";
+			player.SetBottom = "basicbottom";
+			player.SetFooter = "basicfooter";
+			player.Level = 1;
+			player.Exp = 0;
+			player.Map = "MetroStation";
+			player.Hp = 30;
+			player.Mp = 20;
+			player.Money = 50;
+			player.HpMax = 30;
+			player.MpMax = 20;
+			player.regenTime = 6000;
+			player.regenTimeMax = 6000;
+			player.PosX = 0;
+			player.PosY = 0;
+			player.Walk = "no";
+			player.Frame = 1;
+			player.countFrame = 1;
+			player.breakwalk = "";
+			player.Target = "none";
+			player.AtkTimer = 300;
+			player.AtkTimerMax = 300;
+			player.Casting = "no";
+			player.Atk = 5;
+			player.Def = 1;
+			player.Evasion = 0;
+			player.Side =	"front";
+			player.Weapon = "basicknife";
+			player.Crystal1 = "none";
+			player.Crystal2 = "none";
+			player.Crystal3 = "none";
+			player.Crystal4 = "none";
+			player.StatusPoint = 0;
+			player.Str = 1;
+			player.Agi = 1;
+			player.Vit = 1;
+			player.Dex = 1;
+			player.Wis = 1;
+			player.Stamina = 100;
+			player.StaminaMax = 100;
+			player.Quests = "none";
+			player.hotkey1 = "none";
+			player.hotkey2 = "none";
+			player.buffA = "none";
+			player.buffB = "none";
+			player.buffC = "none";
+			player.BuffTimeA = 0;
+			player.BuffTimeB = 0;
+			player.BuffTimeC = 0;
+			player.party = "none";
+			player.playerInBattle = "none";
+			player.playerInAttack = "none";
+			player.playerInCast = "none";
+			player.playerSit = "none";
+			player.SyncPlayerMob = "none";
+			player.PlayerExpGet = "0";
 			
 			String itensList = "";
 	        for(int i = 0; i < 16; i++) {
 	            if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
 	            if(i > 0) { itensList = itensList + "[NONE]-"; }          
 	        }
-	        player.Itens_1 = itensList;
+	        player.Itens = itensList;
 	        created = true;
 		}
-		
-		if(player.Name_2.equals("none") && !created) {
-			player.Name_2 = name;
-			player.Sex_2 = sex;
-			player.Hair_2 = hair;
-			player.Color_2 = color;
-			player.Hat_2 = "none";
-			player.Job_2 = "Aprendiz";
-			player.SetUpper_2 = "basictop";
-			player.SetBottom_2 = "basicbottom";
-			player.SetFooter_2 = "basicfooter";
-			player.Level_2 = 1;
-			player.Exp_2 = 0;
-			player.Map_2 = "MetroStation";
-			player.Hp_2 = 30;
-			player.Mp_2 = 20;
-			player.Money_2 = 50;
-			player.HpMax_2 = 30;
-			player.MpMax_2 = 20;
-			player.regenTime_2 = 6000;
-			player.regenTimeMax_2 = 6000;
-			player.PosX_2 = 0;
-			player.PosY_2 = 0;
-			player.Walk_2 = "no";
-			player.Frame_2 = 1;
-			player.countFrame_2 = 1;
-			player.breakwalk_2 = "";
-			player.Target_2 = "none";
-			player.AtkTimer_2 = 300;
-			player.AtkTimerMax_2 = 300;
-			player.Casting_2 = "no";
-			player.Atk_2 = 5;
-			player.Def_2 = 1;
-			player.Evasion_2 = 0;
-			player.Side_2 =	"front";
-			player.Weapon_2 = "basicknife";
-			player.Crystal1_2 = "none";
-			player.Crystal2_2 = "none";
-			player.Crystal3_2 = "none";
-			player.Crystal4_2 = "none";
-			player.StatusPoint_2 = 0;
-			player.Str_2 = 1;
-			player.Agi_2 = 1;
-			player.Vit_2 = 1;
-			player.Dex_2 = 1;
-			player.Wis_2 = 1;
-			player.Stamina_2 = 100;
-			player.StaminaMax_2 = 100;
-			player.Quests_2 = "none";
-			player.hotkey1_2 = "none";
-			player.hotkey2_2 = "none";
-			player.buffA_2 = "none";
-			player.buffB_2 = "none";
-			player.buffC_2 = "none";
-			player.BuffTimeA_2 = 0;
-			player.BuffTimeB_2 = 0;
-			player.BuffTimeC_2 = 0;
-			player.party_2 = "none";
-			player.playerInBattle_2 = "none";
-			player.playerInAttack_2 = "none";
-			player.playerInCast_2 = "none";
-			player.playerSit_2 = "none";
-			player.SyncPlayerMob_2 = "none";
-			player.PlayerExpGet_2 = "0";
-			
-			String itensList = "";
-			for(int i = 0; i < 16; i++) {
-				if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
-	            if(i > 0) { itensList = itensList + "[NONE]-"; }        
-	        }
-	        player.Itens_2 = itensList;
-	        created = true;
-		}
-		
-		if(player.Name_3.equals("none") && !created) {
-			player.Name_3 = name;
-			player.Sex_3 = sex;
-			player.Hair_3 = hair;
-			player.Color_3 = color;
-			player.Hat_3 = "none";
-			player.Job_3 = "Aprendiz";
-			player.SetUpper_3 = "basictop";
-			player.SetBottom_3 = "basicbottom";
-			player.SetFooter_3 = "basicfooter";
-			player.Level_3 = 1;
-			player.Exp_3 = 0;
-			player.Map_3 = "MetroStation";
-			player.Hp_3 = 30;
-			player.Mp_3 = 20;
-			player.Money_3 = 50;
-			player.HpMax_3 = 30;
-			player.MpMax_3 = 20;
-			player.regenTime_3 = 6000;
-			player.regenTimeMax_3 = 6000;
-			player.PosX_3 = 0;
-			player.PosY_3 = 0;
-			player.Walk_3 = "no";
-			player.Frame_3 = 1;
-			player.countFrame_3 = 1;
-			player.breakwalk_3 = "";
-			player.Target_3 = "none";
-			player.AtkTimer_3 = 300;
-			player.AtkTimerMax_3 = 300;
-			player.Casting_3 = "no";
-			player.Atk_3 = 5;
-			player.Def_3 = 1;
-			player.Evasion_3 = 0;
-			player.Side_3 =	"front";
-			player.Weapon_3 = "basicknife";
-			player.Crystal1_3 = "none";
-			player.Crystal2_3 = "none";
-			player.Crystal3_3 = "none";
-			player.Crystal4_3 = "none";
-			player.StatusPoint_3 = 0;
-			player.Str_3 = 1;
-			player.Agi_3 = 1;
-			player.Vit_3 = 1;
-			player.Dex_3 = 1;
-			player.Wis_3 = 1;
-			player.Stamina_3 = 100;
-			player.StaminaMax_3 = 100;
-			player.Quests_3 = "none";
-			player.hotkey1_3 = "none";
-			player.hotkey2_3 = "none";
-			player.buffA_3 = "none";
-			player.buffB_3 = "none";
-			player.buffC_3 = "none";
-			player.BuffTimeA_3 = 0;
-			player.BuffTimeB_3 = 0;
-			player.BuffTimeC_3 = 0;
-			player.party_3 = "none";
-			player.playerInBattle_3 = "none";
-			player.playerInAttack_3 = "none";
-			player.playerInCast_3 = "none";
-			player.playerSit_3 = "none";
-			player.SyncPlayerMob_3 = "none";
-			player.PlayerExpGet_3 = "0";
-			
-			String itensList = "";
-			for(int i = 0; i < 16; i++) {
-				if(i == 0) { itensList = itensList + "[hpcan#20]-"; } 
-	            if(i > 0) { itensList = itensList + "[NONE]-"; }          
-	        }
-	        player.Itens_3 = itensList;
-	        created = true;
-		}
-		
-		SaveData(player);		
 	}
 
 	public Player SendPlayer(){
@@ -776,399 +341,7 @@ public class GameControlHTML {
 	}
 	
 	public void SetSave(int charnum) {
-		if(charnum == 1) {
-			    player.Name_1 = player.Name_A;
-	            player.Sex_1 = player.Sex_A;
-	            player.Hair_1 = player.Hair_A;
-	            player.Color_1 = player.Color_A;
-	            player.Hat_1 = player.Hat_A;
-	            player.Job_1 = player.Job_A;
-	            player.SetUpper_1 = player.SetUpper_A;
-	            player.SetBottom_1 = player.SetBottom_A;
-	            player.SetFooter_1 = player.SetFooter_A;
-	            player.Level_1 = player.Level_A;
-	            player.Exp_1 = player.Exp_A;
-	            player.Map_1 = player.Map_A;
-	            player.Hp_1 = player.Hp_A;
-	            player.Mp_1 = player.Mp_A;
-	            player.Money_1 = player.Money_A;
-	            player.HpMax_1 = player.HpMax_A;
-	            player.MpMax_1 = player.MpMax_A;
-	            player.regenTime_1 = player.regenTime_A;
-	            player.regenTimeMax_1 = player.regenTimeMax_A;
-	            player.PosX_1 = player.PosX_A;
-	            player.PosY_1 = player.PosY_A;
-	            player.Walk_1 = player.Walk_A;
-	            player.Frame_1 = player.Frame_A;
-	            player.countFrame_1 = player.countFrame_A;
-	            player.breakwalk_1 = player.breakwalk_A;
-	            player.Target_1 = player.Target_A;
-	            player.AtkTimer_1 = player.AtkTimer_A;
-	            player.AtkTimerMax_1 = player.AtkTimerMax_A;
-	            player.Casting_1 = player.Casting_A;
-	            player.Atk_1 = player.Atk_A;
-	            player.Def_1 = player.Def_A;
-	            player.Evasion_1 = player.Evasion_A;
-	            player.Side_1 =	player.Side_A;
-	            player.Weapon_1 = player.Weapon_A;
-	            player.Crystal1_1 = player.Crystal1_A;
-	            player.Crystal2_1 = player.Crystal2_A;
-	            player.Crystal3_1 = player.Crystal3_A;
-	            player.Crystal4_1 = player.Crystal4_A;
-	            player.StatusPoint_1 = player.StatusPoint_A;
-	            player.Str_1 = player.Str_A;
-	            player.Agi_1 = player.Agi_A;
-	            player.Vit_1 = player.Vit_A;
-	            player.Dex_1 = player.Dex_A;
-	            player.Wis_1 = player.Wis_A;
-	            player.Stamina_1 = player.Stamina_A;
-	            player.StaminaMax_1 = player.StaminaMax_A;
-	            player.Quests_1 = player.Quests_A;
-	            player.hotkey1_1 = player.hotkey1_A;
-	            player.hotkey2_1 = player.hotkey2_A;
-	            player.buffA_1 = player.buffA_A;
-	            player.buffB_1 = player.buffB_A;
-	            player.buffC_1 = player.buffC_A;
-	            player.BuffTimeA_1 = player.BuffTimeA_A;
-	            player.BuffTimeB_1 = player.BuffTimeB_A;
-	            player.BuffTimeC_1 = player.BuffTimeC_A;
-	            player.party_1 = player.party_A;
-	            player.playerInBattle_1 = player.playerInBattle_A;
-	            player.playerInAttack_1 = player.playerInAttack_A;
-	            player.playerInCast_1 = player.playerInCast_A;
-	            player.playerSit_1 = player.playerSit_A;
-	            player.Itens_1 = player.Itens_A;
-	            player.PlayerExpGet_1 = player.PlayerExpGet_A;
-		}
 		
-		if(charnum == 2) {
-			player.Name_2 = player.Name_A;
-			player.Sex_2 = player.Sex_A;
-			player.Hair_2 = player.Hair_A;
-			player.Color_2 = player.Color_A;
-			player.Hat_2 = player.Hat_A;
-			player.Job_2 = player.Job_A;
-			player.SetUpper_2 = player.SetUpper_A;
-			player.SetBottom_2 = player.SetBottom_A;
-			player.SetFooter_2 = player.SetFooter_A;
-			player.Level_2 = player.Level_A;
-			player.Exp_2 = player.Exp_A;
-			player.Map_2 = player.Map_A;
-			player.Hp_2 = player.Hp_A;
-			player.Mp_2 = player.Mp_A;
-			player.Money_2 = player.Money_A;
-			player.HpMax_2 = player.HpMax_A;
-			player.MpMax_2 = player.MpMax_A;
-			player.regenTime_2 = player.regenTime_A;
-			player.regenTimeMax_2 = player.regenTimeMax_A;
-			player.PosX_2 = player.PosX_A;
-			player.PosY_2 = player.PosY_A;
-			player.Walk_2 = player.Walk_A;
-			player.Frame_2 = player.Frame_A;
-			player.countFrame_2 = player.countFrame_A;
-			player.breakwalk_2 = player.breakwalk_A;
-			player.Target_2 = player.Target_A;
-			player.AtkTimer_2 = player.AtkTimer_A;
-			player.AtkTimerMax_2 = player.AtkTimerMax_A;
-			player.Casting_2 = player.Casting_A;
-			player.Atk_2 = player.Atk_A;
-			player.Def_2 = player.Def_A;
-			player.Evasion_2 = player.Evasion_A;
-			player.Side_2 = player.Side_A;
-			player.Weapon_2 = player.Weapon_A;
-			player.Crystal1_2 = player.Crystal1_A;
-			player.Crystal2_2 = player.Crystal2_A;
-			player.Crystal3_2 = player.Crystal3_A;
-			player.Crystal4_2 = player.Crystal4_A;
-			player.StatusPoint_2 = player.StatusPoint_A;
-			player.Str_2 = player.Str_A;
-			player.Agi_2 = player.Agi_A;
-			player.Vit_2 = player.Vit_A;
-			player.Dex_2 = player.Dex_A;
-			player.Wis_2 = player.Wis_A;
-			player.Stamina_2 = player.Stamina_A;
-			player.StaminaMax_2 = player.StaminaMax_A;
-			player.Quests_2 = player.Quests_A;
-			player.hotkey1_2 = player.hotkey1_A;
-			player.hotkey2_2 = player.hotkey2_A;
-			player.buffA_2 = player.buffA_A;
-			player.buffB_2 = player.buffB_A;
-			player.buffC_2 = player.buffC_A;
-			player.BuffTimeA_2 = player.BuffTimeA_A;
-			player.BuffTimeB_2 = player.BuffTimeB_A;
-			player.BuffTimeC_2 = player.BuffTimeC_A;
-			player.party_2 = player.party_A;
-			player.playerInBattle_2 = player.playerInBattle_A;
-			player.playerInAttack_2 = player.playerInAttack_A;
-			player.playerInCast_2 = player.playerInCast_A;
-			player.playerSit_2 = player.playerSit_A;
-			player.Itens_2 = player.Itens_A;
-			player.PlayerExpGet_2 = player.PlayerExpGet_A;
-		}
-		
-		if(charnum == 3) {
-			player.Name_3 = player.Name_A;
-			player.Sex_3 = player.Sex_A;
-			player.Hair_3 = player.Hair_A;
-			player.Color_3 = player.Color_A;
-			player.Hat_3 = player.Hat_A;
-			player.Job_3 = player.Job_A;
-			player.SetUpper_3 = player.SetUpper_A;
-			player.SetBottom_3 = player.SetBottom_A;
-			player.SetFooter_3 = player.SetFooter_A;
-			player.Level_3 = player.Level_A;
-			player.Exp_3 = player.Exp_A;
-			player.Map_3 = player.Map_A;
-			player.Hp_3 = player.Hp_A;
-			player.Mp_3 = player.Mp_A;
-			player.Money_3 = player.Money_A;
-			player.HpMax_3 = player.HpMax_A;
-			player.MpMax_3 = player.MpMax_A;
-			player.regenTime_3 = player.regenTime_A;
-			player.regenTimeMax_3 = player.regenTimeMax_A;
-			player.PosX_3 = player.PosX_A;
-			player.PosY_3 = player.PosY_A;
-			player.Walk_3 = player.Walk_A;
-			player.Frame_3 = player.Frame_A;
-			player.countFrame_3 = player.countFrame_A;
-			player.breakwalk_3 = player.breakwalk_A;
-			player.Target_3 = player.Target_A;
-			player.AtkTimer_3 = player.AtkTimer_A;
-			player.AtkTimerMax_3 = player.AtkTimerMax_A;
-			player.Casting_3 = player.Casting_A;
-			player.Atk_3 = player.Atk_A;
-			player.Def_3 = player.Def_A;
-			player.Evasion_3 = player.Evasion_A;
-			player.Side_3 = player.Side_A;
-			player.Weapon_3 = player.Weapon_A;
-			player.Crystal1_3 = player.Crystal1_A;
-			player.Crystal2_3 = player.Crystal2_A;
-			player.Crystal3_3 = player.Crystal3_A;
-			player.Crystal4_3 = player.Crystal4_A;
-			player.StatusPoint_3 = player.StatusPoint_A;
-			player.Str_3 = player.Str_A;
-			player.Agi_3 = player.Agi_A;
-			player.Vit_3 = player.Vit_A;
-			player.Dex_3 = player.Dex_A;
-			player.Wis_3 = player.Wis_A;
-			player.Stamina_3 = player.Stamina_A;
-			player.StaminaMax_3 = player.StaminaMax_A;
-			player.Quests_3 = player.Quests_A;
-			player.hotkey1_3 = player.hotkey1_A;
-			player.hotkey2_3 = player.hotkey2_A;
-			player.buffA_3 = player.buffA_A;
-			player.buffB_3 = player.buffB_A;
-			player.buffC_3 = player.buffC_A;
-			player.BuffTimeA_3 = player.BuffTimeA_A;
-			player.BuffTimeB_3 = player.BuffTimeB_A;
-			player.BuffTimeC_3 = player.BuffTimeC_A;
-			player.party_3 = player.party_A;
-			player.playerInBattle_3 = player.playerInBattle_A;
-			player.playerInAttack_3 = player.playerInAttack_A;
-			player.playerInCast_3 = player.playerInCast_A;
-			player.playerSit_3 = player.playerSit_A;
-			player.Itens_3 = player.Itens_A;
-			player.PlayerExpGet_3 = player.PlayerExpGet_A;
-		}
-	}
-	
-	
-
-	public void SetCharacter(int charnum) {
-		if(charnum == 1) {
-			player.Name_A = player.Name_1;
-			player.Sex_A = player.Sex_1;
-			player.Hair_A = player.Hair_1;
-			player.Color_A = player.Color_1;
-			player.Hat_A = player.Hat_1;
-			player.Job_A = player.Job_1;
-			player.SetUpper_A = player.SetUpper_1;
-			player.SetBottom_A = player.SetBottom_1;
-			player.SetFooter_A = player.SetFooter_1;
-			player.Level_A = player.Level_1;
-			player.Exp_A = player.Exp_1;
-			player.Map_A = player.Map_1;
-			player.Hp_A = player.Hp_1;
-			player.Mp_A = player.Mp_1;
-			player.Money_A = player.Money_1;
-			player.HpMax_A = player.HpMax_1;
-			player.MpMax_A = player.MpMax_1;
-			player.regenTime_A = player.regenTime_1;
-			player.regenTimeMax_A = player.regenTimeMax_1;
-			player.PosX_A = player.PosX_1;
-			player.PosY_A = player.PosY_1;
-			player.Walk_A = player.Walk_1;
-			player.Frame_A = player.Frame_1;
-			player.countFrame_A = player.countFrame_1;
-			player.breakwalk_A = player.breakwalk_1;
-			player.Target_A = player.Target_1;
-			player.AtkTimer_A = player.AtkTimer_1;
-			player.AtkTimerMax_A = player.AtkTimerMax_1;
-			player.Casting_A = player.Casting_1;
-			player.Atk_A = player.Atk_1;
-			player.Def_A = player.Def_1;
-			player.Evasion_A = player.Evasion_1;
-			player.Side_A =	player.Side_1;
-			player.Weapon_A = player.Weapon_1;
-			player.Crystal1_A = player.Crystal1_1;
-			player.Crystal2_A = player.Crystal2_1;
-			player.Crystal3_A = player.Crystal3_1;
-			player.Crystal4_A = player.Crystal4_1;
-			player.StatusPoint_A = player.StatusPoint_1;
-			player.Str_A = player.Str_1;
-			player.Agi_A = player.Agi_1;
-			player.Vit_A = player.Vit_1;
-			player.Dex_A = player.Dex_1;
-			player.Wis_A = player.Wis_1;
-			player.Stamina_A = player.Stamina_1;
-			player.StaminaMax_A = player.StaminaMax_1;
-			player.Quests_A = player.Quests_1;
-			player.hotkey1_A = player.hotkey1_1;
-			player.hotkey2_A = player.hotkey2_1;
-			player.buffA_A = player.buffA_1;
-			player.buffB_A = player.buffB_1;
-			player.buffC_A = player.buffC_1;
-			player.BuffTimeA_A = player.BuffTimeA_1;
-			player.BuffTimeB_A = player.BuffTimeB_1;
-			player.BuffTimeC_A = player.BuffTimeC_1;
-			player.party_A = player.party_1;
-			player.playerInBattle_A = player.playerInBattle_1;
-			player.playerInAttack_A = player.playerInAttack_1;
-			player.playerInCast_A = player.playerInCast_1;
-			player.playerSit_A = player.playerSit_1;
-			player.Itens_A = player.Itens_1;
-			player.PlayerExpGet_A = player.PlayerExpGet_1;
-		}
-
-		if(charnum == 2) {
-			player.Name_A = player.Name_2;
-			player.Sex_A = player.Sex_2;
-			player.Hair_A = player.Hair_2;
-			player.Color_A = player.Color_2;
-			player.Hat_A = player.Hat_2;
-			player.Job_A = player.Job_2;
-			player.SetUpper_A = player.SetUpper_2;
-			player.SetBottom_A = player.SetBottom_2;
-			player.SetFooter_A = player.SetFooter_2;
-			player.Level_A = player.Level_2;
-			player.Exp_A = player.Exp_2;
-			player.Map_A = player.Map_2;
-			player.Hp_A = player.Hp_2;
-			player.Mp_A = player.Mp_2;
-			player.Money_A = player.Money_2;
-			player.HpMax_A = player.HpMax_2;
-			player.MpMax_A = player.MpMax_2;
-			player.regenTime_A = player.regenTime_2;
-			player.regenTimeMax_A = player.regenTimeMax_2;
-			player.PosX_A = player.PosX_2;
-			player.PosY_A = player.PosY_2;
-			player.Walk_A = player.Walk_2;
-			player.Frame_A = player.Frame_2;
-			player.countFrame_A = player.countFrame_2;
-			player.breakwalk_A = player.breakwalk_2;
-			player.Target_A = player.Target_2;
-			player.AtkTimer_A = player.AtkTimer_2;
-			player.AtkTimerMax_A = player.AtkTimerMax_2;
-			player.Casting_A = player.Casting_2;
-			player.Atk_A = player.Atk_2;
-			player.Def_A = player.Def_2;
-			player.Evasion_A = player.Evasion_2;
-			player.Side_A = player.Side_2;
-			player.Weapon_A = player.Weapon_2;
-			player.Crystal1_A = player.Crystal1_2;
-			player.Crystal2_A = player.Crystal2_2;
-			player.Crystal3_A = player.Crystal3_2;
-			player.Crystal4_A = player.Crystal4_2;
-			player.StatusPoint_A = player.StatusPoint_2;
-			player.Str_A = player.Str_2;
-			player.Agi_A = player.Agi_2;
-			player.Vit_A = player.Vit_2;
-			player.Dex_A = player.Dex_2;
-			player.Wis_A = player.Wis_2;
-			player.Stamina_A = player.Stamina_2;
-			player.StaminaMax_A = player.StaminaMax_2;
-			player.Quests_A = player.Quests_2;
-			player.hotkey1_A = player.hotkey1_2;
-			player.hotkey2_A = player.hotkey2_2;
-			player.buffA_A = player.buffA_2;
-			player.buffB_A = player.buffB_2;
-			player.buffC_A = player.buffC_2;
-			player.BuffTimeA_A = player.BuffTimeA_2;
-			player.BuffTimeB_A = player.BuffTimeB_2;
-			player.BuffTimeC_A = player.BuffTimeC_2;
-			player.party_A = player.party_2;
-			player.playerInBattle_A = player.playerInBattle_2;
-			player.playerInAttack_A = player.playerInAttack_2;
-			player.playerInCast_A = player.playerInCast_2;
-			player.playerSit_A = player.playerSit_2;
-			player.Itens_A = player.Itens_2;
-			player.PlayerExpGet_A = player.PlayerExpGet_2;
-		}
-
-		if(charnum == 3) {
-			player.Name_A = player.Name_3;
-			player.Sex_A = player.Sex_3;
-			player.Hair_A = player.Hair_3;
-			player.Color_A = player.Color_3;
-			player.Hat_A = player.Hat_3;
-			player.Job_A = player.Job_3;
-			player.SetUpper_A = player.SetUpper_3;
-			player.SetBottom_A = player.SetBottom_3;
-			player.SetFooter_A = player.SetFooter_3;
-			player.Level_A = player.Level_3;
-			player.Exp_A = player.Exp_3;
-			player.Map_A = player.Map_3;
-			player.Hp_A = player.Hp_3;
-			player.Mp_A = player.Mp_3;
-			player.Money_A = player.Money_3;
-			player.HpMax_A = player.HpMax_3;
-			player.MpMax_A = player.MpMax_3;
-			player.regenTime_A = player.regenTime_3;
-			player.regenTimeMax_A = player.regenTimeMax_3;
-			player.PosX_A = player.PosX_3;
-			player.PosY_A = player.PosY_3;
-			player.Walk_A = player.Walk_3;
-			player.Frame_A = player.Frame_3;
-			player.countFrame_A = player.countFrame_3;
-			player.breakwalk_A = player.breakwalk_3;
-			player.Target_A = player.Target_3;
-			player.AtkTimer_A = player.AtkTimer_3;
-			player.AtkTimerMax_A = player.AtkTimerMax_3;
-			player.Casting_A = player.Casting_3;
-			player.Atk_A = player.Atk_3;
-			player.Def_A = player.Def_3;
-			player.Evasion_A = player.Evasion_3;
-			player.Side_A = player.Side_3;
-			player.Weapon_A = player.Weapon_3;
-			player.Crystal1_A = player.Crystal1_3;
-			player.Crystal2_A = player.Crystal2_3;
-			player.Crystal3_A = player.Crystal3_3;
-			player.Crystal4_A = player.Crystal4_3;
-			player.StatusPoint_A = player.StatusPoint_3;
-			player.Str_A = player.Str_3;
-			player.Agi_A = player.Agi_3;
-			player.Vit_A = player.Vit_3;
-			player.Dex_A = player.Dex_3;
-			player.Wis_A = player.Wis_3;
-			player.Stamina_A = player.Stamina_3;
-			player.StaminaMax_A = player.StaminaMax_3;
-			player.Quests_A = player.Quests_3;
-			player.hotkey1_A = player.hotkey1_3;
-			player.hotkey2_A = player.hotkey2_3;
-			player.buffA_A = player.buffA_3;
-			player.buffB_A = player.buffB_3;
-			player.buffC_A = player.buffC_3;
-			player.BuffTimeA_A = player.BuffTimeA_3;
-			player.BuffTimeB_A = player.BuffTimeB_3;
-			player.BuffTimeC_A = player.BuffTimeC_3;
-			player.party_A = player.party_3;
-			player.playerInBattle_A = player.playerInBattle_3;
-			player.playerInAttack_A = player.playerInAttack_3;
-			player.playerInCast_A = player.playerInCast_3;
-			player.playerSit_A = player.playerSit_3;
-			player.Itens_A = player.Itens_3;
-			player.PlayerExpGet_A = player.PlayerExpGet_3;
-		}	
 	}
 
 	//[Interface]//
@@ -3093,128 +2266,38 @@ public class GameControlHTML {
 			}
 			
 			//[online]//
+			public String GetRetorno() {
+				return onlineresponse;
+			}
+			
 			public String OnlineManager(String operation, String subData, String extraData) {
+				String operationresult = "";
 				try {
 					if(operation.equals("NewAccount")) {  
-						GerenciamentoOnlineHTML("NewAccount", subData, extraData);
+						operationresult = GerenciamentoOnlineHTML("NewAccount", subData, extraData);
 					}
-					/*if(operation.equals("CheckVersion")) {  
-						TipoOperacaoOnline("CheckVersion", subData);
+					if(operation.equals("LoadData")) {  
+						operationresult = GerenciamentoOnlineHTML("LoadData", subData, extraData);
 					}
-					if(operation.equals("Chat")) {  
-						TipoOperacaoOnline("Chat", subData);
-					}
-					if(operation.equals("Upload")) {  
-						onlineresponse = TipoOperacaoOnline("Upload", subData);
-					}
-					if(operation.equals("Download")) {  
-						TipoOperacaoOnline("Download", subData);
-					}
-					if(operation.equals("SyncChats")) {
-						//ThreadsSyncStartChat();	
-						//SyncChatGWT();
-					}
-					if(operation.equals("SyncPlayer")) {
-						//ThreadsSyncStartPlayer();
-						//SyncPlayersGWT();
-					}
-					if(operation.equals("ExpSharedSend")){
-						TipoOperacaoOnline("ExpSharedSend", subData);
-					}
-					if(operation.equals("ExpGiver")){
-						TipoOperacaoOnline("ExpGiver", subData);
-					}*/
-					return onlineresponse;
+					return operationresult;
 				}
 				
 				catch(Exception ex) {
-					return onlineresponse;
+					return operationresult;
 				}
 			}
 			
-			//[USING THREADS]//
-			/*private void ThreadsSyncStartChat() {
-				thrOnlineSyncChat = new Thread(t1);
-				thrOnlineSyncChat.start();
-			}
-			
-			private void ThreadsSyncStartPlayer() {
-				thrOnlineSyncChat = new Thread(t2);
-				thrOnlineSyncChat.start();
-			}
-			
-			private Runnable t1 = new Runnable() {
-				public void run() {
-					try{    
-						threahCountSyncChat = 1;
-						while(threahCountSyncChat == 1) {
-							GerenciamentoOnline("SyncChats","","");            	
-						}
-					}
-					catch(Exception ex) {
-						Thread.currentThread().interrupt();	
-					}	
-				}
-			};
-			
-			private Runnable t2 = new Runnable() {
-				public void run() {
-					try{   
-						threahCountSyncPlayer = 1;
-						while(threahCountSyncPlayer == 1) {
-							GerenciamentoOnline("SyncPlayer","","");            	
-						}
-					}
-					catch(Exception ex) {
-						Thread.currentThread().interrupt();	
-					}	
-				}
-			};
-			*/
-			
-			//[USING GWT SCHEDULER]//
-			/*public void SyncChatGWT() {
-				GWT.runAsync(new RunAsyncCallback() {
-					public void onFailure(Throwable reason) {
-						// Show the error
-					}
-
-					public void onSuccess() {
-						try {
-							GerenciamentoOnline("SyncChats", "", "");
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-			
-			public void SyncPlayersGWT() {
-				GWT.runAsync(new RunAsyncCallback() {
-					public void onFailure(Throwable reason) {
-						// Show the error
-					}
-
-					public void onSuccess() {
-						try {
-							GerenciamentoOnline("SyncPlayer","","");  
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				});
-			}*/
 			
 			public String GerenciamentoOnlineHTML(String tipoRequisicao, String subData, String extraData) throws UnsupportedEncodingException{
 				
 				onlineresponse = "";
+				final CountDownLatch latch = new CountDownLatch(1);
+				
 				if(tipoRequisicao.equals("NewAccount")) 
 				{
 				
 					Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-					request.setUrl("http://moonboltprojects.online/server/index.php");
+					request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
 					request.setContent("application/x-www-form-urlencoded");
 	
 					// Prepare the data to post
@@ -3243,12 +2326,14 @@ public class GameControlHTML {
 					        // process the response
 					        System.out.println(response);
 					        onlineresponse = "success";
+					        latch.countDown(); // Decrements the count of the latch, releasing all waiting threads
 					    }
 	
 					    public void failed(Throwable t) {
 					        String message = "Request failed";
 					        System.out.println(message);
 					        onlineresponse = "fail";
+					        latch.countDown(); // Decrements the count of the latch, releasing all waiting threads
 					    }
 	
 					    @Override
@@ -3256,8 +2341,77 @@ public class GameControlHTML {
 					        String message = "Request cancelled";
 					        System.out.println(message);
 					        onlineresponse= "cancel";
+					        latch.countDown(); // Decrements the count of the latch, releasing all waiting threads
 					    }
 					});
+					
+					try {
+					    latch.await(); // Current thread waits here until latch count is zero
+					} catch (InterruptedException e) {
+					    e.printStackTrace();
+					}
+				
+					return onlineresponse;
+				}
+				
+				if(tipoRequisicao.equals("LoadData")) 
+				{
+				
+					Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+					request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
+					request.setContent("application/x-www-form-urlencoded");
+	
+					// Prepare the data to post
+					Map<String, String> parameters = new HashMap<String, String>();
+					parameters.put("lservername", lservername);
+					parameters.put("lusername", lusername);
+					parameters.put("lpassword", lpassword);
+					parameters.put("ldbname", ldbname);
+					parameters.put("lrequest", tipoRequisicao);
+					parameters.put("ldataaccount", subData);
+					
+					// Convert the parameters into URL encoded form
+					String content = "";
+					for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+					    if (content.length() > 0) {
+					        content += "&";
+					    }
+					    content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+					}
+	
+					request.setContent(content);
+	
+					Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+					    public void handleHttpResponse(Net.HttpResponse httpResponse) {
+					        String response = httpResponse.getResultAsString();
+					        // process the response
+					        System.out.println(response);
+					        LoadPlayerObjectDataFromServer(response);
+					        onlineresponse = "Conta carregada com sucesso";
+					        latch.countDown(); // Decrements the count of the latch, releasing all waiting threads
+					    }
+	
+					    public void failed(Throwable t) {
+					        String message = "Request failed";
+					        System.out.println(message);
+					        onlineresponse = "fail";
+					        latch.countDown(); // Decrements the count of the latch, releasing all waiting threads
+					    }
+	
+					    @Override
+					    public void cancelled() {
+					        String message = "Request cancelled";
+					        System.out.println(message);
+					        onlineresponse= "cancel";
+					        latch.countDown(); // Decrements the count of the latch, releasing all waiting threads
+					    }
+					});
+					
+					try {
+					    latch.await(); // Current thread waits here until latch count is zero
+					} catch (InterruptedException e) {
+					    e.printStackTrace();
+					}
 				
 					return onlineresponse;
 				}
@@ -3265,373 +2419,208 @@ public class GameControlHTML {
 				return onlineresponse;
 			}
 			
-			/*public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData) throws IOException {
-		    	
-				String linhaLida = "";
-				try {
-				
-				if(tipoRequisicao.equals("CheckVersion")){
-					// Construct data
-					
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("CheckVersion", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("1A", "UTF-8");
-			        
-			        // Send data
-			        //URL url = new URL("http://moonboltprojects.online/conector/online.php");	        
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        //URL url = new URL("http://localhost/default.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	//Resultado: - Logado -. <br>done
-				        if (linhaLida.contains("Autorizado")) {            	
-			        		retornoOnline = "Autorizado";       		
-			            }	
-				        else {
-				        	retornoOnline = "Probido"; 
-				        }
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				if(tipoRequisicao.equals("Chat")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Chat", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lchat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				if(tipoRequisicao.equals("SyncChats")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncChats", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        String linechat = "";
-			        int chatnum = 1;
-			        line = "";
-			        lstChats.clear();
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	if (linhaLida.contains("SYSTEMCHAT")) {  
-			        		String[] lineSplit = line.split(":");
-			        		linechat = lineSplit[2] + "=" + lineSplit[4];
-			        		
-			        		if(chatnum == 1) { lstChats.add(0, linechat); }
-			        		if(chatnum == 2) { lstChats.add(1, linechat); }
-			        		if(chatnum == 3) { lstChats.add(2, linechat); }
-			        		if(chatnum == 4) { lstChats.add(3, linechat); }
-			        		if(chatnum == 5) { lstChats.add(4, linechat); }
-			        		chatnum++;
-			            }	
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				
-				if(tipoRequisicao.equals("SyncPlayer")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncPlayer", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        //Sync Data
-			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("llevel", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Level_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lmap", "UTF-8") + "=" + URLEncoder.encode(player.Map_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lhp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Hp_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lmp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Mp_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lposX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosX_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lposY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosY_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lwalk", "UTF-8") + "=" + URLEncoder.encode(player.Walk_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lweapon", "UTF-8") + "=" + URLEncoder.encode(player.Weapon_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lframe", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Frame_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lsyncPlayerMob", "UTF-8") + "=" + URLEncoder.encode("none", "UTF-8");
-			        data += "&" + URLEncoder.encode("lsetUpper", "UTF-8") + "=" + URLEncoder.encode(player.SetUpper_A, "UTF-8");  
-			        data += "&" + URLEncoder.encode("lsetBottom", "UTF-8") + "=" + URLEncoder.encode(player.SetBottom_1, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lsetFooter", "UTF-8") + "=" + URLEncoder.encode(player.SetFooter_1, "UTF-8");
-			        data += "&" + URLEncoder.encode("lhair", "UTF-8") + "=" + URLEncoder.encode(player.Hair_A, "UTF-8");    
-			        data += "&" + URLEncoder.encode("lsex", "UTF-8") + "=" + URLEncoder.encode(player.Sex_A, "UTF-8");  
-			        data += "&" + URLEncoder.encode("lcolor", "UTF-8") + "=" + URLEncoder.encode(player.Color_A, "UTF-8");  
-			        data += "&" + URLEncoder.encode("lhat", "UTF-8") + "=" + URLEncoder.encode(player.Hat_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lside", "UTF-8") + "=" + URLEncoder.encode(player.Side_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("ljob", "UTF-8") + "=" + URLEncoder.encode(player.Job_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lplayerInBattle", "UTF-8") + "=" + URLEncoder.encode(player.playerInBattle_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lplayerInAttack", "UTF-8") + "=" + URLEncoder.encode(player.playerInAttack_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lplayerInCast", "UTF-8") + "=" + URLEncoder.encode(player.playerInCast_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lplayerSit", "UTF-8") + "=" + URLEncoder.encode(player.playerSit_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lparty", "UTF-8") + "=" + URLEncoder.encode(player.party_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lexpshared", "UTF-8") + "=" + URLEncoder.encode("0", "UTF-8"); 
-			        
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        String retornoSync = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	if (linhaLida.contains("SYSTEMPLAYERS")) {  
-			        		retornoSync = linhaLida;
-			        		UpdateOnlinePlayers(retornoSync);
-			            }	
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				
-				if(tipoRequisicao.equals("Upload")){
-					
-					FileHandle file = Gdx.files.local("SaveData/save.json");	
-					String arq = file.readString();
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.AccountID) + ".txt", "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Upload", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(arq, "UTF-8");
-			        
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	//Resultado: - Logado -. <br>done
-				        if (linhaLida.contains("Atualizado")) {            	
-			        		retornoOnline = "Atualizado";   		
-			            }	
-				        else {
-				        	retornoOnline = "Negado"; 
-				        }
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				if(tipoRequisicao.equals("Download")){
-					// Construct data
-					
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(subData + ".txt", "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	//Resultado: - Logado -. <br>done
-				        if (linhaLida.contains("Atualizado")) {            	
-			        		retornoOnline = "Atualizado";
-			        		SaveDataFromServer(linhaLida);
-			            }	
-				        else {
-				        	retornoOnline = "Negado"; 
-				        }
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				if(tipoRequisicao.equals("ExpSharedSend")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("ExpSharedSend", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lexpsend", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				
-				if(tipoRequisicao.equals("ExpGiver")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("ExpGiver", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lplayerIDEXP", "UTF-8") + "=" + URLEncoder.encode(player.PlayerExpGet_A, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	if (linhaLida.contains("Recuperado")) {            	
-			        		retornoOnline = "Atualizado";       		
-			            }	
-			        	if (linhaLida.contains("SYSTEMEXP")) {  
-			        		UpdateExpGet(linhaLida);
-			            }	
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				
-				}
-				catch(Exception ex) {
-					linhaLida = ex.getMessage();
-				}
-				return linhaLida;
-				
-				
-			}
-			
-			*/
-			
-			public void SaveDataFromServer(String line) {
-				String[] lineSplit = line.split(":");
-				file = Gdx.files.local("SaveData/save.json");
-				file.writeString(lineSplit[0], false);
+			public void LoadPlayerObjectDataFromServer(String data) {
+				String[] fields = data.split(":");
+				Player playerload = new Player();
+
+				playerload.AccountID = fields[2];
+				playerload.Name_1 = fields[4];
+				playerload.Sex_1 = fields[6];
+				playerload.Hair_1 = fields[8];
+				playerload.Color_1 = fields[10];
+				playerload.Hat_1 = fields[12];
+				playerload.Job_1 = fields[14];
+				playerload.SetUpper_1 = fields[16];
+				playerload.SetBottom_1 = fields[18];
+				playerload.SetFooter_1 = fields[20];
+				playerload.Level_1 = Integer.parseInt(fields[22]);
+				playerload.Exp_1 = Float.parseFloat(fields[24]);
+				playerload.Map_1 = fields[26];
+				playerload.Hp_1 = Integer.parseInt(fields[28]);
+				playerload.Mp_1 = Integer.parseInt(fields[30]);
+				playerload.Money_1 = Integer.parseInt(fields[32]);
+				playerload.HpMax_1 = Integer.parseInt(fields[34]);
+				playerload.MpMax_1 = Integer.parseInt(fields[36]);
+				playerload.regenTime_1 = Integer.parseInt(fields[38]);
+				playerload.regenTimeMax_1 = Integer.parseInt(fields[40]);
+				playerload.PosX_1 = Float.parseFloat(fields[42]);
+				playerload.PosY_1 = Float.parseFloat(fields[44]);
+				playerload.Walk_1 = fields[46];
+				playerload.Frame_1 = Integer.parseInt(fields[48]);
+				playerload.countFrame_1 = Integer.parseInt(fields[50]);
+				playerload.breakwalk_1 = fields[52];
+				playerload.Target_1 = fields[54];
+				playerload.AtkTimer_1 = Integer.parseInt(fields[56]);
+				playerload.AtkTimerMax_1 = Integer.parseInt(fields[58]);
+				playerload.Casting_1 = fields[60];
+				playerload.Atk_1 = Integer.parseInt(fields[62]);
+				playerload.Def_1 = Integer.parseInt(fields[64]);
+				playerload.Evasion_1 = Integer.parseInt(fields[66]);
+				playerload.Side_1 = fields[68];
+				playerload.Weapon_1 = fields[70];
+				playerload.Crystal1_1 = fields[72];
+				playerload.Crystal2_1 = fields[74];
+				playerload.Crystal3_1 = fields[76];
+				playerload.Crystal4_1 = fields[78];
+				playerload.StatusPoint_1 = Integer.parseInt(fields[80]);
+				playerload.Str_1 = Integer.parseInt(fields[82]);
+				playerload.Agi_1 = Integer.parseInt(fields[84]);
+				playerload.Vit_1 = Integer.parseInt(fields[86]);
+				playerload.Dex_1 = Integer.parseInt(fields[88]);
+				playerload.Wis_1 = Integer.parseInt(fields[90]);
+				playerload.Luk_1 = Integer.parseInt(fields[92]);
+				playerload.Res_1 = Integer.parseInt(fields[94]);
+				playerload.Stamina_1 = Integer.parseInt(fields[96]);
+				playerload.StaminaMax_1 = Integer.parseInt(fields[98]);
+				playerload.Itens_1 = fields[100];
+				playerload.Quests_1 = fields[102];
+				playerload.hotkey1_1 = fields[104];
+				playerload.hotkey2_1 = fields[106];
+				playerload.buffA_1 = fields[108];
+				playerload.buffB_1 = fields[110];
+				playerload.buffC_1 = fields[112];
+				playerload.BuffTimeA_1 = Integer.parseInt(fields[114]);
+				playerload.BuffTimeB_1 = Integer.parseInt(fields[116]);
+				playerload.BuffTimeC_1 = Integer.parseInt(fields[118]);
+				playerload.party_1 = fields[120];
+				playerload.playerInBattle_1 = fields[122];
+				playerload.playerInAttack_1 = fields[124];
+				playerload.playerInCast_1 = fields[126];
+				playerload.playerSit_1 = fields[128];
+				playerload.SyncPlayerMob_1 = fields[130];
+				playerload.PlayerExpGet_1 = fields[132];
+
+				playerload.Name_2 = fields[134];
+				playerload.Sex_2 = fields[136];
+				playerload.Hair_2 = fields[138];
+				playerload.Color_2 = fields[140];
+				playerload.Hat_2 = fields[142];
+				playerload.Job_2 = fields[144];
+				playerload.SetUpper_2 = fields[146];
+				playerload.SetBottom_2 = fields[148];
+				playerload.SetFooter_2 = fields[150];
+				playerload.Level_2 = Integer.parseInt(fields[152]);
+				playerload.Exp_2 = Float.parseFloat(fields[154]);
+				playerload.Map_2 = fields[156];
+				playerload.Hp_2 = Integer.parseInt(fields[158]);
+				playerload.Mp_2 = Integer.parseInt(fields[160]);
+				playerload.Money_2 = Integer.parseInt(fields[162]);
+				playerload.HpMax_2 = Integer.parseInt(fields[164]);
+				playerload.MpMax_2 = Integer.parseInt(fields[166]);
+				playerload.regenTime_2 = Integer.parseInt(fields[168]);
+				playerload.regenTimeMax_2 = Integer.parseInt(fields[170]);
+				playerload.PosX_2 = Float.parseFloat(fields[172]);
+				playerload.PosY_2 = Float.parseFloat(fields[174]);
+				playerload.Walk_2 = fields[176];
+				playerload.Frame_2 = Integer.parseInt(fields[178]);
+				playerload.countFrame_2 = Integer.parseInt(fields[180]);
+				playerload.breakwalk_2 = fields[182];
+				playerload.Target_2 = fields[184];
+				playerload.AtkTimer_2 = Integer.parseInt(fields[186]);
+				playerload.AtkTimerMax_2 = Integer.parseInt(fields[188]);
+				playerload.Casting_2 = fields[190];
+				playerload.Atk_2 = Integer.parseInt(fields[192]);
+				playerload.Def_2 = Integer.parseInt(fields[194]);
+				playerload.Evasion_2 = Integer.parseInt(fields[196]);
+				playerload.Side_2 = fields[198];
+				playerload.Weapon_2 = fields[200];
+				playerload.Crystal1_2 = fields[202];
+				playerload.Crystal2_2 = fields[204];
+				playerload.Crystal3_2 = fields[206];
+				playerload.Crystal4_2 = fields[208];
+				playerload.StatusPoint_2 = Integer.parseInt(fields[210]);
+				playerload.Str_2 = Integer.parseInt(fields[212]);
+				playerload.Agi_2 = Integer.parseInt(fields[214]);
+				playerload.Vit_2 = Integer.parseInt(fields[216]);
+				playerload.Dex_2 = Integer.parseInt(fields[218]);
+				playerload.Wis_2 = Integer.parseInt(fields[220]);
+				playerload.Luk_2 = Integer.parseInt(fields[222]);
+				playerload.Res_2 = Integer.parseInt(fields[224]);
+				playerload.Stamina_2 = Integer.parseInt(fields[226]);
+				playerload.StaminaMax_2 = Integer.parseInt(fields[228]);
+				playerload.Itens_2 = fields[230];
+				playerload.Quests_2 = fields[232];
+				playerload.hotkey1_2 = fields[234];
+				playerload.hotkey2_2 = fields[236];
+				playerload.buffA_2 = fields[238];
+				playerload.buffB_2 = fields[240];
+				playerload.buffC_2 = fields[242];
+				playerload.BuffTimeA_2 = Integer.parseInt(fields[244]);
+				playerload.BuffTimeB_2 = Integer.parseInt(fields[246]);
+				playerload.BuffTimeC_2 = Integer.parseInt(fields[248]);
+				playerload.party_2 = fields[250];
+				playerload.playerInBattle_2 = fields[252];
+				playerload.playerInAttack_2 = fields[254];
+				playerload.playerInCast_2 = fields[256];
+				playerload.playerSit_2 = fields[258];
+				playerload.SyncPlayerMob_2 = fields[260];
+				playerload.PlayerExpGet_2 = fields[262];
+
+				playerload.Name_3 = fields[264];
+				playerload.Sex_3 = fields[266];
+				playerload.Hair_3 = fields[268];
+				playerload.Color_3 = fields[270];
+				playerload.Hat_3 = fields[272];
+				playerload.Job_3 = fields[274];
+				playerload.SetUpper_3 = fields[276];
+				playerload.SetBottom_3 = fields[278];
+				playerload.SetFooter_3 = fields[280];
+				playerload.Level_3 = Integer.parseInt(fields[282]);
+				playerload.Exp_3 = Float.parseFloat(fields[284]);
+				playerload.Map_3 = fields[286];
+				playerload.Hp_3 = Integer.parseInt(fields[288]);
+				playerload.Mp_3 = Integer.parseInt(fields[290]);
+				playerload.Money_3 = Integer.parseInt(fields[292]);
+				playerload.HpMax_3 = Integer.parseInt(fields[294]);
+				playerload.MpMax_3 = Integer.parseInt(fields[296]);
+				playerload.regenTime_3 = Integer.parseInt(fields[298]);
+				playerload.regenTimeMax_3 = Integer.parseInt(fields[300]);
+				playerload.PosX_3 = Float.parseFloat(fields[302]);
+				playerload.PosY_3 = Float.parseFloat(fields[304]);
+				playerload.Walk_3 = fields[306];
+				playerload.Frame_3 = Integer.parseInt(fields[308]);
+				playerload.countFrame_3 = Integer.parseInt(fields[310]);
+				playerload.breakwalk_3 = fields[312];
+				playerload.Target_3 = fields[314];
+				playerload.AtkTimer_3 = Integer.parseInt(fields[316]);
+				playerload.AtkTimerMax_3 = Integer.parseInt(fields[318]);
+				playerload.Casting_3 = fields[320];
+				playerload.Atk_3 = Integer.parseInt(fields[322]);
+				playerload.Def_3 = Integer.parseInt(fields[324]);
+				playerload.Evasion_3 = Integer.parseInt(fields[326]);
+				playerload.Side_3 = fields[328];
+				playerload.Weapon_3 = fields[330];
+				playerload.Crystal1_3 = fields[332];
+				playerload.Crystal2_3 = fields[334];
+				playerload.Crystal3_3 = fields[336];
+				playerload.Crystal4_3 = fields[338];
+				playerload.StatusPoint_3 = Integer.parseInt(fields[340]);
+				playerload.Str_3 = Integer.parseInt(fields[342]);
+				playerload.Agi_3 = Integer.parseInt(fields[344]);
+				playerload.Vit_3 = Integer.parseInt(fields[346]);
+				playerload.Dex_3 = Integer.parseInt(fields[348]);
+				playerload.Wis_3 = Integer.parseInt(fields[350]);
+				playerload.Luk_3 = Integer.parseInt(fields[352]);
+				playerload.Res_3 = Integer.parseInt(fields[354]);
+				playerload.Stamina_3 = Integer.parseInt(fields[356]);
+				playerload.StaminaMax_3 = Integer.parseInt(fields[358]);
+				playerload.Itens_3 = fields[360];
+				playerload.Quests_3 = fields[362];
+				playerload.hotkey1_3 = fields[364];
+				playerload.hotkey2_3 = fields[366];
+				playerload.buffA_3 = fields[368];
+				playerload.buffB_3 = fields[370];
+				playerload.buffC_3 = fields[372];
+				playerload.BuffTimeA_3 = Integer.parseInt(fields[374]);
+				playerload.BuffTimeB_3 = Integer.parseInt(fields[376]);
+				playerload.BuffTimeC_3 = Integer.parseInt(fields[378]);
+				playerload.party_3 = fields[380];
+				playerload.playerInBattle_3 = fields[382];
+				playerload.playerInAttack_3 = fields[384];
+				playerload.playerInCast_3 = fields[386];
+				playerload.playerSit_3 = fields[388];
+				playerload.SyncPlayerMob_3 = fields[390];
+				playerload.PlayerExpGet_3 = fields[392];
 			}
 			
 			public void UpdateExpGet(String line) {
@@ -3642,7 +2631,7 @@ public class GameControlHTML {
 				int dv = expserver / 5;
 				GiveExp(dv);
 				SetSave(charNumber);
-				SaveData(player);
+				//SaveData(player);
 			}
 			
 			public void UpdateListOnlineChats(String line) {

@@ -206,7 +206,7 @@ public class MetroStation implements Screen, ApplicationListener, InputProcessor
 					player.PosX_A = 134;
 					player.PosY_A = -186;
 					gameControl.SaveData(player);
-					this.screen.screenSwitch("LoadingScreen", network,playernum);
+					//this.screen.screenSwitch("LoadingScreen", network,playernum);
 				}
 			}
 		}

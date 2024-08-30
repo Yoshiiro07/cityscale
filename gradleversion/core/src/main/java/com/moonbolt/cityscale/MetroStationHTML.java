@@ -44,7 +44,8 @@ public class MetroStationHTML implements Screen, ApplicationListener, InputProce
 	    private String state = "Main";
 	    private Sprite spr_master;
 	    private boolean network = false;
-	    private int playernum;
+	    private int playernumber = 0;
+	    private String account = "";
 
 		//Fonts
 		private BitmapFont font_master;
@@ -92,11 +93,12 @@ public class MetroStationHTML implements Screen, ApplicationListener, InputProce
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);
 
-		public MetroStationHTML(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt,int playernumAlt) {
+		public MetroStationHTML(MainGame gameAlt,ManagerScreen screenAlt, boolean networkAlt,String accountAlt, int playernumAlt) {
 			this.game = gameAlt;
 			this.screen = screenAlt;
 			this.network = networkAlt;
-			this.playernum = playernumAlt;
+			this.playernumber = playernumAlt;
+			this.account = accountAlt;
 
 			//Load Player Data
 			this.gameControl = new GameControl();
@@ -206,7 +208,7 @@ public class MetroStationHTML implements Screen, ApplicationListener, InputProce
 					player.PosX_A = 134;
 					player.PosY_A = -186;
 					gameControl.SaveData(player);
-					this.screen.screenSwitch("LoadingScreen", network,playernum);
+					this.screen.screenSwitch("LoadingScreen", network,account, playernumber);
 				}
 			}
 		}

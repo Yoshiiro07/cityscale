@@ -48,7 +48,8 @@ public class TitleScreenHTML implements Screen, ApplicationListener, InputProces
 	    private String state = "main";
 	    private boolean network = true;
 	    private int playernum;
-
+	    private String accountID = "";
+	    
 		//input
 		private Vector2 coordsTouch = new Vector2();
 
@@ -158,7 +159,7 @@ public class TitleScreenHTML implements Screen, ApplicationListener, InputProces
 				spr_logo.draw(game.batch);
 				
 				if(state.equals("charselect")) {
-					this.screen.screenSwitch("CharacterSelectScreen", network,playernum);
+					this.screen.screenSwitch("CharacterSelectScreen", network,accountID,0);
 					dispose();
 				}
 
@@ -268,28 +269,6 @@ public class TitleScreenHTML implements Screen, ApplicationListener, InputProces
 
 			//[MainState]//
 			if(state.equals("main")) {
-				//[OLD OFFLINE] //
-				//Jogar Online
-				/*if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -26 && coordsTouch.y <= -13) {
-					network = true;
-					gameControl.CheckData();
-					state = "charselect";
-					return false;
-				}
-
-				//Jogar Offline
-				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -42 && coordsTouch.y <= -29) {
-					network = false;
-					gameControl.CheckData();
-					state = "charselect";
-					return false;
-				}
-
-				//Recuperar Conta
-				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -56 && coordsTouch.y <= -44) {
-					state = "Recover";
-					return false;
-				}*/
 				
 				//[New placement] //
 				if(coordsTouch.x >=  19 && coordsTouch.x <= 60 && coordsTouch.y >= -31 && coordsTouch.y <= -18) {
@@ -299,8 +278,12 @@ public class TitleScreenHTML implements Screen, ApplicationListener, InputProces
 				
 				//[CreateNewAccount] //
 				if(coordsTouch.x >=  19 && coordsTouch.x <= 60 && coordsTouch.y >= -57 && coordsTouch.y <= -43) {
-					String retorno = gameControlHTML.CreateNewAccount();
-					if(retorno.equals("success")) { state = "charselect"; }
+					gameControlHTML.CreateNewAccount();
+					String retorno = gameControlHTML.GetRetorno();
+					if(retorno.equals("success")) { 
+						accountID = gameControlHTML.GetAccount();
+						state = "charselect";
+					}
 					return false;
 				}
 			}
@@ -314,7 +297,7 @@ public class TitleScreenHTML implements Screen, ApplicationListener, InputProces
 				
 				//[Acessar] //
 				if(coordsTouch.x >= -20 && coordsTouch.x <= -1 && coordsTouch.y >= -14 && coordsTouch.y <= -2) {	
-					gameControlHTML.CheckData();
+					//gameControlHTML.CheckData();
 					state = "charselect";
 					return false;
 				}
@@ -325,35 +308,7 @@ public class TitleScreenHTML implements Screen, ApplicationListener, InputProces
 					return false;
 				}
 			}
-			
 
-			/*if(state.equals("Recover")) {
-				//Voltar
-				if(coordsTouch.x >= 3 && coordsTouch.x <= 22 && coordsTouch.y >= -15 && coordsTouch.y <= -2) {
-					state = "main";
-				}
-				//input acc
-				if(coordsTouch.x >= -20 && coordsTouch.x <= 22 && coordsTouch.y >= 1 && coordsTouch.y <= 14) {
-					Gdx.input.getTextInput(this,"Digite o numero da conta:","","");
-					return false;
-				}
-				//Recuperar botao
-				if(coordsTouch.x >= -20 && coordsTouch.x <= -2 && coordsTouch.y >= -15 && coordsTouch.y <= -2) {
-					try {
-						String retorno = gameControl.TipoOperacaoOnline("Download",conta);
-						if (retorno.equals("Atualizado")) {
-							avisotimer = 500;
-							avisoconta = "Conta recuperada";
-						} else {
-							avisotimer = 0;
-							avisoconta = "Sem Registro";
-						}
-					} catch (Exception e) {
-						avisoconta = "Operacao falhou";
-					}
-				}
-			}*/
-			
 			if(state.contains("keyboard")) {
 				this.KeyboardKeyPressed(coordsTouch.x,coordsTouch.y);
 				return false;

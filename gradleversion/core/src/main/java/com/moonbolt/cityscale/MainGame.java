@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.*;
 public class MainGame extends Game {
 	
 	private boolean network = false;
-	private int playernum = 0;
+	private int playernumber = 0;
+	private String account = "";
 	
 	public MainGame(){};
 	
@@ -18,11 +19,11 @@ public class MainGame extends Game {
 	{
 		batch = new SpriteBatch();  
 		loadingmanager = new ManagerScreen(this);
-		this.Switch("SplashScreen",network, playernum);
+		this.Switch("SplashScreen",network, account, playernumber);
 	}
 	
-	public void Switch(String screenName, boolean network,int playernumAlt) {
-		loadingmanager.screenSwitch(screenName, network, playernumAlt);
+	public void Switch(String screenName, boolean network,String accountAlt, int playernumAlt) {
+		loadingmanager.screenSwitch(screenName, network,accountAlt, playernumAlt);
 	}
 	
 	public void AtualizaElementos(MainGame mainGameAlt,GameControl gameControlAtl, boolean networkAlt) {

@@ -23,11 +23,13 @@ import com.moonbolt.cityscale.models.Player;
 public class CharacterSelectHTML implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 		//Objects
 	    private MainGame game;
-	    private GameControl gameControl;
+	    private GameControlHTML gameControlHTML;
 	    private ManagerScreen screen;
 	    private String state = "Account";
 	    private boolean network = false;
 	    private String systemMsg = "";
+	    private String account = "";
+	    private int playernumber = 0;
 
 		//Fonts
 		private BitmapFont font_master;
@@ -70,15 +72,17 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 	    //Controller
 	    private final IntSet downKeys = new IntSet(20);
 
-		public CharacterSelectHTML(MainGame _game, ManagerScreen _screen,boolean _network) {
+		public CharacterSelectHTML(MainGame _game, ManagerScreen _screen,boolean _network, String _account, int _playernumber) {
 			this.game = _game;
 			this.screen = _screen;
 			this.network = _network;
-			this.gameControl = new GameControl();
+			this.account = _account;
+			this.playernumber = _playernumber;
+			this.gameControlHTML = new GameControlHTML();
 
 			//Load Account
-			player = gameControl.LoadData();
-
+			player = gameControlHTML.LoadDataHTML(this.account);
+			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
@@ -128,7 +132,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 
 
 				if(state.equals("Account")) {
-					spr_master = gameControl.GetUXSmall("textbar");
+					spr_master = gameControlHTML.GetUXSmall("textbar");
 					spr_master.setPosition(-42, 0);
 					spr_master.setSize(90, 30);
 					spr_master.draw(game.batch);
@@ -146,79 +150,79 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 
 
 				if(state.equals("Main")) {
-					spr_master = gameControl.GetUXSmall("bannerselect");
+					spr_master = gameControlHTML.GetUXSmall("bannerselect");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.GetUXSmall("btncreatenew");
+					spr_master = gameControlHTML.GetUXSmall("btncreatenew");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.GetUXSmall("btnexclude");
+					spr_master = gameControlHTML.GetUXSmall("btnexclude");
 					spr_master.draw(game.batch);
 
 					if(!player.Name_1.equals("none")) {
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
 						spr_master.draw(game.batch);
 					}
 					if(!player.Name_2.equals("none")) {
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
 						spr_master.draw(game.batch);
 					}
 					if(!player.Name_3.equals("none")) {
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
 						spr_master.draw(game.batch);
 					}
 				}
 
 				if(state.equals("Create")) {
-					spr_master = gameControl.GetUXSmall("create");
+					spr_master = gameControlHTML.GetUXSmall("create");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.MenuCreateSprite(sex, "footer");
+					spr_master = gameControlHTML.MenuCreateSprite(sex, "footer");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.MenuCreateSprite(sex, "bottom");
+					spr_master = gameControlHTML.MenuCreateSprite(sex, "bottom");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.MenuCreateSprite(sex, "upper");
+					spr_master = gameControlHTML.MenuCreateSprite(sex, "upper");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.MenuHairCreateSprite(sex, hair,color, 99);
+					spr_master = gameControlHTML.MenuHairCreateSprite(sex, hair,color, 99);
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.MenuHairsSelect(1, sex, color);
+					spr_master = gameControlHTML.MenuHairsSelect(1, sex, color);
 					spr_master.draw(game.batch);
-					spr_master = gameControl.MenuHairsSelect(2, sex, color);
+					spr_master = gameControlHTML.MenuHairsSelect(2, sex, color);
 					spr_master.draw(game.batch);
-					spr_master = gameControl.MenuHairsSelect(3, sex, color);
+					spr_master = gameControlHTML.MenuHairsSelect(3, sex, color);
 					spr_master.draw(game.batch);
-					spr_master = gameControl.MenuHairsSelect(4, sex, color);
+					spr_master = gameControlHTML.MenuHairsSelect(4, sex, color);
 					spr_master.draw(game.batch);
 
 					font_master.setColor(Color.WHITE);
@@ -228,61 +232,61 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 				}
 
 				if(state.equals("Delete")) {
-					spr_master = gameControl.GetUXSmall("bannerdelete");
+					spr_master = gameControlHTML.GetUXSmall("bannerdelete");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.GetUXSmall("btnvoltar");
+					spr_master = gameControlHTML.GetUXSmall("btnvoltar");
 					spr_master.draw(game.batch);
 
 
 
 					if(!player.Name_1.equals("none")) {
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
 						spr_master.draw(game.batch);
 					}
 					if(!player.Name_2.equals("none")) {
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
 						spr_master.draw(game.batch);
 					}
 					if(!player.Name_3.equals("none")) {
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
 						spr_master.draw(game.batch);
 					}
 				}
 
 				if(state.equals("Selected")) {
 
-					spr_master = gameControl.GetUXSmall("confirmtab");
+					spr_master = gameControlHTML.GetUXSmall("confirmtab");
 					spr_master.draw(game.batch);
 
-					spr_master = gameControl.GetUXSmall("btnvoltar");
+					spr_master = gameControlHTML.GetUXSmall("btnvoltar");
 					spr_master.draw(game.batch);
 
 					font_master.setColor(Color.WHITE);
@@ -291,16 +295,16 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 
 
 					if(!player.Name_1.equals("none") && selectedchar == 1) {
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",1);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",1);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_1, player.Hair_1,player.Color_1,1);
 						spr_master.draw(game.batch);
 
 						font_master.draw(game.batch, player.Name_1 , 25 , 48);
@@ -309,16 +313,16 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 					}
 					if(!player.Name_2.equals("none")  && selectedchar == 2) {
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",2);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",2);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_2, player.Hair_2,player.Color_2,2);
 						spr_master.draw(game.batch);
 
 						font_master.draw(game.batch, player.Name_2 , 25 , 48);
@@ -326,16 +330,16 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 						font_master.draw(game.batch, player.Map_2 , 25 , 35);
 					}
 					if(!player.Name_3.equals("none")  && selectedchar == 3) {
-						spr_master = gameControl.SelectShowCharacterSprite(player, "footer",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "footer",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "bottom",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "bottom",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.SelectShowCharacterSprite(player, "upper",3);
+						spr_master = gameControlHTML.SelectShowCharacterSprite(player, "upper",3);
 						spr_master.draw(game.batch);
 
-						spr_master = gameControl.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
+						spr_master = gameControlHTML.MenuHairCreateSprite(player.Sex_3, player.Hair_3,player.Color_3,3);
 						spr_master.draw(game.batch);
 
 						font_master.draw(game.batch, player.Name_3 , 25 , 48);
@@ -346,8 +350,8 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 
 				if(state.equals("Change")) {
 					player.Map_A.equals("MetroStation");
-					gameControl.SaveData(player);
-					this.screen.screenSwitch("LoadingScreen", network, selectedchar);
+					//gameControlHTML.SaveData(player);
+					this.screen.screenSwitch("LoadingScreen", network, account,playernumber);
 					dispose();
 				}
 
@@ -566,8 +570,8 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 
 				//Confirmar
 				if(coordsTouch.x >= 28 && coordsTouch.x <= 54 && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
-					gameControl.CreateNewChar(name, sex, hair, color);
-					player = gameControl.LoadData();
+					gameControlHTML.CreateNewChar(name, sex, hair, color);
+					//player = gameControlHTML.LoadData();
 					state = "Main";
 					return false;
 				}
@@ -584,20 +588,20 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 				}
 				//delete char 1
 				if(coordsTouch.x >=  -52 && coordsTouch.x <= -28 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					gameControl.DeleteChar(1);
-					player = gameControl.LoadData();
+					//gameControlHTML.DeleteChar(1);
+					//player = gameControlHTML.LoadData();
 					return false;
 				}
 				//delete char 2
 				if(coordsTouch.x >=  -15 && coordsTouch.x <= 15 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					gameControl.DeleteChar(2);
-					player = gameControl.LoadData();
+					//gameControlHTML.DeleteChar(2);
+					//player = gameControlHTML.LoadData();
 					return false;
 				}
 				//delete char 3
 				if(coordsTouch.x >=  22 && coordsTouch.x <= 44 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-					gameControl.DeleteChar(3);
-					player = gameControl.LoadData();
+					//gameControlHTML.DeleteChar(3);
+					//player = gameControlHTML.LoadData();
 					return false;
 				}
 			}
@@ -610,7 +614,7 @@ public class CharacterSelectHTML implements Screen, ApplicationListener, InputPr
 				}
 				//Selected
 				if(coordsTouch.x >=  + 40 && coordsTouch.x <= 63 && coordsTouch.y >= 11 && coordsTouch.y <= 24) {
-					gameControl.SetCharacter(selectedchar);
+					gameControlHTML.SetCharacter(selectedchar);
 					state = "Change";
 					return false;
 				}

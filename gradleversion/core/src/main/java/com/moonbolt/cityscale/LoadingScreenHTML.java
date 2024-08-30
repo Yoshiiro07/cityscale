@@ -26,7 +26,8 @@ public class LoadingScreenHTML implements Screen, ApplicationListener, InputProc
 	private GameControl gameControl;
 	private boolean network = false;
 	private Player player;
-	private int playernum;
+	private int playernumber = 0;
+	private String account = "";
 
 	//Loading Variables
 	private boolean loading = true;
@@ -50,10 +51,11 @@ public class LoadingScreenHTML implements Screen, ApplicationListener, InputProc
     //Controller
     private final IntSet downKeys = new IntSet(20);
 
-	public LoadingScreenHTML(MainGame gameAlt,boolean networkAlt, int playernumAlt) {
+	public LoadingScreenHTML(MainGame gameAlt,boolean networkAlt, String _account, int _playernumber) {
 		this.game = gameAlt;
 		this.network = networkAlt;
-		this.playernum = playernumAlt;
+		this.account = _account;
+		this.playernumber = _playernumber;
 
 		this.gameControl = new GameControl();
 		player = gameControl.LoadData();
@@ -116,8 +118,8 @@ public class LoadingScreenHTML implements Screen, ApplicationListener, InputProc
 		}
 
 		if(changeScreen){
-			if(player.Map_A.equals("MetroStation")) { game.Switch("MetroStation", network,playernum); }
-			else { game.Switch("GameMap", network,playernum); }
+			if(player.Map_A.equals("MetroStation")) { game.Switch("MetroStation", network,account,playernumber); }
+			else { game.Switch("GameMap", network,account,playernumber); }
 
 		}
 
