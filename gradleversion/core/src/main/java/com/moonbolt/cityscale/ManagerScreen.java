@@ -24,29 +24,24 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("TitleScreen")){	
-			TitleScreenHTML titleScreen = new TitleScreenHTML(game,this, this.playernum);
+			TitleScreen titleScreen = new TitleScreen(game,this, this.playernum);
 			game.setScreen(titleScreen);
 		}
 		
 		if(tipo.equals("CharacterSelectScreen")){	
-			CharacterSelectHTML CharacterSelectScreen = new CharacterSelectHTML(game,this, network,account, playernum);
+			CharacterSelect CharacterSelectScreen = new CharacterSelect(game,this, network,account, playernum);
 			game.setScreen(CharacterSelectScreen);
 		}
 		
 		if(tipo.equals("LoadingScreen")){	
-			LoadingScreenHTML loadingScreen = new LoadingScreenHTML(game,network,account,playernum);
+			LoadingScreen loadingScreen = new LoadingScreen(game,network,account,playernum);
 			game.setScreen(loadingScreen);
 		}
 		
-		if(tipo.equals("MetroStation")){
-			MetroStationHTML MetroScreen = new MetroStationHTML(game,this, network,account, playernum);
-			game.setScreen(MetroScreen);
-		}
-		
-		if(tipo.equals("GameMap")) {
-			GameMapHTML gameMapScreen = new GameMapHTML(game,this, network,account, playernum);
-			game.setScreen(gameMapScreen);
-		}
+		//if(tipo.equals("GameMap")) {
+		//	GameMap gameMapScreen = new GameMap(game,this, network,account, playernum);
+		//	game.setScreen(gameMapScreen);
+		//}
 	}
 	
 	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControlAlt, boolean network, int playernumberAlt){

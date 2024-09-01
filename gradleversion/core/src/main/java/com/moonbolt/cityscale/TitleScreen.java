@@ -30,6 +30,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.IntSet;
@@ -39,165 +40,202 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
-	
+
 		//Objects
 	    private MainGame game;
 	    private ManagerScreen screen;
 	    private GameControl gameControl;
 	    private String state = "main";
 	    private boolean network = true;
-	    private int playernum;
+	    private String accountID = "";
 	    
 	    //Manager
 	    private String systemMsg;
 		private String conta = "";
 		private String avisoconta = "";
 		private int avisotimer = 0;
-	    
+
 		//Fonts
 		private BitmapFont font_master;
-		
+
 	    //Camera
 	    private OrthographicCamera camera;
 	    private Viewport viewport;
 	    private float cameraCoordsX = 0;
 	    private float cameraCoordsY = 0;
-	    
+
 	    //Sprites
 	    private Sprite spr_Background;
 	    private Texture tex_Background;
-	    
+
 	    //Teste
 	    private Texture tex_testeDot;
 	    private Sprite spr_testeDot;
-	    
+
 	    //Logo
 	    private Texture tex_logo;
 	    private Sprite spr_logo;
-	    
+
 	    //Sprites
-	    private Sprite spr_loginmenu;
+	    private Sprite spr_mainmenu;
 	    private Sprite spr_recovermenu;
+	    private Sprite spr_loginmenu;
 	    
-	    
+	    //keyboard
+	    private Texture tex_keyboard;
+	    private Sprite spr_keyboard;
+	    private String keyboardText = "";
+
+
 	    //Textures
 	    private TextureAtlas atlas_gameUI;
-	    
+
 	    //Controller
-	    private final IntSet downKeys = new IntSet(20);	
-		
+	    private final IntSet downKeys = new IntSet(20);
+
 		public TitleScreen(MainGame gameAlt, ManagerScreen screen, int playernumAlt) {
 			this.game = gameAlt;
 			this.screen = screen;
-			this.playernum = playernumAlt;
 			gameControl = new GameControl();
-			
+
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
 			
+			//keyboard
+			tex_keyboard = new Texture(Gdx.files.internal("data/assets/ux/keyboard.png"));
+			spr_keyboard = new Sprite(tex_keyboard);
+
 			//Load Title
 			tex_Background = new Texture(Gdx.files.internal("data/assets/maps/titlemap.png"));
 			spr_Background = new Sprite(tex_Background);
-			
+
 			//Logo
 			tex_logo = new Texture(Gdx.files.internal("data/assets/etc/maintitle.png"));
 			spr_logo = new Sprite(tex_logo);
-					
+
 			//Camera and Inputs
 			camera = new OrthographicCamera();
 		    viewport = new StretchViewport(135,135,camera);
 			viewport.apply();
 			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 			Gdx.input.setInputProcessor(this);
-	
+
 			//font
 			font_master = new BitmapFont(Gdx.files.internal("data/assets/font/impact.fnt"),Gdx.files.internal("data/assets/font/impact.png"), false);
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.12f);
-			font_master.setUseIntegerPositions(false);	
-			
+			font_master.setUseIntegerPositions(false);
+
 			//Atlas
 			atlas_gameUI = new TextureAtlas(Gdx.files.internal("data/assets/ux/ux.txt"));
 		}
-			
+
 		@Override
 		public void render(float delta) {
-			
+
 				//Just for coloring
 				Gdx.gl.glClearColor(1,1,1,1);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-				
+
 				//Update camera and start drawling
 				camera.position.set(cameraCoordsX,cameraCoordsY,0);
 				camera.update();
-			    game.batch.setProjectionMatrix(camera.combined);	    
+			    game.batch.setProjectionMatrix(camera.combined);
 				game.batch.begin();
-				
-				//Background	
+
+				//Background
 				spr_Background.setPosition(-70,-70);
 				spr_Background.setSize(140, 140);
 				spr_Background.draw(game.batch);
-						
+
 				spr_logo.setPosition(-65, 15);
 				spr_logo.setSize(50,50);
 				spr_logo.draw(game.batch);
 				
+				
+
 				if(state.equals("main")) {
 					//Menus
-					spr_loginmenu = atlas_gameUI.createSprite("login");
-					spr_loginmenu.setPosition(15, -60);
-					spr_loginmenu.setSize(50,50);
-					spr_loginmenu.draw(game.batch);
+					spr_mainmenu = atlas_gameUI.createSprite("main");
+					spr_mainmenu.setPosition(15, -60);
+					spr_mainmenu.setSize(50,50);
+					spr_mainmenu.draw(game.batch);
+					
+					font_master.setColor(Color.WHITE);
+					font_master.getData().setScale(0.07f,0.12f);
+					font_master.setUseIntegerPositions(false);
+					font_master.draw(game.batch, "Versao: 0.2b" , -60 , -58);
 				}
-				
-				
-				if(state.equals("charselect")) {
-					//this.screen.screenSwitch("CharacterSelectScreen", network,playernum);
-					dispose();
-				}
-				
+
 				if(state.equals("Recover")){
 					//Menus
 					spr_recovermenu = atlas_gameUI.createSprite("recover");
 					spr_recovermenu.setPosition(-23, -26);
 					spr_recovermenu.setSize(50,50);
 					spr_recovermenu.draw(game.batch);
-					
+
 					font_master.getData().setScale(0.15f,0.20f);
-					font_master.setUseIntegerPositions(false);				
+					font_master.setUseIntegerPositions(false);
 					font_master.draw(game.batch, conta , -17 , 11);
-					
-					if(avisotimer > 0) {	
+
+					if(avisotimer > 0) {
 						font_master.draw(game.batch, avisoconta , -20 , -16);
 						avisotimer--;
 						if(avisotimer < 0) { avisotimer = 0; avisoconta = ""; conta = ""; }
 					}
 				}
 				
-				
-				font_master.setColor(Color.WHITE);
-				font_master.getData().setScale(0.07f,0.12f);
-				font_master.setUseIntegerPositions(false);			
-				font_master.draw(game.batch, "Versao: 0.2b" , -60 , -58);
-						
-				spr_testeDot.setPosition(3,-2);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+				if(state.equals("Login")){
+					//Menus
+					spr_loginmenu = atlas_gameUI.createSprite("login");
+					spr_loginmenu.setPosition(-23, -26);
+					spr_loginmenu.setSize(50,50);
+					spr_loginmenu.draw(game.batch);
 
-				spr_testeDot.setPosition(22, -15);
-				spr_testeDot.setSize(1, 1);
-				spr_testeDot.draw(game.batch);
+					font_master.getData().setScale(0.15f,0.20f);
+					font_master.setUseIntegerPositions(false);
+					font_master.draw(game.batch, keyboardText , -17 , 11);
+
+					if(avisotimer > 0) {
+						font_master.draw(game.batch, avisoconta , -20 , -16);
+						avisotimer--;
+						if(avisotimer < 0) { avisotimer = 0; avisoconta = ""; conta = ""; }
+					}
+				}
+				
+				if(state.equals("keyboard-login")) {
+					spr_keyboard.setPosition(-70, -69);
+					spr_keyboard.setSize(140,130);
+					spr_keyboard.draw(game.batch);
 					
+					font_master.getData().setScale(0.15f,0.20f);
+					font_master.setUseIntegerPositions(false);
+					font_master.draw(game.batch, keyboardText , -65 ,55);
+				}
+				
+				
+				if(state.equals("charselect")) {
+					this.screen.screenSwitch("CharacterSelectScreen", network,accountID,0);
+					dispose();
+				}
+				
+				//Teste
+				//spr_testeDot.setPosition(19,-57);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
+
+				//spr_testeDot.setPosition(60, -43);
+				//spr_testeDot.setSize(1, 1);
+				//spr_testeDot.draw(game.batch);
+
 				game.batch.end();
-			
+
 		}
 		
 		@Override
-		public void input(String input) {
-			if (input.matches("\\d+")) {
-			    conta = input;
-			} 
+		public void input(String text) {
+			System.out.println("Input: " + text);
 		}
 
 		@Override
@@ -205,7 +243,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 
 		@Override
 		public boolean keyDown(int keycode) {
-			
+
 			return false;
 		}
 
@@ -222,63 +260,115 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 
 		@Override
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
-			
+
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
-			
-			//[MainState]// 
+
+			//[MainState]//
 			if(state.equals("main")) {
-				//Jogar Online
-				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -26 && coordsTouch.y <= -13) {
-					network = true;
-					gameControl.CheckData();
-					state = "charselect";
+				
+				//[New placement] //
+				if(coordsTouch.x >=  19 && coordsTouch.x <= 60 && coordsTouch.y >= -31 && coordsTouch.y <= -18) {
+					state = "Login";
 					return false;
 				}
-								
-				//Jogar Offline
-				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -42 && coordsTouch.y <= -29) {
-					network = false;
-					gameControl.CheckData();
-					state = "charselect";
+				
+				//[CreateNewAccount] //
+				if(coordsTouch.x >=  19 && coordsTouch.x <= 60 && coordsTouch.y >= -57 && coordsTouch.y <= -43) {
+					try{
+					gameControl.CreateAccountOnline();
+					String retorno = gameControl.GetResult();
+					if(retorno.equals("success")) { 
+						accountID = gameControl.GetAccount();
+						state = "charselect";
+					}
 					return false;
-				}
-						
-				//Recuperar Conta
-				if(coordsTouch.x >=  + 19 && coordsTouch.x <= 60 && coordsTouch.y >= -56 && coordsTouch.y <= -44) {
-					state = "Recover";
-					return false;
+					}catch(Exception e) { e.printStackTrace(); }
 				}
 			}
 			
-			if(state.equals("Recover")) {
-				//Voltar
-				if(coordsTouch.x >= 3 && coordsTouch.x <= 22 && coordsTouch.y >= -15 && coordsTouch.y <= -2) {
-					state = "main";
-				}
-				//input acc
-				if(coordsTouch.x >= -20 && coordsTouch.x <= 22 && coordsTouch.y >= 1 && coordsTouch.y <= 14) {
-					Gdx.input.getTextInput(this,"Digite o numero da conta:","","");
+			if(state.equals("Login")) {
+				//[Input Login] //
+				if(coordsTouch.x >= -20 && coordsTouch.x <= 22 && coordsTouch.y >= 0 && coordsTouch.y <= 14) {	
+					state = "keyboard-login";
 					return false;
 				}
-				//Recuperar botao
-				if(coordsTouch.x >= -20 && coordsTouch.x <= -2 && coordsTouch.y >= -15 && coordsTouch.y <= -2) {
-					try {
-						String retorno = gameControl.TipoOperacaoOnline("Download",conta);
-						if (retorno.equals("Atualizado")) {
-							avisotimer = 500;
-							avisoconta = "Conta recuperada";
-						} else {
-							avisotimer = 0;
-							avisoconta = "Sem Registro";
-						}
-					} catch (Exception e) {
-						avisoconta = "Operacao falhou";
-					}
+				
+				//[Acessar] //
+				if(coordsTouch.x >= -20 && coordsTouch.x <= -1 && coordsTouch.y >= -14 && coordsTouch.y <= -2) {	
+					//gameControlHTML.CheckData();
+					state = "charselect";
+					return false;
+				}
+				
+				//[Voltar] //
+				if(coordsTouch.x >= 4 && coordsTouch.x <= 23 && coordsTouch.y >= -14 && coordsTouch.y <= -2) {						
+					state = "main";
+					return false;
 				}
 			}
-							
+
+			if(state.contains("keyboard")) {
+				this.KeyboardKeyPressed(coordsTouch.x,coordsTouch.y);
+				return false;
+			}
+
 			return false;
 		}
+		
+		public void KeyboardKeyPressed(float x, float y) {
+			if(x >= -66 && x <= -56 && y >= 17 && y <= 37) { keyboardText = keyboardText + "1";  }
+			if(x >= -54 && x <= -44 && y >= 17 && y <= 37) { keyboardText = keyboardText + "2"; }
+			if(x >= -41 && x <= -31 && y >= 17 && y <= 37) { keyboardText = keyboardText + "3";  }
+			if(x >= -28 && x <= -18 && y >= 17 && y <= 37) { keyboardText = keyboardText + "4"; }
+			if(x >= -15 && x <= -6 && y >= 17 && y <= 37) { keyboardText = keyboardText + "5";  }
+			if(x >= -3 && x <= 7 && y >= 17 && y <= 37) { keyboardText = keyboardText + "6";  }
+			if(x >= 10 && x <= 19 && y >= 17 && y <= 37) { keyboardText = keyboardText + "7";  }
+			if(x >= 22 && x <= 32 && y >= 17 && y <= 37) { keyboardText = keyboardText + "8";  }
+			if(x >= 35 && x <= 45 && y >= 17 && y <= 37) { keyboardText = keyboardText + "9";  }
+			if(x >= 47 && x <= 57 && y >= 17 && y <= 37) { keyboardText = keyboardText + "0"; }
+			
+			if(x >= -59 && x <= -48 && y >= -6 && y <= 12) { keyboardText = keyboardText + "Q"; }
+			if(x >= -46 && x <= -36 && y >= -6 && y <= 12) { keyboardText = keyboardText + "W"; }
+			if(x >= -34 && x <= -24 && y >= -6 && y <= 12) { keyboardText = keyboardText + "E"; }
+			if(x >= -21 && x <= -12 && y >= -6 && y <= 12) { keyboardText = keyboardText + "R"; }
+			if(x >= -9 && x <= 1 && y >= -6 && y <= 12) { keyboardText = keyboardText + "T"; }
+			if(x >= 3 && x <= 13 && y >= -6 && y <= 12) { keyboardText = keyboardText + "Y"; }
+			if(x >= 15 && x <= 25 && y >= -6 && y <= 12) { keyboardText = keyboardText + "U"; }
+			if(x >= 28 && x <= 37 && y >= -6 && y <= 12) { keyboardText = keyboardText + "I"; }
+			if(x >= 40 && x <= 50 && y >= -6 && y <= 12) { keyboardText = keyboardText + "O"; }
+			if(x >= 52 && x <= 62 && y >= -6 && y <= 12) { keyboardText = keyboardText + "P"; }
+			
+			if(x >= -52 && x <= -42 && y >= -26 && y <= -9) { keyboardText = keyboardText + "A"; }
+			if(x >= -40 && x <= -30 && y >= -26 && y <= -9) { keyboardText = keyboardText + "S"; }
+			if(x >= -27 && x <= -18 && y >= -26 && y <= -9) { keyboardText = keyboardText + "D"; }
+			if(x >= -15 && x <= -6 && y >= -26 && y <= -9) { keyboardText = keyboardText + "F"; }
+			if(x >= -3 && x <= 7 && y >= -26 && y <= -9) { keyboardText = keyboardText + "G"; }
+			if(x >= 9 && x <= 19 && y >= -26 && y <= -9) { keyboardText = keyboardText + "H"; }
+			if(x >= 21 && x <= 31 && y >= -26 && y <= -9) { keyboardText = keyboardText + "J"; }
+			if(x >= 34 && x <= 43 && y >= -26 && y <= -9) { keyboardText = keyboardText + "K"; }
+			if(x >= 46 && x <= 56 && y >= -26 && y <= -9) { keyboardText = keyboardText + "L"; }
+			
+			if(x >= -40 && x <= -30 && y >= -46 && y <= -29) { keyboardText = keyboardText + "Z"; }
+			if(x >= -27 && x <= -18 && y >= -46 && y <= -29) { keyboardText = keyboardText + "X"; }
+			if(x >= -15 && x <= -6 && y >= -46 && y <= -29) { keyboardText = keyboardText + "C"; }
+			if(x >= -3 && x <= 7 && y >= -46 && y <= -29) { keyboardText = keyboardText + "V"; }
+			if(x >= 9 && x <= 19 && y >= -46 && y <= -29) { keyboardText = keyboardText + "B"; }
+			if(x >= 21 && x <= 31 && y >= -46 && y <= -29) { keyboardText = keyboardText + "N"; }
+			if(x >= 34 && x <= 43 && y >= -46 && y <= -29) { keyboardText = keyboardText + "M"; }
+			
+			
+			if(x >= -40 && x <= 20 && y >= -66 && y <= -50) { keyboardText = keyboardText + " "; }
+			if(x >= 23 && x <= 43 && y >= -66 && y <= -50) { 
+			    if (!keyboardText.isEmpty()) {
+			        keyboardText = keyboardText.substring(0, keyboardText.length() - 1);
+			    }
+			}
+			
+			if(x >= 50 && x <= 67 && y >= -66 && y <= -50) { state = "Login"; }
+			
+			
+		}
+		
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
@@ -289,8 +379,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
 			return false;
 		}
-		
-		private void onMultipleKeysDown (int mostRecentKeycode){}	
+
+		private void onMultipleKeysDown (int mostRecentKeycode){}
 
 		@Override
 		public boolean mouseMoved(int screenX, int screenY) {
@@ -306,19 +396,19 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		@Override
 		public void create() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void render() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void show() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -326,41 +416,43 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		{
 			viewport.update(p1,p2);
 			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
-		}	
+		}
 
 		@Override
 		public void pause() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void resume() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void hide() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void dispose() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
 			// TODO Auto-generated method stub
+			//throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
 			return false;
 		}
 
 		@Override
 		public boolean scrolled(float amountX, float amountY) {
-			// TODO Auto-generated method stub
+			//// TODO Auto-generated method stub
 			return false;
+			//throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
 		}
 }

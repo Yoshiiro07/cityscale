@@ -1,12 +1,7 @@
 package com.moonbolt.cityscale;
 
-//import java.io.BufferedReader;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
-////import java.io.OutputStreamWriter;
-//import java.net.URL;
-//import java.net.URLConnection;
-//import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,8 +9,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -24,10 +21,6 @@ import com.badlogic.gdx.utils.Json;
 import com.moonbolt.cityscale.models.Monster;
 import com.moonbolt.cityscale.models.Player;
 import com.badlogic.gdx.files.FileHandle;
-//import com.google.gwt.core.client.GWT;
-//import com.google.gwt.core.client.RunAsyncCallback;
-//import com.google.gwt.core.client.Scheduler;
-//import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
 public class GameControl {
 	
@@ -35,38 +28,26 @@ public class GameControl {
 	private Json json;
 	private FileHandle file;
 	private Random randnumber;
-	private Player player;
+
+	//Player
+	private ArrayList<Player> lstPlayers;
 	private int FrameAtkPlayer = 0;
 	private int charNumber = 0;
-	
-	private ArrayList<Monster> lstMonsters;
-	private Monster placeholderMonster;
+	private String playerAccount = "";
 	
 	//Sprite
 	private Sprite spr_master;
-	private Sprite spr_skill;
 	
 	//Online
-	private ArrayList<Player> lstOnlinePlayers;
-	private Player playerOnline = new Player();
-    private int countCleanOnline = 800;
-	private String retornoOnline = "";
-	private int threahCountSyncPlayer = 0;
-	private int threahCountSyncChat = 0;
-	private int threahCountSyncMob = 0;
-	private Thread thrOnlineSyncPlayer;
-	private Thread thrOnlineSyncChat;
-	private Thread thrOnlineSyncMob;
-	private boolean onlineAuth = false;
-    private boolean versionDif = false; 
-    private boolean uploadDone = false;
-    private String lservername = "cityserver.mysql.uhserver.com";
+	private String lservername = "cityserver.mysql.uhserver.com";
     private String lusername = "citymaster";
     private String lpassword = "P@titos07";
     private String ldbname = "cityserver";
-    private String onlineresponse = "";
-    private ArrayList<String> lstChats;
-    private int ExpSharedOnline = 0;
+    
+	//Online Lists
+	private int ExpSharedOnline = 0;
+	private ArrayList<String> lstChats;
+	private String onlineResult = "";
 	
 	//Texture Atlas
 	private TextureAtlas atlas_hairs1;
@@ -83,7 +64,6 @@ public class GameControl {
 	private TextureAtlas atlas_cards;
 	private TextureAtlas atlas_mobSewers;
 	
-	//private TextureAtlas atlas_items;
 	private TextureAtlas atlas_weapon;
 	private TextureAtlas atlas_cloth;
 	private TextureAtlas atlas_cristais;
@@ -98,7 +78,6 @@ public class GameControl {
 	private TextureAtlas atlas_axes;
 	private TextureAtlas atlas_pistols;
 	private TextureAtlas atlas_daggers;
-	
 	
 	private TextureAtlas atlas_tripleattack;
     private TextureAtlas atlas_rockbound;
@@ -131,24 +110,21 @@ public class GameControl {
     private TextureAtlas atlas_dashkick;
 	
 	
-	
-	
-		
 	public GameControl() {
 		
 		json = new Json();
 		randnumber = new Random();
 		
+		//list players
+		lstPlayers = new ArrayList<Player>();
+		
 		//Chats
 		lstChats = new ArrayList<String>();
 		lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add("");
 		
-		//Online player
-		lstOnlinePlayers = new ArrayList<Player>();
-
 		//Monster
-		placeholderMonster = new Monster();
-		lstMonsters = new ArrayList<Monster>();
+		//placeholderMonster = new Monster();
+		//lstMonsters = new ArrayList<Monster>();
 		
 		//Textures
 		atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair1.txt"));
@@ -224,601 +200,483 @@ public class GameControl {
 	//[Skills]//
 	//[Online]//
 	//[Exp/Drop]//
-			
-			//[online]//
-			public String OnlineManager(String operation, String subData, String extraData) {
-				try {
-					if(operation.equals("CheckVersion")) {  
-						TipoOperacaoOnline("CheckVersion", subData);
-					}
-					if(operation.equals("Chat")) {  
-						TipoOperacaoOnline("Chat", subData);
-					}
-					if(operation.equals("Upload")) {  
-						onlineresponse = TipoOperacaoOnline("Upload", subData);
-					}
-					if(operation.equals("Download")) {  
-						TipoOperacaoOnline("Download", subData);
-					}
-					if(operation.equals("SyncChats")) {
-						//ThreadsSyncStartChat();	
-						//SyncChatGWT();
-					}
-					if(operation.equals("SyncPlayer")) {
-						//ThreadsSyncStartPlayer();
-						//SyncPlayersGWT();
-					}
-					if(operation.equals("ExpSharedSend")){
-						TipoOperacaoOnline("ExpSharedSend", subData);
-					}
-					if(operation.equals("ExpGiver")){
-						TipoOperacaoOnline("ExpGiver", subData);
-					}
-					return onlineresponse;
-				}
-				
-				catch(Exception ex) {
-					return onlineresponse;
-				}
-			}
+	
+	
+	/////////////////////////////////////////////////[Account]///////////////////////////////////////////////
+	public void LoadData(String data) {
+		String[] splitData = data.split(":");
 		
-			public String TipoOperacaoOnline(String nomeOperacao, String subData) {
-				
-				try {
-					if(nomeOperacao.equals("CheckVersion")) {
-						onlineresponse = GerenciamentoOnline("CheckVersion","","");		
-					}
-					if(nomeOperacao.equals("Chat")) {
-						onlineresponse = GerenciamentoOnline("Chat",subData,"");		
-					}
-					if(nomeOperacao.equals("Upload")) {
-						onlineresponse = GerenciamentoOnline("Upload","","");		
-					}
-					if(nomeOperacao.equals("Download")) {
-						onlineresponse = GerenciamentoOnline("Download",subData,"");		
-					}
-					if(nomeOperacao.equals("ExpSharedSend")) {
-						onlineresponse = GerenciamentoOnline("ExpSharedSend",subData,"");		
-					}
-					if(nomeOperacao.equals("ExpGiver")) {
-						onlineresponse = GerenciamentoOnline("ExpGiver","","");		
-					}
-					if(nomeOperacao.equals("SyncChats")) {
-						
-						//SyncChatGWT();
-						//ThreadsSyncStartChat();	
-						
-					}	
-					if(nomeOperacao.equals("SyncPlayer")) {
-						
-						//ThreadsSyncStartPlayer();		
-						//SyncPlayersGWT();
-					}
-					return onlineresponse;
-				}
-				
-				catch(Exception ex) { return "none"; }	
+		Player player = new Player();
+		player.AccountID = splitData[2]; //AccountID;
+		player.AccountNumber = splitData[4]; //AccountNumber;
+		player.Characternumber = splitData[6]; // CharacterNumber;
+		player.Name = splitData[10]; //Name;
+		
+		if(!splitData[12].equals("")) {	
+			player.Sex = splitData[12]; //Sex
+			player.Hair = splitData[14]; //Hair
+			player.Color = splitData[16]; //Color
+			player.Hat = splitData[18]; //Hat
+			player.Job = splitData[20]; //Job
+			player.SetUpper = splitData[22]; //SetUpper
+			player.SetBottom = splitData[24]; //SetBottom
+			player.SetFooter = splitData[26]; //SetFooter
+			player.Level = splitData[28]; //Level
+			player.Exp = splitData[30]; //Exp
+			player.Map = splitData[32]; //Map
+			player.Hp = splitData[34]; //Hp
+			player.Mp = splitData[36]; //Mp
+			player.Money = splitData[38]; //Money
+			player.HpMax = splitData[40]; //HpMax
+			player.MpMax = splitData[42]; //MpMax
+			player.regenTime = splitData[44]; //regenTime
+			player.regenTimeMax = splitData[46]; //regenTimeMax
+			player.PosX = splitData[48]; //posX
+			player.PosY = splitData[50]; //posY
+			player.Walk = splitData[52]; //Walk
+			player.Frame = splitData[54]; //Frame
+			player.countFrame = splitData[56]; //countFrame
+			player.breakwalk = splitData[58]; //breakwalk
+			player.Target = splitData[60]; //Target
+			player.AtkTimer = splitData[62]; //AtkTimer
+			player.AtkTimerMax = splitData[64]; //AtkTimerMax
+			player.Casting = splitData[66]; //CastTimer
+			player.Atk = splitData[68]; //Atk
+			player.Def = splitData[70]; //Def
+			player.Evasion = splitData[72]; //Evasion
+			player.Side = splitData[74]; //Side
+			player.Weapon = splitData[76]; //Weapon
+			player.Crystal1 = splitData[78]; //Crystal1
+			player.Crystal2 = splitData[80]; //Crystal2
+			player.Crystal3 = splitData[82]; //Crystal3
+			player.Crystal4 = splitData[84]; //Crystal4
+			player.StatusPoint = splitData[86]; //StatusPoints
+			player.Str = splitData[88]; //Str
+			player.Agi = splitData[90]; //Agi
+			player.Vit = splitData[92]; //Vit
+			player.Dex = splitData[94]; //Dex
+			player.Wis = splitData[96]; //Wis
+			player.Luk = splitData[98]; //Luk
+			player.Res= splitData[100]; //Res
+			player.Stamina = splitData[102]; //Stamina
+			player.StaminaMax = splitData[104]; //StaminaMax
+			player.Itens = splitData[106]; //Itens
+			player.Quests = splitData[108]; //Quests
+			player.hotkey1 = splitData[110]; //Hotkey1
+			player.hotkey2 = splitData[112]; //Hotkey2
+			player.buffA = splitData[114]; //BuffA
+			player.buffB = splitData[116]; //BuffB
+			player.buffC = splitData[118]; //BuffC
+			player.BuffTimeA = splitData[120]; //BuffTimeA
+			player.BuffTimeB = splitData[122]; //BuffTimeB
+			player.BuffTimeC = splitData[124]; //BuffTimeC
+			player.party = splitData[126]; //Party
+			player.playerInBattle = splitData[128]; //PlayerInBattle
+			player.playerInAttack = splitData[130]; //PlayerInAttack
+			player.playerInCast = splitData[132]; //PlayerInCast
+			player.playerSit = splitData[134]; //PlayerSit
+			player.SyncPlayerMob = splitData[136]; //SyncPlayerMob
+			player.PlayerExpGet = splitData[138]; //PlayerExpGet
+			player.pet = splitData[140]; //Pet
+			player.pethungry = splitData[142]; //PetHungry
+			player.petcare = splitData[144]; //PetCare
+			player.petTraining = splitData[146]; //PetTraining
+			player.petBath = splitData[148]; //PetBath
+			player.petLevel = splitData[150]; //PetLevel
+			
+		}
+		
+		lstPlayers.add(player);
+	}
+	
+	/////////////////////////////////////////////////[Interface]///////////////////////////////////////////////
+		public Sprite GetUX(String element, float cameraCoordsX, float cameraCoordsY) {
+			switch (element) {
+				case "bannerselect":
+				case "bannercreate":
+				case "bannerdelete":
+					return createSpriteWithPositionAndSize(element, -60, 50, 50, 10);
+				case "create":
+					return createSpriteWithPositionAndSize(element, -60, -60, 120, 120);
+				case "confirmtab":
+					return createSpriteWithPositionAndSize(element, 15, 10, 50, 50);
+				case "btnvoltar":
+					return createSpriteWithPositionAndSize("btnback", 40, -60, 20, 10);
+				case "btncreatenew":
+				case "btnexclude":
+					return createSpriteWithPositionAndSize(element, -60, -60, 20, 10);
+				case "textbar":
+					return atlas_ux.createSprite("textbar");
+				case "playertag":
+					return createSpriteWithPositionAndSize(element, cameraCoordsX - 99, cameraCoordsY + 56, 52, 42);
+				case "innerpad":
+					return createSpriteWithSize(element, 20, 35);
+				case "battlezoneA":
+					return createSpriteWithPositionAndSize(element, cameraCoordsX - 48, cameraCoordsY - 45, 90, 100);
+				case "target":
+					return atlas_ux.createSprite("target");
+				case "menu":
+					return createSpriteWithPositionAndSize("inventory", cameraCoordsX - 85, cameraCoordsY - 80, 170, 170);
+				case "btnsit":
+					return createSpriteWithPositionAndSize("sentar", cameraCoordsX - 45, cameraCoordsY + 87, 20, 10);
+				case "hotkey1":
+					return createSpriteWithPositionAndSize("placebox1", cameraCoordsX - 45, cameraCoordsY + 87, 20, 15);
+				case "hotkey2":
+					return createSpriteWithPositionAndSize("placebox1", cameraCoordsX - 45, cameraCoordsY + 87, 20, 10);
+				case "descartar":
+					return createSpriteWithPositionAndSize("placebox2", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
+				case "controlPC":
+					return createSpriteWithPositionAndSize("off", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
+				case "login":
+					return createSpriteWithPositionAndSize("login", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
+				default:
+					return null;
 			}
-			
-			
-			//[USING THREADS]//
-			/*private void ThreadsSyncStartChat() {
-				thrOnlineSyncChat = new Thread(t1);
-				thrOnlineSyncChat.start();
-			}
-			
-			private void ThreadsSyncStartPlayer() {
-				thrOnlineSyncChat = new Thread(t2);
-				thrOnlineSyncChat.start();
-			}
-			
-			private Runnable t1 = new Runnable() {
-				public void run() {
-					try{    
-						threahCountSyncChat = 1;
-						while(threahCountSyncChat == 1) {
-							GerenciamentoOnline("SyncChats","","");            	
-						}
-					}
-					catch(Exception ex) {
-						Thread.currentThread().interrupt();	
-					}	
-				}
-			};
-			
-			private Runnable t2 = new Runnable() {
-				public void run() {
-					try{   
-						threahCountSyncPlayer = 1;
-						while(threahCountSyncPlayer == 1) {
-							GerenciamentoOnline("SyncPlayer","","");            	
-						}
-					}
-					catch(Exception ex) {
-						Thread.currentThread().interrupt();	
-					}	
-				}
-			};
-			*/
-			
-			//[USING GWT SCHEDULER]//
-			/*public void SyncChatGWT() {
-				GWT.runAsync(new RunAsyncCallback() {
-					public void onFailure(Throwable reason) {
-						// Show the error
-					}
+		}
 
-					public void onSuccess() {
-						try {
-							GerenciamentoOnline("SyncChats", "", "");
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				});
+		private Sprite createSpriteWithPositionAndSize(String element, float x, float y, float width, float height) {
+			Sprite spr_master = atlas_ux.createSprite(element);
+			spr_master.setPosition(x, y);
+			spr_master.setSize(width, height);
+			return spr_master;
+		}
+		
+		private Sprite createSpriteWithSize(String element, float width, float height) {
+			Sprite spr_master = atlas_ux.createSprite(element);
+			spr_master.setSize(width, height);
+			return spr_master;
+		}
+	
+	
+	
+	/////////////////////////////////////////////////[Character]///////////////////////////////////////////////
+	public Sprite CharSelect(Player player, String type, int num) {
+		//basictopM_front1
+		if(type.equals("upper")) {
+			if(num == 1) {
+				if(player.SetUpper.equals("basictop")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-64, -36); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-64, -36); spr_master.setScale(-0.3f,0.5f); }
+				return spr_master;
 			}
-			
-			public void SyncPlayersGWT() {
-				GWT.runAsync(new RunAsyncCallback() {
-					public void onFailure(Throwable reason) {
-						// Show the error
-					}
+			if(num == 2) {
+				if(player.SetUpper.equals("basictop")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-25, -36); spr_master.setScale(-0.3f,0.5f);  }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-25, -36); spr_master.setScale(-0.3f,0.5f);  }
+				return spr_master;
+			}
+			if(num == 3) {
+				if(player.SetUpper.equals("basictop")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(10, -36); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(10, -36); spr_master.setScale(-0.3f,0.5f); }
+				return spr_master;
+			}
+		}
+		
+		
+		//basicbottomM_front1
+		if(type.equals("bottom")) { 
+			if(num == 1) {
+				if(player.SetUpper.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-64, -48); spr_master.setScale(-0.3f,0.5f);}
+				if(player.Sex.equals("F")) { spr_master.setPosition(-64, -48); spr_master.setScale(-0.3f,0.5f); }
+				return spr_master;	
+			}
+			if(num == 2) {
+				if(player.SetUpper.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-25f, -48); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-25f, -48); spr_master.setScale(-0.3f,0.5f); }
+				return spr_master;	
+			}
+			if(num == 3) {
+				if(player.SetUpper.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(10, -48); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(10, -48); spr_master.setScale(-0.3f,0.5f); }
+				return spr_master;	
+			}
+		}
+		
+		
+		//basicfooterM_front1
+		if(type.equals("footer")) { 
+			if(num == 1) {
+				if(player.SetUpper.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-64, -55); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-64.5f, -60); spr_master.setScale(-0.3f,0.5f); }
+				return spr_master;	
+			}
+			if(num == 2) {
+				if(player.SetUpper.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(-25f, -55); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(-25.5f, -60); spr_master.setScale(-0.3f,0.5f); }
+				return spr_master;	
+			}
+			if(num == 3) {
+				if(player.SetUpper.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
+				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_front1");
+				if(player.Sex.equals("M")) { spr_master.setPosition(10, -55); spr_master.setScale(-0.3f,0.5f); }
+				if(player.Sex.equals("F")) { spr_master.setPosition(10, -60); spr_master.setScale(-0.3f,0.5f); }
+				return spr_master;	
+			}
+		}		
+		return spr_master;
+	}
+	
+	public Sprite CharHairSelect(String sex, String hair,String color, int num) {  
+		if(hair.equals("hair1")) {  spr_master = atlas_hairs1.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair2")) {  spr_master = atlas_hairs2.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair3")) {  spr_master = atlas_hairs3.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair4")) {  spr_master = atlas_hairs4.createSprite(hair + "_front_" + color + "_" + sex); }
+				
+		spr_master.setScale(-0.3f,0.5f);
+		if(num == 1) {spr_master.setPosition(-59, -18);}
+		if(num == 2) {spr_master.setPosition(-20, -18);}
+		if(num == 3) {spr_master.setPosition(15, -18);}
+		if(num == 99) {spr_master.setPosition(-62, 10);} //Block hair
+		return spr_master;
+	}
+	
+	
+	public Sprite AllHairs(int num, String sex, String color) {
+		if(sex.equals("M")) {
+			if(num == 1) { spr_master = atlas_hairs1.createSprite("hair1_front_" + color + "_" + sex); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
+			if(num == 2) { spr_master = atlas_hairs2.createSprite("hair2_front_" + color + "_" + sex); spr_master.setPosition(-33, -21); spr_master.setScale(-0.3f,0.5f);  }
+			if(num == 3) { spr_master = atlas_hairs3.createSprite("hair3_front_" + color + "_" + sex); spr_master.setPosition(-23.7f, -21); spr_master.setScale(-0.3f,0.5f);  }
+			if(num == 4) { spr_master = atlas_hairs4.createSprite("hair4_front_" + color + "_" + sex); spr_master.setPosition(-13.9f, -21); spr_master.setScale(-0.3f,0.5f);  }
+		}
+		if(sex.equals("F")) {
+			if(num == 1) { spr_master = atlas_hairs1.createSprite("hair1_front_" + color + "_" + sex); spr_master.setPosition(-43, -21); spr_master.setScale(-0.3f,0.5f);  }
+			if(num == 2) { spr_master = atlas_hairs2.createSprite("hair2_front_" + color + "_" + sex); spr_master.setPosition(-33, -21); spr_master.setScale(-0.3f,0.5f);  }
+			if(num == 3) { spr_master = atlas_hairs3.createSprite("hair3_front_" + color + "_" + sex); spr_master.setPosition(-23.7f, -21); spr_master.setScale(-0.3f,0.5f);  }
+			if(num == 4) { spr_master = atlas_hairs4.createSprite("hair4_front_" + color + "_" + sex); spr_master.setPosition(-13.9f, -21); spr_master.setScale(-0.3f,0.5f);  }
+		}	
+		return spr_master;	
+	}
+	
+	public Sprite CharacterCreate(String sex, String type) {
+		if(sex.equals("M")) {
+			if(type.equals("upper")) { 
+				spr_master = atlas_basicset.createSprite("basictopM_front1");
+				spr_master.setPosition(-67, -8);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+			if(type.equals("bottom")) { 
+				spr_master = atlas_basicset.createSprite("basicbottomM_front1");
+				spr_master.setPosition(-67, -20);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+			if(type.equals("footer")) { 
+				spr_master = atlas_basicset.createSprite("basicfooterM_front1");
+				spr_master.setPosition(-67.2f, -27f);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}		
+		}
+		
+		if(sex.equals("F")) {
+			if(type.equals("upper")) { 
+				spr_master = atlas_basicset.createSprite("basictopF_front1");
+				spr_master.setPosition(-67, -8);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+			if(type.equals("bottom")) { 
+				spr_master = atlas_basicset.createSprite("basicbottomF_front1");
+				spr_master.setPosition(-67, -20);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}
+			if(type.equals("footer")) { 
+				spr_master = atlas_basicset.createSprite("basicfooterF_front1");
+				spr_master.setPosition(-67.5f, -31f);
+				spr_master.setScale(-0.3f,0.5f);
+				return spr_master;
+			}		
+		}
+		return spr_master;
+	}
+	
+	public Sprite HairCharacterCreate(String sex, String hair,String color, int num) {  
+		if(hair.equals("hair1")) {  spr_master = atlas_hairs1.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair2")) {  spr_master = atlas_hairs2.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair3")) {  spr_master = atlas_hairs3.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair4")) {  spr_master = atlas_hairs4.createSprite(hair + "_front_" + color + "_" + sex); }
+				
+		spr_master.setScale(-0.3f,0.5f);
+		if(num == 1) {spr_master.setPosition(-59, -18);}
+		if(num == 2) {spr_master.setPosition(-20, -18);}
+		if(num == 3) {spr_master.setPosition(15, -18);}
+		if(num == 99) {spr_master.setPosition(-62, 10);} //Block hair
+		return spr_master;
+	}
+	
+	
+	public Sprite HairCreateSprite(String sex, String hair,String color, int num) {  
+		if(hair.equals("hair1")) {  spr_master = atlas_hairs1.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair2")) {  spr_master = atlas_hairs2.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair3")) {  spr_master = atlas_hairs3.createSprite(hair + "_front_" + color + "_" + sex); }
+		if(hair.equals("hair4")) {  spr_master = atlas_hairs4.createSprite(hair + "_front_" + color + "_" + sex); }
+				
+		spr_master.setScale(-0.3f,0.5f);
+		if(num == 1) {spr_master.setPosition(-59, -18);}
+		if(num == 2) {spr_master.setPosition(-20, -18);}
+		if(num == 3) {spr_master.setPosition(15, -18);}
+		if(num == 99) {spr_master.setPosition(-62, 10);} //Block hair
+		return spr_master;
+	}
+	
+	
+	
+	
+	/////////////////////////////////////////////////[Online]///////////////////////////////////////////////
+	public String GetResult(){
+		return onlineResult;
+	}
 
-					public void onSuccess() {
-						try {
-							GerenciamentoOnline("SyncPlayer","","");  
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				});
-			}*/
-			
-			public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData){
-				return "";
-			}
-			
-			
-			/*public String GerenciamentoOnline(String tipoRequisicao, String subData, String extraData) throws IOException {
-		    	
-				String linhaLida = "";
-				try {
-				
-				if(tipoRequisicao.equals("CheckVersion")){
-					// Construct data
-					
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("CheckVersion", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("lversion", "UTF-8") + "=" + URLEncoder.encode("1A", "UTF-8");
-			        
-			        // Send data
-			        //URL url = new URL("http://moonboltprojects.online/conector/online.php");	        
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        //URL url = new URL("http://localhost/default.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	//Resultado: - Logado -. <br>done
-				        if (linhaLida.contains("Autorizado")) {            	
-			        		retornoOnline = "Autorizado";       		
-			            }	
-				        else {
-				        	retornoOnline = "Probido"; 
-				        }
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				if(tipoRequisicao.equals("Chat")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Chat", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lchat", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				if(tipoRequisicao.equals("SyncChats")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncChats", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        String linechat = "";
-			        int chatnum = 1;
-			        line = "";
-			        lstChats.clear();
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	if (linhaLida.contains("SYSTEMCHAT")) {  
-			        		String[] lineSplit = line.split(":");
-			        		linechat = lineSplit[2] + "=" + lineSplit[4];
-			        		
-			        		if(chatnum == 1) { lstChats.add(0, linechat); }
-			        		if(chatnum == 2) { lstChats.add(1, linechat); }
-			        		if(chatnum == 3) { lstChats.add(2, linechat); }
-			        		if(chatnum == 4) { lstChats.add(3, linechat); }
-			        		if(chatnum == 5) { lstChats.add(4, linechat); }
-			        		chatnum++;
-			            }	
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				
-				if(tipoRequisicao.equals("SyncPlayer")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("SyncPlayer", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        //Sync Data
-			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("llevel", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Level_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lmap", "UTF-8") + "=" + URLEncoder.encode(player.Map_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lhp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Hp_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lmp", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Mp_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lposX", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosX_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lposY", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.PosY_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lwalk", "UTF-8") + "=" + URLEncoder.encode(player.Walk_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lweapon", "UTF-8") + "=" + URLEncoder.encode(player.Weapon_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lframe", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.Frame_A), "UTF-8");
-			        data += "&" + URLEncoder.encode("lsyncPlayerMob", "UTF-8") + "=" + URLEncoder.encode("none", "UTF-8");
-			        data += "&" + URLEncoder.encode("lsetUpper", "UTF-8") + "=" + URLEncoder.encode(player.SetUpper_A, "UTF-8");  
-			        data += "&" + URLEncoder.encode("lsetBottom", "UTF-8") + "=" + URLEncoder.encode(player.SetBottom_1, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lsetFooter", "UTF-8") + "=" + URLEncoder.encode(player.SetFooter_1, "UTF-8");
-			        data += "&" + URLEncoder.encode("lhair", "UTF-8") + "=" + URLEncoder.encode(player.Hair_A, "UTF-8");    
-			        data += "&" + URLEncoder.encode("lsex", "UTF-8") + "=" + URLEncoder.encode(player.Sex_A, "UTF-8");  
-			        data += "&" + URLEncoder.encode("lcolor", "UTF-8") + "=" + URLEncoder.encode(player.Color_A, "UTF-8");  
-			        data += "&" + URLEncoder.encode("lhat", "UTF-8") + "=" + URLEncoder.encode(player.Hat_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lside", "UTF-8") + "=" + URLEncoder.encode(player.Side_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("ljob", "UTF-8") + "=" + URLEncoder.encode(player.Job_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lplayerInBattle", "UTF-8") + "=" + URLEncoder.encode(player.playerInBattle_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lplayerInAttack", "UTF-8") + "=" + URLEncoder.encode(player.playerInAttack_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lplayerInCast", "UTF-8") + "=" + URLEncoder.encode(player.playerInCast_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lplayerSit", "UTF-8") + "=" + URLEncoder.encode(player.playerSit_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lparty", "UTF-8") + "=" + URLEncoder.encode(player.party_A, "UTF-8"); 
-			        data += "&" + URLEncoder.encode("lexpshared", "UTF-8") + "=" + URLEncoder.encode("0", "UTF-8"); 
-			        
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        String retornoSync = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	if (linhaLida.contains("SYSTEMPLAYERS")) {  
-			        		retornoSync = linhaLida;
-			        		UpdateOnlinePlayers(retornoSync);
-			            }	
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				
-				if(tipoRequisicao.equals("Upload")){
-					
-					FileHandle file = Gdx.files.local("SaveData/save.json");	
-					String arq = file.readString();
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(player.AccountID) + ".txt", "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Upload", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldata", "UTF-8") + "=" + URLEncoder.encode(arq, "UTF-8");
-			        
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	//Resultado: - Logado -. <br>done
-				        if (linhaLida.contains("Atualizado")) {            	
-			        		retornoOnline = "Atualizado";   		
-			            }	
-				        else {
-				        	retornoOnline = "Negado"; 
-				        }
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				if(tipoRequisicao.equals("Download")){
-					// Construct data
-					
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(subData + ".txt", "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("Download", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	//Resultado: - Logado -. <br>done
-				        if (linhaLida.contains("Atualizado")) {            	
-			        		retornoOnline = "Atualizado";
-			        		SaveDataFromServer(linhaLida);
-			            }	
-				        else {
-				        	retornoOnline = "Negado"; 
-				        }
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				if(tipoRequisicao.equals("ExpSharedSend")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("ExpSharedSend", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lexpsend", "UTF-8") + "=" + URLEncoder.encode(subData, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				
-				if(tipoRequisicao.equals("ExpGiver")){
-					
-					// Construct data
-					String data = URLEncoder.encode("ldataaccount", "UTF-8") + "=" + URLEncoder.encode(player.AccountID, "UTF-8");
-					data += "&" + URLEncoder.encode("lrequest", "UTF-8") + "=" + URLEncoder.encode("ExpGiver", "UTF-8");
-			        data += "&" + URLEncoder.encode("lservername", "UTF-8") + "=" + URLEncoder.encode(lservername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lusername", "UTF-8") + "=" + URLEncoder.encode(lusername, "UTF-8");
-			        data += "&" + URLEncoder.encode("lpassword", "UTF-8") + "=" + URLEncoder.encode(lpassword, "UTF-8");
-			        data += "&" + URLEncoder.encode("ldbname", "UTF-8") + "=" + URLEncoder.encode(ldbname, "UTF-8");
-			        data += "&" + URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(player.Name_A, "UTF-8");
-			        data += "&" + URLEncoder.encode("lplayerIDEXP", "UTF-8") + "=" + URLEncoder.encode(player.PlayerExpGet_A, "UTF-8");
-			            
-			        // Send data
-			        URL url = new URL("http://moonboltprojects.online/server/index.php");
-			        URLConnection conn = url.openConnection();
-			        conn.setDoOutput(true);
-			        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			        wr.write(data);
-			        wr.flush();
-			        
-			        // Get the response
-			        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			        String line;
-			        line = "";
-			        retornoOnline = "retry";
-			        while ((line = rd.readLine()) != null) {
-			        	linhaLida = line;   
-			        	if (linhaLida.contains("Recuperado")) {            	
-			        		retornoOnline = "Atualizado";       		
-			            }	
-			        	if (linhaLida.contains("SYSTEMEXP")) {  
-			        		UpdateExpGet(linhaLida);
-			            }	
-		    		}	        
-			        wr.close();
-			        rd.close();
-		    
-			        return retornoOnline;		        
-				}
-				
-				
-				}
-				catch(Exception ex) {
-					linhaLida = ex.getMessage();
-				}
-				return linhaLida;
-				
-				
-			}
-			
-			*/
-			
-			/*public void SaveDataFromServer(String line) {
-				String[] lineSplit = line.split(":");
-				file = Gdx.files.local("SaveData/save.json");
-				file.writeString(lineSplit[0], false);
-			}
-			
-			public void UpdateExpGet(String line) {
-				int expserver = 0;
-				String[] lineSplit = line.split(":");
-				expserver = Integer.parseInt(lineSplit[4]);
-				player.PlayerExpGet_A = lineSplit[6];
-				int dv = expserver / 5;
-				GiveExp(dv);
-				SetSave(charNumber);
-				SaveData(player);
-			}
-			
-			public void UpdateListOnlineChats(String line) {
-				lstChats.add(line);		
-			}
-			
-			public ArrayList<String> GetChatList() {
-				return lstChats;
-			}
-			
-			public ArrayList<Player> GetListOnlinePlayers(){
-				return lstOnlinePlayers;
-			}
-			
-			public void UpdateOnlinePlayers(String line) {
-				
-				String[] lineSplit = line.split(":");
-				playerOnline = new Player();
-				playerOnline.AccountID = lineSplit[4];
-				playerOnline.Name_A = lineSplit[2];
-				playerOnline.Level_A = Integer.parseInt(lineSplit[6]);
-				playerOnline.Map_A = lineSplit[8];
-				playerOnline.Hp_A = Integer.parseInt(lineSplit[10]);
-				playerOnline.Mp_A = Integer.parseInt(lineSplit[12]);
-				playerOnline.PosX_A = Float.parseFloat(lineSplit[14]);
-				playerOnline.PosY_A = Float.parseFloat(lineSplit[16]);
-				playerOnline.Walk_A = lineSplit[18];
-				playerOnline.Weapon_A = lineSplit[20];
-				playerOnline.Frame_A = Integer.parseInt(lineSplit[22]);
-				playerOnline.SyncPlayerMob_A = lineSplit[24];
-				playerOnline.SetUpper_A = lineSplit[26];
-				playerOnline.SetBottom_A = lineSplit[28];
-				playerOnline.SetFooter_A = lineSplit[30];
-				playerOnline.Hair_A = lineSplit[32];
-				playerOnline.Sex_A = lineSplit[34];
-				playerOnline.Color_A = lineSplit[36];
-				playerOnline.Hat_A = lineSplit[38];
-				playerOnline.Side_A = lineSplit[40];
-				playerOnline.Job_A = lineSplit[42];
-				playerOnline.playerInBattle_A = lineSplit[44];
-				playerOnline.playerInAttack_A = lineSplit[46];
-				playerOnline.playerInCast_A = lineSplit[48];
-				playerOnline.playerSit_A = lineSplit[50];
-				playerOnline.party_A = lineSplit[52];
-				playerOnline.Exp_A = Integer.parseInt(lineSplit[54]);
-				
-				if(!player.AccountID.equals(playerOnline.AccountID)) { 
-					lstOnlinePlayers.add(playerOnline); 
-				}
+	public String GetAccount(){
+		return playerAccount;
+	}
+	
+	public ArrayList<Player> GetPlayers() {
+		return lstPlayers;
+	}
 
-				Map<String, Player> playersMap = new HashMap<String, Player>();
+	public void CreateAccountOnline() throws UnsupportedEncodingException{
+		
+		int accNumber = randnumber.nextInt(99999999);
+		while(accNumber < 1000000){
+			accNumber = randnumber.nextInt(99999999);
+		}
+		
+		String account = String.valueOf(accNumber);
 
-				for (Player player : lstOnlinePlayers) {
-				    playersMap.put(player.getAccountID(), player);
-				}
+		final CountDownLatch latch = new CountDownLatch(1);
+		
+			Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+			request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
+			request.setContent("application/x-www-form-urlencoded");
 
-				lstOnlinePlayers.clear();
-				lstOnlinePlayers.addAll(playersMap.values());
-			}*/
+			// Prepare the data to post
+			Map<String, String> parameters = new HashMap<String, String>();
+			parameters.put("lservername", lservername);
+			parameters.put("lusername", lusername);
+			parameters.put("lpassword", lpassword);
+			parameters.put("ldbname", ldbname);
+			parameters.put("lrequest", "NewAccount");
+			parameters.put("ldataaccount", account);
 			
+			// Convert the parameters into URL encoded form
+			String content = "";
+			for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			    if (content.length() > 0) {
+			        content += "&";
+			    }
+			    content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+			}
+
+			request.setContent(content);
+
+			Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+			    public void handleHttpResponse(Net.HttpResponse httpResponse) {
+			        String response = httpResponse.getResultAsString();
+			        // process the response
+			        System.out.println(response);
+			        onlineResult = "success";
+					playerAccount = account;
+			        latch.countDown(); 
+			    }
+
+			    public void failed(Throwable t) {
+			        String message = "Request failed";
+			        System.out.println(message);
+			        onlineResult = "fail";
+			        latch.countDown(); 
+			    }
+
+			    @Override
+			    public void cancelled() {
+			        String message = "Request cancelled";
+			        System.out.println(message);
+			        onlineResult= "cancel";
+			        latch.countDown(); 
+			    }
+			});
 			
+			try {
+			    latch.await();
+			} catch (InterruptedException e) {
+			    e.printStackTrace();
+			}
+		}
+	
+	public void GetAccountOnline(String tipoRequisicao, String account, String accountnumber) throws UnsupportedEncodingException{
+		final CountDownLatch latch = new CountDownLatch(1);
+		
+			Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
+			request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
+			request.setContent("application/x-www-form-urlencoded");
+
+			// Prepare the data to post
+			Map<String, String> parameters = new HashMap<String, String>();
+			parameters.put("lservername", lservername);
+			parameters.put("lusername", lusername);
+			parameters.put("lpassword", lpassword);
+			parameters.put("ldbname", ldbname);
+			parameters.put("lrequest", tipoRequisicao);
+			parameters.put("ldataaccount", account);
+			parameters.put("lcharnumber", accountnumber);
 			
+			// Convert the parameters into URL encoded form
+			String content = "";
+			for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			    if (content.length() > 0) {
+			        content += "&";
+			    }
+			    content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+			}
+
+			request.setContent(content);
+
+			Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
+			    public void handleHttpResponse(Net.HttpResponse httpResponse) {
+			        String response = httpResponse.getResultAsString();
+			        // process the response
+			        System.out.println(response);
+			        onlineResult = "success";
+			        LoadData(response);
+			        latch.countDown(); 
+			    }
+
+			    public void failed(Throwable t) {
+			        String message = "Request failed";
+			        System.out.println(message);
+			        onlineResult = "fail";
+			        latch.countDown(); 
+			    }
+
+			    @Override
+			    public void cancelled() {
+			        String message = "Request cancelled";
+			        System.out.println(message);
+			        onlineResult= "cancel";
+			        latch.countDown(); 
+			    }
+			});
+			
+			try {
+			    latch.await();
+			} catch (InterruptedException e) {
+			    e.printStackTrace();
+			}
+		}	
 }
