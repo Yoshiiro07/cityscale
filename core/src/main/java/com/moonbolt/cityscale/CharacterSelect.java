@@ -337,6 +337,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
 						lstPlayer.get(0).Color, 1);
 				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, lstPlayer.get(0).Name , 25 , 48);
+				font_master.draw(game.batch, lstPlayer.get(0).Level, 25 , 42);
+				font_master.draw(game.batch, lstPlayer.get(0).Map , 25 , 35);
 			}
 			if (!lstPlayer.get(1).Name.equals("none")) {
 				spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
@@ -351,6 +355,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_master = gameControl.CharHairSelect(lstPlayer.get(1).Sex, lstPlayer.get(1).Hair,
 						lstPlayer.get(1).Color, 2);
 				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, lstPlayer.get(0).Name, 25 , 48);
+				font_master.draw(game.batch, lstPlayer.get(0).Level, 25 , 42);
+				font_master.draw(game.batch, lstPlayer.get(0).Map, 25 , 35);
 			}
 			if (!lstPlayer.get(2).Name.equals("none")) {
 				spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
@@ -365,6 +373,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_master = gameControl.CharHairSelect(lstPlayer.get(2).Sex, lstPlayer.get(1).Hair,
 						lstPlayer.get(2).Color, 3);
 				spr_master.draw(game.batch);
+				
+				font_master.draw(game.batch, lstPlayer.get(2).Name , 25 , 48);
+				font_master.draw(game.batch, lstPlayer.get(2).Level, 25 , 42);
+				font_master.draw(game.batch, lstPlayer.get(2).Map , 25 , 35);
 			}
 		}
 
