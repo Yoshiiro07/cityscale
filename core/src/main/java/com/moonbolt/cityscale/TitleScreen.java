@@ -37,6 +37,7 @@ import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.moonbolt.cityscale.interfaces.HttpCallback;
 
 public class TitleScreen implements Screen, ApplicationListener, InputProcessor, TextInputListener {
 
@@ -280,13 +281,21 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			// [CreateNewAccount] //
 			if (coordsTouch.x >= 19 && coordsTouch.x <= 60 && coordsTouch.y >= -57 && coordsTouch.y <= -43) {
 				try {
-					gameControl.CreateAccountOnline();
-					String retorno = gameControl.GetResult();
-					if (retorno.equals("success")) {
-						accountnumber = gameControl.GetAccount();
-						state = "charselect";
-					}
-					return false;
+					gameControl.CreateAccountOnline("NewAccount", new HttpCallback() {
+                        @Override
+                        public void onSuccess(String response) {
+                            accountnumber = gameControl.GetAccount();
+                            state = "charselect";
+                            System.out.println("Passou");
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t) {
+                           System.out.println("Error: " + t.getMessage());
+                        }
+                    });
+
+                    return false;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -312,7 +321,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 				} else {
 					avisoconta = "Conta nao encontrada!";
 					avisotimer = 200;
-					
+
 				}
 				return false;
 			} catch (Exception e) {
