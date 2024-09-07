@@ -22,6 +22,13 @@ import com.moonbolt.cityscale.models.Monster;
 import com.moonbolt.cityscale.models.Player;
 import com.badlogic.gdx.files.FileHandle;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net.HttpRequest;
+import com.badlogic.gdx.Net.HttpResponse;
+import com.badlogic.gdx.Net.HttpResponseListener;
+import com.badlogic.gdx.net.HttpRequestBuilder;
+import com.badlogic.gdx.net.HttpStatus;
+
 public class GameControl {
 
 	// Manager
@@ -290,7 +297,7 @@ public class GameControl {
 
 		lstPlayers.add(player);
 	}
-	
+
 	public ArrayList<Player> CleanListPlayers() {
 		lstPlayers.clear();
 		return lstPlayers;
@@ -699,6 +706,7 @@ public class GameControl {
 	}
 
 	///////////////////////////////////////////////// [Online]///////////////////////////////////////////////
+	/*
 	public String GetResult() {
 		return onlineResult;
 	}
@@ -920,7 +928,7 @@ public class GameControl {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void CheckAccount(String tipoRequisicao, String account)
 			throws UnsupportedEncodingException {
 		final CountDownLatch latch = new CountDownLatch(1);
@@ -937,7 +945,7 @@ public class GameControl {
 		parameters.put("ldbname", ldbname);
 		parameters.put("lrequest", tipoRequisicao);
 		parameters.put("ldataaccount", account);
-		
+
 		// Convert the parameters into URL encoded form
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
@@ -981,7 +989,7 @@ public class GameControl {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void DeleteChar(String tipoRequisicao, String account, String accountnumber)
 			throws UnsupportedEncodingException {
 		final CountDownLatch latch = new CountDownLatch(1);
@@ -999,7 +1007,7 @@ public class GameControl {
 		parameters.put("lrequest", tipoRequisicao);
 		parameters.put("ldataaccount", account);
 		parameters.put("lcharnumber", accountnumber);
-		
+
 		// Convert the parameters into URL encoded form
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
@@ -1043,7 +1051,212 @@ public class GameControl {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+ 	*/
+	///////////////////////////////////////////////// [Online HTML] ///////////////////////////////////////////////
+	public String GetResult() {
+		return onlineResult;
+	}
+
+	public String GetAccount() {
+		return playerAccount;
+	}
+
+	public ArrayList<Player> GetPlayers() {
+		return lstPlayers;
+	}
+
+	public void CreateAccountOnline() throws UnsupportedEncodingException {
+
+		int accNumber = randnumber.nextInt(99999999);
+		while (accNumber < 1000000) {
+			accNumber = randnumber.nextInt(99999999);
+		}
+
+		String account = String.valueOf(accNumber);
+
+		// Prepare the data to post
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("lservername", lservername);
+		parameters.put("lusername", lusername);
+		parameters.put("lpassword", lpassword);
+		parameters.put("ldbname", ldbname);
+		parameters.put("lrequest", "NewAccount");
+		parameters.put("ldataaccount", account);
+
+        String content = "";
+        for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+            if (content.length() > 0) {
+                content += "&";
+            }
+            content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+        }
+
+		// Create the HTTP request
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        HttpRequest httpRequest = requestBuilder.newRequest()
+            .method(Net.HttpMethods.POST)
+            .url("http://moonboltprojects.online/connect.php")
+            .content(content)
+            .build();
+        //HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url("http://moonboltprojects.online/serverdeless/index.php").content("q=libgdx&example=example").build();
+
+		// Send the HTTP request
+        Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(HttpResponse httpResponse) {
+                // Handle the response from the PHP backend
+                String responseText = httpResponse.getResultAsString();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Update the game state or UI based on the response
+                        System.out.println("Response: " + responseText);
+						onlineResult = "success";
+						playerAccount = account;
+                    }
+                });
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                // Handle the failure
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request failed: " + t.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void cancelled() {
+                // Handle the cancellation
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request cancelled");
+                    }
+                });
+            }
+        });
+
+	}
+
+	public void CheckAccount(String tipoRequisicao, String account) throws UnsupportedEncodingException {
+
+		int accNumber = randnumber.nextInt(99999999);
+		while (accNumber < 1000000) {
+			accNumber = randnumber.nextInt(99999999);
+		}
+
+		// Prepare the data to post
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("lservername", lservername);
+		parameters.put("lusername", lusername);
+		parameters.put("lpassword", lpassword);
+		parameters.put("ldbname", ldbname);
+		parameters.put("lrequest", tipoRequisicao);
+		parameters.put("ldataaccount", account);
+
+		// Convert the parameters into URL encoded form
+		String content = "";
+		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			if (content.length() > 0) {
+				content += "&";
+			}
+			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
+					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
+		}
+
+		// Create the HTTP request
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url("http://moonboltprojects.online/serverdeless/index.php").content(content).build();
+
+		// Send the HTTP request
+        Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(HttpResponse httpResponse) {
+                // Handle the response from the PHP backend
+                String responseText = httpResponse.getResultAsString();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Update the game state or UI based on the response
+                        System.out.println("Response: " + responseText);
+						onlineResult = "success";
+						playerAccount = account;
+                    }
+                });
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                // Handle the failure
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request failed: " + t.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void cancelled() {
+                // Handle the cancellation
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request cancelled");
+                    }
+                });
+            }
+        });
+
+	}
+
+	public void sendRequestToPhpBackend() {
+        // Create the HTTP request
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url("http://moonboltprojects.online/serverdeless/index.php").content("q=libgdx&example=example").build();
+
+        // Send the HTTP request
+        Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(HttpResponse httpResponse) {
+                // Handle the response from the PHP backend
+                String responseText = httpResponse.getResultAsString();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Update the game state or UI based on the response
+                        System.out.println("Response: " + responseText);
+                    }
+                });
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                // Handle the failure
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request failed: " + t.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void cancelled() {
+                // Handle the cancellation
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request cancelled");
+                    }
+                });
+            }
+        });
+    }
+
+
 }
