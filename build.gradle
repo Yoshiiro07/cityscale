@@ -53,7 +53,7 @@ configure(subprojects) {
 }
 
 subprojects {
-  version = '1.0.0'
+  version = '$projectVersion'
   ext.appName = 'cityscale'
   repositories {
     mavenCentral()
