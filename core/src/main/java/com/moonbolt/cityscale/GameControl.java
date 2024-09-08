@@ -708,350 +708,6 @@ public class GameControl {
 
     ///////////////////////////////////////////////// [Online]///////////////////////////////////////////////
 	/*
-	public String GetResult() {
-		return onlineResult;
-	}
-
-	public String GetAccount() {
-		return playerAccount;
-	}
-
-	public ArrayList<Player> GetPlayers() {
-		return lstPlayers;
-	}
-
-	public void CreateAccountOnline() throws UnsupportedEncodingException {
-
-		int accNumber = randnumber.nextInt(99999999);
-		while (accNumber < 1000000) {
-			accNumber = randnumber.nextInt(99999999);
-		}
-
-		String account = String.valueOf(accNumber);
-
-		final CountDownLatch latch = new CountDownLatch(1);
-
-		Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-		request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
-		request.setContent("application/x-www-form-urlencoded");
-
-		// Prepare the data to post
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", "NewAccount");
-		parameters.put("ldataaccount", account);
-
-		// Convert the parameters into URL encoded form
-		String content = "";
-		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
-			if (content.length() > 0) {
-				content += "&";
-			}
-			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
-					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
-		}
-
-		request.setContent(content);
-
-		Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
-			public void handleHttpResponse(Net.HttpResponse httpResponse) {
-				String response = httpResponse.getResultAsString();
-				// process the response
-				System.out.println(response);
-				onlineResult = "success";
-				playerAccount = account;
-				latch.countDown();
-			}
-
-			public void failed(Throwable t) {
-				String message = "Request failed";
-				System.out.println(message);
-				onlineResult = "fail";
-				latch.countDown();
-			}
-
-			@Override
-			public void cancelled() {
-				String message = "Request cancelled";
-				System.out.println(message);
-				onlineResult = "cancel";
-				latch.countDown();
-			}
-		});
-
-		try {
-			latch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void GetAccountOnline(String tipoRequisicao, String account, String accountnumber)
-			throws UnsupportedEncodingException {
-		final CountDownLatch latch = new CountDownLatch(1);
-
-		Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-		request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
-		request.setContent("application/x-www-form-urlencoded");
-
-		// Prepare the data to post
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
-		parameters.put("lcharnumber", accountnumber);
-
-		// Convert the parameters into URL encoded form
-		String content = "";
-		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
-			if (content.length() > 0) {
-				content += "&";
-			}
-			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
-					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
-		}
-
-		request.setContent(content);
-
-		Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
-			public void handleHttpResponse(Net.HttpResponse httpResponse) {
-				String response = httpResponse.getResultAsString();
-				// process the response
-				System.out.println(response);
-				onlineResult = "success";
-				LoadData(response);
-				latch.countDown();
-			}
-
-			public void failed(Throwable t) {
-				String message = "Request failed";
-				System.out.println(message);
-				onlineResult = "fail";
-				latch.countDown();
-			}
-
-			@Override
-			public void cancelled() {
-				String message = "Request cancelled";
-				System.out.println(message);
-				onlineResult = "cancel";
-				latch.countDown();
-			}
-		});
-
-		try {
-			latch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void CreateCharOnline(String tipoRequisicao, String accountnumber, String charnumber, String name,
-			String sex, String hair, String color) throws UnsupportedEncodingException {
-		final CountDownLatch latch = new CountDownLatch(1);
-
-		String itensList = "";
-		for (int i = 0; i < 16; i++) {
-			if (i == 0) {
-				itensList = itensList + "[hpcan#20]-";
-			}
-			if (i > 0) {
-				itensList = itensList + "[NONE]-";
-			}
-		}
-
-		Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-		request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
-		request.setContent("application/x-www-form-urlencoded");
-
-		// Prepare the data to post
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", accountnumber);
-		parameters.put("lcharnumber", charnumber);
-
-		parameters.put("lname", name);
-		parameters.put("lsex", sex);
-		parameters.put("lhair", hair);
-		parameters.put("lcolor", color);
-		parameters.put("litensList", itensList);
-
-		// Convert the parameters into URL encoded form
-		String content = "";
-		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
-			if (content.length() > 0) {
-				content += "&";
-			}
-			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
-					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
-		}
-
-		request.setContent(content);
-
-		Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
-			public void handleHttpResponse(Net.HttpResponse httpResponse) {
-				String response = httpResponse.getResultAsString();
-				// process the response
-				System.out.println(response);
-				onlineResult = "success";
-				latch.countDown();
-			}
-
-			public void failed(Throwable t) {
-				String message = "Request failed";
-				System.out.println(message);
-				onlineResult = "fail";
-				latch.countDown();
-			}
-
-			@Override
-			public void cancelled() {
-				String message = "Request cancelled";
-				System.out.println(message);
-				onlineResult = "cancel";
-				latch.countDown();
-			}
-		});
-
-		try {
-			latch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void CheckAccount(String tipoRequisicao, String account)
-			throws UnsupportedEncodingException {
-		final CountDownLatch latch = new CountDownLatch(1);
-
-		Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-		request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
-		request.setContent("application/x-www-form-urlencoded");
-
-		// Prepare the data to post
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
-
-		// Convert the parameters into URL encoded form
-		String content = "";
-		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
-			if (content.length() > 0) {
-				content += "&";
-			}
-			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
-					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
-		}
-
-		request.setContent(content);
-
-		Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
-			public void handleHttpResponse(Net.HttpResponse httpResponse) {
-				String response = httpResponse.getResultAsString();
-				// process the response
-				System.out.println(response);
-				onlineResult = "success";
-				latch.countDown();
-			}
-
-			public void failed(Throwable t) {
-				String message = "Request failed";
-				System.out.println(message);
-				onlineResult = "fail";
-				latch.countDown();
-			}
-
-			@Override
-			public void cancelled() {
-				String message = "Request cancelled";
-				System.out.println(message);
-				onlineResult = "cancel";
-				latch.countDown();
-			}
-		});
-
-		try {
-			latch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void DeleteChar(String tipoRequisicao, String account, String accountnumber)
-			throws UnsupportedEncodingException {
-		final CountDownLatch latch = new CountDownLatch(1);
-
-		Net.HttpRequest request = new Net.HttpRequest(Net.HttpMethods.POST);
-		request.setUrl("http://moonboltprojects.online/serverdeless/index.php");
-		request.setContent("application/x-www-form-urlencoded");
-
-		// Prepare the data to post
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
-		parameters.put("lcharnumber", accountnumber);
-
-		// Convert the parameters into URL encoded form
-		String content = "";
-		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
-			if (content.length() > 0) {
-				content += "&";
-			}
-			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
-					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
-		}
-
-		request.setContent(content);
-
-		Gdx.net.sendHttpRequest(request, new Net.HttpResponseListener() {
-			public void handleHttpResponse(Net.HttpResponse httpResponse) {
-				String response = httpResponse.getResultAsString();
-				// process the response
-				System.out.println(response);
-				onlineResult = "success";
-				latch.countDown();
-			}
-
-			public void failed(Throwable t) {
-				String message = "Request failed";
-				System.out.println(message);
-				onlineResult = "fail";
-				latch.countDown();
-			}
-
-			@Override
-			public void cancelled() {
-				String message = "Request cancelled";
-				System.out.println(message);
-				onlineResult = "cancel";
-				latch.countDown();
-			}
-		});
-
-		try {
-			latch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
  	*/
     ///////////////////////////////////////////////// [Online HTML] ///////////////////////////////////////////////
     public String GetResult() {
@@ -1164,7 +820,6 @@ public class GameControl {
             .url("http://moonboltprojects.online/connect.php")
             .content(content)
             .build();
-        //HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url("http://moonboltprojects.online/serverdeless/index.php").content("q=libgdx&example=example").build();
 
         // Send the HTTP request
         Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
@@ -1205,13 +860,36 @@ public class GameControl {
                 });
             }
         });
-
     }
 
-    public void sendRequestToPhpBackend() {
+    public void DeleteChar(String tipoRequisicao, String account, String accountnumber)
+        throws UnsupportedEncodingException {
+
+        // Prepare the data to post
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("lservername", lservername);
+        parameters.put("lusername", lusername);
+        parameters.put("lpassword", lpassword);
+        parameters.put("ldbname", ldbname);
+        parameters.put("lrequest", tipoRequisicao);
+        parameters.put("ldataaccount", account);
+        parameters.put("lcharnumber", accountnumber);
+
+        String content = "";
+        for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+            if (content.length() > 0) {
+                content += "&";
+            }
+            content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+        }
+
         // Create the HTTP request
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
-        HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url("http://moonboltprojects.online/serverdeless/index.php").content("q=libgdx&example=example").build();
+        HttpRequest httpRequest = requestBuilder.newRequest()
+            .method(Net.HttpMethods.POST)
+            .url("http://moonboltprojects.online/connect.php")
+            .content(content)
+            .build();
 
         // Send the HTTP request
         Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
@@ -1224,6 +902,7 @@ public class GameControl {
                     public void run() {
                         // Update the game state or UI based on the response
                         System.out.println("Response: " + responseText);
+                        onlineResult = "success";
                     }
                 });
             }
@@ -1251,6 +930,164 @@ public class GameControl {
             }
         });
     }
+
+    public void GetAccountOnline(String tipoRequisicao, String account, String accountnumber)
+        throws UnsupportedEncodingException {
+
+        // Prepare the data to post
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("lservername", lservername);
+        parameters.put("lusername", lusername);
+        parameters.put("lpassword", lpassword);
+        parameters.put("ldbname", ldbname);
+        parameters.put("lrequest", tipoRequisicao);
+        parameters.put("ldataaccount", account);
+        parameters.put("lcharnumber", accountnumber);
+
+        String content = "";
+        for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+            if (content.length() > 0) {
+                content += "&";
+            }
+            content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+        }
+
+        // Create the HTTP request
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        HttpRequest httpRequest = requestBuilder.newRequest()
+            .method(Net.HttpMethods.POST)
+            .url("http://moonboltprojects.online/connect.php")
+            .content(content)
+            .build();
+
+        // Send the HTTP request
+        Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(HttpResponse httpResponse) {
+                // Handle the response from the PHP backend
+                String responseText = httpResponse.getResultAsString();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Update the game state or UI based on the response
+                        System.out.println("Response: " + responseText);
+                        onlineResult = "success";
+                        LoadData(responseText);
+                    }
+                });
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                // Handle the failure
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request failed: " + t.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void cancelled() {
+                // Handle the cancellation
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request cancelled");
+                    }
+                });
+            }
+        });
+    }
+
+    public void CreateCharOnline(String tipoRequisicao, String accountnumber, String charnumber, String name,
+                                 String sex, String hair, String color)
+        throws UnsupportedEncodingException {
+
+        String itensList = "";
+        for (int i = 0; i < 16; i++) {
+            if (i == 0) {
+                itensList = itensList + "[hpcan#20]-";
+            }
+            if (i > 0) {
+                itensList = itensList + "[NONE]-";
+            }
+        }
+
+        // Prepare the data to post
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("lservername", lservername);
+        parameters.put("lusername", lusername);
+        parameters.put("lpassword", lpassword);
+        parameters.put("ldbname", ldbname);
+        parameters.put("lrequest", tipoRequisicao);
+        parameters.put("ldataaccount", accountnumber);
+        parameters.put("lcharnumber", charnumber);
+
+        parameters.put("lname", name);
+        parameters.put("lsex", sex);
+        parameters.put("lhair", hair);
+        parameters.put("lcolor", color);
+        parameters.put("litensList", itensList);
+
+        String content = "";
+        for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+            if (content.length() > 0) {
+                content += "&";
+            }
+            content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "=" + URLEncoder.encode(parameter.getValue(), "UTF-8");
+        }
+
+        // Create the HTTP request
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        HttpRequest httpRequest = requestBuilder.newRequest()
+            .method(Net.HttpMethods.POST)
+            .url("http://moonboltprojects.online/connect.php")
+            .content(content)
+            .build();
+
+        // Send the HTTP request
+        Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(HttpResponse httpResponse) {
+                // Handle the response from the PHP backend
+                String responseText = httpResponse.getResultAsString();
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Update the game state or UI based on the response
+                        System.out.println("Response: " + responseText);
+                        onlineResult = "success";
+                    }
+                });
+            }
+
+            @Override
+            public void failed(Throwable t) {
+                // Handle the failure
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request failed: " + t.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void cancelled() {
+                // Handle the cancellation
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Request cancelled");
+                    }
+                });
+            }
+        });
+    }
+
+
 
 
 }
