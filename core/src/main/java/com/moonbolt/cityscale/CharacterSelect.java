@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.moonbolt.cityscale.interfaces.HttpCallback;
 import com.moonbolt.cityscale.models.Player;
 
 public class CharacterSelect implements Screen, ApplicationListener, InputProcessor, TextInputListener {
@@ -32,6 +33,8 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private String showMsg = "";
 	private String account = "";
 	private int playernumber = 0;
+	private boolean loadAccountState = false;
+	private boolean accountInProcess = false;
 
 	// Fonts
 	private BitmapFont font_master;
@@ -126,286 +129,305 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	public void render(float delta) {
 
 		// Load Account////////////////////////////////////////////
-		if (lstPlayer.size() == 0) {
+		if (!loadAccountState && !accountInProcess) {
 			try {
-				gameControl.GetAccountOnline("LoadData", this.account, "1");
-				gameControl.GetAccountOnline("LoadData", this.account, "2");
-				gameControl.GetAccountOnline("LoadData", this.account, "3");
-				lstPlayer = gameControl.GetPlayers();
+				accountInProcess = true;
+				gameControl.GetAccountOnline("LoadData", this.account,"", new HttpCallback() {
+					@Override
+					public void onSuccess(String response) {
+						if (response.equals("success")) {
+							//Recupera lista da conta 
+							lstPlayer = gameControl.GetPlayers();
+							//Reseta processamento de conta
+							loadAccountState = true;
+							accountInProcess = false;
+						}
+						if (response.equals("fail")) {
+							screen.screenSwitch("TitleScreen", network, account, playernumber);
+						}
+					}
+
+					@Override
+					public void onFailure(Throwable t) 
+					{screen.screenSwitch("TitleScreen", network, "", playernumber);}
+				});
 			} catch (Exception ex) {
 				this.screen.screenSwitch("TitleScreen", network, "", 0);
 			}
 		}
 		// Load Account////////////////////////////////////////////
 
-		// Just for coloring
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		if (loadAccountState) {
+			// Just for coloring
+			Gdx.gl.glClearColor(1, 1, 1, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// Update camera and start drawling
-		camera.position.set(cameraCoordsX, cameraCoordsY, 0);
-		camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
-		game.batch.begin();
+			// Update camera and start drawling
+			camera.position.set(cameraCoordsX, cameraCoordsY, 0);
+			camera.update();
+			game.batch.setProjectionMatrix(camera.combined);
+			game.batch.begin();
 
-		// Background
-		spr_Background.setPosition(-70, posTrainY);
-		spr_Background.setSize(140, 140);
-		spr_Background.draw(game.batch);
+			// Background
+			spr_Background.setPosition(-70, posTrainY);
+			spr_Background.setSize(140, 140);
+			spr_Background.draw(game.batch);
 
-		posTrainY = posTrainY + 0.02f;
-		if (posTrainY > -68f) {
-			posTrainY = -70;
+			posTrainY = posTrainY + 0.02f;
+			if (posTrainY > -68f) {
+				posTrainY = -70;
+			}
+
+			if (state.equals("Account")) {
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setPosition(-42, 0);
+				spr_master.setSize(90, 30);
+				spr_master.draw(game.batch);
+
+				font_master.getData().setScale(0.10f, 0.16f);
+				font_master.setUseIntegerPositions(false);
+				font_master.draw(game.batch, "ID da conta, guarde para recupera-la posteriormente", -40, 26);
+
+				font_master.getData().setScale(0.25f, 0.35f);
+				font_master.draw(game.batch, lstPlayer.get(0).AccountNumber, -12, 18);
+
+				font_master.getData().setScale(0.10f, 0.16f);
+				font_master.draw(game.batch, "Toque/Click para continuar", 10, 7);
+			}
+
+			if (state.equals("Main")) {
+
+				spr_master = gameControl.GetUX("bannerselect", 0, 0);
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.GetUX("btncreatenew", 0, 0);
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.GetUX("btnexclude", 0, 0);
+				spr_master.draw(game.batch);
+
+				if (!lstPlayer.get(0).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
+							lstPlayer.get(0).Color, 1);
+					spr_master.draw(game.batch);
+				}
+				if (!lstPlayer.get(1).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "bottom", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "upper", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(1).Sex, lstPlayer.get(1).Hair,
+							lstPlayer.get(1).Color, 2);
+					spr_master.draw(game.batch);
+				}
+				if (!lstPlayer.get(2).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "bottom", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "upper", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(2).Sex, lstPlayer.get(1).Hair,
+							lstPlayer.get(2).Color, 3);
+					spr_master.draw(game.batch);
+				}
+			}
+
+			if (state.equals("Create")) {
+				spr_master = gameControl.GetUX("create", 0, 0);
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.CharacterCreate(sex, "footer");
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.CharacterCreate(sex, "bottom");
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.CharacterCreate(sex, "upper");
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.HairCharacterCreate(sex, hair, color, 99);
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.AllHairs(1, sex, color);
+				spr_master.draw(game.batch);
+				spr_master = gameControl.AllHairs(2, sex, color);
+				spr_master.draw(game.batch);
+				spr_master = gameControl.AllHairs(3, sex, color);
+				spr_master.draw(game.batch);
+				spr_master = gameControl.AllHairs(4, sex, color);
+				spr_master.draw(game.batch);
+
+				font_master.setColor(Color.WHITE);
+				font_master.getData().setScale(0.12f, 0.19f);
+				font_master.setUseIntegerPositions(false);
+				font_master.draw(game.batch, name, -13, 37);
+			}
+
+			if (state.equals("Delete")) {
+				spr_master = gameControl.GetUX("bannerdelete", 0, 0);
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.GetUX("btnvoltar", 0, 0);
+				spr_master.draw(game.batch);
+
+				if (!lstPlayer.get(0).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
+							lstPlayer.get(0).Color, 1);
+					spr_master.draw(game.batch);
+				}
+				if (!lstPlayer.get(1).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "bottom", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "upper", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(1).Sex, lstPlayer.get(1).Hair,
+							lstPlayer.get(1).Color, 2);
+					spr_master.draw(game.batch);
+				}
+				if (!lstPlayer.get(2).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "bottom", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "upper", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(2).Sex, lstPlayer.get(1).Hair,
+							lstPlayer.get(2).Color, 3);
+					spr_master.draw(game.batch);
+				}
+			}
+
+			if (state.equals("Selected")) {
+
+				spr_master = gameControl.GetUX("confirmtab", 0, 0);
+				spr_master.draw(game.batch);
+
+				spr_master = gameControl.GetUX("btnvoltar", 0, 0);
+				spr_master.draw(game.batch);
+
+				font_master.setColor(Color.WHITE);
+				font_master.getData().setScale(0.12f, 0.19f);
+				font_master.setUseIntegerPositions(false);
+
+				if (!lstPlayer.get(0).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
+							lstPlayer.get(0).Color, 1);
+					spr_master.draw(game.batch);
+
+					font_master.draw(game.batch, lstPlayer.get(0).Name, 25, 48);
+					font_master.draw(game.batch, lstPlayer.get(0).Level, 25, 42);
+					font_master.draw(game.batch, lstPlayer.get(0).Map, 25, 35);
+				}
+				if (!lstPlayer.get(1).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "bottom", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(1), "upper", 2);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(1).Sex, lstPlayer.get(1).Hair,
+							lstPlayer.get(1).Color, 2);
+					spr_master.draw(game.batch);
+
+					font_master.draw(game.batch, lstPlayer.get(0).Name, 25, 48);
+					font_master.draw(game.batch, lstPlayer.get(0).Level, 25, 42);
+					font_master.draw(game.batch, lstPlayer.get(0).Map, 25, 35);
+				}
+				if (!lstPlayer.get(2).Name.equals("none")) {
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "bottom", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharSelect(lstPlayer.get(2), "upper", 3);
+					spr_master.draw(game.batch);
+
+					spr_master = gameControl.CharHairSelect(lstPlayer.get(2).Sex, lstPlayer.get(1).Hair,
+							lstPlayer.get(2).Color, 3);
+					spr_master.draw(game.batch);
+
+					font_master.draw(game.batch, lstPlayer.get(2).Name, 25, 48);
+					font_master.draw(game.batch, lstPlayer.get(2).Level, 25, 42);
+					font_master.draw(game.batch, lstPlayer.get(2).Map, 25, 35);
+				}
+			}
+
+			if (state.equals("Change")) {
+				player.Map.equals("MetroStation");
+				// gameControlHTML.SaveData(player);
+				this.screen.screenSwitch("LoadingScreen", network, account, playernumber);
+				dispose();
+			}
+
+			if (state.equals("keyboard")) {
+				spr_keyboard.setPosition(-70, -69);
+				spr_keyboard.setSize(140, 130);
+				spr_keyboard.draw(game.batch);
+
+				font_master.getData().setScale(0.15f, 0.20f);
+				font_master.setUseIntegerPositions(false);
+				font_master.draw(game.batch, keyboardText, -65, 55);
+			}
+
+			// spr_testeDot.setPosition(9,-10);
+			// spr_testeDot.setSize(1, 1);
+			// spr_testeDot.draw(game.batch);
+
+			// spr_testeDot.setPosition(1,5);
+			// spr_testeDot.setSize(1, 1);
+			// spr_testeDot.draw(game.batch);
+
+			game.batch.end();
+
 		}
-
-		if (state.equals("Account")) {
-			spr_master = gameControl.GetUX("textbar", 0, 0);
-			spr_master.setPosition(-42, 0);
-			spr_master.setSize(90, 30);
-			spr_master.draw(game.batch);
-
-			font_master.getData().setScale(0.10f, 0.16f);
-			font_master.setUseIntegerPositions(false);
-			font_master.draw(game.batch, "ID da conta, guarde para recupera-la posteriormente", -40, 26);
-
-			font_master.getData().setScale(0.25f, 0.35f);
-			font_master.draw(game.batch, lstPlayer.get(0).AccountNumber, -12, 18);
-
-			font_master.getData().setScale(0.10f, 0.16f);
-			font_master.draw(game.batch, "Toque/Click para continuar", 10, 7);
-		}
-
-		if (state.equals("Main")) {
-
-			spr_master = gameControl.GetUX("bannerselect", 0, 0);
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.GetUX("btncreatenew", 0, 0);
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.GetUX("btnexclude", 0, 0);
-			spr_master.draw(game.batch);
-
-			if (!lstPlayer.get(0).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
-						lstPlayer.get(0).Color, 1);
-				spr_master.draw(game.batch);
-			}
-			if (!lstPlayer.get(1).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "bottom", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "upper", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(1).Sex, lstPlayer.get(1).Hair,
-						lstPlayer.get(1).Color, 2);
-				spr_master.draw(game.batch);
-			}
-			if (!lstPlayer.get(2).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "bottom", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "upper", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(2).Sex, lstPlayer.get(1).Hair,
-						lstPlayer.get(2).Color, 3);
-				spr_master.draw(game.batch);
-			}
-		}
-
-		if (state.equals("Create")) {
-			spr_master = gameControl.GetUX("create", 0, 0);
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.CharacterCreate(sex, "footer");
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.CharacterCreate(sex, "bottom");
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.CharacterCreate(sex, "upper");
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.HairCharacterCreate(sex, hair, color, 99);
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.AllHairs(1, sex, color);
-			spr_master.draw(game.batch);
-			spr_master = gameControl.AllHairs(2, sex, color);
-			spr_master.draw(game.batch);
-			spr_master = gameControl.AllHairs(3, sex, color);
-			spr_master.draw(game.batch);
-			spr_master = gameControl.AllHairs(4, sex, color);
-			spr_master.draw(game.batch);
-
-			font_master.setColor(Color.WHITE);
-			font_master.getData().setScale(0.12f, 0.19f);
-			font_master.setUseIntegerPositions(false);
-			font_master.draw(game.batch, name, -13, 37);
-		}
-
-		if (state.equals("Delete")) {
-			spr_master = gameControl.GetUX("bannerdelete", 0, 0);
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.GetUX("btnvoltar", 0, 0);
-			spr_master.draw(game.batch);
-			
-			if (!lstPlayer.get(0).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
-						lstPlayer.get(0).Color, 1);
-				spr_master.draw(game.batch);
-			}
-			if (!lstPlayer.get(1).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "bottom", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "upper", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(1).Sex, lstPlayer.get(1).Hair,
-						lstPlayer.get(1).Color, 2);
-				spr_master.draw(game.batch);
-			}
-			if (!lstPlayer.get(2).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "bottom", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "upper", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(2).Sex, lstPlayer.get(1).Hair,
-						lstPlayer.get(2).Color, 3);
-				spr_master.draw(game.batch);
-			}
-		}
-
-		if (state.equals("Selected")) {
-
-			spr_master = gameControl.GetUX("confirmtab", 0, 0);
-			spr_master.draw(game.batch);
-
-			spr_master = gameControl.GetUX("btnvoltar", 0, 0);
-			spr_master.draw(game.batch);
-
-			font_master.setColor(Color.WHITE);
-			font_master.getData().setScale(0.12f, 0.19f);
-			font_master.setUseIntegerPositions(false);
-			
-			if (!lstPlayer.get(0).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
-						lstPlayer.get(0).Color, 1);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, lstPlayer.get(0).Name , 25 , 48);
-				font_master.draw(game.batch, lstPlayer.get(0).Level, 25 , 42);
-				font_master.draw(game.batch, lstPlayer.get(0).Map , 25 , 35);
-			}
-			if (!lstPlayer.get(1).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "bottom", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(1), "upper", 2);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(1).Sex, lstPlayer.get(1).Hair,
-						lstPlayer.get(1).Color, 2);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, lstPlayer.get(0).Name, 25 , 48);
-				font_master.draw(game.batch, lstPlayer.get(0).Level, 25 , 42);
-				font_master.draw(game.batch, lstPlayer.get(0).Map, 25 , 35);
-			}
-			if (!lstPlayer.get(2).Name.equals("none")) {
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "bottom", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharSelect(lstPlayer.get(2), "upper", 3);
-				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharHairSelect(lstPlayer.get(2).Sex, lstPlayer.get(1).Hair,
-						lstPlayer.get(2).Color, 3);
-				spr_master.draw(game.batch);
-				
-				font_master.draw(game.batch, lstPlayer.get(2).Name , 25 , 48);
-				font_master.draw(game.batch, lstPlayer.get(2).Level, 25 , 42);
-				font_master.draw(game.batch, lstPlayer.get(2).Map , 25 , 35);
-			}
-		}
-
-		if (state.equals("Change")) {
-			player.Map.equals("MetroStation");
-			// gameControlHTML.SaveData(player);
-			this.screen.screenSwitch("LoadingScreen", network, account, playernumber);
-			dispose();
-		}
-
-		if (state.equals("keyboard")) {
-			spr_keyboard.setPosition(-70, -69);
-			spr_keyboard.setSize(140, 130);
-			spr_keyboard.draw(game.batch);
-
-			font_master.getData().setScale(0.15f, 0.20f);
-			font_master.setUseIntegerPositions(false);
-			font_master.draw(game.batch, keyboardText, -65, 55);
-		}
-
-		// spr_testeDot.setPosition(9,-10);
-		// spr_testeDot.setSize(1, 1);
-		// spr_testeDot.draw(game.batch);
-
-		// spr_testeDot.setPosition(1,5);
-		// spr_testeDot.setSize(1, 1);
-		// spr_testeDot.draw(game.batch);
-
-		game.batch.end();
 
 	}
 
@@ -696,25 +718,25 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		if (state.equals("Main")) {
 			// Create
 			if (coordsTouch.x >= -60 && coordsTouch.x <= -40 && coordsTouch.y >= -61 && coordsTouch.y <= -50) {
-				
+
 				if (lstPlayer.get(0).Name.equals("none")) {
 					selectedchar = 1;
 					state = "Create";
 					return false;
 				}
-				
+
 				if (lstPlayer.get(1).Name.equals("none")) {
 					selectedchar = 2;
 					state = "Create";
 					return false;
 				}
-				
+
 				if (lstPlayer.get(2).Name.equals("none")) {
 					selectedchar = 3;
 					state = "Create";
 					return false;
 				}
-				
+
 				return false;
 			}
 
@@ -839,14 +861,49 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 
 			// Confirmar
 			if (coordsTouch.x >= 28 && coordsTouch.x <= 54 && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
-				 try {
-					gameControl.CreateCharOnline("CreateChar", account, String.valueOf(selectedchar), name, sex, hair,color);
+				try {
+					gameControl.CreateCharOnline("CreateChar", account, String.valueOf(selectedchar), name, sex, hair,
+							color);
 					String result = gameControl.GetResult();
 					if (result.equals("success")) {
 						lstPlayer = gameControl.CleanListPlayers();
-						gameControl.GetAccountOnline("LoadData", this.account, "1");
-						gameControl.GetAccountOnline("LoadData", this.account, "2");
-						gameControl.GetAccountOnline("LoadData", this.account, "3");						
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("")) {
+									
+								}
+								if (response.equals("fail")) {screen.screenSwitch("TitleScreen", network, account, playernumber);}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
 						state = "Main";
 						return false;
 					}
@@ -868,9 +925,42 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					String result = gameControl.GetResult();
 					if (result.equals("success")) {
 						lstPlayer = gameControl.CleanListPlayers();
-						gameControl.GetAccountOnline("LoadData", this.account, "1");
-						gameControl.GetAccountOnline("LoadData", this.account, "2");
-						gameControl.GetAccountOnline("LoadData", this.account, "3");						
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
 						state = "Main";
 						return false;
 					}
@@ -885,9 +975,42 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					String result = gameControl.GetResult();
 					if (result.equals("success")) {
 						lstPlayer = gameControl.CleanListPlayers();
-						gameControl.GetAccountOnline("LoadData", this.account, "1");
-						gameControl.GetAccountOnline("LoadData", this.account, "2");
-						gameControl.GetAccountOnline("LoadData", this.account, "3");						
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
 						state = "Main";
 						return false;
 					}
@@ -902,9 +1025,42 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					String result = gameControl.GetResult();
 					if (result.equals("success")) {
 						lstPlayer = gameControl.CleanListPlayers();
-						gameControl.GetAccountOnline("LoadData", this.account, "1");
-						gameControl.GetAccountOnline("LoadData", this.account, "2");
-						gameControl.GetAccountOnline("LoadData", this.account, "3");						
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
+						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
+							@Override
+							public void onSuccess(String response) {
+								if (response.equals("fail")) {
+									screen.screenSwitch("TitleScreen", network, account, playernumber);
+								}
+							}
+
+							@Override
+							public void onFailure(Throwable t) {
+							}
+						});
 						state = "Main";
 						return false;
 					}
@@ -922,7 +1078,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			}
 			// Selected
 			if (coordsTouch.x >= +40 && coordsTouch.x <= 63 && coordsTouch.y >= 11 && coordsTouch.y <= 24) {
-				//gameControlHTML.SetCharacter(selectedchar);
+				// gameControlHTML.SetCharacter(selectedchar);
 				state = "Change";
 				return false;
 			}
