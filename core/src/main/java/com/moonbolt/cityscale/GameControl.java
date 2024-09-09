@@ -789,7 +789,7 @@ public class GameControl {
         });
     }
 
-    public void CheckAccount(String tipoRequisicao, String account) throws UnsupportedEncodingException {
+    public void CheckAccount(String tipoRequisicao, String account, HttpCallback callback) throws UnsupportedEncodingException {
 
         int accNumber = randnumber.nextInt(99999999);
         while (accNumber < 1000000) {
@@ -832,8 +832,9 @@ public class GameControl {
                     public void run() {
                         // Update the game state or UI based on the response
                         System.out.println("Response: " + responseText);
-                        onlineResult = "success";
+                        onlineResult = responseText;
                         playerAccount = account;
+                        callback.onSuccess(responseText);
                     }
                 });
             }
@@ -845,6 +846,7 @@ public class GameControl {
                     @Override
                     public void run() {
                         System.out.println("Request failed: " + t.getMessage());
+                        callback.onFailure(t);
                     }
                 });
             }
@@ -856,6 +858,7 @@ public class GameControl {
                     @Override
                     public void run() {
                         System.out.println("Request cancelled");
+                        callback.onFailure(new Exception("Request cancelled"));
                     }
                 });
             }
@@ -1086,8 +1089,5 @@ public class GameControl {
             }
         });
     }
-
-
-
-
+    
 }

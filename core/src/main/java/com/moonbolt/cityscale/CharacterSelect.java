@@ -128,10 +128,10 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 		// Load Account////////////////////////////////////////////
 		if (lstPlayer.size() == 0) {
 			try {
-				////gameControl.GetAccountOnline("LoadData", this.account, "1");
-				////gameControl.GetAccountOnline("LoadData", this.account, "2");
-				////gameControl.GetAccountOnline("LoadData", this.account, "3");
-				////lstPlayer = gameControl.GetPlayers();
+				gameControl.GetAccountOnline("LoadData", this.account, "1");
+				gameControl.GetAccountOnline("LoadData", this.account, "2");
+				gameControl.GetAccountOnline("LoadData", this.account, "3");
+				lstPlayer = gameControl.GetPlayers();
 			} catch (Exception ex) {
 				this.screen.screenSwitch("TitleScreen", network, "", 0);
 			}
@@ -839,7 +839,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 
 			// Confirmar
 			if (coordsTouch.x >= 28 && coordsTouch.x <= 54 && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
-				/* try {
+				 try {
 					gameControl.CreateCharOnline("CreateChar", account, String.valueOf(selectedchar), name, sex, hair,color);
 					String result = gameControl.GetResult();
 					if (result.equals("success")) {
@@ -851,7 +851,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						return false;
 					}
 				} catch (Exception ex) {
-				}*/
+				}
 			}
 		}
 
@@ -863,7 +863,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			}
 			// delete char 1
 			if (coordsTouch.x >= -52 && coordsTouch.x <= -28 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-				/*try {
+				try {
 					gameControl.DeleteChar("DeleteChar", account, "1");
 					String result = gameControl.GetResult();
 					if (result.equals("success")) {
@@ -875,12 +875,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						return false;
 					}
 				} catch (Exception ex) {
-				}*/
+				}
 				return false;
 			}
 			// delete char 2
 			if (coordsTouch.x >= -15 && coordsTouch.x <= 15 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-				/*try {
+				try {
 					gameControl.DeleteChar("DeleteChar", account, "2");
 					String result = gameControl.GetResult();
 					if (result.equals("success")) {
@@ -892,12 +892,12 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						return false;
 					}
 				} catch (Exception ex) {
-				}*/
+				}
 				return false;
 			}
 			// delete char 3
 			if (coordsTouch.x >= 22 && coordsTouch.x <= 44 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
-				/*try {
+				try {
 					gameControl.DeleteChar("DeleteChar", account, "3");
 					String result = gameControl.GetResult();
 					if (result.equals("success")) {
@@ -909,7 +909,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 						return false;
 					}
 				} catch (Exception ex) {
-				}*/
+				}
 				return false;
 			}
 		}
@@ -922,7 +922,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			}
 			// Selected
 			if (coordsTouch.x >= +40 && coordsTouch.x <= 63 && coordsTouch.y >= 11 && coordsTouch.y <= 24) {
-				// gameControlHTML.SetCharacter(selectedchar);
+				//gameControlHTML.SetCharacter(selectedchar);
 				state = "Change";
 				return false;
 			}

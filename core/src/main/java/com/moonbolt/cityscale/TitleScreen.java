@@ -311,18 +311,30 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 
 			// [Acessar] //
 			if (coordsTouch.x >= -20 && coordsTouch.x <= -1 && coordsTouch.y >= -14 && coordsTouch.y <= -2) {
-				String result = "";
 				try {
-				gameControl.CheckAccount("CheckAccount",keyboardText);
-				result = gameControl.GetResult();
-				if (result.equals("success")) {
-					accountnumber = keyboardText;
-					state = "charselect";
-				} else {
-					avisoconta = "Conta nao encontrada!";
-					avisotimer = 200;
+				gameControl.CheckAccount("CheckAccount",keyboardText, new HttpCallback() {
+					@Override
+                    public void onSuccess(String response) {
+						String result = gameControl.GetResult();
+						if(result.equals("success")) {
+							accountnumber = keyboardText;
+	    					state = "charselect";
+						}
+						else 
+						{
+							avisoconta = "Conta nao encontrada!";
+		   					  avisotimer = 200;
+						}		        
+                    }
 
-				}
+                    @Override
+                    public void onFailure(Throwable t) {
+                       avisoconta = "Conta nao encontrada!";
+   					   avisotimer = 200;
+                       System.out.println("Error: " + t.getMessage());
+                    }
+				});
+				
 				return false;
 			} catch (Exception e) {
 				e.printStackTrace();
