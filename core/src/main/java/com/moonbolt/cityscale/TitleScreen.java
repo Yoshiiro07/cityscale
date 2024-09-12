@@ -163,7 +163,17 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f, 0.12f);
 			font_master.setUseIntegerPositions(false);
-			font_master.draw(game.batch, "Versao: 0.2b", -60, -58);
+			font_master.draw(game.batch, "Versao: 0.3", -60, -58);
+			
+			if (avisotimer > 0) {
+				font_master.draw(game.batch, avisoconta, -20, -16);
+				avisotimer--;
+				if (avisotimer < 0) {
+					avisotimer = 0;
+					avisoconta = "";
+					conta = "";
+				}
+			}
 		}
 
 		if (state.equals("Recover")) {
@@ -284,9 +294,15 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 					gameControl.CreateAccountOnline("NewAccount", new HttpCallback() {
                         @Override
                         public void onSuccess(String response) {
-                            accountnumber = gameControl.GetAccount();
-                            state = "charselect";
-                            System.out.println("Passou");
+                        	if(response.contains("Recuperado")) {
+                        		accountnumber = gameControl.GetAccount();
+	                            state = "charselect";
+	                            System.out.println("Passou");
+                        	}
+                        	else {
+								avisoconta = "Não foi possível criar nova conta, tente novamente";
+								avisotimer = 200;
+                        	}
                         }
 
                         @Override

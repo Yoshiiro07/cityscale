@@ -28,6 +28,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	private GameControl gameControl;
 	private ManagerScreen screen;
 	private String state = "Account";
+	private boolean aviso = false;
+	private int avisoTimer = 0;
+	private String avisoMsg = "";
 	private boolean network = false;
 	private String systemMsg = "";
 	private String showMsg = "";
@@ -416,6 +419,21 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				font_master.setUseIntegerPositions(false);
 				font_master.draw(game.batch, keyboardText, -65, 55);
 			}
+			
+			if (aviso) {
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setSize(90,20);
+				spr_master.setPosition(-45, 5);
+				spr_master.draw(game.batch);
+				font_master.getData().setScale(0.12f, 0.19f);
+				font_master.draw(game.batch, avisoMsg, -40, 18);
+				avisoTimer++;
+				if (avisoTimer > 100) {
+					aviso = false;
+					avisoTimer = 0;
+				}
+			}
+			
 
 			// spr_testeDot.setPosition(9,-10);
 			// spr_testeDot.setSize(1, 1);
@@ -862,52 +880,32 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			// Confirmar
 			if (coordsTouch.x >= 28 && coordsTouch.x <= 54 && coordsTouch.y >= -53 && coordsTouch.y <= -42) {
 				try {
-					gameControl.CreateCharOnline("CreateChar", account, String.valueOf(selectedchar), name, sex, hair,
-							color);
-					String result = gameControl.GetResult();
-					if (result.equals("success")) {
-						lstPlayer = gameControl.CleanListPlayers();
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("")) {
-									
-								}
-								if (response.equals("fail")) {screen.screenSwitch("TitleScreen", network, account, playernumber);}
-							}
+					gameControl.CreateCharOnline("CreateChar",account,name,sex,hair,color, new HttpCallback() {
+                        @Override
+                        public void onSuccess(String response) {
+                        	if(response.contains("success")) {
+                        		System.out.println("Atualizado");
+                        		loadAccountState = false;
+                        		accountInProcess = false;
+                        		state = "Main";
+                        	}
+                        	else {
+                        		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                        		aviso = true;
+                        	}
+                        }
 
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						state = "Main";
-						return false;
-					}
+                        @Override
+                        public void onFailure(Throwable t) {
+                           System.out.println("Error: " + t.getMessage());
+                           avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                   		   aviso = true;
+                        }
+                    });
+					return false;	
 				} catch (Exception ex) {
+					avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+            		aviso = true;
 				}
 			}
 		}
@@ -921,152 +919,95 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			// delete char 1
 			if (coordsTouch.x >= -52 && coordsTouch.x <= -28 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
 				try {
-					gameControl.DeleteChar("DeleteChar", account, "1");
-					String result = gameControl.GetResult();
-					if (result.equals("success")) {
-						lstPlayer = gameControl.CleanListPlayers();
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
+					gameControl.DeleteChar("DeleteChar",account,"1", new HttpCallback() {
+                        @Override
+                        public void onSuccess(String response) {
+                        	if(response.contains("success")) {
+                        		System.out.println("Deletado");
+                        		loadAccountState = false;
+                        		accountInProcess = false;
+                        		state = "Main";
+                        	}
+                        	else {
+                        		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                        		aviso = true;
+                        	}
+                        }
 
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						state = "Main";
-						return false;
-					}
+                        @Override
+                        public void onFailure(Throwable t) {
+                           System.out.println("Error: " + t.getMessage());
+                           avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                   		   aviso = true;
+                        }
+                    });
+					return false;	
 				} catch (Exception ex) {
+					avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+            		aviso = true;
 				}
-				return false;
 			}
 			// delete char 2
 			if (coordsTouch.x >= -15 && coordsTouch.x <= 15 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
 				try {
-					gameControl.DeleteChar("DeleteChar", account, "2");
-					String result = gameControl.GetResult();
-					if (result.equals("success")) {
-						lstPlayer = gameControl.CleanListPlayers();
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
+					gameControl.DeleteChar("DeleteChar",account,"2", new HttpCallback() {
+                        @Override
+                        public void onSuccess(String response) {
+                        	if(response.contains("success")) {
+                        		System.out.println("Deletado");
+                        		loadAccountState = false;
+                        		accountInProcess = false;
+                        		state = "Main";
+                        	}
+                        	else {
+                        		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                        		aviso = true;
+                        	}
+                        }
 
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						state = "Main";
-						return false;
-					}
+                        @Override
+                        public void onFailure(Throwable t) {
+                           System.out.println("Error: " + t.getMessage());
+                           avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                   		   aviso = true;
+                        }
+                    });
+					return false;	
 				} catch (Exception ex) {
+					avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+            		aviso = true;
 				}
-				return false;
 			}
 			// delete char 3
 			if (coordsTouch.x >= 22 && coordsTouch.x <= 44 && coordsTouch.y >= -42 && coordsTouch.y <= 20) {
 				try {
-					gameControl.DeleteChar("DeleteChar", account, "3");
-					String result = gameControl.GetResult();
-					if (result.equals("success")) {
-						lstPlayer = gameControl.CleanListPlayers();
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
+					gameControl.DeleteChar("DeleteChar",account,"3", new HttpCallback() {
+                        @Override
+                        public void onSuccess(String response) {
+                        	if(response.contains("success")) {
+                        		System.out.println("Deletado");
+                        		loadAccountState = false;
+                        		accountInProcess = false;
+                        		state = "Main";
+                        	}
+                        	else {
+                        		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                        		aviso = true;
+                        	}
+                        }
 
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						gameControl.GetAccountOnline("LoadData", this.account, "1", new HttpCallback() {
-							@Override
-							public void onSuccess(String response) {
-								if (response.equals("fail")) {
-									screen.screenSwitch("TitleScreen", network, account, playernumber);
-								}
-							}
-
-							@Override
-							public void onFailure(Throwable t) {
-							}
-						});
-						state = "Main";
-						return false;
-					}
+                        @Override
+                        public void onFailure(Throwable t) {
+                           System.out.println("Error: " + t.getMessage());
+                           avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                   		   aviso = true;
+                        }
+                    });
+					return false;	
 				} catch (Exception ex) {
+					avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+            		aviso = true;
 				}
-				return false;
 			}
 		}
 

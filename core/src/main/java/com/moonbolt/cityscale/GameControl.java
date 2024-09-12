@@ -215,6 +215,9 @@ public class GameControl {
 	///////////////////////////////////////////////// [Account]///////////////////////////////////////////////
 	public void LoadData(String data) {
 		String[] playerDataArray = data.split("@");
+		
+		// Remove all occurrences of "@sucess@"
+	    data = data.replace("#Success#", "");
 
 		for (String playerData : playerDataArray) {
 			
@@ -875,7 +878,7 @@ public class GameControl {
 		});
 	}
 
-	public void DeleteChar(String tipoRequisicao, String account, String accountnumber)
+	public void DeleteChar(String tipoRequisicao, String account, String charnumber, HttpCallback callback)
 			throws UnsupportedEncodingException {
 
 		// Prepare the data to post
@@ -886,7 +889,7 @@ public class GameControl {
 		parameters.put("ldbname", ldbname);
 		parameters.put("lrequest", tipoRequisicao);
 		parameters.put("ldataaccount", account);
-		parameters.put("lcharnumber", accountnumber);
+		parameters.put("lcharnumber", charnumber);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
@@ -913,7 +916,7 @@ public class GameControl {
 					public void run() {
 						// Update the game state or UI based on the response
 						System.out.println("Response: " + responseText);
-						onlineResult = "success";
+						callback.onSuccess("success");
 					}
 				});
 			}
@@ -925,6 +928,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						System.out.println("Request failed: " + t.getMessage());
+						callback.onFailure(t);
 					}
 				});
 			}
@@ -936,6 +940,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						System.out.println("Request cancelled");
+						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
 			}
@@ -980,8 +985,13 @@ public class GameControl {
 					public void run() {
 						// Update the game state or UI based on the response
 						System.out.println("Response: " + responseText);
-						LoadData(responseText);
-						callback.onSuccess("success");
+						if(responseText.contains("#Success#")) {
+							LoadData(responseText);
+							callback.onSuccess("success");
+						}
+						else {
+							callback.onSuccess("fail");
+						}
 					}
 				});
 			}
@@ -1012,8 +1022,7 @@ public class GameControl {
 		});
 	}
 
-	public void CreateCharOnline(String tipoRequisicao, String accountnumber, String charnumber, String name,
-			String sex, String hair, String color) throws UnsupportedEncodingException {
+	public void CreateCharOnline(String tipoRequisicao, String accountnumber, String name,String sex, String hair, String color, HttpCallback callback) throws UnsupportedEncodingException {
 
 		String itensList = "";
 		for (int i = 0; i < 16; i++) {
@@ -1024,6 +1033,13 @@ public class GameControl {
 				itensList = itensList + "[NONE]-";
 			}
 		}
+		
+		String charnumber = "0";
+		boolean checkchar = false;
+			
+		if(lstPlayers.get(0).Name.equals("none") && !checkchar) { charnumber = "1"; checkchar = true; }
+		if(lstPlayers.get(1).Name.equals("none") && !checkchar) { charnumber = "2"; checkchar = true; }
+		if(lstPlayers.get(2).Name.equals("none") && !checkchar) { charnumber = "3"; checkchar = true; }
 
 		// Prepare the data to post
 		Map<String, String> parameters = new HashMap<String, String>();
@@ -1064,9 +1080,14 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						// Update the game state or UI based on the response
 						System.out.println("Response: " + responseText);
-						onlineResult = "success";
+						if(responseText.contains("updated")) {
+							callback.onSuccess("success");
+						}
+						else {
+							callback.onSuccess("fail");
+						}
+						
 					}
 				});
 			}
@@ -1078,6 +1099,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						System.out.println("Request failed: " + t.getMessage());
+						callback.onFailure(t);
 					}
 				});
 			}
@@ -1089,6 +1111,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						System.out.println("Request cancelled");
+						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
 			}
