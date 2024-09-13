@@ -48,6 +48,12 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	private String state = "main";
 	private boolean network = true;
 	private String accountnumber = "";
+	private boolean aviso = false;
+	private int avisoTimer = 0;
+	private String avisoMsg = "";
+	
+	private Json json;
+	private FileHandle file;
 
 	// Manager
 	private String systemMsg;
@@ -80,6 +86,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	private Sprite spr_mainmenu;
 	private Sprite spr_recovermenu;
 	private Sprite spr_loginmenu;
+	private Sprite spr_master;
 
 	// keyboard
 	private Texture tex_keyboard;
@@ -93,6 +100,10 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	private final IntSet downKeys = new IntSet(20);
 
 	public TitleScreen(MainGame gameAlt, ManagerScreen screen, int playernumAlt) {
+		
+		json = new Json();
+		
+		
 		this.game = gameAlt;
 		this.screen = screen;
 		gameControl = new GameControl();
@@ -100,6 +111,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		// test dot
 		tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 		spr_testeDot = new Sprite(tex_testeDot);
+		spr_master = new Sprite(tex_testeDot);
 
 		// keyboard
 		tex_keyboard = new Texture(Gdx.files.internal("data/assets/ux/keyboard.png"));
@@ -234,6 +246,20 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 			this.screen.screenSwitch("CharacterSelectScreen", network, accountnumber, 0);
 			dispose();
 		}
+		
+		if (aviso) {
+			spr_master = gameControl.GetUX("textbar", 0, 0);
+			spr_master.setSize(90,20);
+			spr_master.setPosition(-45, 5);
+			spr_master.draw(game.batch);
+			font_master.getData().setScale(0.12f, 0.19f);
+			font_master.draw(game.batch, avisoMsg, -40, 18);
+			avisoTimer++;
+			if (avisoTimer > 100) {
+				aviso = false;
+				avisoTimer = 0;
+			}
+		}
 
 		// Teste
 		// spr_testeDot.setPosition(19,-57);
@@ -300,8 +326,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	                            System.out.println("Passou");
                         	}
                         	else {
-								avisoconta = "Não foi possível criar nova conta, tente novamente";
-								avisotimer = 200;
+                        		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+                        		aviso = true;
                         	}
                         }
 
@@ -338,8 +364,8 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 						}
 						else 
 						{
-							avisoconta = "Conta nao encontrada!";
-		   					  avisotimer = 200;
+							avisoMsg = "Verifique a conta e tente novamente";
+                    		aviso = true;
 						}		        
                     }
 

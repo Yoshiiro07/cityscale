@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.Json;
 import com.moonbolt.cityscale.interfaces.HttpCallback;
 import com.moonbolt.cityscale.models.Monster;
 import com.moonbolt.cityscale.models.Player;
+import com.moonbolt.cityscale.models.PlayerOld;
 import com.badlogic.gdx.files.FileHandle;
 
 import com.badlogic.gdx.Gdx;
@@ -42,6 +43,7 @@ public class GameControl {
 	private int FrameAtkPlayer = 0;
 	private int charNumber = 0;
 	private String playerAccount = "";
+	private int selectedChar = 0;
 
 	// Sprite
 	private Sprite spr_master;
@@ -202,7 +204,7 @@ public class GameControl {
 		atlas_dashkick = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/dashkick.txt"));
 
 	}
-
+	
 	/////////////////////// [ SUMMARY ] ///////////////////
 	// [Account]//
 	// [Interface]//
@@ -211,6 +213,21 @@ public class GameControl {
 	// [Skills]//
 	// [Online]//
 	// [Exp/Drop]//
+	
+	//[Retro]//
+	public void LoadDataOld(){
+		PlayerOld playerold = new PlayerOld();
+		
+		//file = Gdx.files.local("SaveData/save.json");
+		//file.writeString(Base64Coder.encodeString(json.prettyPrint(playerold)), false);
+		
+		FileHandle file = Gdx.files.local("SaveData/save.json");		
+		PlayerOld playerOld = json.fromJson(PlayerOld.class, Base64Coder.decodeString(file.readString()));
+		
+		file = Gdx.files.local("SaveData/saveDecript.json");
+		file.writeString(json.prettyPrint(playerOld), false);
+		
+	}
 
 	///////////////////////////////////////////////// [Account]///////////////////////////////////////////////
 	public void LoadData(String data) {
@@ -719,6 +736,14 @@ public class GameControl {
 			spr_master.setPosition(-62, 10);
 		} // Block hair
 		return spr_master;
+	}
+	
+	public void SetSelectedChar(int _selectedChar) {
+		selectedChar = _selectedChar;
+	}
+	
+	public int GetSelectedChar() {
+		return selectedChar;
 	}
 
 	///////////////////////////////////////////////// [Online]///////////////////////////////////////////////

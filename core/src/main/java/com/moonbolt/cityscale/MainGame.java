@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.moonbolt.cityscale.models.Player;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
 
@@ -35,6 +39,10 @@ public class MainGame extends Game {
 	
 	public void AtualizaElementos(MainGame mainGameAlt,GameControl gameControlAtl, boolean networkAlt) {
 		loadingmanager.atualizaComponentes(mainGameAlt,gameControlAtl, networkAlt, 0);
+	}
+	
+	public void AtualizaPlayer(ArrayList<Player> lstPlayers) {
+		loadingmanager.UpdatePlayerAccount(lstPlayers);
 	}
 
 	@Override

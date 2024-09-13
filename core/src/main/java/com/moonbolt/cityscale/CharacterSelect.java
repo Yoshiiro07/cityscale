@@ -347,7 +347,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				font_master.getData().setScale(0.12f, 0.19f);
 				font_master.setUseIntegerPositions(false);
 
-				if (!lstPlayer.get(0).Name.equals("none")) {
+				if (!lstPlayer.get(0).Name.equals("none") && selectedchar == 1) {
 					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
 					spr_master.draw(game.batch);
 
@@ -365,7 +365,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					font_master.draw(game.batch, lstPlayer.get(0).Level, 25, 42);
 					font_master.draw(game.batch, lstPlayer.get(0).Map, 25, 35);
 				}
-				if (!lstPlayer.get(1).Name.equals("none")) {
+				if (!lstPlayer.get(1).Name.equals("none")  && selectedchar == 2) {
 					spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
 					spr_master.draw(game.batch);
 
@@ -383,7 +383,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 					font_master.draw(game.batch, lstPlayer.get(0).Level, 25, 42);
 					font_master.draw(game.batch, lstPlayer.get(0).Map, 25, 35);
 				}
-				if (!lstPlayer.get(2).Name.equals("none")) {
+				if (!lstPlayer.get(2).Name.equals("none")  && selectedchar == 3) {
 					spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
 					spr_master.draw(game.batch);
 
@@ -404,8 +404,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			}
 
 			if (state.equals("Change")) {
-				player.Map.equals("MetroStation");
-				// gameControlHTML.SaveData(player);
+				gameControl.SetSelectedChar(selectedchar);
 				this.screen.screenSwitch("LoadingScreen", network, account, playernumber);
 				dispose();
 			}
@@ -1019,7 +1018,6 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			}
 			// Selected
 			if (coordsTouch.x >= +40 && coordsTouch.x <= 63 && coordsTouch.y >= 11 && coordsTouch.y <= 24) {
-				// gameControlHTML.SetCharacter(selectedchar);
 				state = "Change";
 				return false;
 			}

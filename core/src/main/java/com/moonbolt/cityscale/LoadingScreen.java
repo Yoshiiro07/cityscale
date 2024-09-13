@@ -1,5 +1,7 @@
 package com.moonbolt.cityscale;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -28,6 +30,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	private Player player;
 	private int playernumber = 0;
 	private String account = "";
+	private ArrayList<Player> lstPlayers;
 
 	//Loading Variables
 	private boolean loading = true;
@@ -51,11 +54,12 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
     //Controller
     private final IntSet downKeys = new IntSet(20);
 
-	public LoadingScreen(MainGame gameAlt,boolean networkAlt, String _account, int _playernumber) {
+	public LoadingScreen(MainGame gameAlt,boolean networkAlt, String _account, int _playernumber, ArrayList<Player> _lstPlayersAlt) {
 		this.game = gameAlt;
 		this.network = networkAlt;
 		this.account = _account;
 		this.playernumber = _playernumber;
+		this.lstPlayers = _lstPlayersAlt;
 
 		this.gameControl = new GameControl();
 		//player = gameControl.LoadData();
@@ -118,6 +122,7 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 		}
 
 		if(changeScreen){
+			game.loadingmanager.atualizaComponentes(game,gameControl,network,playernumber);
 			game.Switch("GameMap", network,account,playernumber); 
 		}
 

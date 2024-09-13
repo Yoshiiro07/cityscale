@@ -77,7 +77,6 @@ public class Player {
 		public String petBath;
 		public String petLevel;
 		
-		
 		public String getAccountID() {
 			return AccountID;
 		}

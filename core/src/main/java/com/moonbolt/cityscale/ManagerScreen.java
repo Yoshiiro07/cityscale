@@ -2,7 +2,7 @@ package com.moonbolt.cityscale;
 import java.util.ArrayList;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
-
+import com.moonbolt.cityscale.models.Player;
 import com.badlogic.gdx.Screen;
 
 public class ManagerScreen implements Screen{
@@ -10,10 +10,12 @@ public class ManagerScreen implements Screen{
 	private GameControl gameControl;
 	private boolean network;
 	private int playernum;
+	private ArrayList<Player> lstPlayers;
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
-		this.gameControl = new GameControl(); 
+		this.gameControl = new GameControl();
+		ArrayList<Player> lstPlayers = new ArrayList<Player>();
 	}
 	
 	public void screenSwitch(String tipo, boolean network, String account, int playernum){
@@ -34,14 +36,17 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("LoadingScreen")){	
-			LoadingScreen loadingScreen = new LoadingScreen(game,network,account,playernum);
+			LoadingScreen loadingScreen = new LoadingScreen(game,network,account,playernum,lstPlayers);
 			game.setScreen(loadingScreen);
 		}
 		
-		//if(tipo.equals("GameMap")) {
-		//	GameMap gameMapScreen = new GameMap(game,this, network,account, playernum);
-		//	game.setScreen(gameMapScreen);
-		//}
+		if(tipo.equals("GameMap")) {
+			GameMap gameMapScreen = new GameMap(game,this, network,account, playernum, lstPlayers);
+			game.setScreen(gameMapScreen);
+		}
+	}
+	public void UpdatePlayerAccount(ArrayList<Player> _lstPlayers) {
+		lstPlayers = _lstPlayers;
 	}
 	
 	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControlAlt, boolean network, int playernumberAlt){
