@@ -42,8 +42,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private String menuoption = "";
     private int playernum = 0;
     private int flipzone = 0;
-    private float FloatUse = 0;
-    private int IntUse = 0;
+    
+    //Variables usables
+    private float floatUseA = 0;
+    private float floatUseB = 0;
+    private float floatUseC = 0;
+    private float floatUseD = 0;
+    private int intUseA = 0;
+    private int intUseB = 0;
+    private int intUseC = 0;
+    private int intUseD = 0;
     
     //Aviso
     private boolean aviso = false;
@@ -200,12 +208,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			cameraCoordsY = Float.parseFloat(player.PosY);
 			
 			//Follow camera
-			FloatUse = Float.parseFloat(player.PosX); 
-			if(FloatUse <= 18.5f) 	{ cameraCoordsX = 18.5f; }
-			if(FloatUse >= 93) 	{ cameraCoordsX = 93; 	 }
-			FloatUse = Float.parseFloat(player.PosY);
-			if(FloatUse >= -22f) { cameraCoordsY = -22f; }
-			if(FloatUse <= -97) 	{ cameraCoordsY = -97;  }
+			floatUseA = Float.parseFloat(player.PosX); 
+			if(floatUseA <= 18.5f) 	{ cameraCoordsX = 18.5f; }
+			if(floatUseA >= 93) 	{ cameraCoordsX = 93; 	 }
+			floatUseB = Float.parseFloat(player.PosY);
+			if(floatUseB >= -22f) { cameraCoordsY = -22f; }
+			if(floatUseB <= -97) 	{ cameraCoordsY = -97;  }
 			
 			//Update camera and start drawling
 			camera.position.set(cameraCoordsX -2,cameraCoordsY+1,0);
@@ -221,26 +229,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			//Check Regen
-			IntUse = Integer.parseInt(player.regenTime);
-			IntUse--;
-			if(IntUse < 0) {
-				player.Hp_A = player.Hp_A + 10;
-				player.Mp_A = player.Mp_A + 10;
+			intUseA = Integer.parseInt(player.regenTime);
+			intUseA--;
+			if(intUseA < 0) {
+				intUseA = Integer.parseInt(player.Hp);
+				intUseB = Integer.parseInt(player.Mp);
+				intUseC = Integer.parseInt(player.HpMax);
+				intUseD = Integer.parseInt(player.MpMax);
 				
-				if(player.Hp >= player.HpMax) { player.Hp = player.HpMax; }
-				if(player.Mp >= player.MpMax) { player.Mp = player.MpMax; }
+				intUseA = intUseA + 10;
+				intUseB = intUseB + 10;
 				
-				player.regenTime_A = player.regenTimeMax_A;
+				if(intUseA >= intUseC) { player.Hp = player.HpMax; }
+				if(intUseB >= intUseB) { player.Mp = player.MpMax; }
+				
+				player.regenTime = player.regenTimeMax;
 			}
 			
-			if(player.Map_A.equals("StreetsA")) {
+			//Map Render
+			if(player.Map.equals("StreetsA")) {
 				spr_Background.setPosition(-81,-194);
 				spr_Background.setSize(270, 270);
 				spr_Background.draw(game.batch);
 			}
 			
 			//Background	
-			if(player.Map_A.equals("Sewers")) {
+			if(player.Map.equals("Sewers")) {
 				flipzone++;
 				if (flipzone >= 0 && flipzone <= 20) {
 					spr_Background.setPosition(-81, -194);
@@ -260,7 +274,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//ShowNPCs();
 			
 			//Char
-			player = gameControl.SetCharMov(player, player.breakwalk_A);
+			player = gameControl.SetCharMov(player, player.breakwalk);
 			
 			spr_playerfooter = gameControl.GetFooterChar(player, "no",0,0);
 			spr_playerfooter.draw(game.batch);
@@ -274,7 +288,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
 			spr_playerhair.draw(game.batch);
 			
-			if(!player.Hat_A.equals("none")) {
+			if(!player.Hat.equals("none")) {
 				spr_playerhat = gameControl.GetHatChar(player,"",0,0);
 				spr_playerhat.draw(game.batch);
 			}
