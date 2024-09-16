@@ -311,8 +311,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			
 			font_master.getData().setScale(0.15f,0.26f);
-			font_master.draw(game.batch, "X:" + player.PosX_A, cameraCoordsX - 98f, cameraCoordsY + 53.7f);
-			font_master.draw(game.batch, "Y:" + player.PosY_A, cameraCoordsX - 78f, cameraCoordsY + 53.7f);
+			font_master.draw(game.batch, "X:" + player.PosX, cameraCoordsX - 98f, cameraCoordsY + 53.7f);
+			font_master.draw(game.batch, "Y:" + player.PosY, cameraCoordsX - 78f, cameraCoordsY + 53.7f);
 			
 			spr_sit = gameControl.GetUX("btnsit", cameraCoordsX, cameraCoordsY);
 			spr_sit.draw(game.batch);
@@ -598,6 +598,123 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			
 			return false;
+		}
+		
+		public void ShowMobs() {			
+			
+			float playerPosX = Float.parseFloat(player.PosX);
+			float playerPosY = Float.parseFloat(player.PosY);
+			
+			if(player.Map.equals("Sewers") || player.Map.equals("Watercave") || player.Map.equals("Mines") || player.Map.equals("Snowpalace") || player.Map.equals("Tower")) {
+				for(int i = 0; i < listMonsters.size(); i++) {
+					
+						//Target do player
+						if(player.Target.equals(listMonsters.get(i).MobID)) {
+							spr_target = gameControl.GetUX("target", 0, 0);
+							spr_target.setPosition(listMonsters.get(i).MobPosX + 2, listMonsters.get(i).MobPosY + 16);
+							spr_target.setSize(4,8);
+							spr_target.draw(game.batch);
+						}
+									
+						mobTimerFrame = listMonsters.get(i).MobFrameTime;
+						if(mobTimerFrame > 0) {
+							mobTimerFrame--;
+							listMonsters.get(i).MobFrameTime = mobTimerFrame;
+						}
+						if(mobTimerFrame <= 0) {
+							mobTimerFrame = 40;
+							mobFrame = listMonsters.get(i).MobFrame;
+							mobFrame++;
+							if(mobFrame > 3) { mobFrame = 1;}
+							listMonsters.get(i).MobFrame = mobFrame;
+							listMonsters.get(i).MobFrameTime = 40;
+						}
+						
+						//Sem Target
+						if(listMonsters.get(i).MobTarget.equals("none")) {
+							mobTimerMov = listMonsters.get(i).MobTimerMov;
+							mobRandomSt = listMonsters.get(i).MobRandomSt;
+							if(mobTimerMov >= 0) { 
+								mobTimerMov--;
+								listMonsters.get(i).MobTimerMov = mobTimerMov;
+							}
+							if(mobTimerMov < 0) { 
+								mobRandomSt = randnumber.nextInt(4); 
+								mobTimerMov = 100; 
+								listMonsters.get(i).MobTimerMov = mobTimerMov;
+								listMonsters.get(i).MobRandomSt = mobRandomSt;
+							}
+												
+							if(mobRandomSt == 0) { 
+								mobPositionCoordX = listMonsters.get(i).MobPosX;
+								mobPositionCoordX = mobPositionCoordX + 0.07f; 
+								listMonsters.get(i).MobPosX = mobPositionCoordX;
+							}
+							if(mobRandomSt == 1) { 
+								mobPositionCoordX = listMonsters.get(i).MobPosX;
+								mobPositionCoordX = mobPositionCoordX - 0.07f;
+								listMonsters.get(i).MobPosX = mobPositionCoordX;
+							}
+							if(mobRandomSt == 2) { 
+								mobPositionCoordY = listMonsters.get(i).MobPosY;
+								mobPositionCoordY = mobPositionCoordY + 0.07f;
+								listMonsters.get(i).MobPosY = mobPositionCoordY;
+							}
+							if(mobRandomSt == 3) { 
+								mobPositionCoordY = listMonsters.get(i).MobPosY;
+								mobPositionCoordY = mobPositionCoordY - 0.07f;
+								listMonsters.get(i).MobPosY = mobPositionCoordY;
+							}
+						}
+						
+						if(listMonsters.get(i).MobTarget.equals(player.Name)) {
+							if(listMonsters.get(i).MobPosX < playerPosX + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX + 0.07f; }
+							if(listMonsters.get(i).MobPosX > playerPosX + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX - 0.07f; }
+							if(listMonsters.get(i).MobPosY < playerPosY - 6 ) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY + 0.07f; }
+							if(listMonsters.get(i).MobPosY > playerPosY - 6) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY - 0.07f; }
+						}
+						
+						//Limit screen
+						if(mobPositionCoordY >= 18f && listMonsters.get(i).MobDead.equals("no")) 
+						{						
+							listMonsters.get(i).MobPosY = -112f;
+							listMonsters.get(i).MobPosX = 96.5f;
+						}
+						if(mobPositionCoordY <= -190.5f && listMonsters.get(i).MobDead.equals("no")) 
+						{
+							listMonsters.get(i).MobPosY = -112f;
+							listMonsters.get(i).MobPosX = 67;
+						}
+						if(mobPositionCoordX >= 185 && listMonsters.get(i).MobDead.equals("no")) 
+						{
+							listMonsters.get(i).MobPosY = -112f;
+							listMonsters.get(i).MobPosX = 65;
+						}
+						if(mobPositionCoordX <= -77f && listMonsters.get(i).MobDead.equals("no")) 
+						{
+							listMonsters.get(i).MobPosY = -112f;
+							listMonsters.get(i).MobPosX = 65;
+						}
+						
+						if(player.Map.equals("Sewers")) { spr_monster = gameControl.GetMonster(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, "L");}
+						//if(player.Map_A.equals("Watercave")) { spr_monster = atlas_mobWatercave.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						//if(player.Map_A.equals("Mines")) { spr_monster = atlas_mobMines.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						//if(player.Map_A.equals("Snowpalace")) { spr_monster = atlas_mobSnowpalace.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						//if(player.Map_A.equals("Tower")) { spr_monster = atlas_mobTower.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						spr_monster.setPosition(listMonsters.get(i).MobPosX, listMonsters.get(i).MobPosY);
+						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);
+						spr_monster.draw(game.batch);
+									
+						mobPositionCoordX = listMonsters.get(i).MobPosX;
+						mobPositionCoordY = listMonsters.get(i).MobPosY;
+						mobPositionCoordY = mobPositionCoordY - 0.2f;
+						font_master.getData().setScale(0.10f,0.15f);
+						font_master.setUseIntegerPositions(false);
+						font_master.draw(game.batch, listMonsters.get(i).MobName,mobPositionCoordX, mobPositionCoordY);
+						font_master.draw(game.batch, " HP :" + listMonsters.get(i).MobHp + "/" + listMonsters.get(i).MobHpMax ,mobPositionCoordX - 4, mobPositionCoordY - 8);
+						
+					}			
+			}
 		}
 		
 		@Override
