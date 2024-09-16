@@ -1302,24 +1302,379 @@ public class GameControl {
 	}
 	
 	
-	public Sprite GetHairCharTagStation(Player player) {
+	public Sprite GetHairCharTag(Player player,float cameraCoordsX,float cameraCoordsY) {
+		
+		if(player.Hair.equals("hair1")) { atlas_generichair = atlas_hairs1;}
+		if(player.Hair.equals("hair2")) { atlas_generichair = atlas_hairs2;}
+		if(player.Hair.equals("hair3")) { atlas_generichair = atlas_hairs3;}
+		if(player.Hair.equals("hair4")) { atlas_generichair = atlas_hairs4;}
+		//if(player.Hair_A.equals("hair5")) { atlas_generichair = atlas_hairs5;}
 		
 		//hair1_front_green_M
-		if(player.Hair.equals("hair1")){ spr_master = atlas_hairs1.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);}
-		if(player.Hair.equals("hair2")){ spr_master = atlas_hairs2.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);}
-		if(player.Hair.equals("hair3")){ spr_master = atlas_hairs3.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);}
-		if(player.Hair.equals("hair4")){ spr_master = atlas_hairs4.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);}
-		
 		if(player.Sex.equals("M")) {
-			spr_master.setPosition(-86, 42); 
+			spr_master = atlas_generichair.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);
+			spr_master.setPosition(cameraCoordsX -115,cameraCoordsY + 71); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
 		if(player.Sex.equals("F")) {
-			spr_master.setPosition(-86, 42); 
+			spr_master = atlas_generichair.createSprite(player.Hair + "_" + "front" + "_" + player.Color + "_" + player.Sex);
+			spr_master.setPosition(cameraCoordsX -115,cameraCoordsY + 71); 
 			spr_master.setScale(0.2f,0.4f);		
 		}
 		
 		return spr_master;
+	}
+	
+	public String ExpPercent(Player player) {
+		
+		float percent = Float.parseFloat(player.Exp);
+	    float totalExp = 0;
+	    int level = Integer.parseInt(player.Level);
+	    
+	    if(level == 1) { totalExp = 100; }
+	    if(level == 2) { totalExp = 150; }
+	    if(level == 3) { totalExp = 250; }
+	    if(level == 4) { totalExp = 360; }
+	    if(level == 5) { totalExp = 430; }
+	    if(level == 6) { totalExp = 500; }
+	    if(level == 7) { totalExp = 730; }
+	    if(level == 8) { totalExp = 1000; }
+	    if(level == 9) { totalExp = 1450; }
+	    
+	    if(level == 10) { totalExp = 1840; }
+	    if(level == 11) { totalExp = 3330; }
+	    if(level == 12) { totalExp = 5500; }
+	    if(level == 13) { totalExp = 7600; }
+	    if(level == 14) { totalExp = 9929; }
+	    if(level == 15) { totalExp = 12820; }
+	    if(level == 16) { totalExp = 15293; }
+	    if(level == 17) { totalExp = 17300; }
+	    if(level == 18) { totalExp = 22402; }
+	    if(level == 19) { totalExp = 26902; }
+	    
+	    if(level == 20) { totalExp = 34592; }
+	    if(level == 21) { totalExp = 46923; }
+	    if(level == 22) { totalExp = 75829; }
+	    if(level == 23) { totalExp = 90234; }
+	    if(level == 24) { totalExp = 153042; }
+	    if(level == 25) { totalExp = 179232; }
+	    if(level == 26) { totalExp = 221011; }
+	    if(level == 27) { totalExp = 259323; }
+	    if(level == 28) { totalExp = 279293; }
+	    if(level == 29) { totalExp = 383421; }
+	    
+	    if(level == 30) { totalExp = 593421; }
+	    if(level == 31) { totalExp = 814402; }
+	    if(level == 32) { totalExp = 1534611; }
+	    if(level == 33) { totalExp = 1839770; }
+	    if(level == 34) { totalExp = 2433026; }
+	    if(level == 35) { totalExp = 2792074; }
+	    if(level == 36) { totalExp = 2931441; }
+	    if(level == 37) { totalExp = 3304900; }
+	    if(level == 38) { totalExp = 3588905; }
+	    if(level == 39) { totalExp = 4987320; }
+	    
+	    if(level == 40) { totalExp = 6987320; }
+	    if(level == 41) { totalExp = 8987320; }
+	    if(level == 42) { totalExp = 92198732; }
+	    if(level == 43) { totalExp = 95883160f; }
+	    if(level == 44) { totalExp = 96882360f; }
+	    if(level == 45) { totalExp = 97981260f; }
+	    if(level == 46) { totalExp = 98286460f; }
+	    if(level == 47) { totalExp = 987875600f; }
+	    if(level == 48) { totalExp = 988886600f; }
+	    if(level == 49) { totalExp = 9999999999f; }
+	    									      
+	    float result = (float)((percent*100)/totalExp);
+	    return String.valueOf(result);
+	    
+	}
+	
+	
+	public Sprite GetItem(String nameItem, Player player) {
+		
+		if(player.Sex.equals("M")) {
+			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopM");}
+			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomM"); }
+			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterM"); }
+		}
+		
+		if(player.Sex.equals("F")) {
+			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopF"); }
+			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomF"); }
+			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterF"); }
+		}
+		
+		//Facas Aprendiz
+		if(nameItem.equals("basicknife")) { spr_master = atlas_weapon.createSprite("basicknife"); }
+		if(nameItem.equals("doubleedgeknife")) { spr_master = atlas_weapon.createSprite("doubleedgeknife"); }
+		
+		//Espadas
+		if(nameItem.equals("woodsword")) { spr_master = atlas_weapon.createSprite("woodsword"); }
+		if(nameItem.equals("sabersword")) { spr_master = atlas_weapon.createSprite("sabersword"); }
+		if(nameItem.equals("venomsword")) { spr_master = atlas_weapon.createSprite("venomsword"); }
+		if(nameItem.equals("edgesword")) { spr_master = atlas_weapon.createSprite("edgesword"); }
+		if(nameItem.equals("knightsword")) { spr_master = atlas_weapon.createSprite("knightsword"); }
+		if(nameItem.equals("ragesword")) { spr_master = atlas_weapon.createSprite("ragesword"); }
+		//if(nameItem.equals("curved_sword")) { spr_master = atlas_items.createSprite("curvedsword"); }
+		//if(nameItem.equals("cristal_sword")) { spr_master = atlas_items.createSprite("cristalsword"); }
+		//if(nameItem.equals("serpent_sword")) { spr_master = atlas_items.createSprite("serpentsword"); }
+		//if(nameItem.equals("flame_sword")) { spr_master = atlas_items.createSprite("flamesword"); }
+		
+		
+		//Cajados
+		if(nameItem.equals("stickrod")) { spr_master = atlas_weapon.createSprite("stickrod"); }
+		if(nameItem.equals("gloomrod")) { spr_master = atlas_weapon.createSprite("gloomrod"); }
+		if(nameItem.equals("gemrod")) { spr_master = atlas_weapon.createSprite("gemrod"); }
+		if(nameItem.equals("lightwieldrod")) { spr_master = atlas_weapon.createSprite("lightwieldrod"); }
+		if(nameItem.equals("serpentrod")) { spr_master = atlas_weapon.createSprite("serpentrod"); }
+		if(nameItem.equals("clerigrod")) { spr_master = atlas_weapon.createSprite("clerigrod"); }
+		//if(nameItem.equals("death_rod")) { spr_master = atlas_items.createSprite("deathrod"); }
+		//if(nameItem.equals("butterfly_rod")) { spr_master = atlas_items.createSprite("butterflyrod"); }
+		//if(nameItem.equals("star_rod")) { spr_master = atlas_items.createSprite("starrod"); }
+		
+		//Pistolas
+		if(nameItem.equals("basicpistol")) { spr_master = atlas_weapon.createSprite("basicpistol"); }
+		if(nameItem.equals("revolverpistol")) { spr_master = atlas_weapon.createSprite("revolverpistol"); }
+		if(nameItem.equals("lightpistol")) { spr_master = atlas_weapon.createSprite("lightpistol"); }
+		if(nameItem.equals("turretpistol")) { spr_master = atlas_weapon.createSprite("turretpistol"); }
+		if(nameItem.equals("riflepistol")) { spr_master = atlas_weapon.createSprite("shooterpistol"); }
+		//if(nameItem.equals("heavymachine_pistol")) { spr_master = atlas_items.createSprite("heavymachinepistol"); }
+		//if(nameItem.equals("cannon_pistol")) { spr_master = atlas_items.createSprite("cannonpistol"); }
+		//if(nameItem.equals("shark_pistol")) { spr_master = atlas_items.createSprite("sharkpistol"); }
+		
+		//Facas
+		if(nameItem.equals("basicdagger")) { spr_master = atlas_weapon.createSprite("basicdagger"); }
+		if(nameItem.equals("revolverpistol")) { spr_master = atlas_weapon.createSprite("revolverpistol"); }
+		if(nameItem.equals("lightpistol")) { spr_master = atlas_weapon.createSprite("lightpistol"); }
+		if(nameItem.equals("turretpistol")) { spr_master = atlas_weapon.createSprite("turretpistol"); }
+		if(nameItem.equals("riflepistol")) { spr_master = atlas_weapon.createSprite("riflepistol"); }
+		if(nameItem.equals("shooterpistol")) { spr_master = atlas_weapon.createSprite("shooterpistol"); }
+		//if(nameItem.equals("poison_dagger")) { spr_master = atlas_items.createSprite("poisondagger"); }
+		//if(nameItem.equals("marine_dagger")) { spr_master = atlas_items.createSprite("marinedagger"); }
+		//if(nameItem.equals("thunder_dagger")) { spr_master = atlas_items.createSprite("thunderdagger"); }
+		
+		//Machados
+		if(nameItem.equals("basicaxe")) { spr_master = atlas_weapon.createSprite("basicaxe"); }
+		if(nameItem.equals("pickaxe")) { spr_master = atlas_weapon.createSprite("pickaxe"); }		
+		if(nameItem.equals("killeraxe")) { spr_master = atlas_weapon.createSprite("killeraxe"); }
+		if(nameItem.equals("hammeraxe")) { spr_master = atlas_weapon.createSprite("hammeraxe"); }		
+		if(nameItem.equals("scytheaxe")) { spr_master = atlas_weapon.createSprite("scytheaxe"); }
+		if(nameItem.equals("anchoraxe")) { spr_master = atlas_weapon.createSprite("anchoraxe"); }
+		//if(nameItem.equals("guitar_axe")) { spr_master = atlas_items.createSprite("guitaraxe"); }
+		//if(nameItem.equals("bloodteeth_axe")) { spr_master = atlas_items.createSprite("bloodteethaxe"); }
+		
+		
+		
+		if(nameItem.equals("hpcan")) { spr_master = atlas_food.createSprite("hpcan"); }
+		if(nameItem.equals("mpcan")) { spr_master = atlas_food.createSprite("mpcan"); }
+		if(nameItem.equals("stcan")) { spr_master = atlas_food.createSprite("stcan"); }
+		
+		if(nameItem.equals("hatbear")) { spr_master = atlas_hatsitem.createSprite("hatbear"); }
+		if(nameItem.equals("hatblackglass")) { spr_master = atlas_hatsitem.createSprite("hatblackglass"); }
+		if(nameItem.equals("hatheadset")) { spr_master = atlas_hatsitem.createSprite("hatheadset"); }
+		if(nameItem.equals("hatmagician")) { spr_master = atlas_hatsitem.createSprite("hatmagician"); }
+		if(nameItem.equals("hatpirate")) { spr_master = atlas_hatsitem.createSprite("hatpirate"); }
+		if(nameItem.equals("hatsanta")) { spr_master = atlas_hatsitem.createSprite("hatsanta"); }
+		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); }
+		if(nameItem.equals("hatsunglasses")) { spr_master = atlas_hatsitem.createSprite("hatsunglasses"); }
+		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); }
+		if(nameItem.equals("hattimer")) { spr_master = atlas_hatsitem.createSprite("hattimer"); }
+		if(nameItem.equals("hatbutterfly")) { spr_master = atlas_hatsitem.createSprite("hatbutterfly"); }
+		if(nameItem.equals("hatcapoult")) { spr_master = atlas_hatsitem.createSprite("hatcapoult"); }
+		if(nameItem.equals("hatcooker")) { spr_master = atlas_hatsitem.createSprite("hatcooker"); }
+		if(nameItem.equals("hatfashionglasses")) { spr_master = atlas_hatsitem.createSprite("hatfashionglasses"); }
+		if(nameItem.equals("hatbunny")) { spr_master = atlas_hatsitem.createSprite("hatbunny"); }
+		
+		
+		if(nameItem.equals("lootfragmentoamarelo")) { spr_master = atlas_cristais.createSprite("lootfragmentoamarelo"); }
+		if(nameItem.equals("lootfragmentoazul")) { spr_master = atlas_cristais.createSprite("lootfragmentoazul"); }
+		if(nameItem.equals("lootfragmentoroxo")) { spr_master = atlas_cristais.createSprite("lootfragmentoroxo"); }
+		if(nameItem.equals("lootfragmentoverde")) { spr_master = atlas_cristais.createSprite("lootfragmentoverde"); }
+		if(nameItem.equals("lootfragmentovermelho")) { spr_master = atlas_cristais.createSprite("lootfragmentovermelho"); }
+		
+		
+		if(nameItem.equals("lootblop")) { spr_master = atlas_lootmob.createSprite("lootblop"); }
+		if(nameItem.equals("lootpoisonleaf")) { spr_master = atlas_lootmob.createSprite("lootpoisonleaf"); }
+		if(nameItem.equals("lootmushroom")) { spr_master = atlas_lootmob.createSprite("lootmushroom"); }
+		if(nameItem.equals("lootpoisonleaf")) { spr_master = atlas_lootmob.createSprite("lootpoisonleaf"); }
+		if(nameItem.equals("lootfang")) { spr_master = atlas_lootmob.createSprite("lootfang"); }
+		
+		
+		return spr_master;
+	}
+	
+	public Sprite GetShops(String shopname, float cameraCoordsX, float cameraCoordsY) {
+		if(shopname.equals("refrishop")){
+			spr_master = atlas_shops.createSprite("lojamaquina");
+			spr_master.setPosition(cameraCoordsX -65,cameraCoordsY -80);
+			spr_master.setSize(130,160);
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetCard(String cardname) {
+		if(cardname.equals("cardempty")) {
+			spr_master = atlas_cards.createSprite("cardempty");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		
+		if(cardname.equals("cardhp")) {
+			spr_master = atlas_cards.createSprite("cardhp");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardaction")) {
+			spr_master = atlas_cards.createSprite("cardaction");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		if(cardname.equals("cardactionON")) {
+			spr_master = atlas_cards.createSprite("cardactionON");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		if(cardname.equals("cardblock")) {
+			spr_master = atlas_cards.createSprite("cardblock");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		if(cardname.equals("cardtarget")) {
+			spr_master = atlas_cards.createSprite("cardtarget");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardblock")) {
+			spr_master = atlas_cards.createSprite("cardblock");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardsit")) {
+			spr_master = atlas_cards.createSprite("cardsit");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardcutbreak")) {
+			spr_master = atlas_cards.createSprite("cardcutbreak");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardrockbound")) {
+			spr_master = atlas_cards.createSprite("cardrockbound");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		return spr_master;
+	}
+	
+	
+	//Give EXP
+	public Player GiveExp(int exp, Player player) {
+		boolean levelup = false;
+		int level = Integer.parseInt(player.Level);
+		float expPlayer = Float.parseFloat(player.Exp);
+		int HpMax = Integer.parseInt(player.HpMax);
+		int MpMax = Integer.parseInt(player.MpMax);
+		int StatusPoint = Integer.parseInt(player.StatusPoint);
+		
+		if(level >= 10) {
+			ExpSharedOnline = exp;
+			return player;
+		}
+		
+		if(level == 50) {
+			ExpSharedOnline = exp;
+			return player;
+		}
+		
+		expPlayer = expPlayer + exp;
+		ExpSharedOnline = exp;
+		
+		//Sewers   
+		if(level == 1 && expPlayer >= 100) {  level = 2; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true; }
+		if(level == 2 && expPlayer >= 150) {  level = 3; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 3 && expPlayer >= 250) {  level = 4; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 4 && expPlayer >= 360) {  level = 5; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 5 && expPlayer >= 430) {  level = 6; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 6 && expPlayer >= 500) {  level = 7; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 7 && expPlayer >= 730) {  level = 8; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 8 && expPlayer >= 1000) {  level = 9; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 9 && expPlayer >= 1450) {  level = 10; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		
+		//Watercave
+		if(level == 10 && expPlayer >= 1840) {  level = 11; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 11 && expPlayer >= 3330) {  level = 12; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 12 && expPlayer >= 5500) {  level = 13; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 13 && expPlayer >= 7600) {  level = 14; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 14 && expPlayer >= 9929) {  level = 15; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 15 && expPlayer >= 12820) {  level = 16; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 16 && expPlayer >= 15293) {  level = 17; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 17 && expPlayer >= 17300) {  level = 18; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 18 && expPlayer >= 22402) {  level = 19; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 19 && expPlayer >= 26902) {  level = 20; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		
+		//Mines
+		if(level == 20 && expPlayer >= 34592) {  level = 21; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 21 && expPlayer >= 46923) {  level = 22; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 22 && expPlayer >= 75829) {  level = 23; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 23 && expPlayer >= 90234) {  level = 24; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 24 && expPlayer >= 153042) {  level = 25; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 25 && expPlayer >= 179232) {  level = 26; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 26 && expPlayer >= 221011) {  level = 27; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 27 && expPlayer >= 259323) {  level = 28; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 28 && expPlayer >= 279293) {  level = 29; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 29 && expPlayer >= 383421) {  level = 30; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		
+		//Snowpalace
+		if(level == 30 && expPlayer >= 593421)  {  level = 31; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 31 && expPlayer >= 814402)  {  level = 32; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 32 && expPlayer >= 1534611) {  level = 33; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 33 && expPlayer >= 1839770) {  level = 34; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 34 && expPlayer >= 2433026) {  level = 35; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 35 && expPlayer >= 2792074) {  level = 36; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 36 && expPlayer >= 2931441) {  level = 37; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 37 && expPlayer >= 3304900) {  level = 38; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 38 && expPlayer >= 3588905) {  level = 39; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 39 && expPlayer >= 4987320) {  level = 40; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		
+		//Tower												   
+		if(level == 40 && expPlayer >= 9188696000f) {  level = 41; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 41 && expPlayer >= 9288526000f) {  level = 42; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 42 && expPlayer >= 9488446000f) {  level = 43; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 43 && expPlayer >= 9588316000f) {  level = 44; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 44 && expPlayer >= 9688236000f) {  level = 45; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 45 && expPlayer >= 9798126000f) {  level = 46; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 46 && expPlayer >= 9828646000f) {  level = 47; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 47 && expPlayer >= 9878756009f) {  level = 48; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 48 && expPlayer >= 9888866009f) {  level = 49; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 49 && expPlayer >= 9999999999f) {  level = 50; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		
+		if(levelup) {
+			if(player.Job.equals("Aprendiz")) { HpMax = HpMax + 10; player.MpMax = player.MpMax + 10; player.Atk = player.Atk + 1; }
+			
+			if(player.Job.equals("Espadachim")) { HpMax = HpMax + 20; player.Atk_A = player.Atk_A + 5;}
+			
+			if(player.Job.equals("Feiticeiro")) { player.MpMax_A = player.MpMax_A + 15; player.Atk_A = player.Atk_A + 3;}
+			
+			if(player.Job.equals("Curandeiro")) { player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 3;}
+			
+			if(player.Job.equals("Pistoleiro")) { HpMax = HpMax + 8; player.Atk_A = player.Atk_A + 3; player.AtkTimerMax_A = player.AtkTimerMax_A -2;}
+			
+			if(player.Job.equals("Ladrao")) { HpMax = HpMax + 10; player.Atk_A = player.Atk_A + 2; player.AtkTimerMax_A = player.AtkTimerMax_A -4;}		
+		}	
+		
+		levelup = false;
+		
+		return player;
 	}
 	
 	

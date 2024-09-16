@@ -322,7 +322,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			font_master.draw(game.batch, String.valueOf(player.Hp + "/" + player.HpMax), cameraCoordsX - 85f, cameraCoordsY + 82f);
 			font_master.draw(game.batch, String.valueOf(player.Mp + "/" + player.MpMax), cameraCoordsX - 85f, cameraCoordsY + 73.7f);
 			font_master.draw(game.batch, String.valueOf(player.Level), cameraCoordsX - 88f, cameraCoordsY + 64f);
-			font_master.draw(game.batch, gameControl.ExpPercent() + "%", cameraCoordsX - 72f, cameraCoordsY + 64f);
+			font_master.draw(game.batch, gameControl.ExpPercent(player) + "%", cameraCoordsX - 72f, cameraCoordsY + 64f);
 			
 			spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
 			spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
@@ -398,7 +398,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playertop = gameControl.GetTopChar(player, "Show", cameraCoordsX, cameraCoordsY);
 				spr_playertop.draw(game.batch);
 				
-				if(!player.Hat_A.equals("none")) {
+				if(!player.Hat.equals("none")) {
 					spr_playerhatmenu = gameControl.GetHatChar(player,"",cameraCoordsX, cameraCoordsY);
 					spr_playerhatmenu.setScale(0.5f, 0.7f);
 					spr_playerhatmenu.setPosition(cameraCoordsX - 84, cameraCoordsY + 42);
@@ -408,27 +408,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				//Show Character
 				//Itens Equipped
-				spr_playerfooter = gameControl.GetItem(player.SetFooter_A);
+				spr_playerfooter = gameControl.GetItem(player.SetFooter, player);
 				spr_playerfooter.setPosition(cameraCoordsX + 13, cameraCoordsY + 41);
 				spr_playerfooter.setSize(13, 22);
 				spr_playerfooter.draw(game.batch);
 				
-				spr_playerbottom = gameControl.GetItem(player.SetBottom_A);
+				spr_playerbottom = gameControl.GetItem(player.SetBottom, player);
 				spr_playerbottom.setPosition(cameraCoordsX + 27, cameraCoordsY + 41);
 				spr_playerbottom.setSize(13, 22);
 				spr_playerbottom.draw(game.batch);
 				
-				spr_playertop = gameControl.GetItem(player.SetUpper_A);
+				spr_playertop = gameControl.GetItem(player.SetUpper, player);
 				spr_playertop.setPosition(cameraCoordsX + 41, cameraCoordsY + 41);
 				spr_playertop.setSize(13, 22);
 				spr_playertop.draw(game.batch);
 				
-				spr_playerweapon = gameControl.GetItem(player.Weapon_A);
+				spr_playerweapon = gameControl.GetItem(player.Weapon, player);
 				spr_playerweapon.setPosition(cameraCoordsX + 54.4f, cameraCoordsY + 41);
 				spr_playerweapon.setSize(13, 22);
 				spr_playerweapon.draw(game.batch);
 				
-				if(!player.Hat_A.equals("none")) { 
+				if(!player.Hat.equals("none")) { 
 					spr_playerhat = gameControl.GetHatItem(player,0,0);
 					spr_playerhat.setPosition(cameraCoordsX + 67.8f, cameraCoordsY + 41);
 					spr_playerhat.setSize(13, 22);
@@ -436,13 +436,22 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				ShowBag();
-				if(msgShowTime > 0) {
-					msgShowTime--;
-					font_master.draw(game.batch, msgShowMenu, cameraCoordsX + 14, cameraCoordsY - 38f);
-					if(msgShowTime < 0) {
-						msgShowTime = 0;
+				
+				//Mensagens Aviso 
+				if (aviso) {
+					spr_master = gameControl.GetUX("textbar", 0, 0);
+					spr_master.setSize(90,20);
+					spr_master.setPosition(-45, 5);
+					spr_master.draw(game.batch);
+					font_master.getData().setScale(0.12f, 0.19f);
+					font_master.draw(game.batch, avisoMsg, -40, 18);
+					avisoTimer++;
+					if (avisoTimer > 100) {
+						aviso = false;
+						avisoTimer = 0;
 					}
 				}
+				
 				
 				if(menuoption.equals("hotkey1")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 16, cameraCoordsY - 23); spr_master.draw(game.batch); }
 				if(menuoption.equals("hotkey2")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 36, cameraCoordsY - 23); spr_master.draw(game.batch); }
@@ -459,7 +468,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(shopname.equals("refrishop")) {
 					spr_shop = gameControl.GetShops("refrishop",cameraCoordsX, cameraCoordsY);
 					spr_shop.draw(game.batch);		
-					font_master.draw(game.batch, String.valueOf(player.Money_A), cameraCoordsX - 25, cameraCoordsY - 37);				
+					font_master.draw(game.batch, String.valueOf(player.Money), cameraCoordsX - 25, cameraCoordsY - 37);				
 				}
 				
 				if(!showbuymsg.equals("")) {
@@ -488,16 +497,540 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			game.batch.end();
 		}
 		
+		public void ShowBag() {
+			//Common Itens
+			for (int i = 0; i < 16; i++) {
+				spr_item = ShowItem(i);
+				if(spr_item != null) {				
+					spr_item.draw(game.batch);
+				}
+			}	
+			for (int i = 0; i < 16; i++) {
+				spr_item = ShowItem(i);
+				if(spr_item != null) {				
+					font_master.draw(game.batch, ShowQuantityItem(i), spr_item.getX() + 9,spr_item.getY() + 7);
+				}
+			}
+					
+			//Crystal Itens    
+			//slot 1
+			if(!player.Crystal1.equals("none")) {
+				spr_item = gameControl.GetItem(player.Crystal1, player);
+				spr_item.setPosition(1.5f, 25);
+				spr_item.setSize(9, 14);
+				//spr_item.draw(game.batch);
+			}
+			
+			if(!player.Crystal2.equals("none")) {
+				spr_item = gameControl.GetItem(player.Crystal1, player);
+				spr_item.setPosition(10.5f, 25);
+				spr_item.setSize(9, 14);
+				//spr_item.draw(game.batch); 
+			}
+			
+			//slot 3
+			if(!player.Crystal3.equals("none")) {
+				spr_item = gameControl.GetItem(player.Crystal1, player);
+				spr_item.setPosition(19.5f, 25);
+				spr_item.setSize(9, 14);
+				//spr_item.draw(game.batch); 
+			}
+			
+			//slot 4
+			if(!player.Crystal4.equals("none")) {
+				spr_item = gameControl.GetItem(player.Crystal1, player);
+				spr_item.setPosition(29f, 25);
+				spr_item.setSize(9, 14);
+				//spr_item.draw(game.batch); 
+			}
+		}
+		
+		public String ShowQuantityItem(int num) {
+			//Structure: [HPCAN#3]
+			String qtd = "";
+			String item = "";
+			String[] lstItem = player.Itens.split("-");
+			String[] itemSplit;
+				
+			item = lstItem[num];
+			if(!item.equals("[NONE]")) {
+				itemSplit = item.split("#");
+				item = itemSplit[1].replace("]", "");		
+				qtd = item;
+			}
+			else {
+				qtd = "";
+			}		
+			return qtd;
+		}
+		
+		public Sprite ShowItem(int num) {
+			String[] lstItem = player.Itens.split("-");
+			String[] itemSplit;
+			String item;
+			
+			item = lstItem[num];
+			if(!item.equals("[NONE]")) {
+				itemSplit = item.split("#");
+				item = itemSplit[0].replace("[", "");
+				spr_item = gameControl.GetItem(item, player);
+				
+				if(num == 0){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 1){ spr_item.setPosition(cameraCoordsX - 30.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 2){ spr_item.setPosition(cameraCoordsX - 16.5f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 3){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 4){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 17.7f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 5){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 6){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 7){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 8){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 9){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 10){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 11){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 12){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 13){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 14){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 15){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}	
+				
+			}
+				
+			return spr_item;
+		}
+		
+		public void CheckAreaRangedSkill() {
+			if(player.Map_A.equals("Sewers") && autoattack) {
+				for(int i = 0; i < listMonsters.size(); i++) {
+					
+					//Close Ranged
+					if(player.Target_A.equals(listMonsters.get(i).MobID) && !rangedAttack) {		 
+						if((listMonsters.get(i).MobPosX + 5) > (player.PosX_A - 5) && (listMonsters.get(i).MobPosX + 5) < (player.PosX_A + 15)
+						   && (listMonsters.get(i).MobPosY + 5) > (player.PosY_A - 7) && (listMonsters.get(i).MobPosY + 5) < (player.PosY_A + 18)) {
+							player.playerInBattle_A = "yes";
+							listMonsters.get(i).MobTarget = player.Name_A;				
+							//Aprendiz
+							if(skillname.equals("tripleattack")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = player.Atk_A + ((player.Str_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX +5;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY + 5;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX + 5;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY + 5;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }							
+							}
+							if(skillname.equals("hammercrash")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Str_A * 2) + (player.Vit_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+							}
+							if(skillname.equals("flysword")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Str_A * 3) + (player.Agi_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+							}
+							if(skillname.equals("poisonhit")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Luk_A * 2)+ (player.Str_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								listMonsters.get(i).MobHp = mobHP;
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+							}
+							if(skillname.equals("steal")) {
+								
+							}
+							if(skillname.equals("overpower")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Vit_A * 3) + (player.Str_A * 5) + (player.Luk_A * 2) + atkweapon);	
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "overpower";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+							}
+						}
+					}
+					
+					//Long Ranged
+					if(rangedAttack) {	
+					
+						if(skillname.equals("heal")) {
+							player.Hp_A = player.Hp_A + (player.Wis_A * 3);
+							if(player.Hp_A > player.HpMax_A) {player.Hp_A = player.HpMax_A; }
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
+							skillInUse.SkillName = "heal";
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
+							return;
+						}
+						
+						if(skillname.equals("defboost")) { 
+							GiveBuff("defboost"); 
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
+							skillInUse.SkillName = "defboost";
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
+							return; 	
+						}						
+						if(skillname.equals("healthboost")) { GiveBuff("healthboost"); rangedAttack = false; return; }			
+						if(skillname.equals("regen")) { 
+							GiveBuff("regen"); 
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
+							skillInUse.SkillName = "regen";
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
+							return; 	
+						}		
+						if(skillname.equals("ironshield")) { 
+							GiveBuff("ironshield"); 
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
+							skillInUse.SkillName = "ironshield";
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
+							return; 	
+						}				
+						if(skillname.equals("invisibility")) { 
+							GiveBuff("invisibility");
+							rangedAttack = false; 
+							skillEffect = true;
+							Skill skillInUse = new Skill();
+							Damage damageSkill = new Damage();
+							skillInUse.SkillName = "invisibility";
+							skillInUse.SkillPosX = player.PosX_A;
+							skillInUse.SkillPosY = player.PosY_A;
+							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillTime = 100;
+							damageSkill.DamageTime = 100;
+							damageSkill.DamageType = "heal";
+							damageSkill.DamageValue = 0;
+							return; 								
+						}
+						
+						
+						if((listMonsters.get(i).MobPosX + 5) > (touchSkillX - 5) && (listMonsters.get(i).MobPosX + 5) < (touchSkillX + 5)
+						   && (listMonsters.get(i).MobPosY + 5) > (touchSkillY - 10) && (listMonsters.get(i).MobPosY + 5) < (touchSkillY + 10)) {
+							player.playerInBattle_A = "yes";
+							listMonsters.get(i).MobTarget = player.Name_A;
+							
+							if(skillname.equals("rockbound")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = player.Atk_A + ((player.Wis_A * 2) + 10);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "rockbound";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+								return;
+							}
+							
+							if(skillname.equals("fireball")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Wis_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								listMonsters.get(i).MobHp = mobHP;				
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "fireball";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+								return;
+							}
+							
+							if(skillname.equals("icecrystal")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Wis_A * 6) + (player.Dex_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "icecrystal";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+								return;
+							}												
+							if(skillname.equals("thundercloud")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Wis_A * 3) + (player.Agi_A * 2) + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "thundercloud";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+								return;
+							}
+							
+							if(skillname.equals("bulletrain")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Dex_A * 2) + (player.Agi_A * 2) + 10);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "bulletrain";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+								return;
+							}						
+							if(skillname.equals("holyprism")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Wis_A) + player.Luk_A + atkweapon);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "holyprism";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+								return;
+							}
+							if(skillname.equals("mine")) {
+								int atkweapon = CheckWeapon();
+								int totaldmg = ((player.Dex_A * 2) + 10);
+								int mobHP = listMonsters.get(i).MobHp;
+								mobHP = mobHP - totaldmg;
+								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								skillEffect = true;
+								Skill skillInUse = new Skill();
+								Damage damageSkill = new Damage();
+								skillInUse.SkillName = "mine";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
+								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillTime = 100;
+								damageSkill.DamageTime = 100;
+								damageSkill.DamageType = "mob";
+								damageSkill.DamageValue = totaldmg;
+								listSkills.add(skillInUse);	
+								listDamage.add(damageSkill);
+								rangedAttack = false;
+								if(mobHP <= 0) { MobDead(i); }
+								return;
+							}							
+						}
+					}
+				}		
+			}
+		}
+		
+		public void MobDead(int mobindex) {
+			player.Target = "none";
+			player.AtkTimer = player.AtkTimerMax;
+			player.playerInBattle = "no";
+		    player.playerInAttack = "no";
+		    player.playerInCast = "no";	
+		    autoattack = false;
+		    
+		    showDropMsg = 100;
+		    itemdropname = gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
+		    player = gameControl.GiveExp(listMonsters.get(mobindex).MobExp);
+		    if(player.Money > 1500) { return; }
+		    player.Money = player.Money_A + 2;
+		    
+		}
+		
+		
 		@Override
 		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 			if(playerDead) { return false; }
 			
-			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
+			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 			
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
-				if(player.playerInCast_A.equals("no")) { movement = true; } else { movement = false; }
+				if(player.playerInCast.equals("no")) { movement = true; } else { movement = false; }
 				
 				if(selectAreaRanged) {
 					touchSkillX = coordsTouch.x;
