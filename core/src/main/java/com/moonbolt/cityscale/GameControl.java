@@ -1585,6 +1585,9 @@ public class GameControl {
 		int HpMax = Integer.parseInt(player.HpMax);
 		int MpMax = Integer.parseInt(player.MpMax);
 		int StatusPoint = Integer.parseInt(player.StatusPoint);
+		int Atk = Integer.parseInt(player.Atk);
+		int Def = Integer.parseInt(player.Def);
+		int AtkTimerMax = Integer.parseInt(player.AtkTimerMax);
 		
 		if(level >= 10) {
 			ExpSharedOnline = exp;
@@ -1658,18 +1661,40 @@ public class GameControl {
 		if(level == 48 && expPlayer >= 9888866009f) {  level = 49; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
 		if(level == 49 && expPlayer >= 9999999999f) {  level = 50; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
 		
+		player.Level = String.valueOf(level);
+		player.Exp = String.valueOf(expPlayer);
+		player.StatusPoint = String.valueOf(StatusPoint);
+		
 		if(levelup) {
-			if(player.Job.equals("Aprendiz")) { HpMax = HpMax + 10; player.MpMax = player.MpMax + 10; player.Atk = player.Atk + 1; }
+			if(player.Job.equals("Aprendiz")) { 
+				HpMax = HpMax + 10; MpMax = MpMax + 10; Atk = Atk + 1;
+				player.HpMax = String.valueOf(HpMax); player.MpMax = String.valueOf(MpMax); player.Atk = String.valueOf(Atk);
+			}
 			
-			if(player.Job.equals("Espadachim")) { HpMax = HpMax + 20; player.Atk_A = player.Atk_A + 5;}
+			if(player.Job.equals("Espadachim")) { 
+				HpMax = HpMax + 20; Atk = Atk + 5;
+				player.HpMax = String.valueOf(HpMax); player.Atk = String.valueOf(Atk);
+			}
 			
-			if(player.Job.equals("Feiticeiro")) { player.MpMax_A = player.MpMax_A + 15; player.Atk_A = player.Atk_A + 3;}
+			if(player.Job.equals("Feiticeiro")) { 
+				HpMax = HpMax + 15; Atk = Atk + 2;
+				player.HpMax = String.valueOf(HpMax); player.Atk = String.valueOf(Atk);
+			}
 			
-			if(player.Job.equals("Curandeiro")) { player.MpMax_A = player.MpMax_A + 10; player.Atk_A = player.Atk_A + 3;}
+			if(player.Job.equals("Curandeiro")) { 
+				MpMax = MpMax + 10; Atk = Atk + 2;
+				player.MpMax = String.valueOf(MpMax); player.Atk = String.valueOf(Atk);
+			}
 			
-			if(player.Job.equals("Pistoleiro")) { HpMax = HpMax + 8; player.Atk_A = player.Atk_A + 3; player.AtkTimerMax_A = player.AtkTimerMax_A -2;}
+			if(player.Job.equals("Pistoleiro")) { 
+				HpMax = HpMax + 8; player.Atk = player.Atk + 3; AtkTimerMax = AtkTimerMax -2;
+				player.AtkTimerMax = String.valueOf(AtkTimerMax); player.Atk = String.valueOf(Atk); player.HpMax = String.valueOf(HpMax);
+			}
 			
-			if(player.Job.equals("Ladrao")) { HpMax = HpMax + 10; player.Atk_A = player.Atk_A + 2; player.AtkTimerMax_A = player.AtkTimerMax_A -4;}		
+			if(player.Job.equals("Ladrao")) { 
+				HpMax = HpMax + 10; Atk = Atk + 2; AtkTimerMax = AtkTimerMax -4;
+			    player.AtkTimerMax = String.valueOf(AtkTimerMax); player.Atk = String.valueOf(Atk); player.HpMax = String.valueOf(HpMax);
+			  }		
 		}	
 		
 		levelup = false;

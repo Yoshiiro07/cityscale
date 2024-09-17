@@ -598,13 +598,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void CheckAreaRangedSkill() {
-			if(player.Map_A.equals("Sewers") && autoattack) {
+			
+			float playerPosX = Float.parseFloat(player.PosX);
+			float playerPosY = Float.parseFloat(player.PosY);
+			
+			if(player.Map.equals("Sewers") && autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 					//Close Ranged
-					if(player.Target_A.equals(listMonsters.get(i).MobID) && !rangedAttack) {		 
-						if((listMonsters.get(i).MobPosX + 5) > (player.PosX_A - 5) && (listMonsters.get(i).MobPosX + 5) < (player.PosX_A + 15)
-						   && (listMonsters.get(i).MobPosY + 5) > (player.PosY_A - 7) && (listMonsters.get(i).MobPosY + 5) < (player.PosY_A + 18)) {
+					if(player.Target.equals(listMonsters.get(i).MobID) && !rangedAttack) {		 
+						if((listMonsters.get(i).MobPosX + 5) > (playerPosX - 5) && (listMonsters.get(i).MobPosX + 5) < (player.PosX + 15)
+						   && (listMonsters.get(i).MobPosY + 5) > (player.PosY - 7) && (listMonsters.get(i).MobPosY + 5) < (player.PosY + 18)) {
 							player.playerInBattle_A = "yes";
 							listMonsters.get(i).MobTarget = player.Name_A;				
 							//Aprendiz

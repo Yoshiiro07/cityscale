@@ -97,7 +97,7 @@ if ($lrequest == "LoadData") {
         if ($result->num_rows > 0) {
             // output data of each row
             while ($row = $result->fetch_assoc()) {
-                $lAll = "AccountID:" . $row["AccountID"] .
+                $lAll = "#Success# AccountID:" . $row["AccountID"] .
                     ":AccountNumber:" . $row["AccountNumber"] .
                     ":Characternumber:" . $row["Characternumber"] .
                     ":Name:" . $row["Name"] .
@@ -184,10 +184,8 @@ if ($lrequest == "CreateChar") {
 	$sql = "SELECT * FROM Accounts WHERE AccountNumber = '$ldataaccount' AND Characternumber = '$lcharnumber'";
 	$result = $conn->query($sql);
 	if ($result === FALSE) {
-		echo nl2br($sql);
-		echo nl2br("\n - fail Select - \n") . $conn->error;
 	} else {
-		echo nl2br("\n - Conta Recuperada - \n");
+		echo nl2br("\n - Success - \n");
 		if ($result->num_rows == 1) {
 			$update_sql = "UPDATE Accounts SET
                 Name = '$lname',
@@ -263,13 +261,10 @@ if ($lrequest == "CreateChar") {
                 AccountNumber = '$ldataaccount' AND
                 Characternumber = '$lcharnumber'";
 
-			// Echo the update SQL query
-			echo nl2br("Update SQL: " . $update_sql . "\n");
-
 			if ($conn->query($update_sql) === TRUE) {
-				echo "Character updated\n";
+				echo " updated ";
 			} else {
-				echo "fail Update: " . $update_sql . "<br>" . mysqli_error($conn);
+				echo "fail";
 			}
 		} else {
 			echo "fail";
