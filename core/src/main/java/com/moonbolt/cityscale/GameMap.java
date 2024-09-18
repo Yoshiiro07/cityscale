@@ -602,22 +602,43 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			float playerPosX = Float.parseFloat(player.PosX);
 			float playerPosY = Float.parseFloat(player.PosY);
 			
+			float mobPosX = 0;
+			float mobPosY = 0;
+			
+			int Hp = Integer.parseInt(player.Hp);
+			int HpMax = Integer.parseInt(player.HpMax);
+			
+			int Mp = Integer.parseInt(player.Mp);
+			int MpMax = Integer.parseInt(player.MpMax);
+			
+			int Atk = Integer.parseInt(player.Atk);
+			
+			int Str = Integer.parseInt(player.Str);
+			int Vit = Integer.parseInt(player.Vit);
+			int Agi = Integer.parseInt(player.Agi);
+			int Dex = Integer.parseInt(player.Dex);
+			int Luk = Integer.parseInt(player.Luk);
+			int Wis = Integer.parseInt(player.Wis);
+			
 			if(player.Map.equals("Sewers") && autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
+					mobPosX = listMonsters.get(i).MobPosX;
+					mobPosY = listMonsters.get(i).MobPosY;
+					
 					//Close Ranged
 					if(player.Target.equals(listMonsters.get(i).MobID) && !rangedAttack) {		 
-						if((listMonsters.get(i).MobPosX + 5) > (playerPosX - 5) && (listMonsters.get(i).MobPosX + 5) < (player.PosX + 15)
-						   && (listMonsters.get(i).MobPosY + 5) > (player.PosY - 7) && (listMonsters.get(i).MobPosY + 5) < (player.PosY + 18)) {
-							player.playerInBattle_A = "yes";
-							listMonsters.get(i).MobTarget = player.Name_A;				
+						if((mobPosX + 5) > (playerPosX - 5) && (mobPosX + 5) < (playerPosX + 15)
+						   && (mobPosY + 5) > (playerPosY - 7) && (mobPosY + 5) < (playerPosY + 18)) {
+							player.playerInBattle = "yes";
+							listMonsters.get(i).MobTarget = player.Name;				
 							//Aprendiz
 							if(skillname.equals("tripleattack")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = player.Atk_A + ((player.Str_A * 2) + atkweapon);
+								int totaldmg = Atk + ((Str * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -637,10 +658,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("hammercrash")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Str_A * 2) + (player.Vit_A * 2) + atkweapon);
+								int totaldmg = ((Str * 2) + (Vit * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -660,10 +681,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("flysword")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Str_A * 3) + (player.Agi_A * 2) + atkweapon);
+								int totaldmg = ((Str * 3) + (Agi * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
+								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -683,7 +704,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("poisonhit")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Luk_A * 2)+ (player.Str_A * 2) + atkweapon);
+								int totaldmg = ((Luk * 2)+ (Str * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								listMonsters.get(i).MobHp = mobHP;
@@ -709,10 +730,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("overpower")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((player.Vit_A * 3) + (player.Str_A * 5) + (player.Luk_A * 2) + atkweapon);	
+								int totaldmg = ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon);	
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
+								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -737,15 +758,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(rangedAttack) {	
 					
 						if(skillname.equals("heal")) {
-							player.Hp_A = player.Hp_A + (player.Wis_A * 3);
-							if(player.Hp_A > player.HpMax_A) {player.Hp_A = player.HpMax_A; }
+							Hp = Hp + (Wis * 3);
+							if(player.Hp_A > player.HpMax_A) { player.Hp_A = player.HpMax_A; }
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
 							Damage damageSkill = new Damage();
 							skillInUse.SkillName = "heal";
-							skillInUse.SkillPosX = player.PosX_A;
-							skillInUse.SkillPosY = player.PosY_A;
+							skillInUse.SkillPosX = playerPosX;
+							skillInUse.SkillPosY = playerPosY;
 							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
 							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 							skillInUse.SkillTime = 100;
