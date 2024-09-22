@@ -86,10 +86,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 	// Controller
 	private final IntSet downKeys = new IntSet(20);
 
-	public CharacterSelect(MainGame _game, ManagerScreen _screen, boolean _network, String account, int _playernumber) {
+	public CharacterSelect(MainGame _game, ManagerScreen _screen, String account, int _playernumber) {
 		this.game = _game;
 		this.screen = _screen;
-		this.network = _network;
 		this.account = account;
 		this.playernumber = _playernumber;
 		this.gameControl = new GameControl();
@@ -146,16 +145,16 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 							accountInProcess = false;
 						}
 						if (response.equals("fail")) {
-							screen.screenSwitch("TitleScreen", network, account, playernumber);
+							screen.screenSwitch("TitleScreen", account, playernumber);
 						}
 					}
 
 					@Override
 					public void onFailure(Throwable t) 
-					{screen.screenSwitch("TitleScreen", network, "", playernumber);}
+					{screen.screenSwitch("TitleScreen", "", playernumber);}
 				});
 			} catch (Exception ex) {
-				this.screen.screenSwitch("TitleScreen", network, "", 0);
+				this.screen.screenSwitch("TitleScreen", "", 0);
 			}
 		}
 		// Load Account////////////////////////////////////////////
@@ -405,7 +404,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 
 			if (state.equals("Change")) {
 				gameControl.SetSelectedChar(selectedchar);
-				this.screen.screenSwitch("LoadingScreen", network, account, playernumber);
+				gameControl.SetPlayers(lstPlayer);
+				this.screen.atualizaComponentes(game, gameControl, selectedchar);
+				this.screen.screenSwitch("LoadingScreen", account, selectedchar);
 				dispose();
 			}
 

@@ -21,7 +21,6 @@ import com.badlogic.gdx.utils.Json;
 import com.moonbolt.cityscale.interfaces.HttpCallback;
 import com.moonbolt.cityscale.models.Monster;
 import com.moonbolt.cityscale.models.Player;
-import com.moonbolt.cityscale.models.PlayerOld;
 import com.badlogic.gdx.files.FileHandle;
 
 import com.badlogic.gdx.Gdx;
@@ -217,7 +216,7 @@ public class GameControl {
 	// [Exp/Drop]//
 	
 	//[Retro]//
-	public void LoadDataOld(){
+	/*public void LoadDataOld(){
 		PlayerOld playerold = new PlayerOld();
 		
 		//file = Gdx.files.local("SaveData/save.json");
@@ -229,8 +228,8 @@ public class GameControl {
 		file = Gdx.files.local("SaveData/saveDecript.json");
 		file.writeString(json.prettyPrint(playerOld), false);
 		
-	}
-
+	}*/
+	
 	///////////////////////////////////////////////// [Account]///////////////////////////////////////////////
 	public void LoadData(String data) {
 		String[] playerDataArray = data.split("@");
@@ -1915,339 +1914,165 @@ public class GameControl {
 			
 			int StaminaMax = Integer.parseInt(playerUse.StaminaMax);
 			int regenTimeMax = Integer.parseInt(playerUse.regenTimeMax);
-
+		
+			// Define crystal effects
+			Map<String, int[]> crystalEffects = new HashMap<>();
+			crystalEffects.put("blue_crystal_intextra_1", new int[]{0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 20, 0, 0});
+			crystalEffects.put("blue_crystal_intextra_2", new int[]{0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 50, 0, 0});
+			crystalEffects.put("blue_crystal_intextra_3", new int[]{0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 100, 0, 0});
+			crystalEffects.put("blue_crystal_intextra_4", new int[]{0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 200, 0, 0});
 			
-			if(item.equals("blue_crystal_intextra_1")) { 
-				Wis = Wis + 2;
-				MpMax = MpMax + 20;
-				
-				playerUse.Wis = String.valueOf(Wis);
-				playerUse.MpMax = String.valueOf(MpMax);
-				
-			}	
-			if(item.equals("blue_crystal_intextra_2")) { 
-				Wis = Wis + 2;
-				MpMax = MpMax + 50;
-				
-				playerUse.Wis = String.valueOf(Wis);
-				playerUse.MpMax = String.valueOf(MpMax);
-			}
-			if(item.equals("blue_crystal_intextra_3")) { 
-				Wis = Wis + 5;
-				MpMax = MpMax + 100;
-				
-				playerUse.Wis = String.valueOf(Wis);
-				playerUse.MpMax = String.valueOf(MpMax);
-			}
-			if(item.equals("blue_crystal_intextra_4")) { 
-				Wis = Wis + 10;
-				MpMax = MpMax + 200;
-				
-				playerUse.Wis = String.valueOf(Wis);
-				playerUse.MpMax = String.valueOf(MpMax);
-			}
+			crystalEffects.put("green_crystal_lukextra_1", new int[]{0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("green_crystal_lukextra_2", new int[]{0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("green_crystal_lukextra_3", new int[]{0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("green_crystal_lukextra_4", new int[]{0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0});
 			
-			if(item.equals("green_crystal_lukextra_1")) { 
-				Luk = Luk + 2;			
-				playerUse.Luk = String.valueOf(Luk);			
-			}
+			crystalEffects.put("purple_crystal_vitextra_1", new int[]{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 20, 0, 0});
+			crystalEffects.put("purple_crystal_vitextra_2", new int[]{0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 50, 0, 0});
+			crystalEffects.put("purple_crystal_vitextra_3", new int[]{0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 100, 0, 0});
+			crystalEffects.put("purple_crystal_vitextra_4", new int[]{0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 200, 0, 0});
 			
-			if(item.equals("green_crystal_lukextra_2")) { 
-				Luk = Luk + 5;
-				playerUse.Luk = String.valueOf(Luk);	
-			}
+			crystalEffects.put("yellow_crystal_agiextra_1", new int[]{0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2});
+			crystalEffects.put("yellow_crystal_agiextra_2", new int[]{0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4});
+			crystalEffects.put("yellow_crystal_agiextra_3", new int[]{0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6});
+			crystalEffects.put("yellow_crystal_agiextra_4", new int[]{0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8});
 			
-			if(item.equals("green_crystal_lukextra_3")) {
-				Luk = Luk + 10;
+			crystalEffects.put("red_crystal_strextra_1", new int[]{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("red_crystal_strextra_2", new int[]{5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("red_crystal_strextra_3", new int[]{10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("red_crystal_strextra_4", new int[]{15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			
+			crystalEffects.put("grey_crystal_dexextra_1", new int[]{0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("grey_crystal_dexextra_2", new int[]{0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("grey_crystal_dexextra_3", new int[]{0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("grey_crystal_dexextra_4", new int[]{0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			
+			crystalEffects.put("orange_crystal_resextra_1", new int[]{0, 0, 0, 0, 0, 0, 0, 2, 20, -200, 0, 0, 0});
+			crystalEffects.put("orange_crystal_resextra_2", new int[]{0, 0, 0, 0, 0, 0, 0, 5, 50, -400, 0, 0, 0});
+			crystalEffects.put("orange_crystal_resextra_3", new int[]{0, 0, 0, 0, 0, 0, 0, 10, 100, -600, 0, 0, 0});
+			crystalEffects.put("orange_crystal_resextra_4", new int[]{0, 0, 0, 0, 0, 0, 0, 15, 200, -800, 0, 0, 0});
+		
+			// Apply crystal effects
+			if (crystalEffects.containsKey(item)) {
+				int[] effects = crystalEffects.get(item);
+				Str += effects[0];
+				Agi += effects[1];
+				Dex += effects[2];
+				Vit += effects[3];
+				Wis += effects[4];
+				Luk += effects[5];
+				Hp += effects[6];
+				Res += effects[7];
+				StaminaMax += effects[8];
+				regenTimeMax += effects[9];
+				MpMax += effects[10];
+				HpMax += effects[11];
+				AtkTimerMax += effects[12];
+		
+				playerUse.Str = String.valueOf(Str);
+				playerUse.Agi = String.valueOf(Agi);
+				playerUse.Dex = String.valueOf(Dex);
+				playerUse.Vit = String.valueOf(Vit);
+				playerUse.Wis = String.valueOf(Wis);
 				playerUse.Luk = String.valueOf(Luk);
-			}
-			
-			if(item.equals("green_crystal_lukextra_4")) {
-				Luk = Luk + 15;
-				playerUse.Luk = String.valueOf(Luk);
-			}
-			
-			if (item.equals("purple_crystal_vitextra_1")) {
-				Vit = Vit + 2;
-				MpMax = MpMax + 20;
-
-				playerUse.Vit = String.valueOf(Vit);
-				playerUse.MpMax = String.valueOf(MpMax);
-			}
-			
-			if (item.equals("purple_crystal_vitextra_2")) {
-				Vit = Vit + 5;
-				MpMax = MpMax + 50;
-
-				playerUse.Vit = String.valueOf(Vit);
-				playerUse.MpMax = String.valueOf(MpMax);
-			}
-			
-			if (item.equals("purple_crystal_vitextra_3")) {
-				Vit = Vit + 10;
-				MpMax = MpMax + 100;
-
-				playerUse.Vit = String.valueOf(Vit);
-				playerUse.MpMax = String.valueOf(MpMax);
-			}
-			
-			if (item.equals("purple_crystal_vitextra_4")) {
-				Vit = Vit + 15;
-				MpMax = MpMax + 200;
-
-				playerUse.Vit = String.valueOf(Vit);
-				playerUse.MpMax = String.valueOf(MpMax);
-			}
-			
-			if(item.equals("yellow_crystal_agiextra_1")) { 
-				Agi = Agi + 2; 
-				AtkTimerMax = AtkTimerMax - 2;
-				playerUse.Agi = String.valueOf(Agi);
-			}
-			
-			if (item.equals("yellow_crystal_agiextra_2")) {
-				Agi = Agi + 5;
-				AtkTimerMax = AtkTimerMax - 4;
-				playerUse.Agi = String.valueOf(Agi);
-			}
-			
-			if (item.equals("yellow_crystal_agiextra_3")) {
-				Agi = Agi + 10;
-				AtkTimerMax = AtkTimerMax - 6;
-				playerUse.Agi = String.valueOf(Agi);
-			}
-			
-			if (item.equals("yellow_crystal_agiextra_4")) {
-				Agi = Agi + 15;
-				AtkTimerMax = AtkTimerMax - 8;
-				playerUse.Agi = String.valueOf(Agi);
-			}
-			
-			if (item.equals("red_crystal_strextra_1")) {
-				Str = Str + 2;
-				playerUse.Str = String.valueOf(Str);
-			}
-			
-			if (item.equals("red_crystal_strextra_2")) {
-				Str = Str + 5;
-				playerUse.Str = String.valueOf(Str);
-			}
-			
-			if (item.equals("red_crystal_strextra_3")) {
-				Str = Str + 10;
-				playerUse.Str = String.valueOf(Str);
-			}
-			
-			if (item.equals("red_crystal_strextra_4")) {
-				Str = Str + 15;
-				playerUse.Str = String.valueOf(Str);
-			}
-			
-			if (item.equals("grey_crystal_dexextra_1")) {
-				Dex = Dex + 2;
-				playerUse.Dex = String.valueOf(Dex);
-			}
-			
-			if (item.equals("grey_crystal_dexextra_2")) {
-				Dex = Dex + 5;
-				playerUse.Dex = String.valueOf(Dex);
-			}
-			
-			if (item.equals("grey_crystal_dexextra_3")) {
-				Dex = Dex + 10;
-				playerUse.Dex = String.valueOf(Dex);
-			}
-			
-			if (item.equals("grey_crystal_dexextra_4")) {
-				Dex = Dex + 15;
-				playerUse.Dex = String.valueOf(Dex);
-			}
-			
-			if (item.equals("orange_crystal_resextra_1")) {
-				Res = Res + 2;
-				StaminaMax = StaminaMax + 20;
-				regenTimeMax = regenTimeMax - 200;
-				
+				playerUse.Hp = String.valueOf(Hp);
 				playerUse.Res = String.valueOf(Res);
 				playerUse.StaminaMax = String.valueOf(StaminaMax);
 				playerUse.regenTimeMax = String.valueOf(regenTimeMax);
-			}
-			
-			if (item.equals("orange_crystal_resextra_2")) {
-				Res = Res + 5;
-				StaminaMax = StaminaMax + 50;
-				regenTimeMax = regenTimeMax - 400;
-				
-				playerUse.Res = String.valueOf(Res);
-				playerUse.StaminaMax = String.valueOf(StaminaMax);
-				playerUse.regenTimeMax = String.valueOf(regenTimeMax);
-			}
-			
-			if (item.equals("orange_crystal_resextra_3")) {
-				Res = Res + 10;
-				StaminaMax = StaminaMax + 100;
-				regenTimeMax = regenTimeMax - 600;
-				
-				playerUse.Res = String.valueOf(Res);
-				playerUse.StaminaMax = String.valueOf(StaminaMax);
-				playerUse.regenTimeMax = String.valueOf(regenTimeMax);
-			}
-			
-			if (item.equals("orange_crystal_resextra_4")) {
-				Res = Res + 15;
-				StaminaMax = StaminaMax + 200;
-				regenTimeMax = regenTimeMax - 800;
-				
-				playerUse.Res = String.valueOf(Res);
-				playerUse.StaminaMax = String.valueOf(StaminaMax);
-				playerUse.regenTimeMax = String.valueOf(regenTimeMax);
+				playerUse.MpMax = String.valueOf(MpMax);
+				playerUse.HpMax = String.valueOf(HpMax);
+				playerUse.AtkTimerMax = String.valueOf(AtkTimerMax);
 			}
 		}
 
 		public void RemoveCrystals(int num) {
+			// Define crystal effects
+			Map<String, int[]> crystalEffects = new HashMap<>();
+			crystalEffects.put("blue_crystal_intextra_1", new int[]{-2, 0, 0, 0, 0, 0, 0, 0, -20, 0, 0, 0});
+			crystalEffects.put("blue_crystal_intextra_2", new int[]{-5, 0, 0, 0, 0, 0, 0, 0, -50, 0, 0, 0});
+			crystalEffects.put("blue_crystal_intextra_3", new int[]{-10, 0, 0, 0, 0, 0, 0, 0, -100, 0, 0, 0});
+			crystalEffects.put("blue_crystal_intextra_4", new int[]{-15, 0, 0, 0, 0, 0, 0, 0, -200, 0, 0, 0});
+			
+			crystalEffects.put("green_crystal_lukextra_1", new int[]{0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("green_crystal_lukextra_2", new int[]{0, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("green_crystal_lukextra_3", new int[]{0, 0, 0, 0, 0, -10, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("green_crystal_lukextra_4", new int[]{0, 0, 0, 0, 0, -15, 0, 0, 0, 0, 0, 0});
+			
+			crystalEffects.put("purple_crystal_vitextra_1", new int[]{0, 0, 0, -2, 0, 0, 0, 0, 0, -20, 0, 0});
+			crystalEffects.put("purple_crystal_vitextra_2", new int[]{0, 0, 0, -5, 0, 0, 0, 0, 0, -50, 0, 0});
+			crystalEffects.put("purple_crystal_vitextra_3", new int[]{0, 0, 0, -10, 0, 0, 0, 0, 0, -100, 0, 0});
+			crystalEffects.put("purple_crystal_vitextra_4", new int[]{0, 0, 0, -15, 0, 0, 0, 0, 0, -200, 0, 0});
+			
+			crystalEffects.put("yellow_crystal_agiextra_1", new int[]{0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2});
+			crystalEffects.put("yellow_crystal_agiextra_2", new int[]{0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4});
+			crystalEffects.put("yellow_crystal_agiextra_3", new int[]{0, -10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6});
+			crystalEffects.put("yellow_crystal_agiextra_4", new int[]{0, -15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8});
+			
+			crystalEffects.put("red_crystal_strextra_1", new int[]{-2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("red_crystal_strextra_2", new int[]{-5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("red_crystal_strextra_3", new int[]{-10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("red_crystal_strextra_4", new int[]{-15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			
+			crystalEffects.put("grey_crystal_dexextra_1", new int[]{0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("grey_crystal_dexextra_2", new int[]{0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("grey_crystal_dexextra_3", new int[]{0, 0, -10, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			crystalEffects.put("grey_crystal_dexextra_4", new int[]{0, 0, -15, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			
+			crystalEffects.put("orange_crystal_resextra_1", new int[]{0, 0, 0, 0, 0, 0, -2, -20, 0, 0, 200, 0});
+			crystalEffects.put("orange_crystal_resextra_2", new int[]{0, 0, 0, 0, 0, 0, -5, -50, 0, 0, 400, 0});
+			crystalEffects.put("orange_crystal_resextra_3", new int[]{0, 0, 0, 0, 0, 0, -10, -100, 0, 0, 600, 0});
+			crystalEffects.put("orange_crystal_resextra_4", new int[]{0, 0, 0, 0, 0, 0, -15, -200, 0, 0, 800, 0});
 		
-		if(num == 1 && player.Crystal1.equals("blue_crystal_intextra_1")) { AddItemBag("blue_crystal_intextra_1"); player.Wis_A = player.Wis_A - 2; player.MpMax_A = player.MpMax_A - 20; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("blue_crystal_intextra_1")) { AddItemBag("blue_crystal_intextra_1"); player.Wis_A = player.Wis_A - 2; player.MpMax_A = player.MpMax_A - 20; player.Crystal2_A = "none";return; }	
-		if(num == 3 && player.Crystal3.equals("blue_crystal_intextra_1")) { AddItemBag("blue_crystal_intextra_1"); player.Wis_A = player.Wis_A - 2; player.MpMax_A = player.MpMax_A - 20; player.Crystal3_A = "none"; return; }	
-		if(num == 4 && player.Crystal4.equals("blue_crystal_intextra_1")) { AddItemBag("blue_crystal_intextra_1"); player.Wis_A = player.Wis_A - 2; player.MpMax_A = player.MpMax_A - 20; player.Crystal4_A = "none"; return; }	
+			// Get the crystal type based on the number
+			String crystalType = "";
+			switch (num) {
+				case 1:
+					crystalType = playerUse.Crystal1;
+					break;
+				case 2:
+					crystalType = playerUse.Crystal2;
+					break;
+				case 3:
+					crystalType = playerUse.Crystal3;
+					break;
+				case 4:
+					crystalType = playerUse.Crystal4;
+					break;
+			}
 		
-		if(num == 1 && player.Crystal1.equals("blue_crystal_intextra_2")) { AddItemBag("blue_crystal_intextra_2"); player.Wis_A = player.Wis_A - 5; player.MpMax_A = player.MpMax_A - 50; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("blue_crystal_intextra_2")) { AddItemBag("blue_crystal_intextra_2"); player.Wis_A = player.Wis_A - 5; player.MpMax_A = player.MpMax_A - 50; player.Crystal2_A = "none"; return; }	
-		if(num == 3 && player.Crystal3.equals("blue_crystal_intextra_2")) { AddItemBag("blue_crystal_intextra_2"); player.Wis_A = player.Wis_A - 5; player.MpMax_A = player.MpMax_A - 50; player.Crystal3_A = "none"; return; }	
-		if(num == 4 && player.Crystal4.equals("blue_crystal_intextra_2")) { AddItemBag("blue_crystal_intextra_2"); player.Wis_A = player.Wis_A - 5; player.MpMax_A = player.MpMax_A - 50; player.Crystal4_A = "none"; return; }
+			// Apply crystal effects
+			if (crystalEffects.containsKey(crystalType)) {
+				int[] effects = crystalEffects.get(crystalType);
+				playerUse.Wis += effects[0];
+				playerUse.Agi += effects[1];
+				playerUse.Dex += effects[2];
+				playerUse.Vit += effects[3];
+				playerUse.Luk += effects[4];
+				playerUse.Str += effects[5];
+				playerUse.Res += effects[6];
+				playerUse.StaminaMax += effects[7];
+				playerUse.MpMax += effects[8];
+				playerUse.regenTimeMax += effects[9];
+				playerUse.AtkTimerMax += effects[10];
 		
-		if(num == 1 && player.Crystal1.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal2_A = "none"; return; }	
-		if(num == 3 && player.Crystal3.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal3_A = "none"; return; }	
-		if(num == 4 && player.Crystal4.equals("blue_crystal_intextra_3")) { AddItemBag("blue_crystal_intextra_3"); player.Wis_A = player.Wis_A - 10; player.MpMax_A = player.MpMax_A - 100; player.Crystal4_A = "none"; return; }
-		
-		if(num == 1 && player.Crystal1.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal2_A = "none"; return; }	
-		if(num == 3 && player.Crystal3.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal3_A = "none"; return; }	
-		if(num == 4 && player.Crystal4.equals("blue_crystal_intextra_4")) { AddItemBag("blue_crystal_intextra_4"); player.Wis_A = player.Wis_A - 15; player.MpMax_A = player.MpMax_A - 200; player.Crystal4_A = "none"; return; }
-		
-		
-		if(num == 1 && player.Crystal1.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal2_A = "none"; return; }	
-		if(num == 3 && player.Crystal3.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal3_A = "none"; return; }	
-		if(num == 4 && player.Crystal4.equals("green_crystal_lukextra_1")) { AddItemBag("green_crystal_lukextra_1"); player.Luk_A = player.Luk_A - 2; player.Crystal4_A = "none"; return; }	
-		
-		if(num == 1 && player.Crystal1.equals("green_crystal_lukextra_2")) { AddItemBag("green_crystal_lukextra_2"); player.Luk_A = player.Luk_A - 5; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("green_crystal_lukextra_2")) { AddItemBag("green_crystal_lukextra_2"); player.Luk_A = player.Luk_A - 5; player.Crystal2_A = "none"; return; }	
-		if(num == 3 && player.Crystal3.equals("green_crystal_lukextra_2")) { AddItemBag("green_crystal_lukextra_2"); player.Luk_A = player.Luk_A - 5; player.Crystal3_A = "none"; return; }	
-		if(num == 4 && player.Crystal4.equals("green_crystal_lukextra_2")) { AddItemBag("green_crystal_lukextra_2"); player.Luk_A = player.Luk_A- 5;  player.Crystal4_A = "none"; return; }
-		
-		if(num == 1 && player.Crystal1.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal2_A = "none"; return; }	
-		if(num == 3 && player.Crystal3.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal3_A = "none"; return; }	
-		if(num == 4 && player.Crystal4.equals("green_crystal_lukextra_3")) { AddItemBag("green_crystal_lukextra_3"); player.Luk_A = player.Luk_A - 10; player.Crystal4_A = "none"; return; }
-		
-		if(num == 1 && player.Crystal1.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal2_A = "none"; return; }	
-		if(num == 3 && player.Crystal3.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal3_A = "none"; return; }	
-		if(num == 4 && player.Crystal4.equals("green_crystal_lukextra_4")) { AddItemBag("green_crystal_lukextra_4"); player.Luk_A = player.Luk_A - 15; player.Crystal4_A = "none"; return; }
-		
-		if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal1_A = "none"; player.MpMax_A = player.HpMax_A - 20; return; }	
-		if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 20; return; }	
-		if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 20; return; }	
-		if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_1")) { AddItemBag("purple_crystal_vitextra_1"); player.Vit_A = player.Vit_A - 2; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 20; return; }	
-		
-		if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit_A = player.Vit_A - 5; player.Crystal1_A = "none";  player.MpMax_A = player.HpMax_A - 50; return; }	
-		if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit_A = player.Vit_A - 5; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 50; return; }	
-		if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit_A = player.Vit_A - 5; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 50; return; }	
-		if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_2")) { AddItemBag("purple_crystal_vitextra_2"); player.Vit_A = player.Vit_A - 5; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 50; return; }
-		
-		if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal1_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }	
-		if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }	
-		if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }	
-		if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_3")) { AddItemBag("purple_crystal_vitextra_3"); player.Vit_A = player.Vit_A - 10; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 100; return; }
-		
-		if(num == 1 && player.Crystal1.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal1_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
-		if(num == 2 && player.Crystal2.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal2_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
-		if(num == 3 && player.Crystal3.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal3_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }	
-		if(num == 4 && player.Crystal4.equals("purple_crystal_vitextra_4")) { AddItemBag("purple_crystal_vitextra_4"); player.Vit_A = player.Vit_A - 15; player.Crystal4_A = "none";  player.MpMax_A = player.HpMax_A - 200; return; }
-		
-		if(num == 1 && player.Crystal1.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal1_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
-		if(num == 2 && player.Crystal2.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal2_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
-		if(num == 3 && player.Crystal3.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal3_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
-		if(num == 4 && player.Crystal4.equals("yellow_crystal_agiextra_1")) { AddItemBag("yellow_crystal_agiextra_1"); player.Agi_A = player.Agi_A - 2; player.Crystal4_A = "none";  player.AtkTimerMax_A = player.AtkTimerMax_A + 2; return; }	
-		
-		if(num == 1 && player.Crystal1.equals("yellow_crystal_agiextra_2")) { AddItemBag("yellow_crystal_agiextra_2"); player.Agi_A = player.Agi_A - 5; player.AtkTimerMax_A = player.AtkTimerMax_A + 4;  player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("yellow_crystal_agiextra_2")) { AddItemBag("yellow_crystal_agiextra_2"); player.Agi_A = player.Agi_A - 5; player.AtkTimerMax_A = player.AtkTimerMax_A + 4;  player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("yellow_crystal_agiextra_2")) { AddItemBag("yellow_crystal_agiextra_2"); player.Agi_A = player.Agi_A - 5; player.AtkTimerMax_A = player.AtkTimerMax_A + 4;  player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("yellow_crystal_agiextra_2")) { AddItemBag("yellow_crystal_agiextra_2"); player.Agi_A = player.Agi_A - 5; player.AtkTimerMax_A = player.AtkTimerMax_A + 4;  player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A= player.AtkTimerMax_A + 6; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("yellow_crystal_agiextra_3")) { AddItemBag("yellow_crystal_agiextra_3"); player.Agi_A = player.Agi_A - 10; player.AtkTimerMax_A = player.AtkTimerMax_A + 6; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("yellow_crystal_agiextra_4")) { AddItemBag("yellow_crystal_agiextra_4"); player.Agi_A = player.Agi_A - 15; player.AtkTimerMax_A = player.AtkTimerMax_A + 8; player.Crystal4_A = "none";  return; }
-		
-		
-		if(num == 1 && player.Crystal1.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("red_crystal_strextra_1")) { AddItemBag("red_crystal_strextra_1"); player.Str_A = player.Str_A - 2; player.Crystal4_A = "none";  return; }	
-		
-		if(num == 1 && player.Crystal1.equals("red_crystal_strextra_2")) { AddItemBag("red_crystal_strextra_2"); player.Str_A = player.Str_A - 5; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("red_crystal_strextra_2")) { AddItemBag("red_crystal_strextra_2"); player.Str_A = player.Str_A - 5; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("red_crystal_strextra_2")) { AddItemBag("red_crystal_strextra_2"); player.Str_A = player.Str_A - 5; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("red_crystal_strextra_2")) { AddItemBag("red_crystal_strextra_2"); player.Str_A = player.Str_A - 5; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("red_crystal_strextra_3")) { AddItemBag("red_crystal_strextra_3"); player.Str_A = player.Str_A - 10; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("red_crystal_strextra_4")) { AddItemBag("red_crystal_strextra_4"); player.Str_A = player.Str_A - 15; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("grey_crystal_dexextra_1")) { AddItemBag("grey_crystal_dexextra_1"); player.Dex_A = player.Dex_A - 2; player.Crystal4_A = "none";  return; }	
-		
-		if(num == 1 && player.Crystal1.equals("grey_crystal_dexextra_2")) { AddItemBag("grey_crystal_dexextra_2"); player.Dex_A = player.Dex_A - 5; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("grey_crystal_dexextra_2")) { AddItemBag("grey_crystal_dexextra_2"); player.Dex_A = player.Dex_A - 5; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("grey_crystal_dexextra_2")) { AddItemBag("grey_crystal_dexextra_2"); player.Dex_A = player.Dex_A - 5; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("grey_crystal_dexextra_2")) { AddItemBag("grey_crystal_dexextra_2"); player.Dex_A = player.Dex_A - 5; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("grey_crystal_dexextra_3")) { AddItemBag("grey_crystal_dexextra_3"); player.Dex_A = player.Dex_A - 10; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("grey_crystal_dexextra_4")) { AddItemBag("grey_crystal_dexextra_4"); player.Dex_A = player.Dex_A - 15; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal1_A = "none"; return; }	
-		if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_1")) { AddItemBag("orange_crystal_resextra_1"); player.Res_A = player.Res_A - 2; player.StaminaMax_A = player.StaminaMax_A - 20; player.regenTimeMax_A = player.regenTimeMax_A + 200; player.Crystal4_A = "none";  return; }	
-		
-		if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_2")) { AddItemBag("orange_crystal_resextra_2"); player.Res_A = player.Res_A - 5; player.StaminaMax_A = player.StaminaMax_A - 50; player.regenTimeMax_A = player.regenTimeMax_A + 400; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_3")) { AddItemBag("orange_crystal_resextra_3"); player.Res_A = player.Res_A - 10; player.StaminaMax_A = player.StaminaMax_A - 100; player.regenTimeMax_A = player.regenTimeMax_A + 600; player.Crystal4_A = "none";  return; }
-		
-		if(num == 1 && player.Crystal1.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal1_A = "none";  return; }	
-		if(num == 2 && player.Crystal2.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal2_A = "none";  return; }	
-		if(num == 3 && player.Crystal3.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal3_A = "none";  return; }	
-		if(num == 4 && player.Crystal4.equals("orange_crystal_resextra_4")) { AddItemBag("orange_crystal_resextra_4"); player.Res_A = player.Res_A - 15; player.StaminaMax_A = player.StaminaMax_A - 200; player.regenTimeMax_A = player.regenTimeMax_A + 800; player.Crystal4_A = "none";  return; }
-	}
+				// Add the crystal back to the bag and set the crystal slot to "none"
+				AddItemBag(crystalType);
+				switch (num) {
+					case 1:
+						playerUse.Crystal1 = "none";
+						break;
+					case 2:
+						playerUse.Crystal2 = "none";
+						break;
+					case 3:
+						playerUse.Crystal3 = "none";
+						break;
+					case 4:
+						playerUse.Crystal4 = "none";
+						break;
+				}
+			}
+		}
 	
 
 	//Give EXP
@@ -2462,6 +2287,29 @@ public class GameControl {
 	}
 	
 	
+	public Sprite GetMonster(String mob, int mobframe, String side) {
+		if(mob.equals("slime")){
+			spr_master = atlas_mobSewers.createSprite("slime" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("oikplant")){
+			spr_master = atlas_mobSewers.createSprite("oikplant" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("rat")){
+			spr_master = atlas_mobSewers.createSprite("rat" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("sapod")){
+			spr_master = atlas_mobSewers.createSprite("sapod" + mobframe);
+			return spr_master;
+		}
+		
+
+		return spr_master;
+	}
+	
+	
 
 	///////////////////////////////////////////////// [Online HTML] /////////////////////////////////
 	public String GetResult() {
@@ -2475,7 +2323,11 @@ public class GameControl {
 	public ArrayList<Player> GetPlayers() {
 		return lstPlayers;
 	}
-
+	
+	public void SetPlayers(ArrayList<Player> _lstPlayers) {
+		lstPlayers = _lstPlayers;
+	}
+	
 	public void CreateAccountOnline(String tipoRequisicao, HttpCallback callback) throws UnsupportedEncodingException {
 
 		int accNumber = randnumber.nextInt(99999999);

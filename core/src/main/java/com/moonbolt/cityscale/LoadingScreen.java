@@ -26,12 +26,9 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 	//Objects
 	private MainGame game;
 	private GameControl gameControl;
-	private boolean network = false;
-	private Player player;
 	private int playernumber = 0;
 	private String account = "";
-	private ArrayList<Player> lstPlayers;
-
+	
 	//Loading Variables
 	private boolean loading = true;
 	private int loadtime = 100;
@@ -54,15 +51,10 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
     //Controller
     private final IntSet downKeys = new IntSet(20);
 
-	public LoadingScreen(MainGame gameAlt,boolean networkAlt, String _account, int _playernumber, ArrayList<Player> _lstPlayersAlt) {
+	public LoadingScreen(MainGame gameAlt,GameControl gameControlAlt, int _playernumber) {
 		this.game = gameAlt;
-		this.network = networkAlt;
-		this.account = _account;
+		this.gameControl = gameControlAlt;
 		this.playernumber = _playernumber;
-		this.lstPlayers = _lstPlayersAlt;
-
-		this.gameControl = new GameControl();
-		//player = gameControl.LoadData();
 
 		//Camera and Inputs
 		camera = new OrthographicCamera();
@@ -122,8 +114,8 @@ public class LoadingScreen implements Screen, ApplicationListener, InputProcesso
 		}
 
 		if(changeScreen){
-			game.loadingmanager.atualizaComponentes(game,gameControl,network,playernumber);
-			game.Switch("GameMap", network,account,playernumber); 
+			game.loadingmanager.atualizaComponentes(game,gameControl,playernumber);
+			game.Switch("GameMap",account,playernumber); 
 		}
 
 		game.batch.end();

@@ -46,7 +46,6 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 	private ManagerScreen screen;
 	private GameControl gameControl;
 	private String state = "main";
-	private boolean network = true;
 	private String accountnumber = "";
 	private boolean aviso = false;
 	private int avisoTimer = 0;
@@ -243,7 +242,7 @@ public class TitleScreen implements Screen, ApplicationListener, InputProcessor,
 		}
 
 		if (state.equals("charselect")) {
-			this.screen.screenSwitch("CharacterSelectScreen", network, accountnumber, 0);
+			this.screen.screenSwitch("CharacterSelectScreen", accountnumber, 0);
 			dispose();
 		}
 		

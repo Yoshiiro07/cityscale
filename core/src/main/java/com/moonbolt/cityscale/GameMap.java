@@ -37,7 +37,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private String state = "Main";
     private Sprite spr_master;
 	private Random randnumber;
-	private boolean network = false;
 	private String shopname = "";
     private String menuoption = "";
     private int playernum = 0;
@@ -155,13 +154,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     //Controller
     private final IntSet downKeys = new IntSet(20);	
 
-		public GameMap(MainGame _game, ManagerScreen _screen, boolean _network, String account, int _playernumber, ArrayList<Player> lstPlayer) {
+		public GameMap(MainGame _game, ManagerScreen _screen, GameControl _gameControl,int _playernumber) {
 			
 			this.game = _game;	
 			this.screen = _screen;
 			this.randnumber = new Random();
-			this.network = _network;
 			this.playernum = _playernumber;
+			this.gameControl = _gameControl;
+			
+			ArrayList<Player> lstPlayer = new ArrayList<Player>();
+			lstPlayer = gameControl.GetPlayers();
 			
 			if(_playernumber == 1) { player = lstPlayer.get(0); }
 			if(_playernumber == 2) { player = lstPlayer.get(1); }
@@ -181,6 +183,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Etc
 			lstChats = new ArrayList<String>();
 			lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add("");
+			
+			//Map
+			if(player.Map.equals("MetroStation")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));  }
+			if(player.Map.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png"));  }	
+			if(player.Map.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png"));  }
+			
+			spr_Background = new Sprite(tex_Background);
 			
 			//Network
 			lstOnlinePlayers = new ArrayList<Player>();
@@ -225,7 +234,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			savedataTime--;
 			if(savedataTime < 0) {
 				savedataTime = 500;
-				gameControl.SaveData(player);
+				//gameControl.SaveData(player);
 			}
 			
 			//Check Regen
@@ -247,11 +256,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			//Map Render
-			if(player.Map.equals("StreetsA")) {
-				spr_Background.setPosition(-81,-194);
-				spr_Background.setSize(270, 270);
-				spr_Background.draw(game.batch);
-			}
+			spr_Background.setPosition(-81, -194);
+			spr_Background.setSize(270, 270);
+			spr_Background.draw(game.batch);
 			
 			//Background	
 			if(player.Map.equals("Sewers")) {
@@ -351,7 +358,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			//Checks e Cards
-			//ShowCards();
+			ShowCards();
 			//CheckColision();
 			//CheckAutoAttack();
 			//CheckMobAutoAttack();
@@ -495,6 +502,71 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//spr_testeDot.draw(game.batch);
 			
 			game.batch.end();
+		}
+		
+		public void ShowCards() {
+			//Basic Cards
+			//Hotkey 1 / 2
+			if(player.hotkey1.equals("none")) {
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+			
+			if(player.hotkey2.equals("none")) {
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+			
+			if(player.hotkey1.equals("hpcan")) {
+				spr_master = gameControl.GetCard("cardhp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+			
+			if(player.hotkey2.equals("hpcan")) {
+				spr_master = gameControl.GetCard("cardhp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+			
+			
+			if(!player.Map.equals("Sewers")){
+				spr_master = gameControl.GetCard("cardaction");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.Map.equals("Sewers")){ //cardactionON
+				if(autoattack){
+					spr_master = gameControl.GetCard("cardactionON");
+					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
+					spr_master.draw(game.batch);
+				}
+				else{
+					spr_master = gameControl.GetCard("cardaction");
+					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
+					spr_master.draw(game.batch);
+				}
+			}
+			
+			spr_master = gameControl.GetCard("cardtarget");
+			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 60);
+			spr_master.draw(game.batch);
+			
+			//Novice Cards
+			spr_master = gameControl.GetCard("cardcutbreak");
+			spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardrockbound");
+			spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
+			spr_master.draw(game.batch);
+			
+			spr_master = gameControl.GetCard("cardempty");
+			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
+			spr_master.draw(game.batch);
 		}
 		
 		public void ShowBag() {

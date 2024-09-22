@@ -30,21 +30,17 @@ public class MainGame extends Game {
 	{
 		batch = new SpriteBatch();  
 		loadingmanager = new ManagerScreen(this);
-		this.Switch("SplashScreen",network, account, playernumber);
+		this.Switch("SplashScreen",account, playernumber);
 	}
 	
-	public void Switch(String screenName, boolean network,String accountAlt, int playernumAlt) {
-		loadingmanager.screenSwitch(screenName, network,accountAlt, playernumAlt);
+	public void Switch(String screenName,String accountAlt, int playernumAlt) {
+		loadingmanager.screenSwitch(screenName, accountAlt, playernumAlt);
 	}
 	
-	public void AtualizaElementos(MainGame mainGameAlt,GameControl gameControlAtl, boolean networkAlt) {
-		loadingmanager.atualizaComponentes(mainGameAlt,gameControlAtl, networkAlt, 0);
+	public void AtualizaElementos(MainGame mainGameAlt,GameControl gameControlAtl) {
+		loadingmanager.atualizaComponentes(mainGameAlt,gameControlAtl, 0);
 	}
 	
-	public void AtualizaPlayer(ArrayList<Player> lstPlayers) {
-		loadingmanager.UpdatePlayerAccount(lstPlayers);
-	}
-
 	@Override
 	public void render() { super.render(); }
 

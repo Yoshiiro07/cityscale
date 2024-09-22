@@ -8,9 +8,7 @@ import com.badlogic.gdx.Screen;
 public class ManagerScreen implements Screen{
 	private MainGame game;
 	private GameControl gameControl;
-	private boolean network;
 	private int playernum;
-	private ArrayList<Player> lstPlayers;
 	
 	public ManagerScreen(MainGame game){
 		this.game = game;
@@ -18,7 +16,7 @@ public class ManagerScreen implements Screen{
 		ArrayList<Player> lstPlayers = new ArrayList<Player>();
 	}
 	
-	public void screenSwitch(String tipo, boolean network, String account, int playernum){
+	public void screenSwitch(String tipo, String account, int playernum){
 		
 		if(tipo.equals("SplashScreen")){	
 			SplashScreen splashScreen = new SplashScreen(game, this,playernum);
@@ -31,28 +29,24 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("CharacterSelectScreen")){	
-			CharacterSelect CharacterSelectScreen = new CharacterSelect(game,this, network,account, playernum);
+			CharacterSelect CharacterSelectScreen = new CharacterSelect(game,this,account, playernum);
 			game.setScreen(CharacterSelectScreen);
 		}
 		
 		if(tipo.equals("LoadingScreen")){	
-			LoadingScreen loadingScreen = new LoadingScreen(game,network,account,playernum,lstPlayers);
+			LoadingScreen loadingScreen = new LoadingScreen(game,gameControl,playernum);
 			game.setScreen(loadingScreen);
 		}
 		
 		if(tipo.equals("GameMap")) {
-			GameMap gameMapScreen = new GameMap(game,this, network,account, playernum, lstPlayers);
+			GameMap gameMapScreen = new GameMap(game,this,gameControl,playernum);
 			game.setScreen(gameMapScreen);
 		}
 	}
-	public void UpdatePlayerAccount(ArrayList<Player> _lstPlayers) {
-		lstPlayers = _lstPlayers;
-	}
 	
-	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControlAlt, boolean network, int playernumberAlt){
+	public void atualizaComponentes(MainGame maingameAlt,GameControl gameControlAlt, int playernumberAlt){
 		this.game = maingameAlt;
 		this.gameControl = gameControlAlt;
-		this.network = network;
 		this.playernum = playernumberAlt;
 	}
 
