@@ -1777,12 +1777,102 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		  
 		}
 		
+		public void MapChange(String map) {
+			if(map.equals("Sewers")) {
+				player.Map = "Sewers";
+				player.PosX = String.valueOf("44.5f");
+				player.PosY = String.valueOf("-4.5f");
+				//gameControl.SaveData(player);
+				this.screen.screenSwitch("LoadingScreen","",playernum);
+				dispose();	
+			}
+			if(map.equals("StreetsAFromSewers")) {
+				player.Map = "StreetsA";
+				player.PosX = String.valueOf("112.5f");
+				player.PosY = String.valueOf("-142f");
+				//gameControl.SaveData(player);
+				this.screen.screenSwitch("LoadingScreen","",playernum);
+				dispose();
+			}
+		}
+		
+		//Hotkey
+		public void HotKeyItem(int itemNum, int hotkeynum) {
+			String[] lstItem = player.Itens.split("-");
+			String[] itemSplit = lstItem[itemNum].split("#");
+			String item = "";
+			//hotketcountitem = itemNum;
+			
+			
+			if(hotkeynum == 1) {
+				hotketcountitem1 = itemNum;
+			}
+			
+			if(hotkeynum == 2) {
+				hotketcountitem2 = itemNum;
+			}
+						
+			item = itemSplit[0].replace("[", "");
+			
+			if(hotkeynum == 1) {
+				if(item.equals("hpcan")) { player.hotkey1 = item; return; }
+				if(item.equals("garrafadrink")) { player.hotkey1 = item; return; }
+				if(item.equals("mpcan")) { player.hotkey1 = item; return; }
+				if(item.equals("garrafamagica")) { player.hotkey1 = item; return; }
+				if(item.equals("stcan")) { player.hotkey1 = item; return; }
+				if(item.equals("garrafasuco")) { player.hotkey1 = item; return; }
+			}
+			if(hotkeynum == 2) {
+				if(item.equals("hpcan")) { player.hotkey2 = item; return; }
+				if(item.equals("garrafadrink")) { player.hotkey2 = item; return; }
+				if(item.equals("mpcan")) { player.hotkey2 = item; return; }
+				if(item.equals("garrafamagica")) { player.hotkey2 = item; return; }
+				if(item.equals("stcan")) { player.hotkey2 = item; return; }
+				if(item.equals("garrafasuco")) { player.hotkey2 = item; return; }
+			}
+		}
+		
+		public void CheckStatus(String status) {
+			if(player.StatusPoint >= 1) {
+				if(status.equals("Str")) {
+					player.Str = player.Str + 1;
+					player.StatusPoint_A = player.StatusPoint - 1;
+					player.Atk = player.Atk + 2;
+				}
+				if(status.equals("Vit")) {
+					player.Vit = player.Vit + 1;
+					player.StatusPoint = player.StatusPoint - 1;
+					player.Def = player.Def + 2;
+					player.HpMax = player.HpMax + 5;
+				}
+				if(status.equals("Agi")) {
+					player.Agi = player.Agi + 1;
+					player.StatusPoint = player.StatusPoint - 1;
+					player.Def = player.Def + 1;
+					player.AtkTimerMax = player.AtkTimerMax - 1;
+				}
+				if(status.equals("Wis")) {
+					player.Wis = player.Wis + 1;
+					player.StatusPoint = player.StatusPoint - 1;
+					player.Def = player.Def + 1;
+					player.MpMax = player.MpMax + 5;
+				}
+				if(status.equals("Dex")) {
+					player.Dex = player.Dex + 1;
+					player.StatusPoint = player.StatusPoint - 1;
+					player.Atk_A = player.Atk + 1;
+				}
+				
+			}
+		}
+		
 		
 		@Override
-		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		public boolean touchDown(int p1, int p2, int pointer, int button) {
+			
 			if(playerDead) { return false; }
 			
-			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
+			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
 			
 			//Main
 			//[Main State]//
@@ -1886,6 +1976,259 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}
 			
+			if(state.equals("DungeonSelect")) {
+				//Dungeon 1
+				if(coordsTouch.x > cameraCoordsX - 47 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 17 && coordsTouch.y < cameraCoordsY + 34) {
+					MapChange("Sewers");
+					return false;
+				}
+				//Voltar
+				if(coordsTouch.x > cameraCoordsX - 21 && coordsTouch.x < cameraCoordsX + 12 && coordsTouch.y > cameraCoordsY - 42 && coordsTouch.y < cameraCoordsY - 24) {
+					state = "Main";
+					return false;
+				}
+			}
+			//[Menu State]//
+			if(state.equals("Menu")) {
+				
+				//Voltar
+				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 82 && coordsTouch.y > cameraCoordsY + 69 && coordsTouch.y < cameraCoordsY + 84) {
+					state = "Main";
+					menuoption = "";
+					return false;
+				}
+				
+				//Hotkey 1
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 10 && coordsTouch.y > cameraCoordsY + 65 && coordsTouch.y < cameraCoordsY + 78) {
+					menuoption = "hotkey1";
+					return false;
+				}
+				
+				//Hotkey 2
+				if(coordsTouch.x > cameraCoordsX - 8 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 65 && coordsTouch.y < cameraCoordsY + 78) {
+					menuoption = "hotkey2";
+					return false;
+				}
+				
+				//Descartar
+				if(coordsTouch.x > cameraCoordsX - 12 && coordsTouch.x < cameraCoordsX + 17 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 48) {
+					menuoption = "descartar";
+					return false;
+				}
+				
+				
+				//Desligar touch
+				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 25 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 13) {
+					//if(controlstate.equals("PC")) { controlstate = "Mobile"; }
+					//else { controlstate = "PC"; }		
+					//return false;
+				}
+				
+				
+				//Item 1
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(0,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(0,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(0); menuoption = ""; return false; }
+					gameControl.UseItem(0);
+					return false;
+				}
+				
+				//Item 2
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(1,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(1,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(1); menuoption = ""; return false; }
+					gameControl.UseItem(1);
+					return false;
+				}
+				
+				//Item 3
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(2,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(2,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(2); menuoption = ""; return false; }
+					gameControl.UseItem(2);
+					return false;
+				}
+				
+				//Item 4
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 64) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(3,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(3,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(3); menuoption = ""; return false; }
+					gameControl.UseItem(3);
+					return false;
+				}
+				
+				
+				
+				//Item 5
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(4,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(4,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(4); menuoption = ""; return false; }
+					gameControl.UseItem(4);
+					return false;
+				}
+				
+				//Item 6
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(5,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(5,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(5); menuoption = ""; return false; }
+					gameControl.UseItem(5);
+					return false;
+				}
+				
+				//Item 7
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(6,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(6,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(6); menuoption = ""; return false; }
+					gameControl.UseItem(6);
+					return false;
+				}
+				
+				//Item 8
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(7,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(7,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(7); menuoption = ""; return false; }
+					gameControl.UseItem(7);
+					return false;
+				}
+				
+				//Item 9
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(8,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(8,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(8); menuoption = ""; return false; }
+					gameControl.UseItem(8);
+					return false;
+				}
+				
+				//Item 10
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(9,1); menuoption = ""; return false; }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(9,2); menuoption = ""; return false; }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(9); menuoption = ""; return false; }
+					gameControl.UseItem(9);
+					return false;
+				}
+				
+				//Item 11
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(10,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(10,2); menuoption = ""; return false;  }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(10); menuoption = ""; return false; }
+					gameControl.UseItem(10);
+					return false;
+				}
+				
+				//Item 12
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 5 && coordsTouch.y < cameraCoordsY + 15) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(11,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(11,2); menuoption = ""; return false;  }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(11); menuoption = ""; return false; }
+					gameControl.UseItem(11);
+					return false;
+				}
+				
+				//Item 13
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(12,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(12,2); menuoption = ""; return false;  }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(12); menuoption = ""; return false; }
+					gameControl.UseItem(12);
+					return false;
+				}
+				
+				//Item 14
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(13,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(13,2); menuoption = ""; return false;  }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(13); menuoption = ""; return false; }
+					gameControl.UseItem(13);
+					return false;
+				}
+				
+				//Item 15
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(14,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(14,2); menuoption = ""; return false;  }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(14); menuoption = ""; return false; }
+					gameControl.UseItem(14);
+					return false;
+				}
+				
+				//Item 16
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+					if(menuoption.equals("hotkey1")) { HotKeyItem(15,1); menuoption = ""; return false;  }
+					if(menuoption.equals("hotkey2")) { HotKeyItem(15,2); menuoption = ""; return false;  }
+					if(menuoption.equals("descartar")) { gameControl.DiscartItem(15); menuoption = ""; return false; }
+					gameControl.UseItem(15);
+					return false;
+				}
+				
+				
+				//Status point
+				//STR
+				if(coordsTouch.x > cameraCoordsX - 81 && coordsTouch.x < cameraCoordsX - 69 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Str");
+					return false;
+				}
+				//VIT
+				if(coordsTouch.x > cameraCoordsX - 67 && coordsTouch.x < cameraCoordsX - 55 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Vit");
+					return false;
+				}
+				//AGI
+				if(coordsTouch.x > cameraCoordsX - 54 && coordsTouch.x < cameraCoordsX - 41 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Agi");
+					return false;
+				}
+				//WIS
+				if(coordsTouch.x > cameraCoordsX - 40 && coordsTouch.x < cameraCoordsX - 27 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Wis");
+					return false;
+				}
+				//DES
+				if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 14 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					CheckStatus("Dex");
+					return false;
+				}
+				
+				//unequip
+				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 80 && coordsTouch.y > cameraCoordsY + 40 && coordsTouch.y < cameraCoordsY + 62) {
+					gameControl.UnequipHat();
+					return false;
+				}
+				
+				//config
+				if(coordsTouch.x > cameraCoordsX + 28 && coordsTouch.x < cameraCoordsX + 40 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 13) {
+					//onlineresponse = gameControl.OnlineManager("Upload","","");
+					//if(onlineresponse.equals("Atualizado")) {
+					//	msgShowTime = 100;
+					//}
+					return false;
+				}
+			}
+			
+			//Shops
+			if(state.equals("Shop")) {
+				if(shopname.equals("refrishop")) { 
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 1);
+						return false; 
+					}
+				}
+				
+				if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
+					state = "Main";
+					return false; 
+				}
+			}
 			
 			return false;
 		}

@@ -2309,6 +2309,39 @@ public class GameControl {
 		return spr_master;
 	}
 	
+	public void DiscartItem(int itemNum) {
+		String[] lstItem = playerUse.Itens.split("-");
+		String listaItemFinal = "";
+		String[] itemSplit;
+		String item;
+		String itemName;
+		int qtd;
+		int money = 0;
+		
+		//Get Item
+		item = lstItem[itemNum];
+		if(item.equals("[NONE]")) { return; }
+			
+		//Check quantity
+		itemSplit = item.split("#");
+		itemName = itemSplit[0].replace("[", "");
+		qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+		
+		//Give Money
+		money = Integer.parseInt(playerUse.Money);
+		if(money > 1500) { return; }
+		int moneygave = randnumber.nextInt(5);
+		while(moneygave < 2) { moneygave = randnumber.nextInt(5); }
+		money = money + (moneygave * 2);
+		playerUse.Money = String.valueOf(money);
+		
+		//Clean Item placebox
+		lstItem[itemNum] = "[NONE]";
+		listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+		listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+		playerUse.Itens = listaItemFinal;	
+	}
+	
 	
 
 	///////////////////////////////////////////////// [Online HTML] /////////////////////////////////
