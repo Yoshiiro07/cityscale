@@ -799,28 +799,30 @@ public class GameControl {
 	}
 	
 	
-	public Player SetCharMov(Player playerUse, String type) {  //here
+	public Player SetCharMov(Player _playerUse, String type) {  
+		playerUse = _playerUse;
 		float posX = Float.parseFloat(playerUse.PosX);
 		float posY = Float.parseFloat(playerUse.PosY);
 		int countFrame = Integer.parseInt(playerUse.countFrame);
 		
 		//Check MovePosition
 		if(playerUse.Walk.equals("walk")) {
-			if(playerUse.Side.equals("front") && !playerUse.breakwalk.equals("front")) { posY = posY - 0.5f; }
-			if(playerUse.Side.equals("back") && !playerUse.breakwalk.equals("back")) { posY = posY + 0.5f; }
-			if(playerUse.Side.equals("left") && !playerUse.breakwalk.equals("left")) { posX = posX - 0.5f; }
-			if(playerUse.Side.equals("right") && !playerUse.breakwalk.equals("right")) { posX = posX + 0.5f; }
+			if(playerUse.Side.equals("front") && !playerUse.breakwalk.equals("front")) { posY = posY - 0.5f; playerUse.PosY = String.valueOf(posY); }
+			if(playerUse.Side.equals("back") && !playerUse.breakwalk.equals("back")) { posY = posY + 0.5f; playerUse.PosY = String.valueOf(posY); }
+			if(playerUse.Side.equals("left") && !playerUse.breakwalk.equals("left")) { posX = posX - 0.5f; playerUse.PosX = String.valueOf(posX); }
+			if(playerUse.Side.equals("right") && !playerUse.breakwalk.equals("right")) { posX = posX + 0.5f; playerUse.PosX = String.valueOf(posX); }
 		}
 		
 		//Check Frames
-		if(!playerUse.Walk.equals("no")) { countFrame= countFrame + 1; }
+		if(!playerUse.Walk.equals("no")) { countFrame= countFrame + 1;  }
+		if(playerUse.Walk.equals("no")) { countFrame = 1;  }
 		if(playerUse.playerInBattle.equals("yes")) { countFrame = countFrame + 1; }
-		if(playerUse.Walk.equals("no")) { countFrame = 1; }
-		if(countFrame > 1 && countFrame <= 10) { countFrame = 2; }
-		if(countFrame >= 10 && countFrame <= 20) { countFrame = 1; }
-		if(countFrame >= 20 && countFrame <= 30) { countFrame = 3; }
-		if(countFrame >= 30 && countFrame <= 40) { countFrame = 1; }
-		if(countFrame >= 40) { countFrame = 1; }
+		if(countFrame > 1 && countFrame <= 10) { playerUse.Frame = "2"; }
+		if(countFrame >= 10 && countFrame <= 20) { playerUse.Frame = "1";  }
+		if(countFrame >= 20 && countFrame <= 30) { playerUse.Frame = "3";  }
+		if(countFrame >= 30 && countFrame <= 40) { playerUse.Frame = "1";  }
+		if(countFrame >= 40) { countFrame = 1; playerUse.Frame = "1"; }
+		playerUse.countFrame = String.valueOf(countFrame); 
 				
 		return playerUse;
 	}
@@ -2340,6 +2342,29 @@ public class GameControl {
 		listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
 		listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
 		playerUse.Itens = listaItemFinal;	
+	}
+	
+	//SHOP
+	public String CheckBuyItemStreetsA(String shop, int num) {
+		int Money = Integer.parseInt(playerUse.Money);
+		String SysMsg = "";
+		
+		if(shop.equals("refrishop")) {
+			if(num == 1) {  
+				if(Money >= 2) {  
+					AddItemBag("hpcan"); 
+					Money = Money - 2; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+		}
+		
+		return SysMsg;
 	}
 	
 	

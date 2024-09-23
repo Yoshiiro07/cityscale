@@ -138,8 +138,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private Sprite spr_npc;
     
     //UX
-    private float padmoveX = -56;
-    private float padmoveY = -50;
+    private float padmoveX = -80;
+    private float padmoveY = -75;
     private Sprite spr_playerTag;
      
     //Sprites Background
@@ -502,6 +502,28 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//spr_testeDot.draw(game.batch);
 			
 			game.batch.end();
+		}
+		
+		public void CheckColision() {
+			float playerPosX = Float.parseFloat(player.PosX);
+			float playerPosY = Float.parseFloat(player.PosY);
+			
+			if(player.Map.equals("StreetsA")) {
+				if(playerPosY < -192.5f) {
+					player.breakwalk = "front";
+				}
+				if(playerPosX > 184.5f) {
+					player.breakwalk = "right";
+				}
+				if(playerPosX < -77) {
+					player.breakwalk = "left";
+				}
+			}
+			if(player.Map.equals("Sewers")) {
+				if(playerPosX > 40f && playerPosX < 53 && playerPosY > 5 && playerPosY < 21.5f) {
+					MapChange("StreetsAFromSewers");
+				}
+			}
 		}
 		
 		public void ShowCards() {
@@ -1833,36 +1855,57 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void CheckStatus(String status) {
-			if(player.StatusPoint >= 1) {
-				if(status.equals("Str")) {
-					player.Str = player.Str + 1;
-					player.StatusPoint_A = player.StatusPoint - 1;
-					player.Atk = player.Atk + 2;
-				}
-				if(status.equals("Vit")) {
-					player.Vit = player.Vit + 1;
-					player.StatusPoint = player.StatusPoint - 1;
+			int Str = Integer.parseInt(player.Str);
+			int Vit = Integer.parseInt(player.Vit);
+			int Agi = Integer.parseInt(player.Agi);
+			int Wis = Integer.parseInt(player.Wis);
+			int Dex = Integer.parseInt(player.Dex);
+			int HPMax = Integer.parseInt(player.Hp);
+			int MpMax = Integer.parseInt(player.Mp);
+			int StatusPoint = Integer.parseInt(player.StatusPoint);
+			
+			int Atk = Integer.parseInt(player.Atk);
+			int Def = Integer.parseInt(player.Def);
+			
+			int AtkTimerMax = Integer.parseInt(player.AtkTimerMax);
+			
+			if (StatusPoint >= 1) {
+				if (status.equals("Str")) {
+					StatusPoint = StatusPoint - 1;
+					Str = Str + 1;
+					Atk = Atk + 2;
+				} else if (status.equals("Vit")) {
+					Vit = Vit + 1;
+					StatusPoint = StatusPoint - 1;
 					player.Def = player.Def + 2;
-					player.HpMax = player.HpMax + 5;
-				}
-				if(status.equals("Agi")) {
-					player.Agi = player.Agi + 1;
-					player.StatusPoint = player.StatusPoint - 1;
+					HPMax = HPMax + 5;
+				} else if (status.equals("Agi")) {
+					Agi = Agi + 1;
 					player.Def = player.Def + 1;
-					player.AtkTimerMax = player.AtkTimerMax - 1;
-				}
-				if(status.equals("Wis")) {
-					player.Wis = player.Wis + 1;
-					player.StatusPoint = player.StatusPoint - 1;
+					StatusPoint = StatusPoint - 1;
+					AtkTimerMax = AtkTimerMax - 1;
+				} else if (status.equals("Wis")) {
+					Wis = Wis + 1;
+					StatusPoint = StatusPoint - 1;
 					player.Def = player.Def + 1;
-					player.MpMax = player.MpMax + 5;
-				}
-				if(status.equals("Dex")) {
-					player.Dex = player.Dex + 1;
-					player.StatusPoint = player.StatusPoint - 1;
-					player.Atk_A = player.Atk + 1;
+					MpMax = MpMax + 5;
+				} else if (status.equals("Dex")) {
+					Dex = Dex + 1;
+					Atk = Atk + 1;
+					StatusPoint = StatusPoint - 1;
 				}
 				
+				// Update player attributes
+				player.Str = String.valueOf(Str);
+				player.Vit = String.valueOf(Vit);
+				player.Agi = String.valueOf(Agi);
+				player.Wis = String.valueOf(Wis);
+				player.Dex = String.valueOf(Dex);
+				player.Hp = String.valueOf(HPMax);
+				player.Mp = String.valueOf(MpMax);
+				player.StatusPoint = String.valueOf(StatusPoint);
+				player.Atk = String.valueOf(Atk);
+				player.AtkTimerMax = String.valueOf(AtkTimerMax);
 			}
 		}
 		
@@ -1877,7 +1920,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
-				if(player.playerInCast.equals("no")) { movement = true; } else { movement = false; }
+				if(player.playerInCast.equals("none")) { 
+					movement = true; 
+				} 
+				else { 
+					movement = false; 
+				}
 				
 				if(selectAreaRanged) {
 					touchSkillX = coordsTouch.x;
@@ -2382,7 +2430,20 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-			// TODO Auto-generated method stub
+			movement = false;
+			player.breakwalk = "none";
+			player.Walk = "no";
+			padmoveX = -80;
+			padmoveY = -75;
+			
+			if(player.Side.equals("left-front")) { player.Side = "front"; }
+			if(player.Side.equals("left-back")) { player.Side = "front";}
+			if(player.Side.equals("right-back")) { player.Side = "front";}
+			if(player.Side.equals("right-front")) { player.Side = "front";}
+			if(player.Side.equals("back-right")) { player.Side = "front";}
+			if(player.Side.equals("back-left")) { player.Side = "front";}
+			if(player.Side.equals("front-right")) { player.Side = "front";}
+			if(player.Side.equals("front-left")) { player.Side = "front"; }
 			return false;
 		}
 
@@ -2394,7 +2455,45 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
-			// TODO Auto-generated method stub
+			if(playerDead) { return false; }
+			if(player.playerSit.equals("yes")){ return false; }
+			
+			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
+			
+			if(movement){	
+				//Right
+     				if(coordsTouch.x >= cameraCoordsX -70 && coordsTouch.x <= cameraCoordsX -50 && coordsTouch.y > cameraCoordsY - 70 && coordsTouch.y < cameraCoordsY - 48) {
+					player.Side = "right";
+					player.Walk = "walk";	
+					padmoveX = -75;
+					player.playerInBattle = "none";
+					return false;
+				}
+				//Left
+     				if(coordsTouch.x >= cameraCoordsX -90 && coordsTouch.x <= cameraCoordsX -50 && coordsTouch.y > cameraCoordsY - 70 && coordsTouch.y < cameraCoordsY - 48) {
+					player.Side = "left";
+					player.Walk = "walk";	
+					padmoveX = -85;	
+					player.playerInBattle = "none";
+					return false;
+				}
+				//Front
+				if(coordsTouch.x > cameraCoordsX -80 && coordsTouch.x < cameraCoordsX -60 && coordsTouch.y > cameraCoordsY - 94 && coordsTouch.y < cameraCoordsY - 58) {
+					player.Side = "front";
+					player.Walk = "walk";	
+					padmoveY = -85;			
+					player.playerInBattle = "none";
+					return false;
+				}
+				//Back
+				if(coordsTouch.x > cameraCoordsX -80 && coordsTouch.x < cameraCoordsX -60 && coordsTouch.y > cameraCoordsY - 58 && coordsTouch.y < cameraCoordsY - 24) {
+					player.Side = "back";
+					player.Walk = "walk";	
+					padmoveY = -65;
+					player.playerInBattle = "none";
+					return false;
+				}
+			}
 			return false;
 		}
 
