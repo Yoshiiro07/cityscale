@@ -17,35 +17,82 @@ $lcharnumber = $_POST['lcharnumber'];
 $lAll = '';
 $lchat = $_POST['lchat'];
 
-$llevel = $_POST['llevel'];
-$lname = $_POST['lname'];
-$lsex = $_POST['lsex'];
-$lhair = $_POST['lhair'];
-$lcolor = $_POST['lcolor'];
-$lmap = $_POST['lmap'];
-$lhp = $_POST['lhp'];
-$lmp = $_POST['lmp'];
-$lposX = $_POST['lposX'];
-$lposY = $_POST['lposY'];
-$lwalk = $_POST['lwalk'];
-$lweapon = $_POST['lweapon'];
-$lframe = $_POST['lframe'];
-$lsyncPlayerMob = $_POST['lsyncPlayerMob'];
-$lsetUpper = $_POST['lsetUpper'];
-$lsetBottom = $_POST['lsetBottom'];
-$lsetFooter = $_POST['lsetFooter'];
-$lhat = $_POST['lhat'];
-$lside = $_POST['lside'];
-$ljob = $_POST['ljob'];
-$lplayerInBattle = $_POST['lplayerInBattle'];
-$lplayerInAttack = $_POST['lplayerInAttack'];
-$lplayerInCast = $_POST['lplayerInCast'];
-$lplayerSit = $_POST['lplayerSit'];
-$lparty = $_POST['lparty'];
-$lexpshared = $_POST['lexpshared'];
-$lexpsend = $_POST['lexpsend'];
-$lplayerIDEXP = $_POST['lplayerIDEXP'];
-$itensList = $_POST['litensList'];
+$AccountID = $_POST['AccountID'];
+$AccountNumber = $_POST['AccountNumber'];
+$Characternumber = $_POST['Characternumber'];
+$Name = $_POST['Name'];
+$Sex = $_POST['Sex'];
+$Hair = $_POST['Hair'];
+$Color = $_POST['Color'];
+$Hat = $_POST['Hat'];
+$Job = $_POST['Job'];
+$SetUpper = $_POST['SetUpper'];
+$SetBottom = $_POST['SetBottom'];
+$SetFooter = $_POST['SetFooter'];
+$Level = $_POST['Level'];
+$Exp = $_POST['Exp'];
+$Map = $_POST['Map'];
+$Hp = $_POST['Hp'];
+$Mp = $_POST['Mp'];
+$Money = $_POST['Money'];
+$HpMax = $_POST['HpMax'];
+$MpMax = $_POST['MpMax'];
+$regenTime = $_POST['regenTime'];
+$regenTimeMax = $_POST['regenTimeMax'];
+$PosX = $_POST['PosX'];
+$PosY = $_POST['PosY'];
+$Walk = $_POST['Walk'];
+$Frame = $_POST['Frame'];
+$countFrame = $_POST['countFrame'];
+$breakwalk = $_POST['breakwalk'];
+$Target = $_POST['Target'];
+$AtkTimer = $_POST['AtkTimer'];
+$AtkTimerMax = $_POST['AtkTimerMax'];
+$Casting = $_POST['Casting'];
+$Atk = $_POST['Atk'];
+$Def = $_POST['Def'];
+$Evasion = $_POST['Evasion'];
+$Side = $_POST['Side'];
+$Weapon = $_POST['Weapon'];
+$Crystal1 = $_POST['Crystal1'];
+$Crystal2 = $_POST['Crystal2'];
+$Crystal3 = $_POST['Crystal3'];
+$Crystal4 = $_POST['Crystal4'];
+$StatusPoint = $_POST['StatusPoint'];
+$Str = $_POST['Str'];
+$Agi = $_POST['Agi'];
+$Vit = $_POST['Vit'];
+$Dex = $_POST['Dex'];
+$Wis = $_POST['Wis'];
+$Luk = $_POST['Luk'];
+$Res = $_POST['Res'];
+$Stamina = $_POST['Stamina'];
+$StaminaMax = $_POST['StaminaMax'];
+$Itens = $_POST['Itens'];
+$Quests = $_POST['Quests'];
+$hotkey1 = $_POST['hotkey1'];
+$hotkey2 = $_POST['hotkey2'];
+$buffA = $_POST['buffA'];
+$buffB = $_POST['buffB'];
+$buffC = $_POST['buffC'];
+$BuffTimeA = $_POST['BuffTimeA'];
+$BuffTimeB = $_POST['BuffTimeB'];
+$BuffTimeC = $_POST['BuffTimeC'];
+$party = $_POST['party'];
+$playerInBattle = $_POST['playerInBattle'];
+$playerInAttack = $_POST['playerInAttack'];
+$playerInCast = $_POST['playerInCast'];
+$playerSit = $_POST['playerSit'];
+$SyncPlayerMob = $_POST['SyncPlayerMob'];
+$PlayerExpGet = $_POST['PlayerExpGet'];
+$pet = $_POST['pet'];
+$pethungry = $_POST['pethungry'];
+$petcare = $_POST['petcare'];
+$petTraining = $_POST['petTraining'];
+$petBath = $_POST['petBath'];
+$petLevel = $_POST['petLevel'];
+
+$isPlayerOnline = $_POST['lisPlayerOnline'];
 
 #\n  (Quebra Linha)
 
@@ -306,6 +353,102 @@ if ($lrequest == "DeleteChar") {
     }
 }
 
+#SaveChar
+if ($lrequest == "SaveChar") {
+	$sql = "UPDATE Accounts SET 
+	AccountID = '$AccountID',
+	AccountNumber = '$AccountNumber',
+	Characternumber = '$Characternumber',
+	Name = '$Name',
+	Sex = '$Sex',
+	Hair = '$Hair',
+	Color = '$Color',
+	Hat = '$Hat',
+	Job = '$Job',
+	SetUpper = '$SetUpper',
+	SetBottom = '$SetBottom',
+	SetFooter = '$SetFooter',
+	Level = '$Level',
+	Exp = '$Exp',
+	Map = '$Map',
+	Hp = '$Hp',
+	Mp = '$Mp',
+	Money = '$Money',
+	HpMax = '$HpMax',
+	MpMax = '$MpMax',
+	regenTime = '$regenTime',
+	regenTimeMax = '$regenTimeMax',
+	PosX = '$PosX',
+	PosY = '$PosY',
+	Walk = '$Walk',
+	Frame = '$Frame',
+	countFrame = '$countFrame',
+	breakwalk = '$breakwalk',
+	Target = '$Target',
+	AtkTimer = '$AtkTimer',
+	AtkTimerMax = '$AtkTimerMax',
+	Casting = '$Casting',
+	Atk = '$Atk',
+	Def = '$Def',
+	Evasion = '$Evasion',
+	Side = '$Side',
+	Weapon = '$Weapon',
+	Crystal1 = '$Crystal1',
+	Crystal2 = '$Crystal2',
+	Crystal3 = '$Crystal3',
+	Crystal4 = '$Crystal4',
+	StatusPoint = '$StatusPoint',
+	Str = '$Str',
+	Agi = '$Agi',
+	Vit = '$Vit',
+	Dex = '$Dex',
+	Wis = '$Wis',
+	Luk = '$Luk',
+	Res = '$Res',
+	Stamina = '$Stamina',
+	StaminaMax = '$StaminaMax',
+	Itens = '$Itens',
+	Quests = '$Quests',
+	hotkey1 = '$hotkey1',
+	hotkey2 = '$hotkey2',
+	buffA = '$buffA',
+	buffB = '$buffB',
+	buffC = '$buffC',
+	BuffTimeA = '$BuffTimeA',
+	BuffTimeB = '$BuffTimeB',
+	BuffTimeC = '$BuffTimeC',
+	party = '$party',
+	playerInBattle = '$playerInBattle',
+	playerInAttack = '$playerInAttack',
+	playerInCast = '$playerInCast',
+	playerSit = '$playerSit',
+	SyncPlayerMob = '$SyncPlayerMob',
+	PlayerExpGet = '$PlayerExpGet',
+	pet = '$pet',
+	pethungry = '$pethungry',
+	petcare = '$petcare',
+	petTraining = '$petTraining',
+	petBath = '$petBath',
+	petLevel = '$petLevel'
+WHERE AccountNumber = '$ldataaccount' AND Characternumber = '$lcharnumber'";
+
+	echo nl2br("query: " . $sql);
+
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {   
+        // Echo the update SQL query for debugging
+        echo nl2br("Update SQL: " . $update_sql . "\n");
+
+        if ($conn->query($update_sql) === TRUE) {
+            echo nl2br("Character UPDATE\n");
+        } else {
+            echo "fail: " . $update_sql . "<br>" . mysqli_error($conn);
+        }
+    } else {
+        echo nl2br("fail");
+    }
+}
+
 #Efetua Login
 if ($lrequest == "CheckVersion") {
 	$sql = "SELECT * FROM VersionControl";
@@ -417,19 +560,9 @@ if ($lrequest == "SyncChats") {
 }
 
 #Efetua Sync
-if ($lrequest == "SyncPlayer") {
-	$sql = "REPLACE INTO Sync (AccountID, name, level, map, hp, mp, posX, posY, walk, weapon, frame, syncPlayerMob, setUpper, setBottom, setFooter, hair, sex, color, hat, side, job, playerInBattle, playerInAttack, playerInCast, playerSit, party, expShared) VALUES ('$ldataaccount','$lname', '$llevel', '$lmap', '$lhp', '$lmp', '$lposX', '$lposY', '$lwalk', '$lweapon', '$lframe', '$lsyncPlayerMob', '$lsetUpper', '$lsetBottom', '$lsetFooter', '$lhair', '$lsex', '$lcolor', '$lhat', '$lside', '$ljob', '$lplayerInBattle', '$lplayerInAttack', '$lplayerInCast', '$lplayerSit', '$lparty', '$lexpshared');";
-	if ($conn->query($sql) === TRUE) {
-		echo nl2br("\n - Atualizado Player- \n");
-	} else {
-		echo nl2br($sql);
-		echo nl2br("\n - Falhou Player - \n") . $conn->error;
-	}
-
+if ($lrequest == "SyncPlayers") {
 	$sql = "SELECT * from Sync";
-
 	$result = $conn->query($sql);
-
 	$lAll = '';
 	if ($result->num_rows > 0) {
 		// output data of each row
@@ -460,7 +593,6 @@ if ($lrequest == "SyncPlayer") {
 				":PlayerInCast:" . $row["playerInCast"] .
 				":PlayerSit:" . $row["playerSit"] .
 				":Party:" . $row["party"] .
-				":ExpShared:" . $row["expShared"] .
 				": - \n");
 			echo ($lAll);
 		}

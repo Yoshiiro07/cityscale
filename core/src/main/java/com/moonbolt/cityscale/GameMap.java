@@ -1,5 +1,6 @@
 package com.moonbolt.cityscale;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -41,6 +42,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private String menuoption = "";
     private int playernum = 0;
     private int flipzone = 0;
+    private String playernumString = "";
     
     //Variables usables
     private float floatUseA = 0;
@@ -131,9 +133,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private Sprite spr_playerHairOnline;
     private Sprite spr_playerHatOnline;
     private Sprite spr_weaponOnline;
-    private boolean onlineAuth = false;
-    private boolean SyncStart = false;
-	
+    
     //Sprite NPC
     private Sprite spr_npc;
     
@@ -166,6 +166,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			this.randnumber = new Random();
 			this.playernum = _playernumber;
 			this.gameControl = _gameControl;
+			this.playernumString = String.valueOf(playernum);
 			
 			ArrayList<Player> lstPlayer = new ArrayList<Player>();
 			lstPlayer = gameControl.GetPlayers();
@@ -246,8 +247,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Save
 			savedataTime--;
 			if(savedataTime < 0) {
-				savedataTime = 500;
-				//gameControl.SaveData(player);
+				savedataTime = 100;
+				try {
+					gameControl.SaveChar("SaveChar",player.AccountNumber,playernumString, new HttpCallback() {
+					    @Override
+					    public void onSuccess(String response) {
+					    	if(response.contains("success")) {
+					    		System.out.println("Salvo com sucesso");
+					    		state = "Main";
+					    	}
+					    	else {
+					    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					    		aviso = true;
+					    	}
+					    }
+
+					    @Override
+					    public void onFailure(Throwable t) {
+					       System.out.println("Error: " + t.getMessage());
+					       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+						   aviso = true;
+					    }
+					});
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			//Check Regen
@@ -299,7 +324,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			//npcs
-			//ShowOnlinePlayers();
+			ShowOnlinePlayers();
 			ShowNPCs();
 			
 			//Char
@@ -524,6 +549,48 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//spr_testeDot.draw(game.batch);
 			
 			game.batch.end();
+		}
+		
+		public void ShowOnlinePlayers() {
+			
+			try {
+				gameControl.SyncPlayers("SyncPlayers",player.AccountNumber,playernumString, new HttpCallback() {
+				    @Override
+				    public void onSuccess(String response) {
+				    	if(response.contains("success")) {
+				    		if(lstOnlinePlayers.size() > 0) {
+								for(int i = 0; i < lstOnlinePlayers.size(); i++) {
+									spr_playerhair = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
+									spr_playerhair.draw(game.batch);
+									
+									spr_playerfooter = gameControl.GetFooterChar(lstOnlinePlayers.get(i), "no",0,0);
+									spr_playerfooter.draw(game.batch);
+									
+									spr_playerbottom = gameControl.GetBottomChar(lstOnlinePlayers.get(i), "no",0,0);
+									spr_playerbottom.draw(game.batch);
+									
+									spr_playertop = gameControl.GetTopChar(lstOnlinePlayers.get(i), "no", 0,0);
+									spr_playertop.draw(game.batch);
+								}
+							}
+				    	}
+				    	else {
+				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		aviso = true;
+				    	}
+				    }
+
+				    @Override
+				    public void onFailure(Throwable t) {
+				       System.out.println("Error: " + t.getMessage());
+				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   aviso = true;
+				    }
+				});
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		public void ShowDamage() {

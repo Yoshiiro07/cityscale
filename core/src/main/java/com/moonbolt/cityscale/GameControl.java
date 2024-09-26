@@ -63,6 +63,7 @@ public class GameControl {
 	private int ExpSharedOnline = 0;
 	private ArrayList<String> lstChats;
 	private String onlineResult = "";
+	private ArrayList<Player> lstPlayerOnline;
 
 	// Texture Atlas
 	private TextureAtlas atlas_hairs1;
@@ -131,6 +132,7 @@ public class GameControl {
 
 		// list players
 		lstPlayers = new ArrayList<Player>();
+		lstPlayerOnline = new ArrayList<Player>();
 
 		// Chats
 		lstChats = new ArrayList<String>();
@@ -218,21 +220,6 @@ public class GameControl {
 	// [Skills]//
 	// [Online]//
 	// [Exp/Drop]//
-	
-	//[Retro]//
-	/*public void LoadDataOld(){
-		PlayerOld playerold = new PlayerOld();
-		
-		//file = Gdx.files.local("SaveData/save.json");
-		//file.writeString(Base64Coder.encodeString(json.prettyPrint(playerold)), false);
-		
-		FileHandle file = Gdx.files.local("SaveData/save.json");		
-		PlayerOld playerOld = json.fromJson(PlayerOld.class, Base64Coder.decodeString(file.readString()));
-		
-		file = Gdx.files.local("SaveData/saveDecript.json");
-		file.writeString(json.prettyPrint(playerOld), false);
-		
-	}*/
 	
 	///////////////////////////////////////////////// [Account]///////////////////////////////////////////////
 	public void LoadData(String data) {
@@ -2163,63 +2150,63 @@ public class GameControl {
 		ExpSharedOnline = exp;
 		
 		//Sewers   
-		if(level == 1 && expPlayer >= 100) {  level = 2; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true; }
-		if(level == 2 && expPlayer >= 150) {  level = 3; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 3 && expPlayer >= 250) {  level = 4; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 4 && expPlayer >= 360) {  level = 5; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 5 && expPlayer >= 430) {  level = 6; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 6 && expPlayer >= 500) {  level = 7; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 7 && expPlayer >= 730) {  level = 8; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 8 && expPlayer >= 1000) {  level = 9; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 9 && expPlayer >= 1450) {  level = 10; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 1 && expPlayer >= 20) {  level = 2; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 2 && expPlayer >= 30) {  level = 3; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 3 && expPlayer >= 40) {  level = 4; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 4 && expPlayer >= 50) {  level = 5; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 5 && expPlayer >= 60) {  level = 6; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 6 && expPlayer >= 70) {  level = 7; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 7 && expPlayer >= 80) {  level = 8; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 8 && expPlayer >= 90) {  level = 9; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 9 && expPlayer >= 100) {  level = 10; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Watercave
-		if(level == 10 && expPlayer >= 1840) {  level = 11; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 11 && expPlayer >= 3330) {  level = 12; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 12 && expPlayer >= 5500) {  level = 13; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 13 && expPlayer >= 7600) {  level = 14; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 14 && expPlayer >= 9929) {  level = 15; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 15 && expPlayer >= 12820) {  level = 16; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 16 && expPlayer >= 15293) {  level = 17; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 17 && expPlayer >= 17300) {  level = 18; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 18 && expPlayer >= 22402) {  level = 19; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 19 && expPlayer >= 26902) {  level = 20; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 10 && expPlayer >= 5000) {  level = 11; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 11 && expPlayer >= 5200) {  level = 12; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 12 && expPlayer >= 5300) {  level = 13; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 13 && expPlayer >= 5400) {  level = 14; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 14 && expPlayer >= 5500) {  level = 15; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 15 && expPlayer >= 5600) {  level = 16; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 16 && expPlayer >= 5700) {  level = 17; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 17 && expPlayer >= 5800) {  level = 18; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 18 && expPlayer >= 5900) {  level = 19; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 19 && expPlayer >= 6000) {  level = 20; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Mines
-		if(level == 20 && expPlayer >= 34592) {  level = 21; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 21 && expPlayer >= 46923) {  level = 22; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 22 && expPlayer >= 75829) {  level = 23; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 23 && expPlayer >= 90234) {  level = 24; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 24 && expPlayer >= 153042) {  level = 25; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 25 && expPlayer >= 179232) {  level = 26; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 26 && expPlayer >= 221011) {  level = 27; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 27 && expPlayer >= 259323) {  level = 28; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 28 && expPlayer >= 279293) {  level = 29; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 29 && expPlayer >= 383421) {  level = 30; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 20 && expPlayer >= 30000) {  level = 21; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 21 && expPlayer >= 31000) {  level = 22; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 22 && expPlayer >= 32000) {  level = 23; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 23 && expPlayer >= 33000) {  level = 24; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 24 && expPlayer >= 34000) {  level = 25; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 25 && expPlayer >= 35000) {  level = 26; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 26 && expPlayer >= 36000) {  level = 27; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 27 && expPlayer >= 37000) {  level = 28; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 28 && expPlayer >= 38000) {  level = 29; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 29 && expPlayer >= 40000) {  level = 30; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Snowpalace
-		if(level == 30 && expPlayer >= 593421)  {  level = 31; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 31 && expPlayer >= 814402)  {  level = 32; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 32 && expPlayer >= 1534611) {  level = 33; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 33 && expPlayer >= 1839770) {  level = 34; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 34 && expPlayer >= 2433026) {  level = 35; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 35 && expPlayer >= 2792074) {  level = 36; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 36 && expPlayer >= 2931441) {  level = 37; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 37 && expPlayer >= 3304900) {  level = 38; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 38 && expPlayer >= 3588905) {  level = 39; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 39 && expPlayer >= 4987320) {  level = 40; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 30 && expPlayer >= 300000)  {  level = 31; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 31 && expPlayer >= 310000)  {  level = 32; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 32 && expPlayer >= 320000) {  level = 33; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 33 && expPlayer >= 330000) {  level = 34; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 34 && expPlayer >= 340000) {  level = 35; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 35 && expPlayer >= 350000) {  level = 36; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 36 && expPlayer >= 360000) {  level = 37; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 37 && expPlayer >= 370000) {  level = 38; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 38 && expPlayer >= 380000) {  level = 39; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 39 && expPlayer >= 390000) {  level = 40; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Tower												   
-		if(level == 40 && expPlayer >= 9188696000f) {  level = 41; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 41 && expPlayer >= 9288526000f) {  level = 42; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 42 && expPlayer >= 9488446000f) {  level = 43; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 43 && expPlayer >= 9588316000f) {  level = 44; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 44 && expPlayer >= 9688236000f) {  level = 45; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 45 && expPlayer >= 9798126000f) {  level = 46; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 46 && expPlayer >= 9828646000f) {  level = 47; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 47 && expPlayer >= 9878756009f) {  level = 48; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 48 && expPlayer >= 9888866009f) {  level = 49; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 49 && expPlayer >= 9999999999f) {  level = 50; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 40 && expPlayer >= 8000000) {  level = 41; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 41 && expPlayer >= 8100000) {  level = 42; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 42 && expPlayer >= 8200000) {  level = 43; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 43 && expPlayer >= 8300000) {  level = 44; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 44 && expPlayer >= 8400000) {  level = 45; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 45 && expPlayer >= 8500000) {  level = 46; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 46 && expPlayer >= 8800000) {  level = 47; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 47 && expPlayer >= 8900000) {  level = 48; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 48 && expPlayer >= 9500000) {  level = 49; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 49 && expPlayer >= 50000000) {  level = 50; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		playerUse.Level = String.valueOf(level);
 		playerUse.Exp = String.valueOf(expPlayer);
@@ -2425,6 +2412,51 @@ public class GameControl {
 		lstPlayers = _lstPlayers;
 	}
 	
+	public void UpdateOnlinePlayers(String line) {
+		
+		String[] lineSplit = line.split(":");
+		Player playerOnline = new Player();
+		playerOnline.AccountID = lineSplit[4];
+		playerOnline.Name = lineSplit[2];
+		playerOnline.Level = lineSplit[6];
+		playerOnline.Map = lineSplit[8];
+		playerOnline.Hp = lineSplit[10];
+		playerOnline.Mp = lineSplit[12];
+		playerOnline.PosX = lineSplit[14];
+		playerOnline.PosY = lineSplit[16];
+		playerOnline.Walk = lineSplit[18];
+		playerOnline.Weapon = lineSplit[20];
+		playerOnline.Frame = lineSplit[22];
+		playerOnline.SyncPlayerMob = lineSplit[24];
+		playerOnline.SetUpper = lineSplit[26];
+		playerOnline.SetBottom = lineSplit[28];
+		playerOnline.SetFooter = lineSplit[30];
+		playerOnline.Hair = lineSplit[32];
+		playerOnline.Sex = lineSplit[34];
+		playerOnline.Color = lineSplit[36];
+		playerOnline.Hat = lineSplit[38];
+		playerOnline.Side = lineSplit[40];
+		playerOnline.Job = lineSplit[42];
+		playerOnline.playerInBattle = lineSplit[44];
+		playerOnline.playerInAttack = lineSplit[46];
+		playerOnline.playerInCast = lineSplit[48];
+		playerOnline.playerSit = lineSplit[50];
+		playerOnline.party = lineSplit[52];
+		
+		if(!playerUse.AccountID.equals(playerOnline.AccountID)) { 
+			lstPlayerOnline.add(playerOnline); 
+		}
+
+		Map<String, Player> playersMap = new HashMap<String, Player>();
+
+		for (Player player : lstPlayerOnline) {
+		    playersMap.put(player.getAccountID(), player);
+		}
+
+		lstPlayerOnline.clear();
+		lstPlayerOnline.addAll(playersMap.values());
+	}
+	
 	public void CreateAccountOnline(String tipoRequisicao, HttpCallback callback) throws UnsupportedEncodingException {
 
 		int accNumber = randnumber.nextInt(99999999);
@@ -2489,6 +2521,78 @@ public class GameControl {
 			}
 		});
 	}
+	
+	public void SyncPlayers(String tipoRequisicao, String account, String charnumber, HttpCallback callback)
+			throws UnsupportedEncodingException {
+
+		// Prepare the data to post
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("lservername", lservername);
+		parameters.put("lusername", lusername);
+		parameters.put("lpassword", lpassword);
+		parameters.put("ldbname", ldbname);
+		parameters.put("lrequest", tipoRequisicao);
+		parameters.put("ldataaccount", account);
+		parameters.put("lcharnumber", charnumber);
+
+		String content = "";
+		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			if (content.length() > 0) {
+				content += "&";
+			}
+			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
+					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
+		}
+
+		// Create the HTTP request
+		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
+				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
+				.url("http://moonboltprojects.online/connect.php").content(content).build();
+
+		// Send the HTTP request
+		Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+			@Override
+			public void handleHttpResponse(HttpResponse httpResponse) {
+				// Handle the response from the PHP backend
+				String responseText = httpResponse.getResultAsString();
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						// Update the game state or UI based on the response
+						System.out.println("Response: " + responseText);
+						callback.onSuccess("success");
+						UpdateOnlinePlayers(responseText);
+					}
+				});
+			}
+
+			@Override
+			public void failed(Throwable t) {
+				// Handle the failure
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request failed: " + t.getMessage());
+						callback.onFailure(t);
+					}
+				});
+			}
+
+			@Override
+			public void cancelled() {
+				// Handle the cancellation
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request cancelled");
+						callback.onFailure(new Exception("Request cancelled"));
+					}
+				});
+			}
+		});
+	}
+	
 
 	public void CheckAccount(String tipoRequisicao, String account, HttpCallback callback)
 			throws UnsupportedEncodingException {
@@ -2536,6 +2640,158 @@ public class GameControl {
 						onlineResult = responseText;
 						playerAccount = account;
 						callback.onSuccess(responseText);
+					}
+				});
+			}
+
+			@Override
+			public void failed(Throwable t) {
+				// Handle the failure
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request failed: " + t.getMessage());
+						callback.onFailure(t);
+					}
+				});
+			}
+
+			@Override
+			public void cancelled() {
+				// Handle the cancellation
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request cancelled");
+						callback.onFailure(new Exception("Request cancelled"));
+					}
+				});
+			}
+		});
+	}
+	
+	public void SaveChar(String tipoRequisicao, String account, String charnumber, HttpCallback callback)
+			throws UnsupportedEncodingException {
+
+		float posXfloat = Float.parseFloat(playerUse.PosX);
+		float posYfloat = Float.parseFloat(playerUse.PosY);
+		
+		int posX = Math.round(posXfloat);
+		int posY = Math.round(posYfloat);
+
+		// Prepare the data to post
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("lservername", lservername);
+		parameters.put("lusername", lusername);
+		parameters.put("lpassword", lpassword);
+		parameters.put("ldbname", ldbname);
+		parameters.put("lrequest", tipoRequisicao);
+		parameters.put("ldataaccount", account);
+		parameters.put("lcharnumber", charnumber);
+
+		parameters.put("AccountID", playerUse.AccountID);
+		parameters.put("AccountNumber", playerUse.AccountNumber);
+		parameters.put("Characternumber", playerUse.Characternumber);
+		parameters.put("Name", playerUse.Name);
+		parameters.put("Sex", playerUse.Sex);
+		parameters.put("Hair", playerUse.Hair);
+		parameters.put("Color", playerUse.Color);
+		parameters.put("Hat", playerUse.Hat);
+		parameters.put("Job", playerUse.Job);
+		parameters.put("SetUpper", playerUse.SetUpper);
+		parameters.put("SetBottom", playerUse.SetBottom);
+		parameters.put("SetFooter", playerUse.SetFooter);
+		parameters.put("Level", playerUse.Level);
+		parameters.put("Exp", playerUse.Exp);
+		parameters.put("Map", playerUse.Map);
+		parameters.put("Hp", playerUse.Hp);
+		parameters.put("Mp", playerUse.Mp);
+		parameters.put("Money", playerUse.Money);
+		parameters.put("HpMax", playerUse.HpMax);
+		parameters.put("MpMax", playerUse.MpMax);
+		parameters.put("regenTime", playerUse.regenTime);
+		parameters.put("regenTimeMax", playerUse.regenTimeMax);
+		parameters.put("PosX", String.valueOf(posX));
+		parameters.put("PosY", String.valueOf(posY));
+		parameters.put("Walk", playerUse.Walk);
+		parameters.put("Frame", playerUse.Frame);
+		parameters.put("countFrame", playerUse.countFrame);
+		parameters.put("breakwalk", playerUse.breakwalk);
+		parameters.put("Target", playerUse.Target);
+		parameters.put("AtkTimer", playerUse.AtkTimer);
+		parameters.put("AtkTimerMax", playerUse.AtkTimerMax);
+		parameters.put("Casting", playerUse.Casting);
+		parameters.put("Atk", playerUse.Atk);
+		parameters.put("Def", playerUse.Def);
+		parameters.put("Evasion", playerUse.Evasion);
+		parameters.put("Side", playerUse.Side);
+		parameters.put("Weapon", playerUse.Weapon);
+		parameters.put("Crystal1", playerUse.Crystal1);
+		parameters.put("Crystal2", playerUse.Crystal2);
+		parameters.put("Crystal3", playerUse.Crystal3);
+		parameters.put("Crystal4", playerUse.Crystal4);
+		parameters.put("StatusPoint", playerUse.StatusPoint);
+		parameters.put("Str", playerUse.Str);
+		parameters.put("Agi", playerUse.Agi);
+		parameters.put("Vit", playerUse.Vit);
+		parameters.put("Dex", playerUse.Dex);
+		parameters.put("Wis", playerUse.Wis);
+		parameters.put("Luk", playerUse.Luk);
+		parameters.put("Res", playerUse.Res);
+		parameters.put("Stamina", playerUse.Stamina);
+		parameters.put("StaminaMax", playerUse.StaminaMax);
+		parameters.put("Itens", playerUse.Itens);
+		parameters.put("Quests", playerUse.Quests);
+		parameters.put("hotkey1", playerUse.hotkey1);
+		parameters.put("hotkey2", playerUse.hotkey2);
+		parameters.put("buffA", playerUse.buffA);
+		parameters.put("buffB", playerUse.buffB);
+		parameters.put("buffC", playerUse.buffC);
+		parameters.put("BuffTimeA", playerUse.BuffTimeA);
+		parameters.put("BuffTimeB", playerUse.BuffTimeB);
+		parameters.put("BuffTimeC", playerUse.BuffTimeC);
+		parameters.put("party", playerUse.party);
+		parameters.put("playerInBattle", playerUse.playerInBattle);
+		parameters.put("playerInAttack", playerUse.playerInAttack);
+		parameters.put("playerInCast", playerUse.playerInCast);
+		parameters.put("playerSit", playerUse.playerSit);
+		parameters.put("SyncPlayerMob", playerUse.SyncPlayerMob);
+		parameters.put("PlayerExpGet", playerUse.PlayerExpGet);
+		parameters.put("pet", playerUse.pet);
+		parameters.put("pethungry", playerUse.pethungry);
+		parameters.put("petcare", playerUse.petcare);
+		parameters.put("petTraining", playerUse.petTraining);
+		parameters.put("petBath", playerUse.petBath);
+		parameters.put("petLevel", playerUse.petLevel);
+		parameters.put("isPlayerOnline", "online");
+
+		String content = "";
+		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			if (content.length() > 0) {
+				content += "&";
+			}
+			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
+					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
+		}
+
+		// Create the HTTP request
+		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
+				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
+				.url("http://moonboltprojects.online/connect.php").content(content).build();
+
+		// Send the HTTP request
+		Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+			@Override
+			public void handleHttpResponse(HttpResponse httpResponse) {
+				// Handle the response from the PHP backend
+				String responseText = httpResponse.getResultAsString();
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						// Update the game state or UI based on the response
+						System.out.println("Response: " + responseText);
+						callback.onSuccess("success");
 					}
 				});
 			}
