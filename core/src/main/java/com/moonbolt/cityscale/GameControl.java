@@ -44,6 +44,10 @@ public class GameControl {
 	private int charNumber = 0;
 	private String playerAccount = "";
 	private int selectedChar = 0;
+	
+	// Monster
+	private ArrayList<Monster> lstMonsters;
+	private Monster placeholderMonster;
 
 	// Sprite
 	private Sprite spr_master;
@@ -137,8 +141,8 @@ public class GameControl {
 		lstChats.add("");
 
 		// Monster
-		// placeholderMonster = new Monster();
-		// lstMonsters = new ArrayList<Monster>();
+		placeholderMonster = new Monster();
+		lstMonsters = new ArrayList<Monster>();
 
 		// Textures
 		atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair1.txt"));
@@ -798,6 +802,64 @@ public class GameControl {
 		return selectedChar;
 	}
 	
+	public void UpdatePlayer(Player viewplayer){
+		this.playerUse = viewplayer;
+	}
+	
+	public Sprite GetNPC(String npcname, int frame) {
+		
+		if(npcname.equals("DungeonMaster")) {  
+			spr_master = atlas_npcs.createSprite("NPCP");
+			spr_master.setSize(12, 40);
+			spr_master.setPosition(106, -130.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("ExpGiver")) {  
+			spr_master = atlas_npcs.createSprite("NPCB2");
+			spr_master.setSize(9, 33);
+			spr_master.setPosition(-5, -123.5f);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	//[Monsters]//
+	public ArrayList<Monster> LoadMonsters(String Map) {
+		if(Map.equals("Sewers")){
+			lstMonsters = placeholderMonster.LoadMonsterData(Map);
+		}
+
+		return lstMonsters;
+	}
+
+	public Sprite GetMonster(String mob, int mobframe, String side) {
+		if(mob.equals("slime")){
+			spr_master = atlas_mobSewers.createSprite("slime" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("oikplant")){
+			spr_master = atlas_mobSewers.createSprite("oikplant" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("rat")){
+			spr_master = atlas_mobSewers.createSprite("rat" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("sapod")){
+			spr_master = atlas_mobSewers.createSprite("sapod" + mobframe);
+			return spr_master;
+		}
+		
+
+		return spr_master;
+	}
+	
+	//[Char movement]//
+	public void SetAttackFrame() {
+		FrameAtkPlayer = 30;
+	}
 	
 	public Player SetCharMov(Player _playerUse, String type) {  
 		playerUse = _playerUse;
@@ -2288,29 +2350,6 @@ public class GameControl {
 		}
 	}
 	
-	
-	public Sprite GetMonster(String mob, int mobframe, String side) {
-		if(mob.equals("slime")){
-			spr_master = atlas_mobSewers.createSprite("slime" + mobframe);
-			return spr_master;
-		}
-		if(mob.equals("oikplant")){
-			spr_master = atlas_mobSewers.createSprite("oikplant" + mobframe);
-			return spr_master;
-		}
-		if(mob.equals("rat")){
-			spr_master = atlas_mobSewers.createSprite("rat" + mobframe);
-			return spr_master;
-		}
-		if(mob.equals("sapod")){
-			spr_master = atlas_mobSewers.createSprite("sapod" + mobframe);
-			return spr_master;
-		}
-		
-
-		return spr_master;
-	}
-	
 	public void DiscartItem(int itemNum) {
 		String[] lstItem = playerUse.Itens.split("-");
 		String listaItemFinal = "";
@@ -2480,6 +2519,7 @@ public class GameControl {
 		// Create the HTTP request
 		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
 		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
+				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
 				.url("http://moonboltprojects.online/connect.php").content(content).build();
 
 		// Send the HTTP request
@@ -2551,6 +2591,7 @@ public class GameControl {
 		// Create the HTTP request
 		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
 		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
+				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
 				.url("http://moonboltprojects.online/connect.php").content(content).build();
 
 		// Send the HTTP request
@@ -2620,6 +2661,7 @@ public class GameControl {
 		// Create the HTTP request
 		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
 		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
+				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
 				.url("http://moonboltprojects.online/connect.php").content(content).build();
 
 		// Send the HTTP request
@@ -2717,6 +2759,7 @@ public class GameControl {
 		// Create the HTTP request
 		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
 		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
+				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
 				.url("http://moonboltprojects.online/connect.php").content(content).build();
 
 		// Send the HTTP request

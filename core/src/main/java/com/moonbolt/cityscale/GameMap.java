@@ -147,6 +147,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private Texture tex_Background;
     private Texture tex_BackgroundOver;
     
+    //Metro
+    private Sprite spr_metro;
+    private Texture tex_metro;
+    float metroPosX = -200;
+    
     //Teste Dot
     private Sprite spr_testeDot;
     private Texture tex_testeDot;
@@ -189,6 +194,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png"));  }	
 			if(player.Map.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png"));  }
 			
+			//Mobs
+			if(player.Map.equals("Sewers")) { listMonsters = gameControl.LoadMonsters("Sewers"); }
+			
 			spr_Background = new Sprite(tex_Background);
 			
 			//Network
@@ -199,6 +207,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.07f,0.11f);
 			font_master.setUseIntegerPositions(false);
+			
+			//Metro
+			tex_metro = new Texture(Gdx.files.internal("data/assets/etc/metro.png"));
+			spr_metro = new Sprite(tex_metro);
+		    
 			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
@@ -260,6 +273,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_Background.setSize(270, 270);
 			spr_Background.draw(game.batch);
 			
+			if(player.Map.equals("MetroStation")){
+				if(metroPosX < 150) { metroPosX++; }
+				if(metroPosX >= 150) { metroPosX = -200; }
+				spr_metro.setPosition(metroPosX, 16);
+				spr_metro.setSize(140, 55);
+				spr_metro.draw(game.batch);
+			}
+					
+			
 			//Background	
 			if(player.Map.equals("Sewers")) {
 				flipzone++;
@@ -278,7 +300,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//npcs
 			//ShowOnlinePlayers();
-			//ShowNPCs();
+			ShowNPCs();
 			
 			//Char
 			player = gameControl.SetCharMov(player, player.breakwalk);
@@ -359,14 +381,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Checks e Cards
 			ShowCards();
-			//CheckColision();
-			//CheckAutoAttack();
-			//CheckMobAutoAttack();
-			//CheckMobDeadRespawn();
-			//ShowDamage();
-			//ShowSkill();
+			CheckColision();
+			CheckAutoAttack();
+			CheckMobAutoAttack();
+			CheckMobDeadRespawn();
+			ShowDamage();
+			ShowSkill();
 			
-			if(playerDead) { } //ShowPlayerDead(); }
+			if(playerDead) { ShowPlayerDead(); }
 			
 			//Item Drop
 			if(showDropMsg > 0) {
@@ -504,23 +526,270 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			game.batch.end();
 		}
 		
-		public void CheckColision() {
-			float playerPosX = Float.parseFloat(player.PosX);
-			float playerPosY = Float.parseFloat(player.PosY);
+		public void ShowDamage() {
 			
+			if(listDamage.size() == 0) {
+				return;
+			}
+			
+			for(int i = 0; i < listDamage.size(); i++) {
+				listDamage.get(i).DamagePosY = listDamage.get(i).DamagePosY + 0.4f;
+				listDamage.get(i).DamageTime = listDamage.get(i).DamageTime - 1;
+								
+				font_master.getData().setScale(0.30f,0.35f);
+				font_master.setUseIntegerPositions(false);
+				if(listDamage.get(i).DamageType.equals("mob")) { font_master.setColor(Color.YELLOW); }
+				if(listDamage.get(i).DamageType.equals("player")) { font_master.setColor(Color.RED); }
+				if(listDamage.get(i).DamageType.equals("heal")) { font_master.setColor(Color.GREEN); }
+				
+				font_master.draw(game.batch, String.valueOf(listDamage.get(i).DamageValue), listDamage.get(i).DamagePosX, listDamage.get(i).DamagePosY);
+				
+				if(listDamage.get(i).DamageTime < 0) {
+					listDamage.remove(listDamage.get(i));
+				}
+
+				font_master.setColor(Color.WHITE);
+			}
+		}
+		
+		public void CheckMobDeadRespawn() {
+			
+			if(player.Map.equals("Sewers")) {
+				for(int num = 0; num < listMonsters.size(); num++) {
+					
+					if(listMonsters.get(num).MobHp <= 0) {
+						listMonsters.get(num).MobHp = 0; 
+						listMonsters.get(num).MobDead = "yes";   
+					}
+					
+					if(listMonsters.get(num).MobDead.equals("yes")) {
+						listMonsters.get(num).MobPosX = 200;
+						listMonsters.get(num).MobPosY = 200;
+						listMonsters.get(num).MobTimeDead--;
+						
+						if(listMonsters.get(num).MobTimeDead <= 0) {
+							listMonsters.get(num).MobTimeDead = 250;
+							listMonsters.get(num).MobDead = "no";
+							listMonsters.get(num).MobHp = listMonsters.get(num).MobHpMax;
+							listMonsters.get(num).MobMp = listMonsters.get(num).MobMpMax;
+							listMonsters.get(num).MobTarget = "none";
+							listMonsters.get(num).MobPosX = 0;
+							listMonsters.get(num).MobPosY = 0;
+						}
+					}
+				}
+		    }		
+		}
+		
+		public void ShowNPCs() {
+			//NPCs
 			if(player.Map.equals("StreetsA")) {
-				if(playerPosY < -192.5f) {
-					player.breakwalk = "front";
-				}
-				if(playerPosX > 184.5f) {
-					player.breakwalk = "right";
-				}
-				if(playerPosX < -77) {
-					player.breakwalk = "left";
+				spr_npc = gameControl.GetNPC("DungeonMaster", 0);
+				spr_npc.draw(game.batch);
+				
+				spr_npc = gameControl.GetNPC("ExpGiver", 0);
+				spr_npc.draw(game.batch);
+
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setSize(20,10);
+				spr_master.setPosition(102, -90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setSize(20,10);
+				spr_master.setPosition(-8, -88.5f);
+				spr_master.draw(game.batch);
+
+				font_master.draw(game.batch, "Arenas", 105, -81);
+				font_master.draw(game.batch, "Doadora", -7f, -80f);
+			}
+		}
+		
+		public void ShowPlayerDead() {
+			countDead--;
+			
+			player.Target = "none";
+			player.playerInBattle = "no";
+			player.playerInAttack = "no";
+			player.playerInCast = "no";
+			autoattack = false;
+			spr_master = gameControl.GetUX("textbar", 0, 0);
+			spr_master.setPosition(cameraCoordsX -32f,cameraCoordsY -10);
+			spr_master.setSize(60, 30);
+			spr_master.draw(game.batch);
+			font_master.getData().setScale(0.10f,0.15f);
+			font_master.setUseIntegerPositions(false);
+			font_master.draw(game.batch, "Voce morreu, retornando...",cameraCoordsX - 28,cameraCoordsY + 8);
+			
+			if(countDead <= 0) {
+				player.Hp = String.valueOf("10");
+				player.Mp = String.valueOf("10");
+				player.Map = "MetroStation";
+				player.PosX = String.valueOf(53);
+				player.PosY = String.valueOf(-1);
+				//gameControl.SaveData(player);
+				this.screen.screenSwitch("LoadingScreen","",playernum);
+			}
+		}
+		
+		public void CheckAutoAttack() {
+			float playerposX = Float.parseFloat(player.PosX);
+			float playerposY = Float.parseFloat(player.PosY);
+			
+			int AtkTimer = Integer.parseInt(player.AtkTimer);
+			int AtkTimerMax = Integer.parseInt(player.AtkTimerMax);
+			int Atk = Integer.parseInt(player.Atk);
+			
+			int Dex = Integer.parseInt(player.Dex);
+			int Str = Integer.parseInt(player.Str);
+			
+			int Stamina = Integer.parseInt(player.Stamina);
+			
+			
+			if(player.Map.equals("Sewers") && autoattack) {
+				for(int i = 0; i < listMonsters.size(); i++) {
+					
+					if(player.Target.equals(listMonsters.get(i).MobID)) {
+						 
+						if((listMonsters.get(i).MobPosX + 5) > (playerposX - 5) && (listMonsters.get(i).MobPosX + 5) < (playerposX + 15)
+						   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 7) && (listMonsters.get(i).MobPosY + 5) < (playerposY + 18)) {
+							player.playerInBattle = "yes";
+							AtkTimer--;
+							
+							if(AtkTimer <= 0) { 	
+								int atkweapon = CheckWeapon();
+								int mobhp = listMonsters.get(i).MobHp; //CheckDamageDifer(listMonsters.get(i).MobHpMax, 1);
+								int damagehit = Atk + atkweapon + Str;
+								player.playerInAttack = "yes";
+								player.AtkTimer = String.valueOf(AtkTimerMax);
+								listMonsters.get(i).MobTarget = player.Name;
+								gameControl.SetAttackFrame();
+								
+								if(CheckMobEvade()) { 
+									Damage damage = new Damage();
+									damage.DamagePosX = listMonsters.get(i).MobPosX;
+									damage.DamagePosY = listMonsters.get(i).MobPosY;
+									damage.DamageTime = 100;
+									damage.DamageType = "mob";
+									damage.DamageValue = 0;
+									listDamage.add(damage);
+									return; 
+								}
+								
+								int st = Stamina;
+								if(st > 0) { mobhp = mobhp - damagehit;  } else {  mobhp = mobhp - 5; }								
+								if(mobhp < 0) { mobhp = 0; }
+								listMonsters.get(i).MobHp = mobhp;
+								
+								if(listMonsters.get(i).MobHp <= 0) {  		    
+								    MobDead(i);
+								    return;
+								}
+								
+								Damage damage = new Damage();
+								damage.DamagePosX = listMonsters.get(i).MobPosX;
+								damage.DamagePosY = listMonsters.get(i).MobPosY;
+								damage.DamageTime = 100;
+								damage.DamageType = "mob";
+								damage.DamageValue = damagehit;
+								listDamage.add(damage);											
+							}					
+						}
+						else {
+							player.playerInBattle = "no";
+						}
+					}
 				}
 			}
+		}
+		
+		public void CheckMobAutoAttack() {
+			float playerposX = Float.parseFloat(player.PosX);
+			float playerposY = Float.parseFloat(player.PosY);
+			
+			int Def = Integer.parseInt(player.Def);
+			int Hp = Integer.parseInt(player.Hp);
+			
 			if(player.Map.equals("Sewers")) {
-				if(playerPosX > 40f && playerPosX < 53 && playerPosY > 5 && playerPosY < 21.5f) {
+				for(int i = 0; i < listMonsters.size(); i++) {						
+					if(listMonsters.get(i).MobTarget.equals(player.Name)) {
+						if(playerposX > (listMonsters.get(i).MobPosX - 5) && playerposX < (listMonsters.get(i).MobPosX + 15)
+							&& playerposY > (listMonsters.get(i).MobPosY - 7) && playerposY < (listMonsters.get(i).MobPosY + 18)) {
+								
+								listMonsters.get(i).MobAtkTimer--;
+								if(listMonsters.get(i).MobAtkTimer <= 0) {
+									int mobluck = randnumber.nextInt(100);
+									if(mobluck > 5 && mobluck < 20) {
+										Hp = Hp - ((listMonsters.get(i).MobAtk * 2) - Def);
+										player.Hp = String.valueOf(Hp);
+									}
+									if(mobluck >= 0 && mobluck < 5) {
+										Hp = Hp - ((listMonsters.get(i).MobAtk * 3) - Def);
+										player.Hp = String.valueOf(Hp);
+									}
+									if(mobluck > 10) {
+									{
+										Hp = Hp - (listMonsters.get(i).MobAtk - Def);
+										player.Hp = String.valueOf(Hp);
+									}								 
+									listMonsters.get(i).MobAtkTimer = listMonsters.get(i).MobAtkTimerMax;
+									Damage damage = new Damage();
+									damage.DamagePosX = listMonsters.get(i).MobPosX;
+									damage.DamagePosY = listMonsters.get(i).MobPosY;
+									damage.DamageTime = 100;
+									damage.DamageType = "player";
+									damage.DamageValue = listMonsters.get(i).MobAtk;
+									listDamage.add(damage);
+								}	
+								if(Hp <= 0) {
+									playerDead = true;
+								}
+							}
+						}				
+					}
+				}
+			}
+		}
+		
+		public boolean CheckMobEvade() {
+			int nextint = randnumber.nextInt(100);
+			
+			if(nextint < 10) {
+				return true;
+			}
+			else {
+				return false;
+			}		
+		}
+		
+		public void CheckColision() {
+			float posY = Float.parseFloat(player.PosY);
+			float posX = Float.parseFloat(player.PosX);
+			
+			if(player.Map.equals("MetroStation")) {
+				if(posX > 127 && posX < 148 && posY> -192  && posY < - 140) {
+					MapChange("StreetsA");
+				}
+			}
+			
+			if(player.Map.equals("StreetsA")) {
+				if(posX < -77) {
+					player.breakwalk = "left";
+				}				
+				if(posX > 184.5f) {
+					player.breakwalk = "right";
+				}
+				
+				if(posY > 41) {
+					player.breakwalk = "back";
+				}
+				if(posY < -192.5f) {
+					player.breakwalk = "front";
+				}
+				
+			}
+			if(player.Map.equals("Sewers")) {
+				if(posX > 40f && posX < 53 && posY> 5 && posY < 21.5f) {
 					MapChange("StreetsAFromSewers");
 				}
 			}
@@ -1624,7 +1893,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			float posY = Float.parseFloat(player.PosY);
 			
 			if(player.Map.equals("StreetsA")) {
-				if(posX >= 103.5f && posX <= 122 && posX >= -142 && posX <= -128.5f ) {
+				if(posX >= 103.5f && posX <= 122 && posY >= -142 && posY <= -128.5f ) {
 					state = "DungeonSelect";
 				}
 				
@@ -1809,6 +2078,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				dispose();	
 			}
 			if(map.equals("StreetsAFromSewers")) {
+				player.Map = "StreetsA";
+				player.PosX = String.valueOf("112.5f");
+				player.PosY = String.valueOf("-142f");
+				//gameControl.SaveData(player);
+				this.screen.screenSwitch("LoadingScreen","",playernum);
+				dispose();
+			}
+			
+			if(map.equals("StreetsA")) {
 				player.Map = "StreetsA";
 				player.PosX = String.valueOf("112.5f");
 				player.PosY = String.valueOf("-142f");
@@ -2412,14 +2690,165 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		@Override
 		public boolean keyDown(int keycode) {
-			// TODO Auto-generated method stub
+			
+			if(playerDead) { return false; }
+			if(player.playerSit.equals("yes")){ return false; }
+			
+			if(state.equals("Main")) {
+				movement = true;		
+				downKeys.add(keycode);
+		        if (downKeys.size >= 2){
+		            onMultipleKeysDown(keycode);
+		        }
+		        if(downKeys.size == 1) {
+		        	if (keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+		        		player.Side = "left";
+		        		player.Walk = "walk"; 
+		        		padmoveX = -85;
+		        		player.playerInBattle = "no";
+		        		return false;
+		            }
+		    		
+		    		if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
+		    			player.Side = "back";
+		    			player.Walk = "walk";
+		    			padmoveY = -65;
+		    			player.playerInBattle = "no";
+		    			return false;
+		            }
+		    		
+		    		if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
+		    			player.Side = "front";
+		    			player.Walk = "walk";	
+		    			padmoveY = -85;
+		    			player.playerInBattle = "no";
+		    			return false;
+		            }
+		    		
+		    		if (keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
+		    			player.Side = "right";
+		    			player.Walk = "walk";
+		    			padmoveX = -75;
+		    			player.playerInBattle = "no";
+		    			return false;
+		            } 
+		        }
+			}
+			
+			
+			
 			return false;
 		}
 
 		@Override
 		public boolean keyUp(int keycode) {
-			// TODO Auto-generated method stub
+			movement = false;
+			downKeys.remove(keycode);
+			player.Walk = "no";
+			player.Frame = "1";
+			padmoveX = -80;
+			padmoveY = -75;
+			player.breakwalk = "";
+
+			gameControl.UpdatePlayer(player);
+			
+			if(player.Side.equals("left-front")) { player.Side = "front"; }
+			if(player.Side.equals("left-back")) { player.Side = "front";}
+			if(player.Side.equals("right-back")) { player.Side = "front";}
+			if(player.Side.equals("right-front")) { player.Side = "front";}
+			if(player.Side.equals("back-right")) { player.Side = "front";}
+			if(player.Side.equals("back-left")) { player.Side = "front";}
+			if(player.Side.equals("front-right")) { player.Side = "front";}
+			if(player.Side.equals("front-left")) { player.Side = "front"; }
+			
 			return false;
+		}
+		
+		private void onMultipleKeysDown (int mostRecentKeycode){
+			
+			if(state.equals("Menu")) { return; }
+			
+			//For multiple key presses
+		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
+		        	//player.Side_A = "left-front";
+		        	player.Side = "left";
+		        	player.Walk = "walk";  	
+		        	padmoveX = -66;
+		        	padmoveY = -60;
+		        	player.playerInBattle = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.LEFT) || downKeys.contains(Input.Keys.A)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
+		        	//player.Side_A = "left-back";
+		        	player.Side = "left";
+		        	player.Walk = "walk";
+		        	padmoveX = -66;
+		        	padmoveY = -50; 
+		        	player.playerInBattle = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
+		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.UP) || mostRecentKeycode == Input.Keys.W)){
+		    		//player.Side_A = "right-back";
+		    		player.Side = "right";
+		    		player.Walk = "walk";	
+		    		padmoveX = -55;
+		    		padmoveY = -50;
+		    		player.playerInBattle = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.RIGHT) || downKeys.contains(Input.Keys.D)){
+		    	if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.DOWN) || mostRecentKeycode == Input.Keys.S)){
+		    		//player.Side_A = "right-front";
+		    		player.Side = "right";
+		    		player.Walk = "walk";	
+		    		padmoveX = -55;
+		    		padmoveY = -60;
+		    		player.playerInBattle = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
+		        	//player.Side_A = "back-right";
+		        	player.Side = "back";
+		        	player.Walk = "walk";
+		        	padmoveX = -55;
+		        	padmoveY = -50;
+		        	player.playerInBattle = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.UP) || downKeys.contains(Input.Keys.W)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
+		        	//player.Side_A = "back-left";
+		        	player.Side = "back";
+		        	player.Walk = "walk";
+		        	padmoveX = -66;
+		        	padmoveY = -50;
+		        	player.playerInBattle = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.RIGHT) || mostRecentKeycode == Input.Keys.D)){
+		        	//player.Side_A = "front-right";
+		        	player.Side = "front";
+		        	player.Walk = "walk";
+		        	padmoveX = -55;
+		        	padmoveY = -60;
+		        	player.playerInBattle = "no";
+		        }
+		    }
+		    if (downKeys.contains(Input.Keys.DOWN) || downKeys.contains(Input.Keys.S)){
+		        if (downKeys.size == 2 && ((mostRecentKeycode == Input.Keys.LEFT) || mostRecentKeycode == Input.Keys.A)){
+		        	//player.Side_A = "front-left";
+		        	player.Side = "front";
+		        	player.Walk = "walk";	
+		        	padmoveX = -66;
+		        	padmoveY = -60;
+		        	player.playerInBattle = "no";
+		        }
+		    }
 		}
 
 		@Override
