@@ -2413,48 +2413,67 @@ public class GameControl {
 	}
 	
 	public void UpdateOnlinePlayers(String line) {
-		
-		String[] lineSplit = line.split(":");
-		Player playerOnline = new Player();
-		playerOnline.AccountID = lineSplit[4];
-		playerOnline.Name = lineSplit[2];
-		playerOnline.Level = lineSplit[6];
-		playerOnline.Map = lineSplit[8];
-		playerOnline.Hp = lineSplit[10];
-		playerOnline.Mp = lineSplit[12];
-		playerOnline.PosX = lineSplit[14];
-		playerOnline.PosY = lineSplit[16];
-		playerOnline.Walk = lineSplit[18];
-		playerOnline.Weapon = lineSplit[20];
-		playerOnline.Frame = lineSplit[22];
-		playerOnline.SyncPlayerMob = lineSplit[24];
-		playerOnline.SetUpper = lineSplit[26];
-		playerOnline.SetBottom = lineSplit[28];
-		playerOnline.SetFooter = lineSplit[30];
-		playerOnline.Hair = lineSplit[32];
-		playerOnline.Sex = lineSplit[34];
-		playerOnline.Color = lineSplit[36];
-		playerOnline.Hat = lineSplit[38];
-		playerOnline.Side = lineSplit[40];
-		playerOnline.Job = lineSplit[42];
-		playerOnline.playerInBattle = lineSplit[44];
-		playerOnline.playerInAttack = lineSplit[46];
-		playerOnline.playerInCast = lineSplit[48];
-		playerOnline.playerSit = lineSplit[50];
-		playerOnline.party = lineSplit[52];
-		
-		if(!playerUse.AccountID.equals(playerOnline.AccountID)) { 
-			lstPlayerOnline.add(playerOnline); 
-		}
-
-		Map<String, Player> playersMap = new HashMap<String, Player>();
-
-		for (Player player : lstPlayerOnline) {
-		    playersMap.put(player.getAccountID(), player);
-		}
-
+		// Split the line into individual player data strings
+		String[] playerDataArray = line.split("@");
+	
+		// Clear the current online players list
 		lstPlayerOnline.clear();
-		lstPlayerOnline.addAll(playersMap.values());
+	
+		// Iterate over each player data string
+		for (String playerData : playerDataArray) {
+			// Split the player data string into individual data fields
+			String[] playerDataFields = playerData.split(":");
+	
+			// Create a new Player object and set its fields
+			Player playerOnline = new Player();
+			playerOnline.Name = playerDataFields[1];
+			playerOnline.AccountID = playerDataFields[3];
+			playerOnline.Level = playerDataFields[5];
+			playerOnline.Map = playerDataFields[7];
+			playerOnline.Hp = playerDataFields[9];
+			playerOnline.Mp = playerDataFields[11];
+			playerOnline.PosX = playerDataFields[13];
+			playerOnline.PosY = playerDataFields[15];
+			playerOnline.Walk = playerDataFields[17];
+			playerOnline.Weapon = playerDataFields[19];
+			playerOnline.Frame = playerDataFields[21];
+			playerOnline.SyncPlayerMob = playerDataFields[23];
+			playerOnline.SetUpper = playerDataFields[25];
+			playerOnline.SetBottom = playerDataFields[27];
+			playerOnline.SetFooter = playerDataFields[29];
+			playerOnline.Hair = playerDataFields[31];
+			playerOnline.Sex = playerDataFields[33];
+			playerOnline.Color = playerDataFields[35];
+			playerOnline.Hat = playerDataFields[37];
+			playerOnline.Side = playerDataFields[39];
+			playerOnline.Job = playerDataFields[41];
+			playerOnline.playerInBattle = playerDataFields[43];
+			playerOnline.playerInAttack = playerDataFields[45];
+			playerOnline.playerInCast = playerDataFields[47];
+			playerOnline.playerSit = playerDataFields[49];
+			playerOnline.party = playerDataFields[51];
+	
+			// Skip adding if playerOnline.name equals playerUse.name
+			if (playerOnline.Name.equals(playerUse.Name)) {
+				continue;
+			}
+	
+			// Check if playerOnline already exists in lstPlayerOnline
+			boolean exists = false;
+			for (int i = 0; i < lstPlayerOnline.size(); i++) {
+				if (lstPlayerOnline.get(i).Name.equals(playerOnline.Name)) {
+					// Replace the existing entry
+					lstPlayerOnline.set(i, playerOnline);
+					exists = true;
+					break;
+				}
+			}
+	
+			// Add playerOnline if it doesn't already exist
+			if (!exists) {
+				lstPlayerOnline.add(playerOnline);
+			}
+		}
 	}
 	
 	public void CreateAccountOnline(String tipoRequisicao, HttpCallback callback) throws UnsupportedEncodingException {
@@ -2562,7 +2581,7 @@ public class GameControl {
 						// Update the game state or UI based on the response
 						System.out.println("Response: " + responseText);
 						callback.onSuccess("success");
-						UpdateOnlinePlayers(responseText);
+						if(!responseText.equals("fail") && !responseText.equals("")) { UpdateOnlinePlayers(responseText); }			
 					}
 				});
 			}

@@ -76,7 +76,14 @@ public class Player {
 		public String petTraining;
 		public String petBath;
 		public String petLevel;
+		public String isPlayerOnline;
 		
+		public String getIsPlayerOnline() {
+			return isPlayerOnline;
+		}
+		public void setIsPlayerOnline(String isPlayerOnline) {
+			this.isPlayerOnline = isPlayerOnline;
+		}
 		public String getAccountID() {
 			return AccountID;
 		}
