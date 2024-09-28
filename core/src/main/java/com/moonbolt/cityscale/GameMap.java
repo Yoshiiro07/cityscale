@@ -133,6 +133,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private Sprite spr_playerHairOnline;
     private Sprite spr_playerHatOnline;
     private Sprite spr_weaponOnline;
+    private int timersync = 100;
     
     //Sprite NPC
     private Sprite spr_npc;
@@ -247,7 +248,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Save
 			savedataTime--;
 			if(savedataTime < 0) {
-				savedataTime = 100;
+				savedataTime = 10;
 				try {
 					gameControl.SaveChar("SaveChar",player.AccountNumber,playernumString, new HttpCallback() {
 					    @Override
@@ -323,9 +324,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if (flipzone >= 40) { flipzone = 0; }
 			}
 			
-			//npcs
-			ShowOnlinePlayers();
+			//npcs   //here
+			if(timersync > 0) {
+				timersync--;
+				RecoverOnlinePlayers();
+				if(timersync <= 0) { timersync = 10; }
+			}
 			ShowNPCs();
+			
+			ShowOnlinePlayers();
 			
 			//Char
 			player = gameControl.SetCharMov(player, player.breakwalk);
@@ -551,28 +558,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			game.batch.end();
 		}
 		
-		public void ShowOnlinePlayers() {
+		public void RecoverOnlinePlayers() {
 			
 			try {
 				gameControl.SyncPlayers("SyncPlayers",player.AccountNumber,playernumString, new HttpCallback() {
 				    @Override
 				    public void onSuccess(String response) {
 				    	if(response.contains("success")) {
-				    		if(lstOnlinePlayers.size() > 0) {
-								for(int i = 0; i < lstOnlinePlayers.size(); i++) {
-									spr_playerhair = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
-									spr_playerhair.draw(game.batch);
-									
-									spr_playerfooter = gameControl.GetFooterChar(lstOnlinePlayers.get(i), "no",0,0);
-									spr_playerfooter.draw(game.batch);
-									
-									spr_playerbottom = gameControl.GetBottomChar(lstOnlinePlayers.get(i), "no",0,0);
-									spr_playerbottom.draw(game.batch);
-									
-									spr_playertop = gameControl.GetTopChar(lstOnlinePlayers.get(i), "no", 0,0);
-									spr_playertop.draw(game.batch);
-								}
-							}
+				    		lstOnlinePlayers = gameControl.RecoverOnlineList();
 				    	}
 				    	else {
 				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
@@ -590,6 +583,24 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}
+		
+		public void ShowOnlinePlayers() {
+			if(lstOnlinePlayers.size() > 0) {
+				for(int i = 0; i < lstOnlinePlayers.size(); i++) {
+					spr_playerHairOnline = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
+					spr_playerHairOnline.draw(game.batch);
+					
+					spr_playerFooterOnline = gameControl.GetFooterChar(lstOnlinePlayers.get(i), "no",0,0);
+					spr_playerFooterOnline.draw(game.batch);
+					
+					spr_playerBottomOnline = gameControl.GetBottomChar(lstOnlinePlayers.get(i), "no",0,0);
+					spr_playerBottomOnline.draw(game.batch);
+					
+					spr_playerTopOnline = gameControl.GetTopChar(lstOnlinePlayers.get(i), "no", 0,0);
+					spr_playerTopOnline.draw(game.batch);
+				}
 			}
 		}
 		

@@ -2412,46 +2412,48 @@ public class GameControl {
 		lstPlayers = _lstPlayers;
 	}
 	
+	public ArrayList<Player> RecoverOnlineList(){
+		return lstPlayerOnline;
+	}
+	
 	public void UpdateOnlinePlayers(String line) {
 		// Split the line into individual player data strings
 		String[] playerDataArray = line.split("@");
 	
-		// Clear the current online players list
-		lstPlayerOnline.clear();
-	
-		// Iterate over each player data string
+		// Iterate over each player data string, excluding the last one
 		for (String playerData : playerDataArray) {
-			// Split the player data string into individual data fields
-			String[] playerDataFields = playerData.split(":");
+		    
+		    // Split the player data string into individual data fields
+		    String[] playerDataFields = playerData.split(":");
 	
 			// Create a new Player object and set its fields
 			Player playerOnline = new Player();
-			playerOnline.Name = playerDataFields[1];
-			playerOnline.AccountID = playerDataFields[3];
-			playerOnline.Level = playerDataFields[5];
-			playerOnline.Map = playerDataFields[7];
-			playerOnline.Hp = playerDataFields[9];
-			playerOnline.Mp = playerDataFields[11];
-			playerOnline.PosX = playerDataFields[13];
-			playerOnline.PosY = playerDataFields[15];
-			playerOnline.Walk = playerDataFields[17];
-			playerOnline.Weapon = playerDataFields[19];
-			playerOnline.Frame = playerDataFields[21];
-			playerOnline.SyncPlayerMob = playerDataFields[23];
-			playerOnline.SetUpper = playerDataFields[25];
-			playerOnline.SetBottom = playerDataFields[27];
-			playerOnline.SetFooter = playerDataFields[29];
-			playerOnline.Hair = playerDataFields[31];
-			playerOnline.Sex = playerDataFields[33];
-			playerOnline.Color = playerDataFields[35];
-			playerOnline.Hat = playerDataFields[37];
-			playerOnline.Side = playerDataFields[39];
-			playerOnline.Job = playerDataFields[41];
-			playerOnline.playerInBattle = playerDataFields[43];
-			playerOnline.playerInAttack = playerDataFields[45];
-			playerOnline.playerInCast = playerDataFields[47];
-			playerOnline.playerSit = playerDataFields[49];
-			playerOnline.party = playerDataFields[51];
+			playerOnline.Name = playerDataFields[2];
+			playerOnline.AccountID = playerDataFields[4];
+			playerOnline.Level = playerDataFields[6];
+			playerOnline.Map = playerDataFields[8];
+			playerOnline.Hp = playerDataFields[10];
+			playerOnline.Mp = playerDataFields[12];
+			playerOnline.PosX = playerDataFields[14];
+			playerOnline.PosY = playerDataFields[16];
+			playerOnline.Walk = playerDataFields[18];
+			playerOnline.Weapon = playerDataFields[20];
+			playerOnline.Frame = playerDataFields[22];
+			playerOnline.SyncPlayerMob = playerDataFields[24];
+			playerOnline.SetUpper = playerDataFields[26];
+			playerOnline.SetBottom = playerDataFields[28];
+			playerOnline.SetFooter = playerDataFields[30];
+			playerOnline.Hair = playerDataFields[32];
+			playerOnline.Sex = playerDataFields[34];
+			playerOnline.Color = playerDataFields[36];
+			playerOnline.Hat = playerDataFields[38];
+			playerOnline.Side = playerDataFields[40];
+			playerOnline.Job = playerDataFields[42];
+			playerOnline.playerInBattle = playerDataFields[44];
+			playerOnline.playerInAttack = playerDataFields[46];
+			playerOnline.playerInCast = playerDataFields[48];
+			playerOnline.playerSit = playerDataFields[50];
+			playerOnline.party = playerDataFields[52];
 	
 			// Skip adding if playerOnline.name equals playerUse.name
 			if (playerOnline.Name.equals(playerUse.Name)) {
@@ -2580,8 +2582,8 @@ public class GameControl {
 					public void run() {
 						// Update the game state or UI based on the response
 						System.out.println("Response: " + responseText);
+						if(!responseText.equals("fail") && !responseText.equals("")) { UpdateOnlinePlayers(responseText); }	
 						callback.onSuccess("success");
-						if(!responseText.equals("fail") && !responseText.equals("")) { UpdateOnlinePlayers(responseText); }			
 					}
 				});
 			}
@@ -3016,11 +3018,11 @@ public class GameControl {
 		parameters.put("ldataaccount", accountnumber);
 		parameters.put("lcharnumber", charnumber);
 
-		parameters.put("lname", name);
-		parameters.put("lsex", sex);
-		parameters.put("lhair", hair);
-		parameters.put("lcolor", color);
-		parameters.put("litensList", itensList);
+		parameters.put("Name", name);
+		parameters.put("Sex", sex);
+		parameters.put("Hair", hair);
+		parameters.put("Color", color);
+		parameters.put("ItensList", itensList);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {

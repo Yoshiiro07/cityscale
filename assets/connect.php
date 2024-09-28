@@ -305,7 +305,8 @@ if ($lrequest == "CreateChar") {
 				petcare = 'none',
 				petTraining = 'none',
 				petBath = 'none',
-				petLevel = 'none'
+				petLevel = 'none',
+				isPlayerOnline = 'offline'
             WHERE
                 AccountNumber = '$ldataaccount' AND
                 Characternumber = '$lcharnumber'";
@@ -429,10 +430,9 @@ if ($lrequest == "SaveChar") {
 	petcare = '$petcare',
 	petTraining = '$petTraining',
 	petBath = '$petBath',
-	petLevel = '$petLevel'
-WHERE AccountNumber = '$ldataaccount' AND Characternumber = '$lcharnumber'";
-
-	echo nl2br("query: " . $sql);
+	petLevel = '$petLevel',
+	isPlayerOnline = 'online'
+	WHERE AccountNumber = '$ldataaccount' AND Characternumber = '$lcharnumber'";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {   
@@ -449,28 +449,6 @@ WHERE AccountNumber = '$ldataaccount' AND Characternumber = '$lcharnumber'";
     }
 }
 
-#Efetua Login
-if ($lrequest == "CheckVersion") {
-	$sql = "SELECT * FROM VersionControl";
-	$result = $conn->query($sql);
-
-	$lAll = '';
-	if ($result->num_rows > 0) {
-		// output data of each row
-		while ($row = $result->fetch_assoc()) {
-			if ($row["descricao"] == $lversion) {
-				echo nl2br("Autorizado");
-			}
-			if ($row["descricao"] != $lversion) {
-				echo nl2br("Probido");
-			}
-		}
-	}
-
-	$conn->close();
-	return;
-}
-
 #Adicionar Chat
 if ($lrequest == "Chat") {
 	$sql = "INSERT INTO Chats (AccountID,Name,Msg) VALUES ('$ldataaccount','$lname','$lchat')";
@@ -483,57 +461,6 @@ if ($lrequest == "Chat") {
 	#$result = $conn->query($sql);
 	$conn->close();
 	return;
-}
-
-#Adiciona Exp
-if ($lrequest == "ExpSharedSend") {
-	$currentDateTime = date('Y-m-d H:i:s');
-	$sql = "INSERT INTO ExpBank (AccountID,Name,ExpSended,Date) VALUES ('$ldataaccount','$lname','$lexpsend','$currentDateTime')";
-	if ($conn->query($sql) === TRUE) {
-		echo nl2br("\n - Adicionado - \n");
-	} else {
-		echo nl2br($sql);
-		echo nl2br("\n - Falhou \n") . $conn->error;
-	}
-	#$result = $conn->query($sql);
-	$conn->close();
-	return;
-}
-
-#Recupera Exp
-if ($lrequest == "ExpGiver") {
-	$datenow = date('Y-m-d');
-	$startOfDay = $datenow . ' 00:00:00';
-	$endOfDay = $datenow . ' 23:59:59';
-
-	$sql = "SELECT * FROM ExpBank WHERE AccountID <> '$ldataaccount' AND ExpBankID > '$lplayerIDEXP'";
-	$result = $conn->query($sql);
-	if ($result === FALSE) {
-		echo nl2br($sql);
-		echo nl2br("\n - Falhou - \n") . $conn->error;
-	} else {
-		echo nl2br("\n - Recuperado - \n");
-		if ($result->num_rows > 0) {
-			// output data of each row
-			while ($row = $result->fetch_assoc()) {
-				$lAll = "SYSTEMEXP - :Name:" . $row["Name"] .
-					":ExpSended:" . $row["ExpSended"] .
-					":ExpBankID:" . $row["ExpBankID"] .
-					": - \n";
-				echo nl2br($lAll);
-			}
-		} else {
-			echo "0 results";
-		}
-	}
-}
-
-#Adicionar Atk
-if ($lrequest == "Atk") {
-	$sql = "UPDATE Mobs SET MobHp$lMobLetter = '$lHpMobAtual', MobTarget$lMobLetter = '$lName' where MobID$lMobLetter = '$lMobHitTarget'";
-	echo ($sql);
-	$result = $conn->query($sql);
-	$conn->close();
 }
 
 #Sync Chats
@@ -561,41 +488,43 @@ if ($lrequest == "SyncChats") {
 
 #Efetua Sync
 if ($lrequest == "SyncPlayers") {
-	$sql = "SELECT * from Sync";
+	$sql = "SELECT * FROM Accounts WHERE isPlayerOnline = 'online';";
 	$result = $conn->query($sql);
 	$lAll = '';
 	if ($result->num_rows > 0) {
 		// output data of each row
 		while ($row = $result->fetch_assoc()) {
-			$lAll = $lAll . ("SYSTEMPLAYERS - :Name:" . $row["name"] .
+			$lAll = $lAll . ":Name:" . $row["Name"] .
 				":AccountID:" . $row["AccountID"] .
-				":Level:" . $row["level"] .
-				":Map:" . $row["map"] .
-				":Hp:" . $row["hp"] .
-				":Mp:" . $row["mp"] .
-				":PosX:" . $row["posX"] .
-				":PosY:" . $row["posY"] .
-				":Walk:" . $row["walk"] .
-				":Weapon:" . $row["weapon"] .
-				":Frame:" . $row["frame"] .
-				":SyncPlayerMob:" . $row["syncPlayerMob"] .
-				":SetUpper:" . $row["setUpper"] .
-				":SetBottom:" . $row["setBottom"] .
-				":SetFooter:" . $row["setFooter"] .
-				":Hair:" . $row["hair"] .
-				":Sex:" . $row["sex"] .
-				":Color:" . $row["color"] .
-				":Hat:" . $row["hat"] .
-				":Side:" . $row["side"] .
-				":Job:" . $row["job"] .
+				":Level:" . $row["Level"] .
+				":Map:" . $row["Map"] .
+				":Hp:" . $row["Hp"] .
+				":Mp:" . $row["Mp"] .
+				":PosX:" . $row["PosX"] .
+				":PosY:" . $row["PosY"] .
+				":Walk:" . $row["Walk"] .
+				":Weapon:" . $row["Weapon"] .
+				":Frame:" . $row["Frame"] .
+				":SyncPlayerMob:" . $row["SyncPlayerMob"] .
+				":SetUpper:" . $row["SetUpper"] .
+				":SetBottom:" . $row["SetBottom"] .
+				":SetFooter:" . $row["SetFooter"] .
+				":Hair:" . $row["Hair"] .
+				":Sex:" . $row["Sex"] .
+				":Color:" . $row["Color"] .
+				":Hat:" . $row["Hat"] .
+				":Side:" . $row["Side"] .
+				":Job:" . $row["Job"] .
 				":PlayerInBattle:" . $row["playerInBattle"] .
 				":PlayerInAttack:" . $row["playerInAttack"] .
 				":PlayerInCast:" . $row["playerInCast"] .
 				":PlayerSit:" . $row["playerSit"] .
-				":Party:" . $row["party"] .
-				": - \n");
-			echo ($lAll);
+				":Party:" . $row["party"] . ":@";
+                echo nl2br($lAll);
 		}
+	}
+	else{
+		echo nl2br("fail");
 	}
 	$conn->close();
 }
