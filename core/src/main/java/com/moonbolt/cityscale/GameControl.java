@@ -2488,12 +2488,12 @@ public class GameControl {
 		String account = String.valueOf(accNumber);
 		// Prepare the data to post
 		Map<String, String> parameters = new HashMap<>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
+		parameters.put("Servername", lservername);
+		parameters.put("Username", lusername);
+		parameters.put("Password", lpassword);
+		parameters.put("Dbname", ldbname);
+		parameters.put("Request", tipoRequisicao);
+		parameters.put("Dataaccount", account);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
@@ -2548,13 +2548,13 @@ public class GameControl {
 
 		// Prepare the data to post
 		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
-		parameters.put("lcharnumber", charnumber);
+		parameters.put("Servername", lservername);
+		parameters.put("Username", lusername);
+		parameters.put("Password", lpassword);
+		parameters.put("Dbname", ldbname);
+		parameters.put("Request", tipoRequisicao);
+		parameters.put("Dataaccount", account);
+		parameters.put("Charnumber", charnumber);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
@@ -2625,12 +2625,12 @@ public class GameControl {
 
 		// Prepare the data to post
 		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
+		parameters.put("Servername", lservername);
+		parameters.put("Username", lusername);
+		parameters.put("Password", lpassword);
+		parameters.put("Dbname", ldbname);
+		parameters.put("Request", tipoRequisicao);
+		parameters.put("Dataaccount", account);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
@@ -2702,13 +2702,13 @@ public class GameControl {
 
 		// Prepare the data to post
 		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
-		parameters.put("lcharnumber", charnumber);
+		parameters.put("Servername", lservername);
+		parameters.put("Username", lusername);
+		parameters.put("Password", lpassword);
+		parameters.put("Dbname", ldbname);
+		parameters.put("Request", tipoRequisicao);
+		parameters.put("Dataaccount", account);
+		parameters.put("Charnumber", charnumber);
 
 		parameters.put("AccountID", playerUse.AccountID);
 		parameters.put("AccountNumber", playerUse.AccountNumber);
@@ -2736,8 +2736,8 @@ public class GameControl {
 		parameters.put("PosY", String.valueOf(posY));
 		parameters.put("Walk", playerUse.Walk);
 		parameters.put("Frame", playerUse.Frame);
-		parameters.put("countFrame", playerUse.countFrame);
-		parameters.put("breakwalk", playerUse.breakwalk);
+		parameters.put("CountFrame", playerUse.countFrame);
+		parameters.put("Breakwalk", playerUse.breakwalk);
 		parameters.put("Target", playerUse.Target);
 		parameters.put("AtkTimer", playerUse.AtkTimer);
 		parameters.put("AtkTimerMax", playerUse.AtkTimerMax);
@@ -2763,27 +2763,27 @@ public class GameControl {
 		parameters.put("StaminaMax", playerUse.StaminaMax);
 		parameters.put("Itens", playerUse.Itens);
 		parameters.put("Quests", playerUse.Quests);
-		parameters.put("hotkey1", playerUse.hotkey1);
-		parameters.put("hotkey2", playerUse.hotkey2);
-		parameters.put("buffA", playerUse.buffA);
-		parameters.put("buffB", playerUse.buffB);
-		parameters.put("buffC", playerUse.buffC);
+		parameters.put("Hotkey1", playerUse.hotkey1);
+		parameters.put("Hotkey2", playerUse.hotkey2);
+		parameters.put("BuffA", playerUse.buffA);
+		parameters.put("BuffB", playerUse.buffB);
+		parameters.put("BuffC", playerUse.buffC);
 		parameters.put("BuffTimeA", playerUse.BuffTimeA);
 		parameters.put("BuffTimeB", playerUse.BuffTimeB);
 		parameters.put("BuffTimeC", playerUse.BuffTimeC);
-		parameters.put("party", playerUse.party);
-		parameters.put("playerInBattle", playerUse.playerInBattle);
-		parameters.put("playerInAttack", playerUse.playerInAttack);
-		parameters.put("playerInCast", playerUse.playerInCast);
-		parameters.put("playerSit", playerUse.playerSit);
+		parameters.put("Party", playerUse.party);
+		parameters.put("PlayerInBattle", playerUse.playerInBattle);
+		parameters.put("PlayerInAttack", playerUse.playerInAttack);
+		parameters.put("PlayerInCast", playerUse.playerInCast);
+		parameters.put("PlayerSit", playerUse.playerSit);
 		parameters.put("SyncPlayerMob", playerUse.SyncPlayerMob);
 		parameters.put("PlayerExpGet", playerUse.PlayerExpGet);
-		parameters.put("pet", playerUse.pet);
-		parameters.put("pethungry", playerUse.pethungry);
-		parameters.put("petcare", playerUse.petcare);
-		parameters.put("petTraining", playerUse.petTraining);
-		parameters.put("petBath", playerUse.petBath);
-		parameters.put("petLevel", playerUse.petLevel);
+		parameters.put("Pet", playerUse.pet);
+		parameters.put("Pethungry", playerUse.pethungry);
+		parameters.put("Petcare", playerUse.petcare);
+		parameters.put("PetTraining", playerUse.petTraining);
+		parameters.put("PetBath", playerUse.petBath);
+		parameters.put("PetLevel", playerUse.petLevel);
 		parameters.put("isPlayerOnline", "online");
 
 		String content = "";
@@ -2848,13 +2848,13 @@ public class GameControl {
 
 		// Prepare the data to post
 		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
-		parameters.put("lcharnumber", charnumber);
+		parameters.put("Servername", lservername);
+		parameters.put("Username", lusername);
+		parameters.put("Password", lpassword);
+		parameters.put("Dbname", ldbname);
+		parameters.put("Request", tipoRequisicao);
+		parameters.put("Dataaccount", account);
+		parameters.put("Charnumber", charnumber);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
@@ -2918,13 +2918,13 @@ public class GameControl {
 
 		// Prepare the data to post
 		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lservername", lservername);
-		parameters.put("lusername", lusername);
-		parameters.put("lpassword", lpassword);
-		parameters.put("ldbname", ldbname);
-		parameters.put("lrequest", tipoRequisicao);
-		parameters.put("ldataaccount", account);
-		parameters.put("lcharnumber", accountnumber);
+		parameters.put("Servername", lservername);
+		parameters.put("Username", lusername);
+		parameters.put("Password", lpassword);
+		parameters.put("Dbname", ldbname);
+		parameters.put("Request", tipoRequisicao);
+		parameters.put("Dataaccount", account);
+		parameters.put("Charnumber", accountnumber);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
