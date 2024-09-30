@@ -378,9 +378,9 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 							lstPlayer.get(1).Color, 2);
 					spr_master.draw(game.batch);
 
-					font_master.draw(game.batch, lstPlayer.get(0).Name, 25, 48);
-					font_master.draw(game.batch, lstPlayer.get(0).Level, 25, 42);
-					font_master.draw(game.batch, lstPlayer.get(0).Map, 25, 35);
+					font_master.draw(game.batch, lstPlayer.get(1).Name, 25, 48);
+					font_master.draw(game.batch, lstPlayer.get(1).Level, 25, 42);
+					font_master.draw(game.batch, lstPlayer.get(1).Map, 25, 35);
 				}
 				if (!lstPlayer.get(2).Name.equals("none")  && selectedchar == 3) {
 					spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);

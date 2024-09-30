@@ -54,6 +54,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int intUseC = 0;
     private int intUseD = 0;
     
+    private int regen = 0;
+    private int regenMax = 0;
+    
     //Aviso
     private boolean aviso = false;
 	private int avisoTimer = 0;
@@ -156,6 +159,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     //Teste Dot
     private Sprite spr_testeDot;
     private Texture tex_testeDot;
+    private int LoopTime = 50;
+    
     
     //Controller
     private final IntSet downKeys = new IntSet(20);	
@@ -246,16 +251,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			game.batch.begin();
 			
 			//Save
-			savedataTime--;
-			if(savedataTime < 0) {
-				savedataTime = 10;
+			LoopTime--;
+			if(LoopTime < 0) {
 				try {
+					gameControl.UpdateControlPlayer(player);
 					gameControl.SaveChar("SaveChar",player.AccountNumber,playernumString, new HttpCallback() {
 					    @Override
 					    public void onSuccess(String response) {
 					    	if(response.contains("success")) {
 					    		System.out.println("Salvo com sucesso");
-					    		state = "Main";
 					    	}
 					    	else {
 					    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
@@ -276,20 +280,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}
 			
+			//Online Sync
+			if(LoopTime < 0) {
+				RecoverOnlinePlayers();
+				RecoverOnlineChats();
+			}
+			
+			if(LoopTime < 0) { LoopTime = 50; }
+			
 			//Check Regen
-			intUseA = Integer.parseInt(player.regenTime);
-			intUseA--;
-			if(intUseA < 0) {
+			regen = Integer.parseInt(player.regenTime);
+			regenMax = Integer.parseInt(player.regenTimeMax);
+			
+			regen--;
+			if(regen < 0) {
+				
 				intUseA = Integer.parseInt(player.Hp);
-				intUseB = Integer.parseInt(player.Mp);
-				intUseC = Integer.parseInt(player.HpMax);
+				intUseB = Integer.parseInt(player.HpMax);
+				
+				intUseC = Integer.parseInt(player.Mp);
 				intUseD = Integer.parseInt(player.MpMax);
 				
 				intUseA = intUseA + 10;
-				intUseB = intUseB + 10;
+				intUseC = intUseC + 10;
 				
-				if(intUseA >= intUseC) { player.Hp = player.HpMax; }
-				if(intUseB >= intUseB) { player.Mp = player.MpMax; }
+				if(intUseA >= intUseB) { player.Hp = player.HpMax; }
+				if(intUseC >= intUseD) { player.Mp = player.MpMax; }
 				
 				player.regenTime = player.regenTimeMax;
 			}
@@ -324,15 +340,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if (flipzone >= 40) { flipzone = 0; }
 			}
 			
-			//npcs   //here
-			if(timersync > 0) {
-				timersync--;
-				RecoverOnlinePlayers();
-				if(timersync <= 0) { timersync = 10; }
-			}
-			ShowNPCs();
 			
+			ShowNPCs();
 			ShowOnlinePlayers();
+			ShowChats();
 			
 			//Char
 			player = gameControl.SetCharMov(player, player.breakwalk);
@@ -547,6 +558,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.draw(game.batch);
 			}
 			
+			
+			gameControl.UpdateControlPlayer(player);
+			
 			//spr_testeDot.setPosition(cameraCoordsX + 68,cameraCoordsY + 62);
 			//spr_testeDot.setSize(1, 1);
 			//spr_testeDot.draw(game.batch);
@@ -558,6 +572,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			game.batch.end();
 		}
 		
+		public void ShowChats() {
+			font_master.setColor(Color.WHITE);
+			font_master.getData().setScale(0.13f,0.19f);
+			font_master.setUseIntegerPositions(false);	
+			font_master.draw(game.batch, "Chat:",-45, -1);
+			if(lstChats.get(0) != null) { font_master.draw(game.batch, lstChats.get(0),-45, -8);  }
+			if(lstChats.get(1) != null) { font_master.draw(game.batch, lstChats.get(1),-45, -15);  }
+			if(lstChats.get(2) != null) { font_master.draw(game.batch, lstChats.get(2),-45, -23);  }	
+		}
+		
 		public void RecoverOnlinePlayers() {
 			
 			try {
@@ -566,6 +590,33 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				    public void onSuccess(String response) {
 				    	if(response.contains("success")) {
 				    		lstOnlinePlayers = gameControl.RecoverOnlineList();
+				    	}
+				    	else {
+				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		aviso = true;
+				    	}
+				    }
+
+				    @Override
+				    public void onFailure(Throwable t) {
+				       System.out.println("Error: " + t.getMessage());
+				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   aviso = true;
+				    }
+				});
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public void RecoverOnlineChats() {
+			try {
+				gameControl.SyncChats("SyncChats",player.AccountNumber,playernumString, new HttpCallback() {
+				    @Override
+				    public void onSuccess(String response) {
+				    	if(response.contains("success")) {
+				    		lstChats = gameControl.RecoverOnlineChat();
 				    	}
 				    	else {
 				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
@@ -1006,6 +1057,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public Sprite ShowItem(int num) {
+			if(player.Itens.equals("")) { player.Itens = "[NONE]"; return spr_master; } 
 			String[] lstItem = player.Itens.split("-");
 			String[] itemSplit;
 			String item;
@@ -2151,7 +2203,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.Map = "Sewers";
 				player.PosX = String.valueOf("44.5f");
 				player.PosY = String.valueOf("-4.5f");
-				//gameControl.SaveData(player);
 				this.screen.screenSwitch("LoadingScreen","",playernum);
 				dispose();	
 			}
@@ -2159,7 +2210,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.Map = "StreetsA";
 				player.PosX = String.valueOf("112.5f");
 				player.PosY = String.valueOf("-142f");
-				//gameControl.SaveData(player);
 				this.screen.screenSwitch("LoadingScreen","",playernum);
 				dispose();
 			}
@@ -2168,7 +2218,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.Map = "StreetsA";
 				player.PosX = String.valueOf("112.5f");
 				player.PosY = String.valueOf("-142f");
-				//gameControl.SaveData(player);
 				this.screen.screenSwitch("LoadingScreen","",playernum);
 				dispose();
 			}
@@ -2375,7 +2424,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Chat
 				if(coordsTouch.x > cameraCoordsX - 60 && coordsTouch.x < cameraCoordsX - 49 && coordsTouch.y > cameraCoordsY + 77 && coordsTouch.y < cameraCoordsY + 97) {
-					Gdx.input.getTextInput(this,"Digite sua mensagem","","");
+					
 					return false;
 				}
 			}
@@ -2826,7 +2875,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player.Frame = "1";
 			padmoveX = -80;
 			padmoveY = -75;
-			player.breakwalk = "";
+			player.breakwalk = "none";
 
 			gameControl.UpdatePlayer(player);
 			
