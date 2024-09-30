@@ -1,21 +1,35 @@
 <?php
 
+// Allow from any origin
+header("Access-Control-Allow-Origin: *");
+
+// Allow specific methods
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+
+// Allow specific headers
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit(0);
+}
+
 #Variaveis de Banco
-$servername = $_POST['lservername'];
-$username = $_POST['lusername'];
-$password = $_POST['lpassword'];
-$dbname = $_POST['ldbname'];
+$Servername = $_POST['Servername'];
+$Username = $_POST['Username'];
+$Password = $_POST['Password'];
+$Dbname = $_POST['Dbname'];
 
 #Variaveis Recebidas do Cliente
-$lrequest = $_POST['lrequest'];
-$ldataaccount = $_POST['ldataaccount'];
-$lversion = $_POST['lversion'];
-$ldata = $_POST['ldata'];
-$lcharnumber = $_POST['lcharnumber'];
+$Request = $_POST['Request'];
+$Dataaccount = $_POST['Dataaccount'];
+$Version = $_POST['Version'];
+$Data = $_POST['Data'];
+$Charnumber = $_POST['Charnumber'];
 
 #Variaveis de Uso
 $lAll = '';
-$lchat = $_POST['lchat'];
+$lChat = $_POST['Chat'];
 
 $AccountID = $_POST['AccountID'];
 $AccountNumber = $_POST['AccountNumber'];
@@ -37,14 +51,14 @@ $Mp = $_POST['Mp'];
 $Money = $_POST['Money'];
 $HpMax = $_POST['HpMax'];
 $MpMax = $_POST['MpMax'];
-$regenTime = $_POST['regenTime'];
-$regenTimeMax = $_POST['regenTimeMax'];
+$RegenTime = $_POST['RegenTime'];
+$RegenTimeMax = $_POST['RegenTimeMax'];
 $PosX = $_POST['PosX'];
 $PosY = $_POST['PosY'];
 $Walk = $_POST['Walk'];
 $Frame = $_POST['Frame'];
-$countFrame = $_POST['countFrame'];
-$breakwalk = $_POST['breakwalk'];
+$CountFrame = $_POST['CountFrame'];
+$Breakwalk = $_POST['Breakwalk'];
 $Target = $_POST['Target'];
 $AtkTimer = $_POST['AtkTimer'];
 $AtkTimerMax = $_POST['AtkTimerMax'];
@@ -70,34 +84,34 @@ $Stamina = $_POST['Stamina'];
 $StaminaMax = $_POST['StaminaMax'];
 $Itens = $_POST['Itens'];
 $Quests = $_POST['Quests'];
-$hotkey1 = $_POST['hotkey1'];
-$hotkey2 = $_POST['hotkey2'];
-$buffA = $_POST['buffA'];
-$buffB = $_POST['buffB'];
-$buffC = $_POST['buffC'];
+$Hotkey1 = $_POST['Hotkey1'];
+$Hotkey2 = $_POST['Hotkey2'];
+$BuffA = $_POST['BuffA'];
+$BuffB = $_POST['BuffB'];
+$BuffC = $_POST['BuffC'];
 $BuffTimeA = $_POST['BuffTimeA'];
 $BuffTimeB = $_POST['BuffTimeB'];
 $BuffTimeC = $_POST['BuffTimeC'];
-$party = $_POST['party'];
-$playerInBattle = $_POST['playerInBattle'];
-$playerInAttack = $_POST['playerInAttack'];
-$playerInCast = $_POST['playerInCast'];
-$playerSit = $_POST['playerSit'];
+$Party = $_POST['Party'];
+$PlayerInBattle = $_POST['PlayerInBattle'];
+$PlayerInAttack = $_POST['PlayerInAttack'];
+$PlayerInCast = $_POST['PlayerInCast'];
+$PlayerSit = $_POST['playerSit'];
 $SyncPlayerMob = $_POST['SyncPlayerMob'];
 $PlayerExpGet = $_POST['PlayerExpGet'];
-$pet = $_POST['pet'];
-$pethungry = $_POST['pethungry'];
-$petcare = $_POST['petcare'];
-$petTraining = $_POST['petTraining'];
-$petBath = $_POST['petBath'];
-$petLevel = $_POST['petLevel'];
+$Pet = $_POST['Pet'];
+$Pethungry = $_POST['Pethungry'];
+$Petcare = $_POST['Petcare'];
+$PetTraining = $_POST['PetTraining'];
+$PetBath = $_POST['PetBath'];
+$PetLevel = $_POST['PetLevel'];
 
-$isPlayerOnline = $_POST['lisPlayerOnline'];
+$isPlayerOnline = $_POST['isPlayerOnline'];
 
 #\n  (Quebra Linha)
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($Servername, $Username, $Password, $Dbname);
 
 // Check connection
 if ($conn->connect_error) {
@@ -106,8 +120,8 @@ if ($conn->connect_error) {
 
 
 # Check New Account
-if ($lrequest == "NewAccount") {
-	$sql = "SELECT * FROM Accounts WHERE AccountNumber = '$ldataaccount'";
+if ($Request == "NewAccount") {
+	$sql = "SELECT * FROM Accounts WHERE AccountNumber = '$Dataaccount'";
 	$result = $conn->query($sql);
 	if ($result === FALSE) {
 		echo nl2br($sql);
@@ -120,7 +134,7 @@ if ($lrequest == "NewAccount") {
 				$insert_sql = "INSERT INTO Accounts (
 					AccountNumber, Characternumber, Name
 				) VALUES (
-					'$ldataaccount', '$i', 'none'
+					'$Dataaccount', '$i', 'none'
 				)";
 				if ($conn->query($insert_sql) === TRUE) {
 					echo "Account $i created\n";
@@ -134,8 +148,8 @@ if ($lrequest == "NewAccount") {
 	}
 }
 
-if ($lrequest == "LoadData") {
-    $sql = "SELECT * FROM Accounts WHERE AccountNumber = '$ldataaccount'"; // AND characternumber = '$lcharnumber'";
+if ($Request == "LoadData") {
+    $sql = "SELECT * FROM Accounts WHERE AccountNumber = '$Dataaccount'"; // AND characternumber = '$lcharnumber'";
     $result = $conn->query($sql);
     if ($result === FALSE) {
         echo nl2br($sql);
@@ -164,14 +178,14 @@ if ($lrequest == "LoadData") {
                     ":Money:" . $row["Money"] .
                     ":HpMax:" . $row["HpMax"] .
                     ":MpMax:" . $row["MpMax"] .
-                    ":regenTime:" . $row["regenTime"] .
-                    ":regenTimeMax:" . $row["regenTimeMax"] .
+                    ":regenTime:" . $row["RegenTime"] .
+                    ":regenTimeMax:" . $row["RegenTimeMax"] .
                     ":PosX:" . $row["PosX"] .
                     ":PosY:" . $row["PosY"] .
                     ":Walk:" . $row["Walk"] .
                     ":Frame:" . $row["Frame"] .
                     ":countFrame:" . $row["countFrame"] .
-                    ":breakwalk:" . $row["breakwalk"] .
+                    ":Breakwalk:" . $row["breakwalk"] .
                     ":Target:" . $row["Target"] .
                     ":AtkTimer:" . $row["AtkTimer"] .
                     ":AtkTimerMax:" . $row["AtkTimerMax"] .
@@ -197,27 +211,27 @@ if ($lrequest == "LoadData") {
                     ":StaminaMax:" . $row["StaminaMax"] .
                     ":Itens:" . $row["Itens"] .
                     ":Quests:" . $row["Quests"] .
-                    ":hotkey1:" . $row["hotkey1"] .
-                    ":hotkey2:" . $row["hotkey2"] .
-                    ":buffA:" . $row["buffA"] .
-                    ":buffB:" . $row["buffB"] .
-                    ":buffC:" . $row["buffC"] .
+                    ":hotkey1:" . $row["Hotkey1"] .
+                    ":hotkey2:" . $row["Hotkey2"] .
+                    ":buffA:" . $row["BuffA"] .
+                    ":buffB:" . $row["BuffB"] .
+                    ":buffC:" . $row["BuffC"] .
                     ":BuffTimeA:" . $row["BuffTimeA"] .
                     ":BuffTimeB:" . $row["BuffTimeB"] .
                     ":BuffTimeC:" . $row["BuffTimeC"] .
-                    ":party:" . $row["party"] .
-                    ":playerInBattle:" . $row["playerInBattle"] .
-                    ":playerInAttack:" . $row["playerInAttack"] .
-                    ":playerInCast:" . $row["playerInCast"] .
-                    ":playerSit:" . $row["playerSit"] .
+                    ":Party:" . $row["Party"] .
+                    ":PlayerInBattle:" . $row["PlayerInBattle"] .
+                    ":PlayerInAttack:" . $row["PlayerInAttack"] .
+                    ":PlayerInCast:" . $row["PlayerInCast"] .
+                    ":PlayerSit:" . $row["PlayerSit"] .
                     ":SyncPlayerMob:" . $row["SyncPlayerMob"] .
                     ":PlayerExpGet:" . $row["PlayerExpGet"] .
-                    ":pet:" . $row["pet"] .
-                    ":pethungry:" . $row["pethungry"] .
-                    ":petcare:" . $row["petcare"] .
-                    ":petTraining:" . $row["petTraining"] .
-                    ":petBath:" . $row["petBath"] .
-                    ":petLevel:" . $row["petLevel"] . ":@";
+                    ":Pet:" . $row["Pet"] .
+                    ":Pethungry:" . $row["Pethungry"] .
+                    ":Petcare:" . $row["Petcare"] .
+                    ":PetTraining:" . $row["PetTraining"] .
+                    ":PetBath:" . $row["PetBath"] .
+                    ":PetLevel:" . $row["PetLevel"] . ":@";
                 echo nl2br($lAll);
             }
         } else {
@@ -227,18 +241,18 @@ if ($lrequest == "LoadData") {
 }
 
 #Create new Character
-if ($lrequest == "CreateChar") {
-	$sql = "SELECT * FROM Accounts WHERE AccountNumber = '$ldataaccount' AND Characternumber = '$lcharnumber'";
+if ($Request == "CreateChar") {
+	$sql = "SELECT * FROM Accounts WHERE AccountNumber = '$Dataaccount' AND Characternumber = '$Charnumber'";
 	$result = $conn->query($sql);
 	if ($result === FALSE) {
 	} else {
 		echo nl2br("\n - Success - \n");
 		if ($result->num_rows == 1) {
 			$update_sql = "UPDATE Accounts SET
-                Name = '$lname',
-                Sex = '$lsex',
-                Hair = '$lhair',
-                Color = '$lcolor',
+                Name = '$Name',
+                Sex = '$Sex',
+                Hair = '$Hair',
+                Color = '$Color',
                 Hat = 'none',
                 Job = 'Aprendiz',
                 SetUpper = 'basictop',
@@ -258,8 +272,8 @@ if ($lrequest == "CreateChar") {
                 PosY = -1,
                 Walk = 'no',
                 Frame = 1,
-                countFrame = 1,
-                breakwalk = 'none',
+                CountFrame = 1,
+                Breakwalk = 'none',
                 Target = 'none',
                 AtkTimer = 300,
                 AtkTimerMax = 300,
@@ -284,32 +298,32 @@ if ($lrequest == "CreateChar") {
                 Stamina = 100,
                 StaminaMax = 100,
                 Quests = 'none',
-                hotkey1 = 'none',
-                hotkey2 = 'none',
-                buffA = 'none',
-                buffB = 'none',
-                buffC = 'none',
+                Hotkey1 = 'none',
+                Hotkey2 = 'none',
+                BuffA = 'none',
+                BuffB = 'none',
+                BuffC = 'none',
                 BuffTimeA = 0,
                 BuffTimeB = 0,
                 BuffTimeC = 0,
-                party = 'none',
-                playerInBattle = 'none',
-                playerInAttack = 'none',
-                playerInCast = 'none',
-                playerSit = 'none',
+                Party = 'none',
+                PlayerInBattle = 'none',
+                PlayerInAttack = 'none',
+                PlayerInCast = 'none',
+                PlayerSit = 'none',
                 SyncPlayerMob = 'none',
                 PlayerExpGet = '0',
-                Itens = '$itensList',
-				pet = 'none',
-				pethungry = 'none',
-				petcare = 'none',
-				petTraining = 'none',
-				petBath = 'none',
-				petLevel = 'none',
+                Itens = '$Itens',
+				Pet = 'none',
+				Pethungry = 'none',
+				Petcare = 'none',
+				PetTraining = 'none',
+				PetBath = 'none',
+				PetLevel = 'none',
 				isPlayerOnline = 'offline'
             WHERE
-                AccountNumber = '$ldataaccount' AND
-                Characternumber = '$lcharnumber'";
+                AccountNumber = '$Dataaccount' AND
+                Characternumber = '$Charnumber'";
 
 			if ($conn->query($update_sql) === TRUE) {
 				echo " updated ";
@@ -324,8 +338,8 @@ if ($lrequest == "CreateChar") {
 
 
 #Check Account 
-if ($lrequest == "CheckAccount") {
-	$sql = "SELECT * FROM Accounts where AccountNumber = '$ldataaccount'";
+if ($Request == "CheckAccount") {
+	$sql = "SELECT * FROM Accounts where AccountNumber = '$Dataaccount'";
 	$result = $conn->query($sql);
 	if($result->num_rows > 0) {
 		echo nl2br("success");
@@ -335,11 +349,11 @@ if ($lrequest == "CheckAccount") {
 }
 
 #Delete Char
-if ($lrequest == "DeleteChar") {
-    $sql = "SELECT * FROM Accounts WHERE AccountNumber = '$ldataaccount'";
+if ($Request == "DeleteChar") {
+    $sql = "SELECT * FROM Accounts WHERE AccountNumber = '$Dataaccount'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        $update_sql = "UPDATE Accounts SET Name = 'none' WHERE AccountNumber = '$ldataaccount' AND Characternumber = '$lcharnumber'";
+        $update_sql = "UPDATE Accounts SET Name = 'none' WHERE AccountNumber = '$Dataaccount' AND Characternumber = '$Charnumber'";
         
         // Echo the update SQL query for debugging
         echo nl2br("Update SQL: " . $update_sql . "\n");
@@ -355,7 +369,7 @@ if ($lrequest == "DeleteChar") {
 }
 
 #SaveChar
-if ($lrequest == "SaveChar") {
+if ($Request == "SaveChar") {
 	$sql = "UPDATE Accounts SET 
 	AccountID = '$AccountID',
 	AccountNumber = '$AccountNumber',
@@ -377,14 +391,14 @@ if ($lrequest == "SaveChar") {
 	Money = '$Money',
 	HpMax = '$HpMax',
 	MpMax = '$MpMax',
-	regenTime = '$regenTime',
-	regenTimeMax = '$regenTimeMax',
+	regenTime = '$RegenTime',
+	regenTimeMax = '$RegenTimeMax',
 	PosX = '$PosX',
 	PosY = '$PosY',
 	Walk = '$Walk',
 	Frame = '$Frame',
-	countFrame = '$countFrame',
-	breakwalk = '$breakwalk',
+	CountFrame = '$CountFrame',
+	Breakwalk = '$Breakwalk',
 	Target = '$Target',
 	AtkTimer = '$AtkTimer',
 	AtkTimerMax = '$AtkTimerMax',
@@ -410,29 +424,29 @@ if ($lrequest == "SaveChar") {
 	StaminaMax = '$StaminaMax',
 	Itens = '$Itens',
 	Quests = '$Quests',
-	hotkey1 = '$hotkey1',
-	hotkey2 = '$hotkey2',
-	buffA = '$buffA',
-	buffB = '$buffB',
-	buffC = '$buffC',
+	Hotkey1 = '$Hotkey1',
+	Hotkey2 = '$Hotkey2',
+	BuffA = '$BuffA',
+	BuffB = '$BuffB',
+	BuffC = '$BuffC',
 	BuffTimeA = '$BuffTimeA',
 	BuffTimeB = '$BuffTimeB',
 	BuffTimeC = '$BuffTimeC',
-	party = '$party',
-	playerInBattle = '$playerInBattle',
-	playerInAttack = '$playerInAttack',
-	playerInCast = '$playerInCast',
-	playerSit = '$playerSit',
+	Party = '$Party',
+	PlayerInBattle = '$PlayerInBattle',
+	PlayerInAttack = '$PlayerInAttack',
+	PlayerInCast = '$PlayerInCast',
+	PlayerSit = '$PlayerSit',
 	SyncPlayerMob = '$SyncPlayerMob',
 	PlayerExpGet = '$PlayerExpGet',
-	pet = '$pet',
-	pethungry = '$pethungry',
-	petcare = '$petcare',
-	petTraining = '$petTraining',
-	petBath = '$petBath',
-	petLevel = '$petLevel',
+	Pet = '$Pet',
+	Pethungry = '$Pethungry',
+	Petcare = '$Petcare',
+	PetTraining = '$PetTraining',
+	PetBath = '$PetBath',
+	PetLevel = '$PetLevel',
 	isPlayerOnline = 'online'
-	WHERE AccountNumber = '$ldataaccount' AND Characternumber = '$lcharnumber'";
+	WHERE AccountNumber = '$Dataaccount' AND Characternumber = '$Charnumber'";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {   
@@ -450,8 +464,8 @@ if ($lrequest == "SaveChar") {
 }
 
 #Adicionar Chat
-if ($lrequest == "Chat") {
-	$sql = "INSERT INTO Chats (AccountID,Name,Msg) VALUES ('$ldataaccount','$lname','$lchat')";
+if ($Request == "Chat") {
+	$sql = "INSERT INTO Chats (AccountID,Name,Msg) VALUES ('$Dataaccount','$Name','$Chat')";
 	if ($conn->query($sql) === TRUE) {
 		echo nl2br("\n - Adicionado - \n");
 	} else {
@@ -464,7 +478,7 @@ if ($lrequest == "Chat") {
 }
 
 #Sync Chats
-if ($lrequest == "SyncChats") {
+if ($Request == "SyncChats") {
 	$sql = "SELECT * FROM Chats order by ChatID desc limit 5";
 	$result = $conn->query($sql);
 	if ($result === FALSE) {
@@ -475,7 +489,7 @@ if ($lrequest == "SyncChats") {
 		if ($result->num_rows > 0) {
 			// output data of each row
 			while ($row = $result->fetch_assoc()) {
-				$lAll = "SYSTEMCHAT - :Name:" . $row["Name"] .
+				$lAll = "@ - :Name:" . $row["Name"] .
 					":Msg:" . $row["Msg"] .
 					": - \n";
 				echo nl2br($lAll);
@@ -487,7 +501,7 @@ if ($lrequest == "SyncChats") {
 }
 
 #Efetua Sync
-if ($lrequest == "SyncPlayers") {
+if ($Request == "SyncPlayers") {
 	$sql = "SELECT * FROM Accounts WHERE isPlayerOnline = 'online';";
 	$result = $conn->query($sql);
 	$lAll = '';
@@ -515,11 +529,11 @@ if ($lrequest == "SyncPlayers") {
 				":Hat:" . $row["Hat"] .
 				":Side:" . $row["Side"] .
 				":Job:" . $row["Job"] .
-				":PlayerInBattle:" . $row["playerInBattle"] .
-				":PlayerInAttack:" . $row["playerInAttack"] .
-				":PlayerInCast:" . $row["playerInCast"] .
-				":PlayerSit:" . $row["playerSit"] .
-				":Party:" . $row["party"] . ":@";
+				":PlayerInBattle:" . $row["PlayerInBattle"] .
+				":PlayerInAttack:" . $row["PlayerInAttack"] .
+				":PlayerInCast:" . $row["PlayerInCast"] .
+				":PlayerSit:" . $row["PlayerSit"] .
+				":Party:" . $row["Party"] . ":@";
                 echo nl2br($lAll);
 		}
 	}
@@ -530,9 +544,9 @@ if ($lrequest == "SyncPlayers") {
 }
 
 ##UPLOAD
-if ($lrequest == "Upload") {
+if ($Request == "Upload") {
 
-	$arquivo = $ldataaccount;
+	$arquivo = $Dataaccount;
 	$file = fopen($arquivo, 'w');
 	if (fwrite($file, $ldata)) {
 		echo nl2br("Atualizado");
@@ -544,10 +558,10 @@ if ($lrequest == "Upload") {
 }
 
 ##DOWNLOAD
-if ($lrequest == "Download") {
+if ($Request == "Download") {
 
-	if (file_exists($ldataaccount)) {
-		$arquivo = fopen($ldataaccount, "r");
+	if (file_exists($Dataaccount)) {
+		$arquivo = fopen($Dataaccount, "r");
 		while (!feof($arquivo)) {
 			$linha = fgets($arquivo, 4096);
 			echo nl2br($linha);
