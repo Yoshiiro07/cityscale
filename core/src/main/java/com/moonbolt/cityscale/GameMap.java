@@ -161,6 +161,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private Texture tex_testeDot;
     private int LoopTime = 50;
     
+    // keyboard
+ 	private Texture tex_keyboard;
+ 	private Sprite spr_keyboard;
+ 	private String keyboardText = "";
+    
     
     //Controller
     private final IntSet downKeys = new IntSet(20);	
@@ -192,6 +197,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);			
 			Gdx.input.setInputProcessor(this);
 			
+			// keyboard
+			tex_keyboard = new Texture(Gdx.files.internal("data/assets/ux/keyboard.png"));
+			spr_keyboard = new Sprite(tex_keyboard);
+			
 			//Etc
 			lstChats = new ArrayList<String>();
 			lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add("");
@@ -219,7 +228,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			tex_metro = new Texture(Gdx.files.internal("data/assets/etc/metro.png"));
 			spr_metro = new Sprite(tex_metro);
 		    
-			
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
@@ -509,20 +517,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				ShowBag();
 				
-				//Mensagens Aviso 
-				if (aviso) {
-					spr_master = gameControl.GetUX("textbar", 0, 0);
-					spr_master.setSize(90,20);
-					spr_master.setPosition(-45, 5);
-					spr_master.draw(game.batch);
-					font_master.getData().setScale(0.12f, 0.19f);
-					font_master.draw(game.batch, avisoMsg, -40, 18);
-					avisoTimer++;
-					if (avisoTimer > 100) {
-						aviso = false;
-						avisoTimer = 0;
-					}
-				}
+				
 				
 				
 				if(menuoption.equals("hotkey1")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 16, cameraCoordsY - 23); spr_master.draw(game.batch); }
@@ -556,6 +551,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(state.equals("DungeonSelect")) {
 				spr_master = gameControl.GetUX("battlezoneA", cameraCoordsX, cameraCoordsY);
 				spr_master.draw(game.batch);
+			}
+			
+			
+			if (state.equals("keyboard")) {
+				spr_keyboard.setPosition(cameraCoordsX -100,cameraCoordsY -100);
+				spr_keyboard.setSize(196, 198);
+				spr_keyboard.draw(game.batch);
+
+				font_master.getData().setScale(0.15f, 0.20f);
+				font_master.setUseIntegerPositions(false);
+				font_master.draw(game.batch, keyboardText, -65, 55);
+			}
+			
+			//Mensagens Aviso 
+			if (aviso) {
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setSize(90,20);
+				spr_master.setPosition(-45, 5);
+				spr_master.draw(game.batch);
+				font_master.getData().setScale(0.12f, 0.19f);
+				font_master.draw(game.batch, avisoMsg, -40, 18);
+				avisoTimer++;
+				if (avisoTimer > 100) {
+					aviso = false;
+					avisoTimer = 0;
+				}
 			}
 			
 			
@@ -2424,7 +2445,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Chat
 				if(coordsTouch.x > cameraCoordsX - 60 && coordsTouch.x < cameraCoordsX - 49 && coordsTouch.y > cameraCoordsY + 77 && coordsTouch.y < cameraCoordsY + 97) {
-					
+					state = "keyboard";
 					return false;
 				}
 			}
