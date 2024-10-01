@@ -582,13 +582,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 			
-			//spr_testeDot.setPosition(cameraCoordsX + 68,cameraCoordsY + 62);
-			//spr_testeDot.setSize(1, 1);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX - 95,cameraCoordsY + 62);
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 
-			//spr_testeDot.setPosition(cameraCoordsX + 80,cameraCoordsY + 40);
-			//spr_testeDot.setSize(1, 1);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 80,cameraCoordsY + 31);
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 			
 			game.batch.end();
 		}
