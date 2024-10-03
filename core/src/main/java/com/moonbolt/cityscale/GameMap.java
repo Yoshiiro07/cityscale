@@ -159,7 +159,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     //Teste Dot
     private Sprite spr_testeDot;
     private Texture tex_testeDot;
-    private int LoopTime = 50;
+    private int LoopTime = 35;
     
     // keyboard
  	private Texture tex_keyboard;
@@ -294,7 +294,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				RecoverOnlineChats();
 			}
 			
-			if(LoopTime < 0) { LoopTime = 50; }
+			if(LoopTime < 0) { LoopTime = 35; }
 			
 			//Check Regen
 			regen = Integer.parseInt(player.regenTime);
@@ -517,9 +517,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				ShowBag();
 				
-				
-				
-				
 				if(menuoption.equals("hotkey1")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 16, cameraCoordsY - 23); spr_master.draw(game.batch); }
 				if(menuoption.equals("hotkey2")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 36, cameraCoordsY - 23); spr_master.draw(game.batch); }
 				if(menuoption.equals("descartar")) { 
@@ -559,9 +556,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_keyboard.setSize(196, 198);
 				spr_keyboard.draw(game.batch);
 
-				font_master.getData().setScale(0.15f, 0.20f);
+				font_master.getData().setScale(0.23f, 0.35f);
 				font_master.setUseIntegerPositions(false);
-				font_master.draw(game.batch, keyboardText, -65, 55);
+				font_master.draw(game.batch, keyboardText, cameraCoordsX - 95, cameraCoordsY + 90);
 			}
 			
 			//Mensagens Aviso 
@@ -582,11 +579,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 			
-			spr_testeDot.setPosition(cameraCoordsX - 95,cameraCoordsY + 62);
+			spr_testeDot.setPosition(cameraCoordsX + 67,cameraCoordsY - 70);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 
-			spr_testeDot.setPosition(cameraCoordsX + 80,cameraCoordsY + 31);
+			spr_testeDot.setPosition(cameraCoordsX + 95,cameraCoordsY - 95);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -2335,6 +2332,170 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
+		public void KeyboardKeyPressed(float x, float y) {
+			if (x >= cameraCoordsX - 95 && x <= cameraCoordsX - 80 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+				keyboardText = keyboardText + "1";
+			}
+			if (x >= cameraCoordsX - 77 && x <= cameraCoordsX - 63 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+				keyboardText = keyboardText + "2";
+			}
+			if (x >= cameraCoordsX - 59 && x <= cameraCoordsX - 45 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+					keyboardText = keyboardText + "3";
+			}
+			if (x >= cameraCoordsX - 42 && x <= cameraCoordsX - 27 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+					keyboardText = keyboardText + "4";
+			}
+			if (x >= cameraCoordsX - 23 && x <= cameraCoordsX - 10 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+					keyboardText = keyboardText + "5";
+			}
+			if (x >= cameraCoordsX - 6 && x <= cameraCoordsX + 8 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+					keyboardText = keyboardText + "6";
+			}
+			if (x >= cameraCoordsX + 12 && x <= cameraCoordsX + 26 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+					keyboardText = keyboardText + "7";
+			}
+			
+			if (x >= cameraCoordsX + 29 && x <= cameraCoordsX + 43 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+				keyboardText = keyboardText + "8";
+			}
+			if (x >= cameraCoordsX + 47 && x <= cameraCoordsX + 61 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+				keyboardText = keyboardText + "9";
+			}
+			if (x >= cameraCoordsX + 64 && x <= cameraCoordsX + 79 && y >= cameraCoordsY + 31 && y <= cameraCoordsY + 62) {
+				keyboardText = keyboardText + "0";
+			}
+
+			if (x >= cameraCoordsX - 84 && x <= cameraCoordsX - 69 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "Q";
+			}
+			if (x >= cameraCoordsX - 66 && x <= cameraCoordsX - 52 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "W";
+			}
+			if (x >= cameraCoordsX - 49 && x <= cameraCoordsX - 35 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "E";
+			}
+			if (x >= cameraCoordsX - 32 && x <= cameraCoordsX - 18 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "R";
+			}
+			if (x >= cameraCoordsX - 15 && x <= cameraCoordsX - 1 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "T";
+			}
+			if (x >= cameraCoordsX + 2 && x <= cameraCoordsX + 16 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "Y";
+			}
+			if (x >= cameraCoordsX + 19 && x <= cameraCoordsX + 34 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "U";
+			}
+			if (x >= cameraCoordsX + 37 && x <= cameraCoordsX + 51 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "I";
+			}
+			if (x >= cameraCoordsX + 53 && x <= cameraCoordsX + 68 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "O";
+			}
+			if (x >= cameraCoordsX + 70 && x <= cameraCoordsX + 85 && y >= cameraCoordsY - 3 && y <= cameraCoordsY + 24) {
+				keyboardText = keyboardText + "P";
+			}
+
+			if (x >= cameraCoordsX - 75 && x <= cameraCoordsX - 60 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "A";
+			}
+			if (x >= cameraCoordsX - 58 && x <= cameraCoordsX - 43 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "S";
+			}
+			if (x >= cameraCoordsX - 40 && x <= cameraCoordsX - 27 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "D";
+			}
+			if (x >= cameraCoordsX - 24 && x <= cameraCoordsX - 10 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "F";
+			}
+			if (x >= cameraCoordsX - 6 && x <= cameraCoordsX + 8 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "G";
+			}
+			if (x >= cameraCoordsX + 11 && x <= cameraCoordsX + 25 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "H";
+			}
+			if (x >= cameraCoordsX + 28 && x <= cameraCoordsX + 42 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "J";
+			}
+			if (x >= cameraCoordsX + 45 && x <= cameraCoordsX + 59 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "K";
+			}
+			if (x >= cameraCoordsX + 62 && x <= cameraCoordsX + 76 && y >= cameraCoordsY - 35 && y <= cameraCoordsY - 8) {
+				keyboardText = keyboardText + "L";
+			}
+
+			if (x >= cameraCoordsX - 58 && x <= cameraCoordsX - 43 && y >= cameraCoordsY - 65 && y <= cameraCoordsY - 39) {
+				keyboardText = keyboardText + "Z";
+			}
+			if (x >= cameraCoordsX - 40 && x <= cameraCoordsX - 27 && y >= cameraCoordsY - 65 && y <= cameraCoordsY - 39) {
+				keyboardText = keyboardText + "X";
+			}
+			if (x >= cameraCoordsX - 24 && x <= cameraCoordsX - 10 && y >= cameraCoordsY - 65 && y <= cameraCoordsY - 39) {
+				keyboardText = keyboardText + "C";
+			}
+			if (x >= cameraCoordsX - 6 && x <= cameraCoordsX + 8 && y >= cameraCoordsY - 65 && y <= cameraCoordsY - 39) {
+				keyboardText = keyboardText + "V";
+			}
+			if (x >= cameraCoordsX + 11 && x <= cameraCoordsX + 25 && y >= cameraCoordsY - 65 && y <= cameraCoordsY - 39) {
+				keyboardText = keyboardText + "B";
+			}
+			if (x >= cameraCoordsX + 28 && x <= cameraCoordsX + 42 && y >= cameraCoordsY - 65 && y <= cameraCoordsY - 39) {
+				keyboardText = keyboardText + "N";
+			}
+			if (x >= cameraCoordsX + 45 && x <= cameraCoordsX + 59 && y >= cameraCoordsY - 65 && y <= cameraCoordsY - 39) {
+				keyboardText = keyboardText + "M";
+			}
+			
+			//Sair
+			if (x >= cameraCoordsX - 99 && x <= cameraCoordsX - 72 && y >= cameraCoordsY - 95 && y <= cameraCoordsY - 70) {
+				keyboardText = "";
+				state = "Main";
+			}
+
+			//Space
+			if (x >= cameraCoordsX - 57 && x <= cameraCoordsX + 25 && y >= cameraCoordsY - 95 && y <= cameraCoordsY - 70) {
+				keyboardText = keyboardText + " ";
+			}
+			
+			//BackSpace
+			if (x >= cameraCoordsX + 30 && x <= cameraCoordsX + 58 && y >= cameraCoordsY - 95 && y <= cameraCoordsY - 70) {
+				if (!keyboardText.isEmpty()) {
+					keyboardText = keyboardText.substring(0, keyboardText.length() - 1);
+				}
+			}
+
+			//Enter
+			if (x >= cameraCoordsX + 67 && x <= cameraCoordsX + 95 && y >= cameraCoordsY - 95 && y <= cameraCoordsY - 70) {
+				
+				try {
+					gameControl.SendChat("Chat",player.AccountNumber,playernumString,keyboardText, new HttpCallback() {
+					    @Override
+					    public void onSuccess(String response) {
+					    	if(response.contains("success")) {
+					    		keyboardText = "";
+								state = "Main";
+					    	}
+					    	else {
+					    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					    		aviso = true;
+					    	}
+					    }
+
+					    @Override
+					    public void onFailure(Throwable t) {
+					       System.out.println("Error: " + t.getMessage());
+					       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+						   aviso = true;
+					    }
+					});
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
+			}
+
+		}
+		
 		
 		@Override
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
@@ -2702,6 +2863,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					state = "Main";
 					return false; 
 				}
+			}
+			
+			if (state.contains("keyboard")) {
+				this.KeyboardKeyPressed(coordsTouch.x, coordsTouch.y);
+				return false;
 			}
 			
 			return false;
