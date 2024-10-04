@@ -40,7 +40,7 @@ public class Monster {
 			if(map.equals("Sewers")){
 			Monster MobA = new Monster();
 			
-			MobA.MobName = "slime";
+			MobA.MobName = "slime";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
 			MobA.MobHp = 50;
 			MobA.MobMp = 50;
 			MobA.MobHpMax = 50;
@@ -127,7 +127,7 @@ public class Monster {
 			MobC.MobMap = "Sewers";
 
 			Monster MobD = new Monster();
-			MobD.MobName = "rat";
+			MobD.MobName = "rato";
 			MobD.MobHp = 100;
 			MobD.MobMp = 100;
 			MobD.MobHpMax = 100;

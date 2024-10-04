@@ -292,6 +292,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(LoopTime < 0) {
 				RecoverOnlinePlayers();
 				RecoverOnlineChats();
+				if(player.SyncPlayerMob.equals("yes")) {
+					//RecoverOnlineMobs();
+				}
+				else {
+					RecoverOnlineMobs();
+				}		
 			}
 			
 			if(LoopTime < 0) { LoopTime = 35; }
@@ -635,6 +641,33 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				    public void onSuccess(String response) {
 				    	if(response.contains("success")) {
 				    		lstChats = gameControl.RecoverOnlineChat();
+				    	}
+				    	else {
+				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		aviso = true;
+				    	}
+				    }
+
+				    @Override
+				    public void onFailure(Throwable t) {
+				       System.out.println("Error: " + t.getMessage());
+				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   aviso = true;
+				    }
+				});
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public void RecoverOnlineMobs() {
+			try {
+				gameControl.SyncMobs("SyncMobs",player.AccountNumber,playernumString, new HttpCallback() {
+				    @Override
+				    public void onSuccess(String response) {
+				    	if(response.contains("success")) {
+				    		listMonsters = gameControl.RecoverMonsterList();
 				    	}
 				    	else {
 				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";

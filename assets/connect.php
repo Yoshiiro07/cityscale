@@ -29,12 +29,7 @@ $Charnumber = $_POST['Charnumber'];
 
 #Variaveis de Uso
 $lAll = '';
-$Chat = $_POST['Chat'];
-
-#Variaveis para o Mob
-$MobTarget = $_POST['MobTarget'];
-$MobHP = $_POST['MobHP'];
-
+$lChat = $_POST['Chat'];
 
 $AccountID = $_POST['AccountID'];
 $AccountNumber = $_POST['AccountNumber'];
@@ -466,20 +461,6 @@ if ($Request == "SaveChar") {
     } else {
         echo nl2br("fail");
     }
-}
-
-#SendAtk
-if ($Request == "SendAtk") {
-	$sql = "INSERT INTO Chats (AccountID,Name,Msg) VALUES ('$Dataaccount','$Name','$Chat')";
-	if ($conn->query($sql) === TRUE) {
-		echo nl2br("\n - Adicionado - \n");
-	} else {
-		echo nl2br($sql);
-		echo nl2br("\n - Falhou \n") . $conn->error;
-	}
-	#$result = $conn->query($sql);
-	$conn->close();
-	return;
 }
 
 #Adicionar Chat
