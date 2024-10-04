@@ -29,7 +29,7 @@ $Charnumber = $_POST['Charnumber'];
 
 #Variaveis de Uso
 $lAll = '';
-$lChat = $_POST['Chat'];
+$Chat = $_POST['Chat'];
 
 $AccountID = $_POST['AccountID'];
 $AccountNumber = $_POST['AccountNumber'];
@@ -107,6 +107,15 @@ $PetBath = $_POST['PetBath'];
 $PetLevel = $_POST['PetLevel'];
 
 $isPlayerOnline = $_POST['isPlayerOnline'];
+
+
+#Mobs Sync
+#Variaveis para o Mob
+$MobTarget = $_POST['MobMapSewers'];
+$MobHP = $_POST['MobMapWaterCave'];
+$MobHP = $_POST['MobMapMines'];
+$MobHP = $_POST['MobMapIcePalace'];
+$MobHP = $_POST['MobMapTower'];
 
 #\n  (Quebra Linha)
 
@@ -463,6 +472,20 @@ if ($Request == "SaveChar") {
     }
 }
 
+#SendAtk
+if ($Request == "SendAtk") {
+	$sql = "UPDATE INTO Chats (AccountID,Name,Msg) VALUES ('$Dataaccount','$Name','$Chat')";
+	if ($conn->query($sql) === TRUE) {
+		echo nl2br("\n - Adicionado - \n");
+	} else {
+		echo nl2br($sql);
+		echo nl2br("\n - Falhou \n") . $conn->error;
+	}
+	#$result = $conn->query($sql);
+	$conn->close();
+	return;
+}
+
 #Adicionar Chat
 if ($Request == "Chat") {
 	$sql = "INSERT INTO Chats (AccountID,Name,Msg) VALUES ('$Dataaccount','$Name','$Chat')";
@@ -475,6 +498,39 @@ if ($Request == "Chat") {
 	#$result = $conn->query($sql);
 	$conn->close();
 	return;
+}
+
+
+
+#Efetua Sync
+
+#Sync Mobs
+if ($Request == "SyncMobs") {
+	$sql = "SELECT * FROM Mobs";
+	$result = $conn->query($sql);
+	if ($result === FALSE) {
+		echo nl2br($sql);
+		echo nl2br("\n - Falhou - \n") . $conn->error;
+	} else {
+		echo nl2br("\n - Recuperado - \n");
+		if ($result->num_rows > 0) {
+			// output data of each row
+			while ($row = $result->fetch_assoc()) {
+				$lAll = "@ - :MobID:" . $row["MobID"] .
+					":MobHp:" . $row["MobHp"] .
+					":MobMp:" . $row["MobMp"] .
+					":MobPosX:" . $row["MobPosX"] .
+					":MobPosY:" . $row["MobPosY"] .
+					":MobTarget:" . $row["MobTarget"] .
+					":MobDead:" . $row["MobDead"] .
+					":MobMap:" . $row["MobMap"] .
+					": - \n";
+				echo nl2br($lAll);
+			}
+		} else {
+			echo "0 results";
+		}
+	}
 }
 
 #Sync Chats
@@ -500,7 +556,7 @@ if ($Request == "SyncChats") {
 	}
 }
 
-#Efetua Sync
+#Sync Mobs
 if ($Request == "SyncPlayers") {
 	$sql = "SELECT * FROM Accounts WHERE isPlayerOnline = 'online';";
 	$result = $conn->query($sql);
