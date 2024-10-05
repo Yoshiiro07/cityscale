@@ -3458,6 +3458,7 @@ public class GameControl {
 		parameters.put("Request", tipoRequisicao);
 		parameters.put("Dataaccount", account);
 		parameters.put("Charnumber", charnumber);
+		parameters.put("PlayerMapMobSync", playerUse.Map);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
