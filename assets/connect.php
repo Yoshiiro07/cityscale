@@ -109,14 +109,6 @@ $PetLevel = $_POST['PetLevel'];
 $isPlayerOnline = $_POST['isPlayerOnline'];
 
 
-#Mobs Sync
-#Variaveis para o Mob
-$MobTarget = $_POST['MobMapSewers'];
-$MobHP = $_POST['MobMapWaterCave'];
-$MobHP = $_POST['MobMapMines'];
-$MobHP = $_POST['MobMapIcePalace'];
-$MobHP = $_POST['MobMapTower'];
-
 #\n  (Quebra Linha)
 
 // Create connection
@@ -500,10 +492,72 @@ if ($Request == "Chat") {
 	return;
 }
 
+#Update Mob Data
+if ($Request == "UpdateMobData") {
+    $account = $_POST['Dataaccount'];
+    $charnumber = $_POST['Charnumber'];
+    $name = $_POST['Name'];
 
+    // Loop through the mob data in the POST request
+    for ($i = 0; isset($_POST['MobID' . $i]); $i++) {
+        $mobID = $_POST['MobID' . $i];
+        $mobHp = $_POST['MobHp' . $i];
+        $mobMp = $_POST['MobMp' . $i];
+        $mobPosX = $_POST['MobPosX' . $i];
+        $mobPosY = $_POST['MobPosY' . $i];
+        $mobTarget = $_POST['MobTarget' . $i];
+        $mobDead = $_POST['MobDead' . $i];
+        $mobMap = $_POST['MobMap' . $i];
+
+        // Update the mob data in the database
+        $sql = "UPDATE Mobs SET 
+                MobHp = '$mobHp',
+                MobMp = '$mobMp',
+                MobPosX = '$mobPosX',
+                MobPosY = '$mobPosY',
+                MobTarget = '$mobTarget',
+                MobDead = '$mobDead',
+                MobMap = '$mobMap'
+                WHERE MobID = '$mobID'";
+
+        if (!$conn->query($sql)) {
+            echo "Error updating mob $mobID: " . $conn->error;
+        }
+    }
+
+    echo "Mob data updated successfully.";
+}
 
 #Efetua Sync
 
+#Sync Mobs
+if ($Request == "SyncMobs") {
+    $sql = "SELECT * FROM Mobs";
+    $result = $conn->query($sql);
+    if ($result === FALSE) {
+        echo nl2br($sql);
+        echo nl2br("\n - Falhou - \n") . $conn->error;
+    } else {
+        echo nl2br("\n - Recuperado - \n");
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while ($row = $result->fetch_assoc()) {
+                $lAll = "@ - :MobID:" . $row["MobID"] .
+                    ":MobHp:" . $row["MobHp"] .
+                    ":MobMp:" . $row["MobMp"] .
+                    ":MobPosX:" . $row["MobPosX"] .
+                    ":MobPosY:" . $row["MobPosY"] .
+                    ":MobTarget:" . $row["MobTarget"] .
+                    ":MobDead:" . $row["MobDead"] .
+                    ":MobMap:" . $row["MobMap"] .
+                    ": - \n";
+                echo nl2br($lAll);
+            }
+        }
+    }
+}
+
+#Efetua Sync
 #Sync Mobs
 if ($Request == "SyncMobs") {
 	$sql = "SELECT * FROM Mobs";

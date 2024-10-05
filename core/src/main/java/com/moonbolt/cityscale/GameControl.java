@@ -2398,8 +2398,6 @@ public class GameControl {
 		return SysMsg;
 	}
 	
-	
-
 	///////////////////////////////////////////////// [Online HTML] /////////////////////////////////
 	public String GetResult() {
 		return onlineResult;
@@ -2430,76 +2428,83 @@ public class GameControl {
 	}
 	
 	public void UpdateOnlinePlayers(String line) {
-		if (line.contains("Unavailable")) {
-			System.out.println("Line: indisponivel player");
-			return;
-		}
-	
-		// Split the line into individual player data strings
-		String[] playerDataArray = line.split("@");
-	
-		// Iterate over each player data string, excluding the last one
-		for (String playerData : playerDataArray) {
-			// Split the player data string into individual data fields
-			String[] playerDataFields = playerData.split(":");
-	
-			// Create a new Player object and set its fields
-			Player playerOnline = new Player();
-			playerOnline.Name = playerDataFields[2];
-			playerOnline.AccountID = playerDataFields[4];
-			playerOnline.Level = playerDataFields[6];
-			playerOnline.Map = playerDataFields[8];
-			playerOnline.Hp = playerDataFields[10];
-			playerOnline.Mp = playerDataFields[12];
-			playerOnline.PosX = playerDataFields[14];
-			playerOnline.PosY = playerDataFields[16];
-			playerOnline.Walk = playerDataFields[18];
-			playerOnline.Weapon = playerDataFields[20];
-			playerOnline.Frame = playerDataFields[22];
-			playerOnline.SyncPlayerMob = playerDataFields[24];
-			playerOnline.SetUpper = playerDataFields[26];
-			playerOnline.SetBottom = playerDataFields[28];
-			playerOnline.SetFooter = playerDataFields[30];
-			playerOnline.Hair = playerDataFields[32];
-			playerOnline.Sex = playerDataFields[34];
-			playerOnline.Color = playerDataFields[36];
-			playerOnline.Hat = playerDataFields[38];
-			playerOnline.Side = playerDataFields[40];
-			playerOnline.Job = playerDataFields[42];
-			playerOnline.playerInBattle = playerDataFields[44];
-			playerOnline.playerInAttack = playerDataFields[46];
-			playerOnline.playerInCast = playerDataFields[48];
-			playerOnline.playerSit = playerDataFields[50];
-			playerOnline.party = playerDataFields[52];
-	
-			// Check if playerOnline.Name equals playerUse.Name
-			if (playerOnline.Name.equals(playerUse.Name)) {
-				// If it's the first in the list, change playerUse.SyncPlayerMob to "yes"
-				if (lstPlayerOnline.isEmpty() || lstPlayerOnline.get(0).Name.equals(playerUse.Name)) {
-					playerUse.SyncPlayerMob = "yes";
-				}
-				else {
-					playerUse.SyncPlayerMob = "no";
-				}
-				continue;
-			}
-	
-			// Check if playerOnline already exists in lstPlayerOnline
-			boolean exists = false;
-			for (int i = 0; i < lstPlayerOnline.size(); i++) {
-				if (lstPlayerOnline.get(i).Name.equals(playerOnline.Name)) {
-					// Replace the existing entry
-					lstPlayerOnline.set(i, playerOnline);
-					exists = true;
-					break;
-				}
-			}
-	
-			// Add playerOnline if it doesn't already exist
-			if (!exists) {
-				lstPlayerOnline.add(playerOnline);
-			}
-		}
+	    if (line.contains("Unavailable")) {
+	        System.out.println("Line: indisponivel player");
+	        return;
+	    }
+
+	    // Split the line into individual player data strings
+	    String[] playerDataArray = line.split("@");
+
+	    // Iterate over each player data string, excluding the last one
+	    for (String playerData : playerDataArray) {
+	        // Split the player data string into individual data fields
+	        String[] playerDataFields = playerData.split(":");
+
+	        // Create a new Player object and set its fields
+	        Player playerOnline = new Player();
+	        playerOnline.Name = playerDataFields[2];
+	        playerOnline.AccountID = playerDataFields[4];
+	        playerOnline.Level = playerDataFields[6];
+	        playerOnline.Map = playerDataFields[8];
+	        playerOnline.Hp = playerDataFields[10];
+	        playerOnline.Mp = playerDataFields[12];
+	        playerOnline.PosX = playerDataFields[14];
+	        playerOnline.PosY = playerDataFields[16];
+	        playerOnline.Walk = playerDataFields[18];
+	        playerOnline.Weapon = playerDataFields[20];
+	        playerOnline.Frame = playerDataFields[22];
+	        playerOnline.SyncPlayerMob = playerDataFields[24];
+	        playerOnline.SetUpper = playerDataFields[26];
+	        playerOnline.SetBottom = playerDataFields[28];
+	        playerOnline.SetFooter = playerDataFields[30];
+	        playerOnline.Hair = playerDataFields[32];
+	        playerOnline.Sex = playerDataFields[34];
+	        playerOnline.Color = playerDataFields[36];
+	        playerOnline.Hat = playerDataFields[38];
+	        playerOnline.Side = playerDataFields[40];
+	        playerOnline.Job = playerDataFields[42];
+	        playerOnline.playerInBattle = playerDataFields[44];
+	        playerOnline.playerInAttack = playerDataFields[46];
+	        playerOnline.playerInCast = playerDataFields[48];
+	        playerOnline.playerSit = playerDataFields[50];
+	        playerOnline.party = playerDataFields[52];
+
+	        // Check if playerOnline.Name equals playerUse.Name
+	        if (playerOnline.Name.equals(playerUse.Name)) {
+	            // If it's the first in the list with the same Map, change playerUse.SyncPlayerMob to playerUse.Map
+	            if (lstPlayerOnline.isEmpty() || lstPlayerOnline.get(0).Map.equals(playerUse.Map)) {
+	                playerUse.SyncPlayerMob = playerUse.Map;
+	            } else {
+	                playerUse.SyncPlayerMob = "no";
+	            }
+	            continue;
+	        }
+
+	        // Check if playerOnline already exists in lstPlayerOnline
+	        boolean exists = false;
+	        for (int i = 0; i < lstPlayerOnline.size(); i++) {
+	            if (lstPlayerOnline.get(i).Name.equals(playerOnline.Name)) {
+	                // Replace the existing entry
+	                lstPlayerOnline.set(i, playerOnline);
+	                exists = true;
+	                break;
+	            }
+	        }
+
+	        // Add playerOnline if it doesn't already exist
+	        if (!exists) {
+	            lstPlayerOnline.add(playerOnline);
+	        }
+	    }
+
+	    // Additional check after the loop to set playerUse.SyncPlayerMob to playerUse.Map if the first player with the same Map
+	    for (Player player : lstPlayerOnline) {
+	        if (player.Map.equals(playerUse.Map)) {
+	            playerUse.SyncPlayerMob = playerUse.Map;
+	            break;
+	        }
+	    }
 	}
 	
 	public void ProcessChatList(String message) {
@@ -3149,86 +3154,85 @@ public class GameControl {
 	}
 	
 	
-	public void SendMobData(String tipoRequisicao, String account, String charnumber, String Message, HttpCallback callback)
-			throws UnsupportedEncodingException {
-		
-		
-		String mobMapSewers = ""; //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
-		
+	public void SendMobData(String tipoRequisicao, String account, String charnumber, HttpCallback callback)
+            throws UnsupportedEncodingException {
 
-		// Prepare the data to post
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("Servername", lservername);
-		parameters.put("Username", lusername);
-		parameters.put("Password", lpassword);
-		parameters.put("Dbname", ldbname);
-		parameters.put("Request", tipoRequisicao);
-		parameters.put("Dataaccount", account);
-		parameters.put("Charnumber", charnumber);
-		parameters.put("Name", playerUse.Name);
-		parameters.put("Chat", Message);
-		
-		parameters.put("MobMapSewers", "");
-		parameters.put("Chat", Message);
-		parameters.put("Chat", Message);
-		parameters.put("Chat", Message);
-		parameters.put("Chat", Message);
+        // Prepare the data to post
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("Servername", lservername);
+        parameters.put("Username", lusername);
+        parameters.put("Password", lpassword);
+        parameters.put("Dbname", ldbname);
+        parameters.put("Request", tipoRequisicao);
+        parameters.put("Dataaccount", account);
+        parameters.put("Charnumber", charnumber);
+        parameters.put("Name", playerUse.Name);
+        
+        // Loop through lstMonsters to get mob data where MobMap equals playerUse.Map
+        int mobIndex = 0;
+        for (Monster monster : lstMonsters) {
+            if (monster.MobMap.equals(playerUse.Map)) {
+                parameters.put("MobID" + mobIndex, String.valueOf(monster.MobID));
+                parameters.put("MobHp" + mobIndex, String.valueOf(monster.MobHp));
+                parameters.put("MobMp" + mobIndex, String.valueOf(monster.MobMp));
+                parameters.put("MobPosX" + mobIndex, String.valueOf(monster.MobPosX));
+                parameters.put("MobPosY" + mobIndex, String.valueOf(monster.MobPosY));
+                parameters.put("MobTarget" + mobIndex, String.valueOf(monster.MobTarget));
+                parameters.put("MobDead" + mobIndex, String.valueOf(monster.MobDead));
+                parameters.put("MobMap" + mobIndex, String.valueOf(monster.MobMap));
+                mobIndex++;
+            }
+        }
 
-		String content = "";
-		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
-			if (content.length() > 0) {
-				content += "&";
-			}
-			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
-					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
-		}
+        String content = "";
+        for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+            if (content.length() > 0) {
+                content += "&";
+            }
+            content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
+                    + URLEncoder.encode(parameter.getValue(), "UTF-8");
+        }
 
-		// Create the HTTP request
-		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
-		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
-				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
-				.url("https://moonboltprojects.online/connect.php").content(content).build();
+        // Create the HTTP request
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        HttpRequest httpRequest = requestBuilder.newRequest()
+                .method(Net.HttpMethods.POST)
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .url("https://moonboltprojects.online/connect.php")
+                .content(content)
+                .build();
 
-		// Send the HTTP request
-		Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
-			@Override
-			public void handleHttpResponse(HttpResponse httpResponse) {
-				// Handle the response from the PHP backend
-				String responseText = httpResponse.getResultAsString();
-				Gdx.app.postRunnable(new Runnable() {
-					@Override
-					public void run() {
-						if(!responseText.equals("fail") && !responseText.equals("")) { ProcessChatList(responseText); }
-						callback.onSuccess("success");
-					}
-				});
-			}
+        // Send the HTTP request
+        Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(HttpResponse httpResponse) {
+                // Handle the response from the PHP backend
+                String responseText = httpResponse.getResultAsString();
+                Gdx.app.postRunnable(() -> {
+                	System.out.println("Response: " + responseText);
+                    callback.onSuccess("success");
+                });
+            }
 
-			@Override
-			public void failed(Throwable t) {
-				// Handle the failure
-				Gdx.app.postRunnable(new Runnable() {
-					@Override
-					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
-						callback.onFailure(t);
-					}
-				});
-			}
+            @Override
+            public void failed(Throwable t) {
+                // Handle the failure
+                Gdx.app.postRunnable(() -> {
+                    System.out.println("Request failed: " + t.getMessage());
+                    callback.onFailure(t);
+                });
+            }
 
-			@Override
-			public void cancelled() {
-				// Handle the cancellation
-				Gdx.app.postRunnable(new Runnable() {
-					@Override
-					public void run() {
-						System.out.println("Request cancelled");
-						callback.onFailure(new Exception("Request cancelled"));
-					}
-				});
-			}
-		});
-	}
+            @Override
+            public void cancelled() {
+                // Handle the cancellation
+                Gdx.app.postRunnable(() -> {
+                    System.out.println("Request cancelled");
+                    callback.onFailure(new Exception("Request cancelled"));
+                });
+            }
+        });
+    }
 	
 	
 	public void SendChat(String tipoRequisicao, String account, String charnumber, String Message, HttpCallback callback)
@@ -3479,6 +3483,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
+						String mobs = responseText;
 						callback.onSuccess("success");
 					}
 				});
