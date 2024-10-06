@@ -109,6 +109,9 @@ $PetLevel = $_POST['PetLevel'];
 $isPlayerOnline = $_POST['isPlayerOnline'];
 
 
+$PlayerMapMobSync = $_POST['PlayerMapMobSync'];
+
+
 #\n  (Quebra Linha)
 
 // Create connection
@@ -532,7 +535,7 @@ if ($Request == "UpdateMobData") {
 
 #Sync Mobs
 if ($Request == "SyncMobs") {
-    $sql = "SELECT * FROM Mobs";
+    $sql = "SELECT * FROM Mobs WHERE MobMap = '$PlayerMapMobSync'";
     $result = $conn->query($sql);
     if ($result === FALSE) {
         echo nl2br($sql);
