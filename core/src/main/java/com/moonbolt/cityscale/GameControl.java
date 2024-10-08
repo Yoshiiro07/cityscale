@@ -65,6 +65,7 @@ public class GameControl {
 	private String onlineResult = "";
 	private ArrayList<Player> lstPlayerOnline;
 
+
 	// Texture Atlas
 	private TextureAtlas atlas_hairs1;
 	private TextureAtlas atlas_hairs2;
@@ -795,6 +796,10 @@ public class GameControl {
 	
 	public void UpdatePlayer(Player viewplayer){
 		this.playerUse = viewplayer;
+	}
+	
+	public Player ReturnPlayerUse() {
+		return playerUse;
 	}
 	
 	public Sprite GetNPC(String npcname, int frame) {
@@ -2440,6 +2445,12 @@ public class GameControl {
 	    for (String playerData : playerDataArray) {
 	        // Split the player data string into individual data fields
 	        String[] playerDataFields = playerData.split(":");
+	        
+	        // Check if mobDataFields is null or empty
+ 			if (playerDataFields == null || playerDataFields.length == 0) {
+ 				System.out.println("playerDataFields is null or empty");
+ 				return;
+ 			}
 
 	        // Create a new Player object and set its fields
 	        Player playerOnline = new Player();
@@ -2469,23 +2480,12 @@ public class GameControl {
 	        playerOnline.playerInCast = playerDataFields[48];
 	        playerOnline.playerSit = playerDataFields[50];
 	        playerOnline.party = playerDataFields[52];
+	        playerOnline.isPlayerOnline = playerDataFields[54];
 
-	        // Check if playerOnline.Name equals playerUse.Name
-	        if (playerOnline.Name.equals(playerUse.Name)) {
-	            // If it's the first in the list with the same Map, change playerUse.SyncPlayerMob to playerUse.Map
-	            if (lstPlayerOnline.isEmpty() || lstPlayerOnline.get(0).Map.equals(playerUse.Map)) {
-	                playerUse.SyncPlayerMob = playerUse.Map;
-	            } else {
-	                playerUse.SyncPlayerMob = "no";
-	            }
-	            continue;
-	        }
-
-	        // Check if playerOnline already exists in lstPlayerOnline
+	        // Check if playerOnline already exists in lstPlayerOnline and replace with new data
 	        boolean exists = false;
 	        for (int i = 0; i < lstPlayerOnline.size(); i++) {
 	            if (lstPlayerOnline.get(i).Name.equals(playerOnline.Name)) {
-	                // Replace the existing entry
 	                lstPlayerOnline.set(i, playerOnline);
 	                exists = true;
 	                break;
@@ -2496,15 +2496,85 @@ public class GameControl {
 	        if (!exists) {
 	            lstPlayerOnline.add(playerOnline);
 	        }
-	    }
-
-	    // Additional check after the loop to set playerUse.SyncPlayerMob to playerUse.Map if the first player with the same Map
+	    } // end of loop with online data
+	    
+	    // Check the first player with Map equals playerUse.Map
+	    boolean found = false;
 	    for (Player player : lstPlayerOnline) {
 	        if (player.Map.equals(playerUse.Map)) {
-	            playerUse.SyncPlayerMob = playerUse.Map;
+	            if (player.Name.equals(playerUse.Name)) {
+	                playerUse.SyncPlayerMob = playerUse.Map;
+	            } else {
+	                playerUse.SyncPlayerMob = "none";
+	            }
+	            found = true;
 	            break;
 	        }
 	    }
+
+	    if (!found) {
+	        playerUse.SyncPlayerMob = "none";
+	    }
+
+	    // Remove the player with playerUse.Name
+	    lstPlayerOnline.removeIf(player -> player.Name.equals(playerUse.Name));
+	    
+	}
+	
+	public void UpdateOnlineMobs(String line) {
+		if (line.contains("Unavailable")) {
+			System.out.println("Line: indisponivel player");
+			return;
+		}
+	
+		// Split the line into individual mob data strings
+		String[] mobDataArray = line.split("@");
+	
+		// Iterate over each mob data string, excluding the last one
+		for (String mobData : mobDataArray) {
+			// Split the mob data string into individual data fields
+			String[] mobDataFields = mobData.split(":");
+
+			// Check if mobDataFields is null or empty
+			if (mobDataFields == null || mobDataFields.length == 0) {
+				System.out.println("mobDataFields is null or empty");
+				return;
+			}
+	
+			// Create a new Mob object and set its fields
+			Monster mobOnline = new Monster();
+			mobOnline.MobID = mobDataFields[2];
+			mobOnline.MobHp = Integer.parseInt(mobDataFields[4]);
+			mobOnline.MobMp = Integer.parseInt(mobDataFields[6]);
+			mobOnline.MobPosX = Float.parseFloat(mobDataFields[8]);
+			mobOnline.MobPosY = Float.parseFloat(mobDataFields[10]);
+			mobOnline.MobTarget = mobDataFields[12];
+			mobOnline.MobDead = mobDataFields[14];
+			mobOnline.MobMap = mobDataFields[16];
+			
+			// Check if mobOnline already exists in lstMobOnline
+			boolean exists = false;
+			for (int i = 0; i < lstMonsters.size(); i++) {
+				if (lstMonsters.get(i).MobID.equals(mobOnline.MobID)) {
+					// Replace value
+					lstMonsters.get(i).MobHp = Integer.parseInt(mobDataFields[4]);
+					lstMonsters.get(i).MobMp = Integer.parseInt(mobDataFields[6]);
+					lstMonsters.get(i).MobPosX = Float.parseFloat(mobDataFields[8]);
+					lstMonsters.get(i).MobPosY = Float.parseFloat(mobDataFields[10]);
+					lstMonsters.get(i).MobTarget = mobDataFields[12];
+					lstMonsters.get(i).MobDead = mobDataFields[14];
+					lstMonsters.get(i).MobMap = mobDataFields[16];				
+					exists = true;
+					break;
+				}
+			}
+	
+			// Add mobOnline if it doesn't already exist
+			if (!exists) {
+				lstMonsters.add(mobOnline);
+			}
+		}
+		
 	}
 	
 	public void ProcessChatList(String message) {
@@ -3345,7 +3415,9 @@ public class GameControl {
 					public void run() {
 						// Update the game state or UI based on the response
 						System.out.println("Response: " + responseText);
-						if(!responseText.equals("fail") && !responseText.equals("")) { UpdateOnlinePlayers(responseText); }	
+						if(!responseText.equals("fail") && !responseText.equals("")) { 
+							UpdateOnlinePlayers(responseText); 
+						}	
 						callback.onSuccess("success");
 					}
 				});
@@ -3485,6 +3557,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						String mobs = responseText;
+						UpdateOnlineMobs(mobs);
 						callback.onSuccess("success");
 					}
 				});

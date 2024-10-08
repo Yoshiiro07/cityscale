@@ -290,6 +290,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Online Sync
 			if(LoopTime < 0) {
+				gameControl.UpdatePlayer(player);
+				
 				RecoverOnlinePlayers();
 				RecoverOnlineChats();
 				if(player.Map.equals("Sewers")) {
@@ -299,7 +301,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					else {
 						RecoverOnlineMobs();
 					}
-				}	
+				}
+				
+				player = gameControl.ReturnPlayerUse();
 			}
 			
 			if(LoopTime < 0) { LoopTime = 35; }
@@ -2950,6 +2954,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void ShowMobs() {			
 			
+			listMonsters = gameControl.RecoverMonsterList();
 			float playerPosX = Float.parseFloat(player.PosX);
 			float playerPosY = Float.parseFloat(player.PosY);
 			
@@ -2979,7 +2984,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						}
 						
 						//Sem Target
-						if(listMonsters.get(i).MobTarget.equals("none")) {
+						if(listMonsters.get(i).MobTarget.equals("none") && !player.SyncPlayerMob.equals("none")) {
 							mobTimerMov = listMonsters.get(i).MobTimerMov;
 							mobRandomSt = listMonsters.get(i).MobRandomSt;
 							if(mobTimerMov >= 0) { 
@@ -3044,7 +3049,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							listMonsters.get(i).MobPosX = 65;
 						}
 						
-						if(player.Map.equals("Sewers")) { spr_monster = gameControl.GetMonster(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, "L");}
+						if(player.Map.equals("Sewers")) { 
+							spr_monster = gameControl.GetMonster(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, "L");
+						}
 						//if(player.Map_A.equals("Watercave")) { spr_monster = atlas_mobWatercave.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
 						//if(player.Map_A.equals("Mines")) { spr_monster = atlas_mobMines.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
 						//if(player.Map_A.equals("Snowpalace")) { spr_monster = atlas_mobSnowpalace.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }

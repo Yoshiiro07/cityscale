@@ -127,7 +127,7 @@ public class Monster {
 			MobC.MobMap = "Sewers";
 
 			Monster MobD = new Monster();
-			MobD.MobName = "rato";
+			MobD.MobName = "rat";
 			MobD.MobHp = 100;
 			MobD.MobMp = 100;
 			MobD.MobHpMax = 100;
