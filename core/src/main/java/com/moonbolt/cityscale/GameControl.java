@@ -873,8 +873,8 @@ public class GameControl {
 		}
 		
 		//Check Frames
-		if(!playerUse.Walk.equals("no")) { countFrame= countFrame + 1;  }
-		if(playerUse.Walk.equals("no")) { countFrame = 1;  }
+		if(!playerUse.Walk.equals("no")) { countFrame = countFrame + 1;  }
+		//if(playerUse.Walk.equals("no")) { countFrame = 1;  }
 		if(playerUse.playerInBattle.equals("yes")) { countFrame = countFrame + 1; }
 		if(countFrame > 1 && countFrame <= 10) { playerUse.Frame = "2"; }
 		if(countFrame >= 10 && countFrame <= 20) { playerUse.Frame = "1";  }
@@ -2433,6 +2433,7 @@ public class GameControl {
 	}
 	
 	public void UpdateOnlinePlayers(String line) {
+		
 	    if (line.contains("Unavailable")) {
 	        System.out.println("Line: indisponivel player");
 	        return;
@@ -2445,6 +2446,13 @@ public class GameControl {
 	    for (String playerData : playerDataArray) {
 	        // Split the player data string into individual data fields
 	        String[] playerDataFields = playerData.split(":");
+	        
+	        
+	        // Check if playerData has the expected length
+ 			if (playerDataFields.length < 5) { // Adjust the length based on the number of expected fields
+ 				System.out.println("Skipping incomplete mob data: " + playerData);
+ 				return;
+ 			}
 	        
 	        // Check if mobDataFields is null or empty
  			if (playerDataFields == null || playerDataFields.length == 0) {
@@ -2481,6 +2489,7 @@ public class GameControl {
 	        playerOnline.playerSit = playerDataFields[50];
 	        playerOnline.party = playerDataFields[52];
 	        playerOnline.isPlayerOnline = playerDataFields[54];
+	        
 
 	        // Check if playerOnline already exists in lstPlayerOnline and replace with new data
 	        boolean exists = false;
@@ -2498,22 +2507,9 @@ public class GameControl {
 	        }
 	    } // end of loop with online data
 	    
-	    // Check the first player with Map equals playerUse.Map
-	    boolean found = false;
-	    for (Player player : lstPlayerOnline) {
-	        if (player.Map.equals(playerUse.Map)) {
-	            if (player.Name.equals(playerUse.Name)) {
-	                playerUse.SyncPlayerMob = playerUse.Map;
-	            } else {
-	                playerUse.SyncPlayerMob = "none";
-	            }
-	            found = true;
-	            break;
-	        }
-	    }
-
-	    if (!found) {
-	        playerUse.SyncPlayerMob = "none";
+	    //Check if it's the sync player
+	    if(lstPlayerOnline.get(0).Name.equals(playerUse.Name)) {
+	    	playerUse.SyncPlayerMob = playerUse.Map;
 	    }
 
 	    // Remove the player with playerUse.Name
@@ -2534,11 +2530,11 @@ public class GameControl {
 		for (String mobData : mobDataArray) {
 			// Split the mob data string into individual data fields
 			String[] mobDataFields = mobData.split(":");
-
-			// Check if mobDataFields is null or empty
-			if (mobDataFields == null || mobDataFields.length == 0) {
-				System.out.println("mobDataFields is null or empty");
-				return;
+	
+			// Check if mobDataFields has the expected length
+			if (mobDataFields.length < 5) { // Adjust the length based on the number of expected fields
+				System.out.println("Skipping incomplete mob data: " + mobData);
+				continue;
 			}
 	
 			// Create a new Mob object and set its fields
@@ -2551,7 +2547,7 @@ public class GameControl {
 			mobOnline.MobTarget = mobDataFields[12];
 			mobOnline.MobDead = mobDataFields[14];
 			mobOnline.MobMap = mobDataFields[16];
-			
+	
 			// Check if mobOnline already exists in lstMobOnline
 			boolean exists = false;
 			for (int i = 0; i < lstMonsters.size(); i++) {
@@ -2563,7 +2559,7 @@ public class GameControl {
 					lstMonsters.get(i).MobPosY = Float.parseFloat(mobDataFields[10]);
 					lstMonsters.get(i).MobTarget = mobDataFields[12];
 					lstMonsters.get(i).MobDead = mobDataFields[14];
-					lstMonsters.get(i).MobMap = mobDataFields[16];				
+					lstMonsters.get(i).MobMap = mobDataFields[16];
 					exists = true;
 					break;
 				}
@@ -2574,7 +2570,6 @@ public class GameControl {
 				lstMonsters.add(mobOnline);
 			}
 		}
-		
 	}
 	
 	public void ProcessChatList(String message) {
@@ -3152,7 +3147,7 @@ public class GameControl {
 		});
 	}
 	
-	public void SendAtk(String tipoRequisicao, String account, String charnumber, String MobHP, String MobTarget, HttpCallback callback)
+	public void SendAtk(String tipoRequisicao, String account, String charnumber, String MobHP, String MobTarget, String MobDead,String MobID, HttpCallback callback)
 			throws UnsupportedEncodingException {
 
 		// Prepare the data to post
@@ -3166,6 +3161,8 @@ public class GameControl {
 		parameters.put("Charnumber", charnumber);
 		parameters.put("MobHP", MobHP);
 		parameters.put("MobTarget", MobTarget);
+		parameters.put("MobDead", MobDead);
+		parameters.put("MobID", MobID);
 
 		String content = "";
 		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
@@ -3191,7 +3188,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						if(!responseText.equals("fail") && !responseText.equals("")) { ProcessChatList(responseText); }
+						System.out.println("Request Atk: " + responseText);
 						callback.onSuccess("success");
 					}
 				});

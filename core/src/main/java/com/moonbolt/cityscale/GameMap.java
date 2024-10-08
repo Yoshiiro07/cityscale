@@ -113,6 +113,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int mobTimerMov = 100;
     private int mobTimerFrame = 40;
 	private int countSwitchTarget;
+	private int mobIndexAtk = 0;
 
 	//Misc
 	private ArrayList<Damage> listDamage;
@@ -137,6 +138,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private Sprite spr_playerHatOnline;
     private Sprite spr_weaponOnline;
     private int timersync = 100;
+    private float playerOnlineX;
+    private float playerOnlineY;
     
     //Sprite NPC
     private Sprite spr_npc;
@@ -591,13 +594,26 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 			
-			spr_testeDot.setPosition(cameraCoordsX + 67,cameraCoordsY - 70);
+			
+			float playerposX = Float.parseFloat(player.PosX);
+			float playerposY = Float.parseFloat(player.PosY);
+			
+			float mobPosXTest = listMonsters.get(0).MobPosX;
+			float mobPosYTest = listMonsters.get(0).MobPosY;
+			
+			spr_testeDot.setPosition(playerposX - 15, playerposY + 40);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 
-			spr_testeDot.setPosition(cameraCoordsX + 95,cameraCoordsY - 95);
+			spr_testeDot.setPosition(playerposX + 15, playerposY - 18);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
+			
+			spr_testeDot.setPosition(mobPosXTest + 5,mobPosYTest + 7);
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
+			
+			
 			
 			game.batch.end();
 		}
@@ -876,19 +892,20 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 					if(player.Target.equals(listMonsters.get(i).MobID)) {
-						 
-						if((listMonsters.get(i).MobPosX + 5) > (playerposX - 5) && (listMonsters.get(i).MobPosX + 5) < (playerposX + 15)
-						   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 7) && (listMonsters.get(i).MobPosY + 5) < (playerposY + 18)) {
+						
+						if((listMonsters.get(i).MobPosX + 5) > (playerposX - 15) && (listMonsters.get(i).MobPosX + 5) < (playerposX + 15)
+						   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 18) && (listMonsters.get(i).MobPosY + 7) < (playerposY + 40)) {  //here
 							player.playerInBattle = "yes";
 							AtkTimer--;
+							player.AtkTimer = String.valueOf(AtkTimer);
 							
-							if(AtkTimer <= 0) { 	
+							if(AtkTimer <= 0) { 
+								player.AtkTimer = player.AtkTimerMax;
 								int atkweapon = CheckWeapon();
 								int mobhp = listMonsters.get(i).MobHp; //CheckDamageDifer(listMonsters.get(i).MobHpMax, 1);
 								int damagehit = Atk + atkweapon + Str;
 								player.playerInAttack = "yes";
 								player.AtkTimer = String.valueOf(AtkTimerMax);
-								listMonsters.get(i).MobTarget = player.Name;
 								gameControl.SetAttackFrame();
 								
 								if(CheckMobEvade()) { 
@@ -902,15 +919,43 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									return; 
 								}
 								
+								String mobDeadStatus = "no";
 								int st = Stamina;
 								if(st > 0) { mobhp = mobhp - damagehit;  } else {  mobhp = mobhp - 5; }								
-								if(mobhp < 0) { mobhp = 0; }
-								listMonsters.get(i).MobHp = mobhp;
+								if(mobhp < 0) { mobhp = 0; mobDeadStatus = "yes"; }
 								
-								if(listMonsters.get(i).MobHp <= 0) {  		    
-								    MobDead(i);
-								    return;
+								mobIndexAtk = i;
+								
+								try {
+									String mobhpsend = String.valueOf(mobhp);
+									gameControl.SendAtk("SendAtk",player.AccountNumber,playernumString,mobhpsend,player.Name,mobDeadStatus,listMonsters.get(i).MobID, new HttpCallback() {
+									    @Override
+									    public void onSuccess(String response) {
+									    	if(response.contains("success")) {
+									    		listMonsters.get(mobIndexAtk).MobHp = Integer.parseInt(mobhpsend);
+									    	}
+									    	else {
+									    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+									    		aviso = true;
+									    	}
+									    }
+
+									    @Override
+									    public void onFailure(Throwable t) {
+									       System.out.println("Error: " + t.getMessage());
+									       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+										   aviso = true;
+									    }
+									});
+								} catch (UnsupportedEncodingException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
 								}
+								
+								//if(listMonsters.get(i).MobHp <= 0) {  		    
+								//    MobDead(i);
+								//    return;
+								//}
 								
 								Damage damage = new Damage();
 								damage.DamagePosX = listMonsters.get(i).MobPosX;
@@ -3025,6 +3070,33 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(listMonsters.get(i).MobPosX > playerPosX + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX - 0.07f; }
 							if(listMonsters.get(i).MobPosY < playerPosY - 6 ) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY + 0.07f; }
 							if(listMonsters.get(i).MobPosY > playerPosY - 6) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY - 0.07f; }
+						}
+						if(!listMonsters.get(i).MobTarget.equals("none")) {
+							if (lstOnlinePlayers == null || lstOnlinePlayers.isEmpty() || lstOnlinePlayers.size() == 0) {
+								return;
+							} else {
+								for (int p = 0; p < lstOnlinePlayers.size(); p++) {
+									for (int j = 0; j < listMonsters.size(); j++) {
+										if (lstOnlinePlayers.get(p).Name.equals(listMonsters.get(j).MobTarget)) {
+											float playerOnlineX = Float.parseFloat(lstOnlinePlayers.get(p).PosX);
+											float playerOnlineY = Float.parseFloat(lstOnlinePlayers.get(p).PosY);
+							
+											if (listMonsters.get(j).MobPosX < playerOnlineX + 3) {
+												listMonsters.get(j).MobPosX += 0.07f;
+											}
+											if (listMonsters.get(j).MobPosX > playerOnlineX + 3) {
+												listMonsters.get(j).MobPosX -= 0.07f;
+											}
+											if (listMonsters.get(j).MobPosY < playerOnlineY - 6) {
+												listMonsters.get(j).MobPosY += 0.07f;
+											}
+											if (listMonsters.get(j).MobPosY > playerOnlineY - 6) {
+												listMonsters.get(j).MobPosY -= 0.07f;
+											}
+										}
+									}
+								}
+							}		
 						}
 						
 						//Limit screen
