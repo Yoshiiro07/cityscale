@@ -69,7 +69,7 @@ public class Player {
 		public String playerInCast;
 		public String playerSit;  
 		public String SyncPlayerMob;
-		public String PlayerExpGet;		
+		public String PlayerExpGet;
 		public String pet;
 		public String pethungry;
 		public String petcare;

@@ -656,7 +656,7 @@ public class GameControl {
 		if(side.equals("left")) { 
 			if(player.Hat.equals("hatbunny")) { 
 				spr_master = atlas_hats.createSprite("bunnyhat_left");
-				spr_master.setPosition(posX - 20,posX + 10);
+				spr_master.setPosition(posX - 20,posY + 10);
 				spr_master.setScale(0.21f,0.5f);	
 			}		
 		}
@@ -664,7 +664,7 @@ public class GameControl {
 		if(side.equals("back")) { 
 			if(player.Hat.equals("hatbunny")) { 
 				spr_master = atlas_hats.createSprite("bunnyhat_up");
-				spr_master.setPosition(posX - 20,posX + 12);
+				spr_master.setPosition(posX - 20,posY + 11);
 				spr_master.setScale(0.23f,0.5f);
 			}		
 		}
@@ -1674,18 +1674,21 @@ public class GameControl {
 		if(itemName.equals("hpcan")) { 
 			hp = hp + 10;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
+			playerUse.Hp = String.valueOf(hp);
 			equipable = false;
 		}	
 		
 		if(itemName.equals("garrafadrink")) { 
 			hp = hp + 100;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
+			playerUse.Hp = String.valueOf(hp);
 			equipable = false;
 		}
 		
 		if(itemName.equals("mpcan")) { 
 			mp = mp + 15;
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
+			playerUse.Hp = String.valueOf(hp);
 			equipable = false;
 		}
 		
@@ -2137,7 +2140,7 @@ public class GameControl {
 	
 
 	//Give EXP
-	public void GiveExp(int exp) {
+	public void GiveExp(float exp) {
 		boolean levelup = false;
 		int level = Integer.parseInt(playerUse.Level);
 		float expPlayer = Float.parseFloat(playerUse.Exp);
@@ -2148,27 +2151,26 @@ public class GameControl {
 		int Def = Integer.parseInt(playerUse.Def);
 		int AtkTimerMax = Integer.parseInt(playerUse.AtkTimerMax);
 		
-		if(level >= 10) {
-			ExpSharedOnline = exp;
+		if(level >= 30) {
+			return;
 		}
 		
-		if(level == 50) {
-			ExpSharedOnline = exp;
+		if(level >= 50) {
+			return;
 		}
 		
 		expPlayer = expPlayer + exp;
-		ExpSharedOnline = exp;
 		
 		//Sewers   
-		if(level == 1 && expPlayer >= 20) {  level = 2; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 2 && expPlayer >= 30) {  level = 3; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 3 && expPlayer >= 40) {  level = 4; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 4 && expPlayer >= 50) {  level = 5; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 5 && expPlayer >= 60) {  level = 6; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 6 && expPlayer >= 70) {  level = 7; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 7 && expPlayer >= 80) {  level = 8; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 8 && expPlayer >= 90) {  level = 9; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 9 && expPlayer >= 100) {  level = 10; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 1 && expPlayer >= 200) {  level = 2; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 2 && expPlayer >= 300) {  level = 3; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 3 && expPlayer >= 400) {  level = 4; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 4 && expPlayer >= 500) {  level = 5; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 5 && expPlayer >= 600) {  level = 6; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 6 && expPlayer >= 700) {  level = 7; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 7 && expPlayer >= 800) {  level = 8; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 8 && expPlayer >= 900) {  level = 9; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 9 && expPlayer >= 1000) {  level = 10; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Watercave
 		if(level == 10 && expPlayer >= 5000) {  level = 11; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
@@ -2403,6 +2405,8 @@ public class GameControl {
 		return SysMsg;
 	}
 	
+	
+	
 	///////////////////////////////////////////////// [Online HTML] /////////////////////////////////
 	public String GetResult() {
 		return onlineResult;
@@ -2430,6 +2434,10 @@ public class GameControl {
 	
 	public ArrayList<Monster> RecoverMonsterList() {
 		return lstMonsters;
+	}
+	
+	public void GiveExpGetFromServer(String dataExp) {
+		
 	}
 	
 	public void UpdateOnlinePlayers(String line) {
@@ -3160,7 +3168,7 @@ public class GameControl {
 		parameters.put("Dataaccount", account);
 		parameters.put("Charnumber", charnumber);
 		parameters.put("MobHP", MobHP);
-		parameters.put("MobTarget", MobTarget);
+		parameters.put("MobTarget", playerUse.Name);
 		parameters.put("MobDead", MobDead);
 		parameters.put("MobID", MobID);
 
@@ -3189,6 +3197,151 @@ public class GameControl {
 					@Override
 					public void run() {
 						System.out.println("Request Atk: " + responseText);
+						callback.onSuccess("success");
+					}
+				});
+			}
+
+			@Override
+			public void failed(Throwable t) {
+				// Handle the failure
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request failed: " + t.getMessage());
+						callback.onFailure(t);
+					}
+				});
+			}
+
+			@Override
+			public void cancelled() {
+				// Handle the cancellation
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request cancelled");
+						callback.onFailure(new Exception("Request cancelled"));
+					}
+				});
+			}
+		});
+	}
+	
+	
+	public void SendExpBank(String tipoRequisicao, String account, String charnumber,String Name, String ExpSended,String DateExp, HttpCallback callback)
+			throws UnsupportedEncodingException {
+
+		// Prepare the data to post
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("Servername", lservername);
+		parameters.put("Username", lusername);
+		parameters.put("Password", lpassword);
+		parameters.put("Dbname", ldbname);
+		parameters.put("Request", tipoRequisicao);
+		parameters.put("AccountID", account);
+		parameters.put("Charnumber", charnumber);
+		parameters.put("Name", Name);
+		parameters.put("DateExp", DateExp);
+		parameters.put("ExpSended", ExpSended);
+		
+		String content = "";
+		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			if (content.length() > 0) {
+				content += "&";
+			}
+			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
+					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
+		}
+
+		// Create the HTTP request
+		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
+				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
+				.url("https://moonboltprojects.online/connect.php").content(content).build();
+
+		// Send the HTTP request
+		Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+			@Override
+			public void handleHttpResponse(HttpResponse httpResponse) {
+				// Handle the response from the PHP backend
+				String responseText = httpResponse.getResultAsString();
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request Atk: " + responseText);
+						callback.onSuccess("success");
+					}
+				});
+			}
+
+			@Override
+			public void failed(Throwable t) {
+				// Handle the failure
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request failed: " + t.getMessage());
+						callback.onFailure(t);
+					}
+				});
+			}
+
+			@Override
+			public void cancelled() {
+				// Handle the cancellation
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println("Request cancelled");
+						callback.onFailure(new Exception("Request cancelled"));
+					}
+				});
+			}
+		});
+	}
+	
+	public void GetExpBank(String tipoRequisicao, String account, String charnumber,String Name, String DateExpGet, HttpCallback callback)
+			throws UnsupportedEncodingException {
+
+		// Prepare the data to post
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("Servername", lservername);
+		parameters.put("Username", lusername);
+		parameters.put("Password", lpassword);
+		parameters.put("Dbname", ldbname);
+		parameters.put("Request", tipoRequisicao);
+		parameters.put("AccountID", account);
+		parameters.put("Charnumber", charnumber);
+		parameters.put("PlayerExpGet", DateExpGet);
+		parameters.put("Name", Name);
+		
+		String content = "";
+		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			if (content.length() > 0) {
+				content += "&";
+			}
+			content += URLEncoder.encode(parameter.getKey(), "UTF-8") + "="
+					+ URLEncoder.encode(parameter.getValue(), "UTF-8");
+		}
+
+		// Create the HTTP request
+		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+		HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST)
+				.header("Content-Type", "application/x-www-form-urlencoded").method(Net.HttpMethods.POST)
+				.url("https://moonboltprojects.online/connect.php").content(content).build();
+
+		// Send the HTTP request
+		Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+			@Override
+			public void handleHttpResponse(HttpResponse httpResponse) {
+				// Handle the response from the PHP backend
+				String responseText = httpResponse.getResultAsString();
+				Gdx.app.postRunnable(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println(responseText);
+						GiveExpGetFromServer(responseText);
 						callback.onSuccess("success");
 					}
 				});

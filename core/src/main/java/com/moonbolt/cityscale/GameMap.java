@@ -1,6 +1,8 @@
 package com.moonbolt.cityscale;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -261,6 +263,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    game.batch.setProjectionMatrix(camera.combined);	    
 			game.batch.begin();
 			
+			
+			//player.PlayerExpGet = "2024-10-11 10:40:26";
+			
 			//Save
 			LoopTime--;
 			if(LoopTime < 0) {
@@ -316,6 +321,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			regenMax = Integer.parseInt(player.regenTimeMax);
 			
 			regen--;
+			
+			player.regenTime = String.valueOf(regen);
 			if(regen < 0) {
 				
 				intUseA = Integer.parseInt(player.Hp);
@@ -330,6 +337,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(intUseA >= intUseB) { player.Hp = player.HpMax; }
 				if(intUseC >= intUseD) { player.Mp = player.MpMax; }
 				
+				player.Hp = player.HpMax;
+				player.Mp = player.MpMax; 
 				player.regenTime = player.regenTimeMax;
 			}
 			
@@ -595,7 +604,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			gameControl.UpdateControlPlayer(player);
 			
 			
-			float playerposX = Float.parseFloat(player.PosX);
+			/*float playerposX = Float.parseFloat(player.PosX);
 			float playerposY = Float.parseFloat(player.PosY);
 			
 			float mobPosXTest = listMonsters.get(0).MobPosX;
@@ -611,7 +620,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			spr_testeDot.setPosition(mobPosXTest + 5,mobPosYTest + 7);
 			spr_testeDot.setSize(1, 1);
-			spr_testeDot.draw(game.batch);
+			spr_testeDot.draw(game.batch);*/
 			
 			
 			
@@ -626,16 +635,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			font_master.setColor(Color.WHITE);
 			font_master.getData().setScale(0.13f, 0.19f);
 			font_master.setUseIntegerPositions(false);
-			font_master.draw(game.batch, "Chat:", -45, -1);
+			font_master.draw(game.batch, "Chat:", cameraCoordsX - 98, cameraCoordsY +44);
 		
 			if (lstChats.size() > 0 && lstChats.get(0) != null) {
-				font_master.draw(game.batch, lstChats.get(0), -45, -8);
+				font_master.draw(game.batch, lstChats.get(0),cameraCoordsX - 98,cameraCoordsY +37);
 			}
 			if (lstChats.size() > 1 && lstChats.get(1) != null) {
-				font_master.draw(game.batch, lstChats.get(1), -45, -15);
+				font_master.draw(game.batch, lstChats.get(1), cameraCoordsX - 98, cameraCoordsY +30);
 			}
 			if (lstChats.size() > 2 && lstChats.get(2) != null) {
-				font_master.draw(game.batch, lstChats.get(2), -45, -23);
+				font_master.draw(game.batch, lstChats.get(2), cameraCoordsX - 98, cameraCoordsY +23);
 			}
 		}
 		
@@ -894,7 +903,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(player.Target.equals(listMonsters.get(i).MobID)) {
 						
 						if((listMonsters.get(i).MobPosX + 5) > (playerposX - 15) && (listMonsters.get(i).MobPosX + 5) < (playerposX + 15)
-						   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 18) && (listMonsters.get(i).MobPosY + 7) < (playerposY + 40)) {  //here
+						   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 18) && (listMonsters.get(i).MobPosY + 7) < (playerposY + 40)) { 
 							player.playerInBattle = "yes";
 							AtkTimer--;
 							player.AtkTimer = String.valueOf(AtkTimer);
@@ -921,13 +930,26 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								
 								String mobDeadStatus = "no";
 								int st = Stamina;
-								if(st > 0) { mobhp = mobhp - damagehit;  } else {  mobhp = mobhp - 5; }								
-								if(mobhp < 0) { mobhp = 0; mobDeadStatus = "yes"; }
+								if(st > 0) { 
+									mobhp = mobhp - damagehit;  
+								} 
+								else 
+								{  
+									mobhp = mobhp - 5; 
+								}								
+								
+								
+								if(mobhp <= 0) { 
+									mobhp = 0; 
+									mobDeadStatus = "yes";
+									MobDead(i);
+								}
 								
 								mobIndexAtk = i;
 								
 								try {
 									String mobhpsend = String.valueOf(mobhp);
+									listMonsters.get(i).MobTarget = player.Name;
 									gameControl.SendAtk("SendAtk",player.AccountNumber,playernumString,mobhpsend,player.Name,mobDeadStatus,listMonsters.get(i).MobID, new HttpCallback() {
 									    @Override
 									    public void onSuccess(String response) {
@@ -984,8 +1006,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Sewers")) {
 				for(int i = 0; i < listMonsters.size(); i++) {						
 					if(listMonsters.get(i).MobTarget.equals(player.Name)) {
-						if(playerposX > (listMonsters.get(i).MobPosX - 5) && playerposX < (listMonsters.get(i).MobPosX + 15)
-							&& playerposY > (listMonsters.get(i).MobPosY - 7) && playerposY < (listMonsters.get(i).MobPosY + 18)) {
+						if(playerposX > (listMonsters.get(i).MobPosX - 15) && playerposX < (listMonsters.get(i).MobPosX + 15)
+							&& playerposY > (listMonsters.get(i).MobPosY - 18) && playerposY < (listMonsters.get(i).MobPosY + 40)) {
 								
 								listMonsters.get(i).MobAtkTimer--;
 								if(listMonsters.get(i).MobAtkTimer <= 0) {
@@ -2130,8 +2152,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public int CheckWeapon() {  
 			
-			if(player.Weapon.equals("basic_knife")) { return 2;}			
-			if(player.Weapon.equals("doubleedgeknife")) { return 5; }		
+			if(player.Weapon.equals("basic_knife")) { return 1;}			
+			if(player.Weapon.equals("doubleedgeknife")) { return 3; }		
 			if(player.Weapon.equals("woodsword")) { return 10;}							
 			if(player.Weapon.equals("basicpistol")) { return 8;}			
 			if(player.Weapon.equals("basicdagger")) { return 8;}		
@@ -2151,34 +2173,104 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    player.playerInCast = "no";	
 		    autoattack = false;
 		    
-		    showDropMsg = 100;
+		    
+		    //String tipoRequisicao, String account, String charnumber,String Name, String ExpSended,String DateExp, HttpCallback callback
+		    // Get the current date and time
+        	LocalDateTime now = LocalDateTime.now();
+
+        	// Define the format
+       	 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        	// Format the current date and time as a string
+        	String date = now.format(formatter);
+			
+			showDropMsg = 100;
 		    itemdropname = gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
-		    gameControl.GiveExp(listMonsters.get(mobindex).MobExp);
-		    if(playermoney > 1500) { return; }
+		    int expreceived = listMonsters.get(mobindex).MobExp;
+		    gameControl.GiveExp(expreceived);
+
+			expreceived = expreceived / 10;
+			
+			if(expreceived <= 0) { expreceived = 1; }
+			
+		    try {
+				gameControl.SendExpBank("SendExpBank",player.AccountNumber,playernumString,player.Name,String.valueOf(expreceived),date, new HttpCallback() {
+				    @Override
+				    public void onSuccess(String response) {
+				    	if(response.contains("success")) {}
+				    	else {
+				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		aviso = true;
+				    	}
+				    }
+
+				    @Override
+				    public void onFailure(Throwable t) {
+				       System.out.println("Error: " + t.getMessage());
+				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   aviso = true;
+				    }
+				});
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    if(playermoney > 2000) { return; }
 		    playermoney = playermoney + 2;
 		    player.Money = String.valueOf(playermoney);
 		    
 		}
 		
 		public void CheckAction() {
-			float posX = Float.parseFloat(player.PosX);
-			float posY = Float.parseFloat(player.PosY);
-			
-			if(player.Map.equals("StreetsA")) {
-				if(posX >= 103.5f && posX <= 122 && posY >= -142 && posY <= -128.5f ) {
-					state = "DungeonSelect";
-				}
-				
-				//Exp Giver
-				if(posX >= -8f && posX <= 10.5f && posY >= -145 && posY <= -112.5f ) {
-					//onlineresponse = gameControl.OnlineManager("ExpGiver","","");
-				}
-				
-				if(posX >= 127 && posX <= 143 && posY >= -140 && posY <= -124 ) {
-					state = "Shop";
-					shopname = "refrishop";
-				}
-			}
+		    float posX = Float.parseFloat(player.PosX);
+		    float posY = Float.parseFloat(player.PosY);
+
+		    if (player.Map.equals("StreetsA")) {
+		        if (posX >= 103.5f && posX <= 122 && posY >= -142 && posY <= -128.5f) {
+		            state = "DungeonSelect";
+		        }
+
+		        // Exp Giver
+		        if (posX >= -8f && posX <= 10.5f && posY >= -145 && posY <= -112.5f) {
+		            try {
+		                gameControl.GetExpBank("GetExpBank", player.AccountNumber, playernumString, player.Name, player.PlayerExpGet, new HttpCallback() {
+		                    @Override
+		                    public void onSuccess(String response) {
+		                        if (response.contains("success")) {
+		                            // Define the format
+		                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+		                            // Get the current date and time
+		                            LocalDateTime now = LocalDateTime.now();
+
+		                            // Format the current date and time as a string
+		                            player.PlayerExpGet = now.format(formatter);
+		                            
+		                            LoopTime = 10;
+		                        } else {
+		                            avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+		                            aviso = true;
+		                        }
+		                    }
+
+		                    @Override
+		                    public void onFailure(Throwable t) {
+		                        System.out.println("Error: " + t.getMessage());
+		                        avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+		                        aviso = true;
+		                    }
+		                });
+		            } catch (UnsupportedEncodingException e) {
+		                // TODO Auto-generated catch block
+		                e.printStackTrace();
+		            }
+		        }
+
+		        if (posX >= 127 && posX <= 143 && posY >= -140 && posY <= -124) {
+		            state = "Shop";
+		            shopname = "refrishop";
+		        }
+		    }
 		}
 		
 		public void ChangeTarget() {
@@ -3029,7 +3121,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						}
 						
 						//Sem Target
-						if(listMonsters.get(i).MobTarget.equals("none") && !player.SyncPlayerMob.equals("none")) {
+						if(!player.SyncPlayerMob.equals("none")) {
 							mobTimerMov = listMonsters.get(i).MobTimerMov;
 							mobRandomSt = listMonsters.get(i).MobRandomSt;
 							if(mobTimerMov >= 0) { 
@@ -3073,7 +3165,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						}
 						if(!listMonsters.get(i).MobTarget.equals("none")) {
 							if (lstOnlinePlayers == null || lstOnlinePlayers.isEmpty() || lstOnlinePlayers.size() == 0) {
-								return;
 							} else {
 								for (int p = 0; p < lstOnlinePlayers.size(); p++) {
 									for (int j = 0; j < listMonsters.size(); j++) {

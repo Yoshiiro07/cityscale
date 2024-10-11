@@ -109,12 +109,14 @@ $PetLevel = $_POST['PetLevel'];
 $isPlayerOnline = $_POST['isPlayerOnline'];
 $PlayerMapMobSync = $_POST['PlayerMapMobSync'];
 
-
 $MobHP = $_POST['MobHP'];
 $MobTarget = $_POST['MobTarget'];
 $MobDead = $_POST['MobDead'];
 $MobID = $_POST['MobID'];
 
+$ExpSended = $_POST['ExpSended'];
+$DateExp = $_POST['DateExp'];
+$DateExpGet = $_POST['DateExpGet'];
 
 #\n  (Quebra Linha)
 
@@ -320,7 +322,7 @@ if ($Request == "CreateChar") {
                 PlayerInCast = 'none',
                 PlayerSit = 'none',
                 SyncPlayerMob = 'none',
-                PlayerExpGet = '0',
+                PlayerExpGet = NOW(),
                 Itens = '$Itens',
 				Pet = 'none',
 				Pethungry = 'none',
@@ -480,6 +482,8 @@ if ($Request == "SendAtk") {
             MobDead = '$MobDead' 
             WHERE MobId = '$MobID'";
 
+    echo nl2br($sql); 
+
     if ($conn->query($sql) === TRUE) {
         echo nl2br("\n - Mob Updated - \n");
     } else {
@@ -489,6 +493,50 @@ if ($Request == "SendAtk") {
 
     $conn->close();
     return;
+}
+
+#SendExpBank
+if ($Request == "SendExpBank") {
+    $sql = "INSERT INTO ExpBank (AccountID, Name, ExpSended, DateExp) VALUES ('$AccountID', '$Name', '$ExpSended', NOW())";
+
+    // Execute the query
+    if ($conn->query($sql) === TRUE) {
+        echo "Exp Sended Success";
+    } else {
+        echo "Fail Insert SendExp " . $conn->error;
+    }
+
+    $conn->close();
+    return;
+}
+
+#Get Exp from Bank
+if ($Request == "GetExpBank") {
+
+    // Prepare the SQL select command
+    $sql = "SELECT * FROM ExpBank 
+            WHERE AccountID != '$AccountID' 
+            AND DATE(DateExp) = CURDATE() 
+            AND DateExp > '$PlayerExpGet'";
+    
+    echo nl2br($sql);
+    $result = $conn->query($sql);
+    if ($result === FALSE) {
+        echo nl2br($sql);
+        echo nl2br("\n - Fail Sync ExpBank - \n") . $conn->error;
+    } else {
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while ($row = $result->fetch_assoc()) {
+                $lAll = ":ExpBankID:" . $row["ExpBankID"] .
+                    ":AccountID:" . $row["AccountID"] .
+                    ":Name:" . $row["Name"] .
+                    ":ExpSended:" . $row["ExpSended"] .
+                    ":DateExp:" . $row["DateExp"] . ":@";
+                echo nl2br($lAll);
+            }
+        }
+    }
 }
 
 #Adicionar Chat
