@@ -947,37 +947,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								
 								mobIndexAtk = i;
 								
-								try {
-									String mobhpsend = String.valueOf(mobhp);
-									listMonsters.get(i).MobTarget = player.Name;
-									gameControl.SendAtk("SendAtk",player.AccountNumber,playernumString,mobhpsend,player.Name,mobDeadStatus,listMonsters.get(i).MobID, new HttpCallback() {
-									    @Override
-									    public void onSuccess(String response) {
-									    	if(response.contains("success")) {
-									    		listMonsters.get(mobIndexAtk).MobHp = Integer.parseInt(mobhpsend);
-									    	}
-									    	else {
-									    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-									    		aviso = true;
-									    	}
-									    }
-
-									    @Override
-									    public void onFailure(Throwable t) {
-									       System.out.println("Error: " + t.getMessage());
-									       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-										   aviso = true;
-									    }
-									});
-								} catch (UnsupportedEncodingException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
+								//public void PushAttack(int mobhp, int mobIndex, String mobDeadStatus) {
+								PushAttack(mobhp,i,mobDeadStatus);
 								
-								//if(listMonsters.get(i).MobHp <= 0) {  		    
-								//    MobDead(i);
-								//    return;
-								//}
 								
 								Damage damage = new Damage();
 								damage.DamagePosX = listMonsters.get(i).MobPosX;
@@ -1043,6 +1015,37 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}
 		}
+		
+		
+		public void PushAttack(int mobhp, int mobIndex, String mobDeadStatus) {
+			try {
+				String mobhpsend = String.valueOf(mobhp);
+				listMonsters.get(mobIndex).MobTarget = player.Name;
+				gameControl.SendAtk("SendAtk",player.AccountNumber,playernumString,mobhpsend,player.Name,mobDeadStatus,listMonsters.get(mobIndex).MobID, new HttpCallback() {
+				    @Override
+				    public void onSuccess(String response) {
+				    	if(response.contains("success")) {
+				    		listMonsters.get(mobIndexAtk).MobHp = Integer.parseInt(mobhpsend);
+				    	}
+				    	else {
+				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		aviso = true;
+				    	}
+				    }
+
+				    @Override
+				    public void onFailure(Throwable t) {
+				       System.out.println("Error: " + t.getMessage());
+				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   aviso = true;
+				    }
+				});
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		
 		public boolean CheckMobEvade() {
 			int nextint = randnumber.nextInt(100);
@@ -1256,6 +1259,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void CheckAreaRangedSkill() {
 			
+			String mobDeadStatus = "";
+			
 			float playerPosX = Float.parseFloat(player.PosX);
 			float playerPosY = Float.parseFloat(player.PosY);
 			
@@ -1282,6 +1287,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					mobPosX = listMonsters.get(i).MobPosX;
 					mobPosY = listMonsters.get(i).MobPosY;
+					
+					mobDeadStatus = listMonsters.get(i).MobDead;
 					
 					//Close Ranged
 					if(player.Target.equals(listMonsters.get(i).MobID) && !rangedAttack) {		 
@@ -1311,7 +1318,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }							
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 							}
 							if(skillname.equals("hammercrash")) {
 								int atkweapon = CheckWeapon();
@@ -1334,7 +1342,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 							}
 							if(skillname.equals("flysword")) {
 								int atkweapon = CheckWeapon();
@@ -1357,7 +1366,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 							}
 							if(skillname.equals("poisonhit")) {
 								int atkweapon = CheckWeapon();
@@ -1380,7 +1390,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 							}
 							if(skillname.equals("steal")) {
 								
@@ -1406,7 +1417,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 							}
 						}
 					}
@@ -1514,7 +1526,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = Atk + ((Wis * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1530,7 +1541,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 								return;
 							}
 							
@@ -1555,7 +1567,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 								return;
 							}
 							
@@ -1580,7 +1593,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 								return;
 							}												
 							if(skillname.equals("thundercloud")) {
@@ -1604,7 +1618,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 								return;
 							}
 							
@@ -1629,7 +1644,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 								return;
 							}						
 							if(skillname.equals("holyprism")) {
@@ -1653,7 +1669,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 								return;
 							}
 							if(skillname.equals("mine")) {
@@ -1677,7 +1694,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listSkills.add(skillInUse);	
 								listDamage.add(damageSkill);
 								rangedAttack = false;
-								if(mobHP <= 0) { MobDead(i); }
+								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
+								PushAttack(mobHP,i,mobDeadStatus);
 								return;
 							}							
 						}

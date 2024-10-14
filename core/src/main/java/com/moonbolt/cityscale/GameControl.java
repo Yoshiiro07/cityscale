@@ -2436,8 +2436,29 @@ public class GameControl {
 		return lstMonsters;
 	}
 	
-	public void GiveExpGetFromServer(String dataExp) {
-		
+	public void GiveExpGetFromServer(String line) {
+		if (line.contains("Unavailable")) {
+			System.out.println("Line: indisponivel exp");
+			return;
+		}
+	
+		// Split the line into individual mob data strings
+		String[] expDataArray = line.split("@");
+	
+		// Iterate over each mob data string, excluding the last one
+		for (String expData : expDataArray) {
+			// Split the mob data string into individual data fields
+			String[] expDataFields = expData.split(":");
+	
+			// Check if expDataFields has the expected length
+			if (expDataFields.length < 5) { // Adjust the length based on the number of expected fields
+				System.out.println("Skipping incomplete mob data: " + expData);
+				continue;
+			}
+	
+			float ExpSended = Float.parseFloat(expDataFields[8]);
+			GiveExp(ExpSended);
+		}
 	}
 	
 	public void UpdateOnlinePlayers(String line) {

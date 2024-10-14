@@ -1,5 +1,5 @@
 ux.png
-size: 993, 1921
+size: 994, 1921
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -47,28 +47,28 @@ battlezoneA
   index: -1
 btnback
   rotate: false
-  xy: 125, 40
+  xy: 265, 40
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btnconfirm
   rotate: false
-  xy: 318, 40
+  xy: 458, 40
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btncreatenew
   rotate: false
-  xy: 511, 40
+  xy: 651, 40
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btnexclude
   rotate: false
-  xy: 704, 40
+  xy: 0, 92
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
@@ -96,7 +96,7 @@ crystal
   index: -1
 hand
   rotate: false
-  xy: 80, 40
+  xy: 220, 40
   size: 45, 45
   orig: 45, 45
   offset: 0, 0
@@ -145,16 +145,16 @@ moon
   index: -1
 off
   rotate: false
-  xy: 37, 40
+  xy: 177, 40
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
 partytag
   rotate: false
-  xy: 0, 92
-  size: 173, 61
-  orig: 173, 61
+  xy: 0, 40
+  size: 94, 40
+  orig: 94, 40
   offset: 0, 0
   index: -1
 placebox1
@@ -173,7 +173,7 @@ placebox2
   index: -1
 playertag
   rotate: false
-  xy: 757, 92
+  xy: 777, 92
   size: 217, 80
   orig: 217, 80
   offset: 0, 0
@@ -208,21 +208,21 @@ shop
   index: -1
 sun
   rotate: false
-  xy: 934, 0
+  xy: 94, 40
   size: 46, 40
   orig: 46, 40
   offset: 0, 0
   index: -1
 target
   rotate: false
-  xy: 0, 40
+  xy: 140, 40
   size: 37, 42
   orig: 37, 42
   offset: 0, 0
   index: -1
 textbar
   rotate: false
-  xy: 173, 92
+  xy: 193, 92
   size: 584, 79
   orig: 584, 79
   offset: 0, 0
