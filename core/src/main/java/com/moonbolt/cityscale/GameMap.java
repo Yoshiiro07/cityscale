@@ -45,6 +45,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int playernum = 0;
     private int flipzone = 0;
     private String playernumString = "";
+    private String keyboardType = "none";
     
     //Variables usables
     private float floatUseA = 0;
@@ -142,6 +143,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int timersync = 100;
     private float playerOnlineX;
     private float playerOnlineY;
+    private Sprite spr_PartyTag;
+    private Sprite spr_PartyHair;
     
     //Sprite NPC
     private Sprite spr_npc;
@@ -236,6 +239,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//test dot
 			tex_testeDot = new Texture(Gdx.files.internal("data/assets/etc/testdot.png"));
 			spr_testeDot = new Sprite(tex_testeDot);
+			
+			player.party = "none";
 		}
 		
 		@Override
@@ -417,6 +422,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			font_master.getData().setScale(0.15f,0.26f);
 			font_master.draw(game.batch, "X:" + player.PosX, cameraCoordsX - 98f, cameraCoordsY + 53.7f);
 			font_master.draw(game.batch, "Y:" + player.PosY, cameraCoordsX - 78f, cameraCoordsY + 53.7f);
+			font_master.draw(game.batch, player.party, cameraCoordsX - 58f, cameraCoordsY + 53.7f);
 			
 			spr_sit = gameControl.GetUX("btnsit", cameraCoordsX, cameraCoordsY);
 			spr_sit.draw(game.batch);
@@ -457,6 +463,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Checks e Cards
 			ShowCards();
 			CheckColision();
+			CheckPlayerParty();
 			CheckAutoAttack();
 			CheckMobAutoAttack();
 			CheckMobDeadRespawn();
@@ -604,24 +611,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			gameControl.UpdateControlPlayer(player);
 			
 			
-			/*float playerposX = Float.parseFloat(player.PosX);
-			float playerposY = Float.parseFloat(player.PosY);
-			
-			float mobPosXTest = listMonsters.get(0).MobPosX;
-			float mobPosYTest = listMonsters.get(0).MobPosY;
-			
-			spr_testeDot.setPosition(playerposX - 15, playerposY + 40);
+			spr_testeDot.setPosition(cameraCoordsX - 60, cameraCoordsY + 56);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 
-			spr_testeDot.setPosition(playerposX + 15, playerposY - 18);
+			
+			spr_testeDot.setPosition(cameraCoordsX - 49, cameraCoordsY + 75);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
-			
-			spr_testeDot.setPosition(mobPosXTest + 5,mobPosYTest + 7);
-			spr_testeDot.setSize(1, 1);
-			spr_testeDot.draw(game.batch);*/
-			
 			
 			
 			game.batch.end();
@@ -2291,6 +2288,69 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    }
 		}
 		
+		public void CheckPlayerParty() {
+			if(!player.party.equals("none")) {
+				if(lstOnlinePlayers.size() > 0) {
+					int partynum = 0;
+					for(int i = 0; i < lstOnlinePlayers.size(); i++) {
+						if(player.party.equals(lstOnlinePlayers.get(i).party)) {
+							partynum++;
+							
+							if(partynum == 1) {
+								spr_PartyTag = gameControl.GetUX("partytag", 0, 0);
+								spr_PartyTag.setPosition(cameraCoordsX - 15, cameraCoordsY + 73);
+								spr_PartyTag.setSize(35,25);
+								spr_PartyTag.draw(game.batch);
+								
+								spr_PartyHair = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
+								spr_PartyHair.setPosition(cameraCoordsX - 30, cameraCoordsY + 72);
+								spr_PartyHair.draw(game.batch);
+								
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Name, cameraCoordsX - 14, cameraCoordsY + 82);
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Level, cameraCoordsX + 13, cameraCoordsY + 81);
+								
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Hp, cameraCoordsX + 7, cameraCoordsY + 96);
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Mp, cameraCoordsX + 7, cameraCoordsY + 88);
+							}
+							if(partynum == 2) {
+								spr_PartyTag = gameControl.GetUX("partytag", 0, 0);
+								spr_PartyTag.setPosition(cameraCoordsX + 22, cameraCoordsY + 73);
+								spr_PartyTag.setSize(35,25);
+								spr_PartyTag.draw(game.batch);
+								
+								spr_PartyHair = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
+								spr_PartyHair.setPosition(cameraCoordsX + 8, cameraCoordsY + 72);
+								spr_PartyHair.draw(game.batch);
+								
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Name, cameraCoordsX + 23, cameraCoordsY + 82);
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Level, cameraCoordsX + 50, cameraCoordsY + 81);
+								
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Hp, cameraCoordsX + 43, cameraCoordsY + 96);
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Mp, cameraCoordsX + 43, cameraCoordsY + 88);				
+							}
+							if(partynum == 3) {
+								//3
+								spr_PartyTag = gameControl.GetUX("partytag", 0, 0);
+								spr_PartyTag.setPosition(cameraCoordsX + 60, cameraCoordsY + 73);
+								spr_PartyTag.setSize(35,25);
+								spr_PartyTag.draw(game.batch);
+								
+								spr_PartyHair = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
+								spr_PartyHair.setPosition(cameraCoordsX + 45, cameraCoordsY + 72);
+								spr_PartyHair.draw(game.batch);
+								
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Name, cameraCoordsX + 61, cameraCoordsY + 82);
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Level, cameraCoordsX + 88, cameraCoordsY + 81);
+								
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Hp, cameraCoordsX + 81, cameraCoordsY + 96);
+								font_master.draw(game.batch, lstOnlinePlayers.get(i).Mp, cameraCoordsX + 81, cameraCoordsY + 88);
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		public void ChangeTarget() {
 					
 			if(player.Map.equals("Sewers")) {
@@ -2699,37 +2759,42 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 
 			//Enter
-			if (x >= cameraCoordsX + 67 && x <= cameraCoordsX + 95 && y >= cameraCoordsY - 95 && y <= cameraCoordsY - 70) {
-				
-				try {
-					gameControl.SendChat("Chat",player.AccountNumber,playernumString,keyboardText, new HttpCallback() {
-					    @Override
-					    public void onSuccess(String response) {
-					    	if(response.contains("success")) {
-					    		keyboardText = "";
-								state = "Main";
-					    	}
-					    	else {
-					    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-					    		aviso = true;
-					    	}
-					    }
-
-					    @Override
-					    public void onFailure(Throwable t) {
-					       System.out.println("Error: " + t.getMessage());
-					       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-						   aviso = true;
-					    }
-					});
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}		
-			}
-
-		}
+				if (x >= cameraCoordsX + 67 && x <= cameraCoordsX + 95 && y >= cameraCoordsY - 95 && y <= cameraCoordsY - 70) {
+					if(keyboardType.equals("Chat")) {
+							
+						try {
+							gameControl.SendChat("Chat",player.AccountNumber,playernumString,keyboardText, new HttpCallback() {
+							    @Override
+							    public void onSuccess(String response) {
+							    	if(response.contains("success")) {
+							    		keyboardText = "";
+										state = "Main";
+							    	}
+							    	else {
+							    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+							    		aviso = true;
+							    	}
+							    }
 		
+							    @Override
+							    public void onFailure(Throwable t) {
+							       System.out.println("Error: " + t.getMessage());
+							       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+								   aviso = true;
+							    }
+							});
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}	
+					}
+					
+					if(keyboardType.equals("Party")) {
+						player.party = keyboardText;
+						state = "Main";			
+					}
+				}	
+		}
 		
 		@Override
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
@@ -2841,6 +2906,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Chat
 				if(coordsTouch.x > cameraCoordsX - 60 && coordsTouch.x < cameraCoordsX - 49 && coordsTouch.y > cameraCoordsY + 77 && coordsTouch.y < cameraCoordsY + 97) {
 					state = "keyboard";
+					keyboardType = "Chat";
+					return false;
+				}
+				
+				//Party
+				if(coordsTouch.x > cameraCoordsX - 60 && coordsTouch.x < cameraCoordsX - 49 && coordsTouch.y > cameraCoordsY + 56 && coordsTouch.y < cameraCoordsY + 75) {
+					state = "keyboard";
+					keyboardType = "Party";
 					return false;
 				}
 			}

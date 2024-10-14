@@ -374,6 +374,8 @@ public class GameControl {
 			return createSpriteWithPositionAndSize("off", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
 		case "login":
 			return createSpriteWithPositionAndSize("login", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
+		case "partytag":
+			return createSpriteWithPositionAndSize("partytag", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
 		default:
 			return null;
 		}
