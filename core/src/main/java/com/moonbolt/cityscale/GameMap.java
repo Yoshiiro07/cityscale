@@ -24,6 +24,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.moonbolt.cityscale.interfaces.DateTimeProvider;
 import com.moonbolt.cityscale.interfaces.HttpCallback;
 import com.moonbolt.cityscale.models.Damage;
 import com.moonbolt.cityscale.models.Monster;
@@ -46,6 +47,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int flipzone = 0;
     private String playernumString = "";
     private String keyboardType = "none";
+	private DateTimeProvider dateTimeProvider;
     
     //Variables usables
     private float floatUseA = 0;
@@ -178,7 +180,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     //Controller
     private final IntSet downKeys = new IntSet(20);	
 
-		public GameMap(MainGame _game, ManagerScreen _screen, GameControl _gameControl,int _playernumber) {
+		public GameMap(MainGame _game, ManagerScreen _screen, GameControl _gameControl,int _playernumber,DateTimeProvider dateTimeProvider) {
 			
 			this.game = _game;	
 			this.screen = _screen;
@@ -186,6 +188,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			this.playernum = _playernumber;
 			this.gameControl = _gameControl;
 			this.playernumString = String.valueOf(playernum);
+			this.dateTimeProvider = dateTimeProvider;
 			
 			ArrayList<Player> lstPlayer = new ArrayList<Player>();
 			lstPlayer = gameControl.GetPlayers();
@@ -2188,16 +2191,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    player.playerInCast = "no";	
 		    autoattack = false;
 		    
-		    
-		    //String tipoRequisicao, String account, String charnumber,String Name, String ExpSended,String DateExp, HttpCallback callback
-		    // Get the current date and time
-        	LocalDateTime now = LocalDateTime.now();
-
-        	// Define the format
-       	 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        	// Format the current date and time as a string
-        	String date = now.format(formatter);
+		    //here
+			String date = dateTimeProvider.getCurrentDateTime();
 			
 			showDropMsg = 100;
 		    itemdropname = gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
@@ -2252,14 +2247,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		                    @Override
 		                    public void onSuccess(String response) {
 		                        if (response.contains("success")) {
-		                            // Define the format
-		                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-		                            // Get the current date and time
-		                            LocalDateTime now = LocalDateTime.now();
+		                        	String date = dateTimeProvider.getCurrentDateTime();
 
 		                            // Format the current date and time as a string
-		                            player.PlayerExpGet = now.format(formatter);
+		                            player.PlayerExpGet = date;
 		                            
 		                            LoopTime = 10;
 		                        } else {

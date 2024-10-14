@@ -1,11 +1,10 @@
 package com.moonbolt.cityscale;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.moonbolt.cityscale.interfaces.DateTimeProvider;
 import com.moonbolt.cityscale.models.Player;
 
 import java.util.ArrayList;
@@ -19,8 +18,11 @@ public class MainGame extends Game {
 	private boolean network = false;
 	private int playernumber = 0;
 	private String account = "";
+	private DateTimeProvider dateTimeProvider;
 	
-	public MainGame(){};
+	public MainGame(DateTimeProvider dateTimeProvider){
+		this.dateTimeProvider = dateTimeProvider;
+	};
 	
 	SpriteBatch batch;	
 	public ManagerScreen loadingmanager;
@@ -29,7 +31,7 @@ public class MainGame extends Game {
 	public void create()
 	{
 		batch = new SpriteBatch();  
-		loadingmanager = new ManagerScreen(this);
+		loadingmanager = new ManagerScreen(this,dateTimeProvider);
 		this.Switch("SplashScreen",account, playernumber);
 	}
 	

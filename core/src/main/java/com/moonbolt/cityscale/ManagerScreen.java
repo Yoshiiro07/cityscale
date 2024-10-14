@@ -2,6 +2,7 @@ package com.moonbolt.cityscale;
 import java.util.ArrayList;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.moonbolt.cityscale.interfaces.DateTimeProvider;
 import com.moonbolt.cityscale.models.Player;
 import com.badlogic.gdx.Screen;
 
@@ -9,11 +10,13 @@ public class ManagerScreen implements Screen{
 	private MainGame game;
 	private GameControl gameControl;
 	private int playernum;
+	private DateTimeProvider dateTimeProvider;
 	
-	public ManagerScreen(MainGame game){
+	public ManagerScreen(MainGame game,DateTimeProvider dateTimeProvider){
 		this.game = game;
 		this.gameControl = new GameControl();
 		ArrayList<Player> lstPlayers = new ArrayList<Player>();
+		this.dateTimeProvider = dateTimeProvider;
 	}
 	
 	public void screenSwitch(String tipo, String account, int playernum){
@@ -39,7 +42,7 @@ public class ManagerScreen implements Screen{
 		}
 		
 		if(tipo.equals("GameMap")) {
-			GameMap gameMapScreen = new GameMap(game,this,gameControl,playernum);
+			GameMap gameMapScreen = new GameMap(game,this,gameControl,playernum,dateTimeProvider);
 			game.setScreen(gameMapScreen);
 		}
 	}
