@@ -2797,7 +2797,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
-				if(player.playerInCast.equals("none")) { 
+				if(player.playerInCast.equals("no")) { 
 					movement = true; 
 				} 
 				else { 
