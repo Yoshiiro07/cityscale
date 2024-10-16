@@ -464,8 +464,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			//Checks e Cards
+			if(player.Map.contains("MetroStation")) { CheckColisionMetroStation(); }
+			if(player.Map.contains("StreetsA")) { CheckColisionStreetsA(); }
+			if(player.Map.contains("Sewers")) { CheckColisionSewers(); }
+			
 			ShowCards();
-			CheckColision();
 			CheckPlayerParty();
 			CheckAutoAttack();
 			CheckMobAutoAttack();
@@ -1058,32 +1061,70 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}		
 		}
 		
-		public void CheckColision() {
+		public void CheckColisionMetroStation() {
 			float posY = Float.parseFloat(player.PosY);
 			float posX = Float.parseFloat(player.PosX);
+			
+			if(posX < -77) {
+				player.breakwalk = "left";
+			}				
+			if(posX > 184.5f) {
+				player.breakwalk = "right";
+			}
+			
+			if(posY > 41) {
+				player.breakwalk = "back";
+			}
+			if(posY < -192.5f) {
+				player.breakwalk = "front";
+			}
+				
 			
 			if(player.Map.equals("MetroStation")) {
 				if(posX > 127 && posX < 148 && posY> -192  && posY < - 140) {
 					MapChange("StreetsA");
 				}
 			}
+		}
+		
+		public void CheckColisionStreetsA() {
+			float posY = Float.parseFloat(player.PosY);
+			float posX = Float.parseFloat(player.PosX);
 			
-			if(player.Map.equals("StreetsA")) {
-				if(posX < -77) {
-					player.breakwalk = "left";
-				}				
-				if(posX > 184.5f) {
-					player.breakwalk = "right";
-				}
-				
-				if(posY > 41) {
-					player.breakwalk = "back";
-				}
-				if(posY < -192.5f) {
-					player.breakwalk = "front";
-				}
-				
+			if(posX < -77) {
+				player.breakwalk = "left";
+			}				
+			if(posX > 184.5f) {
+				player.breakwalk = "right";
 			}
+			
+			if(posY > 41) {
+				player.breakwalk = "back";
+			}
+			if(posY < -192.5f) {
+				player.breakwalk = "front";
+			}
+		}
+		
+		public void CheckColisionSewers() {
+			float posY = Float.parseFloat(player.PosY);
+			float posX = Float.parseFloat(player.PosX);
+			
+			if(posX < -77) {
+				player.breakwalk = "left";
+			}				
+			if(posX > 184.5f) {
+				player.breakwalk = "right";
+			}
+			
+			if(posY > 41) {
+				player.breakwalk = "back";
+			}
+			if(posY < -192.5f) {
+				player.breakwalk = "front";
+			}
+			
+			
 			if(player.Map.equals("Sewers")) {
 				if(posX > 40f && posX < 53 && posY> 5 && posY < 21.5f) {
 					MapChange("StreetsAFromSewers");
