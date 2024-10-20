@@ -617,12 +617,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			gameControl.UpdateControlPlayer(player);
 			
 			
-			spr_testeDot.setPosition(cameraCoordsX - 60, cameraCoordsY + 56);
+			spr_testeDot.setPosition(151.5f, -136.5f);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 
 			
-			spr_testeDot.setPosition(cameraCoordsX - 49, cameraCoordsY + 75);
+			spr_testeDot.setPosition(143.5f, -129.5f); //here
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -2317,6 +2317,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		            state = "Shop";
 		            shopname = "refrishop";
 		        }
+		        
+		        if (posX >= 143.5f && posX <= 163 && posY >= -136.5f && posY <= -109) {
+		            state = "Shop";
+		            shopname = "weaponshop";
+		        }
 		    }
 		}
 		
@@ -3197,10 +3202,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						return false; 
 					}
 				}
+				if(shopname.equals("refrishop")) { 
+					if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
+						state = "Main";
+						return false; 
+					}
+				}
 				
-				if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
-					state = "Main";
-					return false; 
+				if(shopname.equals("weaponshop")) { 
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 1);
+						return false; 
+					}
 				}
 			}
 			

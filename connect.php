@@ -292,7 +292,7 @@ if ($Request == "CreateChar") {
                 Def = 1,
                 Evasion = 0,
                 Side = 'front',
-                Weapon = 'basicknife',
+                Weapon = 'basicknife_c',
                 Crystal1 = 'none',
                 Crystal2 = 'none',
                 Crystal3 = 'none',
