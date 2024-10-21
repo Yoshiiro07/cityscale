@@ -2507,31 +2507,6 @@ public class GameControl {
 		String SysMsg = "";
 		
 		if(Money >= 500) {
-			weaponType = numRandom.nextInt(600);
-			if(weaponType >= 0 && weaponType <= 100) { weapon = "knife";  }
-			if(weaponType >= 100 && weaponType <= 200) { weapon = "sword";  }
-			if(weaponType >= 200 && weaponType <= 300) { weapon = "rod";  }
-			if(weaponType >= 300 && weaponType <= 400) { weapon = "pistol";  }
-			if(weaponType >= 400 && weaponType <= 500) { weapon = "dagger";  }
-			if(weaponType >= 500 && weaponType <= 600) { weapon = "axe";  }
-			
-			
-			if(weapon.equals("knife")) {
-				weaponCategory = numRandom.nextInt(10000);
-				weaponType = numRandom.nextInt(500);
-				
-				if(weaponType >= 0 && weaponType <= 100) { weapon = "basic";  }
-				if(weaponType >= 100 && weaponType <= 200) { weapon = "double";  }
-				if(weaponType >= 200 && weaponType <= 300) { weapon = "basic";  }
-				if(weaponType >= 300 && weaponType <= 400) { weapon = "double";  }
-				if(weaponType >= 400 && weaponType <= 500) { weapon = "basic";  }
-				
-				if(weapon.equals("basic")) {
-					if()
-				}
-			}
-			
-			
 			AddItemBag("hpcan"); 
 			Money = Money - 500; 
 			if(Money < 0) { Money = 0; } 	
