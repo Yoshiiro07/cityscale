@@ -572,6 +572,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					font_master.draw(game.batch, String.valueOf(player.Money), cameraCoordsX - 25, cameraCoordsY - 37);				
 				}
 				
+				if(shopname.equals("weaponshop")) {
+					spr_shop = gameControl.GetShops("weaponshop",cameraCoordsX, cameraCoordsY);
+					spr_shop.draw(game.batch);		
+					font_master.draw(game.batch, String.valueOf(player.Money), cameraCoordsX - 25, cameraCoordsY - 37);				
+				}
+				
+				
 				if(!showbuymsg.equals("")) {
 					showbuymsgtime--;
 					font_master.draw(game.batch, showbuymsg, cameraCoordsX + 15, cameraCoordsY - 37);
@@ -617,12 +624,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			gameControl.UpdateControlPlayer(player);
 			
 			
-			spr_testeDot.setPosition(151.5f, -136.5f);
+			spr_testeDot.setPosition(cameraCoordsX - 20, cameraCoordsY - 12);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 
 			
-			spr_testeDot.setPosition(143.5f, -129.5f); //here
+			spr_testeDot.setPosition(cameraCoordsX + 14, cameraCoordsY + 2);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -1276,22 +1283,24 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				item = itemSplit[0].replace("[", "");
 				spr_item = gameControl.GetItem(item, player);
 				
+				
 				if(num == 0){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
 				if(num == 1){ spr_item.setPosition(cameraCoordsX - 30.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
 				if(num == 2){ spr_item.setPosition(cameraCoordsX - 16.5f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
 				if(num == 3){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
 				if(num == 4){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY + 17.7f); spr_item.setSize(13, 23); return spr_item;}
-				if(num == 5){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
-				if(num == 6){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
-				if(num == 7){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
-				if(num == 8){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
-				if(num == 9){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23);  return spr_item;}
-				if(num == 10){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
-				if(num == 11){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
-				if(num == 12){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
-				if(num == 13){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
-				if(num == 14){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}
-				if(num == 15){ spr_item.setPosition(cameraCoordsX - 0.3f,cameraCoordsY + 41.6f); spr_item.setSize(13, 23); return spr_item;}	
+				if(num == 5){ spr_item.setPosition(cameraCoordsX - 30.3f,cameraCoordsY + 17.7f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 6){ spr_item.setPosition(cameraCoordsX - 16.5f,cameraCoordsY + 17.7f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 7){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY + 17.7f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 8){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY -5.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 9){ spr_item.setPosition(cameraCoordsX - 30.3f,cameraCoordsY -5.6f); spr_item.setSize(13, 23);  return spr_item;}
+				if(num == 10){ spr_item.setPosition(cameraCoordsX - 16.5f,cameraCoordsY -5.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 11){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY -5.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 12){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 13){ spr_item.setPosition(cameraCoordsX - 30.3f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 14){ spr_item.setPosition(cameraCoordsX - 16.5f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}
+				if(num == 15){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}	
+				
 				
 			}
 				
@@ -2266,7 +2275,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		    if(playermoney > 2000) { return; }
+		    if(playermoney > 10000) { return; }
 		    playermoney = playermoney + 2;
 		    player.Money = String.valueOf(playermoney);
 		    
@@ -3202,7 +3211,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						return false; 
 					}
 				}
-				if(shopname.equals("refrishop")) { 
+				if(shopname.equals("weaponshop")) { 
 					if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
 						state = "Main";
 						return false; 
@@ -3210,8 +3219,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				if(shopname.equals("weaponshop")) { 
-					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
-						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 1);
+					if(coordsTouch.x > cameraCoordsX - 20 && coordsTouch.x < cameraCoordsX + 14 && coordsTouch.y > cameraCoordsY - 12 && coordsTouch.y < cameraCoordsY + 2) {
+						int money = Integer.parseInt(player.Money);
+						money = money + 1000;
+						player.Money = String.valueOf(money);
+						showbuymsg = gameControl.CheckBuyWeapon();
 						return false; 
 					}
 				}

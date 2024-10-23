@@ -1466,194 +1466,194 @@ public class GameControl {
 	public Sprite GetItem(String nameItem, Player player) {
 		
 		if(player.Sex.equals("M")) {
-			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopM");}
-			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomM"); }
-			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterM"); }
+			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopM"); return spr_master;}
+			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomM"); return spr_master; }
+			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterM"); return spr_master; }
 		}
 		
 		if(player.Sex.equals("F")) {
-			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopF"); }
-			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomF"); }
-			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterF"); }
+			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopF"); return spr_master; }
+			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomF"); return spr_master; }
+			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterF"); return spr_master; }
 		}
 		
 		//Facas Aprendiz
-		if(nameItem.contains("basicknife_a")) { spr_master = atlas_weapon.createSprite("basicknife_a"); }
-		if(nameItem.contains("basicknife_b")) { spr_master = atlas_weapon.createSprite("basicknife_b"); }
-		if(nameItem.contains("basicknife_c")) { spr_master = atlas_weapon.createSprite("basicknife_c"); }
-		if(nameItem.contains("basicknife_s")) { spr_master = atlas_weapon.createSprite("basicknife_s"); }
+		if(nameItem.contains("basicknife_a")) { spr_master = atlas_weapon.createSprite("basicknife_a"); return spr_master; }
+		if(nameItem.contains("basicknife_b")) { spr_master = atlas_weapon.createSprite("basicknife_b"); return spr_master; }
+		if(nameItem.contains("basicknife_c")) { spr_master = atlas_weapon.createSprite("basicknife_c"); return spr_master; }
+		if(nameItem.contains("basicknife_s")) { spr_master = atlas_weapon.createSprite("basicknife_s"); return spr_master; }
 		
-		if(nameItem.contains("doubleedgeknife_a")) { spr_master = atlas_weapon.createSprite("doubleedgeknife_a"); }
-		if(nameItem.contains("doubleedgeknife_b")) { spr_master = atlas_weapon.createSprite("doubleedgeknife_b"); }
-		if(nameItem.contains("doubleedgeknife_c")) { spr_master = atlas_weapon.createSprite("doubleedgeknife_c"); }
-		if(nameItem.contains("doubleedgeknife_s")) { spr_master = atlas_weapon.createSprite("doubleedgeknife_s"); }
+		if(nameItem.contains("doubleedgeknife_a")) { spr_master = atlas_weapon.createSprite("doubleedgeknife_a"); return spr_master; }
+		if(nameItem.contains("doubleedgeknife_b")) { spr_master = atlas_weapon.createSprite("doubleedgeknife_b"); return spr_master; }
+		if(nameItem.contains("doubleedgeknife_c")) { spr_master = atlas_weapon.createSprite("doubleedgeknife_c"); return spr_master; }
+		if(nameItem.contains("doubleedgeknife_s")) { spr_master = atlas_weapon.createSprite("doubleedgeknife_s"); return spr_master; }
 		
 		//Espadas
-		if(nameItem.equals("woodsword_a")) { spr_master = atlas_weapon.createSprite("woodsword_a"); }
-		if(nameItem.equals("woodsword_b")) { spr_master = atlas_weapon.createSprite("woodsword_b"); }
-		if(nameItem.equals("woodsword_c")) { spr_master = atlas_weapon.createSprite("woodsword_c"); }
-		if(nameItem.equals("woodsword_s")) { spr_master = atlas_weapon.createSprite("woodsword_s"); }
+		if(nameItem.equals("woodsword_a")) { spr_master = atlas_weapon.createSprite("woodsword_a"); return spr_master;  }
+		if(nameItem.equals("woodsword_b")) { spr_master = atlas_weapon.createSprite("woodsword_b"); return spr_master;  }
+		if(nameItem.equals("woodsword_c")) { spr_master = atlas_weapon.createSprite("woodsword_c"); return spr_master;  }
+		if(nameItem.equals("woodsword_s")) { spr_master = atlas_weapon.createSprite("woodsword_s"); return spr_master;  }
 		
-		if(nameItem.equals("ragesword_a")) { spr_master = atlas_weapon.createSprite("ragesword_a"); }
-		if(nameItem.equals("ragesword_b")) { spr_master = atlas_weapon.createSprite("ragesword_b"); }
-		if(nameItem.equals("ragesword_c")) { spr_master = atlas_weapon.createSprite("ragesword_c"); }
-		if(nameItem.equals("ragesword_s")) { spr_master = atlas_weapon.createSprite("ragesword_s"); }
+		if(nameItem.equals("ragesword_a")) { spr_master = atlas_weapon.createSprite("ragesword_a"); return spr_master;  }
+		if(nameItem.equals("ragesword_b")) { spr_master = atlas_weapon.createSprite("ragesword_b"); return spr_master;  }
+		if(nameItem.equals("ragesword_c")) { spr_master = atlas_weapon.createSprite("ragesword_c"); return spr_master;  }
+		if(nameItem.equals("ragesword_s")) { spr_master = atlas_weapon.createSprite("ragesword_s"); return spr_master;  }
 		
-		if(nameItem.equals("serpentsword_a")) { spr_master = atlas_weapon.createSprite("serpentsword_a"); }
-		if(nameItem.equals("serpentsword_b")) { spr_master = atlas_weapon.createSprite("serpentsword_b"); }
-		if(nameItem.equals("serpentsword_c")) { spr_master = atlas_weapon.createSprite("serpentsword_c"); }
-		if(nameItem.equals("serpentsword_s")) { spr_master = atlas_weapon.createSprite("serpentsword_s"); }
+		if(nameItem.equals("serpentsword_a")) { spr_master = atlas_weapon.createSprite("serpentsword_a"); return spr_master;  }
+		if(nameItem.equals("serpentsword_b")) { spr_master = atlas_weapon.createSprite("serpentsword_b"); return spr_master;  }
+		if(nameItem.equals("serpentsword_c")) { spr_master = atlas_weapon.createSprite("serpentsword_c"); return spr_master;  }
+		if(nameItem.equals("serpentsword_s")) { spr_master = atlas_weapon.createSprite("serpentsword_s"); return spr_master;  }
 		
-		if(nameItem.equals("flamesword_a")) { spr_master = atlas_weapon.createSprite("flamesword_a"); }
-		if(nameItem.equals("flamesword_b")) { spr_master = atlas_weapon.createSprite("flamesword_b"); }
-		if(nameItem.equals("flamesword_c")) { spr_master = atlas_weapon.createSprite("flamesword_c"); }
-		if(nameItem.equals("flamesword_s")) { spr_master = atlas_weapon.createSprite("flamesword_s"); }
+		if(nameItem.equals("flamesword_a")) { spr_master = atlas_weapon.createSprite("flamesword_a"); return spr_master;  }
+		if(nameItem.equals("flamesword_b")) { spr_master = atlas_weapon.createSprite("flamesword_b"); return spr_master;  }
+		if(nameItem.equals("flamesword_c")) { spr_master = atlas_weapon.createSprite("flamesword_c"); return spr_master;  }
+		if(nameItem.equals("flamesword_s")) { spr_master = atlas_weapon.createSprite("flamesword_s"); return spr_master;  }
 		
-		if(nameItem.equals("cristalsword_a")) { spr_master = atlas_weapon.createSprite("cristalsword_a"); }
-		if(nameItem.equals("cristalsword_b")) { spr_master = atlas_weapon.createSprite("cristalsword_b"); }
-		if(nameItem.equals("cristalsword_c")) { spr_master = atlas_weapon.createSprite("cristalsword_c"); }
-		if(nameItem.equals("cristalsword_s")) { spr_master = atlas_weapon.createSprite("cristalsword_s"); }
+		if(nameItem.equals("cristalsword_a")) { spr_master = atlas_weapon.createSprite("cristalsword_a"); return spr_master;  }
+		if(nameItem.equals("cristalsword_b")) { spr_master = atlas_weapon.createSprite("cristalsword_b"); return spr_master;  }
+		if(nameItem.equals("cristalsword_c")) { spr_master = atlas_weapon.createSprite("cristalsword_c"); return spr_master;  }
+		if(nameItem.equals("cristalsword_s")) { spr_master = atlas_weapon.createSprite("cristalsword_s"); return spr_master;  }
 		
 		//Cajados
-		if(nameItem.equals("stickrod_a")) { spr_master = atlas_weapon.createSprite("stickrod_a"); }
-		if(nameItem.equals("stickrod_b")) { spr_master = atlas_weapon.createSprite("stickrod_b"); }
-		if(nameItem.equals("stickrod_c")) { spr_master = atlas_weapon.createSprite("stickrod_c"); }
-		if(nameItem.equals("stickrod_s")) { spr_master = atlas_weapon.createSprite("stickrod_s"); }
+		if(nameItem.equals("stickrod_a")) { spr_master = atlas_weapon.createSprite("stickrod_a"); return spr_master;  }
+		if(nameItem.equals("stickrod_b")) { spr_master = atlas_weapon.createSprite("stickrod_b"); return spr_master;  }
+		if(nameItem.equals("stickrod_c")) { spr_master = atlas_weapon.createSprite("stickrod_c"); return spr_master;  }
+		if(nameItem.equals("stickrod_s")) { spr_master = atlas_weapon.createSprite("stickrod_s"); return spr_master;  }
 		
-		if(nameItem.equals("gloomrod_a")) { spr_master = atlas_weapon.createSprite("gloomrod_a"); }
-		if(nameItem.equals("gloomrod_b")) { spr_master = atlas_weapon.createSprite("gloomrod_b"); }
-		if(nameItem.equals("gloomrod_c")) { spr_master = atlas_weapon.createSprite("gloomrod_c"); }
-		if(nameItem.equals("gloomrod_s")) { spr_master = atlas_weapon.createSprite("gloomrod_s"); }
+		if(nameItem.equals("gloomrod_a")) { spr_master = atlas_weapon.createSprite("gloomrod_a"); return spr_master;  }
+		if(nameItem.equals("gloomrod_b")) { spr_master = atlas_weapon.createSprite("gloomrod_b"); return spr_master;  }
+		if(nameItem.equals("gloomrod_c")) { spr_master = atlas_weapon.createSprite("gloomrod_c"); return spr_master;  }
+		if(nameItem.equals("gloomrod_s")) { spr_master = atlas_weapon.createSprite("gloomrod_s"); return spr_master;  }
 		
-		if(nameItem.equals("butterflyrod_a")) { spr_master = atlas_weapon.createSprite("butterflyrod_a"); }
-		if(nameItem.equals("butterflyrod_b")) { spr_master = atlas_weapon.createSprite("butterflyrod_b"); }
-		if(nameItem.equals("butterflyrod_c")) { spr_master = atlas_weapon.createSprite("butterflyrod_c"); }
-		if(nameItem.equals("butterflyrod_s")) { spr_master = atlas_weapon.createSprite("butterflyrod_s"); }
+		if(nameItem.equals("butterflyrod_a")) { spr_master = atlas_weapon.createSprite("butterflyrod_a"); return spr_master;  }
+		if(nameItem.equals("butterflyrod_b")) { spr_master = atlas_weapon.createSprite("butterflyrod_b"); return spr_master;  }
+		if(nameItem.equals("butterflyrod_c")) { spr_master = atlas_weapon.createSprite("butterflyrod_c"); return spr_master;  }
+		if(nameItem.equals("butterflyrod_s")) { spr_master = atlas_weapon.createSprite("butterflyrod_s"); return spr_master;  }
 				
-		if(nameItem.equals("starrod_a")) { spr_master = atlas_weapon.createSprite("starrod_a"); }
-		if(nameItem.equals("starrod_b")) { spr_master = atlas_weapon.createSprite("starrod_b"); }
-		if(nameItem.equals("starrod_c")) { spr_master = atlas_weapon.createSprite("starrod_c"); }
-		if(nameItem.equals("starrod_s")) { spr_master = atlas_weapon.createSprite("starrod_s"); }
+		if(nameItem.equals("starrod_a")) { spr_master = atlas_weapon.createSprite("starrod_a"); return spr_master;  }
+		if(nameItem.equals("starrod_b")) { spr_master = atlas_weapon.createSprite("starrod_b"); return spr_master;  }
+		if(nameItem.equals("starrod_c")) { spr_master = atlas_weapon.createSprite("starrod_c"); return spr_master;  }
+		if(nameItem.equals("starrod_s")) { spr_master = atlas_weapon.createSprite("starrod_s"); return spr_master;  }
 		
-		if(nameItem.equals("deathrod_a")) { spr_master = atlas_weapon.createSprite("deathrod_a"); }
-		if(nameItem.equals("deathrod_b")) { spr_master = atlas_weapon.createSprite("deathrod_b"); }
-		if(nameItem.equals("deathrod_c")) { spr_master = atlas_weapon.createSprite("deathrod_c"); }
-		if(nameItem.equals("deathrod_s")) { spr_master = atlas_weapon.createSprite("deathrod_s"); }
+		if(nameItem.equals("deathrod_a")) { spr_master = atlas_weapon.createSprite("deathrod_a"); return spr_master;  }
+		if(nameItem.equals("deathrod_b")) { spr_master = atlas_weapon.createSprite("deathrod_b"); return spr_master;  }
+		if(nameItem.equals("deathrod_c")) { spr_master = atlas_weapon.createSprite("deathrod_c"); return spr_master;  }
+		if(nameItem.equals("deathrod_s")) { spr_master = atlas_weapon.createSprite("deathrod_s"); return spr_master;  }
 		
 		//Pistolas
-		if(nameItem.equals("basicpistol_a")) { spr_master = atlas_weapon.createSprite("basicpistol_a"); }
-		if(nameItem.equals("basicpistol_b")) { spr_master = atlas_weapon.createSprite("basicpistol_b"); }
-		if(nameItem.equals("basicpistol_c")) { spr_master = atlas_weapon.createSprite("basicpistol_c"); }
-		if(nameItem.equals("basicpistol_s")) { spr_master = atlas_weapon.createSprite("basicpistol_s"); }
+		if(nameItem.equals("basicpistol_a")) { spr_master = atlas_weapon.createSprite("basicpistol_a"); return spr_master;  }
+		if(nameItem.equals("basicpistol_b")) { spr_master = atlas_weapon.createSprite("basicpistol_b"); return spr_master;  }
+		if(nameItem.equals("basicpistol_c")) { spr_master = atlas_weapon.createSprite("basicpistol_c"); return spr_master;  }
+		if(nameItem.equals("basicpistol_s")) { spr_master = atlas_weapon.createSprite("basicpistol_s"); return spr_master;  }
 		
-		if(nameItem.equals("cannonpistol_a")) { spr_master = atlas_weapon.createSprite("cannonpistol_a"); }
-		if(nameItem.equals("cannonpistol_b")) { spr_master = atlas_weapon.createSprite("cannonpistol_b"); }
-		if(nameItem.equals("cannonpistol_c")) { spr_master = atlas_weapon.createSprite("cannonpistol_c"); }
-		if(nameItem.equals("cannonpistol_s")) { spr_master = atlas_weapon.createSprite("cannonpistol_s"); }
+		if(nameItem.equals("cannonpistol_a")) { spr_master = atlas_weapon.createSprite("cannonpistol_a"); return spr_master;  }
+		if(nameItem.equals("cannonpistol_b")) { spr_master = atlas_weapon.createSprite("cannonpistol_b"); return spr_master;  }
+		if(nameItem.equals("cannonpistol_c")) { spr_master = atlas_weapon.createSprite("cannonpistol_c"); return spr_master;  }
+		if(nameItem.equals("cannonpistol_s")) { spr_master = atlas_weapon.createSprite("cannonpistol_s"); return spr_master;  }
 		
-		if(nameItem.equals("lightpistol_a")) { spr_master = atlas_weapon.createSprite("lightpistol_a"); }
-		if(nameItem.equals("lightpistol_b")) { spr_master = atlas_weapon.createSprite("lightpistol_b"); }
-		if(nameItem.equals("lightpistol_c")) { spr_master = atlas_weapon.createSprite("lightpistol_c"); }
-		if(nameItem.equals("lightpistol_s")) { spr_master = atlas_weapon.createSprite("lightpistol_s"); }
+		if(nameItem.equals("lightpistol_a")) { spr_master = atlas_weapon.createSprite("lightpistol_a"); return spr_master;  }
+		if(nameItem.equals("lightpistol_b")) { spr_master = atlas_weapon.createSprite("lightpistol_b"); return spr_master;  }
+		if(nameItem.equals("lightpistol_c")) { spr_master = atlas_weapon.createSprite("lightpistol_c"); return spr_master;  }
+		if(nameItem.equals("lightpistol_s")) { spr_master = atlas_weapon.createSprite("lightpistol_s"); return spr_master;  }
 		
-		if(nameItem.equals("shooterpistol_a")) { spr_master = atlas_weapon.createSprite("shooterpistol_a"); }
-		if(nameItem.equals("shooterpistol_b")) { spr_master = atlas_weapon.createSprite("shooterpistol_b"); }
-		if(nameItem.equals("shooterpistol_c")) { spr_master = atlas_weapon.createSprite("shooterpistol_c"); }
-		if(nameItem.equals("shooterpistol_s")) { spr_master = atlas_weapon.createSprite("shooterpistol_s"); }
+		if(nameItem.equals("shooterpistol_a")) { spr_master = atlas_weapon.createSprite("shooterpistol_a"); return spr_master;  }
+		if(nameItem.equals("shooterpistol_b")) { spr_master = atlas_weapon.createSprite("shooterpistol_b"); return spr_master;  }
+		if(nameItem.equals("shooterpistol_c")) { spr_master = atlas_weapon.createSprite("shooterpistol_c"); return spr_master;  }
+		if(nameItem.equals("shooterpistol_s")) { spr_master = atlas_weapon.createSprite("shooterpistol_s"); return spr_master;  }
 		
-		if(nameItem.equals("sharkpistol_a")) { spr_master = atlas_weapon.createSprite("sharkpistol_a"); }
-		if(nameItem.equals("sharkpistol_b")) { spr_master = atlas_weapon.createSprite("sharkpistol_b"); }
-		if(nameItem.equals("sharkpistol_c")) { spr_master = atlas_weapon.createSprite("sharkpistol_c"); }
-		if(nameItem.equals("sharkpistol_s")) { spr_master = atlas_weapon.createSprite("sharkpistol_s"); }
+		if(nameItem.equals("sharkpistol_a")) { spr_master = atlas_weapon.createSprite("sharkpistol_a"); return spr_master;  }
+		if(nameItem.equals("sharkpistol_b")) { spr_master = atlas_weapon.createSprite("sharkpistol_b"); return spr_master;  }
+		if(nameItem.equals("sharkpistol_c")) { spr_master = atlas_weapon.createSprite("sharkpistol_c"); return spr_master;  }
+		if(nameItem.equals("sharkpistol_s")) { spr_master = atlas_weapon.createSprite("sharkpistol_s"); return spr_master;  }
 		
 		//Facas
-		if(nameItem.equals("basicdagger_a")) { spr_master = atlas_weapon.createSprite("basicdagger_a"); }
-		if(nameItem.equals("basicdagger_b")) { spr_master = atlas_weapon.createSprite("basicdagger_b"); }
-		if(nameItem.equals("basicdagger_c")) { spr_master = atlas_weapon.createSprite("basicdagger_c"); }
-		if(nameItem.equals("basicdagger_s")) { spr_master = atlas_weapon.createSprite("basicdagger_s"); }
+		if(nameItem.equals("basicdagger_a")) { spr_master = atlas_weapon.createSprite("basicdagger_a"); return spr_master;  }
+		if(nameItem.equals("basicdagger_b")) { spr_master = atlas_weapon.createSprite("basicdagger_b"); return spr_master;  }
+		if(nameItem.equals("basicdagger_c")) { spr_master = atlas_weapon.createSprite("basicdagger_c"); return spr_master;  }
+		if(nameItem.equals("basicdagger_s")) { spr_master = atlas_weapon.createSprite("basicdagger_s"); return spr_master;  }
 		
-		if(nameItem.equals("marinedagger_a")) { spr_master = atlas_weapon.createSprite("marinedagger_a"); }
-		if(nameItem.equals("marinedagger_b")) { spr_master = atlas_weapon.createSprite("marinedagger_b"); }
-		if(nameItem.equals("marinedagger_c")) { spr_master = atlas_weapon.createSprite("marinedagger_c"); }
-		if(nameItem.equals("marinedagger_s")) { spr_master = atlas_weapon.createSprite("marinedagger_s"); }
+		if(nameItem.equals("marinedagger_a")) { spr_master = atlas_weapon.createSprite("marinedagger_a"); return spr_master;  }
+		if(nameItem.equals("marinedagger_b")) { spr_master = atlas_weapon.createSprite("marinedagger_b"); return spr_master;  }
+		if(nameItem.equals("marinedagger_c")) { spr_master = atlas_weapon.createSprite("marinedagger_c"); return spr_master;  }
+		if(nameItem.equals("marinedagger_s")) { spr_master = atlas_weapon.createSprite("marinedagger_s"); return spr_master;  }
 		
-		if(nameItem.equals("thunderdagger_a")) { spr_master = atlas_weapon.createSprite("thunderdagger_a"); }
-		if(nameItem.equals("thunderdagger_b")) { spr_master = atlas_weapon.createSprite("thunderdagger_b"); }
-		if(nameItem.equals("thunderdagger_c")) { spr_master = atlas_weapon.createSprite("thunderdagger_c"); }
-		if(nameItem.equals("thunderdagger_s")) { spr_master = atlas_weapon.createSprite("thunderdagger_s"); }
+		if(nameItem.equals("thunderdagger_a")) { spr_master = atlas_weapon.createSprite("thunderdagger_a"); return spr_master;  }
+		if(nameItem.equals("thunderdagger_b")) { spr_master = atlas_weapon.createSprite("thunderdagger_b"); return spr_master;  }
+		if(nameItem.equals("thunderdagger_c")) { spr_master = atlas_weapon.createSprite("thunderdagger_c"); return spr_master;  }
+		if(nameItem.equals("thunderdagger_s")) { spr_master = atlas_weapon.createSprite("thunderdagger_s"); return spr_master;  }
 		
-		if(nameItem.equals("winddagger_a")) { spr_master = atlas_weapon.createSprite("winddagger_a"); }
-		if(nameItem.equals("winddagger_b")) { spr_master = atlas_weapon.createSprite("winddagger_b"); }
-		if(nameItem.equals("winddagger_c")) { spr_master = atlas_weapon.createSprite("winddagger_c"); }
-		if(nameItem.equals("winddagger_s")) { spr_master = atlas_weapon.createSprite("winddagger_s"); }
+		if(nameItem.equals("winddagger_a")) { spr_master = atlas_weapon.createSprite("winddagger_a"); return spr_master;  }
+		if(nameItem.equals("winddagger_b")) { spr_master = atlas_weapon.createSprite("winddagger_b"); return spr_master;  }
+		if(nameItem.equals("winddagger_c")) { spr_master = atlas_weapon.createSprite("winddagger_c"); return spr_master;  }
+		if(nameItem.equals("winddagger_s")) { spr_master = atlas_weapon.createSprite("winddagger_s"); return spr_master;  }
 		
-		if(nameItem.equals("flamebergdagger_a")) { spr_master = atlas_weapon.createSprite("flamebergdagger_a"); }
-		if(nameItem.equals("flamebergdagger_b")) { spr_master = atlas_weapon.createSprite("flamebergdagger_b"); }
-		if(nameItem.equals("flamebergdagger_c")) { spr_master = atlas_weapon.createSprite("flamebergdagger_c"); }
-		if(nameItem.equals("flamebergdagger_s")) { spr_master = atlas_weapon.createSprite("flamebergdagger_s"); }
+		if(nameItem.equals("flamebergdagger_a")) { spr_master = atlas_weapon.createSprite("flamebergdagger_a"); return spr_master;  }
+		if(nameItem.equals("flamebergdagger_b")) { spr_master = atlas_weapon.createSprite("flamebergdagger_b"); return spr_master;  }
+		if(nameItem.equals("flamebergdagger_c")) { spr_master = atlas_weapon.createSprite("flamebergdagger_c"); return spr_master;  }
+		if(nameItem.equals("flamebergdagger_s")) { spr_master = atlas_weapon.createSprite("flamebergdagger_s"); return spr_master;  }
 		
 		
 		//Machados
-		if(nameItem.equals("basicaxe_a")) { spr_master = atlas_weapon.createSprite("basicaxe_a"); }
-		if(nameItem.equals("basicaxe_b")) { spr_master = atlas_weapon.createSprite("basicaxe_b"); }
-		if(nameItem.equals("basicaxe_c")) { spr_master = atlas_weapon.createSprite("basicaxe_c"); }
-		if(nameItem.equals("basicaxe_s")) { spr_master = atlas_weapon.createSprite("basicaxe_s"); }
+		if(nameItem.equals("basicaxe_a")) { spr_master = atlas_weapon.createSprite("basicaxe_a"); return spr_master;  }
+		if(nameItem.equals("basicaxe_b")) { spr_master = atlas_weapon.createSprite("basicaxe_b"); return spr_master;  }
+		if(nameItem.equals("basicaxe_c")) { spr_master = atlas_weapon.createSprite("basicaxe_c"); return spr_master;  }
+		if(nameItem.equals("basicaxe_s")) { spr_master = atlas_weapon.createSprite("basicaxe_s"); return spr_master;  }
 		
-		if(nameItem.equals("hammeraxe_a")) { spr_master = atlas_weapon.createSprite("hammeraxe_a"); }
-		if(nameItem.equals("hammeraxe_b")) { spr_master = atlas_weapon.createSprite("hammeraxe_b"); }
-		if(nameItem.equals("hammeraxe_c")) { spr_master = atlas_weapon.createSprite("hammeraxe_c"); }
-		if(nameItem.equals("hammeraxe_d")) { spr_master = atlas_weapon.createSprite("hammeraxe_s"); }
+		if(nameItem.equals("hammeraxe_a")) { spr_master = atlas_weapon.createSprite("hammeraxe_a"); return spr_master;  }
+		if(nameItem.equals("hammeraxe_b")) { spr_master = atlas_weapon.createSprite("hammeraxe_b"); return spr_master;  }
+		if(nameItem.equals("hammeraxe_c")) { spr_master = atlas_weapon.createSprite("hammeraxe_c"); return spr_master;  }
+		if(nameItem.equals("hammeraxe_d")) { spr_master = atlas_weapon.createSprite("hammeraxe_s"); return spr_master;  }
 		
-		if(nameItem.equals("guitaraxe_a")) { spr_master = atlas_weapon.createSprite("guitaraxe_a"); }
-		if(nameItem.equals("guitaraxe_b")) { spr_master = atlas_weapon.createSprite("guitaraxe_b"); }
-		if(nameItem.equals("guitaraxe_c")) { spr_master = atlas_weapon.createSprite("guitaraxe_c"); }
-		if(nameItem.equals("guitaraxe_s")) { spr_master = atlas_weapon.createSprite("guitaraxe_s"); }
+		if(nameItem.equals("guitaraxe_a")) { spr_master = atlas_weapon.createSprite("guitaraxe_a"); return spr_master;  }
+		if(nameItem.equals("guitaraxe_b")) { spr_master = atlas_weapon.createSprite("guitaraxe_b"); return spr_master;  }
+		if(nameItem.equals("guitaraxe_c")) { spr_master = atlas_weapon.createSprite("guitaraxe_c"); return spr_master;  }
+		if(nameItem.equals("guitaraxe_s")) { spr_master = atlas_weapon.createSprite("guitaraxe_s"); return spr_master;  }
 		
-		if(nameItem.equals("anchoraxe_a")) { spr_master = atlas_weapon.createSprite("anchoraxe_a"); }
-		if(nameItem.equals("anchoraxe_b")) { spr_master = atlas_weapon.createSprite("anchoraxe_b"); }
-		if(nameItem.equals("anchoraxe_c")) { spr_master = atlas_weapon.createSprite("anchoraxe_c"); }
-		if(nameItem.equals("anchoraxe_s")) { spr_master = atlas_weapon.createSprite("anchoraxe_s"); }
+		if(nameItem.equals("anchoraxe_a")) { spr_master = atlas_weapon.createSprite("anchoraxe_a"); return spr_master;  }
+		if(nameItem.equals("anchoraxe_b")) { spr_master = atlas_weapon.createSprite("anchoraxe_b"); return spr_master;  }
+		if(nameItem.equals("anchoraxe_c")) { spr_master = atlas_weapon.createSprite("anchoraxe_c"); return spr_master;  }
+		if(nameItem.equals("anchoraxe_s")) { spr_master = atlas_weapon.createSprite("anchoraxe_s"); return spr_master;  }
 		
-		if(nameItem.equals("scytheaxe_a")) { spr_master = atlas_weapon.createSprite("scytheaxe_a"); }
-		if(nameItem.equals("scytheaxe_b")) { spr_master = atlas_weapon.createSprite("scytheaxe_b"); }
-		if(nameItem.equals("scytheaxe_c")) { spr_master = atlas_weapon.createSprite("scytheaxe_c"); }
-		if(nameItem.equals("scytheaxe_s")) { spr_master = atlas_weapon.createSprite("scytheaxe_s"); }
+		if(nameItem.equals("scytheaxe_a")) { spr_master = atlas_weapon.createSprite("scytheaxe_a"); return spr_master;  }
+		if(nameItem.equals("scytheaxe_b")) { spr_master = atlas_weapon.createSprite("scytheaxe_b"); return spr_master;  }
+		if(nameItem.equals("scytheaxe_c")) { spr_master = atlas_weapon.createSprite("scytheaxe_c"); return spr_master;  }
+		if(nameItem.equals("scytheaxe_s")) { spr_master = atlas_weapon.createSprite("scytheaxe_s"); return spr_master;  }
 		
 		
 		//Consumiveis
-		if(nameItem.equals("hpcan")) { spr_master = atlas_food.createSprite("hpcan"); }
-		if(nameItem.equals("mpcan")) { spr_master = atlas_food.createSprite("mpcan"); }
-		if(nameItem.equals("stcan")) { spr_master = atlas_food.createSprite("stcan"); }
+		if(nameItem.equals("hpcan")) { spr_master = atlas_food.createSprite("hpcan"); return spr_master;  }
+		if(nameItem.equals("mpcan")) { spr_master = atlas_food.createSprite("mpcan"); return spr_master;  }
+		if(nameItem.equals("stcan")) { spr_master = atlas_food.createSprite("stcan"); return spr_master;  }
 		
-		if(nameItem.equals("hatbear")) { spr_master = atlas_hatsitem.createSprite("hatbear"); }
-		if(nameItem.equals("hatblackglass")) { spr_master = atlas_hatsitem.createSprite("hatblackglass"); }
-		if(nameItem.equals("hatheadset")) { spr_master = atlas_hatsitem.createSprite("hatheadset"); }
-		if(nameItem.equals("hatmagician")) { spr_master = atlas_hatsitem.createSprite("hatmagician"); }
-		if(nameItem.equals("hatpirate")) { spr_master = atlas_hatsitem.createSprite("hatpirate"); }
-		if(nameItem.equals("hatsanta")) { spr_master = atlas_hatsitem.createSprite("hatsanta"); }
-		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); }
-		if(nameItem.equals("hatsunglasses")) { spr_master = atlas_hatsitem.createSprite("hatsunglasses"); }
-		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); }
-		if(nameItem.equals("hattimer")) { spr_master = atlas_hatsitem.createSprite("hattimer"); }
-		if(nameItem.equals("hatbutterfly")) { spr_master = atlas_hatsitem.createSprite("hatbutterfly"); }
-		if(nameItem.equals("hatcapoult")) { spr_master = atlas_hatsitem.createSprite("hatcapoult"); }
-		if(nameItem.equals("hatcooker")) { spr_master = atlas_hatsitem.createSprite("hatcooker"); }
-		if(nameItem.equals("hatfashionglasses")) { spr_master = atlas_hatsitem.createSprite("hatfashionglasses"); }
-		if(nameItem.equals("hatbunny")) { spr_master = atlas_hatsitem.createSprite("hatbunny"); }
-		
-		
-		if(nameItem.equals("lootfragmentoamarelo")) { spr_master = atlas_cristais.createSprite("lootfragmentoamarelo"); }
-		if(nameItem.equals("lootfragmentoazul")) { spr_master = atlas_cristais.createSprite("lootfragmentoazul"); }
-		if(nameItem.equals("lootfragmentoroxo")) { spr_master = atlas_cristais.createSprite("lootfragmentoroxo"); }
-		if(nameItem.equals("lootfragmentoverde")) { spr_master = atlas_cristais.createSprite("lootfragmentoverde"); }
-		if(nameItem.equals("lootfragmentovermelho")) { spr_master = atlas_cristais.createSprite("lootfragmentovermelho"); }
+		if(nameItem.equals("hatbear")) { spr_master = atlas_hatsitem.createSprite("hatbear"); return spr_master;  }
+		if(nameItem.equals("hatblackglass")) { spr_master = atlas_hatsitem.createSprite("hatblackglass"); return spr_master;  }
+		if(nameItem.equals("hatheadset")) { spr_master = atlas_hatsitem.createSprite("hatheadset"); return spr_master;  }
+		if(nameItem.equals("hatmagician")) { spr_master = atlas_hatsitem.createSprite("hatmagician"); return spr_master;  }
+		if(nameItem.equals("hatpirate")) { spr_master = atlas_hatsitem.createSprite("hatpirate"); return spr_master;  }
+		if(nameItem.equals("hatsanta")) { spr_master = atlas_hatsitem.createSprite("hatsanta"); return spr_master;  }
+		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); return spr_master;  }
+		if(nameItem.equals("hatsunglasses")) { spr_master = atlas_hatsitem.createSprite("hatsunglasses"); return spr_master;  }
+		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); return spr_master;  }
+		if(nameItem.equals("hattimer")) { spr_master = atlas_hatsitem.createSprite("hattimer"); return spr_master;  }
+		if(nameItem.equals("hatbutterfly")) { spr_master = atlas_hatsitem.createSprite("hatbutterfly"); return spr_master;  }
+		if(nameItem.equals("hatcapoult")) { spr_master = atlas_hatsitem.createSprite("hatcapoult"); return spr_master;  }
+		if(nameItem.equals("hatcooker")) { spr_master = atlas_hatsitem.createSprite("hatcooker"); return spr_master;  }
+		if(nameItem.equals("hatfashionglasses")) { spr_master = atlas_hatsitem.createSprite("hatfashionglasses"); return spr_master;  }
+		if(nameItem.equals("hatbunny")) { spr_master = atlas_hatsitem.createSprite("hatbunny"); return spr_master;  }
 		
 		
-		if(nameItem.equals("lootblop")) { spr_master = atlas_lootmob.createSprite("lootblop"); }
-		if(nameItem.equals("lootpoisonleaf")) { spr_master = atlas_lootmob.createSprite("lootpoisonleaf"); }
-		if(nameItem.equals("lootmushroom")) { spr_master = atlas_lootmob.createSprite("lootmushroom"); }
-		if(nameItem.equals("lootpoisonleaf")) { spr_master = atlas_lootmob.createSprite("lootpoisonleaf"); }
-		if(nameItem.equals("lootfang")) { spr_master = atlas_lootmob.createSprite("lootfang"); }
+		if(nameItem.equals("lootfragmentoamarelo")) { spr_master = atlas_cristais.createSprite("lootfragmentoamarelo"); return spr_master;  }
+		if(nameItem.equals("lootfragmentoazul")) { spr_master = atlas_cristais.createSprite("lootfragmentoazul"); return spr_master;  }
+		if(nameItem.equals("lootfragmentoroxo")) { spr_master = atlas_cristais.createSprite("lootfragmentoroxo"); return spr_master;  }
+		if(nameItem.equals("lootfragmentoverde")) { spr_master = atlas_cristais.createSprite("lootfragmentoverde"); return spr_master;  }
+		if(nameItem.equals("lootfragmentovermelho")) { spr_master = atlas_cristais.createSprite("lootfragmentovermelho"); return spr_master;  }
+		
+		
+		if(nameItem.equals("lootblop")) { spr_master = atlas_lootmob.createSprite("lootblop"); return spr_master;  }
+		if(nameItem.equals("lootpoisonleaf")) { spr_master = atlas_lootmob.createSprite("lootpoisonleaf"); return spr_master;  }
+		if(nameItem.equals("lootmushroom")) { spr_master = atlas_lootmob.createSprite("lootmushroom"); return spr_master;  }
+		if(nameItem.equals("lootpoisonleaf")) { spr_master = atlas_lootmob.createSprite("lootpoisonleaf"); return spr_master;  }
+		if(nameItem.equals("lootfang")) { spr_master = atlas_lootmob.createSprite("lootfang"); return spr_master;  }
 		
 		
 		return spr_master;
@@ -1662,6 +1662,12 @@ public class GameControl {
 	public Sprite GetShops(String shopname, float cameraCoordsX, float cameraCoordsY) {
 		if(shopname.equals("refrishop")){
 			spr_master = atlas_shops.createSprite("lojamaquina");
+			spr_master.setPosition(cameraCoordsX -65,cameraCoordsY -80);
+			spr_master.setSize(130,160);
+		}
+		
+		if(shopname.equals("weaponshop")){
+			spr_master = atlas_shops.createSprite("lojaarmas");
 			spr_master.setPosition(cameraCoordsX -65,cameraCoordsY -80);
 			spr_master.setSize(130,160);
 		}
@@ -2408,6 +2414,8 @@ public class GameControl {
 		int posicaoItem = 0;
 		String listaItemFinal;
 		
+		//if(lstItem.length > 16) { return; }
+		
 		for(int i = 0; i < lstItem.length; i++) {
 			if(lstItem[i].contains(itemName) && !exist) {
 				posicaoItem = i;
@@ -2419,7 +2427,7 @@ public class GameControl {
 			itemSplit = lstItem[posicaoItem].split("#");
 			qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
 			qtd++;
-			if(qtd >= 99) { return;}
+			if(qtd >= 99) { return; }
 				lstItem[posicaoItem] = "[" + itemSplit[0].replace("[", "") + "#" + String.valueOf(qtd) + "]";
 				listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
 				listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
@@ -2501,13 +2509,81 @@ public class GameControl {
 	public String CheckBuyWeapon() {
 		Random numRandom = new Random();
 		int Money = Integer.parseInt(playerUse.Money);
-		int weaponType = 1;
-		int weaponCategory = 1;
 		String weapon = "knife";
 		String SysMsg = "";
 		
+		String weaponName = "";
+		String rank = "";
+		String type = "";
+		
+		int rankNum = numRandom.nextInt(30000);
+		int wpNum = numRandom.nextInt(30000);
+		int typeNum = numRandom.nextInt(30);
+		
+		//Get Ranked
+		if(rankNum >= 0 && rankNum <= 15000) { rank = "c"; }
+		if(rankNum >= 15000 && rankNum <= 26000) { rank = "b"; }
+		if(rankNum >= 26000 && rankNum <= 29900) { rank = "a"; }
+		if(rankNum >= 29900 && rankNum <=  30000) { rank = "s"; }
+		
+		//Get Weapon
+		if(typeNum >= 0 && typeNum <= 5) { type = "knife"; }
+		if(typeNum >= 5 && typeNum <= 10) { type = "dagger"; }
+		if(typeNum >= 10 && typeNum <= 15) { type = "sword"; }
+		if(typeNum >= 15 && typeNum <= 20) { type = "pistol"; }
+		if(typeNum >= 20 && typeNum <= 25) { type = "axe"; }
+		if(typeNum >= 25 && typeNum <= 30) { type = "rod"; }
+		
+		if(type.equals("knife")) {
+			if(rankNum >= 0 && rankNum <= 15000) { weaponName = "basic"; }
+			if(rankNum >= 15000 && rankNum <= 30000) { weaponName = "doubleedge"; }
+		}
+		
+		if(type.equals("sword")) {  
+			if(rankNum >= 0 && rankNum <= 15000) { weaponName = "wood"; }
+			if(rankNum >= 15000 && rankNum <= 25000) { weaponName = "rage"; }
+			if(rankNum >= 25000 && rankNum <= 27000) { weaponName = "serpent"; }
+			if(rankNum >= 27000 && rankNum <= 29000) { weaponName = "flame"; }
+			if(rankNum >= 29000 && rankNum <= 30000) { weaponName = "cristal"; }
+		}
+		
+		if(type.equals("rod")) {  
+			if(rankNum >= 0 && rankNum <=  15000) { weaponName = "stick"; }
+			if(rankNum >= 15000 && rankNum <=  25000) { weaponName = "gloom"; }
+			if(rankNum >= 25000 && rankNum <=  27000) { weaponName = "star"; }
+			if(rankNum >= 27000 && rankNum <=  29000) { weaponName = "death"; }
+			if(rankNum >= 29000 && rankNum <=  30000) { weaponName = "butterfly"; }
+		}
+		
+		if(type.equals("pistol")) {  
+			if(rankNum >= 0 && rankNum <=  15000) { weaponName = "basic"; }
+			if(rankNum >= 15000 && rankNum <=  25000) { weaponName = "light"; }
+			if(rankNum >= 25000 && rankNum <=  27000) { weaponName = "cannon"; }
+			if(rankNum >= 27000 && rankNum <=  29000) { weaponName = "shooter"; }
+			if(rankNum >= 29000 && rankNum <=  30000) { weaponName = "shark"; }
+		}
+		
+		if(type.equals("axe")) {  
+			if(rankNum >= 0 && rankNum <= 15000) { weaponName = "basic"; }
+			if(rankNum >= 15000 && rankNum <= 25000) { weaponName = "hammer"; }
+			if(rankNum >= 25000 && rankNum <= 27000) { weaponName = "scythe"; }
+			if(rankNum >= 27000 && rankNum <= 29000) { weaponName = "anchor"; }
+			if(rankNum >= 29000 && rankNum <= 30000) { weaponName = "guitar"; }
+		}
+		
+		if(type.equals("dagger")) {  
+			if(rankNum >= 0 && rankNum <= 15000) { weaponName = "basic"; }
+			if(rankNum >= 15000 && rankNum <= 25000) { weaponName = "wind"; }
+			if(rankNum >= 25000 && rankNum <= 27000) { weaponName = "marine"; }
+			if(rankNum >= 27000 && rankNum <= 29000) { weaponName = "flame"; }
+			if(rankNum >= 29000 && rankNum <= 30000) { weaponName = "thunder"; }
+		}
+		
+		
+		String weaponGot = weaponName + type + "_" + rank;
+		
 		if(Money >= 500) {
-			AddItemBag("hpcan"); 
+			AddItemBag(weaponGot); 
 			Money = Money - 500; 
 			if(Money < 0) { Money = 0; } 	
 			SysMsg = "Comprado!";
