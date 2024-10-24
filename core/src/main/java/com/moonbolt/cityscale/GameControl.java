@@ -1403,59 +1403,59 @@ public class GameControl {
 	    float totalExp = 0;
 	    int level = Integer.parseInt(player.Level);
 	    
-	    if(level == 1) { totalExp = 100; }
-	    if(level == 2) { totalExp = 150; }
-	    if(level == 3) { totalExp = 250; }
-	    if(level == 4) { totalExp = 360; }
-	    if(level == 5) { totalExp = 430; }
-	    if(level == 6) { totalExp = 500; }
-	    if(level == 7) { totalExp = 730; }
-	    if(level == 8) { totalExp = 1000; }
-	    if(level == 9) { totalExp = 1450; }
+	    if(level == 1) { totalExp = 200; }
+	    if(level == 2) { totalExp = 300; }
+	    if(level == 3) { totalExp = 400; }
+	    if(level == 4) { totalExp = 500; }
+	    if(level == 5) { totalExp = 600; }
+	    if(level == 6) { totalExp = 700; }
+	    if(level == 7) { totalExp = 800; }
+	    if(level == 8) { totalExp = 900; }
+	    if(level == 9) { totalExp = 1000; }
 	    
-	    if(level == 10) { totalExp = 1840; }
-	    if(level == 11) { totalExp = 3330; }
-	    if(level == 12) { totalExp = 5500; }
-	    if(level == 13) { totalExp = 7600; }
-	    if(level == 14) { totalExp = 9929; }
-	    if(level == 15) { totalExp = 12820; }
-	    if(level == 16) { totalExp = 15293; }
-	    if(level == 17) { totalExp = 17300; }
-	    if(level == 18) { totalExp = 22402; }
-	    if(level == 19) { totalExp = 26902; }
+	    if(level == 10) { totalExp = 5000; }
+	    if(level == 11) { totalExp = 5200; }
+	    if(level == 12) { totalExp = 5300; }
+	    if(level == 13) { totalExp = 5400; }
+	    if(level == 14) { totalExp = 5500; }
+	    if(level == 15) { totalExp = 5600; }
+	    if(level == 16) { totalExp = 5700; }
+	    if(level == 17) { totalExp = 5800; }
+	    if(level == 18) { totalExp = 5900; }
+	    if(level == 19) { totalExp = 6000; }
 	    
-	    if(level == 20) { totalExp = 34592; }
-	    if(level == 21) { totalExp = 46923; }
-	    if(level == 22) { totalExp = 75829; }
-	    if(level == 23) { totalExp = 90234; }
-	    if(level == 24) { totalExp = 153042; }
-	    if(level == 25) { totalExp = 179232; }
-	    if(level == 26) { totalExp = 221011; }
-	    if(level == 27) { totalExp = 259323; }
-	    if(level == 28) { totalExp = 279293; }
-	    if(level == 29) { totalExp = 383421; }
+	    if(level == 20) { totalExp = 30000; }
+	    if(level == 21) { totalExp = 31000; }
+	    if(level == 22) { totalExp = 32000; }
+	    if(level == 23) { totalExp = 33000; }
+	    if(level == 24) { totalExp = 34000; }
+	    if(level == 25) { totalExp = 35000; }
+	    if(level == 26) { totalExp = 36000; }
+	    if(level == 27) { totalExp = 37000; }
+	    if(level == 28) { totalExp = 38000; }
+	    if(level == 29) { totalExp = 40000; }
 	    
-	    if(level == 30) { totalExp = 593421; }
-	    if(level == 31) { totalExp = 814402; }
-	    if(level == 32) { totalExp = 1534611; }
-	    if(level == 33) { totalExp = 1839770; }
-	    if(level == 34) { totalExp = 2433026; }
-	    if(level == 35) { totalExp = 2792074; }
-	    if(level == 36) { totalExp = 2931441; }
-	    if(level == 37) { totalExp = 3304900; }
-	    if(level == 38) { totalExp = 3588905; }
-	    if(level == 39) { totalExp = 4987320; }
+	    if(level == 30) { totalExp = 300000; }
+	    if(level == 31) { totalExp = 310000; }
+	    if(level == 32) { totalExp = 320000; }
+	    if(level == 33) { totalExp = 330000; }
+	    if(level == 34) { totalExp = 340000; }
+	    if(level == 35) { totalExp = 350000; }
+	    if(level == 36) { totalExp = 360000; }
+	    if(level == 37) { totalExp = 370000; }
+	    if(level == 38) { totalExp = 380000; }
+	    if(level == 39) { totalExp = 390000; }
 	    
-	    if(level == 40) { totalExp = 6987320; }
-	    if(level == 41) { totalExp = 8987320; }
-	    if(level == 42) { totalExp = 92198732; }
-	    if(level == 43) { totalExp = 95883160f; }
-	    if(level == 44) { totalExp = 96882360f; }
-	    if(level == 45) { totalExp = 97981260f; }
-	    if(level == 46) { totalExp = 98286460f; }
-	    if(level == 47) { totalExp = 987875600f; }
-	    if(level == 48) { totalExp = 988886600f; }
-	    if(level == 49) { totalExp = 9999999999f; }
+	    if(level == 40) { totalExp = 8000000; }
+	    if(level == 41) { totalExp = 8100000; }
+	    if(level == 42) { totalExp = 8200000; }
+	    if(level == 43) { totalExp = 8300000; }
+	    if(level == 44) { totalExp = 8400000; }
+	    if(level == 45) { totalExp = 8500000; }
+	    if(level == 46) { totalExp = 8800000; }
+	    if(level == 47) { totalExp = 8900000; }
+	    if(level == 48) { totalExp = 9500000; }
+	    if(level == 49) { totalExp = 50000000; }
 	    									      
 	    float result = (float)((percent*100)/totalExp);
 	    return String.valueOf(result);

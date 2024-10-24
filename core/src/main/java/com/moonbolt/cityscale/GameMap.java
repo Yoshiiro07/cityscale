@@ -1323,8 +1323,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Mp = Integer.parseInt(player.Mp);
 			int MpMax = Integer.parseInt(player.MpMax);
 			
-			int Atk = Integer.parseInt(player.Atk);
-			
+			int Atk = Integer.parseInt(player.Atk);		
 			int Str = Integer.parseInt(player.Str);
 			int Vit = Integer.parseInt(player.Vit);
 			int Agi = Integer.parseInt(player.Agi);
@@ -2220,10 +2219,71 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public int CheckWeapon() {  
 			
-			if(player.Weapon.equals("basic_knife")) { return 1;}			
-			if(player.Weapon.equals("doubleedgeknife")) { return 3; }		
-			if(player.Weapon.equals("woodsword")) { return 10;}							
-			if(player.Weapon.equals("basicpistol")) { return 8;}			
+			//knifes
+			if(player.Weapon.equals("basic_knife_c")) { return 1;}	
+			if(player.Weapon.equals("basic_knife_b")) { return 8;}	
+			if(player.Weapon.equals("basic_knife_a")) { return 12;}	
+			if(player.Weapon.equals("basic_knife_s")) { return 100;}	
+						
+			if(player.Weapon.equals("doubleedgeknife_c")) { return 3; }	
+			if(player.Weapon.equals("doubleedgeknife_b")) { return 10; }
+			if(player.Weapon.equals("doubleedgeknife_a")) { return 15; }
+			if(player.Weapon.equals("doubleedgeknife_s")) { return 102; }
+					
+			//swords
+			if(player.Weapon.equals("woodsword_c")) { return 10;}	
+			if(player.Weapon.equals("woodsword_b")) { return 35;}	
+			if(player.Weapon.equals("woodsword_a")) { return 50;}	
+			if(player.Weapon.equals("woodsword_s")) { return 400;}	
+			
+			if(player.Weapon.equals("ragesword_c")) { return 15;}	
+			if(player.Weapon.equals("ragesword_b")) { return 52;}	
+			if(player.Weapon.equals("ragesword_a")) { return 79;}	
+			if(player.Weapon.equals("ragesword_s")) { return 410;}	
+					
+			if(player.Weapon.equals("serpentsword_c")) { return 32;}	
+			if(player.Weapon.equals("serpentsword_b")) { return 70;}
+			if(player.Weapon.equals("serpentsword_a")) { return 110;}
+			if(player.Weapon.equals("serpentsword_s")) { return 420;}
+						
+			if(player.Weapon.equals("flamesword_c")) { return 40;}	
+			if(player.Weapon.equals("flamesword_b")) { return 89;}
+			if(player.Weapon.equals("flamesword_a")) { return 140;}
+			if(player.Weapon.equals("flamesword_s")) { return 430;}
+					
+			if(player.Weapon.equals("cristalsword_c")) { return 48;}	
+			if(player.Weapon.equals("cristalsword_b")) { return 120;}	
+			if(player.Weapon.equals("cristalsword_a")) { return 170;}	
+			if(player.Weapon.equals("cristalsword_s")) { return 540;}	
+			
+			
+			//Rods
+			if(player.Weapon.equals("stickrod_c")) { return 5;}
+			if(player.Weapon.equals("stickrod_b")) { return 12;}
+			if(player.Weapon.equals("stickrod_a")) { return 20;}
+			if(player.Weapon.equals("stickrod_s")) { return 90;}
+				
+			if(player.Weapon.equals("gloomrod_c")) { return 10;}	
+			if(player.Weapon.equals("gloomrod_b")) { return 20;}	
+			if(player.Weapon.equals("gloomrod_a")) { return 45;}	
+			if(player.Weapon.equals("gloomrod_s")) { return 200;}	
+				
+			if(player.Weapon.equals("starrod_c")) { return 14;}	
+			if(player.Weapon.equals("starrod_b")) { return 40;}	
+			if(player.Weapon.equals("starrod_a")) { return 60;}	
+			if(player.Weapon.equals("starrod_s")) { return 220;}	
+				
+			if(player.Weapon.equals("deathrod_c")) { return 25;}	
+			if(player.Weapon.equals("deathrod_b")) { return 50;}	
+			if(player.Weapon.equals("deathrod_a")) { return 70;}	
+			if(player.Weapon.equals("deathrod_s")) { return 240;}	
+				
+			if(player.Weapon.equals("butterflyrod_c")) { return 35;}	
+			if(player.Weapon.equals("butterflyrod_b")) { return 72;}	
+			if(player.Weapon.equals("butterflyrod_a")) { return 100;}	
+			if(player.Weapon.equals("butterflyrod_s")) { return 350;}	
+			
+			//Dagger
 			if(player.Weapon.equals("basicdagger")) { return 8;}		
 			if(player.Weapon.equals("stickrod")) { return 6;}	
 			if(player.Weapon.equals("basicaxe")) { return 12;}
