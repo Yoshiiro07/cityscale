@@ -2261,7 +2261,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Weapon.equals("stickrod_c")) { return 5;}
 			if(player.Weapon.equals("stickrod_b")) { return 12;}
 			if(player.Weapon.equals("stickrod_a")) { return 20;}
-			if(player.Weapon.equals("stickrod_s")) { return 90;}
+			if(player.Weapon.equals("stickrod_s")) { return 190;}
 				
 			if(player.Weapon.equals("gloomrod_c")) { return 10;}	
 			if(player.Weapon.equals("gloomrod_b")) { return 20;}	
@@ -2285,55 +2285,81 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Dagger
 			if(player.Weapon.equals("basicdagger_c")) { return 8;}
-			if(player.Weapon.equals("basicdagger_b")) { return 8;}		
-			if(player.Weapon.equals("basicdagger_a")) { return 8;}		
-			if(player.Weapon.equals("basicdagger_s")) { return 8;}	
+			if(player.Weapon.equals("basicdagger_b")) { return 15;}		
+			if(player.Weapon.equals("basicdagger_a")) { return 23;}		
+			if(player.Weapon.equals("basicdagger_s")) { return 300;}	
 			
-			if(player.Weapon.equals("flamebergdagger_c")) { return 8;}
-			if(player.Weapon.equals("flamebergdagger_b")) { return 8;}
-			if(player.Weapon.equals("flamebergdagger_a")) { return 8;}
-			if(player.Weapon.equals("flamebergdagger_s")) { return 8;}
+			if(player.Weapon.equals("flamebergdagger_c")) { return 12;}
+			if(player.Weapon.equals("flamebergdagger_b")) { return 24;}
+			if(player.Weapon.equals("flamebergdagger_a")) { return 48;}
+			if(player.Weapon.equals("flamebergdagger_s")) { return 330;}
 			
-			if(player.Weapon.equals("marinedagger_c")) { return 8;}
-			if(player.Weapon.equals("marinedagger_b")) { return 8;}
-			if(player.Weapon.equals("marinedagger_a")) { return 8;}
-			if(player.Weapon.equals("marinedagger_s")) { return 8;}
+			if(player.Weapon.equals("marinedagger_c")) { return 18;}
+			if(player.Weapon.equals("marinedagger_b")) { return 45;}
+			if(player.Weapon.equals("marinedagger_a")) { return 70;}
+			if(player.Weapon.equals("marinedagger_s")) { return 340;}
 			
-			if(player.Weapon.equals("winddagger_c")) { return 8;}
-			if(player.Weapon.equals("winddagger_b")) { return 8;}
-			if(player.Weapon.equals("winddagger_a")) { return 8;}
-			if(player.Weapon.equals("winddagger_s")) { return 8;}
+			if(player.Weapon.equals("winddagger_c")) { return 29;}
+			if(player.Weapon.equals("winddagger_b")) { return 56;}
+			if(player.Weapon.equals("winddagger_a")) { return 90;}
+			if(player.Weapon.equals("winddagger_s")) { return 360;}
 			
-			if(player.Weapon.equals("thunderdagger_c")) { return 8;}
-			if(player.Weapon.equals("thunderdagger_b")) { return 8;}
-			if(player.Weapon.equals("thunderdagger_a")) { return 8;}
-			if(player.Weapon.equals("thunderdagger_s")) { return 8;}
+			if(player.Weapon.equals("thunderdagger_c")) { return 40;}
+			if(player.Weapon.equals("thunderdagger_b")) { return 78;}
+			if(player.Weapon.equals("thunderdagger_a")) { return 120;}
+			if(player.Weapon.equals("thunderdagger_s")) { return 370;}
+			
+			//Pistol
+			if(player.Weapon.equals("basicpistol_c")) { return 8;}
+			if(player.Weapon.equals("basicpistol_b")) { return 15;}
+			if(player.Weapon.equals("basicpistol_a")) { return 23;}
+			if(player.Weapon.equals("basicpistol_s")) { return 300;}
+					
+			if(player.Weapon.equals("lightpistol_c")) { return 12;}
+			if(player.Weapon.equals("lightpistol_b")) { return 24;}
+			if(player.Weapon.equals("lightpistol_a")) { return 48;}
+			if(player.Weapon.equals("lightpistol_s")) { return 330;}
+			
+			if(player.Weapon.equals("shooterpistol_c")) { return 18;}
+			if(player.Weapon.equals("shooterpistol_b")) { return 45;}
+			if(player.Weapon.equals("shooterpistol_a")) { return 70;}
+			if(player.Weapon.equals("shooterpistol_s")) { return 340;}
+					
+			if(player.Weapon.equals("sharkpistol_c")) { return 29;}
+			if(player.Weapon.equals("sharkpistol_b")) { return 56;}
+			if(player.Weapon.equals("sharkpistol_a")) { return 90;}
+			if(player.Weapon.equals("sharkpistol_s")) { return 360;}
+			
+			if(player.Weapon.equals("cannonpistol_c")) { return 40;}
+			if(player.Weapon.equals("cannonpistol_b")) { return 78;}
+			if(player.Weapon.equals("cannonpistol_a")) { return 120;}
+			if(player.Weapon.equals("cannonpistol_s")) { return 370;}
 			
 			//Axe		
 			if(player.Weapon.equals("basicaxe_c")) { return 12;}
-			if(player.Weapon.equals("basicaxe_b")) { return 12;}
-			if(player.Weapon.equals("basicaxe_a")) { return 12;}
-			if(player.Weapon.equals("basicaxe_s")) { return 12;}
+			if(player.Weapon.equals("basicaxe_b")) { return 37;}
+			if(player.Weapon.equals("basicaxe_a")) { return 52;}
+			if(player.Weapon.equals("basicaxe_s")) { return 405;}
 			
-			if(player.Weapon.equals("hammeraxe_c")) { return 12;}
-			if(player.Weapon.equals("hammeraxe_b")) { return 12;}
-			if(player.Weapon.equals("hammeraxe_a")) { return 12;}
-			if(player.Weapon.equals("hammeraxe_s")) { return 12;}
+			if(player.Weapon.equals("hammeraxe_c")) { return 17;}
+			if(player.Weapon.equals("hammeraxe_b")) { return 55;}
+			if(player.Weapon.equals("hammeraxe_a")) { return 83;}
+			if(player.Weapon.equals("hammeraxe_s")) { return 415;}
 					
-			if(player.Weapon.equals("scytheaxe_c")) { return 12;}
-			if(player.Weapon.equals("scytheaxe_b")) { return 12;}
-			if(player.Weapon.equals("scytheaxe_a")) { return 12;}
+			if(player.Weapon.equals("scytheaxe_c")) { return 35;}
+			if(player.Weapon.equals("scytheaxe_b")) { return 74;}
+			if(player.Weapon.equals("scytheaxe_a")) { return 123;}
 			if(player.Weapon.equals("scytheaxe_s")) { return 12;}
 			
-			if(player.Weapon.equals("anchoraxe_c")) { return 12;}
-			if(player.Weapon.equals("anchoraxe_b")) { return 12;}
-			if(player.Weapon.equals("anchoraxe_a")) { return 12;}
-			if(player.Weapon.equals("anchoraxe_s")) { return 12;}
+			if(player.Weapon.equals("anchoraxe_c")) { return 45;}
+			if(player.Weapon.equals("anchoraxe_b")) { return 95;}
+			if(player.Weapon.equals("anchoraxe_a")) { return 150;}
+			if(player.Weapon.equals("anchoraxe_s")) { return 435;}
 					
-			if(player.Weapon.equals("guitaraxe_c")) { return 12;}
-			if(player.Weapon.equals("guitaraxe_b")) { return 12;}
-			if(player.Weapon.equals("guitaraxe_a")) { return 12;}
-			if(player.Weapon.equals("guitaraxe_s")) { return 12;}
+			if(player.Weapon.equals("guitaraxe_c")) { return 58;}
+			if(player.Weapon.equals("guitaraxe_b")) { return 130;}
+			if(player.Weapon.equals("guitaraxe_a")) { return 180;}
+			if(player.Weapon.equals("guitaraxe_s")) { return 550;}
 			
 			return 0;
 		}
@@ -2348,7 +2374,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    player.playerInCast = "no";	
 		    autoattack = false;
 		    
-		    //here
 			String date = dateTimeProvider.getCurrentDateTime();
 			
 			showDropMsg = 100;
