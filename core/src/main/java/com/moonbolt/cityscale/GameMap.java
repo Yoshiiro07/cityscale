@@ -2284,9 +2284,56 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Weapon.equals("butterflyrod_s")) { return 350;}	
 			
 			//Dagger
-			if(player.Weapon.equals("basicdagger")) { return 8;}		
-			if(player.Weapon.equals("stickrod")) { return 6;}	
-			if(player.Weapon.equals("basicaxe")) { return 12;}
+			if(player.Weapon.equals("basicdagger_c")) { return 8;}
+			if(player.Weapon.equals("basicdagger_b")) { return 8;}		
+			if(player.Weapon.equals("basicdagger_a")) { return 8;}		
+			if(player.Weapon.equals("basicdagger_s")) { return 8;}	
+			
+			if(player.Weapon.equals("flamebergdagger_c")) { return 8;}
+			if(player.Weapon.equals("flamebergdagger_b")) { return 8;}
+			if(player.Weapon.equals("flamebergdagger_a")) { return 8;}
+			if(player.Weapon.equals("flamebergdagger_s")) { return 8;}
+			
+			if(player.Weapon.equals("marinedagger_c")) { return 8;}
+			if(player.Weapon.equals("marinedagger_b")) { return 8;}
+			if(player.Weapon.equals("marinedagger_a")) { return 8;}
+			if(player.Weapon.equals("marinedagger_s")) { return 8;}
+			
+			if(player.Weapon.equals("winddagger_c")) { return 8;}
+			if(player.Weapon.equals("winddagger_b")) { return 8;}
+			if(player.Weapon.equals("winddagger_a")) { return 8;}
+			if(player.Weapon.equals("winddagger_s")) { return 8;}
+			
+			if(player.Weapon.equals("thunderdagger_c")) { return 8;}
+			if(player.Weapon.equals("thunderdagger_b")) { return 8;}
+			if(player.Weapon.equals("thunderdagger_a")) { return 8;}
+			if(player.Weapon.equals("thunderdagger_s")) { return 8;}
+			
+			//Axe		
+			if(player.Weapon.equals("basicaxe_c")) { return 12;}
+			if(player.Weapon.equals("basicaxe_b")) { return 12;}
+			if(player.Weapon.equals("basicaxe_a")) { return 12;}
+			if(player.Weapon.equals("basicaxe_s")) { return 12;}
+			
+			if(player.Weapon.equals("hammeraxe_c")) { return 12;}
+			if(player.Weapon.equals("hammeraxe_b")) { return 12;}
+			if(player.Weapon.equals("hammeraxe_a")) { return 12;}
+			if(player.Weapon.equals("hammeraxe_s")) { return 12;}
+					
+			if(player.Weapon.equals("scytheaxe_c")) { return 12;}
+			if(player.Weapon.equals("scytheaxe_b")) { return 12;}
+			if(player.Weapon.equals("scytheaxe_a")) { return 12;}
+			if(player.Weapon.equals("scytheaxe_s")) { return 12;}
+			
+			if(player.Weapon.equals("anchoraxe_c")) { return 12;}
+			if(player.Weapon.equals("anchoraxe_b")) { return 12;}
+			if(player.Weapon.equals("anchoraxe_a")) { return 12;}
+			if(player.Weapon.equals("anchoraxe_s")) { return 12;}
+					
+			if(player.Weapon.equals("guitaraxe_c")) { return 12;}
+			if(player.Weapon.equals("guitaraxe_b")) { return 12;}
+			if(player.Weapon.equals("guitaraxe_a")) { return 12;}
+			if(player.Weapon.equals("guitaraxe_s")) { return 12;}
 			
 			return 0;
 		}
