@@ -12,7 +12,8 @@ public class DesktopDateTimeProvider implements DateTimeProvider {
     	//return "";
          
         // Get the current date and time
-        Date now = new Date();
+        
+    	Date now = new Date();
 
         // Define the format
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -1215,7 +1215,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			for (int i = 0; i < 16; i++) {
 				spr_item = ShowItem(i);
 				if(spr_item != null) {				
-					font_master.draw(game.batch, ShowQuantityItem(i), spr_item.getX() + 9,spr_item.getY() + 7);
+					font_master.draw(game.batch, ShowQuantityItem(i), spr_item.getX() + 1,spr_item.getY() + 7);
 				}
 			}
 					
