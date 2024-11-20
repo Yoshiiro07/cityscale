@@ -50,7 +50,7 @@ public class Monster {
 			MobA.MobPosY = 20;
 			MobA.MobExp = 10;
 			MobA.MobID = "SlimeA";
-			MobA.MobMoney = 1;
+			MobA.MobMoney = 2;
 			MobA.MobSizeY = 15;
 			MobA.MobSizeX = 10;
 			MobA.MobTarget = "none";
@@ -79,7 +79,7 @@ public class Monster {
 			MobB.MobPosY = 20;
 			MobB.MobExp = 10;
 			MobB.MobID = "SlimeB";
-			MobB.MobMoney = 1;
+			MobB.MobMoney = 2;
 			MobB.MobSizeY = 15;
 			MobB.MobSizeX = 10;
 			MobB.MobTarget = "none";

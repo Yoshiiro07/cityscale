@@ -2984,7 +2984,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
-				if(player.playerInCast.equals("no")) { 
+				if(player.playerInCast.equals("none")) { 
 					movement = true; 
 				} 
 				else { 
@@ -3338,6 +3338,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Shops
 			if(state.equals("Shop")) {
 				if(shopname.equals("refrishop")) { 
+					if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
+						state = "Main";
+						return false; 
+					}
 					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
 						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 1);
 						return false; 
@@ -3348,13 +3352,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						state = "Main";
 						return false; 
 					}
-				}
-				
-				if(shopname.equals("weaponshop")) { 
 					if(coordsTouch.x > cameraCoordsX - 20 && coordsTouch.x < cameraCoordsX + 14 && coordsTouch.y > cameraCoordsY - 12 && coordsTouch.y < cameraCoordsY + 2) {
-						int money = Integer.parseInt(player.Money);
-						money = money + 1000;
-						player.Money = String.valueOf(money);
 						showbuymsg = gameControl.CheckBuyWeapon();
 						return false; 
 					}

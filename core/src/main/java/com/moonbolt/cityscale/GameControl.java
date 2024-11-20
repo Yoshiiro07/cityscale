@@ -2507,6 +2507,7 @@ public class GameControl {
 	}
 	
 	public String CheckBuyWeapon() {
+		
 		Random numRandom = new Random();
 		int Money = Integer.parseInt(playerUse.Money);
 		String weapon = "knife";
@@ -2582,16 +2583,18 @@ public class GameControl {
 		
 		String weaponGot = weaponName + type + "_" + rank;
 		
-		if(Money >= 500) {
+		
+		if(Money >= 200) {
 			AddItemBag(weaponGot); 
-			Money = Money - 500; 
+			Money = Money - 200; 
 			if(Money < 0) { Money = 0; } 	
 			SysMsg = "Comprado!";
 			playerUse.Money = String.valueOf(Money);
 		}
 		else {
 			SysMsg = "Dinheiro insuficiente"; 
-		}		
+		}	
+			
 		
 		return SysMsg;
 	}
