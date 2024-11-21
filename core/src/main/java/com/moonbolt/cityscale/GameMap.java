@@ -220,9 +220,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("MetroStation")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));  }
 			if(player.Map.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png"));  }	
 			if(player.Map.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png"));  }
+			if(player.Map.equals("Forest")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/forest.png"));  }
 			
 			//Mobs
 			if(player.Map.equals("Sewers")) { listMonsters = gameControl.LoadMonsters("Sewers"); }
+			if(player.Map.equals("Forest")) { listMonsters = gameControl.LoadMonsters("Sewers"); }
 			
 			spr_Background = new Sprite(tex_Background);
 			
@@ -467,6 +469,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.contains("MetroStation")) { CheckColisionMetroStation(); }
 			if(player.Map.contains("StreetsA")) { CheckColisionStreetsA(); }
 			if(player.Map.contains("Sewers")) { CheckColisionSewers(); }
+			if(player.Map.contains("Forest")) { CheckColisionForest(); }
 			
 			ShowCards();
 			CheckPlayerParty();
@@ -622,14 +625,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			
 			gameControl.UpdateControlPlayer(player);
-			
-			
-			spr_testeDot.setPosition(cameraCoordsX - 20, cameraCoordsY - 12);
+				
+			spr_testeDot.setPosition(cameraCoordsX - 46, cameraCoordsY + 68);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
-
-			
-			spr_testeDot.setPosition(cameraCoordsX + 14, cameraCoordsY + 2);
+		
+			spr_testeDot.setPosition(cameraCoordsX + 32, cameraCoordsY + 55);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -1139,6 +1140,33 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
+		public void CheckColisionForest() {
+			float posY = Float.parseFloat(player.PosY);
+			float posX = Float.parseFloat(player.PosX);
+			
+			if(posX < -77) {
+				player.breakwalk = "left";
+			}				
+			if(posX > 184.5f) {
+				player.breakwalk = "right";
+			}
+			
+			if(posY > 41) {
+				player.breakwalk = "back";
+			}
+			if(posY < -192.5f) {
+				player.breakwalk = "front";
+			}
+			
+			
+			if(player.Map.equals("Forest")) {
+				if(posX > -7 && posX < 22.5f && posY> 31.5f && posY < 41.5f) {
+					MapChange("StreetsAFromSewers");
+				}
+			}
+		}
+		
+		
 		public void ShowCards() {
 			//Basic Cards
 			//Hotkey 1 / 2
@@ -1167,13 +1195,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			
-			if(!player.Map.equals("Sewers")){
+			if(!player.Map.equals("Sewers") && !player.Map.equals("Forest")){
 				spr_master = gameControl.GetCard("cardaction");
 				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
 				spr_master.draw(game.batch);
 			}
 
-			if(player.Map.equals("Sewers")){ //cardactionON
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest")){ //cardactionON
 				if(autoattack){
 					spr_master = gameControl.GetCard("cardactionON");
 					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
@@ -2696,6 +2724,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				this.screen.screenSwitch("LoadingScreen","",playernum);
 				dispose();	
 			}
+			if(map.equals("Forest")) {
+				player.Map = "Forest";
+				player.PosX = String.valueOf("44.5f");
+				player.PosY = String.valueOf("-4.5f");
+				this.screen.screenSwitch("LoadingScreen","",playernum);
+				dispose();	
+			}
 			if(map.equals("StreetsAFromSewers")) {
 				player.Map = "StreetsA";
 				player.PosX = String.valueOf("112.5f");
@@ -3097,11 +3132,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			if(state.equals("DungeonSelect")) {
-				//Dungeon 1
-				if(coordsTouch.x > cameraCoordsX - 47 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 17 && coordsTouch.y < cameraCoordsY + 34) {
+				//Dungeon 1 - Sewers
+				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 70 && coordsTouch.y < cameraCoordsY + 83) {
 					MapChange("Sewers");
 					return false;
 				}
+				//Dungeon 1 - Forest
+				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 55 && coordsTouch.y < cameraCoordsY + 68) {
+					MapChange("Forest");
+					return false;
+				}
+				
 				//Voltar
 				if(coordsTouch.x > cameraCoordsX - 21 && coordsTouch.x < cameraCoordsX + 12 && coordsTouch.y > cameraCoordsY - 42 && coordsTouch.y < cameraCoordsY - 24) {
 					state = "Main";

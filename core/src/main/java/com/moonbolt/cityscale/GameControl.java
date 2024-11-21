@@ -356,7 +356,7 @@ public class GameControl {
 			return createSpriteWithPositionAndSize(element, cameraCoordsX - 99, cameraCoordsY + 56, 52, 42);
 		case "innerpad":
 			return createSpriteWithSize(element, 20, 35);
-		case "battlezoneA":
+		case "battlezone":
 			return createSpriteWithPositionAndSize(element, cameraCoordsX - 48, cameraCoordsY - 45, 90, 100);
 		case "target":
 			return atlas_ux.createSprite("target");
@@ -376,6 +376,8 @@ public class GameControl {
 			return createSpriteWithPositionAndSize("login", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
 		case "partytag":
 			return createSpriteWithPositionAndSize("partytag", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
+		case "battlezoneA":
+			return createSpriteWithPositionAndSize("battlezoneA", cameraCoordsX - 48, cameraCoordsY - 100, 90, 200);
 		default:
 			return null;
 		}
