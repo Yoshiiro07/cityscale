@@ -50,8 +50,8 @@ public class Monster {
 			MobA.MobExp = 5;
 			MobA.MobID = "PoyoA";
 			MobA.MobMoney = 1;
-			MobA.MobSizeY = 15;
-			MobA.MobSizeX = 10;
+			MobA.MobSizeY = 30;
+			MobA.MobSizeX = 22;
 			MobA.MobTarget = "none";
 			MobA.MobDead = "no";
 			MobA.MobTimeDead = 500;
@@ -79,8 +79,8 @@ public class Monster {
 			MobB.MobExp = 5;
 			MobB.MobID = "PoyoB";
 			MobB.MobMoney = 1;
-			MobB.MobSizeY = 15;
-			MobB.MobSizeX = 10;
+			MobB.MobSizeY = 30;
+			MobB.MobSizeX = 22;
 			MobB.MobTarget = "none";
 			MobB.MobDead = "no";
 			MobB.MobTimeDead = 500;
@@ -108,8 +108,8 @@ public class Monster {
 			MobC.MobExp = 10;
 			MobC.MobID = "AranarcA";
 			MobC.MobMoney = 2;
-			MobC.MobSizeY = 18;
-			MobC.MobSizeX = 12;
+			MobC.MobSizeY = 25;
+			MobC.MobSizeX = 22;
 			MobC.MobTarget = "none";
 			MobC.MobDead = "no";
 			MobC.MobTimeDead = 500;
@@ -155,7 +155,7 @@ public class Monster {
 			MobD.MobMap = "Sewers";
 
 			Monster MobE = new Monster();
-			MobE.MobName = "enty";
+			MobE.MobName = "snake";
 			MobE.MobHp = 120;
 			MobE.MobMp = 120;
 			MobE.MobHpMax = 120;
@@ -164,10 +164,10 @@ public class Monster {
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
 			MobE.MobExp = 60;
-			MobE.MobID = "EntyA";
+			MobE.MobID = "SnakeA";
 			MobE.MobMoney = 5;
-			MobE.MobSizeY = 18;
-			MobE.MobSizeX = 14;
+			MobE.MobSizeY = 34;
+			MobE.MobSizeX = 30;
 			MobE.MobTarget = "none";
 			MobE.MobDead = "no";
 			MobE.MobTimeDead = 500;
@@ -181,7 +181,7 @@ public class Monster {
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
 			MobE.MobLevel = 8;
-			MobE.MobMap = "Sewers";
+			MobE.MobMap = "Forest";
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);
@@ -205,8 +205,8 @@ public class Monster {
 				MobA.MobExp = 5;
 				MobA.MobID = "SlimeA";
 				MobA.MobMoney = 1;
-				MobA.MobSizeY = 15;
-				MobA.MobSizeX = 10;
+				MobA.MobSizeY = 20;
+				MobA.MobSizeX = 14;
 				MobA.MobTarget = "none";
 				MobA.MobDead = "no";
 				MobA.MobTimeDead = 500;
@@ -234,8 +234,8 @@ public class Monster {
 				MobB.MobExp = 5;
 				MobB.MobID = "SlimeB";
 				MobB.MobMoney = 1;
-				MobB.MobSizeY = 15;
-				MobB.MobSizeX = 10;
+				MobB.MobSizeY = 20;
+				MobB.MobSizeX = 14;
 				MobB.MobTarget = "none";
 				MobB.MobDead = "no";
 				MobB.MobTimeDead = 500;
@@ -263,8 +263,8 @@ public class Monster {
 				MobC.MobExp = 10;
 				MobC.MobID = "BeeA";
 				MobC.MobMoney = 2;
-				MobC.MobSizeY = 18;
-				MobC.MobSizeX = 12;
+				MobC.MobSizeY = 22;
+				MobC.MobSizeX = 16;
 				MobC.MobTarget = "none";
 				MobC.MobDead = "no";
 				MobC.MobTimeDead = 500;
@@ -292,8 +292,8 @@ public class Monster {
 				MobD.MobExp = 30;
 				MobD.MobID = "GoblinA";
 				MobD.MobMoney = 4;
-				MobD.MobSizeY = 20;
-				MobD.MobSizeX = 20;
+				MobD.MobSizeY = 22;
+				MobD.MobSizeX = 15;
 				MobD.MobTarget = "none";
 				MobD.MobDead = "no";
 				MobD.MobTimeDead = 500;
@@ -321,8 +321,8 @@ public class Monster {
 				MobE.MobExp = 60;
 				MobE.MobID = "EntyA";
 				MobE.MobMoney = 5;
-				MobE.MobSizeY = 18;
-				MobE.MobSizeX = 14;
+				MobE.MobSizeY = 40;
+				MobE.MobSizeX = 28;
 				MobE.MobTarget = "none";
 				MobE.MobDead = "no";
 				MobE.MobTimeDead = 500;

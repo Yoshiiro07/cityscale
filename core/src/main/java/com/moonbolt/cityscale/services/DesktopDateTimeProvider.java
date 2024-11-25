@@ -9,8 +9,9 @@ public class DesktopDateTimeProvider implements DateTimeProvider {
     @Override
     public String getCurrentDateTime() {
         
-    	//return "";
-         
+    	return "";
+        
+    	/*
         // Get the current date and time
         
     	Date now = new Date();
@@ -20,5 +21,8 @@ public class DesktopDateTimeProvider implements DateTimeProvider {
 
         // Format the current date and time as a string
         return formatter.format(now);
+        
+        */
+        
     }
 }

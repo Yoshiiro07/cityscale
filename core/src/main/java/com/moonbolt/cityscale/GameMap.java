@@ -224,7 +224,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Mobs
 			if(player.Map.equals("Sewers")) { listMonsters = gameControl.LoadMonsters("Sewers"); }
-			if(player.Map.equals("Forest")) { listMonsters = gameControl.LoadMonsters("Sewers"); }
+			if(player.Map.equals("Forest")) { listMonsters = gameControl.LoadMonsters("Forest"); }
 			
 			spr_Background = new Sprite(tex_Background);
 			
@@ -390,9 +390,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Char
 			player = gameControl.SetCharMov(player, player.breakwalk);
 			
-			spr_playerfooter = gameControl.GetFooterChar(player, "no",0,0);
-			spr_playerfooter.draw(game.batch);
-			
 			spr_playerbottom = gameControl.GetBottomChar(player, "no",0,0);
 			spr_playerbottom.draw(game.batch);
 							
@@ -401,6 +398,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
 			spr_playerhair.draw(game.batch);
+			
+			spr_playerfooter = gameControl.GetFooterChar(player, "no",0,0);
+			spr_playerfooter.draw(game.batch);
 			
 			if(!player.Hat.equals("none")) {
 				spr_playerhat = gameControl.GetHatChar(player,"",0,0);
@@ -415,6 +415,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 			//Show Mobs
 			if(player.Map.equals("Sewers")){ ShowMobs(); }
+			if(player.Map.equals("Forest")){ ShowMobs(); }
 		
 			//UX
 			spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
@@ -528,11 +529,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				//Show Character
 				//Itens Equipped
-				spr_playerfooter = gameControl.GetItem(player.SetFooter, player);
-				spr_playerfooter.setPosition(cameraCoordsX + 13, cameraCoordsY + 41);
-				spr_playerfooter.setSize(13, 22);
-				spr_playerfooter.draw(game.batch);
-				
+						
 				spr_playerbottom = gameControl.GetItem(player.SetBottom, player);
 				spr_playerbottom.setPosition(cameraCoordsX + 27, cameraCoordsY + 41);
 				spr_playerbottom.setSize(13, 22);
@@ -542,6 +539,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playertop.setPosition(cameraCoordsX + 41, cameraCoordsY + 41);
 				spr_playertop.setSize(13, 22);
 				spr_playertop.draw(game.batch);
+				
+				spr_playerfooter = gameControl.GetItem(player.SetFooter, player);
+				spr_playerfooter.setPosition(cameraCoordsX + 13, cameraCoordsY + 41);
+				spr_playerfooter.setSize(13, 22);
+				spr_playerfooter.draw(game.batch);
 				
 				spr_playerweapon = gameControl.GetItem(player.Weapon, player);
 				spr_playerweapon.setPosition(cameraCoordsX + 54.4f, cameraCoordsY + 41);
@@ -626,13 +628,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			spr_testeDot.setPosition(cameraCoordsX - 46, cameraCoordsY + 68);
-			spr_testeDot.setSize(1, 1);
-			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setPosition(cameraCoordsX - 46, cameraCoordsY + 68);
+			//spr_testeDot.setSize(1, 1);
+			//spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 32, cameraCoordsY + 55);
-			spr_testeDot.setSize(1, 1);
-			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setPosition(cameraCoordsX + 32, cameraCoordsY + 55);
+			//spr_testeDot.setSize(1, 1);
+			//spr_testeDot.draw(game.batch);
 			
 			
 			game.batch.end();
@@ -3414,7 +3416,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			float playerPosX = Float.parseFloat(player.PosX);
 			float playerPosY = Float.parseFloat(player.PosY);
 			
-			if(player.Map.equals("Sewers") || player.Map.equals("Watercave") || player.Map.equals("Mines") || player.Map.equals("Snowpalace") || player.Map.equals("Tower")) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || player.Map.equals("Mines") || player.Map.equals("Snowpalace") || player.Map.equals("Tower")) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 						//Target do player
@@ -3436,7 +3438,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							mobFrame++;
 							if(mobFrame > 3) { mobFrame = 1;}
 							listMonsters.get(i).MobFrame = mobFrame;
-							listMonsters.get(i).MobFrameTime = 40;
+							listMonsters.get(i).MobFrameTime = 18;
 						}
 						
 						//Sem Target
@@ -3531,13 +3533,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							listMonsters.get(i).MobPosX = 65;
 						}
 						
-						if(player.Map.equals("Sewers")) { 
-							spr_monster = gameControl.GetMonster(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, "L");
-						}
-						//if(player.Map_A.equals("Watercave")) { spr_monster = atlas_mobWatercave.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
-						//if(player.Map_A.equals("Mines")) { spr_monster = atlas_mobMines.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
-						//if(player.Map_A.equals("Snowpalace")) { spr_monster = atlas_mobSnowpalace.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
-						//if(player.Map_A.equals("Tower")) { spr_monster = atlas_mobTower.createSprite(listMonsters.get(i).MobName + listMonsters.get(i).MobFrame + "L"); }
+						if(player.Map.equals("Sewers")) { spr_monster = gameControl.GetMonsterSewers(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
+						if(player.Map.equals("Forest")) { spr_monster = gameControl.GetMonsterForest(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
+						
 						spr_monster.setPosition(listMonsters.get(i).MobPosX, listMonsters.get(i).MobPosY);
 						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);
 						spr_monster.draw(game.batch);

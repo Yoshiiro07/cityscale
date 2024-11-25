@@ -80,6 +80,7 @@ public class GameControl {
 	private TextureAtlas atlas_npcs;
 	private TextureAtlas atlas_cards;
 	private TextureAtlas atlas_mobSewers;
+	private TextureAtlas atlas_mobForest;
 
 	private TextureAtlas atlas_weapon;
 	private TextureAtlas atlas_cloth;
@@ -159,6 +160,7 @@ public class GameControl {
 		atlas_ux = new TextureAtlas(Gdx.files.internal("data/assets/ux/ux.txt"));
 
 		atlas_mobSewers = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobsewers.txt"));
+		atlas_mobForest = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobforest.txt"));
 
 		atlas_npcs = new TextureAtlas(Gdx.files.internal("data/assets/characters/npcs/npcs.txt"));
 		atlas_cards = new TextureAtlas(Gdx.files.internal("data/assets/skills/cards.txt"));
@@ -827,32 +829,52 @@ public class GameControl {
 	
 	//[Monsters]//
 	public ArrayList<Monster> LoadMonsters(String Map) {
-		if(Map.equals("Sewers")){
-			lstMonsters = placeholderMonster.LoadMonsterData(Map);
-		}
-
+		lstMonsters = placeholderMonster.LoadMonsterData(Map);
 		return lstMonsters;
 	}
 
-	public Sprite GetMonster(String mob, int mobframe, String side) {
-		if(mob.equals("slime")){
-			spr_master = atlas_mobSewers.createSprite("slime" + mobframe);
+	public Sprite GetMonsterSewers(String mob, int mobframe, String side) {
+		//Sewers
+		if(mob.equals("poyo")){
+			String mobdata = "poyo" + mobframe;
+			spr_master = atlas_mobSewers.createSprite("poyo" + mobframe);  //Mobhere
 			return spr_master;
 		}
-		if(mob.equals("oikplant")){
-			spr_master = atlas_mobSewers.createSprite("oikplant" + mobframe);
+		if(mob.equals("aranarc")){
+			spr_master = atlas_mobSewers.createSprite("aranarc" + mobframe);
 			return spr_master;
 		}
 		if(mob.equals("rat")){
 			spr_master = atlas_mobSewers.createSprite("rat" + mobframe);
 			return spr_master;
 		}
-		if(mob.equals("sapod")){
-			spr_master = atlas_mobSewers.createSprite("sapod" + mobframe);
+		if(mob.equals("snake")){
+			spr_master = atlas_mobSewers.createSprite("snake" + mobframe);
+			return spr_master;
+		}	
+
+		return spr_master;
+	}
+	
+	public Sprite GetMonsterForest(String mob, int mobframe, String side) {
+		//Forest
+		if(mob.equals("bee")){
+			spr_master = atlas_mobForest.createSprite("bee" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("goblin")){
+			spr_master = atlas_mobForest.createSprite("goblin" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("slime")){
+			spr_master = atlas_mobForest.createSprite("slime" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("enty")){
+			spr_master = atlas_mobForest.createSprite("enty" + mobframe);
 			return spr_master;
 		}
 		
-
 		return spr_master;
 	}
 	
@@ -914,7 +936,7 @@ public class GameControl {
 			if(player.Hair.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
 			if(player.Hair.equals("hair4")) { spr_master = atlas_hairs4.createSprite(player.Hair + "_" + player.Side + "_" + player.Color + "_" + player.Sex); }
 			
-			if(player.Side.equals("front")) { spr_master.setPosition(posX -20, posY + 10);  }
+			if(player.Side.equals("front")) { spr_master.setPosition(posX -20, posY + 9.4f);  }
 			if(player.Side.equals("back")) { spr_master.setPosition(posX -20, posY + 10);  }
 			if(player.Side.equals("left")) {  spr_master.setPosition(posX -20.7f, posY + 8.8f); }
 			if(player.Side.equals("right")) { spr_master.setPosition(posX -19.5f, posY + 8.8f);  }
@@ -1102,7 +1124,11 @@ public class GameControl {
 		/// [BOTTOM FEMALE] //////
 		if(player.Sex.equals("F")) {
 			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + player.Frame);
-			if(player.Side.equals("front")) { spr_master.setPosition(posX -25.2f,posY -13f); }
+			if(player.Side.equals("front")) {
+				if(frame == 1) { spr_master.setPosition(posX -25.4f,posY -14f);   }
+				if(frame == 2) { spr_master.setPosition(posX -25.4f,posY -14f);   }
+				if(frame == 3) { spr_master.setPosition(posX -24.6f,posY -14f);   }
+			}
 			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -14.6f); }
 			if(player.Side.equals("right")) { 
 				spr_master.setPosition(posX -25f,posY -13);
@@ -1204,8 +1230,8 @@ public class GameControl {
 			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + player.Frame);
 			if(player.Side.equals("front")) { 
 				spr_master.setPosition(posX -25f,posY -22.5f);
-				if(frame == 2) { spr_master.setPosition(posX -25f,posY -18.5f);   }
-				if(frame == 3) { spr_master.setPosition(posX -25f,posY -18.5f);   }
+				if(frame == 2) { spr_master.setPosition(posX -25.2f,posY -21.5f);   }
+				if(frame == 3) { spr_master.setPosition(posX -25f,posY -21.5f);   }
 			
 			}
 			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -21); }	
