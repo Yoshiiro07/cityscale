@@ -33,10 +33,7 @@ public class Monster {
 		public String MobMap;
 
 
-		public ArrayList<Monster> LoadMonsterData(String map){
-			ArrayList<Monster> listMonsters = new ArrayList<Monster>();
-			
-			if(map.equals("Sewers")){
+		public ArrayList<Monster> LoadMonsterDataSewers(String map,ArrayList<Monster> listMonters){
 			Monster MobA = new Monster();
 			
 			MobA.MobName = "poyo";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
@@ -183,169 +180,170 @@ public class Monster {
 			MobE.MobLevel = 8;
 			MobE.MobMap = "Forest";
 
-			listMonsters.add(MobA);
-			listMonsters.add(MobB);
-			listMonsters.add(MobC);
-			listMonsters.add(MobD);
-			listMonsters.add(MobE);
-
-			}
+			listMonters.add(MobA);
+			listMonters.add(MobB);
+			listMonters.add(MobC);
+			listMonters.add(MobD);
+			listMonters.add(MobE);
 			
-			if(map.equals("Forest")){
-				Monster MobA = new Monster();
-				
-				MobA.MobName = "slime";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
-				MobA.MobHp = 20;
-				MobA.MobMp = 20;
-				MobA.MobHpMax = 20;
-				MobA.MobMpMax = 20;
-				MobA.MobFrame = 1;
-				MobA.MobPosX = 20;
-				MobA.MobPosY = 20;
-				MobA.MobExp = 5;
-				MobA.MobID = "SlimeA";
-				MobA.MobMoney = 1;
-				MobA.MobSizeY = 20;
-				MobA.MobSizeX = 14;
-				MobA.MobTarget = "none";
-				MobA.MobDead = "no";
-				MobA.MobTimeDead = 500;
-				MobA.MobSkillChance = "";
-				MobA.MobAtk = 2;
-				MobA.MobEvade = 20;
-				MobA.MobPosition = "left";
-				MobA.MobRandomSt = 1;
-				MobA.MobTimerMov = 1;
-				MobA.MobFrameTime = 1;
-				MobA.MobAtkTimer = 500;
-				MobA.MobAtkTimerMax = 500;
-				MobA.MobLevel = 1;
-				MobA.MobMap = "Forest";
+			return listMonters;
 
-				Monster MobB = new Monster();
-				MobB.MobName = "slime";
-				MobB.MobHp = 20;
-				MobB.MobMp = 20;
-				MobB.MobHpMax = 20;
-				MobB.MobMpMax = 20;
-				MobB.MobFrame = 1;
-				MobB.MobPosX = 20;
-				MobB.MobPosY = 20;
-				MobB.MobExp = 5;
-				MobB.MobID = "SlimeB";
-				MobB.MobMoney = 1;
-				MobB.MobSizeY = 20;
-				MobB.MobSizeX = 14;
-				MobB.MobTarget = "none";
-				MobB.MobDead = "no";
-				MobB.MobTimeDead = 500;
-				MobB.MobSkillChance = "";
-				MobB.MobAtk = 2;
-				MobB.MobEvade = 20;
-				MobB.MobPosition = "left";
-				MobB.MobRandomSt = 1;
-				MobB.MobTimerMov = 1;
-				MobB.MobFrameTime = 1;
-				MobB.MobAtkTimer = 500;
-				MobB.MobAtkTimerMax = 500;
-				MobB.MobLevel = 1;
-				MobB.MobMap = "Forest";
+		}
+		
+		public ArrayList<Monster> LoadMonsterDataForest(String map, ArrayList<Monster> listMonters){
+			
+			Monster MobA = new Monster();
+			
+			MobA.MobName = "slime";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
+			MobA.MobHp = 20;
+			MobA.MobMp = 20;
+			MobA.MobHpMax = 20;
+			MobA.MobMpMax = 20;
+			MobA.MobFrame = 1;
+			MobA.MobPosX = 20;
+			MobA.MobPosY = 20;
+			MobA.MobExp = 5;
+			MobA.MobID = "SlimeA";
+			MobA.MobMoney = 1;
+			MobA.MobSizeY = 20;
+			MobA.MobSizeX = 14;
+			MobA.MobTarget = "none";
+			MobA.MobDead = "no";
+			MobA.MobTimeDead = 500;
+			MobA.MobSkillChance = "";
+			MobA.MobAtk = 2;
+			MobA.MobEvade = 20;
+			MobA.MobPosition = "left";
+			MobA.MobRandomSt = 1;
+			MobA.MobTimerMov = 1;
+			MobA.MobFrameTime = 1;
+			MobA.MobAtkTimer = 500;
+			MobA.MobAtkTimerMax = 500;
+			MobA.MobLevel = 1;
+			MobA.MobMap = "Forest";
 
-				Monster MobC = new Monster();
-				MobC.MobName = "bee";
-				MobC.MobHp = 45;
-				MobC.MobMp = 45;
-				MobC.MobHpMax = 45;
-				MobC.MobMpMax = 45;
-				MobC.MobFrame = 1;
-				MobC.MobPosX = 112.5f;
-				MobC.MobPosY = -13;
-				MobC.MobExp = 10;
-				MobC.MobID = "BeeA";
-				MobC.MobMoney = 2;
-				MobC.MobSizeY = 22;
-				MobC.MobSizeX = 16;
-				MobC.MobTarget = "none";
-				MobC.MobDead = "no";
-				MobC.MobTimeDead = 500;
-				MobC.MobSkillChance = "";
-				MobC.MobAtk = 4;
-				MobC.MobEvade = 10;
-				MobC.MobPosition = "left";
-				MobC.MobRandomSt = 1;
-				MobC.MobTimerMov = 1;
-				MobC.MobFrameTime = 1;
-				MobC.MobAtkTimer = 300;
-				MobC.MobAtkTimerMax = 300;
-				MobC.MobLevel = 4;
-				MobC.MobMap = "Forest";
+			Monster MobB = new Monster();
+			MobB.MobName = "slime";
+			MobB.MobHp = 20;
+			MobB.MobMp = 20;
+			MobB.MobHpMax = 20;
+			MobB.MobMpMax = 20;
+			MobB.MobFrame = 1;
+			MobB.MobPosX = 20;
+			MobB.MobPosY = 20;
+			MobB.MobExp = 5;
+			MobB.MobID = "SlimeB";
+			MobB.MobMoney = 1;
+			MobB.MobSizeY = 20;
+			MobB.MobSizeX = 14;
+			MobB.MobTarget = "none";
+			MobB.MobDead = "no";
+			MobB.MobTimeDead = 500;
+			MobB.MobSkillChance = "";
+			MobB.MobAtk = 2;
+			MobB.MobEvade = 20;
+			MobB.MobPosition = "left";
+			MobB.MobRandomSt = 1;
+			MobB.MobTimerMov = 1;
+			MobB.MobFrameTime = 1;
+			MobB.MobAtkTimer = 500;
+			MobB.MobAtkTimerMax = 500;
+			MobB.MobLevel = 1;
+			MobB.MobMap = "Forest";
 
-				Monster MobD = new Monster();
-				MobD.MobName = "goblin";
-				MobD.MobHp = 80;
-				MobD.MobMp = 80;
-				MobD.MobHpMax = 80;
-				MobD.MobMpMax = 80;
-				MobD.MobFrame = 1;
-				MobD.MobPosX = 9.0f;
-				MobD.MobPosY = -132;
-				MobD.MobExp = 30;
-				MobD.MobID = "GoblinA";
-				MobD.MobMoney = 4;
-				MobD.MobSizeY = 22;
-				MobD.MobSizeX = 15;
-				MobD.MobTarget = "none";
-				MobD.MobDead = "no";
-				MobD.MobTimeDead = 500;
-				MobD.MobSkillChance = "";
-				MobD.MobAtk = 15;
-				MobD.MobEvade = 10;
-				MobD.MobPosition = "left";
-				MobD.MobRandomSt = 1;
-				MobD.MobTimerMov = 1;
-				MobD.MobFrameTime = 1;
-				MobD.MobAtkTimer = 300;
-				MobD.MobAtkTimerMax = 300;
-				MobD.MobLevel = 5;
-				MobD.MobMap = "Forest";
+			Monster MobC = new Monster();
+			MobC.MobName = "bee";
+			MobC.MobHp = 45;
+			MobC.MobMp = 45;
+			MobC.MobHpMax = 45;
+			MobC.MobMpMax = 45;
+			MobC.MobFrame = 1;
+			MobC.MobPosX = 112.5f;
+			MobC.MobPosY = -13;
+			MobC.MobExp = 10;
+			MobC.MobID = "BeeA";
+			MobC.MobMoney = 2;
+			MobC.MobSizeY = 22;
+			MobC.MobSizeX = 16;
+			MobC.MobTarget = "none";
+			MobC.MobDead = "no";
+			MobC.MobTimeDead = 500;
+			MobC.MobSkillChance = "";
+			MobC.MobAtk = 4;
+			MobC.MobEvade = 10;
+			MobC.MobPosition = "left";
+			MobC.MobRandomSt = 1;
+			MobC.MobTimerMov = 1;
+			MobC.MobFrameTime = 1;
+			MobC.MobAtkTimer = 300;
+			MobC.MobAtkTimerMax = 300;
+			MobC.MobLevel = 4;
+			MobC.MobMap = "Forest";
 
-				Monster MobE = new Monster();
-				MobE.MobName = "enty";
-				MobE.MobHp = 120;
-				MobE.MobMp = 120;
-				MobE.MobHpMax = 120;
-				MobE.MobMpMax = 120;
-				MobE.MobFrame = 1;
-				MobE.MobPosX = 84.5f;
-				MobE.MobPosY = -129.5f;
-				MobE.MobExp = 60;
-				MobE.MobID = "EntyA";
-				MobE.MobMoney = 5;
-				MobE.MobSizeY = 40;
-				MobE.MobSizeX = 28;
-				MobE.MobTarget = "none";
-				MobE.MobDead = "no";
-				MobE.MobTimeDead = 500;
-				MobE.MobSkillChance = "";
-				MobE.MobAtk = 22;
-				MobE.MobEvade = 10;
-				MobE.MobPosition = "left";
-				MobE.MobRandomSt = 1;
-				MobE.MobTimerMov = 1;
-				MobE.MobFrameTime = 1;
-				MobE.MobAtkTimer = 400;
-				MobE.MobAtkTimerMax = 400;
-				MobE.MobLevel = 8;
-				MobE.MobMap = "Forest";
+			Monster MobD = new Monster();
+			MobD.MobName = "goblin";
+			MobD.MobHp = 80;
+			MobD.MobMp = 80;
+			MobD.MobHpMax = 80;
+			MobD.MobMpMax = 80;
+			MobD.MobFrame = 1;
+			MobD.MobPosX = 9.0f;
+			MobD.MobPosY = -132;
+			MobD.MobExp = 30;
+			MobD.MobID = "GoblinA";
+			MobD.MobMoney = 4;
+			MobD.MobSizeY = 22;
+			MobD.MobSizeX = 15;
+			MobD.MobTarget = "none";
+			MobD.MobDead = "no";
+			MobD.MobTimeDead = 500;
+			MobD.MobSkillChance = "";
+			MobD.MobAtk = 15;
+			MobD.MobEvade = 10;
+			MobD.MobPosition = "left";
+			MobD.MobRandomSt = 1;
+			MobD.MobTimerMov = 1;
+			MobD.MobFrameTime = 1;
+			MobD.MobAtkTimer = 300;
+			MobD.MobAtkTimerMax = 300;
+			MobD.MobLevel = 5;
+			MobD.MobMap = "Forest";
 
-				listMonsters.add(MobA);
-				listMonsters.add(MobB);
-				listMonsters.add(MobC);
-				listMonsters.add(MobD);
-				listMonsters.add(MobE);
+			Monster MobE = new Monster();
+			MobE.MobName = "enty";
+			MobE.MobHp = 120;
+			MobE.MobMp = 120;
+			MobE.MobHpMax = 120;
+			MobE.MobMpMax = 120;
+			MobE.MobFrame = 1;
+			MobE.MobPosX = 84.5f;
+			MobE.MobPosY = -129.5f;
+			MobE.MobExp = 60;
+			MobE.MobID = "EntyA";
+			MobE.MobMoney = 5;
+			MobE.MobSizeY = 40;
+			MobE.MobSizeX = 28;
+			MobE.MobTarget = "none";
+			MobE.MobDead = "no";
+			MobE.MobTimeDead = 500;
+			MobE.MobSkillChance = "";
+			MobE.MobAtk = 22;
+			MobE.MobEvade = 10;
+			MobE.MobPosition = "left";
+			MobE.MobRandomSt = 1;
+			MobE.MobTimerMov = 1;
+			MobE.MobFrameTime = 1;
+			MobE.MobAtkTimer = 400;
+			MobE.MobAtkTimerMax = 400;
+			MobE.MobLevel = 8;
+			MobE.MobMap = "Forest";
 
-				}
+			listMonters.add(MobA);
+			listMonters.add(MobB);
+			listMonters.add(MobC);
+			listMonters.add(MobD);
+			listMonters.add(MobE);
 
-			return listMonsters;
+			return listMonters;
 		}
 }

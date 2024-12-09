@@ -3,9 +3,7 @@ package com.moonbolt.cityscale.gwt;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.moonbolt.cityscale.MainGame;
-import com.moonbolt.cityscale.interfaces.DateTimeProvider;
-import com.moonbolt.cityscale.services.HtmlDateTimeProvider;
+import com.moonbolt.cityscale.Main;
 
 /** Launches the GWT application. */
 public class GwtLauncher extends GwtApplication {
@@ -23,7 +21,6 @@ public class GwtLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-            DateTimeProvider dateTimeProvider = new HtmlDateTimeProvider();
-            return new MainGame(dateTimeProvider);
+            return new Main();
         }
 }

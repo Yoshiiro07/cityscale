@@ -209,19 +209,20 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_master.draw(game.batch);
 
 				if (!lstPlayer.get(0).Name.equals("none")) {
-					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
-					spr_master.draw(game.batch);
-
 					spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
 					spr_master.draw(game.batch);
 
 					spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
+					spr_master.draw(game.batch);
+					
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
 					spr_master.draw(game.batch);
 
 					spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
 							lstPlayer.get(0).Color, 1);
 					spr_master.draw(game.batch);
 				}
+				
 				if (!lstPlayer.get(1).Name.equals("none")) {
 					spr_master = gameControl.CharSelect(lstPlayer.get(1), "footer", 2);
 					spr_master.draw(game.batch);
@@ -236,6 +237,7 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 							lstPlayer.get(1).Color, 2);
 					spr_master.draw(game.batch);
 				}
+				
 				if (!lstPlayer.get(2).Name.equals("none")) {
 					spr_master = gameControl.CharSelect(lstPlayer.get(2), "footer", 3);
 					spr_master.draw(game.batch);
@@ -255,15 +257,16 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 			if (state.equals("Create")) {
 				spr_master = gameControl.GetUX("create", 0, 0);
 				spr_master.draw(game.batch);
-
-				spr_master = gameControl.CharacterCreate(sex, "footer");
-				spr_master.draw(game.batch);
-
+		
 				spr_master = gameControl.CharacterCreate(sex, "bottom");
 				spr_master.draw(game.batch);
 
 				spr_master = gameControl.CharacterCreate(sex, "upper");
 				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.CharacterCreate(sex, "footer");
+				spr_master.draw(game.batch);
+
 
 				spr_master = gameControl.HairCharacterCreate(sex, hair, color, 99);
 				spr_master.draw(game.batch);
@@ -291,13 +294,13 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				spr_master.draw(game.batch);
 
 				if (!lstPlayer.get(0).Name.equals("none")) {
-					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
-					spr_master.draw(game.batch);
-
 					spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
 					spr_master.draw(game.batch);
 
 					spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
+					spr_master.draw(game.batch);
+					
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
 					spr_master.draw(game.batch);
 
 					spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,
@@ -347,13 +350,14 @@ public class CharacterSelect implements Screen, ApplicationListener, InputProces
 				font_master.setUseIntegerPositions(false);
 
 				if (!lstPlayer.get(0).Name.equals("none") && selectedchar == 1) {
-					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
-					spr_master.draw(game.batch);
-
+					
 					spr_master = gameControl.CharSelect(lstPlayer.get(0), "bottom", 1);
 					spr_master.draw(game.batch);
 
 					spr_master = gameControl.CharSelect(lstPlayer.get(0), "upper", 1);
+					spr_master.draw(game.batch);
+					
+					spr_master = gameControl.CharSelect(lstPlayer.get(0), "footer", 1);
 					spr_master.draw(game.batch);
 
 					spr_master = gameControl.CharHairSelect(lstPlayer.get(0).Sex, lstPlayer.get(0).Hair,

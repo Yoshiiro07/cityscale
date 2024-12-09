@@ -14,7 +14,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-         DateTimeProvider dateTimeProvider = new DesktopDateTimeProvider();
+        DateTimeProvider dateTimeProvider = new DesktopDateTimeProvider();
         return new Lwjgl3Application(new MainGame(dateTimeProvider), getDefaultConfiguration());
     }
 

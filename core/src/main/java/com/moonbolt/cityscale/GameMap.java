@@ -58,6 +58,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int intUseB = 0;
     private int intUseC = 0;
     private int intUseD = 0;
+    private int mobRevival = 300;
     
     private int regen = 0;
     private int regenMax = 0;
@@ -223,8 +224,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Forest")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/forest.png"));  }
 			
 			//Mobs
-			if(player.Map.equals("Sewers")) { listMonsters = gameControl.LoadMonsters("Sewers"); }
-			if(player.Map.equals("Forest")) { listMonsters = gameControl.LoadMonsters("Forest"); }
+			listMonsters = new ArrayList<Monster>();
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest")) { 
+				listMonsters = gameControl.LoadMonsters("Sewers",listMonsters); 
+				listMonsters = gameControl.LoadMonsters("Forest",listMonsters); 
+			}
 			
 			spr_Background = new Sprite(tex_Background);
 			
@@ -434,7 +438,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_sit.draw(game.batch);
 			
 			
-			font_master.draw(game.batch, player.Name, cameraCoordsX - 88f, cameraCoordsY + 93.7f);
+			font_master.draw(game.batch, player.Name, cameraCoordsX - 89f, cameraCoordsY + 95f);
 			font_master.draw(game.batch, String.valueOf(player.Hp + "/" + player.HpMax), cameraCoordsX - 85f, cameraCoordsY + 82f);
 			font_master.draw(game.batch, String.valueOf(player.Mp + "/" + player.MpMax), cameraCoordsX - 85f, cameraCoordsY + 73.7f);
 			font_master.draw(game.batch, String.valueOf(player.Level), cameraCoordsX - 88f, cameraCoordsY + 64f);
@@ -456,7 +460,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(countZoneSkill > 0) {
 					spr_master = gameControl.GetUX("target", 0, 0);
 					spr_master.setPosition(touchSkillX -5, touchSkillY - 8);
-					spr_master.setSize(10,20);
+					spr_master.setSize(15,30);
 					spr_master.draw(game.batch);
 					countZoneSkill--;
 				}
@@ -476,7 +480,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			CheckPlayerParty();
 			CheckAutoAttack();
 			CheckMobAutoAttack();
-			CheckMobDeadRespawn();
+			CheckMobRevival();
 			ShowDamage();
 			ShowSkill();
 			
@@ -510,14 +514,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playerhair = gameControl.GetHairChar(player, "Show", cameraCoordsX, cameraCoordsY);
 				spr_playerhair.draw(game.batch);
 				
-				spr_playerfooter = gameControl.GetFooterChar(player, "Show", cameraCoordsX, cameraCoordsY);
-				spr_playerfooter.draw(game.batch);
+				spr_playertop = gameControl.GetTopChar(player, "Show", cameraCoordsX, cameraCoordsY);
+				spr_playertop.draw(game.batch);
 				
 				spr_playerbottom = gameControl.GetBottomChar(player, "Show", cameraCoordsX, cameraCoordsY);
 				spr_playerbottom.draw(game.batch);
 				
-				spr_playertop = gameControl.GetTopChar(player, "Show", cameraCoordsX, cameraCoordsY);
-				spr_playertop.draw(game.batch);
+				spr_playerfooter = gameControl.GetFooterChar(player, "Show", cameraCoordsX, cameraCoordsY);
+				spr_playerfooter.draw(game.batch);
 				
 				if(!player.Hat.equals("none")) {
 					spr_playerhatmenu = gameControl.GetHatChar(player,"",cameraCoordsX, cameraCoordsY);
@@ -526,7 +530,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_playerhatmenu.draw(game.batch);
 				}
 				
-
 				//Show Character
 				//Itens Equipped
 						
@@ -565,8 +568,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_master = gameControl.GetUX("descartar",cameraCoordsX, cameraCoordsY); 
 					spr_master.setPosition(cameraCoordsX - 12, cameraCoordsY - 63);
 					spr_master.draw(game.batch); 
-				}
-				
+				}			
 			}
 			
 			if(state.equals("Shop")) {
@@ -816,35 +818,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
-		public void CheckMobDeadRespawn() {
-			
-			if(player.Map.equals("Sewers")) {
-				for(int num = 0; num < listMonsters.size(); num++) {
-					
-					if(listMonsters.get(num).MobHp <= 0) {
-						listMonsters.get(num).MobHp = 0; 
-						listMonsters.get(num).MobDead = "yes";   
-					}
-					
-					if(listMonsters.get(num).MobDead.equals("yes")) {
-						listMonsters.get(num).MobPosX = 200;
-						listMonsters.get(num).MobPosY = 200;
-						listMonsters.get(num).MobTimeDead--;
-						
-						if(listMonsters.get(num).MobTimeDead <= 0) {
-							listMonsters.get(num).MobTimeDead = 250;
-							listMonsters.get(num).MobDead = "no";
-							listMonsters.get(num).MobHp = listMonsters.get(num).MobHpMax;
-							listMonsters.get(num).MobMp = listMonsters.get(num).MobMpMax;
-							listMonsters.get(num).MobTarget = "none";
-							listMonsters.get(num).MobPosX = 0;
-							listMonsters.get(num).MobPosY = 0;
-						}
-					}
-				}
-		    }		
-		}
-		
 		public void ShowNPCs() {
 			//NPCs
 			if(player.Map.equals("StreetsA")) {
@@ -910,7 +883,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Stamina = Integer.parseInt(player.Stamina);
 			
 			
-			if(player.Map.equals("Sewers") && autoattack) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") && autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 					if(player.Target.equals(listMonsters.get(i).MobID)) {
@@ -1025,6 +998,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 						}				
 					}
+				}
+			}
+		}
+		
+		public void CheckMobRevival() {
+			mobRevival--;
+			
+			if(mobRevival <= 0) { mobRevival = 300; } 
+			
+			for(int i = 0; i < listMonsters.size(); i++) {						
+				if(listMonsters.get(i).MobDead.equals("yes")) {
+					listMonsters.get(i).MobDead = "no";
+					listMonsters.get(i).MobTarget = "none";
+					listMonsters.get(i).MobHp = listMonsters.get(i).MobHpMax;
+					listMonsters.get(i).MobMp = listMonsters.get(i).MobMpMax;				
 				}
 			}
 		}
@@ -2406,14 +2394,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    
 			String date = dateTimeProvider.getCurrentDateTime();
 			
+			listMonsters.get(mobindex).MobTarget = "none";
+			listMonsters.get(mobindex).MobDead = "yes";
 			showDropMsg = 100;
 		    itemdropname = gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
 		    int expreceived = listMonsters.get(mobindex).MobExp;
 		    gameControl.GiveExp(expreceived);
 
-			expreceived = expreceived / 10;
-			
-			if(expreceived <= 0) { expreceived = 1; }
+			expreceived = 1;
 			
 		    try {
 				gameControl.SendExpBank("SendExpBank",player.AccountNumber,playernumString,player.Name,String.valueOf(expreceived),date, new HttpCallback() {
@@ -2437,7 +2425,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		    if(playermoney > 10000) { return; }
+		    if(playermoney > 2000) { return; }
 		    playermoney = playermoney + 2;
 		    player.Money = String.valueOf(playermoney);
 		    
@@ -2561,7 +2549,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void ChangeTarget() {
 					
-			if(player.Map.equals("Sewers")) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest")) {
 			
 				String playerTarget = player.Target;
 				for(int i = 0; i < listMonsters.size(); i++) {
@@ -3422,8 +3410,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						//Target do player
 						if(player.Target.equals(listMonsters.get(i).MobID)) {
 							spr_target = gameControl.GetUX("target", 0, 0);
-							spr_target.setPosition(listMonsters.get(i).MobPosX + 2, listMonsters.get(i).MobPosY + 16);
-							spr_target.setSize(4,8);
+							spr_target.setPosition(listMonsters.get(i).MobPosX + 8, listMonsters.get(i).MobPosY + 36);
+							spr_target.setSize(6,10);
 							spr_target.draw(game.batch);
 						}
 									
@@ -3533,20 +3521,26 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							listMonsters.get(i).MobPosX = 65;
 						}
 						
+						
 						if(player.Map.equals("Sewers")) { spr_monster = gameControl.GetMonsterSewers(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						if(player.Map.equals("Forest")) { spr_monster = gameControl.GetMonsterForest(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						
 						spr_monster.setPosition(listMonsters.get(i).MobPosX, listMonsters.get(i).MobPosY);
-						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);
+						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);	
+						if(listMonsters.get(i).MobDead.equals("no")) {
 						spr_monster.draw(game.batch);
+						}
 									
 						mobPositionCoordX = listMonsters.get(i).MobPosX;
 						mobPositionCoordY = listMonsters.get(i).MobPosY;
 						mobPositionCoordY = mobPositionCoordY - 0.2f;
 						font_master.getData().setScale(0.10f,0.15f);
 						font_master.setUseIntegerPositions(false);
+						if(listMonsters.get(i).MobDead.equals("no")) {
 						font_master.draw(game.batch, listMonsters.get(i).MobName,mobPositionCoordX, mobPositionCoordY);
 						font_master.draw(game.batch, " HP :" + listMonsters.get(i).MobHp + "/" + listMonsters.get(i).MobHpMax ,mobPositionCoordX - 4, mobPositionCoordY - 8);
+						}
+						
 						
 					}			
 			}
