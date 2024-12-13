@@ -2748,7 +2748,7 @@ public class GameControl {
 	
 	public void GiveExpGetFromServer(String line) {
 		if (line.contains("Unavailable")) {
-			System.out.println("Line: indisponivel exp");
+			//System.out.println("Line: indisponivel exp");
 			return;
 		}
 	
@@ -2762,7 +2762,7 @@ public class GameControl {
 	
 			// Check if expDataFields has the expected length
 			if (expDataFields.length < 5) { // Adjust the length based on the number of expected fields
-				System.out.println("Skipping incomplete mob data: " + expData);
+				//System.out.println("Skipping incomplete mob data: " + expData);
 				continue;
 			}
 	
@@ -2774,7 +2774,7 @@ public class GameControl {
 	public void UpdateOnlinePlayers(String line) {
 		
 	    if (line.contains("Unavailable")) {
-	        System.out.println("Line: indisponivel player");
+	        //System.out.println("Line: indisponivel player");
 	        return;
 	    }
 
@@ -2789,13 +2789,13 @@ public class GameControl {
 	        
 	        // Check if playerData has the expected length
  			if (playerDataFields.length < 5) { // Adjust the length based on the number of expected fields
- 				System.out.println("Skipping incomplete mob data: " + playerData);
+ 				//System.out.println("Skipping incomplete mob data: " + playerData);
  				return;
  			}
 	        
 	        // Check if mobDataFields is null or empty
  			if (playerDataFields == null || playerDataFields.length == 0) {
- 				System.out.println("playerDataFields is null or empty");
+ 				//System.out.println("playerDataFields is null or empty");
  				return;
  			}
 
@@ -2858,7 +2858,7 @@ public class GameControl {
 	
 	public void UpdateOnlineMobs(String line) {
 		if (line.contains("Unavailable")) {
-			System.out.println("Line: indisponivel player");
+			//System.out.println("Line: indisponivel player");
 			return;
 		}
 	
@@ -2872,7 +2872,7 @@ public class GameControl {
 	
 			// Check if mobDataFields has the expected length
 			if (mobDataFields.length < 5) { // Adjust the length based on the number of expected fields
-				System.out.println("Skipping incomplete mob data: " + mobData);
+				//System.out.println("Skipping incomplete mob data: " + mobData);
 				continue;
 			}
 	
@@ -2912,7 +2912,10 @@ public class GameControl {
 	}
 	
 	public void ProcessChatList(String message) {
-		if(message.contains("Unavailable")) { System.out.println("Line: indisponivel chat"); return; }
+		if(message.contains("Unavailable")) { 
+			//System.out.println("Line: indisponivel chat"); 
+			return; 
+		}
 		
         // Split the message by the '@' character to get each part
         String[] parts = message.split("@");
@@ -3057,7 +3060,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						// Update the game state or UI based on the response
-						System.out.println("Response: " + responseText);
+						//System.out.println("Response: " + responseText);
 						onlineResult = responseText;
 						playerAccount = account;
 						callback.onSuccess(responseText);
@@ -3071,7 +3074,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3083,7 +3086,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3211,7 +3214,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						// Update the game state or UI based on the response
-						System.out.println("Response: " + responseText);
+						//System.out.println("Response: " + responseText);
 						callback.onSuccess("success");
 					}
 				});
@@ -3223,7 +3226,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3235,7 +3238,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3281,7 +3284,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						// Update the game state or UI based on the response
-						System.out.println("Response: " + responseText);
+						//System.out.println("Response: " + responseText);
 						callback.onSuccess("success");
 					}
 				});
@@ -3293,7 +3296,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3305,7 +3308,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3351,7 +3354,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						// Update the game state or UI based on the response
-						System.out.println("Response: " + responseText);
+						//System.out.println("Response: " + responseText);
 						if(responseText.contains("#Success#")) {
 							LoadData(responseText);
 							callback.onSuccess("success");
@@ -3369,7 +3372,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3381,7 +3384,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3448,7 +3451,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Response: " + responseText);
+						//System.out.println("Response: " + responseText);
 						if(responseText.contains("updated")) {
 							callback.onSuccess("success");
 						}
@@ -3466,7 +3469,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3478,7 +3481,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3527,7 +3530,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request Atk: " + responseText);
+						//System.out.println("Request Atk: " + responseText);
 						callback.onSuccess("success");
 					}
 				});
@@ -3539,7 +3542,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3551,7 +3554,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3600,7 +3603,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request Atk: " + responseText);
+						//System.out.println("Request Atk: " + responseText);
 						callback.onSuccess("success");
 					}
 				});
@@ -3612,7 +3615,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3624,7 +3627,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3671,7 +3674,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println(responseText);
+						//System.out.println(responseText);
 						GiveExpGetFromServer(responseText);
 						callback.onSuccess("success");
 					}
@@ -3684,7 +3687,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3696,7 +3699,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3760,7 +3763,7 @@ public class GameControl {
                 // Handle the response from the PHP backend
                 String responseText = httpResponse.getResultAsString();
                 Gdx.app.postRunnable(() -> {
-                	System.out.println("Response: " + responseText);
+                	//System.out.println("Response: " + responseText);
                     callback.onSuccess("success");
                 });
             }
@@ -3769,7 +3772,7 @@ public class GameControl {
             public void failed(Throwable t) {
                 // Handle the failure
                 Gdx.app.postRunnable(() -> {
-                    System.out.println("Request failed: " + t.getMessage());
+                    //System.out.println("Request failed: " + t.getMessage());
                     callback.onFailure(t);
                 });
             }
@@ -3778,7 +3781,7 @@ public class GameControl {
             public void cancelled() {
                 // Handle the cancellation
                 Gdx.app.postRunnable(() -> {
-                    System.out.println("Request cancelled");
+                    //System.out.println("Request cancelled");
                     callback.onFailure(new Exception("Request cancelled"));
                 });
             }
@@ -3837,7 +3840,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3849,7 +3852,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3895,7 +3898,7 @@ public class GameControl {
 					@Override
 					public void run() {
 						// Update the game state or UI based on the response
-						System.out.println("Response: " + responseText);
+						//System.out.println("Response: " + responseText);
 						if(!responseText.equals("fail") && !responseText.equals("")) { 
 							UpdateOnlinePlayers(responseText); 
 						}	
@@ -3910,7 +3913,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3922,7 +3925,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -3979,7 +3982,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -3991,7 +3994,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});
@@ -4050,7 +4053,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request failed: " + t.getMessage());
+						//System.out.println("Request failed: " + t.getMessage());
 						callback.onFailure(t);
 					}
 				});
@@ -4062,7 +4065,7 @@ public class GameControl {
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
 					public void run() {
-						System.out.println("Request cancelled");
+						//System.out.println("Request cancelled");
 						callback.onFailure(new Exception("Request cancelled"));
 					}
 				});

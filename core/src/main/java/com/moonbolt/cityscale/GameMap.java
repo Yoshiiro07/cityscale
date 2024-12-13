@@ -225,8 +225,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Mobs
 			listMonsters = new ArrayList<Monster>();
-			if(player.Map.equals("Sewers") || player.Map.equals("Forest")) { 
+			if(player.Map.equals("Sewers")) {  
 				listMonsters = gameControl.LoadMonsters("Sewers",listMonsters); 
+			}
+			if(player.Map.equals("Forest")) { 			
 				listMonsters = gameControl.LoadMonsters("Forest",listMonsters); 
 			}
 			
@@ -279,6 +281,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			
 			//player.PlayerExpGet = "2024-10-11 10:40:26";
+			System.out.println("List monsters" + listMonsters);
 			
 			//Save
 			LoopTime--;
@@ -289,7 +292,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					    @Override
 					    public void onSuccess(String response) {
 					    	if(response.contains("success")) {
-					    		System.out.println("Salvo com sucesso");
+					    		//System.out.println("Salvo com sucesso");
 					    	}
 					    	else {
 					    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
