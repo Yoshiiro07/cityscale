@@ -226,10 +226,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Mobs
 			listMonsters = new ArrayList<Monster>();
 			if(player.Map.equals("Sewers")) {  
-				listMonsters = gameControl.LoadMonsters("Sewers",listMonsters); 
+				listMonsters = gameControl.LoadMonsters("Sewers"); 
 			}
 			if(player.Map.equals("Forest")) { 			
-				listMonsters = gameControl.LoadMonsters("Forest",listMonsters); 
+				listMonsters = gameControl.LoadMonsters("Forest"); 
 			}
 			
 			spr_Background = new Sprite(tex_Background);
@@ -319,15 +319,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				RecoverOnlinePlayers();
 				RecoverOnlineChats();
-				if(player.Map.equals("Sewers")) {
-					if(player.SyncPlayerMob.equals("Sewers")) {		
-						SendMobData();
-					}
-					else {
-						RecoverOnlineMobs();
-					}
-				}
-				
+				RecoverOnlineMobs();
 				player = gameControl.ReturnPlayerUse();
 			}
 			
@@ -3430,76 +3422,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(mobFrame > 3) { mobFrame = 1;}
 							listMonsters.get(i).MobFrame = mobFrame;
 							listMonsters.get(i).MobFrameTime = 18;
-						}
-						
-						//Sem Target
-						if(!player.SyncPlayerMob.equals("none")) {
-							mobTimerMov = listMonsters.get(i).MobTimerMov;
-							mobRandomSt = listMonsters.get(i).MobRandomSt;
-							if(mobTimerMov >= 0) { 
-								mobTimerMov--;
-								listMonsters.get(i).MobTimerMov = mobTimerMov;
-							}
-							if(mobTimerMov < 0) { 
-								mobRandomSt = randnumber.nextInt(4); 
-								mobTimerMov = 100; 
-								listMonsters.get(i).MobTimerMov = mobTimerMov;
-								listMonsters.get(i).MobRandomSt = mobRandomSt;
-							}
-												
-							if(mobRandomSt == 0) { 
-								mobPositionCoordX = listMonsters.get(i).MobPosX;
-								mobPositionCoordX = mobPositionCoordX + 0.07f; 
-								listMonsters.get(i).MobPosX = mobPositionCoordX;
-							}
-							if(mobRandomSt == 1) { 
-								mobPositionCoordX = listMonsters.get(i).MobPosX;
-								mobPositionCoordX = mobPositionCoordX - 0.07f;
-								listMonsters.get(i).MobPosX = mobPositionCoordX;
-							}
-							if(mobRandomSt == 2) { 
-								mobPositionCoordY = listMonsters.get(i).MobPosY;
-								mobPositionCoordY = mobPositionCoordY + 0.07f;
-								listMonsters.get(i).MobPosY = mobPositionCoordY;
-							}
-							if(mobRandomSt == 3) { 
-								mobPositionCoordY = listMonsters.get(i).MobPosY;
-								mobPositionCoordY = mobPositionCoordY - 0.07f;
-								listMonsters.get(i).MobPosY = mobPositionCoordY;
-							}
-						}
-						
-						if(listMonsters.get(i).MobTarget.equals(player.Name)) {
-							if(listMonsters.get(i).MobPosX < playerPosX + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX + 0.07f; }
-							if(listMonsters.get(i).MobPosX > playerPosX + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX - 0.07f; }
-							if(listMonsters.get(i).MobPosY < playerPosY - 6 ) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY + 0.07f; }
-							if(listMonsters.get(i).MobPosY > playerPosY - 6) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY - 0.07f; }
-						}
-						if(!listMonsters.get(i).MobTarget.equals("none")) {
-							if (lstOnlinePlayers == null || lstOnlinePlayers.isEmpty() || lstOnlinePlayers.size() == 0) {
-							} else {
-								for (int p = 0; p < lstOnlinePlayers.size(); p++) {
-									for (int j = 0; j < listMonsters.size(); j++) {
-										if (lstOnlinePlayers.get(p).Name.equals(listMonsters.get(j).MobTarget)) {
-											float playerOnlineX = Float.parseFloat(lstOnlinePlayers.get(p).PosX);
-											float playerOnlineY = Float.parseFloat(lstOnlinePlayers.get(p).PosY);
-							
-											if (listMonsters.get(j).MobPosX < playerOnlineX + 3) {
-												listMonsters.get(j).MobPosX += 0.07f;
-											}
-											if (listMonsters.get(j).MobPosX > playerOnlineX + 3) {
-												listMonsters.get(j).MobPosX -= 0.07f;
-											}
-											if (listMonsters.get(j).MobPosY < playerOnlineY - 6) {
-												listMonsters.get(j).MobPosY += 0.07f;
-											}
-											if (listMonsters.get(j).MobPosY > playerOnlineY - 6) {
-												listMonsters.get(j).MobPosY -= 0.07f;
-											}
-										}
-									}
-								}
-							}		
 						}
 						
 						//Limit screen

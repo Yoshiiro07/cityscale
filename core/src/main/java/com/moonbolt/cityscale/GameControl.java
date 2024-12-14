@@ -828,8 +828,13 @@ public class GameControl {
 	}
 	
 	//[Monsters]//
-	public ArrayList<Monster> LoadMonsters(String Map, ArrayList<Monster> lstMonster) {
-		lstMonsters = placeholderMonster.LoadMonsterDataSewers(Map,lstMonsters);
+	public ArrayList<Monster> LoadMonsters(String Map) {
+		if(Map.equals("Sewers")) {
+			lstMonsters = placeholderMonster.LoadMonsterDataSewers(Map);
+		}
+		if(Map.equals("Forest")) {
+			lstMonsters = placeholderMonster.LoadMonsterDataForest(Map);
+		}
 		return lstMonsters;
 	}
 

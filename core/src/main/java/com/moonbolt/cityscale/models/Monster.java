@@ -33,7 +33,10 @@ public class Monster {
 		public String MobMap;
 
 
-		public ArrayList<Monster> LoadMonsterDataSewers(String map,ArrayList<Monster> listMonters){
+		public ArrayList<Monster> LoadMonsterDataSewers(String map){
+			
+			ArrayList<Monster> listMonsters = new ArrayList<Monster>();
+			
 			Monster MobA = new Monster();
 			
 			MobA.MobName = "poyo";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
@@ -180,17 +183,19 @@ public class Monster {
 			MobE.MobLevel = 8;
 			MobE.MobMap = "Forest";
 
-			listMonters.add(MobA);
-			listMonters.add(MobB);
-			listMonters.add(MobC);
-			listMonters.add(MobD);
-			listMonters.add(MobE);
+			listMonsters.add(MobA);
+			listMonsters.add(MobB);
+			listMonsters.add(MobC);
+			listMonsters.add(MobD);
+			listMonsters.add(MobE);
 			
-			return listMonters;
+			return listMonsters;
 
 		}
 		
-		public ArrayList<Monster> LoadMonsterDataForest(String map, ArrayList<Monster> listMonters){
+		public ArrayList<Monster> LoadMonsterDataForest(String map){
+			
+			ArrayList<Monster> listMonsters = new ArrayList<Monster>();
 			
 			Monster MobA = new Monster();
 			
@@ -338,12 +343,12 @@ public class Monster {
 			MobE.MobLevel = 8;
 			MobE.MobMap = "Forest";
 
-			listMonters.add(MobA);
-			listMonters.add(MobB);
-			listMonters.add(MobC);
-			listMonters.add(MobD);
-			listMonters.add(MobE);
+			listMonsters.add(MobA);
+			listMonsters.add(MobB);
+			listMonsters.add(MobC);
+			listMonsters.add(MobD);
+			listMonsters.add(MobE);
 
-			return listMonters;
+			return listMonsters;
 		}
 }
