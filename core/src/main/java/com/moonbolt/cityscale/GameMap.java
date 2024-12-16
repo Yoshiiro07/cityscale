@@ -281,7 +281,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			
 			//player.PlayerExpGet = "2024-10-11 10:40:26";
-			System.out.println("List monsters" + listMonsters);
 			
 			//Save
 			LoopTime--;
@@ -475,7 +474,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			CheckPlayerParty();
 			CheckAutoAttack();
 			CheckMobAutoAttack();
-			CheckMobRevival();
 			ShowDamage();
 			ShowSkill();
 			
@@ -997,20 +995,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
-		public void CheckMobRevival() {
-			mobRevival--;
-			
-			if(mobRevival <= 0) { mobRevival = 300; } 
-			
-			for(int i = 0; i < listMonsters.size(); i++) {						
-				if(listMonsters.get(i).MobDead.equals("yes")) {
-					listMonsters.get(i).MobDead = "no";
-					listMonsters.get(i).MobTarget = "none";
-					listMonsters.get(i).MobHp = listMonsters.get(i).MobHpMax;
-					listMonsters.get(i).MobMp = listMonsters.get(i).MobMpMax;				
-				}
-			}
-		}
 		
 		
 		public void PushAttack(int mobhp, int mobIndex, String mobDeadStatus) {
@@ -1344,7 +1328,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Luk = Integer.parseInt(player.Luk);
 			int Wis = Integer.parseInt(player.Wis);
 			
-			if(player.Map.equals("Sewers") && autoattack) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") && autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 					mobPosX = listMonsters.get(i).MobPosX;
@@ -2389,8 +2373,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    
 			String date = dateTimeProvider.getCurrentDateTime();
 			
-			listMonsters.get(mobindex).MobTarget = "none";
-			listMonsters.get(mobindex).MobDead = "yes";
 			showDropMsg = 100;
 		    itemdropname = gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
 		    int expreceived = listMonsters.get(mobindex).MobExp;
@@ -3405,8 +3387,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						//Target do player
 						if(player.Target.equals(listMonsters.get(i).MobID)) {
 							spr_target = gameControl.GetUX("target", 0, 0);
-							spr_target.setPosition(listMonsters.get(i).MobPosX + 8, listMonsters.get(i).MobPosY + 36);
-							spr_target.setSize(6,10);
+							spr_target.setPosition(listMonsters.get(i).MobPosX + 2, listMonsters.get(i).MobPosY + 16);
+							spr_target.setSize(4,8);
 							spr_target.draw(game.batch);
 						}
 									
@@ -3416,12 +3398,61 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							listMonsters.get(i).MobFrameTime = mobTimerFrame;
 						}
 						if(mobTimerFrame <= 0) {
-							mobTimerFrame = 40;
+							mobTimerFrame = 30;
 							mobFrame = listMonsters.get(i).MobFrame;
 							mobFrame++;
 							if(mobFrame > 3) { mobFrame = 1;}
 							listMonsters.get(i).MobFrame = mobFrame;
 							listMonsters.get(i).MobFrameTime = 18;
+						}
+						
+						//Sem Target
+						if(listMonsters.get(i).MobTarget.equals("none")) {
+							if (listMonsters.get(i).MobPosX < listMonsters.get(i).MobPosXFinal) {
+								listMonsters.get(i).MobPosX += 0.07f;
+							}
+							if (listMonsters.get(i).MobPosX > listMonsters.get(i).MobPosXFinal) {
+								listMonsters.get(i).MobPosX -= 0.07f;
+							}
+							if (listMonsters.get(i).MobPosY > listMonsters.get(i).MobPosYFinal) {
+								listMonsters.get(i).MobPosY -= 0.07f;
+							}
+							if (listMonsters.get(i).MobPosY < listMonsters.get(i).MobPosYFinal) {
+								listMonsters.get(i).MobPosY += 0.07f;
+							}
+						}
+						
+						if(listMonsters.get(i).MobTarget.equals(player.Name)) {
+							if(listMonsters.get(i).MobPosX < playerPosX + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX + 0.07f; }
+							if(listMonsters.get(i).MobPosX > playerPosX + 3) { listMonsters.get(i).MobPosX = listMonsters.get(i).MobPosX - 0.07f; }
+							if(listMonsters.get(i).MobPosY < playerPosY - 6 ) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY + 0.07f; }
+							if(listMonsters.get(i).MobPosY > playerPosY - 6) { listMonsters.get(i).MobPosY = listMonsters.get(i).MobPosY - 0.07f; }
+						}
+						if(!listMonsters.get(i).MobTarget.equals("none")) {
+							if (lstOnlinePlayers == null || lstOnlinePlayers.isEmpty() || lstOnlinePlayers.size() == 0) {
+							} else {
+								for (int p = 0; p < lstOnlinePlayers.size(); p++) {
+									for (int j = 0; j < listMonsters.size(); j++) {
+										if (lstOnlinePlayers.get(p).Name.equals(listMonsters.get(j).MobTarget)) {
+											float playerOnlineX = Float.parseFloat(lstOnlinePlayers.get(p).PosX);
+											float playerOnlineY = Float.parseFloat(lstOnlinePlayers.get(p).PosY);
+							
+											if (listMonsters.get(j).MobPosX < playerOnlineX + 3) {
+												listMonsters.get(j).MobPosX += 0.07f;
+											}
+											if (listMonsters.get(j).MobPosX > playerOnlineX + 3) {
+												listMonsters.get(j).MobPosX -= 0.07f;
+											}
+											if (listMonsters.get(j).MobPosY < playerOnlineY - 6) {
+												listMonsters.get(j).MobPosY += 0.07f;
+											}
+											if (listMonsters.get(j).MobPosY > playerOnlineY - 6) {
+												listMonsters.get(j).MobPosY -= 0.07f;
+											}
+										}
+									}
+								}
+							}		
 						}
 						
 						//Limit screen
@@ -3446,26 +3477,22 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							listMonsters.get(i).MobPosX = 65;
 						}
 						
-						
 						if(player.Map.equals("Sewers")) { spr_monster = gameControl.GetMonsterSewers(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						if(player.Map.equals("Forest")) { spr_monster = gameControl.GetMonsterForest(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						
 						spr_monster.setPosition(listMonsters.get(i).MobPosX, listMonsters.get(i).MobPosY);
-						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);	
-						if(listMonsters.get(i).MobDead.equals("no")) {
-						spr_monster.draw(game.batch);
-						}
-									
+						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);
+						if(listMonsters.get(i).MobDead.equals("no")){ spr_monster.draw(game.batch); }	
+						
 						mobPositionCoordX = listMonsters.get(i).MobPosX;
 						mobPositionCoordY = listMonsters.get(i).MobPosY;
 						mobPositionCoordY = mobPositionCoordY - 0.2f;
 						font_master.getData().setScale(0.10f,0.15f);
 						font_master.setUseIntegerPositions(false);
-						if(listMonsters.get(i).MobDead.equals("no")) {
+						if(listMonsters.get(i).MobDead.equals("no")){ 
 						font_master.draw(game.batch, listMonsters.get(i).MobName,mobPositionCoordX, mobPositionCoordY);
 						font_master.draw(game.batch, " HP :" + listMonsters.get(i).MobHp + "/" + listMonsters.get(i).MobHpMax ,mobPositionCoordX - 4, mobPositionCoordY - 8);
 						}
-						
 						
 					}			
 			}

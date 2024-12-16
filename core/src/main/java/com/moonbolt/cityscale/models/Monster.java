@@ -31,6 +31,9 @@ public class Monster {
 		public int MobAtkTimerMax;
 		public int MobLevel;
 		public String MobMap;
+		public float MobPosXFinal;
+		public float MobPosYFinal;
+		public boolean GotFinal;
 
 
 		public ArrayList<Monster> LoadMonsterDataSewers(String map){
@@ -66,6 +69,9 @@ public class Monster {
 			MobA.MobAtkTimerMax = 500;
 			MobA.MobLevel = 1;
 			MobA.MobMap = "Sewers";
+			MobA.MobPosXFinal = 0;
+			MobA.MobPosYFinal = 0;
+			MobA.GotFinal = false;
 
 			Monster MobB = new Monster();
 			MobB.MobName = "poyo";
@@ -95,6 +101,9 @@ public class Monster {
 			MobB.MobAtkTimerMax = 500;
 			MobB.MobLevel = 1;
 			MobB.MobMap = "Sewers";
+			MobB.MobPosXFinal = 0;
+			MobB.MobPosYFinal = 0;
+			MobB.GotFinal = false;
 
 			Monster MobC = new Monster();
 			MobC.MobName = "aranarc";
@@ -124,6 +133,9 @@ public class Monster {
 			MobC.MobAtkTimerMax = 300;
 			MobC.MobLevel = 4;
 			MobC.MobMap = "Sewers";
+			MobC.MobPosXFinal = 0;
+			MobC.MobPosYFinal = 0;
+			MobC.GotFinal = false;
 
 			Monster MobD = new Monster();
 			MobD.MobName = "rat";
@@ -153,6 +165,9 @@ public class Monster {
 			MobD.MobAtkTimerMax = 300;
 			MobD.MobLevel = 5;
 			MobD.MobMap = "Sewers";
+			MobD.MobPosXFinal = 0;
+			MobD.MobPosYFinal = 0;
+			MobD.GotFinal = false;
 
 			Monster MobE = new Monster();
 			MobE.MobName = "snake";
@@ -182,6 +197,10 @@ public class Monster {
 			MobE.MobAtkTimerMax = 400;
 			MobE.MobLevel = 8;
 			MobE.MobMap = "Forest";
+			MobE.MobPosXFinal = 0;
+			MobE.MobPosYFinal = 0;
+			MobE.GotFinal = false;
+
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);
@@ -226,6 +245,10 @@ public class Monster {
 			MobA.MobAtkTimerMax = 500;
 			MobA.MobLevel = 1;
 			MobA.MobMap = "Forest";
+			MobA.MobPosXFinal = 0;
+			MobA.MobPosYFinal = 0;
+			MobA.GotFinal = false;
+
 
 			Monster MobB = new Monster();
 			MobB.MobName = "slime";
@@ -255,6 +278,9 @@ public class Monster {
 			MobB.MobAtkTimerMax = 500;
 			MobB.MobLevel = 1;
 			MobB.MobMap = "Forest";
+			MobB.MobPosXFinal = 0;
+			MobB.MobPosYFinal = 0;
+			MobB.GotFinal = false;
 
 			Monster MobC = new Monster();
 			MobC.MobName = "bee";
@@ -284,6 +310,9 @@ public class Monster {
 			MobC.MobAtkTimerMax = 300;
 			MobC.MobLevel = 4;
 			MobC.MobMap = "Forest";
+			MobC.MobPosXFinal = 0;
+			MobC.MobPosYFinal = 0;
+			MobC.GotFinal = false;
 
 			Monster MobD = new Monster();
 			MobD.MobName = "goblin";
@@ -313,6 +342,9 @@ public class Monster {
 			MobD.MobAtkTimerMax = 300;
 			MobD.MobLevel = 5;
 			MobD.MobMap = "Forest";
+			MobD.MobPosXFinal = 0;
+			MobD.MobPosYFinal = 0;
+			MobD.GotFinal = false;
 
 			Monster MobE = new Monster();
 			MobE.MobName = "enty";
@@ -342,6 +374,9 @@ public class Monster {
 			MobE.MobAtkTimerMax = 400;
 			MobE.MobLevel = 8;
 			MobE.MobMap = "Forest";
+			MobE.MobPosXFinal = 0;
+			MobE.MobPosYFinal = 0;
+			MobE.GotFinal = false;
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);

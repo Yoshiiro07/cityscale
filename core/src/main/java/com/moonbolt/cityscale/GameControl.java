@@ -2886,11 +2886,14 @@ public class GameControl {
 			mobOnline.MobID = mobDataFields[2];
 			mobOnline.MobHp = Integer.parseInt(mobDataFields[4]);
 			mobOnline.MobMp = Integer.parseInt(mobDataFields[6]);
-			mobOnline.MobPosX = Float.parseFloat(mobDataFields[8]);
-			mobOnline.MobPosY = Float.parseFloat(mobDataFields[10]);
+			//mobOnline.MobPosX = Float.parseFloat(mobDataFields[8]);
+			//mobOnline.MobPosY = Float.parseFloat(mobDataFields[10]);
 			mobOnline.MobTarget = mobDataFields[12];
-			mobOnline.MobDead = mobDataFields[14];
-			mobOnline.MobMap = mobDataFields[16];
+			mobOnline.MobDead = mobDataFields[14];		
+			mobOnline.MobPosXFinal = Float.parseFloat((String) mobDataFields[16]);
+			mobOnline.MobPosYFinal = Float.parseFloat((String) mobDataFields[18]);
+			mobOnline.GotFinal = Boolean.parseBoolean((String) mobDataFields[20]);
+			mobOnline.MobMap = mobDataFields[22];
 	
 			// Check if mobOnline already exists in lstMobOnline
 			boolean exists = false;
@@ -2899,11 +2902,14 @@ public class GameControl {
 					// Replace value
 					lstMonsters.get(i).MobHp = Integer.parseInt(mobDataFields[4]);
 					lstMonsters.get(i).MobMp = Integer.parseInt(mobDataFields[6]);
-					lstMonsters.get(i).MobPosX = Float.parseFloat(mobDataFields[8]);
-					lstMonsters.get(i).MobPosY = Float.parseFloat(mobDataFields[10]);
+					//lstMonsters.get(i).MobPosX = Float.parseFloat(mobDataFields[8]);
+					//lstMonsters.get(i).MobPosY = Float.parseFloat(mobDataFields[10]);
 					lstMonsters.get(i).MobTarget = mobDataFields[12];
-					lstMonsters.get(i).MobDead = mobDataFields[14];
-					lstMonsters.get(i).MobMap = mobDataFields[16];
+					lstMonsters.get(i).MobDead = mobDataFields[14];				
+					lstMonsters.get(i).MobPosXFinal = Float.parseFloat((String) mobDataFields[16]);
+					lstMonsters.get(i).MobPosYFinal = Float.parseFloat((String) mobDataFields[18]);
+					lstMonsters.get(i).GotFinal = Boolean.parseBoolean((String) mobDataFields[20]);
+					lstMonsters.get(i).MobMap = mobDataFields[22];
 					exists = true;
 					break;
 				}
