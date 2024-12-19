@@ -485,6 +485,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.setPosition(cameraCoordsX - 40, cameraCoordsY + 29);
 				spr_master.setSize(80, 20);
 				spr_master.draw(game.batch);
+				font_master.setColor(Color.WHITE);
+				font_master.getData().setScale(0.14f,0.23f);
+				font_master.setUseIntegerPositions(false);
 				font_master.draw(game.batch, itemdropname, cameraCoordsX - 38, cameraCoordsY + 42);
 				showDropMsg--;
 			}
@@ -957,8 +960,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Sewers")) {
 				for(int i = 0; i < listMonsters.size(); i++) {						
 					if(listMonsters.get(i).MobTarget.equals(player.Name)) {
-						if(playerposX > (listMonsters.get(i).MobPosX - 15) && playerposX < (listMonsters.get(i).MobPosX + 15)
-							&& playerposY > (listMonsters.get(i).MobPosY - 18) && playerposY < (listMonsters.get(i).MobPosY + 40)) {
+						if(playerposX > (listMonsters.get(i).MobPosX - 25) && playerposX < (listMonsters.get(i).MobPosX + 25)
+							&& playerposY > (listMonsters.get(i).MobPosY - 28) && playerposY < (listMonsters.get(i).MobPosY + 60)) {
 								
 								listMonsters.get(i).MobAtkTimer--;
 								if(listMonsters.get(i).MobAtkTimer <= 0) {
