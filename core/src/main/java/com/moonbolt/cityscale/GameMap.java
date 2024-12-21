@@ -92,6 +92,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private boolean playerDead = false;
     private boolean movement = false;
 	private boolean autoattack = false;
+	private int atkManual = 10;
+	private int defManual = 20;
 	private Sprite spr_target;
 	private int countDead = 100;
 	private String itemEquipped = "";
@@ -626,13 +628,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			//spr_testeDot.setPosition(cameraCoordsX - 46, cameraCoordsY + 68);
-			//spr_testeDot.setSize(1, 1);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 62, cameraCoordsY -60);
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 		
-			//spr_testeDot.setPosition(cameraCoordsX + 32, cameraCoordsY + 55);
-			//spr_testeDot.setSize(1, 1);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 73, cameraCoordsY -35);  //here
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 			
 			
 			game.batch.end();
@@ -1176,15 +1178,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest")){ //cardactionON
 				if(autoattack){
 					spr_master = gameControl.GetCard("cardactionON");
-					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
+					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY  - 30);
 					spr_master.draw(game.batch);
 				}
 				else{
 					spr_master = gameControl.GetCard("cardaction");
-					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
+					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY  - 30);
 					spr_master.draw(game.batch);
 				}
+				
+				spr_master = gameControl.GetCard("cardatk");
+				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 60);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("carddef");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
+				spr_master.draw(game.batch);
 			}
+			
+			
 			
 			spr_master = gameControl.GetCard("cardtarget");
 			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 60);
@@ -3013,6 +3025,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Action
+				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35)  {
+					CheckAction();
+					if(autoattack){
+						autoattack = false;
+					}
+					else
+					{
+						autoattack = true;
+					}
+					return false;
+				}
+				
+				//Def
 				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35)  {
 					CheckAction();
 					if(autoattack){

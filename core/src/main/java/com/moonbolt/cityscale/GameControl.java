@@ -1812,6 +1812,18 @@ public class GameControl {
 			return spr_master;	
 		}
 		
+		if(cardname.equals("cardatk")) {
+			spr_master = atlas_cards.createSprite("cardatk");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("carddef")) {
+			spr_master = atlas_cards.createSprite("carddef");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
 		if(cardname.equals("cardaction")) {
 			spr_master = atlas_cards.createSprite("cardaction");
 			spr_master.setSize(10,25);
