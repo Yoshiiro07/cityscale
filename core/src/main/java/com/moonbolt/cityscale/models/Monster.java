@@ -43,10 +43,10 @@ public class Monster {
 			Monster MobA = new Monster();
 			
 			MobA.MobName = "poyo";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
-			MobA.MobHp = 20;
-			MobA.MobMp = 20;
-			MobA.MobHpMax = 20;
-			MobA.MobMpMax = 20;
+			MobA.MobHp = 220;
+			MobA.MobMp = 220;
+			MobA.MobHpMax = 220;
+			MobA.MobMpMax = 220;
 			MobA.MobFrame = 1;
 			MobA.MobPosX = 20;
 			MobA.MobPosY = 20;
@@ -75,10 +75,10 @@ public class Monster {
 
 			Monster MobB = new Monster();
 			MobB.MobName = "poyo";
-			MobB.MobHp = 20;
-			MobB.MobMp = 20;
-			MobB.MobHpMax = 20;
-			MobB.MobMpMax = 20;
+			MobB.MobHp = 220;
+			MobB.MobMp = 220;
+			MobB.MobHpMax = 220;
+			MobB.MobMpMax = 220;
 			MobB.MobFrame = 1;
 			MobB.MobPosX = 20;
 			MobB.MobPosY = 20;
@@ -107,14 +107,14 @@ public class Monster {
 
 			Monster MobC = new Monster();
 			MobC.MobName = "aranarc";
-			MobC.MobHp = 45;
-			MobC.MobMp = 45;
+			MobC.MobHp = 370;
+			MobC.MobMp = 370;
 			MobC.MobHpMax = 45;
 			MobC.MobMpMax = 45;
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
-			MobC.MobExp = 10;
+			MobC.MobExp = 20;
 			MobC.MobID = "AranarcA";
 			MobC.MobMoney = 2;
 			MobC.MobSizeY = 25;
@@ -139,14 +139,14 @@ public class Monster {
 
 			Monster MobD = new Monster();
 			MobD.MobName = "rat";
-			MobD.MobHp = 80;
-			MobD.MobMp = 80;
-			MobD.MobHpMax = 80;
-			MobD.MobMpMax = 80;
+			MobD.MobHp = 560;
+			MobD.MobMp = 560;
+			MobD.MobHpMax = 560;
+			MobD.MobMpMax = 560;
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
-			MobD.MobExp = 30;
+			MobD.MobExp = 60;
 			MobD.MobID = "RatA";
 			MobD.MobMoney = 4;
 			MobD.MobSizeY = 20;
@@ -171,14 +171,14 @@ public class Monster {
 
 			Monster MobE = new Monster();
 			MobE.MobName = "snake";
-			MobE.MobHp = 120;
-			MobE.MobMp = 120;
-			MobE.MobHpMax = 120;
-			MobE.MobMpMax = 120;
+			MobE.MobHp = 1200;
+			MobE.MobMp = 1200;
+			MobE.MobHpMax = 1200;
+			MobE.MobMpMax = 1200;
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
-			MobE.MobExp = 60;
+			MobE.MobExp = 200;
 			MobE.MobID = "SnakeA";
 			MobE.MobMoney = 5;
 			MobE.MobSizeY = 34;
@@ -219,10 +219,10 @@ public class Monster {
 			Monster MobA = new Monster();
 			
 			MobA.MobName = "slime";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
-			MobA.MobHp = 20;
-			MobA.MobMp = 20;
-			MobA.MobHpMax = 20;
-			MobA.MobMpMax = 20;
+			MobA.MobHp = 220;
+			MobA.MobMp = 220;
+			MobA.MobHpMax = 220;
+			MobA.MobMpMax = 220;
 			MobA.MobFrame = 1;
 			MobA.MobPosX = 20;
 			MobA.MobPosY = 20;
@@ -252,10 +252,10 @@ public class Monster {
 
 			Monster MobB = new Monster();
 			MobB.MobName = "slime";
-			MobB.MobHp = 20;
-			MobB.MobMp = 20;
-			MobB.MobHpMax = 20;
-			MobB.MobMpMax = 20;
+			MobB.MobHp = 220;
+			MobB.MobMp = 220;
+			MobB.MobHpMax = 220;
+			MobB.MobMpMax = 220;
 			MobB.MobFrame = 1;
 			MobB.MobPosX = 20;
 			MobB.MobPosY = 20;
@@ -284,14 +284,14 @@ public class Monster {
 
 			Monster MobC = new Monster();
 			MobC.MobName = "bee";
-			MobC.MobHp = 45;
-			MobC.MobMp = 45;
-			MobC.MobHpMax = 45;
-			MobC.MobMpMax = 45;
+			MobC.MobHp = 370;
+			MobC.MobMp = 370;
+			MobC.MobHpMax = 370;
+			MobC.MobMpMax = 370;
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
-			MobC.MobExp = 10;
+			MobC.MobExp = 20;
 			MobC.MobID = "BeeA";
 			MobC.MobMoney = 2;
 			MobC.MobSizeY = 22;
@@ -316,14 +316,14 @@ public class Monster {
 
 			Monster MobD = new Monster();
 			MobD.MobName = "goblin";
-			MobD.MobHp = 80;
-			MobD.MobMp = 80;
-			MobD.MobHpMax = 80;
-			MobD.MobMpMax = 80;
+			MobD.MobHp = 560;
+			MobD.MobMp = 560;
+			MobD.MobHpMax = 560;
+			MobD.MobMpMax = 560;
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
-			MobD.MobExp = 30;
+			MobD.MobExp = 60;
 			MobD.MobID = "GoblinA";
 			MobD.MobMoney = 4;
 			MobD.MobSizeY = 22;
@@ -348,14 +348,14 @@ public class Monster {
 
 			Monster MobE = new Monster();
 			MobE.MobName = "enty";
-			MobE.MobHp = 120;
-			MobE.MobMp = 120;
+			MobE.MobHp = 1200;
+			MobE.MobMp = 1200;
 			MobE.MobHpMax = 120;
 			MobE.MobMpMax = 120;
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
-			MobE.MobExp = 60;
+			MobE.MobExp = 200;
 			MobE.MobID = "EntyA";
 			MobE.MobMoney = 5;
 			MobE.MobSizeY = 40;

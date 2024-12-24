@@ -2395,7 +2395,7 @@ public class GameControl {
 		
 		expPlayer = expPlayer + exp;
 		
-		//Sewers   
+		//Sewers   / Forest
 		if(level == 1 && expPlayer >= 200) {  level = 2; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		if(level == 2 && expPlayer >= 300) {  level = 3; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		if(level == 3 && expPlayer >= 400) {  level = 4; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
@@ -2406,7 +2406,7 @@ public class GameControl {
 		if(level == 8 && expPlayer >= 900) {  level = 9; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		if(level == 9 && expPlayer >= 1000) {  level = 10; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		
-		//Watercave
+		//Watercave / Desert
 		if(level == 10 && expPlayer >= 5000) {  level = 11; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		if(level == 11 && expPlayer >= 5200) {  level = 12; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
 		if(level == 12 && expPlayer >= 5300) {  level = 13; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}

@@ -110,6 +110,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private boolean selectAreaRanged = false;
     private Sprite spr_sit;
     private int regenTime = 0;
+    private float playerExp = 0;
     
 	//Monster
 	private ArrayList<Monster> listMonsters;
@@ -505,8 +506,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.draw(game.batch, String.valueOf(player.Dex), cameraCoordsX - 21f, cameraCoordsY - 50f);
 				font_master.draw(game.batch, String.valueOf(player.StatusPoint), cameraCoordsX - 43f, cameraCoordsY - 67f);
 				
+				playerExp = Float.parseFloat(player.Exp);
 				font_master.draw(game.batch,"Dinheiro:" + String.valueOf(player.Money),cameraCoordsX - 10f, cameraCoordsY - 67f);		
-				font_master.draw(game.batch,"Exp:" + String.valueOf(player.Exp),cameraCoordsX + 20f, cameraCoordsY - 67f);			
+				font_master.draw(game.batch,"Exp:" + Math.round(playerExp),cameraCoordsX + 20f, cameraCoordsY - 67f);			
 				
 				//CharacterShow
 				spr_playerhair = gameControl.GetHairChar(player, "Show", cameraCoordsX, cameraCoordsY);
@@ -628,11 +630,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			spr_testeDot.setPosition(cameraCoordsX + 62, cameraCoordsY -60);
+			spr_testeDot.setPosition(cameraCoordsX + 62, cameraCoordsY -6);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 73, cameraCoordsY -35);  //here
+			spr_testeDot.setPosition(cameraCoordsX + 73, cameraCoordsY -30);  //here
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -959,12 +961,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Def = Integer.parseInt(player.Def);
 			int Hp = Integer.parseInt(player.Hp);
 			
-			if(player.Map.equals("Sewers")) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest")) {
 				for(int i = 0; i < listMonsters.size(); i++) {						
 					if(listMonsters.get(i).MobTarget.equals(player.Name)) {
-						if(playerposX > (listMonsters.get(i).MobPosX - 25) && playerposX < (listMonsters.get(i).MobPosX + 25)
-							&& playerposY > (listMonsters.get(i).MobPosY - 28) && playerposY < (listMonsters.get(i).MobPosY + 60)) {
-								
+						if(playerposX > (listMonsters.get(i).MobPosX - 50) && playerposX < (listMonsters.get(i).MobPosX + 50)
+							&& playerposY > (listMonsters.get(i).MobPosY - 50) && playerposY < (listMonsters.get(i).MobPosY + 50) && listMonsters.get(i).MobDead.equals("no")) {
+							
 								listMonsters.get(i).MobAtkTimer--;
 								if(listMonsters.get(i).MobAtkTimer <= 0) {
 									int mobluck = randnumber.nextInt(100);
@@ -1175,11 +1177,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.draw(game.batch);
 			}
 
-			if(player.Map.equals("Sewers") || player.Map.equals("Forest")){ //cardactionON
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest")){ 
 				if(autoattack){
 					spr_master = gameControl.GetCard("cardactionON");
 					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY  - 30);
 					spr_master.draw(game.batch);
+					font_master.getData().setScale(0.15f,0.26f);
+					font_master.draw(game.batch, player.AtkTimer, cameraCoordsX + 64, cameraCoordsY + 2);
 				}
 				else{
 					spr_master = gameControl.GetCard("cardaction");
@@ -3025,7 +3029,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Action
-				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35)  {
+				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -30 && coordsTouch.y < cameraCoordsY -6)  {
 					CheckAction();
 					if(autoattack){
 						autoattack = false;
@@ -3037,23 +3041,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				
-				//Def
-				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35)  {
-					CheckAction();
-					if(autoattack){
-						autoattack = false;
-					}
-					else
-					{
-						autoattack = true;
-					}
+				//Atk
+				if(coordsTouch.x > cameraCoordsX + 47 && coordsTouch.x < cameraCoordsX + 56 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
+					player.AtkTimer = "30";
 					return false;
 				}
-				//Block
-				//if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
-				//	return false;
-				//}
-				//Target
+				
+				//Def
+				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35)  {
+					
+					return false;
+				}
+				
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
 					ChangeTarget();
 					return false;
