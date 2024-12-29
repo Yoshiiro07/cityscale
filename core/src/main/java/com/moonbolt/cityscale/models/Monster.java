@@ -109,8 +109,8 @@ public class Monster {
 			MobC.MobName = "aranarc";
 			MobC.MobHp = 370;
 			MobC.MobMp = 370;
-			MobC.MobHpMax = 45;
-			MobC.MobMpMax = 45;
+			MobC.MobHpMax = 370;
+			MobC.MobMpMax = 370;
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;

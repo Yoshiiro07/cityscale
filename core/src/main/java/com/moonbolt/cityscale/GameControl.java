@@ -824,6 +824,90 @@ public class GameControl {
 			return spr_master;
 		}
 		
+		if(npcname.equals("NPCW") && frame == 1) {  
+			spr_master = atlas_npcs.createSprite("NPCW");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(-5, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCW") && frame == 2) {  
+			spr_master = atlas_npcs.createSprite("NPCW2");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(-5, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCW") && frame == 3) {  
+			spr_master = atlas_npcs.createSprite("NPCW3");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(-5, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCO") && frame == 1) {  
+			spr_master = atlas_npcs.createSprite("NPCO");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCO") && frame == 2) {  
+			spr_master = atlas_npcs.createSprite("NPCO2");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCO") && frame == 3) {  
+			spr_master = atlas_npcs.createSprite("NPCO3");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCC") && frame == 1) {  
+			spr_master = atlas_npcs.createSprite("NPCC");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCC") && frame == 2) {  
+			spr_master = atlas_npcs.createSprite("NPCC2");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCC") && frame == 3) {  
+			spr_master = atlas_npcs.createSprite("NPCC3");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCE") && frame == 1) {  
+			spr_master = atlas_npcs.createSprite("NPCE");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCE") && frame == 2) {  
+			spr_master = atlas_npcs.createSprite("NPCE2");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
+		if(npcname.equals("NPCE") && frame == 3) {  
+			spr_master = atlas_npcs.createSprite("NPCE3");
+			spr_master.setSize(8, 33);
+			spr_master.setPosition(18, -123.5f);
+			return spr_master;
+		}
+		
 		return spr_master;
 	}
 	

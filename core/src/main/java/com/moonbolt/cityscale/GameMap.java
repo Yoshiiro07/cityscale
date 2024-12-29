@@ -48,6 +48,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private String playernumString = "";
     private String keyboardType = "none";
 	private DateTimeProvider dateTimeProvider;
+	private int changeBackground = 300;
     
     //Variables usables
     private float floatUseA = 0;
@@ -152,8 +153,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private Sprite spr_PartyTag;
     private Sprite spr_PartyHair;
     
-    //Sprite NPC
-    private Sprite spr_npc;
+    //NPC
+    private Sprite spr_npc;  
+    private float npcMobY = 60;
+    private float npcMobX = 190;
+    private float npcMobXReverse = -90;
+    private int framenpc = 1;
+    private int framecountnpc = 10;
     
     //UX
     private float padmoveX = -80;
@@ -163,7 +169,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     //Sprites Background
     private Sprite spr_Background;
     private Texture tex_Background;
-    private Texture tex_BackgroundOver;
+    private Texture tex_Background2;
+    private Texture tex_Background3;
     
     //Metro
     private Sprite spr_metro;
@@ -221,8 +228,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add(""); lstChats.add("");
 			
 			//Map
-			if(player.Map.equals("MetroStation")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));  }
-			if(player.Map.equals("StreetsA")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png"));  }	
+			if(player.Map.equals("MetroStation")) { 
+				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));  
+			}
+			
+			if(player.Map.equals("StreetsA")) { 
+				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png"));  
+				tex_Background2 = new Texture(Gdx.files.internal("data/assets/maps/streetsB.png")); 
+				tex_Background3 = new Texture(Gdx.files.internal("data/assets/maps/streetsC.png")); 
+			}	
 			if(player.Map.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png"));  }
 			if(player.Map.equals("Forest")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/forest.png"));  }
 			
@@ -354,6 +368,20 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			//Map Render
+			if(player.Map.equals("StreetsA")) { 
+				changeBackground -= 2;
+				if(changeBackground >= 200 && changeBackground <= 300) {
+					spr_Background = new Sprite(tex_Background);
+				}
+				if(changeBackground >= 100 && changeBackground <= 200) {
+					spr_Background = new Sprite(tex_Background2);
+				}
+				if(changeBackground >= 0 && changeBackground <= 100) {
+					spr_Background = new Sprite(tex_Background3);
+				}
+				if(changeBackground <= 0) { changeBackground = 300; }
+			}
+			
 			spr_Background.setPosition(-81, -194);
 			spr_Background.setSize(270, 270);
 			spr_Background.draw(game.batch);
@@ -634,7 +662,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 73, cameraCoordsY -30);  //here
+			spr_testeDot.setPosition(cameraCoordsX + 73, cameraCoordsY -30);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -839,6 +867,36 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				font_master.draw(game.batch, "Arenas", 105, -81);
 				font_master.draw(game.batch, "Doadora", -7f, -80f);
+				
+				npcMobY = npcMobY - 0.4f;
+				npcMobX = npcMobX - 0.4f;
+				npcMobXReverse = npcMobXReverse + 0.4f;
+				framecountnpc--;
+				
+				if(framenpc == 1 && framecountnpc <= 0) { framenpc = 2; framecountnpc = 15; }
+				if(framenpc == 2 && framecountnpc <= 0) { framenpc = 3; framecountnpc = 15; }
+				if(framenpc == 3 && framecountnpc <= 0) { framenpc = 1; framecountnpc = 15; }
+				
+				spr_npc = gameControl.GetNPC("NPCW", framenpc);
+				spr_npc.setPosition(91, npcMobY);
+				spr_npc.draw(game.batch);
+				if(npcMobY < -240) { npcMobY = 80; }
+				
+				spr_npc = gameControl.GetNPC("NPCO", framenpc);
+				spr_npc.setPosition(15, npcMobY - 40);
+				spr_npc.draw(game.batch);
+				if(npcMobY < -240) { npcMobY = 80; }
+				
+				spr_npc = gameControl.GetNPC("NPCC", framenpc);
+				spr_npc.setPosition(npcMobX, -132.f);
+				spr_npc.draw(game.batch);
+				if(npcMobX < -90) { npcMobX = 190; }
+				
+				spr_npc = gameControl.GetNPC("NPCE", framenpc);
+				spr_npc.setPosition(npcMobXReverse, -134.f);
+				spr_npc.draw(game.batch);
+				if(npcMobXReverse > 190) { npcMobXReverse = -90; }
+				
 			}
 		}
 		
@@ -1173,7 +1231,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(!player.Map.equals("Sewers") && !player.Map.equals("Forest")){
 				spr_master = gameControl.GetCard("cardaction");
-				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY  - 30);
 				spr_master.draw(game.batch);
 			}
 
