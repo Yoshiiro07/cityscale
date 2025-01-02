@@ -25,12 +25,15 @@ gwt {
   compiler.disableCastChecking = true
   //// The next line can be useful to uncomment if you want output that hasn't been obfuscated.
 //  compiler.style = org.docstr.gradle.plugins.gwt.Style.DETAILED
+
+  sourceLevel = 1.11
 }
 
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-  implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
   implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+  implementation "com.github.tommyettinger:gdx-backend-gwt:1.1210.1"
+  implementation "com.github.tommyettinger:gdx-backend-gwt:1.1210.1:sources"
+  implementation "com.google.jsinterop:jsinterop-annotations:2.0.2:sources"
   implementation project(':core')
 
 }
@@ -144,8 +147,8 @@ tasks.compileGwt.dependsOn(addSource)
 tasks.draftCompileGwt.dependsOn(addSource)
 tasks.checkGwt.dependsOn(addSource)
 
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-java.targetCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
 sourceSets.main.java.srcDirs = [ "src/main/java/" ]
 
 eclipse.project.name = appName + "-html"
