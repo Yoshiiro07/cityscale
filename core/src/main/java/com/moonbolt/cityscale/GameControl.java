@@ -379,7 +379,7 @@ public class GameControl {
 		case "partytag":
 			return createSpriteWithPositionAndSize("partytag", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
 		case "battlezoneA":
-			return createSpriteWithPositionAndSize("battlezoneA", cameraCoordsX - 48, cameraCoordsY - 100, 90, 200);
+			return createSpriteWithPositionAndSize("battlezoneA", cameraCoordsX - 48, cameraCoordsY - 92, 90, 190);
 		default:
 			return null;
 		}
@@ -1665,7 +1665,8 @@ public class GameControl {
 	    if(level == 49) { totalExp = 50000000; }
 	    									      
 	    float result = (float)((percent*100)/totalExp);
-	    return String.valueOf(result);
+	    int finalnumber = Math.round(result);
+	    return String.valueOf(finalnumber);
 	    
 	}
 	

@@ -239,6 +239,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}	
 			if(player.Map.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png"));  }
 			if(player.Map.equals("Forest")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/forest.png"));  }
+			if(player.Map.equals("Watercave")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/watercave.png"));  }
+			if(player.Map.equals("Desert")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/desert.png"));  }
 			
 			//Mobs
 			listMonsters = new ArrayList<Monster>();
@@ -658,11 +660,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			spr_testeDot.setPosition(cameraCoordsX + 62, cameraCoordsY -6);
+			spr_testeDot.setPosition(cameraCoordsX - 46, cameraCoordsY + 1);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 73, cameraCoordsY -30);  
+			spr_testeDot.setPosition(cameraCoordsX + 32, cameraCoordsY - 12);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -3192,6 +3194,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Dungeon 1 - Forest
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 55 && coordsTouch.y < cameraCoordsY + 68) {
 					MapChange("Forest");
+					return false;
+				}
+				//Dungeon 2 - Watercave
+				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 49) {
+					MapChange("Watercave");
+					return false;
+				}
+				//Dungeon 2 - Desert
+				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 22 && coordsTouch.y < cameraCoordsY + 34) {
+					MapChange("Desert");
+					return false;
+				}
+				
+				//Dungeon 3 - Vulcano
+				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 3 && coordsTouch.y < cameraCoordsY + 16) {
+					//MapChange("Vulcano");
+					return false;
+				}
+				//Dungeon 3 - Mines
+				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 12 && coordsTouch.y < cameraCoordsY + 1) {
+					//MapChange("Mines");
 					return false;
 				}
 				
