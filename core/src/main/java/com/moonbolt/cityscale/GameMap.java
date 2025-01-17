@@ -94,7 +94,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private boolean movement = false;
 	private boolean autoattack = false;
 	private int atkManual = 10;
-	private int defManual = 20;
+	private int defManual = 0;
+	private boolean defTrigged = false;
 	private Sprite spr_target;
 	private int countDead = 100;
 	private String itemEquipped = "";
@@ -346,7 +347,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Check Regen
 			regen = Integer.parseInt(player.regenTime);
 			regenMax = Integer.parseInt(player.regenTimeMax);
-			
 			regen--;
 			
 			player.regenTime = String.valueOf(regen);
@@ -367,6 +367,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.Hp = player.HpMax;
 				player.Mp = player.MpMax; 
 				player.regenTime = player.regenTimeMax;
+			}
+			
+			//check def
+			if(defManual > 0) {
+				defManual--;
+				if(defManual <= 0) { 
+					defManual = 0; 
+					defTrigged = false;
+					gameControl.SetCharacterDefense(defTrigged);
+				}
 			}
 			
 			//Map Render
@@ -438,7 +448,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_playerhat.draw(game.batch);
 			}
 			
-			
 			if(player.playerInBattle.equals("yes") || player.playerInBattle.equals("yes") || player.playerInBattle.equals("yes")) {
 				spr_playerweapon = gameControl.SetWeapon(player);
 				spr_playerweapon.draw(game.batch);
@@ -497,11 +506,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}			
 			}
 			
-			//Checks e Cards
+			//Checks
 			if(player.Map.contains("MetroStation")) { CheckColisionMetroStation(); }
 			if(player.Map.contains("StreetsA")) { CheckColisionStreetsA(); }
 			if(player.Map.contains("Sewers")) { CheckColisionSewers(); }
 			if(player.Map.contains("Forest")) { CheckColisionForest(); }
+			if(player.Map.contains("Watercave")) { CheckColisionWatercave(); }
+			if(player.Map.contains("Desert")) { CheckColisionDesert(); }
 			
 			ShowCards();
 			CheckPlayerParty();
@@ -660,11 +671,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			spr_testeDot.setPosition(cameraCoordsX - 46, cameraCoordsY + 1);
+			spr_testeDot.setPosition(cameraCoordsX - 46, cameraCoordsY + 34);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 32, cameraCoordsY - 12);  
+			spr_testeDot.setPosition(cameraCoordsX + 32, cameraCoordsY + 22);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -951,8 +962,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						if((listMonsters.get(i).MobPosX + 5) > (playerposX - 15) && (listMonsters.get(i).MobPosX + 5) < (playerposX + 15)
 						   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 18) && (listMonsters.get(i).MobPosY + 7) < (playerposY + 40)) { 
 							player.playerInBattle = "yes";
+							if(!defTrigged) {
 							AtkTimer--;
 							player.AtkTimer = String.valueOf(AtkTimer);
+							}
 							
 							if(AtkTimer <= 0) { 
 								player.AtkTimer = player.AtkTimerMax;
@@ -1021,6 +1034,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Def = Integer.parseInt(player.Def);
 			int Hp = Integer.parseInt(player.Hp);
 			
+			if(defTrigged) { Def = Def * 2; }
+			
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest")) {
 				for(int i = 0; i < listMonsters.size(); i++) {						
 					if(listMonsters.get(i).MobTarget.equals(player.Name)) {
@@ -1042,7 +1057,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 									{
 										Hp = Hp - (listMonsters.get(i).MobAtk - Def);
 										player.Hp = String.valueOf(Hp);
-									}								 
+									}	
+									
+									if(defTrigged) { Def = Def / 2; }
 									listMonsters.get(i).MobAtkTimer = listMonsters.get(i).MobAtkTimerMax;
 									Damage damage = new Damage();
 									damage.DamagePosX = listMonsters.get(i).MobPosX;
@@ -1197,6 +1214,58 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(player.Map.equals("Forest")) {
 				if(posX > -7 && posX < 22.5f && posY> 31.5f && posY < 41.5f) {
+					MapChange("StreetsAFromSewers");
+				}
+			}
+		}
+		
+		public void CheckColisionWatercave() {
+			float posY = Float.parseFloat(player.PosY);
+			float posX = Float.parseFloat(player.PosX);
+			
+			if(posX < -77) {
+				player.breakwalk = "left";
+			}				
+			if(posX > 184.5f) {
+				player.breakwalk = "right";
+			}
+			
+			if(posY > 41) {
+				player.breakwalk = "back";
+			}
+			if(posY < -192.5f) {
+				player.breakwalk = "front";
+			}
+			
+			
+			if(player.Map.equals("Watercave")) {
+				if(posX > 31 && posX < 56 && posY> -0.5 && posY < 16) {
+					MapChange("StreetsAFromSewers");
+				}
+			}
+		}
+		
+		public void CheckColisionDesert() {
+			float posY = Float.parseFloat(player.PosY);
+			float posX = Float.parseFloat(player.PosX);
+			
+			if(posX < -77) {
+				player.breakwalk = "left";
+			}				
+			if(posX > 184.5f) {
+				player.breakwalk = "right";
+			}
+			
+			if(posY > 41) {
+				player.breakwalk = "back";
+			}
+			if(posY < -192.5f) {
+				player.breakwalk = "front";
+			}
+			
+			
+			if(player.Map.equals("Desert")) {
+				if(posX > 31 && posX < 56 && posY> -0.5 && posY < 16) {
 					MapChange("StreetsAFromSewers");
 				}
 			}
@@ -2792,6 +2861,22 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				this.screen.screenSwitch("LoadingScreen","",playernum);
 				dispose();
 			}
+			
+			if(map.equals("Watercave")) { 
+				player.Map = "Watercave";
+				player.PosX = String.valueOf("46");
+				player.PosY = String.valueOf("-15.5f");
+				this.screen.screenSwitch("LoadingScreen","",playernum);
+				dispose();
+			}
+			
+			if(map.equals("Desert")) {  //here
+				player.Map = "Desert";
+				player.PosX = String.valueOf("46");
+				player.PosY = String.valueOf("-15.5f");
+				this.screen.screenSwitch("LoadingScreen","",playernum);
+				dispose();
+			}
 		}
 		
 		//Hotkey
@@ -3065,7 +3150,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
-				if(player.playerInCast.equals("none") || player.playerInCast.equals("no")) { 
+				if(player.playerInCast.equals("none") || player.playerInCast.equals("no") || !defTrigged) { 
 					movement = true; 
 				} 
 				else { 
@@ -3109,7 +3194,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Def
 				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35)  {
-					
+					defTrigged = true;
+					gameControl.SetCharacterDefense(defTrigged);
+					defManual = 30;
 					return false;
 				}
 				
