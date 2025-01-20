@@ -82,6 +82,8 @@ public class GameControl {
 	private TextureAtlas atlas_cards;
 	private TextureAtlas atlas_mobSewers;
 	private TextureAtlas atlas_mobForest;
+	
+	private TextureAtlas atlas_castEffect;
 
 	private TextureAtlas atlas_weapon;
 	private TextureAtlas atlas_cloth;
@@ -150,6 +152,8 @@ public class GameControl {
 		lstMonsters = new ArrayList<Monster>();
 
 		// Textures
+		atlas_castEffect = new TextureAtlas(Gdx.files.internal("data/assets/skills/effect/casteffect.txt"));
+				
 		atlas_hairs1 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair1.txt"));
 		atlas_hairs2 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair2.txt"));
 		atlas_hairs3 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair3.txt"));
@@ -1157,7 +1161,7 @@ public class GameControl {
 			if(player.playerInAttack.equals("yes")){
 				if(FrameAtkPlayer > 0) {
 				if(frame == 3) { player.Frame = "1"; }
-					spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack4");
+					spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack3");
 					spr_master.setPosition(posX -25,posY -5);
 					spr_master.setScale(0.2f,0.4f);	
 					FrameAtkPlayer--;
@@ -1165,6 +1169,7 @@ public class GameControl {
 				if(FrameAtkPlayer <= 0) {
 					FrameAtkPlayer = 0;
 					player.playerInAttack = "no";
+					player.Frame = "1";
 				}
 			}
 			
@@ -1212,6 +1217,21 @@ public class GameControl {
 				if(frame == 3) { spr_master.setPosition(posX -25,posY -3.7f);  }
 				
 				spr_master.setScale(0.2f,0.4f);
+			}
+			
+			if(player.playerInAttack.equals("yes")){
+				if(FrameAtkPlayer > 0) {
+				if(frame == 3) { player.Frame = "1"; }
+					spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack3");
+					spr_master.setPosition(posX -25,posY -5);
+					spr_master.setScale(0.2f,0.4f);	
+					FrameAtkPlayer--;
+				}
+				if(FrameAtkPlayer <= 0) {
+					FrameAtkPlayer = 0;
+					player.playerInAttack = "no";
+					player.Frame = "1";
+				}
 			}
 			
 			if(defTrigger) {

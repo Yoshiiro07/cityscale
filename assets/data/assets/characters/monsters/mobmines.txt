@@ -1,0 +1,117 @@
+mobmines.png
+size: 476, 508
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+caveira1
+  rotate: false
+  xy: 98, 208
+  size: 170, 150
+  orig: 170, 150
+  offset: 0, 0
+  index: -1
+caveira2
+  rotate: false
+  xy: 268, 208
+  size: 170, 150
+  orig: 170, 150
+  offset: 0, 0
+  index: -1
+caveira3
+  rotate: false
+  xy: 0, 358
+  size: 170, 150
+  orig: 170, 150
+  offset: 0, 0
+  index: -1
+caveira4
+  rotate: false
+  xy: 170, 358
+  size: 170, 150
+  orig: 170, 150
+  offset: 0, 0
+  index: -1
+ghost1
+  rotate: false
+  xy: 316, 0
+  size: 80, 62
+  orig: 80, 62
+  offset: 0, 0
+  index: -1
+ghost2
+  rotate: false
+  xy: 396, 0
+  size: 80, 62
+  orig: 80, 62
+  offset: 0, 0
+  index: -1
+ghost3
+  rotate: false
+  xy: 0, 116
+  size: 80, 62
+  orig: 80, 62
+  offset: 0, 0
+  index: -1
+ghost4
+  rotate: false
+  xy: 80, 116
+  size: 80, 62
+  orig: 80, 62
+  offset: 0, 0
+  index: -1
+tipper1
+  rotate: false
+  xy: 160, 116
+  size: 98, 92
+  orig: 98, 92
+  offset: 0, 0
+  index: -1
+tipper2
+  rotate: false
+  xy: 258, 116
+  size: 98, 92
+  orig: 98, 92
+  offset: 0, 0
+  index: -1
+tipper3
+  rotate: false
+  xy: 356, 116
+  size: 98, 92
+  orig: 98, 92
+  offset: 0, 0
+  index: -1
+tipper4
+  rotate: false
+  xy: 0, 208
+  size: 98, 92
+  orig: 98, 92
+  offset: 0, 0
+  index: -1
+urso1
+  rotate: false
+  xy: 0, 0
+  size: 79, 116
+  orig: 79, 116
+  offset: 0, 0
+  index: -1
+urso2
+  rotate: false
+  xy: 79, 0
+  size: 79, 116
+  orig: 79, 116
+  offset: 0, 0
+  index: -1
+urso3
+  rotate: false
+  xy: 158, 0
+  size: 79, 116
+  orig: 79, 116
+  offset: 0, 0
+  index: -1
+urso4
+  rotate: false
+  xy: 237, 0
+  size: 79, 116
+  orig: 79, 116
+  offset: 0, 0
+  index: -1
