@@ -53,16 +53,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     //Variables usables
     private float floatUseA = 0;
     private float floatUseB = 0;
-    private float floatUseC = 0;
-    private float floatUseD = 0;
     private int intUseA = 0;
     private int intUseB = 0;
     private int intUseC = 0;
     private int intUseD = 0;
-    private int mobRevival = 300;
     
     private int regen = 0;
-    private int regenMax = 0;
     
     //Aviso
     private boolean aviso = false;
@@ -107,12 +103,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 	private boolean rangedAttack = false;
     private boolean skillEffect = false;
     private String skillname = "";
-    private float touchSkillX;
-    private float touchSkillY;
     private boolean selectAreaRanged = false;
     private Sprite spr_sit;
     private int regenTime = 0;
     private float playerExp = 0;
+    private int playerCastTime = 0;
+    private Sprite spr_castEffect;
+    private int castFrame = 30;
     
 	//Monster
 	private ArrayList<Monster> listMonsters;
@@ -187,7 +184,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
  	private Texture tex_keyboard;
  	private Sprite spr_keyboard;
  	private String keyboardText = "";
-    
+ 	
     
     //Controller
     private final IntSet downKeys = new IntSet(20);	
@@ -350,7 +347,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Check Regen
 			regen = Integer.parseInt(player.regenTime);
-			regenMax = Integer.parseInt(player.regenTimeMax);
 			regen--;
 			
 			player.regenTime = String.valueOf(regen);
@@ -490,28 +486,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
 			spr_master.draw(game.batch);
 			
-			//Ranged Skill
-			if(selectAreaRanged) {
-				spr_master = gameControl.GetUX("textbar", 0, 0);
-				spr_master.setPosition(cameraCoordsX - 33, cameraCoordsY + 35);
-				spr_master.setSize(60, 15);
-				spr_master.draw(game.batch);
-				font_master.draw(game.batch, "Selecione a Area",cameraCoordsX - 20, cameraCoordsY + 46);
-			}
-			if(showZone) {
-				if(countZoneSkill > 0) {
-					spr_master = gameControl.GetUX("target", 0, 0);
-					spr_master.setPosition(touchSkillX -5, touchSkillY - 8);
-					spr_master.setSize(15,30);
-					spr_master.draw(game.batch);
-					countZoneSkill--;
-				}
-				else {
-					showZone = false;
-					countZoneSkill = 0;
-				}			
-			}
-			
 			//Checks
 			if(player.Map.contains("MetroStation")) { CheckColisionMetroStation(); }
 			if(player.Map.contains("StreetsA")) { CheckColisionStreetsA(); }
@@ -528,8 +502,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			CheckPlayerParty();
 			CheckAutoAttack();
 			CheckMobAutoAttack();
+			CheckCasting();
 			ShowDamage();
 			ShowSkill();
+			
 			
 			if(playerDead) { ShowPlayerDead(); }
 			
@@ -694,6 +670,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			
 			game.batch.end();
+		}
+		
+		public void CheckCasting() {
+			if(player.playerInCast.equals("yes")) {			
+				
+				castFrame--;
+				if(castFrame >= 0 && castFrame <= 10) { 
+					spr_castEffect = gameControl.GetEffectCasting("casteffect1",2,2);   
+				}
+				if(castFrame >= 0 && castFrame <= 10) { 
+					spr_castEffect = gameControl.GetEffectCasting("casteffect1",2,2);   
+				}
+				if(castFrame >= 0 && castFrame <= 10) { 
+					spr_castEffect = gameControl.GetEffectCasting("casteffect1",2,2);   
+				}
+				if(castFrame <= 0) {
+					castFrame = 30;
+				}
+				
+				if(playerCastTime >= 0) {
+					playerCastTime--;
+				}
+				else {
+					CheckAreaRangedSkill();
+				}
+			}
 		}
 		
 		public void ShowChats() {
@@ -1561,9 +1563,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(num == 12){ spr_item.setPosition(cameraCoordsX - 44.3f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}
 				if(num == 13){ spr_item.setPosition(cameraCoordsX - 30.3f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}
 				if(num == 14){ spr_item.setPosition(cameraCoordsX - 16.5f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}
-				if(num == 15){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}	
-				
-				
+				if(num == 15){ spr_item.setPosition(cameraCoordsX - 2.6f,cameraCoordsY - 29.6f); spr_item.setSize(13, 23); return spr_item;}			
 			}
 				
 			return spr_item;
@@ -1613,7 +1613,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = Atk + ((Str * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1637,7 +1636,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((Str * 2) + (Vit * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1661,7 +1659,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((Str * 3) + (Agi * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1712,7 +1709,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon);	
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1753,6 +1749,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							damageSkill.DamageTime = 100;
 							damageSkill.DamageType = "heal";
 							damageSkill.DamageValue = 0;
+							player.playerInCast = "no";
 							return;
 						}
 						
@@ -1771,9 +1768,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							damageSkill.DamageTime = 100;
 							damageSkill.DamageType = "heal";
 							damageSkill.DamageValue = 0;
+							player.playerInCast = "no";
 							return; 	
 						}						
-						if(skillname.equals("healthboost")) { GiveBuff("healthboost"); rangedAttack = false; return; }			
+						if(skillname.equals("healthboost")) { GiveBuff("healthboost"); rangedAttack = false; player.playerInCast = "no"; return; }			
 						if(skillname.equals("regen")) { 
 							GiveBuff("regen"); 
 							rangedAttack = false; 
@@ -1789,6 +1787,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							damageSkill.DamageTime = 100;
 							damageSkill.DamageType = "heal";
 							damageSkill.DamageValue = 0;
+							player.playerInCast = "no";
 							return; 	
 						}		
 						if(skillname.equals("ironshield")) { 
@@ -1806,6 +1805,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							damageSkill.DamageTime = 100;
 							damageSkill.DamageType = "heal";
 							damageSkill.DamageValue = 0;
+							player.playerInCast = "no";
 							return; 	
 						}				
 						if(skillname.equals("invisibility")) { 
@@ -1823,12 +1823,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							damageSkill.DamageTime = 100;
 							damageSkill.DamageType = "heal";
 							damageSkill.DamageValue = 0;
+							player.playerInCast = "no";
 							return; 								
 						}
 						
 						
-						if((listMonsters.get(i).MobPosX + 5) > (touchSkillX - 5) && (listMonsters.get(i).MobPosX + 5) < (touchSkillX + 5)
-						   && (listMonsters.get(i).MobPosY + 5) > (touchSkillY - 10) && (listMonsters.get(i).MobPosY + 5) < (touchSkillY + 10)) {
+						if(player.Target.equals(listMonsters.get(i).MobID) && listMonsters.get(i).MobDead.equals("no")) {
 							player.playerInBattle = "yes";
 							listMonsters.get(i).MobTarget = player.Name;
 							
@@ -1854,6 +1854,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								rangedAttack = false;
 								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
 								PushAttack(mobHP,i,mobDeadStatus);
+								player.playerInCast = "no";
 								return;
 							}
 							
@@ -1880,6 +1881,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								rangedAttack = false;
 								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
 								PushAttack(mobHP,i,mobDeadStatus);
+								player.playerInCast = "no";
 								return;
 							}
 							
@@ -1888,7 +1890,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((Wis * 6) + (Dex * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1906,6 +1907,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								rangedAttack = false;
 								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
 								PushAttack(mobHP,i,mobDeadStatus);
+								player.playerInCast = "no";
 								return;
 							}												
 							if(skillname.equals("thundercloud")) {
@@ -1913,7 +1915,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((Wis * 3) + (Agi * 2) + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }						
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1931,6 +1932,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								rangedAttack = false;
 								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
 								PushAttack(mobHP,i,mobDeadStatus);
+								player.playerInCast = "no";
 								return;
 							}
 							
@@ -1939,7 +1941,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((Dex * 2) + (Agi * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1957,6 +1958,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								rangedAttack = false;
 								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
 								PushAttack(mobHP,i,mobDeadStatus);
+								player.playerInCast = "no";
 								return;
 							}						
 							if(skillname.equals("holyprism")) {
@@ -1964,7 +1966,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((Wis) + Luk + atkweapon);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -1982,6 +1983,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								rangedAttack = false;
 								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
 								PushAttack(mobHP,i,mobDeadStatus);
+								player.playerInCast = "no";
 								return;
 							}
 							if(skillname.equals("mine")) {
@@ -1989,7 +1991,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								int totaldmg = ((Dex * 2) + 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
-								//if(network) { gameControl.OnlineManager("Atk",String.valueOf(i),String.valueOf(mobHP)); } else { listMonsters.get(i).MobHp = mobHP; }					
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
@@ -2007,6 +2008,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								rangedAttack = false;
 								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
 								PushAttack(mobHP,i,mobDeadStatus);
+								player.playerInCast = "no";
 								return;
 							}							
 						}
@@ -2943,7 +2945,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				CheckAreaRangedSkill();
 			}
 			else { 
-				selectAreaRanged = true; 
+				player.playerInCast = "yes"; //here
+				playerCastTime = 100;
 			}
 		  
 		}
@@ -3304,16 +3307,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				} 
 				else { 
 					movement = false; 
-				}
-				
-				if(selectAreaRanged) {
-					touchSkillX = coordsTouch.x;
-					touchSkillY = coordsTouch.y;
-					selectAreaRanged = false;
-					rangedAttack = true;
-					CheckAreaRangedSkill();  //herespot
-					showZone = true;
-					countZoneSkill = 40;
 				}
 				
 				//Menu

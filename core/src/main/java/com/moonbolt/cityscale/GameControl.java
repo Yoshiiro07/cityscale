@@ -402,6 +402,12 @@ public class GameControl {
 		spr_master.setSize(width, height);
 		return spr_master;
 	}
+	
+	public Sprite GetEffectCasting(String element, float width,float height) {
+		Sprite spr_master = atlas_castEffect.createSprite(element);
+		spr_master.setSize(width, height);
+		return spr_master;
+	}
 
 	///////////////////////////////////////////////// [Character]///////////////////////////////////////////////
 	public Sprite CharSelect(Player player, String type, int num) {
@@ -1116,7 +1122,7 @@ public class GameControl {
 			}
 		}
 
-		if(player.playerInBattle.equals("yes")){
+		if(player.playerInBattle.equals("yes") || player.playerInCast.equals("yes")){
 			if(player.Hair.equals("hair1")) { spr_master = atlas_hairs1.createSprite(player.Hair + "_attack_" + player.Color + "_" + player.Sex); }
 			if(player.Hair.equals("hair2")) { spr_master = atlas_hairs2.createSprite(player.Hair + "_attack_" + player.Color + "_" + player.Sex); }
 			if(player.Hair.equals("hair3")) { spr_master = atlas_hairs3.createSprite(player.Hair + "_attack_" + player.Color + "_" + player.Sex); }
@@ -1156,8 +1162,7 @@ public class GameControl {
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);							
 			}
-			
-			
+				
 			if(player.playerInAttack.equals("yes")){
 				if(FrameAtkPlayer > 0) {
 				if(frame == 3) { player.Frame = "1"; }
@@ -1173,6 +1178,12 @@ public class GameControl {
 				}
 			}
 			
+			if(player.playerInCast.equals("yes")) {
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_cast");
+				spr_master.setPosition(posX -25,posY -5);
+				spr_master.setScale(0.2f,0.4f);	
+			}
+			
 			if(defTrigger) {
 				player.Frame = "1";
 				frame = 1;
@@ -1180,6 +1191,8 @@ public class GameControl {
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
+			
+			
 			
 			//basictopM_sit
 			if(player.playerSit.equals("yes")) {
@@ -1234,6 +1247,12 @@ public class GameControl {
 				}
 			}
 			
+			if(player.playerInCast.equals("yes")) {
+				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_cast");
+				spr_master.setPosition(posX -25,posY -5);
+				spr_master.setScale(0.2f,0.4f);	
+			}
+			
 			if(defTrigger) {
 				player.Frame = "1";
 				frame = 1;
@@ -1242,7 +1261,7 @@ public class GameControl {
 				spr_master.setScale(0.2f,0.4f);	
 			}
 			
-			//basictopM_sit
+			//basictopF_sit
 			if(player.playerSit.equals("yes")) {
 				player.Frame = "1";
 				player.Side = "front";
@@ -1314,6 +1333,12 @@ public class GameControl {
 				spr_master.setScale(0.2f,0.4f);					
 			}
 			
+			if(player.playerInCast.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
+				spr_master.setPosition(posX -24.5f,posY -15);
+				spr_master.setScale(0.2f,0.4f);					
+			}
+			
 			if(defTrigger) {
 				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
 				spr_master.setPosition(posX -24.5f,posY -15);
@@ -1357,6 +1382,15 @@ public class GameControl {
 			
 			
 			if(player.playerInBattle.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
+				if(frame == 1) { spr_master.setPosition(posX -24.7f,posY -14.6f); 	}				
+				if(frame == 2) { spr_master.setPosition(posX -24.7f,posY -14.8f);   }
+				if(frame == 3) { spr_master.setPosition(posX -24.7f,posY -14.4f);   }
+				
+				spr_master.setScale(0.2f,0.4f);	
+			}
+			
+			if(player.playerInCast.equals("yes")){
 				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
 				if(frame == 1) { spr_master.setPosition(posX -24.7f,posY -14.6f); 	}				
 				if(frame == 2) { spr_master.setPosition(posX -24.7f,posY -14.8f);   }
@@ -1450,6 +1484,12 @@ public class GameControl {
 				spr_master.setScale(0.2f,0.4f);	
 			}
 			
+			if(player.playerInCast.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_front2");
+				spr_master.setPosition(posX -25,posY -21);
+				spr_master.setScale(0.2f,0.4f);	
+			}
+			
 			if(defTrigger) {
 				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_front2");
 				spr_master.setPosition(posX -25,posY -21);
@@ -1493,6 +1533,12 @@ public class GameControl {
 			spr_master.setScale(0.2f,0.4f);
 			
 			if(player.playerInBattle.equals("yes")){
+				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_attack1");
+				spr_master.setPosition(posX -24.7f,posY -22.5f);
+				spr_master.setScale(0.2f,0.4f);								
+			}
+			
+			if(player.playerInCast.equals("yes")){
 				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_attack1");
 				spr_master.setPosition(posX -24.7f,posY -22.5f);
 				spr_master.setScale(0.2f,0.4f);								
