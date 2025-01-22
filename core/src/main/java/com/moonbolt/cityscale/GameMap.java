@@ -431,6 +431,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Char
 			player = gameControl.SetCharMov(player, player.breakwalk);
 			
+			CheckCasting();
+			
 			spr_playerbottom = gameControl.GetBottomChar(player, "no",0,0);
 			spr_playerbottom.draw(game.batch);
 							
@@ -502,7 +504,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			CheckPlayerParty();
 			CheckAutoAttack();
 			CheckMobAutoAttack();
-			CheckCasting();
 			ShowDamage();
 			ShowSkill();
 			
@@ -675,15 +676,24 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void CheckCasting() {
 			if(player.playerInCast.equals("yes")) {			
 				
-				castFrame--;
+				castFrame--;  //here
+				float posX = Float.parseFloat(player.PosX);
+				float posY = Float.parseFloat(player.PosY);
+				
 				if(castFrame >= 0 && castFrame <= 10) { 
-					spr_castEffect = gameControl.GetEffectCasting("casteffect1",2,2);   
+					spr_castEffect = gameControl.GetEffectCasting("casteffect1",15,15);
+					spr_castEffect.setPosition(posX - 8, posY - 8);
+					spr_castEffect.draw(game.batch);
 				}
-				if(castFrame >= 0 && castFrame <= 10) { 
-					spr_castEffect = gameControl.GetEffectCasting("casteffect1",2,2);   
+				if(castFrame >= 10 && castFrame <= 20) { 
+					spr_castEffect = gameControl.GetEffectCasting("casteffect2",15,15); 
+					spr_castEffect.setPosition(posX - 8, posY - 8);
+					spr_castEffect.draw(game.batch);
 				}
-				if(castFrame >= 0 && castFrame <= 10) { 
-					spr_castEffect = gameControl.GetEffectCasting("casteffect1",2,2);   
+				if(castFrame >= 20 && castFrame <= 30) { 
+					spr_castEffect = gameControl.GetEffectCasting("casteffect3",15,15);  
+					spr_castEffect.setPosition(posX - 8, posY - 8);
+					spr_castEffect.draw(game.batch);
 				}
 				if(castFrame <= 0) {
 					castFrame = 30;
