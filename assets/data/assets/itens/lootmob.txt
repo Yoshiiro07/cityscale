@@ -1,5 +1,5 @@
 lootmob.png
-size: 215, 43
+size: 516, 43
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -10,30 +10,79 @@ galhos
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootblop
+lootbanana
   rotate: false
   xy: 43, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootfang
+lootblop
   rotate: false
   xy: 86, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootmushroom
+lootfang
   rotate: false
   xy: 129, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-lootpoisonleaf
+lootmoney
   rotate: false
   xy: 172, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootmushroom
+  rotate: false
+  xy: 215, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootneedle
+  rotate: false
+  xy: 258, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootnuts
+  rotate: false
+  xy: 301, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootpaw
+  rotate: false
+  xy: 344, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootpoisonleaf
+  rotate: false
+  xy: 387, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootsilk
+  rotate: false
+  xy: 430, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+loottongue
+  rotate: false
+  xy: 473, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0

@@ -386,4 +386,179 @@ public class Monster {
 
 			return listMonsters;
 		}
+		
+		public ArrayList<Monster> LoadMonsterDataWatercave(String map){
+			
+			ArrayList<Monster> listMonsters = new ArrayList<Monster>();
+			
+			Monster MobA = new Monster();
+			
+			MobA.MobName = "fisko";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
+			MobA.MobHp = 2200;
+			MobA.MobMp = 2200;
+			MobA.MobHpMax = 220;
+			MobA.MobMpMax = 220;
+			MobA.MobFrame = 1;
+			MobA.MobPosX = 20;
+			MobA.MobPosY = 20;
+			MobA.MobExp = 250;
+			MobA.MobID = "FiskoA";
+			MobA.MobMoney = 1;
+			MobA.MobSizeY = 20;
+			MobA.MobSizeX = 14;
+			MobA.MobTarget = "none";
+			MobA.MobDead = "no";
+			MobA.MobTimeDead = 500;
+			MobA.MobSkillChance = "";
+			MobA.MobAtk = 15;
+			MobA.MobEvade = 20;
+			MobA.MobPosition = "left";
+			MobA.MobRandomSt = 1;
+			MobA.MobTimerMov = 1;
+			MobA.MobFrameTime = 1;
+			MobA.MobAtkTimer = 500;
+			MobA.MobAtkTimerMax = 500;
+			MobA.MobLevel = 10;
+			MobA.MobMap = "Watercave";
+			MobA.MobPosXFinal = 0;
+			MobA.MobPosYFinal = 0;
+			MobA.GotFinal = false;
+
+
+			Monster MobB = new Monster();
+			MobB.MobName = "fisko";
+			MobB.MobHp = 2200;
+			MobB.MobMp = 2200;
+			MobB.MobHpMax = 220;
+			MobB.MobMpMax = 220;
+			MobB.MobFrame = 1;
+			MobB.MobPosX = 20;
+			MobB.MobPosY = 20;
+			MobB.MobExp = 250;
+			MobB.MobID = "FiskoB";
+			MobB.MobMoney = 1;
+			MobB.MobSizeY = 20;
+			MobB.MobSizeX = 14;
+			MobB.MobTarget = "none";
+			MobB.MobDead = "no";
+			MobB.MobTimeDead = 500;
+			MobB.MobSkillChance = "";
+			MobB.MobAtk = 15;
+			MobB.MobEvade = 20;
+			MobB.MobPosition = "left";
+			MobB.MobRandomSt = 1;
+			MobB.MobTimerMov = 1;
+			MobB.MobFrameTime = 1;
+			MobB.MobAtkTimer = 500;
+			MobB.MobAtkTimerMax = 500;
+			MobB.MobLevel = 1;
+			MobB.MobMap = "Watercave";
+			MobB.MobPosXFinal = 0;
+			MobB.MobPosYFinal = 0;
+			MobB.GotFinal = false;
+
+			Monster MobC = new Monster();
+			MobC.MobName = "shelly";
+			MobC.MobHp = 2800;
+			MobC.MobMp = 2800;
+			MobC.MobHpMax = 370;
+			MobC.MobMpMax = 370;
+			MobC.MobFrame = 1;
+			MobC.MobPosX = 112.5f;
+			MobC.MobPosY = -13;
+			MobC.MobExp = 340;
+			MobC.MobID = "shellyA";
+			MobC.MobMoney = 2;
+			MobC.MobSizeY = 22;
+			MobC.MobSizeX = 16;
+			MobC.MobTarget = "none";
+			MobC.MobDead = "no";
+			MobC.MobTimeDead = 500;
+			MobC.MobSkillChance = "";
+			MobC.MobAtk = 22;
+			MobC.MobEvade = 10;
+			MobC.MobPosition = "left";
+			MobC.MobRandomSt = 1;
+			MobC.MobTimerMov = 1;
+			MobC.MobFrameTime = 1;
+			MobC.MobAtkTimer = 300;
+			MobC.MobAtkTimerMax = 300;
+			MobC.MobLevel = 4;
+			MobC.MobMap = "Watercave";
+			MobC.MobPosXFinal = 0;
+			MobC.MobPosYFinal = 0;
+			MobC.GotFinal = false;
+
+			Monster MobD = new Monster();
+			MobD.MobName = "marit";
+			MobD.MobHp = 3400;
+			MobD.MobMp = 3400;
+			MobD.MobHpMax = 560;
+			MobD.MobMpMax = 560;
+			MobD.MobFrame = 1;
+			MobD.MobPosX = 9.0f;
+			MobD.MobPosY = -132;
+			MobD.MobExp = 520;
+			MobD.MobID = "MaritA";
+			MobD.MobMoney = 4;
+			MobD.MobSizeY = 22;
+			MobD.MobSizeX = 15;
+			MobD.MobTarget = "none";
+			MobD.MobDead = "no";
+			MobD.MobTimeDead = 500;
+			MobD.MobSkillChance = "";
+			MobD.MobAtk = 30;
+			MobD.MobEvade = 10;
+			MobD.MobPosition = "left";
+			MobD.MobRandomSt = 1;
+			MobD.MobTimerMov = 1;
+			MobD.MobFrameTime = 1;
+			MobD.MobAtkTimer = 300;
+			MobD.MobAtkTimerMax = 300;
+			MobD.MobLevel = 5;
+			MobD.MobMap = "Watercave";
+			MobD.MobPosXFinal = 0;
+			MobD.MobPosYFinal = 0;
+			MobD.GotFinal = false;
+
+			Monster MobE = new Monster();
+			MobE.MobName = "tencle";
+			MobE.MobHp = 5300;
+			MobE.MobMp = 5300;
+			MobE.MobHpMax = 320;
+			MobE.MobMpMax = 320;
+			MobE.MobFrame = 1;
+			MobE.MobPosX = 84.5f;
+			MobE.MobPosY = -129.5f;
+			MobE.MobExp = 200;
+			MobE.MobID = "TencleA";
+			MobE.MobMoney = 5;
+			MobE.MobSizeY = 40;
+			MobE.MobSizeX = 28;
+			MobE.MobTarget = "none";
+			MobE.MobDead = "no";
+			MobE.MobTimeDead = 500;
+			MobE.MobSkillChance = "";
+			MobE.MobAtk = 37;
+			MobE.MobEvade = 10;
+			MobE.MobPosition = "left";
+			MobE.MobRandomSt = 1;
+			MobE.MobTimerMov = 1;
+			MobE.MobFrameTime = 1;
+			MobE.MobAtkTimer = 400;
+			MobE.MobAtkTimerMax = 400;
+			MobE.MobLevel = 8;
+			MobE.MobMap = "Watercave";
+			MobE.MobPosXFinal = 0;
+			MobE.MobPosYFinal = 0;
+			MobE.GotFinal = false;
+
+			listMonsters.add(MobA);
+			listMonsters.add(MobB);
+			listMonsters.add(MobC);
+			listMonsters.add(MobD);
+			listMonsters.add(MobE);
+
+			return listMonsters;
+		}
 }
