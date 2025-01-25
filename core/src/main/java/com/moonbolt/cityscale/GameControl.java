@@ -82,6 +82,11 @@ public class GameControl {
 	private TextureAtlas atlas_cards;
 	private TextureAtlas atlas_mobSewers;
 	private TextureAtlas atlas_mobForest;
+	private TextureAtlas atlas_mobWatercave;
+	private TextureAtlas atlas_mobDesert;
+	private TextureAtlas atlas_mobMines;
+	private TextureAtlas atlas_mobVulcano;
+	private TextureAtlas atlas_mobSnowpalace;
 	
 	private TextureAtlas atlas_castEffect;
 
@@ -166,6 +171,14 @@ public class GameControl {
 
 		atlas_mobSewers = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobsewers.txt"));
 		atlas_mobForest = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobforest.txt"));
+		
+		atlas_mobWatercave = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobwatercave.txt"));
+		atlas_mobDesert = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobdesert.txt"));
+		
+		atlas_mobMines = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobmines.txt"));
+		atlas_mobVulcano = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobvulcano.txt"));
+		
+		atlas_mobSnowpalace = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobsnowpalace.txt"));
 
 		atlas_npcs = new TextureAtlas(Gdx.files.internal("data/assets/characters/npcs/npcs.txt"));
 		atlas_cards = new TextureAtlas(Gdx.files.internal("data/assets/skills/cards.txt"));
@@ -823,7 +836,20 @@ public class GameControl {
 		this.defTrigger = defenseState;
 	}
 	
-	public Sprite GetNPC(String npcname, int frame) {
+	public Sprite GetNPC(String npcname, int frame) {	
+		if(npcname.equals("JobMaster")) {  
+			spr_master = atlas_npcs.createSprite("NPCS");
+			spr_master.setSize(-10, 38);
+			spr_master.setPosition(102.5f, -34);
+			return spr_master;
+		}
+		
+		if(npcname.equals("CrystalTrader")) {  
+			spr_master = atlas_npcs.createSprite("NPCF");
+			spr_master.setSize(8, 38);
+			spr_master.setPosition(7, -34);
+			return spr_master;
+		}
 		
 		if(npcname.equals("DungeonMaster")) {  
 			spr_master = atlas_npcs.createSprite("NPCP");
@@ -928,12 +954,14 @@ public class GameControl {
 	
 	//[Monsters]//
 	public ArrayList<Monster> LoadMonsters(String Map) {
-		if(Map.equals("Sewers")) {
-			lstMonsters = placeholderMonster.LoadMonsterDataSewers(Map);
-		}
-		if(Map.equals("Forest")) {
-			lstMonsters = placeholderMonster.LoadMonsterDataForest(Map);
-		}
+		if(Map.equals("Sewers")) { lstMonsters = placeholderMonster.LoadMonsterDataSewers(Map); }
+		if(Map.equals("Forest")) { lstMonsters = placeholderMonster.LoadMonsterDataForest(Map); }
+		if(Map.equals("Watercave")) { lstMonsters = placeholderMonster.LoadMonsterDataWatercave(Map); }
+		if(Map.equals("Desert")) { lstMonsters = placeholderMonster.LoadMonsterDataDesert(Map); }
+		if(Map.equals("Vulcano")) { lstMonsters = placeholderMonster.LoadMonsterDataVulcano(Map); }
+		if(Map.equals("Mines")) { lstMonsters = placeholderMonster.LoadMonsterDataMines(Map); }
+		if(Map.equals("Snowpalace")) { lstMonsters = placeholderMonster.LoadMonsterDataSnowpalace(Map); }
+		
 		return lstMonsters;
 	}
 
@@ -976,6 +1004,116 @@ public class GameControl {
 		}
 		if(mob.equals("enty")){
 			spr_master = atlas_mobForest.createSprite("enty" + mobframe);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetMonsterWatercave(String mob, int mobframe, String side) {
+		//Forest
+		if(mob.equals("fisko")){
+			spr_master = atlas_mobWatercave.createSprite("fisko" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("shelly")){
+			spr_master = atlas_mobWatercave.createSprite("shelly" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("marit")){
+			spr_master = atlas_mobWatercave.createSprite("marit" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("tencle")){
+			spr_master = atlas_mobWatercave.createSprite("tencle" + mobframe);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetMonsterDesert(String mob, int mobframe, String side) {
+		//Forest
+		if(mob.equals("cactus")){
+			spr_master = atlas_mobDesert.createSprite("cactus" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("harpia")){
+			spr_master = atlas_mobDesert.createSprite("harpia" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("golem")){
+			spr_master = atlas_mobDesert.createSprite("golem" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("brimworn")){
+			spr_master = atlas_mobDesert.createSprite("brimworn" + mobframe);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetMonsterVulcano(String mob, int mobframe, String side) {
+		//Forest
+		if(mob.equals("flare")){
+			spr_master = atlas_mobVulcano.createSprite("flare" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("salamander")){
+			spr_master = atlas_mobVulcano.createSprite("salamander" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("cerberus")){
+			spr_master = atlas_mobVulcano.createSprite("cerberus" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("hammertooth")){
+			spr_master = atlas_mobVulcano.createSprite("hammertooth" + mobframe);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetMonsterMines(String mob, int mobframe, String side) {
+		//Forest
+		if(mob.equals("ghost")){
+			spr_master = atlas_mobMines.createSprite("ghost" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("tipper")){
+			spr_master = atlas_mobMines.createSprite("tipper" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("urso")){
+			spr_master = atlas_mobMines.createSprite("urso" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("caveira")){
+			spr_master = atlas_mobMines.createSprite("caveira" + mobframe);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetMonsterSnowpalace(String mob, int mobframe, String side) {
+		//Forest
+		if(mob.equals("goblin")){
+			spr_master = atlas_mobSnowpalace.createSprite("goblin" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("pinguim")){
+			spr_master = atlas_mobSnowpalace.createSprite("pinguim" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("snowman")){
+			spr_master = atlas_mobSnowpalace.createSprite("snowman" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("yeti")){
+			spr_master = atlas_mobSnowpalace.createSprite("yeti" + mobframe);
 			return spr_master;
 		}
 		
@@ -2858,21 +2996,21 @@ public class GameControl {
 		//Sewers
 		if(mob.equals("poyo")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Dente"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootnuts");  return "Adicionado Noz"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootnuts");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Noz"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatbat"); return "Adicionado Chapeu de Morcego"; }
 		}
 		
 		if(mob.equals("aranarc")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfang");  return "Adicionado Dente"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoazul");  return "Adicionado Dente"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("rat")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Saco de dinheiro"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatbunny"); return "Adicionado Orelhas de Coelho"; }
 		}
 		if(mob.equals("snake")) {
@@ -2886,23 +3024,158 @@ public class GameControl {
 		if(mob.equals("slime")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootnuts");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
 		}
 		
 		if(mob.equals("bee")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfang");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("goblin")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
 		}
 		if(mob.equals("enty")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
+		}
+		
+		//Watercave
+		if(mob.equals("fisko")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
+		}
+		
+		if(mob.equals("shelly")) {
+			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+		}
+		if(mob.equals("marit")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
+		}
+		if(mob.equals("tencle")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
+		}
+		
+		//Desert
+		if(mob.equals("cactus")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
+		}
+		
+		if(mob.equals("harpia")) {
+			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+		}
+		if(mob.equals("golem")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
+		}
+		if(mob.equals("brimworn")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
+		}
+		
+		//Mines
+		if(mob.equals("ghost")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
+		}
+		
+		if(mob.equals("tipper")) {
+			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+		}
+		if(mob.equals("urso")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
+		}
+		if(mob.equals("caveira")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
+		}
+		
+		//Mines
+		if(mob.equals("flare")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
+		}
+		
+		if(mob.equals("salamander")) {
+			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+		}
+		if(mob.equals("cerberus")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
+		}
+		if(mob.equals("hammertooth")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
+		}
+		
+		//Mines
+		if(mob.equals("goblin")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
+		}
+		
+		if(mob.equals("pinguim")) {
+			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+		}
+		if(mob.equals("snowman")) {
+			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
+		}
+		if(mob.equals("yeti")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
 			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }

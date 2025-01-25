@@ -252,6 +252,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Forest")) { 			
 				listMonsters = gameControl.LoadMonsters("Forest"); 
 			}
+			if(player.Map.equals("Watercave")) { 			
+				listMonsters = gameControl.LoadMonsters("Watercave"); 
+			}
+			if(player.Map.equals("Desert")) { 			
+				listMonsters = gameControl.LoadMonsters("Desert"); 
+			}
+			if(player.Map.equals("Mines")) { 			
+				listMonsters = gameControl.LoadMonsters("Mines"); 
+			}
+			if(player.Map.equals("Vulcano")) { 			
+				listMonsters = gameControl.LoadMonsters("Vulcano"); 
+			}
+			if(player.Map.equals("Snowpalace")) { 			
+				listMonsters = gameControl.LoadMonsters("Snowpalace"); 
+			}
 			
 			spr_Background = new Sprite(tex_Background);
 			
@@ -460,6 +475,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Show Mobs
 			if(player.Map.equals("Sewers")){ ShowMobs(); }
 			if(player.Map.equals("Forest")){ ShowMobs(); }
+			if(player.Map.equals("Watercave")){ ShowMobs(); }
+			if(player.Map.equals("Desert")){ ShowMobs(); }
+			if(player.Map.equals("Vulcano")){ ShowMobs(); }
+			if(player.Map.equals("Mines")){ ShowMobs(); }
+			if(player.Map.equals("Snowpalace")){ ShowMobs(); }
 		
 			//UX
 			spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
@@ -887,6 +907,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void ShowNPCs() {
 			//NPCs
 			if(player.Map.equals("StreetsA")) {
+				spr_npc = gameControl.GetNPC("JobMaster", 0);
+				spr_npc.draw(game.batch);
+				
+				spr_npc = gameControl.GetNPC("CrystalTrader", 0);
+				spr_npc.draw(game.batch);
+				
 				spr_npc = gameControl.GetNPC("DungeonMaster", 0);
 				spr_npc.draw(game.batch);
 				
@@ -902,9 +928,21 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.setSize(20,10);
 				spr_master.setPosition(-8, -88.5f);
 				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setSize(26,10);
+				spr_master.setPosition(2, 4);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetUX("textbar", 0, 0);
+				spr_master.setSize(37,10);
+				spr_master.setPosition(85.5f, 4);
+				spr_master.draw(game.batch);
 
 				font_master.draw(game.batch, "Arenas", 105, -81);
 				font_master.draw(game.batch, "Doadora", -7f, -80f);
+				font_master.draw(game.batch, "Cristalizador", 2, 12);
+				font_master.draw(game.batch, "Mestre de Classes", 85.5f, 12);
 				
 				npcMobY = npcMobY - 0.4f;
 				npcMobX = npcMobX - 0.4f;
@@ -3026,8 +3064,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(map.equals("Snowpalace")) {  
 				player.Map = "Snowpalace";
-				player.PosX = String.valueOf("-156");
-				player.PosY = String.valueOf("4");
+				player.PosX = String.valueOf("6");
+				player.PosY = String.valueOf("-154f");
 				this.screen.screenSwitch("LoadingScreen","",playernum);
 				dispose();
 			}
@@ -3739,7 +3777,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			float playerPosX = Float.parseFloat(player.PosX);
 			float playerPosY = Float.parseFloat(player.PosY);
 			
-			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || player.Map.equals("Mines") || player.Map.equals("Snowpalace") || player.Map.equals("Tower")) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || 
+			   player.Map.equals("Watercave") || player.Map.equals("Desert") ||
+			   player.Map.equals("Vulcano") || player.Map.equals("Mines") || 
+			   player.Map.equals("Snowpalace")){
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 						//Target do player
@@ -3837,6 +3878,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						
 						if(player.Map.equals("Sewers")) { spr_monster = gameControl.GetMonsterSewers(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						if(player.Map.equals("Forest")) { spr_monster = gameControl.GetMonsterForest(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
+						if(player.Map.equals("Watercave")) { spr_monster = gameControl.GetMonsterWatercave(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
+						if(player.Map.equals("Desert")) { spr_monster = gameControl.GetMonsterDesert(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
+						if(player.Map.equals("Mines")) { spr_monster = gameControl.GetMonsterMines(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
+						if(player.Map.equals("Vulcano")) { spr_monster = gameControl.GetMonsterVulcano(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
+						if(player.Map.equals("Snowpalace")) { spr_monster = gameControl.GetMonsterSnowpalace(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						
 						spr_monster.setPosition(listMonsters.get(i).MobPosX, listMonsters.get(i).MobPosY);
 						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);

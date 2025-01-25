@@ -59,28 +59,28 @@ marit4
   orig: 102, 57
   offset: 0, 0
   index: -1
-shell1
+shelly1
   rotate: false
   xy: 0, 422
   size: 54, 44
   orig: 54, 44
   offset: 0, 0
   index: -1
-shell2
+shelly2
   rotate: false
   xy: 54, 422
   size: 54, 44
   orig: 54, 44
   offset: 0, 0
   index: -1
-shell3
+shelly3
   rotate: false
   xy: 0, 466
   size: 54, 44
   orig: 54, 44
   offset: 0, 0
   index: -1
-shell4
+shelly4
   rotate: false
   xy: 54, 466
   size: 54, 44
