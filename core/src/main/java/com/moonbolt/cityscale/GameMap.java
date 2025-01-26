@@ -293,6 +293,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public void render(float delta) {
 			
+			
+			
 			//Just for coloring
 			Gdx.gl.glClearColor(1,1,1,1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -636,6 +638,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					font_master.draw(game.batch, String.valueOf(player.Money), cameraCoordsX - 25, cameraCoordsY - 37);				
 				}
 				
+				if(shopname.equals("jobmaster")) {
+					spr_shop = gameControl.GetShops("jobmaster",cameraCoordsX, cameraCoordsY);
+					spr_shop.draw(game.batch);		
+					font_master.draw(game.batch, String.valueOf(player.Money), cameraCoordsX - 25, cameraCoordsY - 37);				
+				}
+				
+				if(shopname.equals("cristalized")) {
+					spr_shop = gameControl.GetShops("crystal",cameraCoordsX, cameraCoordsY);
+					spr_shop.draw(game.batch);		
+					font_master.draw(game.batch, String.valueOf(player.Money), cameraCoordsX - 25, cameraCoordsY - 37);				
+				}
+				
 				
 				if(!showbuymsg.equals("")) {
 					showbuymsgtime--;
@@ -681,11 +695,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			spr_testeDot.setPosition(cameraCoordsX - 20, cameraCoordsY - 77);
+			spr_testeDot.setPosition(cameraCoordsX - 63, cameraCoordsY + 52);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 14, cameraCoordsY - 89);  
+			spr_testeDot.setPosition(cameraCoordsX - 40, cameraCoordsY + 41);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 			
@@ -696,7 +710,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void CheckCasting() {
 			if(player.playerInCast.equals("yes")) {			
 				
-				castFrame--;  //here
+				castFrame--; 
 				float posX = Float.parseFloat(player.PosX);
 				float posY = Float.parseFloat(player.PosY);
 				
@@ -2773,6 +2787,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		            state = "Shop";
 		            shopname = "weaponshop";
 		        }
+		        
+		        //mestre das classes
+		        if (posX >= 83 && posX <= 102 && posY >= -52 && posY <= -14.5f) {
+		            state = "Shop";
+		            shopname = "jobmaster";
+		        }
+		        
+		      //Cristalized
+		        if (posX >= 6.5f && posX <= 24 && posY >= -52 && posY <= -14.5f) {
+		            state = "Shop";
+		            shopname = "cristalized";
+		        }
 		    }
 		}
 		
@@ -3761,6 +3787,26 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						return false; 
 					}
 				}
+				if(shopname.equals("jobmaster")) {   //here
+					if(coordsTouch.x > cameraCoordsX - 20 && coordsTouch.x < cameraCoordsX + 12 && coordsTouch.y > cameraCoordsY - 70 && coordsTouch.y < cameraCoordsY - 52) {
+						state = "Main";
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX - 63 && coordsTouch.x < cameraCoordsX - 40 && coordsTouch.y > cameraCoordsY + 41 && coordsTouch.y < cameraCoordsY + 52) {
+						ChangeJob("Swordman");
+						return false; 
+					}
+				}
+				if(shopname.equals("cristalized")) { 
+					if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
+						state = "Main";
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
+						
+						return false; 
+					}
+				}
 			}
 			
 			if (state.contains("keyboard")) {
@@ -3769,6 +3815,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			return false;
+		}
+		
+		public void ChangeJob(String job) {
+			if(player.Job.equals("Aprendiz") && player.Level.equals("10")) {
+				player.Job = "Espadachim"; //here
+			}
 		}
 		
 		public void ShowMobs() {			

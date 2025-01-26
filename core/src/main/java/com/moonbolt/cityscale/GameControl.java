@@ -2143,6 +2143,18 @@ public class GameControl {
 			spr_master.setSize(130,160);
 		}
 		
+		if(shopname.equals("jobmaster")){
+			spr_master = atlas_ux.createSprite("jobmaster");
+			spr_master.setPosition(cameraCoordsX -65,cameraCoordsY -80);
+			spr_master.setSize(130,160);
+		}
+		
+		if(shopname.equals("cristalized")){
+			spr_master = atlas_ux.createSprite("crystal");
+			spr_master.setPosition(cameraCoordsX -65,cameraCoordsY -80);
+			spr_master.setSize(130,160);
+		}
+		
 		return spr_master;
 	}
 	
