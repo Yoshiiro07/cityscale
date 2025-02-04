@@ -2229,6 +2229,54 @@ public class GameControl {
 			return spr_master;	
 		}
 		
+		if(cardname.equals("cardslash")) {
+			spr_master = atlas_cards.createSprite("cardslash");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardhealthboost")) {
+			spr_master = atlas_cards.createSprite("cardhealthboost");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardarrowrain")) {
+			spr_master = atlas_cards.createSprite("cardarrowrain");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardperfectshow")) {
+			spr_master = atlas_cards.createSprite("cardperfectshow");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardheal")) {
+			spr_master = atlas_cards.createSprite("cardheal");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardholy")) {
+			spr_master = atlas_cards.createSprite("cardholy");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardpoison")) {
+			spr_master = atlas_cards.createSprite("cardpoison");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardsteal")) {
+			spr_master = atlas_cards.createSprite("cardsteal");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
 		return spr_master;
 	}
 	

@@ -293,7 +293,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public void render(float delta) {
 			
-			
+			//player.Job = "Espadachim";
+			player.Mp = "50";
+			//player.buffA = "none";
+			//player.BuffTimeA = "0";
 			
 			//Just for coloring
 			Gdx.gl.glClearColor(1,1,1,1);
@@ -528,6 +531,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			CheckMobAutoAttack();
 			ShowDamage();
 			ShowSkill();
+			CheckBuffsToRemove();
+			ShowBuffs();
 			
 			
 			if(playerDead) { ShowPlayerDead(); }
@@ -692,17 +697,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 			}
 			
-			
 			gameControl.UpdateControlPlayer(player);
 				
-			spr_testeDot.setPosition(cameraCoordsX - 63, cameraCoordsY + 52);
+			spr_testeDot.setPosition(cameraCoordsX + 34, cameraCoordsY + 52);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX - 40, cameraCoordsY + 41);  
+			spr_testeDot.setPosition(cameraCoordsX + 57, cameraCoordsY + 41);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
-			
 			
 			game.batch.end();
 		}
@@ -1516,18 +1519,95 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 60);
 			spr_master.draw(game.batch);
 			
-			//Novice Cards
-			spr_master = gameControl.GetCard("cardcutbreak");
-			spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
-			spr_master.draw(game.batch);
+			//Aprendiz Cards
+			if(player.Job.equals("Aprendiz")) {
+				spr_master = gameControl.GetCard("cardcutbreak");
+				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardrockbound");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+			}
 			
-			spr_master = gameControl.GetCard("cardrockbound");
-			spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
-			spr_master.draw(game.batch);
+			//Espadachim Cards
+			if(player.Job.equals("Espadachim")) {
+				spr_master = gameControl.GetCard("cardslash");
+				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardhealthboost");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+			}
 			
-			spr_master = gameControl.GetCard("cardempty");
-			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
-			spr_master.draw(game.batch);
+			//Mago Cards
+			if(player.Job.equals("Mago")) {
+				spr_master = gameControl.GetCard("cardfireball");
+				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardicespike");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+			}
+			
+			//Atirador Cards
+			if(player.Job.equals("Atirador")) {
+				spr_master = gameControl.GetCard("cardarrowrain");
+				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardperfectshow");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+			}
+			
+			//Curandeiro Cards
+			if(player.Job.equals("Curandeiro")) {
+				spr_master = gameControl.GetCard("cardheal");
+				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardholy");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+			}
+			
+			//Ladrao Cards
+			if(player.Job.equals("Ladrao")) {
+				spr_master = gameControl.GetCard("cardpoison");
+				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardsteal");
+				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+				
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
+				spr_master.draw(game.batch);
+			}
 		}
 		
 		public void ShowBag() {
@@ -1833,7 +1913,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							player.playerInCast = "no";
 							return; 	
 						}						
-						if(skillname.equals("healthboost")) { GiveBuff("healthboost"); rangedAttack = false; player.playerInCast = "no"; return; }			
+						if(skillname.equals("healthboost")) { 
+							Skill skillInUse = new Skill();
+							skillInUse.SkillName = "healthboost";
+							skillInUse.SkillPosX = Float.parseFloat(player.PosX) - 18;
+							skillInUse.SkillPosY = Float.parseFloat(player.PosY) - 3;
+							skillInUse.SkillTime = 100;
+							listSkills.add(skillInUse);	
+							GiveBuff("healthboost");   //here
+							rangedAttack = false; 
+							player.playerInCast = "no"; 
+							return; 
+						}			
 						if(skillname.equals("regen")) { 
 							GiveBuff("regen"); 
 							rangedAttack = false; 
@@ -2131,25 +2222,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				player.Def = String.valueOf(Def);
 				
-				if(buff.equals("A")) { player.BuffTimeA = "2500"; }
-				if(buff.equals("B")) { player.BuffTimeB = "2500"; }
-				if(buff.equals("C")) { player.BuffTimeC = "2500"; }
+				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
+				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
+				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
 			}
 			
 			if(buffname.equals("healthboost")) {
 				HpMax = HpMax * 3;
 				
-				if(buff.equals("A")) { player.BuffTimeA = "4500"; }
-				if(buff.equals("B")) { player.BuffTimeB = "4500"; }
-				if(buff.equals("C")) { player.BuffTimeC = "4500"; }
+				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
+				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
+				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
+				
+				player.HpMax = String.valueOf(HpMax);
 			}
 			
 			if(buffname.equals("berserk")) {
 				Str = Str * 3;
 				
-				if(buff.equals("A")) { player.BuffTimeA = "2500"; }
-				if(buff.equals("B")) { player.BuffTimeB = "2500"; }
-				if(buff.equals("C")) { player.BuffTimeC = "2500"; }
+				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
+				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
+				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
 			}
 			
 			if(buffname.equals("regen")) {
@@ -2170,9 +2263,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				Dex = Dex * 2;
 				Luk = Luk * 2;
 				
-				if(buff.equals("A")) { player.BuffTimeA = "3000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "3000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "3000"; }
+				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
+				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
+				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
 			}		
 		}
 		
@@ -2260,8 +2353,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(player.buffA.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
 				if(player.buffA.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
 				if(player.buffA.equals("lockshot")) { spr_master = gameControl.GetCard("cardlockshot"); }
-				spr_master.setSize(3, 8);
-				spr_master.setPosition(-50, 30);
+				spr_master.setSize(10, 20);
+				spr_master.setPosition(-28, 35);
 				spr_master.draw(game.batch);
 				
 				buffTimeA = buffTimeA - 1;
@@ -2354,6 +2447,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
 					spr_master.draw(game.batch);
 				}
 				
@@ -2390,6 +2485,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
 					spr_master.draw(game.batch);
 				}
 				
@@ -2426,6 +2523,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
 					spr_master.draw(game.batch);
 				}
 				
@@ -2462,6 +2561,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
 					spr_master.draw(game.batch);
 				}
 				
@@ -2498,6 +2599,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
 					spr_master.draw(game.batch);
 				}
 				
@@ -2534,6 +2637,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
 					spr_master.setSize(40,40);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
 					spr_master.draw(game.batch);
 				}
 				
@@ -2898,26 +3003,44 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(num == 1 && player.Job.equals("Aprendiz")) { SetUseSkill("tripleattack"); }
 			if(num == 1 && player.Job.equals("Espadachim")) { SetUseSkill("flysword"); }
-			if(num == 1 && player.Job.equals("Feiticeiro")) { SetUseSkill("fireball"); }
-			if(num == 1 && player.Job.equals("Batedor")) { SetUseSkill("hammercrash"); }
-			if(num == 1 && player.Job.equals("Pistoleiro")) { SetUseSkill("bulletrain"); }
+			if(num == 1 && player.Job.equals("Mago")) { SetUseSkill("fireball"); }
+			if(num == 1 && player.Job.equals("Atirador")) { SetUseSkill("bulletrain"); }
 			if(num == 1 && player.Job.equals("Curandeiro")) { SetUseSkill("heal"); }
 			if(num == 1 && player.Job.equals("Ladrao")) { SetUseSkill("poisonhit"); }
 			
 			if(num == 2 && player.Job.equals("Aprendiz")) { SetUseSkill("rockbound"); }
-			if(num == 2 && player.Job.equals("Espadachim")) { SetUseSkill("ironshield"); }
-			if(num == 2 && player.Job.equals("Feiticeiro")) { SetUseSkill("thundercloud"); }
-			if(num == 2 && player.Job.equals("Batedor")) { SetUseSkill("overpower"); }
-			if(num == 2 && player.Job.equals("Pistoleiro")) { SetUseSkill("mine"); }
+			if(num == 2 && player.Job.equals("Espadachim")) { SetUseSkill("healthboost"); }
+			if(num == 2 && player.Job.equals("Mago")) { SetUseSkill("thundercloud"); }
+			if(num == 2 && player.Job.equals("Atirador")) { SetUseSkill("mine"); }
 			if(num == 2 && player.Job.equals("Curandeiro")) { SetUseSkill("holyprism"); }
 			if(num == 2 && player.Job.equals("Ladrao")) { SetUseSkill("invisibility"); }
 			
-			if(num == 3 && player.Job.equals("Espadachim")) { SetUseSkill("healthboost"); }
-			if(num == 3 && player.Job.equals("Feiticeiro")) { SetUseSkill("icecrystal"); }
-			if(num == 3 && player.Job.equals("Batedor")) { SetUseSkill("berserk"); }
-			if(num == 3 && player.Job.equals("Pistoleiro")) { SetUseSkill("lockshot"); }
-			if(num == 3 && player.Job.equals("Curandeiro")) { SetUseSkill("defboost"); }
-			if(num == 3 && player.Job.equals("Ladrao")) { SetUseSkill("steal"); }			
+			//if(num == 3 && player.Job.equals("Espadachim")) { SetUseSkill("healthboost"); }
+			//if(num == 3 && player.Job.equals("Mago")) { SetUseSkill("icecrystal"); }
+			//if(num == 3 && player.Job.equals("Atirador")) { SetUseSkill("lockshot"); }
+			//if(num == 3 && player.Job.equals("Curandeiro")) { SetUseSkill("defboost"); }
+			//if(num == 3 && player.Job.equals("Ladrao")) { SetUseSkill("steal"); }			
+		}
+		
+		public void CheckBuffsToRemove() {
+			if(!player.buffA.equals("none")) {
+				int buffATime = Integer.parseInt(player.BuffTimeA);
+				if(buffATime > 0) { 
+					buffATime = buffATime - 1; 
+					player.BuffTimeA = String.valueOf(buffATime); 
+				}
+				if(buffATime <= 0) { player.buffA = "none";}
+			}
+			if(!player.buffB.equals("none")) {
+				int buffBTime = Integer.parseInt(player.BuffTimeB);
+				if(buffBTime > 0) { buffBTime = buffBTime--; player.BuffTimeB = String.valueOf(buffBTime); }
+				if(buffBTime <= 0) { player.BuffTimeB = "none"; }
+			}
+			if(!player.buffC.equals("none")) {
+				int buffCTime = Integer.parseInt(player.BuffTimeC);
+				if(buffCTime > 0) { buffCTime = buffCTime--; player.BuffTimeC = String.valueOf(buffCTime); }
+				if(buffCTime <= 0) { player.BuffTimeC = "none"; }
+			}
 		}
 		
 		public void SetUseSkill(String skill) {
@@ -3019,10 +3142,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				CheckAreaRangedSkill();
 			}
 			else { 
-				player.playerInCast = "yes"; //here
+				player.playerInCast = "yes";
 				playerCastTime = 100;
-			}
-		  
+			}	  
 		}
 		
 		public void MapChange(String map) {
@@ -3787,13 +3909,29 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						return false; 
 					}
 				}
-				if(shopname.equals("jobmaster")) {   //here
+				if(shopname.equals("jobmaster")) {  
 					if(coordsTouch.x > cameraCoordsX - 20 && coordsTouch.x < cameraCoordsX + 12 && coordsTouch.y > cameraCoordsY - 70 && coordsTouch.y < cameraCoordsY - 52) {
 						state = "Main";
 						return false; 
 					}
 					if(coordsTouch.x > cameraCoordsX - 63 && coordsTouch.x < cameraCoordsX - 40 && coordsTouch.y > cameraCoordsY + 41 && coordsTouch.y < cameraCoordsY + 52) {
-						ChangeJob("Swordman");
+						ChangeJob("Espadachim");
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX - 38.4f && coordsTouch.x < cameraCoordsX - 16 && coordsTouch.y > cameraCoordsY + 41 && coordsTouch.y < cameraCoordsY + 52) {
+						ChangeJob("Mago");
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX - 14 && coordsTouch.x < cameraCoordsX + 8 && coordsTouch.y > cameraCoordsY + 41 && coordsTouch.y < cameraCoordsY + 52) {
+						ChangeJob("Atirador");
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX + 10 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 41 && coordsTouch.y < cameraCoordsY + 52) {
+						ChangeJob("Curandeiro");
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX + 34 && coordsTouch.x < cameraCoordsX + 57 && coordsTouch.y > cameraCoordsY + 41 && coordsTouch.y < cameraCoordsY + 52) {
+						ChangeJob("Ladrao");
 						return false; 
 					}
 				}
@@ -3819,7 +3957,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void ChangeJob(String job) {
 			if(player.Job.equals("Aprendiz") && player.Level.equals("10")) {
-				player.Job = "Espadachim"; //here
+				player.Job = job;
 			}
 		}
 		
