@@ -293,7 +293,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public void render(float delta) {
 			
-			//player.Job = "Espadachim";
+			//player.Job = "Aprendiz";
 			player.Mp = "50";
 			//player.buffA = "none";
 			//player.BuffTimeA = "0";
@@ -532,7 +532,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			ShowDamage();
 			ShowSkill();
 			CheckBuffsToRemove();
-			ShowBuffs();
+			ShowBuffs(cameraCoordsX, cameraCoordsY);
 			
 			
 			if(playerDead) { ShowPlayerDead(); }
@@ -1570,7 +1570,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.setPosition(cameraCoordsX + 47, cameraCoordsY - 90);
 				spr_master.draw(game.batch);
 				
-				spr_master = gameControl.GetCard("cardperfectshow");
+				spr_master = gameControl.GetCard("cardperfectshot");
 				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 90);
 				spr_master.draw(game.batch);
 				
@@ -1735,12 +1735,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Luk = Integer.parseInt(player.Luk);
 			int Wis = Integer.parseInt(player.Wis);
 			
-			if(player.Map.equals("Sewers") || player.Map.equals("Forest") && autoattack) {
+			int playerlevel = Integer.parseInt(player.Level);
+			
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || player.Map.equals("Watercave")  
+					|| player.Map.equals("Desert") || player.Map.equals("Vulcano") 
+					|| player.Map.equals("Mines") || player.Map.equals("Snowpalace")
+					&& autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 					mobPosX = listMonsters.get(i).MobPosX;
-					mobPosY = listMonsters.get(i).MobPosY;
-					
+					mobPosY = listMonsters.get(i).MobPosY;			
 					mobDeadStatus = listMonsters.get(i).MobDead;
 					
 					//Close Ranged
@@ -1752,7 +1756,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							//Aprendiz
 							if(skillname.equals("tripleattack")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = Atk + ((Str * 2) + atkweapon);
+								int totaldmg = (Atk * 3) + ((Str * 2) + atkweapon) + (playerlevel * 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -1773,40 +1777,17 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
 								PushAttack(mobHP,i,mobDeadStatus);
 							}
-							if(skillname.equals("hammercrash")) {
-								int atkweapon = CheckWeapon();
-								int totaldmg = ((Str * 2) + (Vit * 2) + atkweapon);
-								int mobHP = listMonsters.get(i).MobHp;
-								mobHP = mobHP - totaldmg;
-								skillEffect = true;
-								Skill skillInUse = new Skill();
-								Damage damageSkill = new Damage();
-								skillInUse.SkillName = "tripleattack";
-								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
-								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
-								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
-								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
-								skillInUse.SkillTime = 100;
-								damageSkill.DamageTime = 100;
-								damageSkill.DamageType = "mob";
-								damageSkill.DamageValue = totaldmg;
-								listSkills.add(skillInUse);	
-								listDamage.add(damageSkill);
-								rangedAttack = false;
-								if(mobHP <= 0) { mobHP = 0; mobDeadStatus = "yes"; MobDead(i); }	
-								PushAttack(mobHP,i,mobDeadStatus);
-							}
 							if(skillname.equals("flysword")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Str * 3) + (Agi * 2) + atkweapon);
+								int totaldmg = Atk + ((Str * 3) + (Agi * 2) + atkweapon) + 50 + (playerlevel * 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
-								skillInUse.SkillName = "tripleattack";
-								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
-								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillName = "flysword";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX - 20;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY - 20;
 								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
 								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
@@ -1821,14 +1802,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("poisonhit")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Luk * 2)+ (Str * 2) + atkweapon);
+								int totaldmg = Atk + ((Luk * 2)+ (Str * 2) + atkweapon) + 30 + (playerlevel * 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								listMonsters.get(i).MobHp = mobHP;
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
-								skillInUse.SkillName = "tripleattack";
+								skillInUse.SkillName = "poisonhit";
 								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
 								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
 								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
@@ -1848,7 +1829,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("overpower")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon);	
+								int totaldmg = Atk + ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon);	
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -1876,7 +1857,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(rangedAttack) {	
 					
 						if(skillname.equals("heal")) {
-							Hp = Hp + (Wis * 3);
+							Hp = Hp + (Wis * 5);
 							if(Hp > HpMax) { Hp = HpMax; }
 							rangedAttack = false; 
 							skillEffect = true;
@@ -1920,11 +1901,23 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							skillInUse.SkillPosY = Float.parseFloat(player.PosY) - 3;
 							skillInUse.SkillTime = 100;
 							listSkills.add(skillInUse);	
-							GiveBuff("healthboost");   //here
+							GiveBuff("healthboost");
 							rangedAttack = false; 
 							player.playerInCast = "no"; 
 							return; 
-						}			
+						}	
+						if(skillname.equals("perfectshot")) { 
+							Skill skillInUse = new Skill();
+							skillInUse.SkillName = "perfectshot";
+							skillInUse.SkillPosX = Float.parseFloat(player.PosX) - 45;
+							skillInUse.SkillPosY = Float.parseFloat(player.PosY) - 25;
+							skillInUse.SkillTime = 100;
+							listSkills.add(skillInUse);	
+							GiveBuff("perfectshot");
+							rangedAttack = false; 
+							player.playerInCast = "no"; 
+							return; 
+						}
 						if(skillname.equals("regen")) { 
 							GiveBuff("regen"); 
 							rangedAttack = false; 
@@ -1987,7 +1980,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("rockbound")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = Atk + ((Wis * 2) + 10);
+								int totaldmg = Atk + ((Wis * 2) + (Str * 2) + 25);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2013,7 +2006,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("fireball")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Wis * 2) + atkweapon);
+								int totaldmg = ((Wis * 2) + atkweapon) + 50 + (playerlevel * 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								listMonsters.get(i).MobHp = mobHP;				
@@ -2021,8 +2014,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "fireball";
-								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
-								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX - 20;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY - 20;
 								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
 								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
@@ -2040,18 +2033,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("icecrystal")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Wis * 6) + (Dex * 2) + atkweapon);
+								int totaldmg = ((Wis * 6) + (Dex * 2) + atkweapon) + 100 + (playerlevel * 14);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "icecrystal";
-								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
-								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX - 30;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY - 20;
 								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
 								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
-								skillInUse.SkillTime = 100;
+								skillInUse.SkillTime = 200;
 								damageSkill.DamageTime = 100;
 								damageSkill.DamageType = "mob";
 								damageSkill.DamageValue = totaldmg;
@@ -2065,7 +2058,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}												
 							if(skillname.equals("thundercloud")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Wis * 3) + (Agi * 2) + atkweapon);
+								int totaldmg = Atk + ((Wis * 10) + (Agi * 2) + atkweapon) + (playerlevel * 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2091,15 +2084,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("bulletrain")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Dex * 2) + (Agi * 2) + 10);
+								int totaldmg = ((Dex * 2) + (Agi * 2) + 10) + 40 + (playerlevel * 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "bulletrain";
-								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
-								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX - 30;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY - 20;
 								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
 								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
@@ -2116,15 +2109,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}						
 							if(skillname.equals("holyprism")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Wis) + Luk + atkweapon);
+								int totaldmg = ((Wis) + (Luk * 2) + atkweapon) + 20 + (playerlevel * 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "holyprism";
-								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
-								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX - 30;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY - 20;
 								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
 								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
@@ -2228,13 +2221,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			if(buffname.equals("healthboost")) {
-				HpMax = HpMax * 3;
+				Str = Str * 3;
 				
-				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
+				if(buff.equals("A")) { player.BuffTimeA = "3000"; }
+				if(buff.equals("B")) { player.BuffTimeB = "3000"; }
+				if(buff.equals("C")) { player.BuffTimeC = "3000"; }
 				
 				player.HpMax = String.valueOf(HpMax);
+			}
+			
+			if(buffname.equals("perfectshot")) {
+				Dex = Dex * 3;
+				Luk = Luk * 3;
+				
+				if(buff.equals("A")) { player.BuffTimeA = "3000"; }
+				if(buff.equals("B")) { player.BuffTimeB = "3000"; }
+				if(buff.equals("C")) { player.BuffTimeC = "3000"; }
+				
+				player.Dex = String.valueOf(Dex);
+				player.Luk = String.valueOf(Luk);
 			}
 			
 			if(buffname.equals("berserk")) {
@@ -2316,6 +2321,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.HpMax = String.valueOf(HpMax);
 			}
 			
+			if(buffname.equals("perfectshot")) {
+				Dex = Dex / 3;
+				Luk = Luk / 3;
+				player.Dex = String.valueOf(Dex);
+				player.Luk = String.valueOf(Luk);
+			}
+			
 			if(buffname.equals("berserk")) {
 				Str = Str / 3;
 				player.Str = String.valueOf(Str);
@@ -2326,21 +2338,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.regenTimeMax = String.valueOf(regenTimeMax);
 			}
 			
-			if(buffname.equals("lockshot")) {
-				Dex = Dex / 2;
-				Luk = Luk / 2;
-				
-				player.Dex = String.valueOf(Dex);
-				player.Luk = String.valueOf(Luk);
-			}
-			
 			if(buff.equals("A")) { player.buffA = "none"; player.BuffTimeA = "0"; }
 			if(buff.equals("B")) { player.buffB = "none"; player.BuffTimeB = "0"; }
 			if(buff.equals("C")) { player.buffC = "none"; player.BuffTimeC = "0"; }
 			
 		}
 		
-		public void ShowBuffs() {
+		public void ShowBuffs(float cameraCoordsX, float cameraCoordsY) {
 			int buffTimeA = Integer.parseInt(player.BuffTimeA);
 			int buffTimeB = Integer.parseInt(player.BuffTimeB);
 			int buffTimeC = Integer.parseInt(player.BuffTimeC);
@@ -2352,9 +2356,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(player.buffA.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
 				if(player.buffA.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
 				if(player.buffA.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
-				if(player.buffA.equals("lockshot")) { spr_master = gameControl.GetCard("cardlockshot"); }
+				if(player.buffA.equals("perfectshot")) { spr_master = gameControl.GetCard("cardperfectshot"); }
 				spr_master.setSize(10, 20);
-				spr_master.setPosition(-28, 35);
+				spr_master.setPosition(cameraCoordsX - 45, cameraCoordsY + 60);
 				spr_master.draw(game.batch);
 				
 				buffTimeA = buffTimeA - 1;
@@ -2369,9 +2373,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(player.buffB.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
 				if(player.buffB.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
 				if(player.buffB.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
-				if(player.buffB.equals("lockshot")) { spr_master = gameControl.GetCard("cardlockshot"); }
+				if(player.buffB.equals("perfectshot")) { spr_master = gameControl.GetCard("cardperfectshot"); }
 				spr_master.setSize(3, 8);
-				spr_master.setPosition(-45, 30);
+				spr_master.setPosition(cameraCoordsX - 35, cameraCoordsY + 60);
 				spr_master.draw(game.batch);
 				
 				buffTimeB = buffTimeB - 1;
@@ -2387,8 +2391,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(player.buffC.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
 				if(player.buffC.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
 				if(player.buffC.equals("lockshot")) { spr_master = gameControl.GetCard("cardlockshot"); }
+				if(player.buffC.equals("perfectshot")) { spr_master = gameControl.GetCard("cardperfectshot"); }
 				spr_master.setSize(3, 8);
-				spr_master.setPosition(-40, 30);
+				spr_master.setPosition(cameraCoordsX - 25, cameraCoordsY + 60);
 				spr_master.draw(game.batch);
 				
 				buffTimeC = buffTimeC - 1;
@@ -2415,165 +2420,58 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				listSkills.get(i).SkillTime = time - 1;
 				
 				if(listSkills.get(i).SkillTime >= 80 && listSkills.get(i).SkillTime <= 100) { 
-					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",6); }
-					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",6); }
-					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",6); }
-					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",6); }
-					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",6); }
-					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",6); }
-					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",6); }
-					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",6); }
-					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",6); }
-					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",6); }
-					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",6); }
-					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",6); }
-					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",6); }
-					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",6); }
-					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",6); }
-					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",6); }
-					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",6); }
-					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",6); }
-					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",6); }
-					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",6); }
-					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",6); }
-					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",6); }
-					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",6); }
-					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",6); }
-					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",6); }
-					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",6); }
-					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",6); }
-					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",6); }
-					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",6); }
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",1); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",1); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",1); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",1); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",1); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",1); }
+					if(listSkills.get(i).SkillName.equals("perfectshot")) { spr_master = gameControl.GetSpriteSkill("perfectshot",1); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",1); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",1); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",1); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",1); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",1); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",1); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",1); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",1); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",1); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",1); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",1); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",1); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",1); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",1); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",1); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",1); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",1); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",1); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",1); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",1); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",1); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",1); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
-					spr_master.setSize(40,40);
+					spr_master.setSize(100,100);
 					
 					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { 
+						spr_master.setSize(70,70); 
+						float playerposx = Float.parseFloat(player.PosX);
+						float playerposy = Float.parseFloat(player.PosY);
+						spr_master.setPosition(playerposx - 20, playerposy - 10);
+					}
+					
 					spr_master.draw(game.batch);
 				}
 				
 				if(listSkills.get(i).SkillTime >= 60 && listSkills.get(i).SkillTime <= 80) { 
-					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",5); }
-					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",5); }
-					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",5); }
-					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",5); }
-					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",5); }
-					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",5); }
-					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",5); }
-					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",5); }
-					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",5); }
-					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",5); }
-					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",5); }
-					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",5); }
-					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",5); }
-					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",5); }
-					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",5); }
-					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",5); }
-					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",5); }
-					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",5); }
-					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",5); }
-					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",5); }
-					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",5); }
-					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",5); }
-					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",5); }
-					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",5); }
-					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",5); }
-					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",5); }
-					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",5); }
-					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",5); }
-					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",5); }
-					
-					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
-					spr_master.setSize(40,40);
-					
-					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
-					spr_master.draw(game.batch);
-				}
-				
-				if(listSkills.get(i).SkillTime >= 40 && listSkills.get(i).SkillTime <= 60) { 
-					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",4); }
-					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",4); }
-					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",4); }
-					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",4); }
-					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",4); }
-					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",4); }
-					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",4); }
-					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",4); }
-					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",4); }
-					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",4); }
-					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",4); }
-					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",4); }
-					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",4); }
-					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",4); }
-					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",4); }
-					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",4); }
-					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",4); }
-					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",4); }
-					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",4); }
-					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",4); }
-					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",4); }
-					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",4); }
-					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",4); }
-					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",4); }
-					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",4); }
-					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",4); }
-					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",4); }
-					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",4); }
-					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",4); }
-					
-					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
-					spr_master.setSize(40,40);
-					
-					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
-					spr_master.draw(game.batch);
-				}
-				
-				if(listSkills.get(i).SkillTime >= 20 && listSkills.get(i).SkillTime <= 40) { 
-					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",3); }
-					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",3); }
-					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",3); }
-					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",3); }
-					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",3); }
-					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",3); }
-					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",3); }
-					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",3); }
-					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",3); }
-					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",3); }
-					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",3); }
-					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",3); }
-					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",3); }
-					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",3); }
-					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",3); }
-					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",3); }
-					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",3); }
-					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",3); }
-					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",3); }
-					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",3); }
-					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",3); }
-					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",3); }
-					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",3); }
-					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",3); }
-					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",3); }
-					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",3); }
-					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",3); }
-					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",3); }
-					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",3); }
-					
-					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
-					spr_master.setSize(40,40);
-					
-					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
-					spr_master.draw(game.batch);
-				}
-				
-				if(listSkills.get(i).SkillTime >= 10 && listSkills.get(i).SkillTime <= 20) { 
 					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",2); }
 					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",2); }
 					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",2); }
 					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",2); }
 					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",2); }
 					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",2); }
-					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",2); }
+					if(listSkills.get(i).SkillName.equals("perfectshot")) { spr_master = gameControl.GetSpriteSkill("perfectshot",2); }
 					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",2); }
 					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",2); }
 					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",2); }
@@ -2598,47 +2496,183 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",2); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
-					spr_master.setSize(40,40);
+					spr_master.setSize(100,100);
 					
 					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { 
+						spr_master.setSize(70,70); 
+						float playerposx = Float.parseFloat(player.PosX);
+						float playerposy = Float.parseFloat(player.PosY);
+						spr_master.setPosition(playerposx - 20, playerposy - 10);
+					}
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime >= 40 && listSkills.get(i).SkillTime <= 60) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",3); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",3); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",3); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",3); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",3); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",3); }
+					if(listSkills.get(i).SkillName.equals("perfectshot")) { spr_master = gameControl.GetSpriteSkill("perfectshot",3); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",3); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",3); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",3); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",3); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",3); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",3); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",3); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",3); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",3); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",3); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",3); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",3); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",3); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",3); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",3); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",3); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",3); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",3); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",3); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",3); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",3); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",3); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
+					spr_master.setSize(100,100);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { 
+						spr_master.setSize(70,70); 
+						spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosX -10);
+					}
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime >= 20 && listSkills.get(i).SkillTime <= 40) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",4); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",4); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",4); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",4); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",4); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",4); }
+					if(listSkills.get(i).SkillName.equals("perfectshot")) { spr_master = gameControl.GetSpriteSkill("perfectshot",4); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",4); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",4); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",4); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",4); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",4); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",4); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",4); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",4); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",4); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",4); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",4); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",4); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",4); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",4); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",4); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",4); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",4); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",4); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",4); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",4); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",4); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",4); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
+					spr_master.setSize(100,100);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { 
+						spr_master.setSize(70,70); 
+						spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosX -10);
+					}
+					spr_master.draw(game.batch);
+				}
+				
+				if(listSkills.get(i).SkillTime >= 10 && listSkills.get(i).SkillTime <= 20) { 
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",5); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",5); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",5); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",5); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",5); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",5); }
+					if(listSkills.get(i).SkillName.equals("perfectshot")) { spr_master = gameControl.GetSpriteSkill("perfectshot",5); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",5); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",5); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",5); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",5); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",5); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",5); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",5); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",5); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",5); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",5); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",5); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",5); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",5); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",5); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",5); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",5); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",5); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",5); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",5); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",5); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",5); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",5); }
+					
+					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
+					spr_master.setSize(100,100);
+					
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { 
+						spr_master.setSize(70,70); 
+						spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosX -10);
+					}
 					spr_master.draw(game.batch);
 				}
 				
 				if(listSkills.get(i).SkillTime >= 0 && listSkills.get(i).SkillTime <= 10) { 
-					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",1); }
-					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",1); }
-					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",1); }
-					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",1); }
-					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",1); }
-					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",1); }
-					if(listSkills.get(i).SkillName.equals("lockshot")) { spr_master = gameControl.GetSpriteSkill("lockshot",1); }
-					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",1); }
-					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",1); }
-					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",1); }
-					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",1); }
-					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",1); }
-					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",1); }
-					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",1); }
-					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",1); }
-					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",1); }
-					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",1); }
-					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",1); }
-					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",1); }
-					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",1); }
-					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",1); }
-					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",1); }
-					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",1); }
-					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",1); }
-					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",1); }
-					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",1); }
-					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",1); }
-					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",1); }
-					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",1); spr_master.setSize(60,60); }
+					if(listSkills.get(i).SkillName.equals("tripleattack")) { spr_master = gameControl.GetSpriteSkill("tripleattack",6); }
+					if(listSkills.get(i).SkillName.equals("steal")) { spr_master = gameControl.GetSpriteSkill("steal",6); }
+					if(listSkills.get(i).SkillName.equals("soulclash")) { spr_master = gameControl.GetSpriteSkill("soulclash",6); }
+					if(listSkills.get(i).SkillName.equals("ravenblade")) { spr_master = gameControl.GetSpriteSkill("ravenblade",6); }
+					if(listSkills.get(i).SkillName.equals("ragebound")) { spr_master = gameControl.GetSpriteSkill("ragebound",6); }
+					if(listSkills.get(i).SkillName.equals("thundercloud")) { spr_master = gameControl.GetSpriteSkill("thundercloud",6); }
+					if(listSkills.get(i).SkillName.equals("perfectshot")) { spr_master = gameControl.GetSpriteSkill("perfectshot",6); }
+					if(listSkills.get(i).SkillName.equals("mine")) { spr_master = gameControl.GetSpriteSkill("mine",6); }
+					if(listSkills.get(i).SkillName.equals("overpower")) { spr_master = gameControl.GetSpriteSkill("overpower",6); }
+					if(listSkills.get(i).SkillName.equals("poisonhit")) { spr_master = gameControl.GetSpriteSkill("poisonhit",6); }
+					if(listSkills.get(i).SkillName.equals("precision")) { spr_master = gameControl.GetSpriteSkill("precision",6); }
+					if(listSkills.get(i).SkillName.equals("protect")) { spr_master = gameControl.GetSpriteSkill("protect",6); }
+					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master = gameControl.GetSpriteSkill("healthboost",6); }
+					if(listSkills.get(i).SkillName.equals("holyprism")) { spr_master = gameControl.GetSpriteSkill("holyprism",6); }
+					if(listSkills.get(i).SkillName.equals("icecrystal")) { spr_master = gameControl.GetSpriteSkill("icecrystal",6); }
+					if(listSkills.get(i).SkillName.equals("impound")) { spr_master = gameControl.GetSpriteSkill("impound",6); }
+					if(listSkills.get(i).SkillName.equals("invisibility")) { spr_master = gameControl.GetSpriteSkill("invisibility",6); }
+					if(listSkills.get(i).SkillName.equals("ironshield")) { spr_master = gameControl.GetSpriteSkill("ironshield",6); }
+					if(listSkills.get(i).SkillName.equals("doublehit")) { spr_master = gameControl.GetSpriteSkill("doublehit",6); }
+					if(listSkills.get(i).SkillName.equals("fastshot")) { spr_master = gameControl.GetSpriteSkill("fastshot",6); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { spr_master = gameControl.GetSpriteSkill("fireball",6); }
+					if(listSkills.get(i).SkillName.equals("flysword")) { spr_master = gameControl.GetSpriteSkill("flysword",6); }
+					if(listSkills.get(i).SkillName.equals("heal")) { spr_master = gameControl.GetSpriteSkill("heal",6); }
+					if(listSkills.get(i).SkillName.equals("defboost")) { spr_master = gameControl.GetSpriteSkill("defboost",6); }
+					if(listSkills.get(i).SkillName.equals("berserk")) { spr_master = gameControl.GetSpriteSkill("berserk",6); }
+					if(listSkills.get(i).SkillName.equals("bulletrain")) { spr_master = gameControl.GetSpriteSkill("bulletrain",6); }
+					if(listSkills.get(i).SkillName.equals("dashkick")) { spr_master = gameControl.GetSpriteSkill("dashkick",6); }
+					if(listSkills.get(i).SkillName.equals("regen")) { spr_master = gameControl.GetSpriteSkill("regen",6); }
+					if(listSkills.get(i).SkillName.equals("rockbound")) { spr_master = gameControl.GetSpriteSkill("rockbound",6); spr_master.setSize(60,60); }
 					
 					spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosY);
-					spr_master.setSize(40,40);
+					spr_master.setSize(100,100);
 					
 					if(listSkills.get(i).SkillName.equals("healthboost")) { spr_master.setSize(60,60); }
+					if(listSkills.get(i).SkillName.equals("fireball")) { 
+						spr_master.setSize(70,70); 
+						spr_master.setPosition(listSkills.get(i).SkillPosX -10, listSkills.get(i).SkillPosX -10);
+					}
 					spr_master.draw(game.batch);
 				}
 				
@@ -2797,6 +2831,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void MobDead(int mobindex) {
 			int playermoney = Integer.parseInt(player.Money);
+			int expsended = 0;
 			
 			player.Target = "none";
 			player.AtkTimer = player.AtkTimerMax;
@@ -2812,10 +2847,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    int expreceived = listMonsters.get(mobindex).MobExp;
 		    gameControl.GiveExp(expreceived);
 
-			expreceived = 1;
+		    expsended = 5;
 			
 		    try {
-				gameControl.SendExpBank("SendExpBank",player.AccountNumber,playernumString,player.Name,String.valueOf(expreceived),date, new HttpCallback() {
+				gameControl.SendExpBank("SendExpBank",player.AccountNumber,playernumString,player.Name,String.valueOf(expsended),date, new HttpCallback() {
 				    @Override
 				    public void onSuccess(String response) {
 				    	if(response.contains("success")) {}
@@ -3010,8 +3045,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(num == 2 && player.Job.equals("Aprendiz")) { SetUseSkill("rockbound"); }
 			if(num == 2 && player.Job.equals("Espadachim")) { SetUseSkill("healthboost"); }
-			if(num == 2 && player.Job.equals("Mago")) { SetUseSkill("thundercloud"); }
-			if(num == 2 && player.Job.equals("Atirador")) { SetUseSkill("mine"); }
+			if(num == 2 && player.Job.equals("Mago")) { SetUseSkill("icecrystal"); }
+			if(num == 2 && player.Job.equals("Atirador")) { SetUseSkill("perfectshot"); } //here
 			if(num == 2 && player.Job.equals("Curandeiro")) { SetUseSkill("holyprism"); }
 			if(num == 2 && player.Job.equals("Ladrao")) { SetUseSkill("invisibility"); }
 			
@@ -3049,59 +3084,39 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Cost
 			if(skill.equals("tripleattack") && Mp < 5) { notmp = true; return; }
 			if(skill.equals("rockbound") && Mp < 5) { notmp = true; return; }
-			if(skill.equals("regen") && Mp < 2) { notmp = true; return; }
 			
-			if(skill.equals("flysword") && Mp < 45) { notmp = true; return; }
-			if(skill.equals("ironshield") && Mp < 30) { notmp = true; return; }
-			if(skill.equals("healthboost") && Mp < 40) { notmp = true; return; }
+			if(skill.equals("flysword") && Mp < 25) { notmp = true; return; }
+			if(skill.equals("healthboost") && Mp < 20) { notmp = true; return; }
 			
-			if(skill.equals("fireball") && Mp < 30) { notmp = true; return; }
-			if(skill.equals("thundercloud") && Mp < 60) { notmp = true; return; }
-			if(skill.equals("icecrystal") && Mp < 100) { notmp = true; return; }
+			if(skill.equals("fireball") && Mp < 10) { notmp = true; return; }
+			if(skill.equals("icecrystal") && Mp < 50) { notmp = true; return; }
 			
-			if(skill.equals("heal") && Mp < 20) { notmp = true; return; }
-			if(skill.equals("holyprism") && Mp < 5) { notmp = true; return; }
-			if(skill.equals("defboost") && Mp < 40) { notmp = true; return; }
+			if(skill.equals("heal") && Mp < 15) { notmp = true; return; }
+			if(skill.equals("holyprism") && Mp < 2) { notmp = true; return; }
 			
 			if(skill.equals("poisonhit") && Mp < 25) { notmp = true; return; }
 			if(skill.equals("steal") && Mp < 10) { notmp = true; return; }
-			if(skill.equals("invisibility") && Mp < 15) { notmp = true; return; }
 			
-			if(skill.equals("berserk") && Mp < 25) { notmp = true; return; }
-			if(skill.equals("overpower") && Mp < 50) { notmp = true; return; }
-			if(skill.equals("hammercrash") && Mp < 20) { notmp = true; return; }
-			
-			if(skill.equals("lockshot") && Mp < 15) { notmp = true; return; }
-			if(skill.equals("mine") && Mp < 20) { notmp = true; return; }
-			if(skill.equals("bulletrain") && Mp < 40) { notmp = true; return; }
+			if(skill.equals("bulletrain") && Mp < 15) { notmp = true; return; }
+			if(skill.equals("perfectshot") && Mp < 20) { notmp = true; return; }
 			
 			if(skill.equals("tripleattack")) { Mp = Mp - 5; if(Mp <= 0) { Mp = 0;} }
 			if(skill.equals("rockbound")) { Mp = Mp - 5; if(Mp <= 0) { Mp = 0;}}
-			if(skill.equals("regen")) { Mp = Mp - 2; if(Mp <= 0) { Mp = 0;} }
 			
 			if(skill.equals("flysword")) { Mp = Mp - 25; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("ironshield")) { Mp = Mp - 15; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("healthboost")) { Mp = Mp - 40; if(Mp <= 0) { Mp = 0;} }
+			if(skill.equals("healthboost")) { Mp = Mp - 20; if(Mp <= 0) { Mp = 0;} }
 			
 			if(skill.equals("fireball")) { Mp = Mp - 10; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("thundercloud")) { Mp = Mp - 40; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("icecrystal")) { Mp = Mp - 100; if(Mp <= 0) { Mp = 0;} }
+			if(skill.equals("icecrystal")) { Mp = Mp - 50; if(Mp <= 0) { Mp = 0;} }
 			
-			if(skill.equals("heal")) { Mp = Mp - 10; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("holyprism")) { Mp = Mp - 5; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("defboost")) { Mp = Mp - 40; if(Mp <= 0) { Mp = 0;} }
+			if(skill.equals("heal")) { Mp = Mp - 15; if(Mp <= 0) { Mp = 0;} }
+			if(skill.equals("holyprism")) { Mp = Mp - 2; if(Mp <= 0) { Mp = 0;} }
 			
 			if(skill.equals("poisonhit")) { Mp = Mp - 10; if(Mp <= 0) { Mp = 0;} }
 			if(skill.equals("steal")) { Mp = Mp - 10; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("invisibility")) { Mp = Mp - 15; if(Mp <= 0) { Mp = 0;} }
 			
-			if(skill.equals("berserk")) { Mp = Mp - 25; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("overpower")) { Mp = Mp - 50; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("hammercrash")) { Mp = Mp - 20; if(Mp <= 0) { Mp = 0;} }
-			
-			if(skill.equals("lockshot")) { Mp = Mp - 15; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("mine")) { Mp = Mp - 20; if(Mp <= 0) { Mp = 0;} }
-			if(skill.equals("bulletrain")) { Mp = Mp - 40; if(Mp <= 0) { Mp = 0;} }
+			if(skill.equals("bulletrain")) { Mp = Mp - 15; if(Mp <= 0) { Mp = 0;} }
+			if(skill.equals("perfectshot")) { Mp = Mp - 20; if(Mp <= 0) { Mp = 0;} }
 			
 			player.Mp = String.valueOf(Mp);
 			
@@ -3128,9 +3143,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(skill.equals("berserk")) { rangedAttack = false; }
 			
 			
-			if(skill.equals("lockshot")) { rangedAttack = true; }
-			if(skill.equals("mine")) { rangedAttack = true; }
 			if(skill.equals("bulletrain")) { rangedAttack = true; }
+			if(skill.equals("perfectshot")) { rangedAttack = true; }
 			
 			if(skill.equals("steal")) { rangedAttack = false; }
 			if(skill.equals("poisonhit")) { rangedAttack = false; }

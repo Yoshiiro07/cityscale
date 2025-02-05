@@ -113,7 +113,7 @@ public class GameControl {
 	private TextureAtlas atlas_ravenblade;
 	private TextureAtlas atlas_ragebound;
 	private TextureAtlas atlas_thundercloud;
-	private TextureAtlas atlas_lockshot;
+	private TextureAtlas atlas_perfectshot;
 	private TextureAtlas atlas_mine;
 	private TextureAtlas atlas_overpower;
 	private TextureAtlas atlas_poisonhit;
@@ -210,7 +210,7 @@ public class GameControl {
 		atlas_ravenblade = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/ravenblade.txt"));
 		atlas_ragebound = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/ragebound.txt"));
 		atlas_thundercloud = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/thundercloud.txt"));
-		atlas_lockshot = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/lockshot.txt"));
+		atlas_perfectshot = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/perfectshot.txt"));
 		atlas_mine = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/mine.txt"));
 		atlas_overpower = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/overpower.txt"));
 		atlas_poisonhit = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/poisonhit.txt"));
@@ -2241,14 +2241,26 @@ public class GameControl {
 			return spr_master;	
 		}
 		
+		if(cardname.equals("cardfireball")) {
+			spr_master = atlas_cards.createSprite("cardfireball");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardicespike")) {
+			spr_master = atlas_cards.createSprite("cardicespike");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
 		if(cardname.equals("cardarrowrain")) {
 			spr_master = atlas_cards.createSprite("cardarrowrain");
 			spr_master.setSize(10,25);
 			return spr_master;	
 		}
 		
-		if(cardname.equals("cardperfectshow")) {
-			spr_master = atlas_cards.createSprite("cardperfectshow");
+		if(cardname.equals("cardperfectshot")) {
+			spr_master = atlas_cards.createSprite("cardperfectshot");
 			spr_master.setSize(10,25);
 			return spr_master;	
 		}
@@ -2917,63 +2929,63 @@ public class GameControl {
 		expPlayer = expPlayer + exp;
 		
 		//Sewers   / Forest
-		if(level == 1 && expPlayer >= 200) {  level = 2; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 2 && expPlayer >= 300) {  level = 3; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 3 && expPlayer >= 400) {  level = 4; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 4 && expPlayer >= 500) {  level = 5; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 5 && expPlayer >= 600) {  level = 6; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 6 && expPlayer >= 700) {  level = 7; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 7 && expPlayer >= 800) {  level = 8; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 8 && expPlayer >= 900) {  level = 9; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 9 && expPlayer >= 1000) {  level = 10; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 1 && expPlayer >= 25) {  level = 2; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 2 && expPlayer >= 50) {  level = 3; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 3 && expPlayer >= 75) {  level = 4; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 4 && expPlayer >= 600) {  level = 5; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 5 && expPlayer >= 950) {  level = 6; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 6 && expPlayer >= 1200) {  level = 7; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 7 && expPlayer >= 3300) {  level = 8; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 8 && expPlayer >= 4200) {  level = 9; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 9 && expPlayer >= 5200) {  level = 10; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Watercave / Desert
-		if(level == 10 && expPlayer >= 5000) {  level = 11; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 11 && expPlayer >= 5200) {  level = 12; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 12 && expPlayer >= 5300) {  level = 13; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 13 && expPlayer >= 5400) {  level = 14; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 14 && expPlayer >= 5500) {  level = 15; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 15 && expPlayer >= 5600) {  level = 16; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 16 && expPlayer >= 5700) {  level = 17; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 17 && expPlayer >= 5800) {  level = 18; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 18 && expPlayer >= 5900) {  level = 19; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 19 && expPlayer >= 6000) {  level = 20; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 10 && expPlayer >= 7800) {  level = 11; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 11 && expPlayer >= 9200) {  level = 12; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 12 && expPlayer >= 13300) {  level = 13; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 13 && expPlayer >= 15400) {  level = 14; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 14 && expPlayer >= 17500) {  level = 15; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 15 && expPlayer >= 18600) {  level = 16; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 16 && expPlayer >= 22700) {  level = 17; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 17 && expPlayer >= 24800) {  level = 18; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 18 && expPlayer >= 26900) {  level = 19; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 19 && expPlayer >= 32000) {  level = 20; expPlayer = 0; HpMax = HpMax + 20; MpMax = MpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Mines
-		if(level == 20 && expPlayer >= 30000) {  level = 21; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 21 && expPlayer >= 31000) {  level = 22; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 22 && expPlayer >= 32000) {  level = 23; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 23 && expPlayer >= 33000) {  level = 24; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 24 && expPlayer >= 34000) {  level = 25; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 25 && expPlayer >= 35000) {  level = 26; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 26 && expPlayer >= 36000) {  level = 27; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 27 && expPlayer >= 37000) {  level = 28; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 28 && expPlayer >= 38000) {  level = 29; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 29 && expPlayer >= 40000) {  level = 30; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 20 && expPlayer >= 780000) {  level = 21; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 21 && expPlayer >= 911000) {  level = 22; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 22 && expPlayer >= 1320000) {  level = 23; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 23 && expPlayer >= 1530000) {  level = 24; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 24 && expPlayer >= 2540000) {  level = 25; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 25 && expPlayer >= 3650000) {  level = 26; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 26 && expPlayer >= 4200000) {  level = 27; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 27 && expPlayer >= 5200000) {  level = 28; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 28 && expPlayer >= 6280001) {  level = 29; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 29 && expPlayer >= 7100000) {  level = 30; expPlayer = 0; HpMax = HpMax + 30; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Snowpalace
-		if(level == 30 && expPlayer >= 300000)  {  level = 31; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 31 && expPlayer >= 310000)  {  level = 32; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 32 && expPlayer >= 320000) {  level = 33; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 33 && expPlayer >= 330000) {  level = 34; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 34 && expPlayer >= 340000) {  level = 35; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 35 && expPlayer >= 350000) {  level = 36; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 36 && expPlayer >= 360000) {  level = 37; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 37 && expPlayer >= 370000) {  level = 38; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 38 && expPlayer >= 380000) {  level = 39; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 39 && expPlayer >= 390000) {  level = 40; expPlayer = 0; HpMax = HpMax + 10; MpMax = MpMax + 5; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 30 && expPlayer >= 9100000)  {  level = 31; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 31 && expPlayer >= 15100000)  {  level = 32; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 32 && expPlayer >= 18100000) {  level = 33; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 33 && expPlayer >= 24100000) {  level = 34; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 34 && expPlayer >= 32000000) {  level = 35; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 35 && expPlayer >= 42100000) {  level = 36; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 36 && expPlayer >= 51360000) {  level = 37; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 37 && expPlayer >= 67370000) {  level = 38; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 38 && expPlayer >= 72038000) {  level = 39; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 39 && expPlayer >= 82039000) {  level = 40; expPlayer = 0; HpMax = HpMax + 60; MpMax = MpMax + 20; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		//Tower												   
-		if(level == 40 && expPlayer >= 8000000) {  level = 41; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 41 && expPlayer >= 8100000) {  level = 42; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 42 && expPlayer >= 8200000) {  level = 43; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 43 && expPlayer >= 8300000) {  level = 44; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 44 && expPlayer >= 8400000) {  level = 45; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 45 && expPlayer >= 8500000) {  level = 46; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 46 && expPlayer >= 8800000) {  level = 47; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 47 && expPlayer >= 8900000) {  level = 48; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 48 && expPlayer >= 9500000) {  level = 49; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
-		if(level == 49 && expPlayer >= 50000000) {  level = 50; expPlayer = 0; HpMax = HpMax + 10; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 40 && expPlayer >= 520390000) {  level = 41; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 41 && expPlayer >= 620390000) {  level = 42; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 42 && expPlayer >= 720390000) {  level = 43; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 43 && expPlayer >= 820390000) {  level = 44; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 44 && expPlayer >= 920390000) {  level = 45; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 45 && expPlayer >= 1320390000) {  level = 46; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 46 && expPlayer >= 1420390000) {  level = 47; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 47 && expPlayer >= 1520390000) {  level = 48; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 48 && expPlayer >= 1620390000) {  level = 49; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
+		if(level == 49 && expPlayer >= 1999999999) {  level = 50; expPlayer = 0; HpMax = HpMax + 80; MpMax = MpMax + 30; StatusPoint = StatusPoint + 6; levelup = true;}
 		
 		playerUse.Level = String.valueOf(level);
 		playerUse.Exp = String.valueOf(expPlayer);
@@ -2990,23 +3002,30 @@ public class GameControl {
 				playerUse.HpMax = String.valueOf(HpMax); playerUse.Atk = String.valueOf(Atk);
 			}
 			
-			if(playerUse.Job.equals("Feiticeiro")) { 
-				HpMax = HpMax + 15; Atk = Atk + 2;
-				playerUse.HpMax = String.valueOf(HpMax); playerUse.Atk = String.valueOf(Atk);
+			if(playerUse.Job.equals("Mago")) { 
+				HpMax = HpMax + 10; Atk = Atk + 2;
+				MpMax = MpMax + 20;
+				playerUse.HpMax = String.valueOf(HpMax); playerUse.Atk = String.valueOf(Atk); playerUse.MpMax = String.valueOf(MpMax);
 			}
 			
 			if(playerUse.Job.equals("Curandeiro")) { 
-				MpMax = MpMax + 10; Atk = Atk + 2;
-				playerUse.MpMax = String.valueOf(MpMax); playerUse.Atk = String.valueOf(Atk);
+				HpMax = HpMax + 15; 
+				Atk = Atk + 1;
+				MpMax = MpMax + 15;
+				playerUse.HpMax = String.valueOf(HpMax); playerUse.MpMax = String.valueOf(MpMax); playerUse.Atk = String.valueOf(Atk);
 			}
 			
-			if(playerUse.Job.equals("Pistoleiro")) { 
-				HpMax = HpMax + 8; playerUse.Atk = playerUse.Atk + 3; AtkTimerMax = AtkTimerMax -2;
+			if(playerUse.Job.equals("Atirador")) { 
+				HpMax = HpMax + 8; 
+				playerUse.Atk = playerUse.Atk + 3; 
+				AtkTimerMax = AtkTimerMax -2;
 				playerUse.AtkTimerMax = String.valueOf(AtkTimerMax); playerUse.Atk = String.valueOf(Atk); playerUse.HpMax = String.valueOf(HpMax);
 			}
 			
 			if(playerUse.Job.equals("Ladrao")) { 
-				HpMax = HpMax + 10; Atk = Atk + 2; AtkTimerMax = AtkTimerMax -4;
+				HpMax = HpMax + 10; 
+				Atk = Atk + 2; 
+				AtkTimerMax = AtkTimerMax -4;
 				playerUse.AtkTimerMax = String.valueOf(AtkTimerMax); playerUse.Atk = String.valueOf(Atk); playerUse.HpMax = String.valueOf(HpMax);
 			  }		
 		}	
@@ -3023,7 +3042,7 @@ public class GameControl {
 		if(skillname.equals("ravenblade")) { spr_skill = atlas_ravenblade.createSprite("ravenblade"+num); }
 		if(skillname.equals("ragebound")) { spr_skill = atlas_ragebound.createSprite("ragebound"+num); }
 		if(skillname.equals("thundercloud")) { spr_skill = atlas_thundercloud.createSprite("thundercloud"+num); }
-		if(skillname.equals("lockshot")) { spr_skill = atlas_lockshot.createSprite("lockshot"+num); }
+		if(skillname.equals("perfectshot")) { spr_skill = atlas_perfectshot.createSprite("perfectshot"+num); }
 		if(skillname.equals("mine")) { spr_skill = atlas_mine.createSprite("mine"+num); }
 		if(skillname.equals("overpower")) { spr_skill = atlas_overpower.createSprite("overpower"+num); }
 		if(skillname.equals("poisonhit")) { spr_skill = atlas_poisonhit.createSprite("poisonhit"+num); }
