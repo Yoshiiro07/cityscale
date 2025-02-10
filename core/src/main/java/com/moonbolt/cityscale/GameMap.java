@@ -53,10 +53,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     //Variables usables
     private float floatUseA = 0;
     private float floatUseB = 0;
-    private int intUseA = 0;
-    private int intUseB = 0;
-    private int intUseC = 0;
-    private int intUseD = 0;
+    private int playerHP = 0;
+    private int playerHPMax = 0;
+    private int playerMP = 0;
+    private int playerMPMax = 0;
     
     private int regen = 0;
     
@@ -110,6 +110,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int playerCastTime = 0;
     private Sprite spr_castEffect;
     private int castFrame = 30;
+    private int grabTime = 30;
+    private int grabStop = 0;
     
 	//Monster
 	private ArrayList<Monster> listMonsters;
@@ -294,9 +296,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public void render(float delta) {
 			
 			//player.Job = "Aprendiz";
-			player.Mp = "50";
+			//player.Hp = "10";
+			//player.Mp = "50";
+			//player.MpMax = "50";
 			//player.buffA = "none";
 			//player.BuffTimeA = "0";
+			
+			/*player.Str = "1";
+			player.Vit = "1";
+			player.Agi = "1";
+			player.Wis = "1";
+			player.Dex = "1";*/
+			
 			
 			//Just for coloring
 			Gdx.gl.glClearColor(1,1,1,1);
@@ -372,22 +383,22 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player.regenTime = String.valueOf(regen);
 			if(regen < 0) {
 				
-				intUseA = Integer.parseInt(player.Hp);
-				intUseB = Integer.parseInt(player.HpMax);
+				playerHP = Integer.parseInt(player.Hp);
+				playerHPMax = Integer.parseInt(player.HpMax);
 				
-				intUseC = Integer.parseInt(player.Mp);
-				intUseD = Integer.parseInt(player.MpMax);
+				playerMP = Integer.parseInt(player.Mp);
+				playerMPMax = Integer.parseInt(player.MpMax);
 				
-				intUseA = intUseA + 10;
-				intUseC = intUseC + 10;
+				playerHP = playerHP + 10;
+				playerMP = playerMP + 10;
 				
-				if(intUseA >= intUseB) { player.Hp = player.HpMax; }
-				if(intUseC >= intUseD) { player.Mp = player.MpMax; }
+				if(playerHP >= playerHPMax) { player.Hp = player.HpMax; }
+				if(playerMP >= playerMPMax) { player.Mp = player.MpMax; }
 				
 				player.Hp = player.HpMax;
 				player.Mp = player.MpMax; 
 				player.regenTime = player.regenTimeMax;
-			}
+			} 
 			
 			//check def
 			if(defManual > 0) {
@@ -443,6 +454,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if (flipzone >= 40) { flipzone = 0; }
 			}
 			
+			
+			//player.Hp = "10";
 			
 			ShowNPCs();
 			ShowOnlinePlayers();
@@ -531,6 +544,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			CheckMobAutoAttack();
 			ShowDamage();
 			ShowSkill();
+			CheckOnlineGrab();
 			CheckBuffsToRemove();
 			ShowBuffs(cameraCoordsX, cameraCoordsY);
 			
@@ -645,14 +659,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				if(shopname.equals("jobmaster")) {
 					spr_shop = gameControl.GetShops("jobmaster",cameraCoordsX, cameraCoordsY);
-					spr_shop.draw(game.batch);		
-					font_master.draw(game.batch, String.valueOf(player.Money), cameraCoordsX - 25, cameraCoordsY - 37);				
+					spr_shop.draw(game.batch);									
 				}
 				
 				if(shopname.equals("cristalized")) {
-					spr_shop = gameControl.GetShops("crystal",cameraCoordsX, cameraCoordsY);
-					spr_shop.draw(game.batch);		
-					font_master.draw(game.batch, String.valueOf(player.Money), cameraCoordsX - 25, cameraCoordsY - 37);				
+					spr_shop = gameControl.GetShops("cristalized",cameraCoordsX, cameraCoordsY);
+					spr_shop.draw(game.batch);								
 				}
 				
 				
@@ -699,13 +711,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			spr_testeDot.setPosition(cameraCoordsX + 34, cameraCoordsY + 52);
-			spr_testeDot.setSize(1, 1);
-			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setPosition(cameraCoordsX + 55, cameraCoordsY + 25);
+			//spr_testeDot.setSize(1, 1);
+			//spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 57, cameraCoordsY + 41);  
-			spr_testeDot.setSize(1, 1);
-			spr_testeDot.draw(game.batch);
+			//spr_testeDot.setPosition(cameraCoordsX + 67, cameraCoordsY + 1);  
+			//spr_testeDot.setSize(1, 1);
+			//spr_testeDot.draw(game.batch);
 			
 			game.batch.end();
 		}
@@ -890,6 +902,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						
 						spr_playerTopOnline = gameControl.GetTopChar(lstOnlinePlayers.get(i), "no", 0,0);
 						spr_playerTopOnline.draw(game.batch);
+						
+						spr_playerHatOnline = gameControl.GetHatChar(lstOnlinePlayers.get(i), "no", 0,0);
+						spr_playerHatOnline.draw(game.batch);
 					}
 				}
 			}
@@ -1629,32 +1644,32 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//slot 1
 			if(!player.Crystal1.equals("none")) {
 				spr_item = gameControl.GetItem(player.Crystal1, player);
-				spr_item.setPosition(1.5f, 25);
-				spr_item.setSize(9, 14);
-				//spr_item.draw(game.batch);
+				spr_item.setPosition(32f, -33);
+				spr_item.setSize(13, 23);
+				spr_item.draw(game.batch);
 			}
 			
 			if(!player.Crystal2.equals("none")) {
-				spr_item = gameControl.GetItem(player.Crystal1, player);
-				spr_item.setPosition(10.5f, 25);
-				spr_item.setSize(9, 14);
-				//spr_item.draw(game.batch); 
+				spr_item = gameControl.GetItem(player.Crystal2, player);
+				spr_item.setPosition(46f, -33);
+				spr_item.setSize(13, 23);
+				spr_item.draw(game.batch); 
 			}
 			
 			//slot 3
 			if(!player.Crystal3.equals("none")) {
-				spr_item = gameControl.GetItem(player.Crystal1, player);
-				spr_item.setPosition(19.5f, 25);
-				spr_item.setSize(9, 14);
-				//spr_item.draw(game.batch); 
+				spr_item = gameControl.GetItem(player.Crystal3, player);
+				spr_item.setPosition(59.5f, -33);
+				spr_item.setSize(13, 23);
+				spr_item.draw(game.batch); 
 			}
 			
 			//slot 4
 			if(!player.Crystal4.equals("none")) {
-				spr_item = gameControl.GetItem(player.Crystal1, player);
-				spr_item.setPosition(29f, 25);
-				spr_item.setSize(9, 14);
-				//spr_item.draw(game.batch); 
+				spr_item = gameControl.GetItem(player.Crystal4, player);
+				spr_item.setPosition(73f, -33);
+				spr_item.setSize(13, 23);
+				spr_item.draw(game.batch); 
 			}
 		}
 		
@@ -1810,8 +1825,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								Skill skillInUse = new Skill();
 								Damage damageSkill = new Damage();
 								skillInUse.SkillName = "poisonhit";
-								skillInUse.SkillPosX = listMonsters.get(i).MobPosX;
-								skillInUse.SkillPosY = listMonsters.get(i).MobPosY;
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX - 30;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY - 20;
 								damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
 								damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
 								skillInUse.SkillTime = 100;
@@ -1825,8 +1840,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								PushAttack(mobHP,i,mobDeadStatus);
 							}
 							if(skillname.equals("steal")) {
-								
+								showDropMsg = 100;
+							    itemdropname = gameControl.ItemDrop(listMonsters.get(i).MobName);
+								Skill skillInUse = new Skill();
+								skillInUse.SkillName = "steal";
+								skillInUse.SkillPosX = listMonsters.get(i).MobPosX- 20;
+								skillInUse.SkillPosY = listMonsters.get(i).MobPosY- 20;
+								skillInUse.SkillTime = 100;
+								listSkills.add(skillInUse);	
 							}
+							
 							if(skillname.equals("overpower")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = Atk + ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon);	
@@ -1857,27 +1880,33 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(rangedAttack) {	
 					
 						if(skillname.equals("heal")) {
-							Hp = Hp + (Wis * 5);
+							int healpoint = Wis * 5;
+							Hp = Hp + healpoint;
 							if(Hp > HpMax) { Hp = HpMax; }
+							player.Hp = String.valueOf(Hp);
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
 							Damage damageSkill = new Damage();
 							skillInUse.SkillName = "heal";
-							skillInUse.SkillPosX = playerPosX;
-							skillInUse.SkillPosY = playerPosY;
-							damageSkill.DamagePosX = listMonsters.get(i).MobPosX;
-							damageSkill.DamagePosY = listMonsters.get(i).MobPosY;
+							skillInUse.SkillPosX = playerPosX - 25;
+							skillInUse.SkillPosY = playerPosY - 20;
+							damageSkill.DamagePosX = playerPosX;
+							damageSkill.DamagePosY = playerPosY;
 							skillInUse.SkillTime = 100;
 							damageSkill.DamageTime = 100;
 							damageSkill.DamageType = "heal";
-							damageSkill.DamageValue = 0;
+							damageSkill.DamageValue = healpoint;
+							listSkills.add(skillInUse);	
+							listDamage.add(damageSkill);
 							player.playerInCast = "no";
+							player.MagicSync = "heal%"+ healpoint;
 							return;
 						}
 						
 						if(skillname.equals("defboost")) { 
-							GiveBuff("defboost"); 
+							GiveBuff("defboost");
+							player.MagicSync = "defboost %"+ 0;
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
@@ -1894,26 +1923,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							player.playerInCast = "no";
 							return; 	
 						}						
-						if(skillname.equals("healthboost")) { 
+						if(skillname.equals("healthboost")) {
+							GiveBuff("healthboost");
 							Skill skillInUse = new Skill();
 							skillInUse.SkillName = "healthboost";
 							skillInUse.SkillPosX = Float.parseFloat(player.PosX) - 18;
 							skillInUse.SkillPosY = Float.parseFloat(player.PosY) - 3;
 							skillInUse.SkillTime = 100;
-							listSkills.add(skillInUse);	
-							GiveBuff("healthboost");
+							listSkills.add(skillInUse);					
 							rangedAttack = false; 
 							player.playerInCast = "no"; 
 							return; 
 						}	
 						if(skillname.equals("perfectshot")) { 
+							GiveBuff("perfectshot");
 							Skill skillInUse = new Skill();
 							skillInUse.SkillName = "perfectshot";
 							skillInUse.SkillPosX = Float.parseFloat(player.PosX) - 45;
 							skillInUse.SkillPosY = Float.parseFloat(player.PosY) - 25;
 							skillInUse.SkillTime = 100;
 							listSkills.add(skillInUse);	
-							GiveBuff("perfectshot");
+							player.MagicSync = "perfectshot %"+ 0;
 							rangedAttack = false; 
 							player.playerInCast = "no"; 
 							return; 
@@ -2341,6 +2371,40 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(buff.equals("A")) { player.buffA = "none"; player.BuffTimeA = "0"; }
 			if(buff.equals("B")) { player.buffB = "none"; player.BuffTimeB = "0"; }
 			if(buff.equals("C")) { player.buffC = "none"; player.BuffTimeC = "0"; }
+			
+		}
+		
+		public void CheckOnlineGrab() {
+			String onlineGrab = gameControl.GetOnlineGrab();
+			if(!onlineGrab.equals("none") && grabStop == 0) {
+				String[] lstGrab = onlineGrab.split("%");
+				//Case heal
+				if(lstGrab[0].equals("heal")) {
+					int playerHP = Integer.parseInt(player.Hp);
+					int playerHPMax = Integer.parseInt(player.HpMax);
+					int healGrab = Integer.parseInt(lstGrab[1]);
+					playerHP = playerHP + healGrab;
+					if(playerHP > playerHPMax) { playerHP = playerHPMax; }
+					player.Hp = String.valueOf(playerHP);
+					grabStop = 50;
+				}
+				else {
+					//Case Buffs
+					GiveBuff(lstGrab[0]);
+				}	
+			}
+			
+			if(grabStop > 0) {
+				grabStop--;
+				if(grabStop <= 0) {
+					grabStop = 0; onlineGrab = "none"; gameControl.SetOnlineGrab();					
+				}
+			}
+			
+			if(!player.MagicSync.equals("none")) {
+				grabTime--;
+				if(grabTime <= 0) { grabTime = 40; player.MagicSync = "none"; }
+			}
 			
 		}
 		
@@ -3046,9 +3110,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(num == 2 && player.Job.equals("Aprendiz")) { SetUseSkill("rockbound"); }
 			if(num == 2 && player.Job.equals("Espadachim")) { SetUseSkill("healthboost"); }
 			if(num == 2 && player.Job.equals("Mago")) { SetUseSkill("icecrystal"); }
-			if(num == 2 && player.Job.equals("Atirador")) { SetUseSkill("perfectshot"); } //here
+			if(num == 2 && player.Job.equals("Atirador")) { SetUseSkill("perfectshot"); } 
 			if(num == 2 && player.Job.equals("Curandeiro")) { SetUseSkill("holyprism"); }
-			if(num == 2 && player.Job.equals("Ladrao")) { SetUseSkill("invisibility"); }
+			if(num == 2 && player.Job.equals("Ladrao")) { SetUseSkill("steal"); }
 			
 			//if(num == 3 && player.Job.equals("Espadachim")) { SetUseSkill("healthboost"); }
 			//if(num == 3 && player.Job.equals("Mago")) { SetUseSkill("icecrystal"); }
@@ -3512,12 +3576,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
-				if(player.playerInCast.equals("none") || player.playerInCast.equals("no") || !defTrigged) { 
-					movement = true; 
-				} 
-				else { 
-					movement = false; 
-				}
+				if(playerDead) { return false; }
+				if(player.playerSit.equals("yes")){ return false; }
+	            if(defTrigged) { movement = false; return false; }
+				if(player.playerInCast.equals("yes")) { movement = false; return false; }
+				
+				movement = true; 
 				
 				//Menu
 				if(coordsTouch.x > cameraCoordsX - 99 && coordsTouch.x < cameraCoordsX - 61 && coordsTouch.y > cameraCoordsY + 57 && coordsTouch.y < cameraCoordsY + 96) {
@@ -3559,6 +3623,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Skill 1
 				if(coordsTouch.x > cameraCoordsX + 47 && coordsTouch.x < cameraCoordsX + 56 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {
 					if(skillUsed > 0) { return false; }
+					if(!autoattack) { return false; }
 					skillUsed = 200;
 					CheckSkill(1);
 					return false;
@@ -3566,6 +3631,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Skill 2
 				if(coordsTouch.x > cameraCoordsX + 63 && coordsTouch.x < cameraCoordsX + 72 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {
 					if(skillUsed > 0) { return false; }
+					if(!autoattack) { return false; }
 					skillUsed = 200;
 					CheckSkill(2);
 					return false;
@@ -3891,6 +3957,28 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				
+				////// Crystals
+				//Crystal 1
+				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 26 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
+					gameControl.RemoveCrystals(1);
+					return false;
+				}
+				//Crystal 2
+				if(coordsTouch.x > cameraCoordsX + 27 && coordsTouch.x < cameraCoordsX + 39 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
+					gameControl.RemoveCrystals(2);
+					return false;
+				}
+				//Crystal 3
+				if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 53 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
+					gameControl.RemoveCrystals(3);
+					return false;
+				}
+				//Crystal 4
+				if(coordsTouch.x > cameraCoordsX + 55 && coordsTouch.x < cameraCoordsX + 67 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
+					gameControl.RemoveCrystals(4);
+					return false;
+				}
+				
 				//config
 				if(coordsTouch.x > cameraCoordsX + 28 && coordsTouch.x < cameraCoordsX + 40 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 13) {
 					//onlineresponse = gameControl.OnlineManager("Upload","","");
@@ -3950,12 +4038,37 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}
 				}
 				if(shopname.equals("cristalized")) { 
-					if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
+					gameControl.GiveItemTEMPORARIO();
+					
+					//Sair
+					if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 60 && coordsTouch.y > cameraCoordsY - 76 && coordsTouch.y <  - 60) {
 						state = "Main";
 						return false; 
 					}
-					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
-						
+					
+					//Cristal Amarelo
+					if(coordsTouch.x > cameraCoordsX + 1 && coordsTouch.x < cameraCoordsX + 60 && coordsTouch.y > cameraCoordsY + 42 && coordsTouch.y < cameraCoordsY + 58) {
+						gameControl.CrystalExchanged("yellow");
+						return false; 
+					}
+					//Cristal Azul
+					if(coordsTouch.x > cameraCoordsX + 1 && coordsTouch.x < cameraCoordsX + 60 && coordsTouch.y > cameraCoordsY + 18 && coordsTouch.y < cameraCoordsY + 32) {
+						gameControl.CrystalExchanged("blue");
+						return false; 
+					}
+					//Cristal Roxo
+					if(coordsTouch.x > cameraCoordsX + 1 && coordsTouch.x < cameraCoordsX + 60 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 14) {
+						gameControl.CrystalExchanged("purple");
+						return false; 
+					}
+					//Cristal Verde
+					if(coordsTouch.x > cameraCoordsX + 1 && coordsTouch.x < cameraCoordsX + 60 && coordsTouch.y > cameraCoordsY - 53 && coordsTouch.y < cameraCoordsY - 36) {
+						gameControl.CrystalExchanged("green");
+						return false; 
+					}
+					//Cristal Vermelho
+					if(coordsTouch.x > cameraCoordsX + 1 && coordsTouch.x < cameraCoordsX + 60 && coordsTouch.y > cameraCoordsY - 76 && coordsTouch.y < cameraCoordsY - 60) {
+						gameControl.CrystalExchanged("red");
 						return false; 
 					}
 				}
@@ -4123,6 +4236,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(playerDead) { return false; }
 			if(player.playerSit.equals("yes")){ return false; }
+            if(defTrigged) { movement = false; return false; }
+			if(player.playerInCast.equals("yes")) { movement = false; return false; }
 			
 			if(state.equals("Main")) {
 				movement = true;		
@@ -4316,7 +4431,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
 			if(playerDead) { return false; }
 			if(player.playerSit.equals("yes")){ return false; }
-			
+            if(defTrigged) { movement = false; return false; }
+			if(player.playerInCast.equals("yes")) { movement = false; return false; }
+					
 			Vector3 coordsTouch = camera.unproject(new Vector3(screenX,screenY,0));
 			
 			if(movement){	

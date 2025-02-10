@@ -65,6 +65,7 @@ public class GameControl {
 	private ArrayList<String> lstChats;
 	private String onlineResult = "";
 	private ArrayList<Player> lstPlayerOnline;
+	private String onlineGrab = "none";
 
 
 	// Texture Atlas
@@ -230,6 +231,7 @@ public class GameControl {
 		atlas_berserk = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/berserk.txt"));
 		atlas_bulletrain = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/bulletrain.txt"));
 		atlas_dashkick = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/dashkick.txt"));
+		atlas_heal = new TextureAtlas(Gdx.files.internal("data/assets/skills/skilleffect/heal.txt"));
 
 	}
 	
@@ -329,6 +331,7 @@ public class GameControl {
 			    player.petcare = splitData[141]; // PetCare
 			    player.petTraining = splitData[143]; // PetTraining
 			    player.petBath = splitData[145]; // PetBath
+			    player.MagicSync = splitData[145]; //magicUsed
 			    player.petLevel = splitData[147]; // PetLevel
 			}
 
@@ -1866,59 +1869,59 @@ public class GameControl {
 	    float totalExp = 0;
 	    int level = Integer.parseInt(player.Level);
 	    
-	    if(level == 1) { totalExp = 200; }
-	    if(level == 2) { totalExp = 300; }
-	    if(level == 3) { totalExp = 400; }
-	    if(level == 4) { totalExp = 500; }
-	    if(level == 5) { totalExp = 600; }
-	    if(level == 6) { totalExp = 700; }
-	    if(level == 7) { totalExp = 800; }
-	    if(level == 8) { totalExp = 900; }
-	    if(level == 9) { totalExp = 1000; }
+	    if(level == 1) { totalExp = 25; }
+	    if(level == 2) { totalExp = 50; }
+	    if(level == 3) { totalExp = 75; }
+	    if(level == 4) { totalExp = 600; }
+	    if(level == 5) { totalExp = 950; }
+	    if(level == 6) { totalExp = 1200; }
+	    if(level == 7) { totalExp = 3300; }
+	    if(level == 8) { totalExp = 4200; }
+	    if(level == 9) { totalExp = 5200; }
 	    
-	    if(level == 10) { totalExp = 5000; }
-	    if(level == 11) { totalExp = 5200; }
-	    if(level == 12) { totalExp = 5300; }
-	    if(level == 13) { totalExp = 5400; }
-	    if(level == 14) { totalExp = 5500; }
-	    if(level == 15) { totalExp = 5600; }
-	    if(level == 16) { totalExp = 5700; }
-	    if(level == 17) { totalExp = 5800; }
-	    if(level == 18) { totalExp = 5900; }
-	    if(level == 19) { totalExp = 6000; }
+	    if(level == 10) { totalExp = 7800; }
+	    if(level == 11) { totalExp = 9200; }
+	    if(level == 12) { totalExp = 13300; }
+	    if(level == 13) { totalExp = 15400; }
+	    if(level == 14) { totalExp = 17500; }
+	    if(level == 15) { totalExp = 18600; }
+	    if(level == 16) { totalExp = 22700; }
+	    if(level == 17) { totalExp = 24800; }
+	    if(level == 18) { totalExp = 26900; }
+	    if(level == 19) { totalExp = 32000; }
 	    
-	    if(level == 20) { totalExp = 30000; }
-	    if(level == 21) { totalExp = 31000; }
-	    if(level == 22) { totalExp = 32000; }
-	    if(level == 23) { totalExp = 33000; }
-	    if(level == 24) { totalExp = 34000; }
-	    if(level == 25) { totalExp = 35000; }
-	    if(level == 26) { totalExp = 36000; }
-	    if(level == 27) { totalExp = 37000; }
-	    if(level == 28) { totalExp = 38000; }
-	    if(level == 29) { totalExp = 40000; }
+	    if(level == 20) { totalExp = 780000; }
+	    if(level == 21) { totalExp = 911000; }
+	    if(level == 22) { totalExp = 1320000; }
+	    if(level == 23) { totalExp = 1530000; }
+	    if(level == 24) { totalExp = 2540000; }
+	    if(level == 25) { totalExp = 3650000; }
+	    if(level == 26) { totalExp = 4200000; }
+	    if(level == 27) { totalExp = 5200000; }
+	    if(level == 28) { totalExp = 6280001; }
+	    if(level == 29) { totalExp = 7100000; }
 	    
-	    if(level == 30) { totalExp = 300000; }
-	    if(level == 31) { totalExp = 310000; }
-	    if(level == 32) { totalExp = 320000; }
-	    if(level == 33) { totalExp = 330000; }
-	    if(level == 34) { totalExp = 340000; }
-	    if(level == 35) { totalExp = 350000; }
-	    if(level == 36) { totalExp = 360000; }
-	    if(level == 37) { totalExp = 370000; }
-	    if(level == 38) { totalExp = 380000; }
-	    if(level == 39) { totalExp = 390000; }
+	    if(level == 30) { totalExp = 9100000; }
+	    if(level == 31) { totalExp = 15100000; }
+	    if(level == 32) { totalExp = 18100000; }
+	    if(level == 33) { totalExp = 24100000; }
+	    if(level == 34) { totalExp = 32000000; }
+	    if(level == 35) { totalExp = 42100000; }
+	    if(level == 36) { totalExp = 51360000; }
+	    if(level == 37) { totalExp = 67370000; }
+	    if(level == 38) { totalExp = 72038000; }
+	    if(level == 39) { totalExp = 82039000; }
 	    
-	    if(level == 40) { totalExp = 8000000; }
-	    if(level == 41) { totalExp = 8100000; }
-	    if(level == 42) { totalExp = 8200000; }
-	    if(level == 43) { totalExp = 8300000; }
-	    if(level == 44) { totalExp = 8400000; }
-	    if(level == 45) { totalExp = 8500000; }
-	    if(level == 46) { totalExp = 8800000; }
-	    if(level == 47) { totalExp = 8900000; }
-	    if(level == 48) { totalExp = 9500000; }
-	    if(level == 49) { totalExp = 50000000; }
+	    if(level == 40) { totalExp = 520390000; }
+	    if(level == 41) { totalExp = 620390000; }
+	    if(level == 42) { totalExp = 720390000; }
+	    if(level == 43) { totalExp = 820390000; }
+	    if(level == 44) { totalExp = 920390000; }
+	    if(level == 45) { totalExp = 1320390000; }
+	    if(level == 46) { totalExp = 1420390000; }
+	    if(level == 47) { totalExp = 1520390000; }
+	    if(level == 48) { totalExp = 1620390000; }
+	    if(level == 49) { totalExp = 1999999999; }
 	    									      
 	    float result = (float)((percent*100)/totalExp);
 	    int finalnumber = Math.round(result);
@@ -2112,6 +2115,23 @@ public class GameControl {
 		if(nameItem.equals("lootfragmentoverde")) { spr_master = atlas_cristais.createSprite("lootfragmentoverde"); return spr_master;  }
 		if(nameItem.equals("lootfragmentovermelho")) { spr_master = atlas_cristais.createSprite("lootfragmentovermelho"); return spr_master;  }
 		
+		if(nameItem.equals("yellow_crystal_agiextra_1")) { spr_master = atlas_cristais.createSprite("lootcristalamarelo_C"); return spr_master;  }
+		if(nameItem.equals("yellow_crystal_agiextra_2")) { spr_master = atlas_cristais.createSprite("lootcristalamarelo_B"); return spr_master;  }
+		if(nameItem.equals("yellow_crystal_agiextra_3")) { spr_master = atlas_cristais.createSprite("lootcristalamarelo_A"); return spr_master;  }
+		if(nameItem.equals("blue_crystal_intextra_1")) { spr_master = atlas_cristais.createSprite("lootcristalazul_C"); return spr_master;  }
+		if(nameItem.equals("blue_crystal_intextra_2")) { spr_master = atlas_cristais.createSprite("lootcristalazul_B"); return spr_master;  }
+		if(nameItem.equals("blue_crystal_intextra_3")) { spr_master = atlas_cristais.createSprite("lootcristalazul_A"); return spr_master;  }	
+		if(nameItem.equals("green_crystal_lukextra_1")) { spr_master = atlas_cristais.createSprite("lootcristalverde_C"); return spr_master;  }
+		if(nameItem.equals("green_crystal_lukextra_2")) { spr_master = atlas_cristais.createSprite("lootcristalverde_B"); return spr_master;  }
+		if(nameItem.equals("green_crystal_lukextra_3")) { spr_master = atlas_cristais.createSprite("lootcristalverde_A"); return spr_master;  }	
+		if(nameItem.equals("purple_crystal_vitextra_1")) { spr_master = atlas_cristais.createSprite("lootcristalroxo_C"); return spr_master;  }
+		if(nameItem.equals("purple_crystal_vitextra_2")) { spr_master = atlas_cristais.createSprite("lootcristalroxo_B"); return spr_master;  }
+		if(nameItem.equals("purple_crystal_vitextra_3")) { spr_master = atlas_cristais.createSprite("lootcristalroxo_A"); return spr_master;  }		
+		if(nameItem.equals("red_crystal_strextra_1")) { spr_master = atlas_cristais.createSprite("lootcristalvermelho_C"); return spr_master;  }
+		if(nameItem.equals("red_crystal_strextra_2")) { spr_master = atlas_cristais.createSprite("lootcristalvermelho_B"); return spr_master;  }
+		if(nameItem.equals("red_crystal_strextra_3")) { spr_master = atlas_cristais.createSprite("lootcristalvermelho_A"); return spr_master;  }
+		
+		
 		
 		if(nameItem.equals("galhos")) { spr_master = atlas_lootmob.createSprite("galhos"); return spr_master;  }
 		if(nameItem.equals("lootbanana")) { spr_master = atlas_lootmob.createSprite("lootbanana"); return spr_master;  }
@@ -2129,6 +2149,8 @@ public class GameControl {
 		
 		return spr_master;
 	}
+	
+	
 	
 	public Sprite GetShops(String shopname, float cameraCoordsX, float cameraCoordsY) {
 		if(shopname.equals("refrishop")){
@@ -2669,7 +2691,7 @@ public class GameControl {
 		if(itemName.equals("purple_crystal_vitextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
 		
 		if(itemName.equals("yellow_crystal_agiextra_1") && !equipable) { UseCrystal(itemName); equipable = true; }
-		if(itemName.equals("yellow_crystalgiextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
+		if(itemName.equals("yellow_crystal_agiextra_2") && !equipable) { UseCrystal(itemName); equipable = true; }
 		if(itemName.equals("yellow_crystal_agiextra_3") && !equipable) { UseCrystal(itemName); equipable = true; }
 		
 		if(itemName.equals("red_crystal_strextra_1") && !equipable) { UseCrystal(itemName); equipable = true; }
@@ -2745,165 +2767,115 @@ public class GameControl {
 			
 			int StaminaMax = Integer.parseInt(playerUse.StaminaMax);
 			int regenTimeMax = Integer.parseInt(playerUse.regenTimeMax);
-		
-			// Define crystal effects
-			Map<String, int[]> crystalEffects = new HashMap<>();
-			crystalEffects.put("blue_crystal_intextra_1", new int[]{0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 20, 0, 0});
-			crystalEffects.put("blue_crystal_intextra_2", new int[]{0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 50, 0, 0});
-			crystalEffects.put("blue_crystal_intextra_3", new int[]{0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 100, 0, 0});
-			crystalEffects.put("blue_crystal_intextra_4", new int[]{0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 200, 0, 0});
 			
-			crystalEffects.put("green_crystal_lukextra_1", new int[]{0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("green_crystal_lukextra_2", new int[]{0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("green_crystal_lukextra_3", new int[]{0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("green_crystal_lukextra_4", new int[]{0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0});
+			if(item.equals("blue_crystal_intextra_1")) { Wis = Wis + 1; }
+			if(item.equals("blue_crystal_intextra_2")) { Wis = Wis + 3; }
+			if(item.equals("blue_crystal_intextra_3")) { Wis = Wis + 5; }
 			
-			crystalEffects.put("purple_crystal_vitextra_1", new int[]{0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 20, 0, 0});
-			crystalEffects.put("purple_crystal_vitextra_2", new int[]{0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 50, 0, 0});
-			crystalEffects.put("purple_crystal_vitextra_3", new int[]{0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 100, 0, 0});
-			crystalEffects.put("purple_crystal_vitextra_4", new int[]{0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 200, 0, 0});
+			if(item.equals("green_crystal_lukextra_1")) { Luk = Luk + 1; }
+			if(item.equals("green_crystal_lukextra_2")) { Luk = Luk + 3; }
+			if(item.equals("green_crystal_lukextra_3")) { Luk = Luk + 5; }
 			
-			crystalEffects.put("yellow_crystal_agiextra_1", new int[]{0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2});
-			crystalEffects.put("yellow_crystal_agiextra_2", new int[]{0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4});
-			crystalEffects.put("yellow_crystal_agiextra_3", new int[]{0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6});
-			crystalEffects.put("yellow_crystal_agiextra_4", new int[]{0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -8});
+			if(item.equals("purple_crystal_vitextra_1")) { HpMax = HpMax + 25; MpMax = MpMax + 25; StaminaMax = StaminaMax + 10; Vit = Vit + 1; }
+			if(item.equals("purple_crystal_vitextra_2")) { HpMax = HpMax + 50; MpMax = MpMax + 50; StaminaMax = StaminaMax + 30; Vit = Vit + 3; }
+			if(item.equals("purple_crystal_vitextra_3")) { HpMax = HpMax + 100; MpMax = MpMax + 100; StaminaMax = StaminaMax + 50; Vit = Vit + 5; }
 			
-			crystalEffects.put("red_crystal_strextra_1", new int[]{2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("red_crystal_strextra_2", new int[]{5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("red_crystal_strextra_3", new int[]{10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("red_crystal_strextra_4", new int[]{15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			if(item.equals("yellow_crystal_agiextra_1")) { Agi = Agi + 1; AtkTimerMax = AtkTimerMax - 5; }
+			if(item.equals("yellow_crystal_agiextra_2")) { Agi = Agi + 3; AtkTimerMax = AtkTimerMax - 15; }
+			if(item.equals("yellow_crystal_agiextra_3")) { Agi = Agi + 5; AtkTimerMax = AtkTimerMax - 30; }
 			
-			crystalEffects.put("grey_crystal_dexextra_1", new int[]{0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("grey_crystal_dexextra_2", new int[]{0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("grey_crystal_dexextra_3", new int[]{0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("grey_crystal_dexextra_4", new int[]{0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			if(item.equals("red_crystal_strextra_1")) { Str = Str + 1;  }
+			if(item.equals("red_crystal_strextra_2")) { Str = Str + 3;  }
+			if(item.equals("red_crystal_strextra_3")) { Str = Str + 5;  }
 			
-			crystalEffects.put("orange_crystal_resextra_1", new int[]{0, 0, 0, 0, 0, 0, 0, 2, 20, -200, 0, 0, 0});
-			crystalEffects.put("orange_crystal_resextra_2", new int[]{0, 0, 0, 0, 0, 0, 0, 5, 50, -400, 0, 0, 0});
-			crystalEffects.put("orange_crystal_resextra_3", new int[]{0, 0, 0, 0, 0, 0, 0, 10, 100, -600, 0, 0, 0});
-			crystalEffects.put("orange_crystal_resextra_4", new int[]{0, 0, 0, 0, 0, 0, 0, 15, 200, -800, 0, 0, 0});
-		
-			// Apply crystal effects
-			if (crystalEffects.containsKey(item)) {
-				int[] effects = crystalEffects.get(item);
-				Str += effects[0];
-				Agi += effects[1];
-				Dex += effects[2];
-				Vit += effects[3];
-				Wis += effects[4];
-				Luk += effects[5];
-				Hp += effects[6];
-				Res += effects[7];
-				StaminaMax += effects[8];
-				regenTimeMax += effects[9];
-				MpMax += effects[10];
-				HpMax += effects[11];
-				AtkTimerMax += effects[12];
-		
-				playerUse.Str = String.valueOf(Str);
-				playerUse.Agi = String.valueOf(Agi);
-				playerUse.Dex = String.valueOf(Dex);
-				playerUse.Vit = String.valueOf(Vit);
-				playerUse.Wis = String.valueOf(Wis);
-				playerUse.Luk = String.valueOf(Luk);
-				playerUse.Hp = String.valueOf(Hp);
-				playerUse.Res = String.valueOf(Res);
-				playerUse.StaminaMax = String.valueOf(StaminaMax);
-				playerUse.regenTimeMax = String.valueOf(regenTimeMax);
-				playerUse.MpMax = String.valueOf(MpMax);
-				playerUse.HpMax = String.valueOf(HpMax);
-				playerUse.AtkTimerMax = String.valueOf(AtkTimerMax);
-			}
+			playerUse.Str = String.valueOf(Str);
+			playerUse.Vit = String.valueOf(Vit);
+			playerUse.Agi = String.valueOf(Agi);
+			playerUse.Dex = String.valueOf(Dex);
+			playerUse.Luk = String.valueOf(Luk);
+			
+			playerUse.HpMax = String.valueOf(HpMax);
+			playerUse.MpMax = String.valueOf(MpMax);
+			playerUse.AtkTimerMax = String.valueOf(AtkTimerMax);	
+			playerUse.StaminaMax = String.valueOf(StaminaMax);
 		}
 
 		public void RemoveCrystals(int num) {
-			// Define crystal effects
-			Map<String, int[]> crystalEffects = new HashMap<>();
-			crystalEffects.put("blue_crystal_intextra_1", new int[]{-2, 0, 0, 0, 0, 0, 0, 0, -20, 0, 0, 0});
-			crystalEffects.put("blue_crystal_intextra_2", new int[]{-5, 0, 0, 0, 0, 0, 0, 0, -50, 0, 0, 0});
-			crystalEffects.put("blue_crystal_intextra_3", new int[]{-10, 0, 0, 0, 0, 0, 0, 0, -100, 0, 0, 0});
-			crystalEffects.put("blue_crystal_intextra_4", new int[]{-15, 0, 0, 0, 0, 0, 0, 0, -200, 0, 0, 0});
+			String CrystalEquipped = "";
+					
+			if(num == 1) { CrystalEquipped = playerUse.Crystal1; }
+			if(num == 2) { CrystalEquipped = playerUse.Crystal2; }
+			if(num == 3) { CrystalEquipped = playerUse.Crystal3; }
+			if(num == 4) { CrystalEquipped = playerUse.Crystal4; }
 			
-			crystalEffects.put("green_crystal_lukextra_1", new int[]{0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("green_crystal_lukextra_2", new int[]{0, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("green_crystal_lukextra_3", new int[]{0, 0, 0, 0, 0, -10, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("green_crystal_lukextra_4", new int[]{0, 0, 0, 0, 0, -15, 0, 0, 0, 0, 0, 0});
+			int Str = Integer.parseInt(playerUse.Str);
+			int Agi = Integer.parseInt(playerUse.Agi);
+			int Dex = Integer.parseInt(playerUse.Dex);
+			int Vit = Integer.parseInt(playerUse.Vit);
+			int Wis = Integer.parseInt(playerUse.Wis);
+			int Luk = Integer.parseInt(playerUse.Luk);
 			
-			crystalEffects.put("purple_crystal_vitextra_1", new int[]{0, 0, 0, -2, 0, 0, 0, 0, 0, -20, 0, 0});
-			crystalEffects.put("purple_crystal_vitextra_2", new int[]{0, 0, 0, -5, 0, 0, 0, 0, 0, -50, 0, 0});
-			crystalEffects.put("purple_crystal_vitextra_3", new int[]{0, 0, 0, -10, 0, 0, 0, 0, 0, -100, 0, 0});
-			crystalEffects.put("purple_crystal_vitextra_4", new int[]{0, 0, 0, -15, 0, 0, 0, 0, 0, -200, 0, 0});
+			int Hp = Integer.parseInt(playerUse.Hp);
+			int HpMax = Integer.parseInt(playerUse.HpMax);
 			
-			crystalEffects.put("yellow_crystal_agiextra_1", new int[]{0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2});
-			crystalEffects.put("yellow_crystal_agiextra_2", new int[]{0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4});
-			crystalEffects.put("yellow_crystal_agiextra_3", new int[]{0, -10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6});
-			crystalEffects.put("yellow_crystal_agiextra_4", new int[]{0, -15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8});
+			int Mp = Integer.parseInt(playerUse.Mp);
+			int MpMax = Integer.parseInt(playerUse.MpMax);
 			
-			crystalEffects.put("red_crystal_strextra_1", new int[]{-2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("red_crystal_strextra_2", new int[]{-5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("red_crystal_strextra_3", new int[]{-10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("red_crystal_strextra_4", new int[]{-15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			int AtkTimerMax = Integer.parseInt(playerUse.AtkTimerMax);
 			
-			crystalEffects.put("grey_crystal_dexextra_1", new int[]{0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("grey_crystal_dexextra_2", new int[]{0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("grey_crystal_dexextra_3", new int[]{0, 0, -10, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-			crystalEffects.put("grey_crystal_dexextra_4", new int[]{0, 0, -15, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			int Res = Integer.parseInt(playerUse.Res);
 			
-			crystalEffects.put("orange_crystal_resextra_1", new int[]{0, 0, 0, 0, 0, 0, -2, -20, 0, 0, 200, 0});
-			crystalEffects.put("orange_crystal_resextra_2", new int[]{0, 0, 0, 0, 0, 0, -5, -50, 0, 0, 400, 0});
-			crystalEffects.put("orange_crystal_resextra_3", new int[]{0, 0, 0, 0, 0, 0, -10, -100, 0, 0, 600, 0});
-			crystalEffects.put("orange_crystal_resextra_4", new int[]{0, 0, 0, 0, 0, 0, -15, -200, 0, 0, 800, 0});
-		
-			// Get the crystal type based on the number
-			String crystalType = "";
+			int StaminaMax = Integer.parseInt(playerUse.StaminaMax);
+			int regenTimeMax = Integer.parseInt(playerUse.regenTimeMax);
+			
+			if(CrystalEquipped.equals("blue_crystal_intextra_1")) { Wis = Wis - 1; }
+			if(CrystalEquipped.equals("blue_crystal_intextra_2")) { Wis = Wis - 3; }
+			if(CrystalEquipped.equals("blue_crystal_intextra_3")) { Wis = Wis - 5; }
+			
+			if(CrystalEquipped.equals("green_crystal_lukextra_1")) { Luk = Luk - 1; }
+			if(CrystalEquipped.equals("green_crystal_lukextra_2")) { Luk = Luk - 3; }
+			if(CrystalEquipped.equals("green_crystal_lukextra_3")) { Luk = Luk - 5; }
+			
+			if(CrystalEquipped.equals("purple_crystal_vitextra_1")) { HpMax = HpMax - 25; MpMax = MpMax - 25; StaminaMax = StaminaMax - 10; Vit = Vit - 1; }
+			if(CrystalEquipped.equals("purple_crystal_vitextra_2")) { HpMax = HpMax - 50; MpMax = MpMax - 50; StaminaMax = StaminaMax - 30; Vit = Vit - 3; }
+			if(CrystalEquipped.equals("purple_crystal_vitextra_3")) { HpMax = HpMax - 100; MpMax = MpMax - 100; StaminaMax = StaminaMax - 50; Vit = Vit - 5; }
+			
+			if(CrystalEquipped.equals("yellow_crystal_agiextra_1")) { Agi = Agi - 1; AtkTimerMax = AtkTimerMax + 5; }
+			if(CrystalEquipped.equals("yellow_crystal_agiextra_2")) { Agi = Agi - 3; AtkTimerMax = AtkTimerMax + 15; }
+			if(CrystalEquipped.equals("yellow_crystal_agiextra_3")) { Agi = Agi - 5; AtkTimerMax = AtkTimerMax + 30; }
+			
+			if(CrystalEquipped.equals("red_crystal_strextra_1")) { Str = Str - 1;  }
+			if(CrystalEquipped.equals("red_crystal_strextra_2")) { Str = Str - 3;  }
+			if(CrystalEquipped.equals("red_crystal_strextra_3")) { Str = Str - 5;  }
+			
+			playerUse.Str = String.valueOf(Str);
+			playerUse.Vit = String.valueOf(Vit);
+			playerUse.Agi = String.valueOf(Agi);
+			playerUse.Dex = String.valueOf(Dex);
+			playerUse.Luk = String.valueOf(Luk);
+			
+			playerUse.HpMax = String.valueOf(HpMax);
+			playerUse.MpMax = String.valueOf(MpMax);
+			playerUse.AtkTimerMax = String.valueOf(AtkTimerMax);
+			playerUse.StaminaMax = String.valueOf(StaminaMax);
+						
+			AddItemBag(CrystalEquipped);
 			switch (num) {
 				case 1:
-					crystalType = playerUse.Crystal1;
+					playerUse.Crystal1 = "none";
 					break;
 				case 2:
-					crystalType = playerUse.Crystal2;
+					playerUse.Crystal2 = "none";
 					break;
 				case 3:
-					crystalType = playerUse.Crystal3;
+					playerUse.Crystal3 = "none";
 					break;
 				case 4:
-					crystalType = playerUse.Crystal4;
+					playerUse.Crystal4 = "none";
 					break;
 			}
-		
-			// Apply crystal effects
-			if (crystalEffects.containsKey(crystalType)) {
-				int[] effects = crystalEffects.get(crystalType);
-				playerUse.Wis += effects[0];
-				playerUse.Agi += effects[1];
-				playerUse.Dex += effects[2];
-				playerUse.Vit += effects[3];
-				playerUse.Luk += effects[4];
-				playerUse.Str += effects[5];
-				playerUse.Res += effects[6];
-				playerUse.StaminaMax += effects[7];
-				playerUse.MpMax += effects[8];
-				playerUse.regenTimeMax += effects[9];
-				playerUse.AtkTimerMax += effects[10];
-		
-				// Add the crystal back to the bag and set the crystal slot to "none"
-				AddItemBag(crystalType);
-				switch (num) {
-					case 1:
-						playerUse.Crystal1 = "none";
-						break;
-					case 2:
-						playerUse.Crystal2 = "none";
-						break;
-					case 3:
-						playerUse.Crystal3 = "none";
-						break;
-					case 4:
-						playerUse.Crystal4 = "none";
-						break;
-				}
-			}
 		}
+		
 	
 
 	//Give EXP
@@ -2918,11 +2890,7 @@ public class GameControl {
 		int Def = Integer.parseInt(playerUse.Def);
 		int AtkTimerMax = Integer.parseInt(playerUse.AtkTimerMax);
 		
-		if(level >= 30) {
-			return;
-		}
-		
-		if(level >= 50) {
+		if(level >= 35) {
 			return;
 		}
 		
@@ -3068,6 +3036,10 @@ public class GameControl {
 		return spr_skill;
 	}
 	
+	public void GiveItemTEMPORARIO() {  //here
+		AddItemBag("red_crystal_strextra_3");
+	}
+	
 	
 	public String ItemDrop(String mob) {
 		int chance = randnumber.nextInt(1000);
@@ -3076,20 +3048,20 @@ public class GameControl {
 		if(mob.equals("poyo")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootnuts");  return "Adicionado Dente"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Fragmento Amarelo"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatbat"); return "Adicionado Chapeu de Morcego"; }
 		}
 		
 		if(mob.equals("aranarc")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoazul");  return "Adicionado Dente"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoazul");  return "Adicionado Fragmento Azul"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("rat")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Fragmento Roxo"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatbunny"); return "Adicionado Orelhas de Coelho"; }
 		}
 		if(mob.equals("snake")) {
@@ -3103,74 +3075,74 @@ public class GameControl {
 		if(mob.equals("slime")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
 		}
 		
 		if(mob.equals("bee")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Fragmento Verde"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("goblin")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Fragmento Roxo"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
 		}
 		if(mob.equals("enty")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
 			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoroxo"); return "Adicionado Fragmento Roxo"; }
 		}
 		
 		//Watercave
 		if(mob.equals("fisko")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
 		}
 		
 		if(mob.equals("shelly")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Fragmento Verde"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("marit")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Fragmento Roxo"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
 		}
 		if(mob.equals("tencle")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
 			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
+			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoroxo"); return "Adicionado Fragmento Roxo"; }
 		}
 		
 		//Desert
 		if(mob.equals("cactus")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
 		}
 		
 		if(mob.equals("harpia")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Fragmento Verde"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("golem")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Fragmento Amarelo"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
 		}
 		if(mob.equals("brimworn")) {
@@ -3184,14 +3156,14 @@ public class GameControl {
 		if(mob.equals("ghost")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
 		}
 		
 		if(mob.equals("tipper")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Fragmento Roxo"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("urso")) {
@@ -3211,20 +3183,20 @@ public class GameControl {
 		if(mob.equals("flare")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
 		}
 		
 		if(mob.equals("salamander")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Fragmento Verde"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("cerberus")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Fragmento Amarelo"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
 		}
 		if(mob.equals("hammertooth")) {
@@ -3238,20 +3210,20 @@ public class GameControl {
 		if(mob.equals("goblin")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
 		}
 		
 		if(mob.equals("pinguim")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Fragmento Verde"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 		}
 		if(mob.equals("snowman")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Saco de dinheiro"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Fragmento Amarelo"; }
 			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
 		}
 		if(mob.equals("yeti")) {
@@ -3264,7 +3236,51 @@ public class GameControl {
 		return "";
 	}
 	
-	public void AddItemBag(String itemName) {
+	public void CrystalExchanged(String color) {
+			int chance = randnumber.nextInt(10000);
+			
+			if(color.equals("yellow")) {
+				if(CheckRequiredItem("lootfragmentoamarelo",true,15)) {
+					if(chance <= 5000) { AddItemBag("yellow_crystal_agiextra_1"); }
+					if(chance >= 5000 && chance <= 9900) { AddItemBag("yellow_crystal_agiextra_2"); }  
+					if(chance >= 9900 && chance <= 10000) { AddItemBag("yellow_crystal_agiextra_3"); }
+				}
+			}
+			
+			if(color.equals("blue")) {
+				if(CheckRequiredItem("lootfragmentoazul",true,15)) {
+					if(chance <= 5000) { AddItemBag("blue_crystal_intextra_1"); }
+					if(chance >= 5000 && chance <= 9900) { AddItemBag("blue_crystal_intextra_2"); }
+					if(chance >= 9900 && chance <= 10000) { AddItemBag("blue_crystal_intextra_3"); }
+				}
+			}
+			
+			if(color.equals("purple")) {
+				if(CheckRequiredItem("lootfragmentoroxo",true,15)) {
+					if(chance <= 5000) { AddItemBag("purple_crystal_vitextra_1"); }
+					if(chance >= 5000 && chance <= 9900) { AddItemBag("purple_crystal_vitextra_2"); }
+					if(chance >= 9900 && chance <= 10000) { AddItemBag("purple_crystal_vitextra_3"); }
+				}
+			}
+					
+			if(color.equals("green")) {
+				if(CheckRequiredItem("lootfragmentoverde",true,15)) {
+					if(chance <= 5000) { AddItemBag("green_crystal_lukextra_1"); }
+					if(chance >= 5000 && chance <= 9900) { AddItemBag("green_crystal_lukextra_2"); }
+					if(chance >= 9900 && chance <= 10000) { AddItemBag("green_crystal_lukextra_3"); }
+				}
+			}
+				
+			if(color.equals("red")) {
+				if(CheckRequiredItem("lootfragmentovermelho",true,15)) {
+					if(chance <= 5000) { AddItemBag("red_crystal_strextra_1"); }
+					if(chance >= 5000 && chance <= 9900) { AddItemBag("red_crystal_strextra_2"); }
+					if(chance >= 9900 && chance <= 10000) { AddItemBag("red_crystal_strextra_3"); }
+				}
+			}		
+	}
+	
+	public boolean CheckRequiredItem(String item, boolean isRemove, int quantity) {
 		String[] lstItem = playerUse.Itens.split("-");
 		String[] itemSplit;
 		boolean exist = false;
@@ -3272,7 +3288,52 @@ public class GameControl {
 		int posicaoItem = 0;
 		String listaItemFinal;
 		
-		//if(lstItem.length > 16) { return; }
+		for(int i = 0; i < lstItem.length; i++) {
+			if(lstItem[i].contains(item) && !exist) {
+				posicaoItem = i;
+				exist = true;
+			}
+		}
+		
+		if(exist) {
+			if(!isRemove) { return true; }
+			
+			itemSplit = lstItem[posicaoItem].split("#");
+			qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
+			
+			if(isRemove) {
+				if(qtd < quantity) {
+					return false;
+				}
+				
+				qtd = qtd - quantity;
+				if(qtd <= 0) { 
+					lstItem[posicaoItem] = "[NONE]";
+					listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+					listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+					playerUse.Itens = listaItemFinal;
+					return true;
+				}
+				if(qtd > 0) {
+					lstItem[posicaoItem] = "[" + itemSplit[0].replace("[", "") + "#" + qtd + "]";
+					listaItemFinal = Arrays.toString(lstItem).replace(", ","-");
+					listaItemFinal = listaItemFinal.substring(1, listaItemFinal.length() -1);
+					playerUse.Itens = listaItemFinal;
+					return true;
+				}
+			}	
+		}
+		
+		return false;
+	}
+	
+	public void AddItemBag(String itemName) {
+		String[] lstItem = playerUse.Itens.split("-");
+		String[] itemSplit;
+		boolean exist = false;
+		int qtd = 0;
+		int posicaoItem = 0;
+		String listaItemFinal;
 		
 		for(int i = 0; i < lstItem.length; i++) {
 			if(lstItem[i].contains(itemName) && !exist) {
@@ -3486,6 +3547,13 @@ public class GameControl {
 		return lstMonsters;
 	}
 	
+	public String GetOnlineGrab() {
+		return onlineGrab;
+	}
+	public void SetOnlineGrab() {
+		onlineGrab = "none";
+	}
+	
 	public void GiveExpGetFromServer(String line) {
 		if (line.contains("Unavailable")) {
 			//System.out.println("Line: indisponivel exp");
@@ -3568,8 +3636,12 @@ public class GameControl {
 	        playerOnline.playerSit = playerDataFields[50];
 	        playerOnline.party = playerDataFields[52];
 	        playerOnline.isPlayerOnline = playerDataFields[54];
+	        playerOnline.MagicSync = playerDataFields[56];
 	        
-
+	        if(!playerUse.party.equals("none") && playerUse.party.equals(playerOnline.party) && !playerUse.Name.equals(playerOnline.Name) && !playerOnline.MagicSync.equals("none")){
+	        	onlineGrab = playerOnline.MagicSync;
+	        }
+	        
 	        // Check if playerOnline already exists in lstPlayerOnline and replace with new data
 	        boolean exists = false;
 	        for (int i = 0; i < lstPlayerOnline.size(); i++) {
@@ -3933,6 +4005,7 @@ public class GameControl {
 		parameters.put("PetTraining", playerUse.petTraining);
 		parameters.put("PetBath", playerUse.petBath);
 		parameters.put("PetLevel", playerUse.petLevel);
+		parameters.put("MagicSync", playerUse.MagicSync);
 		parameters.put("isPlayerOnline", "online");
 
 		String content = "";

@@ -77,14 +77,9 @@ public class Player {
 		public String petBath;
 		public String petLevel;
 		public String isPlayerOnline;
-		public String playerStoreCast;
+		public String MagicSync;
 		
-		public String getPlayerStoreCast() {
-			return playerStoreCast;
-		}
-		public void setPlayerStoreCast(String playerStoreCast) {
-			this.playerStoreCast = playerStoreCast;
-		}
+		
 		public String getIsPlayerOnline() {
 			return isPlayerOnline;
 		}

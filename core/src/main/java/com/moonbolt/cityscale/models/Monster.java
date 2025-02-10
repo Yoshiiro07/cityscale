@@ -34,6 +34,7 @@ public class Monster {
 		public float MobPosXFinal;
 		public float MobPosYFinal;
 		public boolean GotFinal;
+		public String Status;
 
 
 		public ArrayList<Monster> LoadMonsterDataSewers(String map){
@@ -72,6 +73,7 @@ public class Monster {
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
 			MobA.GotFinal = false;
+			MobA.Status = "none";
 
 			Monster MobB = new Monster();
 			MobB.MobName = "poyo";
@@ -104,6 +106,7 @@ public class Monster {
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
 			MobB.GotFinal = false;
+			MobB.Status = "none";
 
 			Monster MobC = new Monster();
 			MobC.MobName = "aranarc";
@@ -136,6 +139,7 @@ public class Monster {
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
 			MobC.GotFinal = false;
+			MobC.Status = "none";
 
 			Monster MobD = new Monster();
 			MobD.MobName = "rat";
@@ -168,6 +172,7 @@ public class Monster {
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
 			MobD.GotFinal = false;
+			MobD.Status = "none";
 
 			Monster MobE = new Monster();
 			MobE.MobName = "snake";
@@ -200,6 +205,7 @@ public class Monster {
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
 			MobE.GotFinal = false;
+			MobE.Status = "none";
 
 
 			listMonsters.add(MobA);
@@ -248,6 +254,7 @@ public class Monster {
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
 			MobA.GotFinal = false;
+			MobA.Status = "none";
 
 
 			Monster MobB = new Monster();
@@ -281,6 +288,7 @@ public class Monster {
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
 			MobB.GotFinal = false;
+			MobB.Status = "none";
 
 			Monster MobC = new Monster();
 			MobC.MobName = "bee";
@@ -313,6 +321,7 @@ public class Monster {
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
 			MobC.GotFinal = false;
+			MobC.Status = "none";
 
 			Monster MobD = new Monster();
 			MobD.MobName = "goblin";
@@ -345,6 +354,7 @@ public class Monster {
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
 			MobD.GotFinal = false;
+			MobD.Status = "none";
 
 			Monster MobE = new Monster();
 			MobE.MobName = "enty";
@@ -377,6 +387,7 @@ public class Monster {
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
 			MobE.GotFinal = false;
+			MobE.Status = "none";
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);
@@ -423,6 +434,7 @@ public class Monster {
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
 			MobA.GotFinal = false;
+			MobA.Status = "none";
 
 
 			Monster MobB = new Monster();
@@ -456,6 +468,7 @@ public class Monster {
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
 			MobB.GotFinal = false;
+			MobB.Status = "none";
 
 			Monster MobC = new Monster();
 			MobC.MobName = "shelly";
@@ -488,6 +501,7 @@ public class Monster {
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
 			MobC.GotFinal = false;
+			MobC.Status = "none";
 
 			Monster MobD = new Monster();
 			MobD.MobName = "marit";
@@ -520,6 +534,7 @@ public class Monster {
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
 			MobD.GotFinal = false;
+			MobD.Status = "none";
 
 			Monster MobE = new Monster();
 			MobE.MobName = "tencle";
@@ -552,6 +567,7 @@ public class Monster {
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
 			MobE.GotFinal = false;
+			MobE.Status = "none";
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);
@@ -598,6 +614,7 @@ public class Monster {
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
 			MobA.GotFinal = false;
+			MobA.Status = "none";
 
 
 			Monster MobB = new Monster();
@@ -631,6 +648,7 @@ public class Monster {
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
 			MobB.GotFinal = false;
+			MobB.Status = "none";
 
 			Monster MobC = new Monster();
 			MobC.MobName = "harpia";
@@ -663,6 +681,7 @@ public class Monster {
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
 			MobC.GotFinal = false;
+			MobC.Status = "none";
 
 			Monster MobD = new Monster();
 			MobD.MobName = "golem";
@@ -695,6 +714,7 @@ public class Monster {
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
 			MobD.GotFinal = false;
+			MobD.Status = "none";
 
 			Monster MobE = new Monster();
 			MobE.MobName = "brimworn";
@@ -727,6 +747,7 @@ public class Monster {
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
 			MobE.GotFinal = false;
+			MobE.Status = "none";
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);
@@ -773,6 +794,7 @@ public class Monster {
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
 			MobA.GotFinal = false;
+			MobA.Status = "none";
 
 
 			Monster MobB = new Monster();
@@ -806,6 +828,7 @@ public class Monster {
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
 			MobB.GotFinal = false;
+			MobB.Status = "none";
 
 			Monster MobC = new Monster();
 			MobC.MobName = "tipper";
@@ -838,6 +861,7 @@ public class Monster {
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
 			MobC.GotFinal = false;
+			MobC.Status = "none";
 
 			Monster MobD = new Monster();
 			MobD.MobName = "urso";
@@ -870,6 +894,7 @@ public class Monster {
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
 			MobD.GotFinal = false;
+			MobD.Status = "none";
 
 			Monster MobE = new Monster();
 			MobE.MobName = "caveira";
@@ -902,6 +927,7 @@ public class Monster {
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
 			MobE.GotFinal = false;
+			MobE.Status = "none";
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);
@@ -948,6 +974,7 @@ public class Monster {
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
 			MobA.GotFinal = false;
+			MobA.Status = "none";
 
 
 			Monster MobB = new Monster();
@@ -981,6 +1008,7 @@ public class Monster {
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
 			MobB.GotFinal = false;
+			MobB.Status = "none";
 
 			Monster MobC = new Monster();
 			MobC.MobName = "salamander";
@@ -1013,6 +1041,7 @@ public class Monster {
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
 			MobC.GotFinal = false;
+			MobC.Status = "none";
 
 			Monster MobD = new Monster();
 			MobD.MobName = "cerberus";
@@ -1045,6 +1074,7 @@ public class Monster {
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
 			MobD.GotFinal = false;
+			MobD.Status = "none";
 
 			Monster MobE = new Monster();
 			MobE.MobName = "hammertooth";
@@ -1077,6 +1107,7 @@ public class Monster {
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
 			MobE.GotFinal = false;
+			MobE.Status = "none";
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);
@@ -1123,6 +1154,7 @@ public class Monster {
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
 			MobA.GotFinal = false;
+			MobA.Status = "none";
 
 
 			Monster MobB = new Monster();
@@ -1156,6 +1188,7 @@ public class Monster {
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
 			MobB.GotFinal = false;
+			MobB.Status = "none";
 
 			Monster MobC = new Monster();
 			MobC.MobName = "pinguim";
@@ -1188,6 +1221,7 @@ public class Monster {
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
 			MobC.GotFinal = false;
+			MobC.Status = "none";
 
 			Monster MobD = new Monster();
 			MobD.MobName = "snowman";
@@ -1220,6 +1254,7 @@ public class Monster {
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
 			MobD.GotFinal = false;
+			MobD.Status = "none";
 
 			Monster MobE = new Monster();
 			MobE.MobName = "yeti";
@@ -1252,6 +1287,7 @@ public class Monster {
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
 			MobE.GotFinal = false;
+			MobE.Status = "none";
 
 			listMonsters.add(MobA);
 			listMonsters.add(MobB);
