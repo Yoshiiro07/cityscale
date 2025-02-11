@@ -1644,14 +1644,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//slot 1
 			if(!player.Crystal1.equals("none")) {
 				spr_item = gameControl.GetItem(player.Crystal1, player);
-				spr_item.setPosition(32f, -33);
+				spr_item.setPosition(cameraCoordsX + 13.3f,cameraCoordsY + 2);
 				spr_item.setSize(13, 23);
 				spr_item.draw(game.batch);
 			}
 			
 			if(!player.Crystal2.equals("none")) {
 				spr_item = gameControl.GetItem(player.Crystal2, player);
-				spr_item.setPosition(46f, -33);
+				spr_item.setPosition(cameraCoordsX + 27.2f,cameraCoordsY + 2);
 				spr_item.setSize(13, 23);
 				spr_item.draw(game.batch); 
 			}
@@ -1659,7 +1659,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//slot 3
 			if(!player.Crystal3.equals("none")) {
 				spr_item = gameControl.GetItem(player.Crystal3, player);
-				spr_item.setPosition(59.5f, -33);
+				spr_item.setPosition(cameraCoordsX + 41.1f,cameraCoordsY + 2);
 				spr_item.setSize(13, 23);
 				spr_item.draw(game.batch); 
 			}
@@ -1667,7 +1667,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//slot 4
 			if(!player.Crystal4.equals("none")) {
 				spr_item = gameControl.GetItem(player.Crystal4, player);
-				spr_item.setPosition(73f, -33);
+				spr_item.setPosition(cameraCoordsX + 54.7f,cameraCoordsY + 2);
 				spr_item.setSize(13, 23);
 				spr_item.draw(game.batch); 
 			}
