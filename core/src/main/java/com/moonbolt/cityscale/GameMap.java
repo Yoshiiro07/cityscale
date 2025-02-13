@@ -57,7 +57,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int playerHPMax = 0;
     private int playerMP = 0;
     private int playerMPMax = 0;
-    
+    private int climatic = 0;
+    private int climaticTimer = 6000;
+    private int climaticEffectTimer = 0;
+    private int daytime = 0;
     private int regen = 0;
     
     //Aviso
@@ -171,6 +174,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private Texture tex_Background;
     private Texture tex_Background2;
     private Texture tex_Background3;
+    private Texture tex_rain1;
+    private Texture tex_rain2;
+    private Texture tex_rain3;
+    private Texture tex_snow1;
+    private Texture tex_snow2;
+    private Texture tex_snow3;
+    private Texture tex_afternoon;
+    private Texture tex_night;
+    private Texture tex_blackout;
     
     //Metro
     private Sprite spr_metro;
@@ -232,6 +244,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/metrostation.png"));  
 			}
 			
+			tex_rain1 = new Texture(Gdx.files.internal("data/assets/maps/rain1.png")); 
+			tex_rain2 = new Texture(Gdx.files.internal("data/assets/maps/rain2.png")); 
+			tex_rain3 = new Texture(Gdx.files.internal("data/assets/maps/rain3.png")); 
+			tex_snow1 = new Texture(Gdx.files.internal("data/assets/maps/snow1.png")); 
+		    tex_snow2 = new Texture(Gdx.files.internal("data/assets/maps/snow2.png")); 
+		    tex_snow3 = new Texture(Gdx.files.internal("data/assets/maps/snow3.png")); 
+		    tex_afternoon = new Texture(Gdx.files.internal("data/assets/maps/afternoon.png")); 
+		    tex_night = new Texture(Gdx.files.internal("data/assets/maps/night.png")); 
+		    tex_blackout = new Texture(Gdx.files.internal("data/assets/maps/blackout.png")); 
+			
 			if(player.Map.equals("StreetsA")) { 
 				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png"));  
 				tex_Background2 = new Texture(Gdx.files.internal("data/assets/maps/streetsB.png")); 
@@ -249,7 +271,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Mobs
 			listMonsters = new ArrayList<Monster>();
 			if(player.Map.equals("Sewers")) {  
-				listMonsters = gameControl.LoadMonsters("Sewers"); 
+				listMonsters = gameControl.LoadMonsters("Sewers");
 			}
 			if(player.Map.equals("Forest")) { 			
 				listMonsters = gameControl.LoadMonsters("Forest"); 
@@ -719,7 +741,72 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//spr_testeDot.setSize(1, 1);
 			//spr_testeDot.draw(game.batch);
 			
+			CheckMapEffect();
+			
 			game.batch.end();
+		}
+		
+		public void CheckMapEffect() {
+			daytime++;
+			
+			if(player.Map.equals("Forest") || player.Map.equals("Swamp") || player.Map.equals("StreetsA")) {		
+				//Tarde
+					if(daytime > 10000 && daytime < 20000) {
+						spr_master.setTexture(tex_afternoon);
+						spr_master.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+						spr_master.setSize(200, 200);
+						spr_master.setColor(1, 1, 1, 0.2f); // 0.5f is 50% transparency
+						spr_master.draw(game.batch);
+					}
+					//Noite
+					if(daytime > 20000 && daytime < 30000) {
+						spr_master.setTexture(tex_night);
+						spr_master.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+						spr_master.setSize(200, 200);
+						spr_master.setColor(1, 1, 1, 0.3f); // 0.5f is 50% transparency
+						spr_master.draw(game.batch);
+					}
+					
+					if(daytime > 30000) {
+						daytime = 0;
+					}
+			}
+			
+			if(player.Map.equals("Forest") || player.Map.equals("Swamp") || player.Map.equals("StreetsA")) { 
+			//Climatic
+			climaticTimer--;
+			if(climaticTimer <= 0) {
+				climatic = randnumber.nextInt(2);
+				climaticTimer = 10000;
+			}
+			
+			//Chuva
+			if(climatic == 1) {
+				climaticEffectTimer++;
+				if(climaticEffectTimer >= 0 && climaticEffectTimer <= 10) {
+					spr_master.setTexture(tex_rain1);
+					spr_master.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+					spr_master.setSize(200, 200);
+					spr_master.draw(game.batch);
+				}
+				if(climaticEffectTimer >= 10 && climaticEffectTimer <= 20) {
+					spr_master.setTexture(tex_rain2);
+					spr_master.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+					spr_master.setSize(200, 200);
+					spr_master.draw(game.batch);				
+				}
+				if(climaticEffectTimer >= 20 && climaticEffectTimer <= 30) {
+					spr_master.setTexture(tex_rain3);
+					spr_master.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+					spr_master.setSize(200, 200);
+					spr_master.draw(game.batch);
+				}
+				if(climaticEffectTimer > 30) {
+					climaticEffectTimer = 1;
+				}			
+			}
+			
+			}
 		}
 		
 		public void CheckCasting() {
@@ -3812,8 +3899,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					gameControl.UseItem(3);
 					return false;
 				}
-				
-				
 				
 				//Item 5
 				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY + 19 && coordsTouch.y < cameraCoordsY + 39) {

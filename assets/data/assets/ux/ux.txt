@@ -45,6 +45,13 @@ battlezoneA
   orig: 334, 500
   offset: 0, 0
   index: -1
+battlezoneC
+  rotate: false
+  xy: 334, 919
+  size: 334, 500
+  orig: 334, 500
+  offset: 0, 0
+  index: -1
 btnback
   rotate: false
   xy: 1199, 0
@@ -117,7 +124,7 @@ inventory
   index: -1
 jobmaster
   rotate: false
-  xy: 334, 919
+  xy: 668, 919
   size: 900, 600
   orig: 900, 600
   offset: 0, 0

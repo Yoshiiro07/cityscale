@@ -674,6 +674,7 @@ public class GameControl {
 			if(!player.Hat.equals("none")) { 
 				spr_master = atlas_hats.createSprite(hat + "_front");
 				spr_master.setPosition(posX - 19,posY + 17);
+				if(hat.equals("hatheadset")) { spr_master.setPosition(posX - 19,posY + 13); }
 				spr_master.setScale(0.23f,0.5f);
 			}		
 		}
@@ -682,6 +683,7 @@ public class GameControl {
 			if(!player.Hat.equals("none")) { 
 				spr_master = atlas_hats.createSprite(hat + "_right");
 				spr_master.setPosition(posX - 19,posY + 15.5f);
+				if(hat.equals("hatheadset")) { spr_master.setPosition(posX - 19,posY + 10); }
 				spr_master.setScale(0.21f,0.5f);	
 			}		
 		}
@@ -690,6 +692,7 @@ public class GameControl {
 			if(!player.Hat.equals("none")) { 
 				spr_master = atlas_hats.createSprite(hat + "_left");
 				spr_master.setPosition(posX - 20,posY + 15.5f);
+				if(hat.equals("hatheadset")) { spr_master.setPosition(posX - 19,posY + 10); }
 				spr_master.setScale(0.21f,0.5f);	
 			}		
 		}
@@ -698,6 +701,7 @@ public class GameControl {
 			if(!player.Hat.equals("none")) { 
 				spr_master = atlas_hats.createSprite(hat + "_up");
 				spr_master.setPosition(posX - 19,posY + 17);
+				if(hat.equals("hatheadset")) { spr_master.setPosition(posX - 19,posY + 14); }
 				spr_master.setScale(0.23f,0.5f);
 			}		
 		}

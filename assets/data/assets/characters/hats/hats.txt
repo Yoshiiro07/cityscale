@@ -1,5 +1,5 @@
 hats.png
-size: 114, 456
+size: 1520, 38
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -26,231 +26,259 @@ hatbat_right
   index: -1
 hatbat_up
   rotate: false
-  xy: 0, 38
+  xy: 114, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatbear_front
   rotate: false
-  xy: 38, 38
+  xy: 152, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatbear_left
   rotate: false
-  xy: 76, 38
+  xy: 190, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatbear_right
   rotate: false
-  xy: 0, 76
+  xy: 228, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatbear_up
   rotate: false
-  xy: 38, 76
+  xy: 266, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatbunny_front
   rotate: false
-  xy: 76, 76
+  xy: 304, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatbunny_left
   rotate: false
-  xy: 0, 114
+  xy: 342, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatbunny_right
   rotate: false
-  xy: 38, 114
+  xy: 380, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatbunny_up
   rotate: false
-  xy: 76, 114
+  xy: 418, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatcapoult_front
   rotate: false
-  xy: 0, 152
+  xy: 456, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatcapoult_left
   rotate: false
-  xy: 38, 152
+  xy: 494, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatcapoult_right
   rotate: false
-  xy: 76, 152
+  xy: 532, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatcapoult_up
   rotate: false
-  xy: 0, 190
+  xy: 570, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatheadset_front
+  rotate: false
+  xy: 608, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatheadset_left
+  rotate: false
+  xy: 646, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatheadset_right
+  rotate: false
+  xy: 684, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatheadset_up
+  rotate: false
+  xy: 722, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatmagician_front
   rotate: false
-  xy: 38, 190
+  xy: 760, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatmagician_left
   rotate: false
-  xy: 76, 190
+  xy: 798, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatmagician_right
   rotate: false
-  xy: 0, 228
+  xy: 836, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatmagician_up
   rotate: false
-  xy: 38, 228
+  xy: 874, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatpirate_front
   rotate: false
-  xy: 76, 228
+  xy: 912, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatpirate_left
   rotate: false
-  xy: 0, 266
+  xy: 950, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatpirate_right
   rotate: false
-  xy: 38, 266
+  xy: 988, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatpirate_up
   rotate: false
-  xy: 76, 266
+  xy: 1026, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatsanta_front
   rotate: false
-  xy: 0, 304
+  xy: 1064, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatsanta_left
   rotate: false
-  xy: 38, 304
+  xy: 1102, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatsanta_right
   rotate: false
-  xy: 76, 304
+  xy: 1140, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatsanta_up
   rotate: false
-  xy: 0, 342
+  xy: 1178, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatslime_front
   rotate: false
-  xy: 38, 342
+  xy: 1216, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatslime_left
   rotate: false
-  xy: 76, 342
+  xy: 1254, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatslime_right
   rotate: false
-  xy: 0, 380
+  xy: 1292, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hatslime_up
   rotate: false
-  xy: 38, 380
+  xy: 1330, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hattimerhattimer_front
   rotate: false
-  xy: 76, 380
+  xy: 1368, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hattimerhattimer_left
   rotate: false
-  xy: 0, 418
+  xy: 1406, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hattimerhattimer_right
   rotate: false
-  xy: 38, 418
+  xy: 1444, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
   index: -1
 hattimerhattimer_up
   rotate: false
-  xy: 76, 418
+  xy: 1482, 0
   size: 38, 38
   orig: 38, 38
   offset: 0, 0
