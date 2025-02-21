@@ -1297,4 +1297,184 @@ public class Monster {
 
 			return listMonsters;
 		}
+		
+		public ArrayList<Monster> LoadMonsterDataSwamp(String map){
+			
+			ArrayList<Monster> listMonsters = new ArrayList<Monster>();
+			
+			Monster MobA = new Monster();
+			
+			MobA.MobName = "eyeball";      //MobID + MobHp + MobMp + MobPosX + MobPosY + MobTarget + MobDead
+			MobA.MobHp = 16200;
+			MobA.MobMp = 16200;
+			MobA.MobHpMax = 16200;
+			MobA.MobMpMax = 16200;
+			MobA.MobFrame = 1;
+			MobA.MobPosX = 20;
+			MobA.MobPosY = 20;
+			MobA.MobExp = 70000;
+			MobA.MobID = "EyeballA";
+			MobA.MobMoney = 1;
+			MobA.MobSizeY = 23;
+			MobA.MobSizeX = 16;
+			MobA.MobTarget = "none";
+			MobA.MobDead = "no";
+			MobA.MobTimeDead = 500;
+			MobA.MobSkillChance = "";
+			MobA.MobAtk = 350;
+			MobA.MobEvade = 20;
+			MobA.MobPosition = "left";
+			MobA.MobRandomSt = 1;
+			MobA.MobTimerMov = 1;
+			MobA.MobFrameTime = 1;
+			MobA.MobAtkTimer = 500;
+			MobA.MobAtkTimerMax = 500;
+			MobA.MobLevel = 30;
+			MobA.MobMap = "Swamp";
+			MobA.MobPosXFinal = 0;
+			MobA.MobPosYFinal = 0;
+			MobA.GotFinal = false;
+			MobA.Status = "none";
+
+
+			Monster MobB = new Monster();
+			MobB.MobName = "eyeball";
+			MobB.MobHp = 16200;
+			MobB.MobMp = 16200;
+			MobB.MobHpMax = 16200;
+			MobB.MobMpMax = 16200;
+			MobB.MobFrame = 1;
+			MobB.MobPosX = 20;
+			MobB.MobPosY = 20;
+			MobB.MobExp = 70000;
+			MobB.MobID = "EyeballB";
+			MobB.MobMoney = 1;
+			MobB.MobSizeY = 20;
+			MobB.MobSizeX = 14;
+			MobB.MobTarget = "none";
+			MobB.MobDead = "no";
+			MobB.MobTimeDead = 500;
+			MobB.MobSkillChance = "";
+			MobB.MobAtk = 350;
+			MobB.MobEvade = 20;
+			MobB.MobPosition = "left";
+			MobB.MobRandomSt = 1;
+			MobB.MobTimerMov = 1;
+			MobB.MobFrameTime = 1;
+			MobB.MobAtkTimer = 500;
+			MobB.MobAtkTimerMax = 500;
+			MobB.MobLevel = 40;
+			MobB.MobMap = "Swamp";
+			MobB.MobPosXFinal = 0;
+			MobB.MobPosYFinal = 0;
+			MobB.GotFinal = false;
+			MobB.Status = "none";
+
+			Monster MobC = new Monster();
+			MobC.MobName = "onulu";
+			MobC.MobHp = 24200;
+			MobC.MobMp = 24200;
+			MobC.MobHpMax = 24200;
+			MobC.MobMpMax = 24200;
+			MobC.MobFrame = 1;
+			MobC.MobPosX = 112.5f;
+			MobC.MobPosY = -13;
+			MobC.MobExp = 140000;
+			MobC.MobID = "OnuluA";
+			MobC.MobMoney = 2;
+			MobC.MobSizeY = 40;
+			MobC.MobSizeX = 25;
+			MobC.MobTarget = "none";
+			MobC.MobDead = "no";
+			MobC.MobTimeDead = 500;
+			MobC.MobSkillChance = "";
+			MobC.MobAtk = 400;
+			MobC.MobEvade = 10;
+			MobC.MobPosition = "left";
+			MobC.MobRandomSt = 1;
+			MobC.MobTimerMov = 1;
+			MobC.MobFrameTime = 1;
+			MobC.MobAtkTimer = 300;
+			MobC.MobAtkTimerMax = 300;
+			MobC.MobLevel = 30;
+			MobC.MobMap = "Swamp";
+			MobC.MobPosXFinal = 0;
+			MobC.MobPosYFinal = 0;
+			MobC.GotFinal = false;
+			MobC.Status = "none";
+
+			Monster MobD = new Monster();
+			MobD.MobName = "cockatrix";
+			MobD.MobHp = 29200;
+			MobD.MobMp = 29200;
+			MobD.MobHpMax = 29200;
+			MobD.MobMpMax = 29200;
+			MobD.MobFrame = 1;
+			MobD.MobPosX = 9.0f;
+			MobD.MobPosY = -132;
+			MobD.MobExp = 250000;
+			MobD.MobID = "CockatrixA";
+			MobD.MobMoney = 4;
+			MobD.MobSizeY = 40;
+			MobD.MobSizeX = 20;
+			MobD.MobTarget = "none";
+			MobD.MobDead = "no";
+			MobD.MobTimeDead = 500;
+			MobD.MobSkillChance = "";
+			MobD.MobAtk = 480;
+			MobD.MobEvade = 10;
+			MobD.MobPosition = "left";
+			MobD.MobRandomSt = 1;
+			MobD.MobTimerMov = 1;
+			MobD.MobFrameTime = 1;
+			MobD.MobAtkTimer = 300;
+			MobD.MobAtkTimerMax = 300;
+			MobD.MobLevel = 30;
+			MobD.MobMap = "Swamp";
+			MobD.MobPosXFinal = 0;
+			MobD.MobPosYFinal = 0;
+			MobD.GotFinal = false;
+			MobD.Status = "none";
+
+			Monster MobE = new Monster();
+			MobE.MobName = "mantis";
+			MobE.MobHp = 35200;
+			MobE.MobMp = 35200;
+			MobE.MobHpMax = 35200;
+			MobE.MobMpMax = 35200;
+			MobE.MobFrame = 1;
+			MobE.MobPosX = 84.5f;
+			MobE.MobPosY = -129.5f;
+			MobE.MobExp = 450000;
+			MobE.MobID = "MantisA";
+			MobE.MobMoney = 5;
+			MobE.MobSizeY = 50;
+			MobE.MobSizeX = 35;
+			MobE.MobTarget = "none";
+			MobE.MobDead = "no";
+			MobE.MobTimeDead = 500;
+			MobE.MobSkillChance = "";
+			MobE.MobAtk = 640;
+			MobE.MobEvade = 10;
+			MobE.MobPosition = "left";
+			MobE.MobRandomSt = 1;
+			MobE.MobTimerMov = 1;
+			MobE.MobFrameTime = 1;
+			MobE.MobAtkTimer = 400;
+			MobE.MobAtkTimerMax = 400;
+			MobE.MobLevel = 8;
+			MobE.MobMap = "Swamp";
+			MobE.MobPosXFinal = 0;
+			MobE.MobPosYFinal = 0;
+			MobE.GotFinal = false;
+			MobE.Status = "none";
+
+			listMonsters.add(MobA);
+			listMonsters.add(MobB);
+			listMonsters.add(MobC);
+			listMonsters.add(MobD);
+			listMonsters.add(MobE);
+
+			return listMonsters;
+		}
 }

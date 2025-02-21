@@ -49,6 +49,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private String keyboardType = "none";
 	private DateTimeProvider dateTimeProvider;
 	private int changeBackground = 300;
+	private boolean notouch = false;
     
     //Variables usables
     private float floatUseA = 0;
@@ -266,7 +267,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Vulcano")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/vulcano.png"));  }
 			if(player.Map.equals("Mines")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/mines.png"));  }
 			if(player.Map.equals("Snowpalace")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/snowpalace.png"));  }
-			if(player.Map.equals("Swap")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/swamp.png"));  }
+			if(player.Map.equals("Swamp")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/swamp.png"));  }
 			
 			//Mobs
 			listMonsters = new ArrayList<Monster>();
@@ -290,6 +291,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			if(player.Map.equals("Snowpalace")) { 			
 				listMonsters = gameControl.LoadMonsters("Snowpalace"); 
+			}
+			if(player.Map.equals("Swamp")) { 			
+				listMonsters = gameControl.LoadMonsters("Swamp"); 
 			}
 			
 			spr_Background = new Sprite(tex_Background);
@@ -330,6 +334,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player.Wis = "1";
 			player.Dex = "1";*/
 			
+			//player.playerSit = "none";
 			
 			//Just for coloring
 			Gdx.gl.glClearColor(1,1,1,1);
@@ -520,6 +525,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Vulcano")){ ShowMobs(); }
 			if(player.Map.equals("Mines")){ ShowMobs(); }
 			if(player.Map.equals("Snowpalace")){ ShowMobs(); }
+			if(player.Map.equals("Swamp")){ ShowMobs(); }
 		
 			//UX
 			spr_playerTag = gameControl.GetUX("playertag",cameraCoordsX, cameraCoordsY);
@@ -558,7 +564,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.contains("Vulcano")) { CheckColisionVulcano(); }
 			if(player.Map.contains("Mines")) { CheckColisionMines(); }
 			if(player.Map.contains("Snowpalace")) { CheckColisionSnowpalace(); }
-			if(player.Map.contains("Swap")) { CheckColisionSwap(); }
+			if(player.Map.contains("Swamp")) { CheckColisionSwamp(); }
 			
 			ShowCards();
 			CheckPlayerParty();
@@ -701,7 +707,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 
 			if(state.equals("DungeonSelect")) {
-				spr_master = gameControl.GetUX("battlezoneA", cameraCoordsX, cameraCoordsY);
+				spr_master = gameControl.GetUX("battlezoneC", cameraCoordsX, cameraCoordsY);
 				spr_master.draw(game.batch);
 			}
 			
@@ -733,13 +739,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			//spr_testeDot.setPosition(cameraCoordsX + 55, cameraCoordsY + 25);
-			//spr_testeDot.setSize(1, 1);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 13, cameraCoordsY - 12);
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 		
-			//spr_testeDot.setPosition(cameraCoordsX + 67, cameraCoordsY + 1);  
-			//spr_testeDot.setSize(1, 1);
-			//spr_testeDot.draw(game.batch);
+			spr_testeDot.setPosition(cameraCoordsX + 26, cameraCoordsY - 35);  
+			spr_testeDot.setSize(1, 1);
+			spr_testeDot.draw(game.batch);
 			
 			CheckMapEffect();
 			
@@ -1531,7 +1537,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
-		public void CheckColisionSwap() {
+		public void CheckColisionSwamp() {
 			float posY = Float.parseFloat(player.PosY);
 			float posX = Float.parseFloat(player.PosX);
 			
@@ -1550,7 +1556,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			
-			if(player.Map.equals("Swap")) {
+			if(player.Map.equals("Swamp")) {
 				if(posX > 14 && posX < 39 && posY> 36.5f && posY < 41.5f) {
 					MapChange("StreetsAFromSewers");
 				}
@@ -1842,6 +1848,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || player.Map.equals("Watercave")  
 					|| player.Map.equals("Desert") || player.Map.equals("Vulcano") 
 					|| player.Map.equals("Mines") || player.Map.equals("Snowpalace")
+					|| player.Map.equals("Swamp")
 					&& autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
@@ -3158,7 +3165,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void ChangeTarget() {
 					
-			if(player.Map.equals("Sewers") || player.Map.equals("Forest")) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") ||
+			   player.Map.equals("Watercave") || player.Map.equals("Desert") ||	
+			   player.Map.equals("Vulcano") || player.Map.equals("Mines") ||
+			   player.Map.equals("Snowpalace") || player.Map.equals("Swamp")
+				) {
 			
 				String playerTarget = player.Target;
 				for(int i = 0; i < listMonsters.size(); i++) {
@@ -3383,8 +3394,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				dispose();
 			}
 			
-			if(map.equals("Swap")) {  
-				player.Map = "Swap";
+			if(map.equals("Swamp")) {  
+				player.Map = "Swamp";
 				player.PosX = String.valueOf("24.5f");
 				player.PosY = String.valueOf("11");
 				this.screen.screenSwitch("LoadingScreen","",playernum);
@@ -3655,7 +3666,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		@Override
 		public boolean touchDown(int p1, int p2, int pointer, int button) {
-			
 			if(playerDead) { return false; }
 			
 			Vector3 coordsTouch = camera.unproject(new Vector3(p1,p2,0));
@@ -3663,6 +3673,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Main
 			//[Main State]//
 			if(state.equals("Main")) {
+				//Sit 
+				if(coordsTouch.x > cameraCoordsX - 45 && coordsTouch.x < cameraCoordsX - 25 && coordsTouch.y > cameraCoordsY + 86 && coordsTouch.y < cameraCoordsY + 97) {
+					if(!player.playerInBattle.equals("yes")) {
+						if(player.playerSit.equals("none")) {
+							player.playerSit = "yes";
+						}
+						else {
+							player.playerSit = "none";
+						}
+					}
+					return false;
+				}
+				
 				if(playerDead) { return false; }
 				if(player.playerSit.equals("yes")){ return false; }
 	            if(defTrigged) { movement = false; return false; }
@@ -3727,18 +3750,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY - 90 && coordsTouch.y < cameraCoordsY - 66) {			
 					return false;
 				}
-				//Sit 
-				if(coordsTouch.x > cameraCoordsX - 45 && coordsTouch.x < cameraCoordsX - 25 && coordsTouch.y > cameraCoordsY + 86 && coordsTouch.y < cameraCoordsY + 97) {
-					if(!player.playerInBattle.equals("yes")) {
-						if(player.playerSit.equals("none")) {
-							player.playerSit = "yes";
-						}
-						else {
-							player.playerSit = "none";
-						}
-					}
-					return false;
-				}
+				
 				
 				//hotkey1
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 6) {
@@ -3753,12 +3765,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(!player.hotkey2.equals("none")) {
 						gameControl.UseItem(hotketcountitem2);
 					}
-					return false;
-				}
-				
-				//Descartar
-				if(coordsTouch.x > cameraCoordsX - 12 && coordsTouch.x < cameraCoordsX + 17 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 48) {
-					menuoption = "descartar";
 					return false;
 				}
 				
@@ -3817,7 +3823,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				//Dungeon 4 - Swap
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 43 && coordsTouch.y < cameraCoordsY - 31) {
-					MapChange("Swap");
+					MapChange("Swamp");  //here
 					return false;
 				}
 				
@@ -3851,6 +3857,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Descartar
 				if(coordsTouch.x > cameraCoordsX - 12 && coordsTouch.x < cameraCoordsX + 17 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 48) {
+					if(menuoption.equals("descartar")) { menuoption = ""; return false; }
 					menuoption = "descartar";
 					return false;
 				}
@@ -4012,26 +4019,31 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Status point
 				//STR
 				if(coordsTouch.x > cameraCoordsX - 81 && coordsTouch.x < cameraCoordsX - 69 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					if(!menuoption.equals("")) { return false; }
 					CheckStatus("Str");
 					return false;
 				}
 				//VIT
 				if(coordsTouch.x > cameraCoordsX - 67 && coordsTouch.x < cameraCoordsX - 55 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					if(!menuoption.equals("")) { return false; }
 					CheckStatus("Vit");
 					return false;
 				}
 				//AGI
 				if(coordsTouch.x > cameraCoordsX - 54 && coordsTouch.x < cameraCoordsX - 41 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					if(!menuoption.equals("")) { return false; }
 					CheckStatus("Agi");
 					return false;
 				}
 				//WIS
 				if(coordsTouch.x > cameraCoordsX - 40 && coordsTouch.x < cameraCoordsX - 27 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					if(!menuoption.equals("")) { return false; }
 					CheckStatus("Wis");
 					return false;
 				}
 				//DES
 				if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 14 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					if(!menuoption.equals("")) { return false; }
 					CheckStatus("Dex");
 					return false;
 				}
@@ -4045,21 +4057,25 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				////// Crystals
 				//Crystal 1
 				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 26 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
+					if(!menuoption.equals("")) { return false; }
 					gameControl.RemoveCrystals(1);
 					return false;
 				}
 				//Crystal 2
 				if(coordsTouch.x > cameraCoordsX + 27 && coordsTouch.x < cameraCoordsX + 39 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
+					if(!menuoption.equals("")) { return false; }
 					gameControl.RemoveCrystals(2);
 					return false;
 				}
 				//Crystal 3
 				if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 53 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
+					if(!menuoption.equals("")) { return false; }
 					gameControl.RemoveCrystals(3);
 					return false;
 				}
 				//Crystal 4
 				if(coordsTouch.x > cameraCoordsX + 55 && coordsTouch.x < cameraCoordsX + 67 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
+					if(!menuoption.equals("")) { return false; }
 					gameControl.RemoveCrystals(4);
 					return false;
 				}
@@ -4123,7 +4139,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}
 				}
 				if(shopname.equals("cristalized")) { 
-					gameControl.GiveItemTEMPORARIO();
+					//gameControl.GiveItemTEMPORARIO();
 					
 					//Sair
 					if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 60 && coordsTouch.y > cameraCoordsY - 76 && coordsTouch.y <  - 60) {
@@ -4168,7 +4184,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void ChangeJob(String job) {
-			if(player.Job.equals("Aprendiz") && player.Level.equals("10")) {
+			int playerlevel = Integer.parseInt(player.Level);
+			if(player.Job.equals("Aprendiz") && playerlevel >= 10) {
 				player.Job = job;
 			}
 		}
@@ -4182,7 +4199,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || 
 			   player.Map.equals("Watercave") || player.Map.equals("Desert") ||
 			   player.Map.equals("Vulcano") || player.Map.equals("Mines") || 
-			   player.Map.equals("Snowpalace")){
+			   player.Map.equals("Snowpalace") || player.Map.equals("Swamp")){
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 						//Target do player
@@ -4285,6 +4302,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						if(player.Map.equals("Mines")) { spr_monster = gameControl.GetMonsterMines(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						if(player.Map.equals("Vulcano")) { spr_monster = gameControl.GetMonsterVulcano(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						if(player.Map.equals("Snowpalace")) { spr_monster = gameControl.GetMonsterSnowpalace(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
+						if(player.Map.equals("Swamp")) { spr_monster = gameControl.GetMonsterSwamp(listMonsters.get(i).MobName, listMonsters.get(i).MobFrame, ""); }
 						
 						spr_monster.setPosition(listMonsters.get(i).MobPosX, listMonsters.get(i).MobPosY);
 						spr_monster.setSize(listMonsters.get(i).MobSizeX, listMonsters.get(i).MobSizeY);

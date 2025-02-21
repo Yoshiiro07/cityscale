@@ -88,6 +88,7 @@ public class GameControl {
 	private TextureAtlas atlas_mobMines;
 	private TextureAtlas atlas_mobVulcano;
 	private TextureAtlas atlas_mobSnowpalace;
+	private TextureAtlas atlas_mobSwamp;
 	
 	private TextureAtlas atlas_castEffect;
 
@@ -180,6 +181,8 @@ public class GameControl {
 		atlas_mobVulcano = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobvulcano.txt"));
 		
 		atlas_mobSnowpalace = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobsnowpalace.txt"));
+		atlas_mobSwamp = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobswamp.txt"));
+		
 
 		atlas_npcs = new TextureAtlas(Gdx.files.internal("data/assets/characters/npcs/npcs.txt"));
 		atlas_cards = new TextureAtlas(Gdx.files.internal("data/assets/skills/cards.txt"));
@@ -399,8 +402,8 @@ public class GameControl {
 			return createSpriteWithPositionAndSize("login", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
 		case "partytag":
 			return createSpriteWithPositionAndSize("partytag", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
-		case "battlezoneA":
-			return createSpriteWithPositionAndSize("battlezoneA", cameraCoordsX - 48, cameraCoordsY - 92, 90, 190);
+		case "battlezoneC":
+			return createSpriteWithPositionAndSize("battlezoneC", cameraCoordsX - 48, cameraCoordsY - 92, 90, 190);
 		default:
 			return null;
 		}
@@ -968,6 +971,7 @@ public class GameControl {
 		if(Map.equals("Vulcano")) { lstMonsters = placeholderMonster.LoadMonsterDataVulcano(Map); }
 		if(Map.equals("Mines")) { lstMonsters = placeholderMonster.LoadMonsterDataMines(Map); }
 		if(Map.equals("Snowpalace")) { lstMonsters = placeholderMonster.LoadMonsterDataSnowpalace(Map); }
+		if(Map.equals("Swamp")) { lstMonsters = placeholderMonster.LoadMonsterDataSwamp(Map); }
 		
 		return lstMonsters;
 	}
@@ -1121,6 +1125,28 @@ public class GameControl {
 		}
 		if(mob.equals("yeti")){
 			spr_master = atlas_mobSnowpalace.createSprite("yeti" + mobframe);
+			return spr_master;
+		}
+		
+		return spr_master;
+	}
+	
+	public Sprite GetMonsterSwamp(String mob, int mobframe, String side) {
+		//Forest
+		if(mob.equals("eyeball")){
+			spr_master = atlas_mobSwamp.createSprite("eyeball" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("onulu")){
+			spr_master = atlas_mobSwamp.createSprite("onulu" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("cockatrix")){
+			spr_master = atlas_mobSwamp.createSprite("cockatrix" + mobframe);
+			return spr_master;
+		}
+		if(mob.equals("mantis")){
+			spr_master = atlas_mobSwamp.createSprite("mantis" + mobframe);
 			return spr_master;
 		}
 		
@@ -2894,7 +2920,14 @@ public class GameControl {
 		int Def = Integer.parseInt(playerUse.Def);
 		int AtkTimerMax = Integer.parseInt(playerUse.AtkTimerMax);
 		
-		if(level >= 35) {
+		int strExtra = Integer.parseInt(playerUse.StrExtra);
+		int vitExtra = Integer.parseInt(playerUse.VitExtra);
+		int wisExtra = Integer.parseInt(playerUse.WisExtra);
+		int agiExtra = Integer.parseInt(playerUse.AgiExtra);
+		int dexExtra = Integer.parseInt(playerUse.DexExtra);
+		int lukExtra = Integer.parseInt(playerUse.LukExtra);
+		
+		if(level >= 30) {
 			return;
 		}
 		
@@ -2999,7 +3032,103 @@ public class GameControl {
 				Atk = Atk + 2; 
 				AtkTimerMax = AtkTimerMax -4;
 				playerUse.AtkTimerMax = String.valueOf(AtkTimerMax); playerUse.Atk = String.valueOf(Atk); playerUse.HpMax = String.valueOf(HpMax);
-			  }		
+			}
+			
+			//Job 2.1
+			if(playerUse.Job.equals("Cavaleiro")) { 
+				HpMax = HpMax + 10; 
+				Atk = Atk + 4; 
+				strExtra = strExtra + 10;
+				vitExtra = vitExtra + 5;
+				playerUse.Atk = String.valueOf(Atk);
+				playerUse.StrExtra = String.valueOf(strExtra);
+				playerUse.VitExtra = String.valueOf(vitExtra);
+				
+			}
+			if(playerUse.Job.equals("Elementarista")) { 
+				HpMax = HpMax + 10; 
+				MpMax = MpMax + 20;
+				Atk = Atk + 2;
+				wisExtra = wisExtra + 10;
+				
+				playerUse.HpMax = String.valueOf(HpMax); 
+				playerUse.Atk = String.valueOf(Atk); 
+				playerUse.MpMax = String.valueOf(MpMax);
+				playerUse.WisExtra = String.valueOf(wisExtra);
+			}
+			if(playerUse.Job.equals("Especialista")) { 
+				HpMax = HpMax + 10; 
+				Atk = Atk + 2; 
+				dexExtra = dexExtra + 10;
+				vitExtra = vitExtra + 5;
+				playerUse.Atk = String.valueOf(Atk);
+				playerUse.DexExtra = String.valueOf(strExtra);
+				playerUse.VitExtra = String.valueOf(vitExtra);
+			}
+			if(playerUse.Job.equals("Sacerdote")) { 
+				HpMax = HpMax + 20; 
+				MpMax = MpMax + 30;
+				Atk = Atk + 2;
+				wisExtra = wisExtra + 5;
+				
+				playerUse.HpMax = String.valueOf(HpMax); 
+				playerUse.Atk = String.valueOf(Atk); 
+				playerUse.MpMax = String.valueOf(MpMax);
+				playerUse.WisExtra = String.valueOf(wisExtra);
+			}
+			if(playerUse.Job.equals("Assassino")) { 
+				HpMax = HpMax + 10; 
+				Atk = Atk + 2; 
+				strExtra = strExtra + 3;
+				vitExtra = vitExtra + 5;
+				lukExtra = lukExtra + 10;
+				playerUse.Atk = String.valueOf(Atk);
+				playerUse.StrExtra = String.valueOf(strExtra);
+				playerUse.VitExtra = String.valueOf(vitExtra);
+				playerUse.LukExtra = String.valueOf(vitExtra);
+			}
+			//Job 2.2
+			if(playerUse.Job.equals("Protetor")) { 
+				HpMax = HpMax + 20; 
+				Atk = Atk + 4; 
+				strExtra = strExtra + 5;
+				vitExtra = vitExtra + 10;
+				playerUse.Atk = String.valueOf(Atk);
+				playerUse.StrExtra = String.valueOf(strExtra);
+				playerUse.VitExtra = String.valueOf(vitExtra);
+			}
+			if(playerUse.Job.equals("Invocador")) { 
+				HpMax = HpMax + 10; 
+				MpMax = MpMax + 10;
+				Atk = Atk + 2;
+				wisExtra = wisExtra + 8;
+				
+				playerUse.HpMax = String.valueOf(HpMax);
+				playerUse.MpMax = String.valueOf(MpMax);
+				playerUse.Atk = String.valueOf(Atk);
+				playerUse.WisExtra = String.valueOf(wisExtra);
+			}
+			if(playerUse.Job.equals("Musico")) { 
+				HpMax = HpMax + 10; 
+				Atk = Atk + 2; 
+				AtkTimerMax = AtkTimerMax -4;
+				playerUse.AtkTimerMax = String.valueOf(AtkTimerMax); playerUse.Atk = String.valueOf(Atk); playerUse.HpMax = String.valueOf(HpMax);
+			}
+			if(playerUse.Job.equals("Lutador")) { 
+				HpMax = HpMax + 10; 
+				MpMax = MpMax + 5; 
+				Atk = Atk + 12; 
+				strExtra = strExtra + 10;
+				playerUse.StrExtra = String.valueOf(strExtra);
+				playerUse.Atk = String.valueOf(Atk); 
+				playerUse.HpMax = String.valueOf(HpMax);
+			}
+			if(playerUse.Job.equals("Vigarista")) { 
+				HpMax = HpMax + 10; 
+				Atk = Atk + 2; 
+				AtkTimerMax = AtkTimerMax -4;
+				playerUse.AtkTimerMax = String.valueOf(AtkTimerMax); playerUse.Atk = String.valueOf(Atk); playerUse.HpMax = String.valueOf(HpMax);
+			}
 		}	
 		
 		levelup = false;

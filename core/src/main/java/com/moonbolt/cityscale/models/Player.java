@@ -78,6 +78,13 @@ public class Player {
 		public String petLevel;
 		public String isPlayerOnline;
 		public String MagicSync;
+		public String StrExtra;
+		public String AgiExtra;
+		public String VitExtra;
+		public String DexExtra;
+		public String WisExtra;
+		public String LukExtra;
+		public String ResExtra;
 		
 		
 		public String getIsPlayerOnline() {
