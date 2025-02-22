@@ -49,7 +49,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private String keyboardType = "none";
 	private DateTimeProvider dateTimeProvider;
 	private int changeBackground = 300;
-	private boolean notouch = false;
+	private String controlstate = "Mobile";
     
     //Variables usables
     private float floatUseA = 0;
@@ -373,16 +373,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					    		//System.out.println("Salvo com sucesso");
 					    	}
 					    	else {
-					    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-					    		aviso = true;
+					    		//avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					    		//aviso = true;
 					    	}
 					    }
 
 					    @Override
 					    public void onFailure(Throwable t) {
 					       System.out.println("Error: " + t.getMessage());
-					       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-						   aviso = true;
+					       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+						   //aviso = true;
 					    }
 					});
 				} catch (UnsupportedEncodingException e) {
@@ -550,9 +550,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			font_master.draw(game.batch, String.valueOf(player.Level), cameraCoordsX - 88f, cameraCoordsY + 64f);
 			font_master.draw(game.batch, gameControl.ExpPercent(player) + "%", cameraCoordsX - 72f, cameraCoordsY + 64f);
 			
-			spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
-			spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
-			spr_master.draw(game.batch);
+			if(controlstate.equals("Mobile")){
+				spr_master = gameControl.GetUX("innerpad", cameraCoordsX, cameraCoordsY);
+				spr_master.setPosition(cameraCoordsX + padmoveX,cameraCoordsY + padmoveY);
+				spr_master.draw(game.batch);
+			}
 			
 			//Checks
 			if(player.Map.contains("MetroStation")) { CheckColisionMetroStation(); }
@@ -739,13 +741,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			spr_testeDot.setPosition(cameraCoordsX + 13, cameraCoordsY - 12);
+			/*spr_testeDot.setPosition(cameraCoordsX + 27, cameraCoordsY - 12);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 26, cameraCoordsY - 35);  
+			spr_testeDot.setPosition(cameraCoordsX + 40, cameraCoordsY - 35);  
 			spr_testeDot.setSize(1, 1);
-			spr_testeDot.draw(game.batch);
+			spr_testeDot.draw(game.batch);*/
 			
 			CheckMapEffect();
 			
@@ -1142,7 +1144,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Stamina = Integer.parseInt(player.Stamina);
 			
 			
-			if(player.Map.equals("Sewers") || player.Map.equals("Forest") && autoattack) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") 
+					|| player.Map.equals("Watercave") || player.Map.equals("Desert")
+					|| player.Map.equals("Vulcano") || player.Map.equals("Mines")
+					|| player.Map.equals("Snowpalace") || player.Map.equals("Swamp")
+					|| player.Map.equals("Tower")
+					
+					&& autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
 					if(player.Target.equals(listMonsters.get(i).MobID)) {
@@ -1224,7 +1232,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(defTrigged) { Def = Def * 2; }
 			
-			if(player.Map.equals("Sewers") || player.Map.equals("Forest")) {
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") 
+					|| player.Map.equals("Watercave") || player.Map.equals("Desert")
+					|| player.Map.equals("Vulcano") || player.Map.equals("Mines")
+					|| player.Map.equals("Snowpalace") || player.Map.equals("Swamp")
+					|| player.Map.equals("Tower")) {
+				
 				for(int i = 0; i < listMonsters.size(); i++) {						
 					if(listMonsters.get(i).MobTarget.equals(player.Name)) {
 						if(playerposX > (listMonsters.get(i).MobPosX - 50) && playerposX < (listMonsters.get(i).MobPosX + 50)
@@ -1280,16 +1293,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				    		listMonsters.get(mobIndexAtk).MobHp = Integer.parseInt(mobhpsend);
 				    	}
 				    	else {
-				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-				    		aviso = true;
+				    		//avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		//aviso = true;
 				    	}
 				    }
 
 				    @Override
 				    public void onFailure(Throwable t) {
 				       System.out.println("Error: " + t.getMessage());
-				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-					   aviso = true;
+				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   //aviso = true;
 				    }
 				});
 			} catch (UnsupportedEncodingException e) {
@@ -1598,7 +1611,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.draw(game.batch);
 			}
 
-			if(player.Map.equals("Sewers") || player.Map.equals("Forest")){ 
+			if(player.Map.equals("Sewers") || player.Map.equals("Forest") 
+					|| player.Map.equals("Watercave") || player.Map.equals("Desert")
+					|| player.Map.equals("Vulcano") || player.Map.equals("Mines")
+					|| player.Map.equals("Snowpalace") || player.Map.equals("Swamp")
+					|| player.Map.equals("Tower")) {
 				if(autoattack){
 					spr_master = gameControl.GetCard("cardactionON");
 					spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY  - 30);
@@ -1848,7 +1865,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || player.Map.equals("Watercave")  
 					|| player.Map.equals("Desert") || player.Map.equals("Vulcano") 
 					|| player.Map.equals("Mines") || player.Map.equals("Snowpalace")
-					|| player.Map.equals("Swamp")
+					|| player.Map.equals("Swamp") || player.Map.equals("Tower")
 					&& autoattack) {
 				for(int i = 0; i < listMonsters.size(); i++) {
 					
@@ -3807,23 +3824,23 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Dungeon 3 - Vulcano
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 3 && coordsTouch.y < cameraCoordsY + 16) {
-					MapChange("Vulcano");
+					//MapChange("Vulcano");
 					return false;
 				}
 				//Dungeon 3 - Mines
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 12 && coordsTouch.y < cameraCoordsY + 1) {
-					MapChange("Mines");
+					//MapChange("Mines");
 					return false;
 				}
 				
 				//Dungeon 4 - Snowpalace
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 29 && coordsTouch.y < cameraCoordsY - 17) {
-					MapChange("Snowpalace");
+					//MapChange("Snowpalace");
 					return false;
 				}
 				//Dungeon 4 - Swap
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 43 && coordsTouch.y < cameraCoordsY - 31) {
-					MapChange("Swamp");  //here
+					//MapChange("Swamp");
 					return false;
 				}
 				
@@ -3864,10 +3881,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				
 				//Desligar touch
-				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 25 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 13) {
-					//if(controlstate.equals("PC")) { controlstate = "Mobile"; }
-					//else { controlstate = "PC"; }		
-					//return false;
+				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 26 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 12) {
+					if(controlstate.equals("PC")) { controlstate = "Mobile"; return false;}
+					if(controlstate.equals("Mobile")) { controlstate = "PC"; return false;}
+					return false;
+				}
+				
+				//Sair do Jogo
+				if(coordsTouch.x > cameraCoordsX + 27 && coordsTouch.x < cameraCoordsX + 40 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 12) {
+					this.screen.screenSwitch("SplashScreen","",playernum);
+					return false;
 				}
 				
 				

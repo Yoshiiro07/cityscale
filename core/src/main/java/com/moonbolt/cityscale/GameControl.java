@@ -333,9 +333,16 @@ public class GameControl {
 			    player.pethungry = splitData[139]; // PetHungry
 			    player.petcare = splitData[141]; // PetCare
 			    player.petTraining = splitData[143]; // PetTraining
-			    player.petBath = splitData[145]; // PetBath
-			    player.MagicSync = splitData[145]; //magicUsed
-			    player.petLevel = splitData[147]; // PetLevel
+			    player.MagicSync = splitData[145]; //magicUsed		    
+			    player.StrExtra = splitData[147]; //StrExtra
+			    player.AgiExtra = splitData[149]; //AgiExtra
+			    player.VitExtra = splitData[151]; //VitExtra
+			    player.DexExtra = splitData[153]; //DexExtra
+			    player.WisExtra = splitData[155]; //WisExtra
+			    player.LukExtra = splitData[157]; //LukExtra
+			    player.ResExtra = splitData[159]; //ResExtra
+			    
+			    player.petLevel = splitData[161]; // PetLevel
 			}
 
 			int characterNumber = Integer.parseInt(player.Characternumber);
@@ -4139,6 +4146,13 @@ public class GameControl {
 		parameters.put("PetBath", playerUse.petBath);
 		parameters.put("PetLevel", playerUse.petLevel);
 		parameters.put("MagicSync", playerUse.MagicSync);
+		parameters.put("StrExtra", playerUse.StrExtra);
+		parameters.put("AgiExtra", playerUse.AgiExtra);
+		parameters.put("VitExtra", playerUse.VitExtra);
+		parameters.put("DexExtra", playerUse.DexExtra);
+		parameters.put("WisExtra", playerUse.WisExtra);
+		parameters.put("LukExtra", playerUse.LukExtra);	
+		parameters.put("ResExtra", playerUse.ResExtra);
 		parameters.put("isPlayerOnline", "online");
 
 		String content = "";

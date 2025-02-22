@@ -87,6 +87,55 @@ public class Player {
 		public String ResExtra;
 		
 		
+		public String getMagicSync() {
+			return MagicSync;
+		}
+		public void setMagicSync(String magicSync) {
+			MagicSync = magicSync;
+		}
+		public String getStrExtra() {
+			return StrExtra;
+		}
+		public void setStrExtra(String strExtra) {
+			StrExtra = strExtra;
+		}
+		public String getAgiExtra() {
+			return AgiExtra;
+		}
+		public void setAgiExtra(String agiExtra) {
+			AgiExtra = agiExtra;
+		}
+		public String getVitExtra() {
+			return VitExtra;
+		}
+		public void setVitExtra(String vitExtra) {
+			VitExtra = vitExtra;
+		}
+		public String getDexExtra() {
+			return DexExtra;
+		}
+		public void setDexExtra(String dexExtra) {
+			DexExtra = dexExtra;
+		}
+		public String getWisExtra() {
+			return WisExtra;
+		}
+		public void setWisExtra(String wisExtra) {
+			WisExtra = wisExtra;
+		}
+		public String getLukExtra() {
+			return LukExtra;
+		}
+		public void setLukExtra(String lukExtra) {
+			LukExtra = lukExtra;
+		}
+		public String getResExtra() {
+			return ResExtra;
+		}
+		public void setResExtra(String resExtra) {
+			ResExtra = resExtra;
+		}
+		
 		public String getIsPlayerOnline() {
 			return isPlayerOnline;
 		}
