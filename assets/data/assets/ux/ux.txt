@@ -1,11 +1,11 @@
 ux.png
-size: 1568, 1591
+size: 2042, 1156
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 area
   rotate: false
-  xy: 217, 124
+  xy: 1187, 52
   size: 94, 90
   orig: 94, 90
   offset: 0, 0
@@ -31,72 +31,58 @@ bannerselect
   orig: 194, 23
   offset: 0, 0
   index: -1
-battlezone
-  rotate: false
-  xy: 0, 285
-  size: 334, 200
-  orig: 334, 200
-  offset: 0, 0
-  index: -1
-battlezoneA
-  rotate: false
-  xy: 0, 991
-  size: 334, 500
-  orig: 334, 500
-  offset: 0, 0
-  index: -1
 battlezoneC
   rotate: false
-  xy: 334, 991
+  xy: 705, 556
   size: 334, 500
   orig: 334, 500
   offset: 0, 0
   index: -1
 btnback
   rotate: false
-  xy: 0, 45
+  xy: 1633, 0
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btnconfirm
   rotate: false
-  xy: 193, 45
+  xy: 1826, 0
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btncreatenew
   rotate: false
-  xy: 386, 45
+  xy: 0, 52
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 btnexclude
   rotate: false
-  xy: 579, 45
+  xy: 193, 52
   size: 193, 52
   orig: 193, 52
   offset: 0, 0
   index: -1
 confirmtab
   rotate: false
-  xy: 411, 124
+  xy: 1381, 52
   size: 325, 161
   orig: 325, 161
   offset: 0, 0
   index: -1
 create
   rotate: false
-  xy: 266, 624
+  xy: 1454, 213
   size: 588, 343
   orig: 588, 343
   offset: 0, 0
   index: -1
 crystal
   rotate: false
-  xy: 922, 285
+  xy: 588, 213
   size: 600, 339
   orig: 600, 339
   offset: 0, 0
@@ -108,6 +94,34 @@ endline
   orig: 200, 35
   offset: 0, 0
   index: -1
+energia1
+  rotate: false
+  xy: 1485, 0
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+energia2
+  rotate: false
+  xy: 1522, 0
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+energia3
+  rotate: false
+  xy: 1559, 0
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+energia4
+  rotate: false
+  xy: 1596, 0
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
 hand
   rotate: false
   xy: 1440, 0
@@ -117,35 +131,35 @@ hand
   index: -1
 innerpad
   rotate: false
-  xy: 311, 124
+  xy: 1281, 52
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 inventory
   rotate: false
-  xy: 334, 285
+  xy: 0, 213
   size: 588, 331
   orig: 588, 331
   offset: 0, 0
   index: -1
 jobmaster
   rotate: false
-  xy: 668, 991
+  xy: 1039, 556
   size: 900, 600
   orig: 900, 600
   offset: 0, 0
   index: -1
 login
   rotate: false
-  xy: 736, 124
+  xy: 1706, 52
   size: 325, 161
   orig: 325, 161
   offset: 0, 0
   index: -1
 main
   rotate: false
-  xy: 854, 624
+  xy: 0, 556
   size: 705, 367
   orig: 705, 367
   offset: 0, 0
@@ -194,16 +208,9 @@ placebox2
   index: -1
 playertag
   rotate: false
-  xy: 0, 124
+  xy: 970, 52
   size: 217, 80
   orig: 217, 80
-  offset: 0, 0
-  index: -1
-recover
-  rotate: false
-  xy: 1061, 124
-  size: 325, 161
-  orig: 325, 161
   offset: 0, 0
   index: -1
 selected
@@ -222,7 +229,7 @@ sentar
   index: -1
 shop
   rotate: false
-  xy: 0, 624
+  xy: 1188, 213
   size: 266, 339
   orig: 266, 339
   offset: 0, 0
@@ -243,7 +250,7 @@ target
   index: -1
 textbar
   rotate: false
-  xy: 772, 45
+  xy: 386, 52
   size: 584, 79
   orig: 584, 79
   offset: 0, 0

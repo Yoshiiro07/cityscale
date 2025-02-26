@@ -481,9 +481,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if (flipzone >= 40) { flipzone = 0; }
 			}
 			
-			
-			//player.Hp = "10";
-			
 			ShowNPCs();
 			ShowOnlinePlayers();
 			ShowChats();
@@ -577,6 +574,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			CheckOnlineGrab();
 			CheckBuffsToRemove();
 			ShowBuffs(cameraCoordsX, cameraCoordsY);
+			CheckEnergy();
 			
 			
 			if(playerDead) { ShowPlayerDead(); }
@@ -606,11 +604,22 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				font_master.draw(game.batch, String.valueOf(player.Agi), cameraCoordsX - 48f, cameraCoordsY - 50f);
 				font_master.draw(game.batch, String.valueOf(player.Wis), cameraCoordsX - 34f, cameraCoordsY - 50f);
 				font_master.draw(game.batch, String.valueOf(player.Dex), cameraCoordsX - 21f, cameraCoordsY - 50f);
-				font_master.draw(game.batch, String.valueOf(player.StatusPoint), cameraCoordsX - 43f, cameraCoordsY - 67f);
+				font_master.draw(game.batch, String.valueOf(player.Luk), cameraCoordsX - 7f, cameraCoordsY - 50f);
+				font_master.draw(game.batch, String.valueOf(player.Res), cameraCoordsX - -7f, cameraCoordsY - 50f);
+				
+				font_master.draw(game.batch, String.valueOf(player.StrExtra), cameraCoordsX - 76f, cameraCoordsY - 64f);
+				font_master.draw(game.batch, String.valueOf(player.VitExtra), cameraCoordsX - 62f, cameraCoordsY - 64f);
+				font_master.draw(game.batch, String.valueOf(player.AgiExtra), cameraCoordsX - 48f, cameraCoordsY - 64f);
+				font_master.draw(game.batch, String.valueOf(player.WisExtra), cameraCoordsX - 34f, cameraCoordsY - 64f);
+				font_master.draw(game.batch, String.valueOf(player.DexExtra), cameraCoordsX - 21f, cameraCoordsY - 64f);
+				font_master.draw(game.batch, String.valueOf(player.LukExtra), cameraCoordsX - 7f, cameraCoordsY - 64f);
+				font_master.draw(game.batch, String.valueOf(player.ResExtra), cameraCoordsX - -7f, cameraCoordsY - 64f);
+				
+				font_master.draw(game.batch, String.valueOf(player.StatusPoint), cameraCoordsX - 43f, cameraCoordsY - 72f);
 				
 				playerExp = Float.parseFloat(player.Exp);
-				font_master.draw(game.batch,"Dinheiro:" + String.valueOf(player.Money),cameraCoordsX - 10f, cameraCoordsY - 67f);		
-				font_master.draw(game.batch,"Exp:" + Math.round(playerExp),cameraCoordsX + 20f, cameraCoordsY - 67f);			
+				font_master.draw(game.batch,"Dinheiro:" + String.valueOf(player.Money),cameraCoordsX - 10f, cameraCoordsY - 72f);		
+				font_master.draw(game.batch,"Exp:" + Math.round(playerExp),cameraCoordsX + 20f, cameraCoordsY - 72f);			
 				
 				//CharacterShow
 				spr_playerhair = gameControl.GetHairChar(player, "Show", cameraCoordsX, cameraCoordsY);
@@ -668,7 +677,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(menuoption.equals("hotkey2")) { spr_master = gameControl.GetUX("hotkey1",cameraCoordsX + 36, cameraCoordsY - 23); spr_master.draw(game.batch); }
 				if(menuoption.equals("descartar")) { 
 					spr_master = gameControl.GetUX("descartar",cameraCoordsX, cameraCoordsY); 
-					spr_master.setPosition(cameraCoordsX - 12, cameraCoordsY - 63);
+					spr_master.setPosition(cameraCoordsX + 50, cameraCoordsY - 56);
 					spr_master.draw(game.batch); 
 				}			
 			}
@@ -741,17 +750,61 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			/*spr_testeDot.setPosition(cameraCoordsX + 27, cameraCoordsY - 12);
+			/*spr_testeDot.setPosition(cameraCoordsX - 61, cameraCoordsY + 10);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX + 40, cameraCoordsY - 35);  
+			spr_testeDot.setPosition(cameraCoordsX - 47, cameraCoordsY - 9);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);*/
 			
 			CheckMapEffect();
 			
+			int money = Integer.parseInt(player.Money);
+			if(money > 5000) {
+				player.Money = "5000";
+			}
+			
 			game.batch.end();
+		}
+		
+		public void CheckEnergy() {
+			
+			int stamina = Integer.parseInt(player.Stamina);
+			int staminaMax = Integer.parseInt(player.StaminaMax);
+			stamina = stamina - 1;
+			if(stamina < 0) { stamina = 0; }
+			player.Stamina = String.valueOf(stamina);
+		
+			if (stamina > 0.8 * staminaMax) {
+				spr_master = gameControl.GetUX("energia3", cameraCoordsX, cameraCoordsY);
+				spr_master.setSize(10, 22);
+				spr_master.setPosition(cameraCoordsX + 82, cameraCoordsY + 30);
+				spr_master.draw(game.batch);
+			}
+
+			if ((stamina > 0.3 * staminaMax) && (stamina < 0.8 * staminaMax)) {
+				spr_master = gameControl.GetUX("energia2", cameraCoordsX, cameraCoordsY);
+				spr_master.setSize(10, 22);
+				spr_master.setPosition(cameraCoordsX + 82, cameraCoordsY + 30);
+				spr_master.draw(game.batch);
+			}
+
+			if ((stamina > 0.0 * staminaMax) && (stamina < 0.3 * staminaMax)) {
+				spr_master = gameControl.GetUX("energia1", cameraCoordsX, cameraCoordsY);
+				spr_master.setSize(10, 22);
+				spr_master.setPosition(cameraCoordsX + 82, cameraCoordsY + 30);
+				spr_master.draw(game.batch);
+			}
+
+			if ((stamina <= 0.0)) {
+				spr_master = gameControl.GetUX("energia4", cameraCoordsX, cameraCoordsY);
+				spr_master.setSize(10, 22);
+				spr_master.setPosition(cameraCoordsX + 82, cameraCoordsY + 30);
+				spr_master.draw(game.batch);
+			}
+		
+			
 		}
 		
 		public void CheckMapEffect() {
@@ -1140,6 +1193,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			int Dex = Integer.parseInt(player.Dex);
 			int Str = Integer.parseInt(player.Str);
+			int StrExtra = Integer.parseInt(player.StrExtra);
 			
 			int Stamina = Integer.parseInt(player.Stamina);
 			
@@ -1167,7 +1221,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								player.AtkTimer = player.AtkTimerMax;
 								int atkweapon = CheckWeapon();
 								int mobhp = listMonsters.get(i).MobHp; //CheckDamageDifer(listMonsters.get(i).MobHpMax, 1);
-								int damagehit = Atk + atkweapon + Str;
+								int damagehit = Atk + atkweapon + Str + StrExtra;
 								player.playerInAttack = "yes";
 								player.AtkTimer = String.valueOf(AtkTimerMax);
 								gameControl.SetAttackFrame();
@@ -1190,7 +1244,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								} 
 								else 
 								{  
-									mobhp = mobhp - 5; 
+									mobhp = mobhp - 10; 
 								}								
 								
 								
@@ -1860,6 +1914,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Luk = Integer.parseInt(player.Luk);
 			int Wis = Integer.parseInt(player.Wis);
 			
+			int StrExtra = Integer.parseInt(player.StrExtra);
+			int VitExtra = Integer.parseInt(player.VitExtra);
+			int AgiExtra = Integer.parseInt(player.AgiExtra);
+			int DexExtra = Integer.parseInt(player.DexExtra);
+			int LukExtra = Integer.parseInt(player.LukExtra);
+			int WisExtra = Integer.parseInt(player.WisExtra);
+			
 			int playerlevel = Integer.parseInt(player.Level);
 			
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || player.Map.equals("Watercave")  
@@ -1882,7 +1943,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							//Aprendiz
 							if(skillname.equals("tripleattack")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = (Atk * 3) + ((Str * 2) + atkweapon) + (playerlevel * 10);
+								int totaldmg = (Atk * 3) + ((Str * 2) + atkweapon) + (playerlevel * 10) + (StrExtra * 2);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -1905,7 +1966,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("flysword")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = Atk + ((Str * 3) + (Agi * 2) + atkweapon) + 50 + (playerlevel * 10);
+								int totaldmg = Atk + ((Str * 3) + (Agi * 2) + atkweapon) + 50 + (playerlevel * 10) + (StrExtra * 2) + (AgiExtra * 2);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -1928,7 +1989,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}
 							if(skillname.equals("poisonhit")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = Atk + ((Luk * 2)+ (Str * 2) + atkweapon) + 30 + (playerlevel * 10);
+								int totaldmg = Atk + ((Luk * 2)+ (Str * 2) + atkweapon) + 30 + (playerlevel * 10) + (LukExtra * 2) + (StrExtra * 2);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								listMonsters.get(i).MobHp = mobHP;
@@ -1963,7 +2024,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("overpower")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = Atk + ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon);	
+								int totaldmg = Atk + ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon) + (VitExtra * 3) + (StrExtra * 2) + (LukExtra * 3);	
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -1991,7 +2052,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					if(rangedAttack) {	
 					
 						if(skillname.equals("heal")) {
-							int healpoint = Wis * 5;
+							int healpoint = (Wis * 5) + (WisExtra * 3);
 							Hp = Hp + healpoint;
 							if(Hp > HpMax) { Hp = HpMax; }
 							player.Hp = String.valueOf(Hp);
@@ -2121,7 +2182,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("rockbound")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = Atk + ((Wis * 2) + (Str * 2) + 25);
+								int totaldmg = Atk + ((Wis * 2) + (Str * 2) + 25) + (WisExtra * 2);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2147,7 +2208,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("fireball")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Wis * 2) + atkweapon) + 50 + (playerlevel * 10);
+								int totaldmg = ((Wis * 2) + atkweapon) + 50 + (playerlevel * 10) + (WisExtra * 2);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								listMonsters.get(i).MobHp = mobHP;				
@@ -2174,7 +2235,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("icecrystal")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Wis * 6) + (Dex * 2) + atkweapon) + 100 + (playerlevel * 14);
+								int totaldmg = ((Wis * 6) + (Dex * 2) + atkweapon) + 100 + (playerlevel * 14) + (WisExtra * 3) + (DexExtra * 2);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2199,7 +2260,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}												
 							if(skillname.equals("thundercloud")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = Atk + ((Wis * 10) + (Agi * 2) + atkweapon) + (playerlevel * 10);
+								int totaldmg = Atk + ((Wis * 10) + (Agi * 2) + atkweapon) + (playerlevel * 10) + (WisExtra * 10);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2225,7 +2286,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("bulletrain")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Dex * 2) + (Agi * 2) + 10) + 40 + (playerlevel * 10);
+								int totaldmg = ((Dex * 2) + (Agi * 2) + 10) + 40 + (playerlevel * 10) + (DexExtra * 2) + (AgiExtra * 2);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2250,7 +2311,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							}						
 							if(skillname.equals("holyprism")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = ((Wis) + (Luk * 2) + atkweapon) + 20 + (playerlevel * 10);
+								int totaldmg = ((Luk * 2) + atkweapon) + 20 + (playerlevel * 10) + (AgiExtra * 2) + (StrExtra * 2);
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -3200,7 +3261,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							countSwitchTarget++;
 							if(countSwitchTarget >= listMonsters.size()) { countSwitchTarget = 0; }
 							if(!playerTarget.equals(listMonsters.get(countSwitchTarget).MobID)) {
-								player.Target = listMonsters.get(countSwitchTarget).MobID;						
+								if(listMonsters.get(countSwitchTarget).MobDead.equals("no")) {
+									player.Target = listMonsters.get(countSwitchTarget).MobID;		
+								}
 								return;		
 							}
 						}
@@ -3462,6 +3525,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Agi = Integer.parseInt(player.Agi);
 			int Wis = Integer.parseInt(player.Wis);
 			int Dex = Integer.parseInt(player.Dex);
+			int Luk = Integer.parseInt(player.Luk);
 			int HPMax = Integer.parseInt(player.Hp);
 			int MpMax = Integer.parseInt(player.Mp);
 			int StatusPoint = Integer.parseInt(player.StatusPoint);
@@ -3470,6 +3534,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Def = Integer.parseInt(player.Def);
 			
 			int AtkTimerMax = Integer.parseInt(player.AtkTimerMax);
+			
+			int stamina = Integer.parseInt(player.Stamina);
+			int staminaMax = Integer.parseInt(player.StaminaMax);
 			
 			if (StatusPoint >= 1) {
 				if (status.equals("Str")) {
@@ -3495,6 +3562,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					Dex = Dex + 1;
 					Atk = Atk + 1;
 					StatusPoint = StatusPoint - 1;
+				} else if (status.equals("Luk")) {
+					Luk = Luk + 1;
+					Atk = Atk + 1;
+					StatusPoint = StatusPoint - 1;
+				} else if (status.equals("Res")) {
+					staminaMax = staminaMax + 100;
+					Def = Def + 1;
+					StatusPoint = StatusPoint - 1;
 				}
 				
 				// Update player attributes
@@ -3503,11 +3578,15 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.Agi = String.valueOf(Agi);
 				player.Wis = String.valueOf(Wis);
 				player.Dex = String.valueOf(Dex);
+				player.Luk = String.valueOf(Luk);
 				player.Hp = String.valueOf(HPMax);
 				player.Mp = String.valueOf(MpMax);
 				player.StatusPoint = String.valueOf(StatusPoint);
 				player.Atk = String.valueOf(Atk);
 				player.AtkTimerMax = String.valueOf(AtkTimerMax);
+				
+				player.Stamina = String.valueOf(stamina);
+				player.StaminaMax = String.valueOf(staminaMax);
 			}
 		}
 		
@@ -3844,6 +3923,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				
+				//Dungeon 5 - Tower
+				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 43 && coordsTouch.y < cameraCoordsY - 31) {
+					//MapChange("Tower");
+					return false;
+				}
+				
 				//Voltar
 				if(coordsTouch.x > cameraCoordsX - 20 && coordsTouch.x < cameraCoordsX + 14 && coordsTouch.y > cameraCoordsY - 89 && coordsTouch.y < cameraCoordsY - 77) {
 					state = "Main";
@@ -3873,7 +3958,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Descartar
-				if(coordsTouch.x > cameraCoordsX - 12 && coordsTouch.x < cameraCoordsX + 17 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 48) {
+				if(coordsTouch.x > cameraCoordsX + 50 && coordsTouch.x < cameraCoordsX + 80 && coordsTouch.y > cameraCoordsY - 56 && coordsTouch.y < cameraCoordsY - 41) {
 					if(menuoption.equals("descartar")) { menuoption = ""; return false; }
 					menuoption = "descartar";
 					return false;
@@ -3881,14 +3966,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				
 				//Desligar touch
-				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 26 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 12) {
+				if(coordsTouch.x > cameraCoordsX + 19 && coordsTouch.x < cameraCoordsX + 31 && coordsTouch.y > cameraCoordsY - 42 && coordsTouch.y < cameraCoordsY - 20) {
 					if(controlstate.equals("PC")) { controlstate = "Mobile"; return false;}
 					if(controlstate.equals("Mobile")) { controlstate = "PC"; return false;}
 					return false;
 				}
 				
 				//Sair do Jogo
-				if(coordsTouch.x > cameraCoordsX + 27 && coordsTouch.x < cameraCoordsX + 40 && coordsTouch.y > cameraCoordsY - 35 && coordsTouch.y < cameraCoordsY - 12) {
+				if(coordsTouch.x > cameraCoordsX + 32 && coordsTouch.x < cameraCoordsX + 45 && coordsTouch.y > cameraCoordsY - 42 && coordsTouch.y < cameraCoordsY - 20) {
 					this.screen.screenSwitch("SplashScreen","",playernum);
 					return false;
 				}
@@ -4070,6 +4155,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					CheckStatus("Dex");
 					return false;
 				}
+				//LUK
+				if(coordsTouch.x > cameraCoordsX - 12 && coordsTouch.x < cameraCoordsX + 0 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					if(!menuoption.equals("")) { return false; }
+					CheckStatus("Luk");
+					return false;
+				}
+				//RES
+				if(coordsTouch.x > cameraCoordsX + 1 && coordsTouch.x < cameraCoordsX + 14 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
+					if(!menuoption.equals("")) { return false; }
+					CheckStatus("Res");
+					return false;
+				}
 				
 				//unequip
 				if(coordsTouch.x > cameraCoordsX + 68 && coordsTouch.x < cameraCoordsX + 80 && coordsTouch.y > cameraCoordsY + 40 && coordsTouch.y < cameraCoordsY + 62) {
@@ -4120,8 +4217,37 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						state = "Main";
 						return false; 
 					}
+					//pote pequena HP
 					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
+						int money = Integer.parseInt(player.Money);
+						money = 1000;
+						player.Money = String.valueOf(money);
 						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 1);
+						return false; 
+					}
+					//pote grande HP
+					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 2);
+						return false; 
+					}
+					//pote pequena MP
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 33) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 3);
+						return false; 
+					}
+					//pote grande MP
+					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 33) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 4);
+						return false; 
+					}
+					//pote pequena st
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 10) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 5);
+						return false; 
+					}
+					//pote grande st
+					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 10) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 6);
 						return false; 
 					}
 				}

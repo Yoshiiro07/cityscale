@@ -1,5 +1,5 @@
 cloth.png
-size: 688, 43
+size: 516, 43
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -45,72 +45,44 @@ basictopM
   orig: 43, 43
   offset: 0, 0
   index: -1
-blackset
+sportbottomF
   rotate: false
   xy: 258, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-blacksetF
+sportbottomM
   rotate: false
   xy: 301, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-catset
+sportfooterF
   rotate: false
   xy: 344, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-catsetF
+sportfooterM
   rotate: false
   xy: 387, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-flamingosetF
+sporttopF
   rotate: false
   xy: 430, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0
   index: -1
-flamingosetM
+sporttopM
   rotate: false
   xy: 473, 0
-  size: 43, 43
-  orig: 43, 43
-  offset: 0, 0
-  index: -1
-rougeset
-  rotate: false
-  xy: 516, 0
-  size: 43, 43
-  orig: 43, 43
-  offset: 0, 0
-  index: -1
-rougesetF
-  rotate: false
-  xy: 559, 0
-  size: 43, 43
-  orig: 43, 43
-  offset: 0, 0
-  index: -1
-schoolpridesetF
-  rotate: false
-  xy: 602, 0
-  size: 43, 43
-  orig: 43, 43
-  offset: 0, 0
-  index: -1
-sportset
-  rotate: false
-  xy: 645, 0
   size: 43, 43
   orig: 43, 43
   offset: 0, 0

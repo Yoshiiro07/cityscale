@@ -95,7 +95,7 @@ public class GameControl {
 	private TextureAtlas atlas_weapon;
 	private TextureAtlas atlas_cloth;
 	private TextureAtlas atlas_cristais;
-	private TextureAtlas atlas_food;
+	private TextureAtlas atlas_foods;
 	private TextureAtlas atlas_hatsitem;
 	private TextureAtlas atlas_lootmob;
 
@@ -192,7 +192,7 @@ public class GameControl {
 		atlas_weapon = new TextureAtlas(Gdx.files.internal("data/assets/itens/weapon.txt"));
 		atlas_cloth = new TextureAtlas(Gdx.files.internal("data/assets/itens/cloth.txt"));
 		atlas_cristais = new TextureAtlas(Gdx.files.internal("data/assets/itens/cristais.txt"));
-		atlas_food = new TextureAtlas(Gdx.files.internal("data/assets/itens/food.txt"));
+		atlas_foods = new TextureAtlas(Gdx.files.internal("data/assets/itens/foods.txt"));
 		atlas_hatsitem = new TextureAtlas(Gdx.files.internal("data/assets/itens/hats.txt"));
 		atlas_lootmob = new TextureAtlas(Gdx.files.internal("data/assets/itens/lootmob.txt"));
 
@@ -411,6 +411,14 @@ public class GameControl {
 			return createSpriteWithPositionAndSize("partytag", cameraCoordsX - 45, cameraCoordsY + 87, 30, 16);
 		case "battlezoneC":
 			return createSpriteWithPositionAndSize("battlezoneC", cameraCoordsX - 48, cameraCoordsY - 92, 90, 190);
+		case "energia1":
+			return createSpriteWithPositionAndSize("energia1", cameraCoordsX - 48, cameraCoordsY - 92, 90, 190);
+		case "energia2":
+			return createSpriteWithPositionAndSize("energia2", cameraCoordsX - 48, cameraCoordsY - 92, 90, 190);
+		case "energia3":
+			return createSpriteWithPositionAndSize("energia3", cameraCoordsX - 48, cameraCoordsY - 92, 90, 190);
+		case "energia4":
+			return createSpriteWithPositionAndSize("energia4", cameraCoordsX - 48, cameraCoordsY - 92, 90, 190);
 		default:
 			return null;
 		}
@@ -1973,12 +1981,18 @@ public class GameControl {
 			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopM"); return spr_master;}
 			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomM"); return spr_master; }
 			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterM"); return spr_master; }
+			if(nameItem.equals("sporttop")) { spr_master = atlas_cloth.createSprite("sporttopM"); return spr_master;}
+			if(nameItem.equals("sportbottom")) { spr_master = atlas_cloth.createSprite("sportbottomM"); return spr_master; }
+			if(nameItem.equals("sportfooter")) { spr_master = atlas_cloth.createSprite("sportfooterM"); return spr_master; }
 		}
 		
 		if(player.Sex.equals("F")) {
 			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopF"); return spr_master; }
 			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomF"); return spr_master; }
 			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterF"); return spr_master; }
+			if(nameItem.equals("sporttop")) { spr_master = atlas_cloth.createSprite("sporttopF"); return spr_master; }
+			if(nameItem.equals("sportbottom")) { spr_master = atlas_cloth.createSprite("sportbottomF"); return spr_master; }
+			if(nameItem.equals("sportfooter")) { spr_master = atlas_cloth.createSprite("sportfooterF"); return spr_master; }
 		}
 		
 		//Facas Aprendiz
@@ -2125,9 +2139,12 @@ public class GameControl {
 		
 		
 		//Consumiveis
-		if(nameItem.equals("hpcan")) { spr_master = atlas_food.createSprite("hpcan"); return spr_master;  }
-		if(nameItem.equals("mpcan")) { spr_master = atlas_food.createSprite("mpcan"); return spr_master;  }
-		if(nameItem.equals("stcan")) { spr_master = atlas_food.createSprite("stcan"); return spr_master;  }
+		if(nameItem.equals("hpcan")) { spr_master = atlas_foods.createSprite("hpcan"); return spr_master;  }
+		if(nameItem.equals("mpcan")) { spr_master = atlas_foods.createSprite("mpcan"); return spr_master;  }
+		if(nameItem.equals("stcan")) { spr_master = atlas_foods.createSprite("stcan"); return spr_master;  }
+		if(nameItem.equals("hpbigcan")) { spr_master = atlas_foods.createSprite("hpbigcan"); return spr_master;  }
+		if(nameItem.equals("mpbigcan")) { spr_master = atlas_foods.createSprite("mpbigcan"); return spr_master;  }
+		if(nameItem.equals("stbigcan")) { spr_master = atlas_foods.createSprite("stbigcan"); return spr_master;  }
 		
 		if(nameItem.equals("hatbear")) { spr_master = atlas_hatsitem.createSprite("hatbear"); return spr_master;  }
 		if(nameItem.equals("hatblackglass")) { spr_master = atlas_hatsitem.createSprite("hatblackglass"); return spr_master;  }
@@ -2399,13 +2416,13 @@ public class GameControl {
 		
 		//Consumable
 		if(itemName.equals("hpcan")) { 
-			hp = hp + 10;
+			hp = hp + 25;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
 			playerUse.Hp = String.valueOf(hp);
 			equipable = false;
 		}	
 		
-		if(itemName.equals("garrafadrink")) { 
+		if(itemName.equals("hpbigcan")) {
 			hp = hp + 100;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
 			playerUse.Hp = String.valueOf(hp);
@@ -2419,9 +2436,35 @@ public class GameControl {
 			equipable = false;
 		}
 		
+		if(itemName.equals("mpbigcan")) { 
+			mp = mp + 50;
+			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
+			playerUse.Hp = String.valueOf(hp);
+			equipable = false;
+		}
+		
+		if(itemName.equals("stcan")) { 
+			stamina = stamina + 5000;
+			if(stamina > staminaMax) { stamina = staminaMax; playerUse.Stamina = String.valueOf(stamina); } 
+			playerUse.Stamina = String.valueOf(stamina);
+			equipable = false;
+		}
+		
+		if(itemName.equals("stbigcan")) { 
+			stamina = stamina + 15000;
+			if(stamina > staminaMax) { stamina = staminaMax; playerUse.Stamina = String.valueOf(stamina); } 
+			playerUse.Stamina = String.valueOf(stamina);
+			equipable = false;
+		}
+		
 		if(itemName.equals("basictop")) {  if(playerUse.SetUpper.equals("basictop")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basictop"; lstItem = playerUse.Itens.split("-"); }}
 		if(itemName.equals("basicbottom")) {  if(playerUse.SetUpper.equals("basicbottom")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basicbottom"; lstItem = playerUse.Itens.split("-"); }}
 		if(itemName.equals("basicfooter")) {  if(playerUse.SetUpper.equals("basicfooter")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basicfooter"; lstItem = playerUse.Itens.split("-"); }}
+		
+		if(itemName.equals("sporttop")) {  if(playerUse.SetUpper.equals("sporttop")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sporttop"; lstItem = playerUse.Itens.split("-"); }}
+		if(itemName.equals("sportbottom")) {  if(playerUse.SetUpper.equals("sportbottom")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sportbottom"; lstItem = playerUse.Itens.split("-"); }}
+		if(itemName.equals("sportfooter")) {  if(playerUse.SetUpper.equals("sportfooter")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sportfooter"; lstItem = playerUse.Itens.split("-"); }}
+		
 		
 		//aprendiz
 		if(itemName.equals("basicknife")) {  
@@ -2785,12 +2828,13 @@ public class GameControl {
 		}
 
 		public void ApplyCrystals(String item) {
-			int Str = Integer.parseInt(playerUse.Str);
-			int Agi = Integer.parseInt(playerUse.Agi);
-			int Dex = Integer.parseInt(playerUse.Dex);
-			int Vit = Integer.parseInt(playerUse.Vit);
-			int Wis = Integer.parseInt(playerUse.Wis);
-			int Luk = Integer.parseInt(playerUse.Luk);
+			int StrExtra = Integer.parseInt(playerUse.StrExtra);
+			int AgiExtra = Integer.parseInt(playerUse.AgiExtra);
+			int DexExtra = Integer.parseInt(playerUse.DexExtra);
+			int VitExtra = Integer.parseInt(playerUse.VitExtra);
+			int WisExtra = Integer.parseInt(playerUse.WisExtra);
+			int LukExtra = Integer.parseInt(playerUse.LukExtra);
+			int ResExtra = Integer.parseInt(playerUse.ResExtra);
 			
 			int Hp = Integer.parseInt(playerUse.Hp);
 			int HpMax = Integer.parseInt(playerUse.HpMax);
@@ -2800,36 +2844,35 @@ public class GameControl {
 			
 			int AtkTimerMax = Integer.parseInt(playerUse.AtkTimerMax);
 			
-			int Res = Integer.parseInt(playerUse.Res);
-			
 			int StaminaMax = Integer.parseInt(playerUse.StaminaMax);
 			int regenTimeMax = Integer.parseInt(playerUse.regenTimeMax);
 			
-			if(item.equals("blue_crystal_intextra_1")) { Wis = Wis + 1; }
-			if(item.equals("blue_crystal_intextra_2")) { Wis = Wis + 3; }
-			if(item.equals("blue_crystal_intextra_3")) { Wis = Wis + 5; }
+			if(item.equals("blue_crystal_intextra_1")) { WisExtra = WisExtra + 1; }
+			if(item.equals("blue_crystal_intextra_2")) { WisExtra = WisExtra + 3; }
+			if(item.equals("blue_crystal_intextra_3")) { WisExtra = WisExtra + 5; }
 			
-			if(item.equals("green_crystal_lukextra_1")) { Luk = Luk + 1; }
-			if(item.equals("green_crystal_lukextra_2")) { Luk = Luk + 3; }
-			if(item.equals("green_crystal_lukextra_3")) { Luk = Luk + 5; }
+			if(item.equals("green_crystal_lukextra_1")) { LukExtra = LukExtra + 1; }
+			if(item.equals("green_crystal_lukextra_2")) { LukExtra = LukExtra + 3; }
+			if(item.equals("green_crystal_lukextra_3")) { LukExtra = LukExtra + 5; }
 			
-			if(item.equals("purple_crystal_vitextra_1")) { HpMax = HpMax + 25; MpMax = MpMax + 25; StaminaMax = StaminaMax + 10; Vit = Vit + 1; }
-			if(item.equals("purple_crystal_vitextra_2")) { HpMax = HpMax + 50; MpMax = MpMax + 50; StaminaMax = StaminaMax + 30; Vit = Vit + 3; }
-			if(item.equals("purple_crystal_vitextra_3")) { HpMax = HpMax + 100; MpMax = MpMax + 100; StaminaMax = StaminaMax + 50; Vit = Vit + 5; }
+			if(item.equals("purple_crystal_vitextra_1")) { HpMax = HpMax + 25; MpMax = MpMax + 25; StaminaMax = StaminaMax + 10000; VitExtra = VitExtra + 1; }
+			if(item.equals("purple_crystal_vitextra_2")) { HpMax = HpMax + 50; MpMax = MpMax + 50; StaminaMax = StaminaMax + 20000; VitExtra = VitExtra + 3; }
+			if(item.equals("purple_crystal_vitextra_3")) { HpMax = HpMax + 100; MpMax = MpMax + 100; StaminaMax = StaminaMax + 30000; VitExtra = VitExtra + 5; }
 			
-			if(item.equals("yellow_crystal_agiextra_1")) { Agi = Agi + 1; AtkTimerMax = AtkTimerMax - 5; }
-			if(item.equals("yellow_crystal_agiextra_2")) { Agi = Agi + 3; AtkTimerMax = AtkTimerMax - 15; }
-			if(item.equals("yellow_crystal_agiextra_3")) { Agi = Agi + 5; AtkTimerMax = AtkTimerMax - 30; }
+			if(item.equals("yellow_crystal_agiextra_1")) { AgiExtra = AgiExtra + 1; AtkTimerMax = AtkTimerMax - 5; }
+			if(item.equals("yellow_crystal_agiextra_2")) { AgiExtra = AgiExtra + 3; AtkTimerMax = AtkTimerMax - 15; }
+			if(item.equals("yellow_crystal_agiextra_3")) { AgiExtra = AgiExtra + 5; AtkTimerMax = AtkTimerMax - 30; }
 			
-			if(item.equals("red_crystal_strextra_1")) { Str = Str + 1;  }
-			if(item.equals("red_crystal_strextra_2")) { Str = Str + 3;  }
-			if(item.equals("red_crystal_strextra_3")) { Str = Str + 5;  }
+			if(item.equals("red_crystal_strextra_1")) { StrExtra = StrExtra + 1;  }
+			if(item.equals("red_crystal_strextra_2")) { StrExtra = StrExtra + 3;  }
+			if(item.equals("red_crystal_strextra_3")) { StrExtra = StrExtra + 5;  }
 			
-			playerUse.Str = String.valueOf(Str);
-			playerUse.Vit = String.valueOf(Vit);
-			playerUse.Agi = String.valueOf(Agi);
-			playerUse.Dex = String.valueOf(Dex);
-			playerUse.Luk = String.valueOf(Luk);
+			playerUse.StrExtra = String.valueOf(StrExtra);
+			playerUse.VitExtra = String.valueOf(VitExtra);
+			playerUse.AgiExtra = String.valueOf(AgiExtra);
+			playerUse.DexExtra = String.valueOf(DexExtra);
+			playerUse.LukExtra = String.valueOf(LukExtra);
+			playerUse.ResExtra = String.valueOf(ResExtra);
 			
 			playerUse.HpMax = String.valueOf(HpMax);
 			playerUse.MpMax = String.valueOf(MpMax);
@@ -2845,12 +2888,13 @@ public class GameControl {
 			if(num == 3) { CrystalEquipped = playerUse.Crystal3; }
 			if(num == 4) { CrystalEquipped = playerUse.Crystal4; }
 			
-			int Str = Integer.parseInt(playerUse.Str);
-			int Agi = Integer.parseInt(playerUse.Agi);
-			int Dex = Integer.parseInt(playerUse.Dex);
-			int Vit = Integer.parseInt(playerUse.Vit);
-			int Wis = Integer.parseInt(playerUse.Wis);
-			int Luk = Integer.parseInt(playerUse.Luk);
+			int StrExtra = Integer.parseInt(playerUse.StrExtra);
+			int AgiExtra = Integer.parseInt(playerUse.AgiExtra);
+			int DexExtra = Integer.parseInt(playerUse.DexExtra);
+			int VitExtra = Integer.parseInt(playerUse.VitExtra);
+			int WisExtra = Integer.parseInt(playerUse.WisExtra);
+			int LukExtra = Integer.parseInt(playerUse.LukExtra);
+			int ResExtra = Integer.parseInt(playerUse.ResExtra);
 			
 			int Hp = Integer.parseInt(playerUse.Hp);
 			int HpMax = Integer.parseInt(playerUse.HpMax);
@@ -2865,31 +2909,31 @@ public class GameControl {
 			int StaminaMax = Integer.parseInt(playerUse.StaminaMax);
 			int regenTimeMax = Integer.parseInt(playerUse.regenTimeMax);
 			
-			if(CrystalEquipped.equals("blue_crystal_intextra_1")) { Wis = Wis - 1; }
-			if(CrystalEquipped.equals("blue_crystal_intextra_2")) { Wis = Wis - 3; }
-			if(CrystalEquipped.equals("blue_crystal_intextra_3")) { Wis = Wis - 5; }
+			if(CrystalEquipped.equals("blue_crystal_intextra_1")) { WisExtra = WisExtra - 1; }
+			if(CrystalEquipped.equals("blue_crystal_intextra_2")) { WisExtra = WisExtra - 3; }
+			if(CrystalEquipped.equals("blue_crystal_intextra_3")) { WisExtra = WisExtra - 5; }
 			
-			if(CrystalEquipped.equals("green_crystal_lukextra_1")) { Luk = Luk - 1; }
-			if(CrystalEquipped.equals("green_crystal_lukextra_2")) { Luk = Luk - 3; }
-			if(CrystalEquipped.equals("green_crystal_lukextra_3")) { Luk = Luk - 5; }
+			if(CrystalEquipped.equals("green_crystal_lukextra_1")) { LukExtra = LukExtra - 1; }
+			if(CrystalEquipped.equals("green_crystal_lukextra_2")) { LukExtra = LukExtra - 3; }
+			if(CrystalEquipped.equals("green_crystal_lukextra_3")) { LukExtra = LukExtra - 5; }
 			
-			if(CrystalEquipped.equals("purple_crystal_vitextra_1")) { HpMax = HpMax - 25; MpMax = MpMax - 25; StaminaMax = StaminaMax - 10; Vit = Vit - 1; }
-			if(CrystalEquipped.equals("purple_crystal_vitextra_2")) { HpMax = HpMax - 50; MpMax = MpMax - 50; StaminaMax = StaminaMax - 30; Vit = Vit - 3; }
-			if(CrystalEquipped.equals("purple_crystal_vitextra_3")) { HpMax = HpMax - 100; MpMax = MpMax - 100; StaminaMax = StaminaMax - 50; Vit = Vit - 5; }
+			if(CrystalEquipped.equals("purple_crystal_vitextra_1")) { HpMax = HpMax - 25; MpMax = MpMax - 25; StaminaMax = StaminaMax - 10000; VitExtra = VitExtra - 1; }
+			if(CrystalEquipped.equals("purple_crystal_vitextra_2")) { HpMax = HpMax - 50; MpMax = MpMax - 50; StaminaMax = StaminaMax - 20000; VitExtra = VitExtra - 3; }
+			if(CrystalEquipped.equals("purple_crystal_vitextra_3")) { HpMax = HpMax - 100; MpMax = MpMax - 100; StaminaMax = StaminaMax - 30000; VitExtra = VitExtra - 5; }
 			
-			if(CrystalEquipped.equals("yellow_crystal_agiextra_1")) { Agi = Agi - 1; AtkTimerMax = AtkTimerMax + 5; }
-			if(CrystalEquipped.equals("yellow_crystal_agiextra_2")) { Agi = Agi - 3; AtkTimerMax = AtkTimerMax + 15; }
-			if(CrystalEquipped.equals("yellow_crystal_agiextra_3")) { Agi = Agi - 5; AtkTimerMax = AtkTimerMax + 30; }
+			if(CrystalEquipped.equals("yellow_crystal_agiextra_1")) { AgiExtra = AgiExtra - 1; AtkTimerMax = AtkTimerMax + 5; }
+			if(CrystalEquipped.equals("yellow_crystal_agiextra_2")) { AgiExtra = AgiExtra - 3; AtkTimerMax = AtkTimerMax + 15; }
+			if(CrystalEquipped.equals("yellow_crystal_agiextra_3")) { AgiExtra = AgiExtra - 5; AtkTimerMax = AtkTimerMax + 30; }
 			
-			if(CrystalEquipped.equals("red_crystal_strextra_1")) { Str = Str - 1;  }
-			if(CrystalEquipped.equals("red_crystal_strextra_2")) { Str = Str - 3;  }
-			if(CrystalEquipped.equals("red_crystal_strextra_3")) { Str = Str - 5;  }
+			if(CrystalEquipped.equals("red_crystal_strextra_1")) { StrExtra = StrExtra - 1;  }
+			if(CrystalEquipped.equals("red_crystal_strextra_2")) { StrExtra = StrExtra - 3;  }
+			if(CrystalEquipped.equals("red_crystal_strextra_3")) { StrExtra = StrExtra - 5;  }
 			
-			playerUse.Str = String.valueOf(Str);
-			playerUse.Vit = String.valueOf(Vit);
-			playerUse.Agi = String.valueOf(Agi);
-			playerUse.Dex = String.valueOf(Dex);
-			playerUse.Luk = String.valueOf(Luk);
+			playerUse.StrExtra = String.valueOf(StrExtra);
+			playerUse.VitExtra = String.valueOf(VitExtra);
+			playerUse.AgiExtra = String.valueOf(AgiExtra);
+			playerUse.DexExtra = String.valueOf(DexExtra);
+			playerUse.LukExtra = String.valueOf(LukExtra);
 			
 			playerUse.HpMax = String.valueOf(HpMax);
 			playerUse.MpMax = String.valueOf(MpMax);
@@ -3529,7 +3573,7 @@ public class GameControl {
 		
 		//Give Money
 		money = Integer.parseInt(playerUse.Money);
-		if(money > 1500) { return; }
+		if(money > 5000) { return; }
 		int moneygave = randnumber.nextInt(5);
 		while(moneygave < 2) { moneygave = randnumber.nextInt(5); }
 		money = money + (moneygave * 2);
@@ -3560,7 +3604,69 @@ public class GameControl {
 					SysMsg = "Dinheiro insuficiente"; 
 				}		
 			}
+			if(num == 2) {  
+				if(Money >= 30) {  
+					AddItemBag("hpbigcan"); 
+					Money = Money - 30; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 3) {  
+				if(Money >= 15) {  
+					AddItemBag("mpcan"); 
+					Money = Money - 15; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 4) {  
+				if(Money >= 50) {  
+					AddItemBag("mpbigcan"); 
+					Money = Money - 50; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 5) {  
+				if(Money >= 2) {  
+					AddItemBag("stcan"); 
+					Money = Money - 2; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 6) {  
+				if(Money >= 20) {  
+					AddItemBag("stbigcan"); 
+					Money = Money - 20; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
 		}
+		
+		
 		
 		return SysMsg;
 	}
@@ -4143,15 +4249,14 @@ public class GameControl {
 		parameters.put("Pethungry", playerUse.pethungry);
 		parameters.put("Petcare", playerUse.petcare);
 		parameters.put("PetTraining", playerUse.petTraining);
-		parameters.put("PetBath", playerUse.petBath);
 		parameters.put("PetLevel", playerUse.petLevel);
 		parameters.put("MagicSync", playerUse.MagicSync);
 		parameters.put("StrExtra", playerUse.StrExtra);
-		parameters.put("AgiExtra", playerUse.AgiExtra);
 		parameters.put("VitExtra", playerUse.VitExtra);
-		parameters.put("DexExtra", playerUse.DexExtra);
 		parameters.put("WisExtra", playerUse.WisExtra);
-		parameters.put("LukExtra", playerUse.LukExtra);	
+		parameters.put("AgiExtra", playerUse.AgiExtra);
+		parameters.put("DexExtra", playerUse.DexExtra);
+		parameters.put("LukExtra", playerUse.LukExtra);
 		parameters.put("ResExtra", playerUse.ResExtra);
 		parameters.put("isPlayerOnline", "online");
 

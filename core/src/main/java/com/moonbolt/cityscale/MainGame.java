@@ -30,6 +30,7 @@ public class MainGame extends Game {
 	@Override
 	public void create()
 	{
+		//Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		batch = new SpriteBatch();  
 		loadingmanager = new ManagerScreen(this,dateTimeProvider);
 		this.Switch("SplashScreen",account, playernumber);

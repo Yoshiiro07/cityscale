@@ -1,0 +1,656 @@
+sportset.png
+size: 250, 950
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sportbottomF_attack1
+  rotate: false
+  xy: 0, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_back1
+  rotate: false
+  xy: 50, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_back2
+  rotate: false
+  xy: 100, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_back3
+  rotate: false
+  xy: 150, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_front1
+  rotate: false
+  xy: 200, 0
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_front2
+  rotate: false
+  xy: 0, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_front3
+  rotate: false
+  xy: 50, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_left1
+  rotate: false
+  xy: 100, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_left2
+  rotate: false
+  xy: 150, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_left3
+  rotate: false
+  xy: 200, 50
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_right1
+  rotate: false
+  xy: 0, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_right2
+  rotate: false
+  xy: 50, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_right3
+  rotate: false
+  xy: 100, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomF_sit
+  rotate: false
+  xy: 150, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_attack1
+  rotate: false
+  xy: 200, 100
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_back1
+  rotate: false
+  xy: 0, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_back2
+  rotate: false
+  xy: 50, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_back3
+  rotate: false
+  xy: 100, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_front1
+  rotate: false
+  xy: 150, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_front2
+  rotate: false
+  xy: 200, 150
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_front3
+  rotate: false
+  xy: 0, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_left1
+  rotate: false
+  xy: 50, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_left2
+  rotate: false
+  xy: 100, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_left3
+  rotate: false
+  xy: 150, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_right1
+  rotate: false
+  xy: 200, 200
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_right2
+  rotate: false
+  xy: 0, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_right3
+  rotate: false
+  xy: 50, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportbottomM_sit
+  rotate: false
+  xy: 100, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_attack1
+  rotate: false
+  xy: 150, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_back1
+  rotate: false
+  xy: 200, 250
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_back2
+  rotate: false
+  xy: 0, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_back3
+  rotate: false
+  xy: 50, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_front1
+  rotate: false
+  xy: 100, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_front2
+  rotate: false
+  xy: 150, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_front3
+  rotate: false
+  xy: 200, 300
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_left1
+  rotate: false
+  xy: 0, 350
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_left2
+  rotate: false
+  xy: 50, 350
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_left3
+  rotate: false
+  xy: 100, 350
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_right1
+  rotate: false
+  xy: 150, 350
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_right2
+  rotate: false
+  xy: 200, 350
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_right3
+  rotate: false
+  xy: 0, 400
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterF_sit
+  rotate: false
+  xy: 50, 400
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_attack1
+  rotate: false
+  xy: 100, 400
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_back1
+  rotate: false
+  xy: 150, 400
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_back2
+  rotate: false
+  xy: 200, 400
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_back3
+  rotate: false
+  xy: 0, 450
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_front1
+  rotate: false
+  xy: 50, 450
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_front2
+  rotate: false
+  xy: 100, 450
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_front3
+  rotate: false
+  xy: 150, 450
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_left1
+  rotate: false
+  xy: 200, 450
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_left2
+  rotate: false
+  xy: 0, 500
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_left3
+  rotate: false
+  xy: 50, 500
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_right1
+  rotate: false
+  xy: 100, 500
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_right2
+  rotate: false
+  xy: 150, 500
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_right3
+  rotate: false
+  xy: 200, 500
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sportfooterM_sit
+  rotate: false
+  xy: 0, 550
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_attack1
+  rotate: false
+  xy: 50, 550
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_attack2
+  rotate: false
+  xy: 100, 550
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_attack3
+  rotate: false
+  xy: 150, 550
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_back1
+  rotate: false
+  xy: 200, 550
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_back2
+  rotate: false
+  xy: 0, 600
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_back3
+  rotate: false
+  xy: 50, 600
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_cast
+  rotate: false
+  xy: 100, 600
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_defense1
+  rotate: false
+  xy: 150, 600
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_front1
+  rotate: false
+  xy: 200, 600
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_front2
+  rotate: false
+  xy: 0, 650
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_front3
+  rotate: false
+  xy: 50, 650
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_left1
+  rotate: false
+  xy: 100, 650
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_left2
+  rotate: false
+  xy: 150, 650
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_left3
+  rotate: false
+  xy: 200, 650
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_legt1
+  rotate: false
+  xy: 0, 700
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_right1
+  rotate: false
+  xy: 50, 700
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_right2
+  rotate: false
+  xy: 100, 700
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_right3
+  rotate: false
+  xy: 150, 700
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopF_sit
+  rotate: false
+  xy: 200, 700
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_attack1
+  rotate: false
+  xy: 0, 750
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_attack2
+  rotate: false
+  xy: 50, 750
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_attack4
+  rotate: false
+  xy: 100, 750
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_back1
+  rotate: false
+  xy: 150, 750
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_back2
+  rotate: false
+  xy: 200, 750
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_back3
+  rotate: false
+  xy: 0, 800
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_cast
+  rotate: false
+  xy: 50, 800
+  size: 60, 50
+  orig: 60, 50
+  offset: 0, 0
+  index: -1
+sporttopM_defense1
+  rotate: false
+  xy: 110, 800
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_front1
+  rotate: false
+  xy: 160, 800
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_front2
+  rotate: false
+  xy: 0, 850
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_front3
+  rotate: false
+  xy: 50, 850
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_left1
+  rotate: false
+  xy: 100, 850
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_left2
+  rotate: false
+  xy: 150, 850
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_left3
+  rotate: false
+  xy: 200, 850
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_right1
+  rotate: false
+  xy: 0, 900
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_right2
+  rotate: false
+  xy: 50, 900
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_right3
+  rotate: false
+  xy: 100, 900
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+sporttopM_sit
+  rotate: false
+  xy: 150, 900
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
