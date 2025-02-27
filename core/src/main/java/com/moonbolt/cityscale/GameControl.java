@@ -247,114 +247,112 @@ public class GameControl {
 	// [Online]//
 	// [Exp/Drop]//
 	
-	///////////////////////////////////////////////// [Account]///////////////////////////////////////////////
-	public void LoadData(String data) {
-		String[] playerDataArray = data.split("@");
-		
-		// Remove all occurrences of "@sucess@"
+	
+		public void LoadData(String data) {
+	    String[] playerDataArray = data.split("@");
+
+	    // Remove all occurrences of "#Success#"
 	    data = data.replace("#Success#", "");
 
-		for (String playerData : playerDataArray) {
-			
-			String[] splitData = playerData.split(":");
+	    for (String playerData : playerDataArray) {
+	        String[] splitData = playerData.split("\\|");
 
-			Player player = new Player();
-			player.AccountID = splitData[1]; // AccountID;
-			player.AccountNumber = splitData[3]; // AccountNumber;
-			player.Characternumber = splitData[5]; // CharacterNumber;
-			player.Name = splitData[7]; // Name;
+	        Player player = new Player();
+	        player.AccountID = splitData[1]; // AccountID
+	        player.AccountNumber = splitData[3]; // AccountNumber
+	        player.Characternumber = splitData[5]; // CharacterNumber
+	        player.Name = splitData[7]; // Name
 
-			if (!player.Name.equals("none")) {
-			    player.Sex = splitData[9]; // Sex
-			    player.Hair = splitData[11]; // Hair
-			    player.Color = splitData[13]; // Color
-			    player.Hat = splitData[15]; // Hat
-			    player.Job = splitData[17]; // Job
-			    player.SetUpper = splitData[19]; // SetUpper
-			    player.SetBottom = splitData[21]; // SetBottom
-			    player.SetFooter = splitData[23]; // SetFooter
-			    player.Level = splitData[25]; // Level
-			    player.Exp = splitData[27]; // Exp
-			    player.Map = splitData[29]; // Map
-			    player.Hp = splitData[31]; // Hp
-			    player.Mp = splitData[33]; // Mp
-			    player.Money = splitData[35]; // Money
-			    player.HpMax = splitData[37]; // HpMax
-			    player.MpMax = splitData[39]; // MpMax
-			    player.regenTime = splitData[41]; // regenTime
-			    player.regenTimeMax = splitData[43]; // regenTimeMax
-			    player.PosX = splitData[45]; // posX
-			    player.PosY = splitData[47]; // posY
-			    player.Walk = splitData[49]; // Walk
-			    player.Frame = splitData[51]; // Frame
-			    player.countFrame = splitData[53]; // countFrame
-			    player.breakwalk = splitData[55]; // breakwalk
-			    player.Target = splitData[57]; // Target
-			    player.AtkTimer = splitData[59]; // AtkTimer
-			    player.AtkTimerMax = splitData[61]; // AtkTimerMax
-			    player.Casting = splitData[63]; // CastTimer
-			    player.Atk = splitData[65]; // Atk
-			    player.Def = splitData[67]; // Def
-			    player.Evasion = splitData[69]; // Evasion
-			    player.Side = splitData[71]; // Side
-			    player.Weapon = splitData[73]; // Weapon
-			    player.Crystal1 = splitData[75]; // Crystal1
-			    player.Crystal2 = splitData[77]; // Crystal2
-			    player.Crystal3 = splitData[79]; // Crystal3
-			    player.Crystal4 = splitData[81]; // Crystal4
-			    player.StatusPoint = splitData[83]; // StatusPoints
-			    player.Str = splitData[85]; // Str
-			    player.Agi = splitData[87]; // Agi
-			    player.Vit = splitData[89]; // Vit
-			    player.Dex = splitData[91]; // Dex
-			    player.Wis = splitData[93]; // Wis
-			    player.Luk = splitData[95]; // Luk
-			    player.Res = splitData[97]; // Res
-			    player.Stamina = splitData[99]; // Stamina
-			    player.StaminaMax = splitData[101]; // StaminaMax
-			    player.Itens = splitData[103]; // Itens
-			    player.Quests = splitData[105]; // Quests
-			    player.hotkey1 = splitData[107]; // Hotkey1
-			    player.hotkey2 = splitData[109]; // Hotkey2
-			    player.buffA = splitData[111]; // BuffA
-			    player.buffB = splitData[113]; // BuffB
-			    player.buffC = splitData[115]; // BuffC
-			    player.BuffTimeA = splitData[117]; // BuffTimeA
-			    player.BuffTimeB = splitData[119]; // BuffTimeB
-			    player.BuffTimeC = splitData[121]; // BuffTimeC
-			    player.party = splitData[123]; // Party
-			    player.playerInBattle = splitData[125]; // PlayerInBattle
-			    player.playerInAttack = splitData[127]; // PlayerInAttack
-			    player.playerInCast = splitData[129]; // PlayerInCast
-			    player.playerSit = splitData[131]; // PlayerSit
-			    player.SyncPlayerMob = splitData[133]; // SyncPlayerMob
-			    player.PlayerExpGet = splitData[135]; // PlayerExpGet
-			    player.pet = splitData[137]; // Pet
-			    player.pethungry = splitData[139]; // PetHungry
-			    player.petcare = splitData[141]; // PetCare
-			    player.petTraining = splitData[143]; // PetTraining
-			    player.MagicSync = splitData[145]; //magicUsed		    
-			    player.StrExtra = splitData[147]; //StrExtra
-			    player.AgiExtra = splitData[149]; //AgiExtra
-			    player.VitExtra = splitData[151]; //VitExtra
-			    player.DexExtra = splitData[153]; //DexExtra
-			    player.WisExtra = splitData[155]; //WisExtra
-			    player.LukExtra = splitData[157]; //LukExtra
-			    player.ResExtra = splitData[159]; //ResExtra
-			    
-			    player.petLevel = splitData[161]; // PetLevel
-			}
+	        if (!player.Name.equals("none")) {
+	            player.Sex = splitData[9]; // Sex
+	            player.Hair = splitData[11]; // Hair
+	            player.Color = splitData[13]; // Color
+	            player.Hat = splitData[15]; // Hat
+	            player.Job = splitData[17]; // Job
+	            player.SetUpper = splitData[19]; // SetUpper
+	            player.SetBottom = splitData[21]; // SetBottom
+	            player.SetFooter = splitData[23]; // SetFooter
+	            player.Level = splitData[25]; // Level
+	            player.Exp = splitData[27]; // Exp
+	            player.Map = splitData[29]; // Map
+	            player.Hp = splitData[31]; // Hp
+	            player.Mp = splitData[33]; // Mp
+	            player.Money = splitData[35]; // Money
+	            player.HpMax = splitData[37]; // HpMax
+	            player.MpMax = splitData[39]; // MpMax
+	            player.regenTime = splitData[41]; // regenTime
+	            player.regenTimeMax = splitData[43]; // regenTimeMax
+	            player.PosX = splitData[45]; // PosX
+	            player.PosY = splitData[47]; // PosY
+	            player.Walk = splitData[49]; // Walk
+	            player.Frame = splitData[51]; // Frame
+	            player.countFrame = splitData[53]; // countFrame
+	            player.breakwalk = splitData[55]; // breakwalk
+	            player.Target = splitData[57]; // Target
+	            player.AtkTimer = splitData[59]; // AtkTimer
+	            player.AtkTimerMax = splitData[61]; // AtkTimerMax
+	            player.Casting = splitData[63]; // CastTimer
+	            player.Atk = splitData[65]; // Atk
+	            player.Def = splitData[67]; // Def
+	            player.Evasion = splitData[69]; // Evasion
+	            player.Side = splitData[71]; // Side
+	            player.Weapon = splitData[73]; // Weapon
+	            player.Crystal1 = splitData[75]; // Crystal1
+	            player.Crystal2 = splitData[77]; // Crystal2
+	            player.Crystal3 = splitData[79]; // Crystal3
+	            player.Crystal4 = splitData[81]; // Crystal4
+	            player.StatusPoint = splitData[83]; // StatusPoints
+	            player.Str = splitData[85]; // Str
+	            player.Agi = splitData[87]; // Agi
+	            player.Vit = splitData[89]; // Vit
+	            player.Dex = splitData[91]; // Dex
+	            player.Wis = splitData[93]; // Wis
+	            player.Luk = splitData[95]; // Luk
+	            player.Res = splitData[97]; // Res
+	            player.Stamina = splitData[99]; // Stamina
+	            player.StaminaMax = splitData[101]; // StaminaMax
+	            player.Itens = splitData[103]; // Itens
+	            player.Quests = splitData[105]; // Quests
+	            player.hotkey1 = splitData[107]; // Hotkey1
+	            player.hotkey2 = splitData[109]; // Hotkey2
+	            player.buffA = splitData[111]; // BuffA
+	            player.buffB = splitData[113]; // BuffB
+	            player.buffC = splitData[115]; // BuffC
+	            player.BuffTimeA = splitData[117]; // BuffTimeA
+	            player.BuffTimeB = splitData[119]; // BuffTimeB
+	            player.BuffTimeC = splitData[121]; // BuffTimeC
+	            player.party = splitData[123]; // Party
+	            player.playerInBattle = splitData[125]; // PlayerInBattle
+	            player.playerInAttack = splitData[127]; // PlayerInAttack
+	            player.playerInCast = splitData[129]; // PlayerInCast
+	            player.playerSit = splitData[131]; // PlayerSit
+	            player.SyncPlayerMob = splitData[133]; // SyncPlayerMob
+	            player.PlayerExpGet = splitData[135]; // PlayerExpGet
+	            player.MagicSync = splitData[137]; // MagicSync
+	            player.StrExtra = splitData[139]; // StrExtra
+	            player.AgiExtra = splitData[141]; // AgiExtra
+	            player.VitExtra = splitData[143]; // VitExtra
+	            player.DexExtra = splitData[145]; // DexExtra
+	            player.WisExtra = splitData[147]; // WisExtra
+	            player.LukExtra = splitData[149]; // LukExtra
+	            player.ResExtra = splitData[151]; // ResExtra
+	            player.pet = splitData[153]; // Pet
+	            player.pethungry = splitData[155]; // PetHungry
+	            player.petcare = splitData[157]; // PetCare
+	            player.petTraining = splitData[159]; // PetTraining
+	            player.petLevel = splitData[161]; // PetLevel
+	        }
 
-			int characterNumber = Integer.parseInt(player.Characternumber);
-			if (characterNumber >= 1 && characterNumber <= 3) {
-				if (lstPlayers.size() < characterNumber) {
-					for (int i = lstPlayers.size(); i < characterNumber; i++) {
-						lstPlayers.add(null);
-					}
-				}
-				lstPlayers.set(characterNumber - 1, player);
-			}
-		}
+	        int characterNumber = Integer.parseInt(player.Characternumber);
+	        if (characterNumber >= 1 && characterNumber <= 3) {
+	            if (lstPlayers.size() < characterNumber) {
+	                for (int i = lstPlayers.size(); i < characterNumber; i++) {
+	                    lstPlayers.add(null);
+	                }
+	            }
+	            lstPlayers.set(characterNumber - 1, player);
+	        }
+	    }
 	}
 
 	public ArrayList<Player> CleanListPlayers() {
@@ -1352,7 +1350,7 @@ public class GameControl {
 			if(player.playerInAttack.equals("yes")){
 				if(FrameAtkPlayer > 0) {
 				if(frame == 3) { player.Frame = "1"; }
-					spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack3");
+					spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack4");
 					spr_master.setPosition(posX -25,posY -5);
 					spr_master.setScale(0.2f,0.4f);	
 					FrameAtkPlayer--;
@@ -1788,10 +1786,9 @@ public class GameControl {
 		if(playerUse.Job.equals("Ladrao")) { atlas_weapongeneric = atlas_daggers; }
 			
 		if(playerUse.playerInBattle.equals("yes")) {
-			if(playerUse.Job.equals("Aprendiz")) {
 				if(playerUse.Weapon.contains("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 13.5f, posY + 11f); }
 				if(playerUse.Weapon.contains("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-			}
+			
 			if(playerUse.Job.equals("Espadachim") || playerUse.Job.equals("Cavaleiro") || playerUse.Job.equals("Paladino")) {
 				if(playerUse.Weapon.contains("woodsword")) { spr_master = atlas_swords.createSprite("wood_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
 				if(playerUse.Weapon.contains("ragesword")) { spr_master = atlas_swords.createSprite("saber_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
@@ -2377,8 +2374,8 @@ public class GameControl {
 	String itemName = "";
 	String lstitensFinal;
 	int qtd;
-	boolean equipable = false;  
 	String crystalUse = "no";
+	boolean equipable = false;
 	
 	//variables
 	int hp = Integer.parseInt(playerUse.Hp);
@@ -2397,7 +2394,6 @@ public class GameControl {
 		itemName = itemSplit[0].replace("[", "");
 		qtd = Integer.parseInt(itemSplit[1].replace("]", ""));
 		
-		
 		//not usable
 		if(itemName.equals("lootblop")) { return; }
 		if(itemName.equals("lootfang")) { return; }
@@ -2413,338 +2409,95 @@ public class GameControl {
 		if(itemName.equals("lootsilk")) { return; }
 		if(itemName.equals("loottongue")) { return; }
 		
-		
 		//Consumable
 		if(itemName.equals("hpcan")) { 
 			hp = hp + 25;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
 			playerUse.Hp = String.valueOf(hp);
-			equipable = false;
+			return;
 		}	
 		
 		if(itemName.equals("hpbigcan")) {
 			hp = hp + 100;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
 			playerUse.Hp = String.valueOf(hp);
-			equipable = false;
+			return;
 		}
 		
 		if(itemName.equals("mpcan")) { 
 			mp = mp + 15;
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
 			playerUse.Hp = String.valueOf(hp);
-			equipable = false;
+			return;
 		}
 		
 		if(itemName.equals("mpbigcan")) { 
 			mp = mp + 50;
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
 			playerUse.Hp = String.valueOf(hp);
-			equipable = false;
+			return;
 		}
 		
 		if(itemName.equals("stcan")) { 
 			stamina = stamina + 5000;
 			if(stamina > staminaMax) { stamina = staminaMax; playerUse.Stamina = String.valueOf(stamina); } 
 			playerUse.Stamina = String.valueOf(stamina);
-			equipable = false;
+			return;
 		}
 		
 		if(itemName.equals("stbigcan")) { 
 			stamina = stamina + 15000;
 			if(stamina > staminaMax) { stamina = staminaMax; playerUse.Stamina = String.valueOf(stamina); } 
 			playerUse.Stamina = String.valueOf(stamina);
-			equipable = false;
+			return;
 		}
 		
-		if(itemName.equals("basictop")) {  if(playerUse.SetUpper.equals("basictop")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basictop"; lstItem = playerUse.Itens.split("-"); }}
-		if(itemName.equals("basicbottom")) {  if(playerUse.SetUpper.equals("basicbottom")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basicbottom"; lstItem = playerUse.Itens.split("-"); }}
-		if(itemName.equals("basicfooter")) {  if(playerUse.SetUpper.equals("basicfooter")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basicfooter"; lstItem = playerUse.Itens.split("-"); }}
+		if(itemName.equals("basictop")) {  if(playerUse.SetUpper.equals(itemName)){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basictop"; CheckRequiredItem(itemName,true,1); return; }}
+		if(itemName.equals("basicbottom")) {  if(playerUse.SetBottom.equals(itemName)){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basicbottom"; CheckRequiredItem(itemName,true,1); return; }}
+		if(itemName.equals("basicfooter")) {  if(playerUse.SetFooter.equals(itemName)){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basicfooter"; CheckRequiredItem(itemName,true,1); return; }}
 		
-		if(itemName.equals("sporttop")) {  if(playerUse.SetUpper.equals("sporttop")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sporttop"; lstItem = playerUse.Itens.split("-"); }}
-		if(itemName.equals("sportbottom")) {  if(playerUse.SetUpper.equals("sportbottom")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sportbottom"; lstItem = playerUse.Itens.split("-"); }}
-		if(itemName.equals("sportfooter")) {  if(playerUse.SetUpper.equals("sportfooter")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sportfooter"; lstItem = playerUse.Itens.split("-"); }}
+		if(itemName.equals("sporttop")) {  if(playerUse.SetUpper.equals("sporttop")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sporttop"; CheckRequiredItem(itemName,true,1); return; }}
+		if(itemName.equals("sportbottom")) {  if(playerUse.SetUpper.equals("sportbottom")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sportbottom"; CheckRequiredItem(itemName,true,1); return; }}
+		if(itemName.equals("sportfooter")) {  if(playerUse.SetUpper.equals("sportfooter")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sportfooter"; CheckRequiredItem(itemName,true,1); return; }}
 		
-		
-		//aprendiz
-		if(itemName.equals("basicknife")) {  
-			if(playerUse.Weapon.equals("basicknife")){ return; } 
-			if(!playerUse.Weapon.equals("basicknife")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "basic_knife"; lstItem = playerUse.Itens.split("-"); }
-			
-			if(playerUse.Weapon.equals("doubleedgeknife")){ return; } 
-			if(!playerUse.Weapon.equals("doubleedgeknife")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "doubleedgeknife"; lstItem = playerUse.Itens.split("-"); }
+		if(itemName.equals("anchoraxe_a") || itemName.equals("anchoraxe_b") || itemName.equals("anchoraxe_c") || itemName.equals("anchoraxe_s") || itemName.equals("basicaxe_a") ||
+		   itemName.equals("basicaxe_b")  || itemName.equals("basicaxe_c")  || itemName.equals("basicaxe_s") ||  itemName.equals("basicdagger_a") || itemName.equals("basicdagger_b") ||
+		   itemName.equals("basicdagger_c") || itemName.equals("basicdagger_s") || itemName.equals("basicknife_a") || itemName.equals("basicknife_b") || itemName.equals("basicknife_c") ||
+		   itemName.equals("basicknife_s") ||  itemName.equals("basicpistol_a") || itemName.equals("basicpistol_b") || itemName.equals("basicpistol_c") || itemName.equals("basicpistol_s") ||
+		   itemName.equals("butterflyrod_a") || itemName.equals("butterflyrod_b") || itemName.equals("butterflyrod_c") || itemName.equals("butterflyrod_s") || itemName.equals("cannonpistol_a") ||
+		   itemName.equals("cannonpistol_b") || itemName.equals("cannonpistol_c") || itemName.equals("cannonpistol_s") || itemName.equals("cristalsword_a") || itemName.equals("cristalsword_b") ||
+		   itemName.equals("cristalsword_c") || itemName.equals("cristalsword_s") || itemName.equals("deathrod_a") || itemName.equals("deathrod_b") || itemName.equals("deathrod_c") ||
+		   itemName.equals("deathrod_s") || itemName.equals("doubleedgeknife_a") || itemName.equals("doubleedgeknife_b") || itemName.equals("doubleedgeknife_c") || itemName.equals("doubleedgeknife_s") ||
+		   itemName.equals("flamebergdagger_a") || itemName.equals("flamebergdagger_b") || itemName.equals("flamebergdagger_c") || itemName.equals("flamebergdagger_s") || itemName.equals("flamesword_a") ||
+		   itemName.equals("flamesword_b") || itemName.equals("flamesword_c") || itemName.equals("flamesword_s") || itemName.equals("gloomrod_a") || itemName.equals("gloomrod_b") ||
+		   itemName.equals("gloomrod_c") || itemName.equals("gloomrod_s") || itemName.equals("guitaraxe_a") || itemName.equals("guitaraxe_b") || itemName.equals("guitaraxe_c") ||
+		   itemName.equals("guitaraxe_s") || itemName.equals("hammeraxe_a") || itemName.equals("hammeraxe_b") || itemName.equals("hammeraxe_c") || itemName.equals("hammeraxe_s") ||
+		   itemName.equals("lightpistol_a") || itemName.equals("lightpistol_b") || itemName.equals("lightpistol_c") || itemName.equals("lightpistol_s") || itemName.equals("marinedagger_a") ||
+		   itemName.equals("marinedagger_b") || itemName.equals("marinedagger_c") || itemName.equals("marinedagger_s") || itemName.equals("ragesword_a") || itemName.equals("ragesword_b") ||
+		   itemName.equals("ragesword_c") || itemName.equals("ragesword_s") || itemName.equals("scytheaxe_a") || itemName.equals("scytheaxe_b") || itemName.equals("scytheaxe_c") ||
+		   itemName.equals("scytheaxe_s") ||itemName.equals("serpentsword_a") || itemName.equals("serpentsword_b") || itemName.equals("serpentsword_c") || itemName.equals("serpentsword_s") ||
+           itemName.equals("sharkpistol_a") || itemName.equals("sharkpistol_b") || itemName.equals("sharkpistol_c") || itemName.equals("sharkpistol_s") || itemName.equals("shooterpistol_a") || 
+           itemName.equals("shooterpistol_b") || itemName.equals("shooterpistol_c") || itemName.equals("shooterpistol_s") || itemName.equals("starrod_a") || itemName.equals("starrod_b") ||
+		   itemName.equals("starrod_c") || itemName.equals("starrod_s") || itemName.equals("stickrod_a") || itemName.equals("stickrod_b") || itemName.equals("stickrod_c") || itemName.equals("stickrod_s") ||
+		   itemName.equals("thunderdagger_a") || itemName.equals("thunderdagger_b") || itemName.equals("thunderdagger_c") || itemName.equals("thunderdagger_s") || itemName.equals("winddagger_a") ||
+           itemName.equals("winddagger_b") || itemName.equals("winddagger_c") || itemName.equals("winddagger_s") || itemName.equals("woodsword_a") || itemName.equals("woodsword_b") || itemName.equals("woodsword_c") ||
+		   itemName.equals("woodsword_s")) 
+		{
+			if(playerUse.Weapon.equals(itemName)){ return; } 
+			if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
 		}
-		if(itemName.equals("doubleedgeknife")) {  
-			if(playerUse.Weapon.equals("doubleedgeknife")){ return; } 
-			if(!playerUse.Weapon.equals("doubleedgeknife")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "doubleedgeknife"; lstItem = playerUse.Itens.split("-"); }
-		}
-		//espadachim
-		if(itemName.equals("woodsword")) {  
-			if(!playerUse.Job.equals("Espadachim")){ return; } 
-			if(playerUse.Weapon.equals("woodsword")){ return; } 
-			if(!playerUse.Weapon.equals("woodsword")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "woodsword"; lstItem = playerUse.Itens.split("-"); }					
-		}
-		if(itemName.equals("sabersword")) {  
-			if(!playerUse.Job.equals("Espadachim")){ return; } 
-			if(playerUse.Weapon.equals("sabersword")){ return; } 
-			if(!playerUse.Weapon.equals("sabersword")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "sabersword"; lstItem = playerUse.Itens.split("-"); }		
-		}
-		if(itemName.equals("venomsword")) {  
-			if(!playerUse.Job.equals("Espadachim")){ return; } 
-			if(playerUse.Weapon.equals("venomsword")){ return; } 
-			if(!playerUse.Weapon.equals("venomsword")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "venomsword"; lstItem = playerUse.Itens.split("-"); }		
-		}
-		if(itemName.equals("edgesword")) {  
-			if(!playerUse.Job.equals("Espadachim")){ return; } 
-			if(playerUse.Weapon.equals("edgesword")){ return; } 
-			if(!playerUse.Weapon.equals("edgesword")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "edgesword"; lstItem = playerUse.Itens.split("-"); }		
-		}
-		if(itemName.equals("knightsword")) {  
-			if(!playerUse.Job.equals("Espadachim")){ return; } 
-			if(playerUse.Weapon.equals("knightsword")){ return; } 
-			if(!playerUse.Weapon.equals("knightsword")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "knightsword"; lstItem = playerUse.Itens.split("-"); }		
-		}
-		if(itemName.equals("ragesword")) {  
-			if(!playerUse.Job.equals("Espadachim")){ return; } 
-			if(playerUse.Weapon.equals("ragesword")){ return; } 
-			if(!playerUse.Weapon.equals("ragesword")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "ragesword"; lstItem = playerUse.Itens.split("-"); }		
-		}
-		
-		//Feiticeiro
-		if(itemName.equals("stickrod")) { 
-			if(!playerUse.Job.equals("Feiticeiro") || !playerUse.Job.equals("Curandeiro")){ return; } 
-			if(playerUse.Weapon.equals("stickrod")){ return; } 
-			if(!playerUse.Weapon.equals("stickrod")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "stickrod"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("gloomrod")) { 
-			if(!playerUse.Job.equals("Feiticeiro") || !playerUse.Job.equals("Curandeiro")){ return; } 
-			if(playerUse.Weapon.equals("gloomrod")){ return; } 
-			if(!playerUse.Weapon.equals("gloomrod")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "gloomrod"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("gemrod")) { 
-			if(!playerUse.Job.equals("Feiticeiro") || !playerUse.Job.equals("Curandeiro")){ return; } 
-			if(playerUse.Weapon.equals("gemrod")){ return; } 
-			if(!playerUse.Weapon.equals("gemrod")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "gemrod"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("lightwieldrod")) { 
-			if(!playerUse.Job.equals("Feiticeiro") || !playerUse.Job.equals("Curandeiro")){ return; } 
-			if(playerUse.Weapon.equals("lightwieldrod")){ return; } 
-			if(!playerUse.Weapon.equals("lightwieldrod")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "lightwieldrod"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("serpentrod")) { 
-			if(!playerUse.Job.equals("Feiticeiro") || !playerUse.Job.equals("Curandeiro")){ return; } 
-			if(playerUse.Weapon.equals("serpentrod")){ return; } 
-			if(!playerUse.Weapon.equals("serpentrod")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "serpentrod"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("clerigrod")) { 
-			if(!playerUse.Job.equals("Feiticeiro") || !playerUse.Job.equals("Curandeiro")){ return; } 
-			if(playerUse.Weapon.equals("clerigrod")){ return; } 
-			if(!playerUse.Weapon.equals("clerigrod")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "clerigrod"; lstItem = playerUse.Itens.split("-"); }
-		}
-		
-		//Pistoleiro
-		if(itemName.equals("basicpistol")) { 
-			if(!playerUse.Job.equals("Pistoleiro")){ return; } 
-			if(playerUse.Weapon.equals("basicpistol")){ return; } 
-			if(!playerUse.Weapon.equals("basicpistol")) {  AddItemBag(playerUse.Weapon); playerUse.Weapon = "basicpistol"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("revolverpistol")) { 
-			if(!playerUse.Job.equals("Pistoleiro")){ return; } 
-			if(playerUse.Weapon.equals("revolverpistol")){ return; } 
-			if(!playerUse.Weapon.equals("revolverpistol")) {  AddItemBag(playerUse.Weapon); playerUse.Weapon = "revolverpistol"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("lightpistol")) { 
-			if(!playerUse.Job.equals("Pistoleiro")){ return; } 
-			if(playerUse.Weapon.equals("lightpistol")){ return; } 
-			if(!playerUse.Weapon.equals("lightpistol")) {  AddItemBag(playerUse.Weapon); playerUse.Weapon = "lightpistol"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("turretpistol")) { 
-			if(!playerUse.Job.equals("Pistoleiro")){ return; } 
-			if(playerUse.Weapon.equals("turretpistol")){ return; } 
-			if(!playerUse.Weapon.equals("turretpistol")) {  AddItemBag(playerUse.Weapon); playerUse.Weapon = "turretpistol"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("riflepistol")) { 
-			if(!playerUse.Job.equals("Pistoleiro")){ return; } 
-			if(playerUse.Weapon.equals("riflepistol")){ return; } 
-			if(!playerUse.Weapon.equals("riflepistol")) {  AddItemBag(playerUse.Weapon); playerUse.Weapon = "riflepistol"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("shooterpistol")) { 
-			if(!playerUse.Job.equals("Pistoleiro")){ return; } 
-			if(playerUse.Weapon.equals("shooterpistol")){ return; } 
-			if(!playerUse.Weapon.equals("shooterpistol")) {  AddItemBag(playerUse.Weapon); playerUse.Weapon = "shooterpistol"; lstItem = playerUse.Itens.split("-"); }
-		}
-		
-		//Ladrao
-		if(itemName.equals("basicdagger")) { 
-			if(!playerUse.Job.equals("Ladrao")){ return; } 
-			if(playerUse.Weapon.equals("basicdagger")){ return; } 
-			if(!playerUse.Weapon.equals("basicdagger")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "basicdagger"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("edgedagger")) { 
-			if(!playerUse.Job.equals("Ladrao")){ return; } 
-			if(playerUse.Weapon.equals("edgedagger")){ return; } 
-			if(!playerUse.Weapon.equals("edgedagger")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "edgedagger"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("poisondagger")) { 
-			if(!playerUse.Job.equals("Ladrao")){ return; } 
-			if(playerUse.Weapon.equals("poisondagger")){ return; } 
-			if(!playerUse.Weapon.equals("poisondagger")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "poisondagger"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("marinedagger")) { 
-			if(!playerUse.Job.equals("Ladrao")){ return; } 
-			if(playerUse.Weapon.equals("marinedagger")){ return; } 
-			if(!playerUse.Weapon.equals("marinedagger")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "marinedagger"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("triplodagger")) { 
-			if(!playerUse.Job.equals("Ladrao")){ return; } 
-			if(playerUse.Weapon.equals("triplodagger")){ return; } 
-			if(!playerUse.Weapon.equals("triplodagger")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "triplodagger"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("thunderdagger")) { 
-			if(!playerUse.Job.equals("Ladrao")){ return; } 
-			if(playerUse.Weapon.equals("thunderdagger")){ return; } 
-			if(!playerUse.Weapon.equals("thunderdagger")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "thunderdagger"; lstItem = playerUse.Itens.split("-"); }
-		}
-		
-		//Batedor
-		if(itemName.equals("basicaxe")) { 
-			if(!playerUse.Job.equals("Batedor")){ return; } 
-			if(playerUse.Weapon.equals("basicaxe")){ return; } 
-			if(!playerUse.Weapon.equals("basicaxe")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "basicaxe"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("pickaxe")) { 
-			if(!playerUse.Job.equals("Batedor")){ return; } 
-			if(playerUse.Weapon.equals("pickaxe")){ return; } 
-			if(!playerUse.Weapon.equals("pickaxe")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "pickaxe"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("killeraxe")) { 
-			if(!playerUse.Job.equals("Batedor")){ return; } 
-			if(playerUse.Weapon.equals("killeraxe")){ return; } 
-			if(!playerUse.Weapon.equals("killeraxe")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "killeraxe"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("hammeraxe")) { 
-			if(!playerUse.Job.equals("Batedor")){ return; } 
-			if(playerUse.Weapon.equals("hammeraxe")){ return; } 
-			if(!playerUse.Weapon.equals("hammeraxe")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "hammeraxe"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("scytheaxe")) { 
-			if(!playerUse.Job.equals("Batedor")){ return; } 
-			if(playerUse.Weapon.equals("scytheaxe")){ return; } 
-			if(!playerUse.Weapon.equals("scytheaxe")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "scytheaxe"; lstItem = playerUse.Itens.split("-"); }
-		}
-		if(itemName.equals("anchoraxe")) { 
-			if(!playerUse.Job.equals("Batedor")){ return; } 
-			if(playerUse.Weapon.equals("anchoraxe")){ return; } 
-			if(!playerUse.Weapon.equals("anchoraxe")) { AddItemBag(playerUse.Weapon); playerUse.Weapon = "anchoraxe"; lstItem = playerUse.Itens.split("-"); }
-		}
-					
+				
 		//Hats
-		if(itemName.equals("hatbanana")) { 
-			if(playerUse.Hat.equals("hatbanana")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatbanana"; }
-			if(!playerUse.Hat.equals("hatbanana")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatbanana"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
+		if(itemName.equals("hatbanana") || itemName.equals("hatbat") || itemName.equals("hatbear") || itemName.equals("hatblackglass") || itemName.equals("hatbluecold")
+				 || itemName.equals("hatbrazilflag") || itemName.equals("hatbrown") || itemName.equals("hatbunny") || itemName.equals("hatbutterfly") || itemName.equals("hatcapoult")
+				 || itemName.equals("hatcooker") || itemName.equals("hateyepatch") || itemName.equals("hatfashionglasses") || itemName.equals("hatheadset") || itemName.equals("hatmagician")
+				 || itemName.equals("hatpirate") || itemName.equals("hatredcap") || itemName.equals("hatsanta") || itemName.equals("hatslime") || itemName.equals("hatsunglasses")
+				 || itemName.equals("hattimer")		
+		) {
+			if(playerUse.Hat.equals(itemName)){ return; }
+			if(playerUse.Hat.equals("none")){ playerUse.Hat = itemName; equipable = true; return; }
+			if(!playerUse.Hat.equals(itemName)) { AddItemBag(playerUse.Hat); playerUse.Hat = itemName; CheckRequiredItem(itemName,true,1); return; }
 		}
-		if(itemName.equals("hatbat")) { 
-			if(playerUse.Hat.equals("hatbat")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatbat"; }
-			if(!playerUse.Hat.equals("hatbat")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatbat"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatblackglass")) { 
-			if(playerUse.Hat.equals("hatblackglass")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatblackglass"; }
-			if(!playerUse.Hat.equals("hatblackglass")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatblackglass"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatbluecold")) { 
-			if(playerUse.Hat.equals("hatbluecold")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatbluecold"; }
-			if(!playerUse.Hat.equals("hatbluecold")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatbluecold"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatbrazilflag")) { 
-			if(playerUse.Hat.equals("hatbrazilflag")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatbrazilflag"; }
-			if(!playerUse.Hat.equals("hatbrazilflag")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatbrazilflag"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatbrown")) { 
-			if(playerUse.Hat.equals("hatbrown")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatbrown"; }
-			if(!playerUse.Hat.equals("hatbrown")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatbrown"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatbunny")) { 
-			if(playerUse.Hat.equals("hatbunny")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatbunny"; }
-			if(!playerUse.Hat.equals("hatbunny")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatbunny"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatbutterfly")) { 
-			if(playerUse.Hat.equals("hatbutterfly")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatbutterfly"; }
-			if(!playerUse.Hat.equals("hatbutterfly")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatbutterfly"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatcapoult")) { 
-			if(playerUse.Hat.equals("hatcapoult")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatcapoult"; }
-			if(!playerUse.Hat.equals("hatcapoult")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatcapoult"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatcooker")) { 
-			if(playerUse.Hat.equals("hatcooker")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatcooker"; }
-			if(!playerUse.Hat.equals("hatcooker")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatcooker"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hateyepatch")) { 
-			if(playerUse.Hat.equals("hateyepatch")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hateyepatch"; }
-			if(!playerUse.Hat.equals("hateyepatch")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hateyepatch"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatfashionglasses")) { 
-			if(playerUse.Hat.equals("hatfashionglasses")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatfashionglasses"; }
-			if(!playerUse.Hat.equals("hatfashionglasses")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatfashionglasses"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatfashionglasses")) { 
-			if(playerUse.Hat.equals("hatfashionglasses")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatfashionglasses"; }
-			if(!playerUse.Hat.equals("hatfashionglasses")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatfashionglasses"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatheadset")) { 
-			if(playerUse.Hat.equals("hatheadset")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatheadset"; }
-			if(!playerUse.Hat.equals("hatheadset")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatheadset"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatmagician")) { 
-			if(playerUse.Hat.equals("hatmagician")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatmagician"; }
-			if(!playerUse.Hat.equals("hatmagician")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatmagician"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatpirate")) { 
-			if(playerUse.Hat.equals("hatpirate")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatpirate"; }
-			if(!playerUse.Hat.equals("hatpirate")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatpirate"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatredcap")) { 
-			if(playerUse.Hat.equals("hatredcap")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatredcap"; }
-			if(!playerUse.Hat.equals("hatredcap")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatredcap"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatsanta")) { 
-			if(playerUse.Hat.equals("hatsanta")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatsanta"; }
-			if(!playerUse.Hat.equals("hatsanta")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatsanta"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatslime")) { 
-			if(playerUse.Hat.equals("hatslime")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatslime"; }
-			if(!playerUse.Hat.equals("hatslime")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatslime"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hatsunglasses")) { 
-			if(playerUse.Hat.equals("hatsunglasses")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hatsunglasses"; }
-			if(!playerUse.Hat.equals("hatsunglasses")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hatsunglasses"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		if(itemName.equals("hattimer")) { 
-			if(playerUse.Hat.equals("hattimer")){ return; }
-			if(playerUse.Hat.equals("none")){ playerUse.Hat = "hattimer"; }
-			if(!playerUse.Hat.equals("hattimer")) { AddItemBag(playerUse.Hat); playerUse.Hat = "hattimer"; lstItem = playerUse.Itens.split("-"); equipable = true; }	
-		}
-		
 		
 		//orbs
 		if(itemName.equals("blue_orb")) { return; }
@@ -3801,28 +3554,28 @@ public class GameControl {
 	}
 	
 	public void GiveExpGetFromServer(String line) {
-		if (line.contains("Unavailable")) {
-			//System.out.println("Line: indisponivel exp");
-			return;
-		}
-	
-		// Split the line into individual mob data strings
-		String[] expDataArray = line.split("@");
-	
-		// Iterate over each mob data string, excluding the last one
-		for (String expData : expDataArray) {
-			// Split the mob data string into individual data fields
-			String[] expDataFields = expData.split(":");
-	
-			// Check if expDataFields has the expected length
-			if (expDataFields.length < 5) { // Adjust the length based on the number of expected fields
-				//System.out.println("Skipping incomplete mob data: " + expData);
-				continue;
-			}
-	
-			float ExpSended = Float.parseFloat(expDataFields[8]);
-			GiveExp(ExpSended);
-		}
+	    if (line.contains("Unavailable")) {
+	        //System.out.println("Line: indisponivel exp");
+	        return;
+	    }
+
+	    // Split the line into individual exp data strings
+	    String[] expDataArray = line.split("@");
+
+	    // Iterate over each exp data string
+	    for (String expData : expDataArray) {
+	        // Split the exp data string into individual data fields
+	        String[] expDataFields = expData.split("\\|");
+
+	        // Check if expDataFields has the expected length
+	        if (expDataFields.length < 9) { // Adjust the length based on the number of expected fields
+	            //System.out.println("Skipping incomplete exp data: " + expData);
+	            continue;
+	        }
+
+	        float ExpSended = Float.parseFloat(expDataFields[8]);
+	        GiveExp(ExpSended);
+	    }
 	}
 	
 	public void UpdateOnlinePlayers(String line) {

@@ -321,6 +321,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public void render(float delta) {
 			
+			player.Money = "1000";
+			//player.Level = "10";
 			//player.Job = "Aprendiz";
 			//player.Hp = "10";
 			//player.Mp = "50";
@@ -3083,7 +3085,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    int expreceived = listMonsters.get(mobindex).MobExp;
 		    gameControl.GiveExp(expreceived);
 
-		    expsended = 5;
+		    expsended = 1;
 			
 		    try {
 				gameControl.SendExpBank("SendExpBank",player.AccountNumber,playernumString,player.Name,String.valueOf(expsended),date, new HttpCallback() {
@@ -3234,6 +3236,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								
 								font_master.draw(game.batch, lstOnlinePlayers.get(i).Hp, cameraCoordsX + 81, cameraCoordsY + 96);
 								font_master.draw(game.batch, lstOnlinePlayers.get(i).Mp, cameraCoordsX + 81, cameraCoordsY + 88);
+							}
+							if(partynum == 4) {
+								player.party = "none";
 							}
 						}
 					}
@@ -4219,9 +4224,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}
 					//pote pequena HP
 					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
-						int money = Integer.parseInt(player.Money);
-						money = 1000;
-						player.Money = String.valueOf(money);
 						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 1);
 						return false; 
 					}
