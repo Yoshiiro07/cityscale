@@ -2422,6 +2422,7 @@ public class GameControl {
 			hp = hp + 25;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
 			playerUse.Hp = String.valueOf(hp);
+			CheckRequiredItem(itemName,true,1);
 			return;
 		}	
 		
@@ -2429,6 +2430,7 @@ public class GameControl {
 			hp = hp + 100;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
 			playerUse.Hp = String.valueOf(hp);
+			CheckRequiredItem(itemName,true,1);
 			return;
 		}
 		
@@ -2436,6 +2438,7 @@ public class GameControl {
 			mp = mp + 15;
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
 			playerUse.Hp = String.valueOf(hp);
+			CheckRequiredItem(itemName,true,1);
 			return;
 		}
 		
@@ -2443,6 +2446,7 @@ public class GameControl {
 			mp = mp + 50;
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
 			playerUse.Hp = String.valueOf(hp);
+			CheckRequiredItem(itemName,true,1);
 			return;
 		}
 		
@@ -2450,6 +2454,7 @@ public class GameControl {
 			stamina = stamina + 5000;
 			if(stamina > staminaMax) { stamina = staminaMax; playerUse.Stamina = String.valueOf(stamina); } 
 			playerUse.Stamina = String.valueOf(stamina);
+			CheckRequiredItem(itemName,true,1);
 			return;
 		}
 		
@@ -2457,6 +2462,7 @@ public class GameControl {
 			stamina = stamina + 15000;
 			if(stamina > staminaMax) { stamina = staminaMax; playerUse.Stamina = String.valueOf(stamina); } 
 			playerUse.Stamina = String.valueOf(stamina);
+			CheckRequiredItem(itemName,true,1);
 			return;
 		}
 		

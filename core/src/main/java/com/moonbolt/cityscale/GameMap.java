@@ -1053,16 +1053,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				    		lstChats = gameControl.RecoverOnlineChat();
 				    	}
 				    	else {
-				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-				    		aviso = true;
+				    		//avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		//aviso = true;
 				    	}
 				    }
 
 				    @Override
 				    public void onFailure(Throwable t) {
 				       System.out.println("Error: " + t.getMessage());
-				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-					   aviso = true;
+				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   //aviso = true;
 				    }
 				});
 			} catch (UnsupportedEncodingException e) {
@@ -1080,16 +1080,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				    		
 				    	}
 				    	else {
-				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-				    		aviso = true;
+				    		//avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		//aviso = true;
 				    	}
 				    }
 
 				    @Override
 				    public void onFailure(Throwable t) {
 				       System.out.println("Error: " + t.getMessage());
-				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-					   aviso = true;
+				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   //aviso = true;
 				    }
 				});
 			} catch (UnsupportedEncodingException e) {
@@ -1107,16 +1107,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				    		listMonsters = gameControl.RecoverMonsterList();
 				    	}
 				    	else {
-				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-				    		aviso = true;
+				    		//avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		//aviso = true;
 				    	}
 				    }
 
 				    @Override
 				    public void onFailure(Throwable t) {
 				       System.out.println("Error: " + t.getMessage());
-				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-					   aviso = true;
+				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   //aviso = true;
 				    }
 				});
 			} catch (UnsupportedEncodingException e) {
@@ -1144,7 +1144,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						spr_playerHatOnline = gameControl.GetHatChar(lstOnlinePlayers.get(i), "no", 0,0);
 						spr_playerHatOnline.draw(game.batch);
 						
-						font_master.draw(game.batch, lstOnlinePlayers.get(i).Name, Float.parseFloat(lstOnlinePlayers.get(i).PosX), Float.parseFloat(lstOnlinePlayers.get(i).PosY) - 20);
+						font_master.draw(game.batch, lstOnlinePlayers.get(i).Name, Float.parseFloat(lstOnlinePlayers.get(i).PosX) - 4, Float.parseFloat(lstOnlinePlayers.get(i).PosY) - 2);
 					}
 				}
 			}
@@ -3208,16 +3208,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				    public void onSuccess(String response) {
 				    	if(response.contains("success")) {}
 				    	else {
-				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-				    		aviso = true;
+				    		//avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		//aviso = true;
 				    	}
 				    }
 
 				    @Override
 				    public void onFailure(Throwable t) {
 				       System.out.println("Error: " + t.getMessage());
-				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-					   aviso = true;
+				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   //aviso = true;
 				    }
 				});
 			} catch (UnsupportedEncodingException e) {
@@ -3253,16 +3253,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		                            
 		                            LoopTime = 10;
 		                        } else {
-		                            avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-		                            aviso = true;
+		                            //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+		                            //aviso = true;
 		                        }
 		                    }
 
 		                    @Override
 		                    public void onFailure(Throwable t) {
 		                        System.out.println("Error: " + t.getMessage());
-		                        avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-		                        aviso = true;
+		                        //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+		                        //aviso = true;
 		                    }
 		                });
 		            } catch (UnsupportedEncodingException e) {
@@ -3852,16 +3852,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 										state = "Main";
 							    	}
 							    	else {
-							    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-							    		aviso = true;
+							    		//avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+							    		//aviso = true;
 							    	}
 							    }
 		
 							    @Override
 							    public void onFailure(Throwable t) {
 							       System.out.println("Error: " + t.getMessage());
-							       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-								   aviso = true;
+							       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+								   //aviso = true;
 							    }
 							});
 						} catch (UnsupportedEncodingException e) {
