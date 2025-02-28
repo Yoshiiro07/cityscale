@@ -134,7 +134,7 @@ public class Monster {
 			MobC.MobFrameTime = 1;
 			MobC.MobAtkTimer = 300;
 			MobC.MobAtkTimerMax = 300;
-			MobC.MobLevel = 4;
+			MobC.MobLevel = 1;
 			MobC.MobMap = "Sewers";
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
@@ -167,7 +167,7 @@ public class Monster {
 			MobD.MobFrameTime = 1;
 			MobD.MobAtkTimer = 300;
 			MobD.MobAtkTimerMax = 300;
-			MobD.MobLevel = 5;
+			MobD.MobLevel = 1;
 			MobD.MobMap = "Sewers";
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
@@ -200,8 +200,8 @@ public class Monster {
 			MobE.MobFrameTime = 1;
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
-			MobE.MobLevel = 8;
-			MobE.MobMap = "Forest";
+			MobE.MobLevel = 1;
+			MobE.MobMap = "Sewers";
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
 			MobE.GotFinal = false;
@@ -316,7 +316,7 @@ public class Monster {
 			MobC.MobFrameTime = 1;
 			MobC.MobAtkTimer = 300;
 			MobC.MobAtkTimerMax = 300;
-			MobC.MobLevel = 4;
+			MobC.MobLevel = 1;
 			MobC.MobMap = "Forest";
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
@@ -349,7 +349,7 @@ public class Monster {
 			MobD.MobFrameTime = 1;
 			MobD.MobAtkTimer = 300;
 			MobD.MobAtkTimerMax = 300;
-			MobD.MobLevel = 5;
+			MobD.MobLevel = 1;
 			MobD.MobMap = "Forest";
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
@@ -382,7 +382,7 @@ public class Monster {
 			MobE.MobFrameTime = 1;
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
-			MobE.MobLevel = 8;
+			MobE.MobLevel = 1;
 			MobE.MobMap = "Forest";
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
@@ -412,7 +412,7 @@ public class Monster {
 			MobA.MobFrame = 1;
 			MobA.MobPosX = 20;
 			MobA.MobPosY = 20;
-			MobA.MobExp = 320;
+			MobA.MobExp = 220;
 			MobA.MobID = "FiskoA";
 			MobA.MobMoney = 1;
 			MobA.MobSizeY = 20;
@@ -421,7 +421,7 @@ public class Monster {
 			MobA.MobDead = "no";
 			MobA.MobTimeDead = 500;
 			MobA.MobSkillChance = "";
-			MobA.MobAtk = 35;
+			MobA.MobAtk = 50;
 			MobA.MobEvade = 20;
 			MobA.MobPosition = "left";
 			MobA.MobRandomSt = 1;
@@ -429,7 +429,7 @@ public class Monster {
 			MobA.MobFrameTime = 1;
 			MobA.MobAtkTimer = 500;
 			MobA.MobAtkTimerMax = 500;
-			MobA.MobLevel = 10;
+			MobA.MobLevel = 2;
 			MobA.MobMap = "Watercave";
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
@@ -446,7 +446,7 @@ public class Monster {
 			MobB.MobFrame = 1;
 			MobB.MobPosX = 20;
 			MobB.MobPosY = 20;
-			MobB.MobExp = 320;
+			MobB.MobExp = 220;
 			MobB.MobID = "FiskoB";
 			MobB.MobMoney = 1;
 			MobB.MobSizeY = 20;
@@ -455,7 +455,7 @@ public class Monster {
 			MobB.MobDead = "no";
 			MobB.MobTimeDead = 500;
 			MobB.MobSkillChance = "";
-			MobB.MobAtk = 35;
+			MobB.MobAtk = 50;
 			MobB.MobEvade = 20;
 			MobB.MobPosition = "left";
 			MobB.MobRandomSt = 1;
@@ -463,7 +463,7 @@ public class Monster {
 			MobB.MobFrameTime = 1;
 			MobB.MobAtkTimer = 500;
 			MobB.MobAtkTimerMax = 500;
-			MobB.MobLevel = 1;
+			MobB.MobLevel = 2;
 			MobB.MobMap = "Watercave";
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
@@ -479,7 +479,7 @@ public class Monster {
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
-			MobC.MobExp = 450;
+			MobC.MobExp = 260;
 			MobC.MobID = "ShellyA";
 			MobC.MobMoney = 2;
 			MobC.MobSizeY = 22;
@@ -488,7 +488,7 @@ public class Monster {
 			MobC.MobDead = "no";
 			MobC.MobTimeDead = 500;
 			MobC.MobSkillChance = "";
-			MobC.MobAtk = 50;
+			MobC.MobAtk = 75;
 			MobC.MobEvade = 10;
 			MobC.MobPosition = "left";
 			MobC.MobRandomSt = 1;
@@ -496,7 +496,7 @@ public class Monster {
 			MobC.MobFrameTime = 1;
 			MobC.MobAtkTimer = 300;
 			MobC.MobAtkTimerMax = 300;
-			MobC.MobLevel = 4;
+			MobC.MobLevel = 2;
 			MobC.MobMap = "Watercave";
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
@@ -512,7 +512,7 @@ public class Monster {
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
-			MobD.MobExp = 630;
+			MobD.MobExp = 340;
 			MobD.MobID = "MaritA";
 			MobD.MobMoney = 4;
 			MobD.MobSizeY = 32;
@@ -521,7 +521,7 @@ public class Monster {
 			MobD.MobDead = "no";
 			MobD.MobTimeDead = 500;
 			MobD.MobSkillChance = "";
-			MobD.MobAtk = 65;
+			MobD.MobAtk = 88;
 			MobD.MobEvade = 10;
 			MobD.MobPosition = "left";
 			MobD.MobRandomSt = 1;
@@ -529,7 +529,7 @@ public class Monster {
 			MobD.MobFrameTime = 1;
 			MobD.MobAtkTimer = 300;
 			MobD.MobAtkTimerMax = 300;
-			MobD.MobLevel = 5;
+			MobD.MobLevel = 2;
 			MobD.MobMap = "Watercave";
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
@@ -545,7 +545,7 @@ public class Monster {
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
-			MobE.MobExp = 800;
+			MobE.MobExp = 450;
 			MobE.MobID = "TencleA";
 			MobE.MobMoney = 5;
 			MobE.MobSizeY = 40;
@@ -554,7 +554,7 @@ public class Monster {
 			MobE.MobDead = "no";
 			MobE.MobTimeDead = 500;
 			MobE.MobSkillChance = "";
-			MobE.MobAtk = 80;
+			MobE.MobAtk = 100;
 			MobE.MobEvade = 10;
 			MobE.MobPosition = "left";
 			MobE.MobRandomSt = 1;
@@ -562,7 +562,7 @@ public class Monster {
 			MobE.MobFrameTime = 1;
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
-			MobE.MobLevel = 8;
+			MobE.MobLevel = 2;
 			MobE.MobMap = "Watercave";
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
@@ -592,7 +592,7 @@ public class Monster {
 			MobA.MobFrame = 1;
 			MobA.MobPosX = 20;
 			MobA.MobPosY = 20;
-			MobA.MobExp = 320;
+			MobA.MobExp = 220;
 			MobA.MobID = "CactusA";
 			MobA.MobMoney = 1;
 			MobA.MobSizeY = 20;
@@ -601,7 +601,7 @@ public class Monster {
 			MobA.MobDead = "no";
 			MobA.MobTimeDead = 500;
 			MobA.MobSkillChance = "";
-			MobA.MobAtk = 35;
+			MobA.MobAtk = 50;
 			MobA.MobEvade = 20;
 			MobA.MobPosition = "left";
 			MobA.MobRandomSt = 1;
@@ -609,7 +609,7 @@ public class Monster {
 			MobA.MobFrameTime = 1;
 			MobA.MobAtkTimer = 500;
 			MobA.MobAtkTimerMax = 500;
-			MobA.MobLevel = 10;
+			MobA.MobLevel = 2;
 			MobA.MobMap = "Desert";
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
@@ -626,7 +626,7 @@ public class Monster {
 			MobB.MobFrame = 1;
 			MobB.MobPosX = 20;
 			MobB.MobPosY = 20;
-			MobB.MobExp = 320;
+			MobB.MobExp = 220;
 			MobB.MobID = "CactusB";
 			MobB.MobMoney = 1;
 			MobB.MobSizeY = 20;
@@ -635,7 +635,7 @@ public class Monster {
 			MobB.MobDead = "no";
 			MobB.MobTimeDead = 500;
 			MobB.MobSkillChance = "";
-			MobB.MobAtk = 35;
+			MobB.MobAtk = 50;
 			MobB.MobEvade = 20;
 			MobB.MobPosition = "left";
 			MobB.MobRandomSt = 1;
@@ -643,7 +643,7 @@ public class Monster {
 			MobB.MobFrameTime = 1;
 			MobB.MobAtkTimer = 500;
 			MobB.MobAtkTimerMax = 500;
-			MobB.MobLevel = 1;
+			MobB.MobLevel = 2;
 			MobB.MobMap = "Desert";
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
@@ -659,7 +659,7 @@ public class Monster {
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
-			MobC.MobExp = 450;
+			MobC.MobExp = 260;
 			MobC.MobID = "HarpiaA";
 			MobC.MobMoney = 2;
 			MobC.MobSizeY = 28;
@@ -668,7 +668,7 @@ public class Monster {
 			MobC.MobDead = "no";
 			MobC.MobTimeDead = 500;
 			MobC.MobSkillChance = "";
-			MobC.MobAtk = 50;
+			MobC.MobAtk = 75;
 			MobC.MobEvade = 10;
 			MobC.MobPosition = "left";
 			MobC.MobRandomSt = 1;
@@ -676,7 +676,7 @@ public class Monster {
 			MobC.MobFrameTime = 1;
 			MobC.MobAtkTimer = 300;
 			MobC.MobAtkTimerMax = 300;
-			MobC.MobLevel = 4;
+			MobC.MobLevel = 2;
 			MobC.MobMap = "Desert";
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
@@ -692,7 +692,7 @@ public class Monster {
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
-			MobD.MobExp = 630;
+			MobD.MobExp = 340;
 			MobD.MobID = "GolemA";
 			MobD.MobMoney = 4;
 			MobD.MobSizeY = 50;
@@ -701,7 +701,7 @@ public class Monster {
 			MobD.MobDead = "no";
 			MobD.MobTimeDead = 500;
 			MobD.MobSkillChance = "";
-			MobD.MobAtk = 65;
+			MobD.MobAtk = 88;
 			MobD.MobEvade = 10;
 			MobD.MobPosition = "left";
 			MobD.MobRandomSt = 1;
@@ -709,7 +709,7 @@ public class Monster {
 			MobD.MobFrameTime = 1;
 			MobD.MobAtkTimer = 300;
 			MobD.MobAtkTimerMax = 300;
-			MobD.MobLevel = 5;
+			MobD.MobLevel = 2;
 			MobD.MobMap = "Desert";
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
@@ -725,7 +725,7 @@ public class Monster {
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
-			MobE.MobExp = 800;
+			MobE.MobExp = 450;
 			MobE.MobID = "BrimwornA";
 			MobE.MobMoney = 5;
 			MobE.MobSizeY = 40;
@@ -734,7 +734,7 @@ public class Monster {
 			MobE.MobDead = "no";
 			MobE.MobTimeDead = 500;
 			MobE.MobSkillChance = "";
-			MobE.MobAtk = 80;
+			MobE.MobAtk = 100;
 			MobE.MobEvade = 10;
 			MobE.MobPosition = "left";
 			MobE.MobRandomSt = 1;
@@ -742,7 +742,7 @@ public class Monster {
 			MobE.MobFrameTime = 1;
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
-			MobE.MobLevel = 8;
+			MobE.MobLevel = 2;
 			MobE.MobMap = "Desert";
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
@@ -772,7 +772,7 @@ public class Monster {
 			MobA.MobFrame = 1;
 			MobA.MobPosX = 20;
 			MobA.MobPosY = 20;
-			MobA.MobExp = 8200;
+			MobA.MobExp = 650;
 			MobA.MobID = "GhostA";
 			MobA.MobMoney = 1;
 			MobA.MobSizeY = 20;
@@ -781,7 +781,7 @@ public class Monster {
 			MobA.MobDead = "no";
 			MobA.MobTimeDead = 500;
 			MobA.MobSkillChance = "";
-			MobA.MobAtk = 120;
+			MobA.MobAtk = 180;
 			MobA.MobEvade = 20;
 			MobA.MobPosition = "left";
 			MobA.MobRandomSt = 1;
@@ -789,7 +789,7 @@ public class Monster {
 			MobA.MobFrameTime = 1;
 			MobA.MobAtkTimer = 500;
 			MobA.MobAtkTimerMax = 500;
-			MobA.MobLevel = 30;
+			MobA.MobLevel = 3;
 			MobA.MobMap = "Mines";
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
@@ -806,7 +806,7 @@ public class Monster {
 			MobB.MobFrame = 1;
 			MobB.MobPosX = 20;
 			MobB.MobPosY = 20;
-			MobB.MobExp = 8200;
+			MobB.MobExp = 650;
 			MobB.MobID = "GhostB";
 			MobB.MobMoney = 1;
 			MobB.MobSizeY = 20;
@@ -815,7 +815,7 @@ public class Monster {
 			MobB.MobDead = "no";
 			MobB.MobTimeDead = 500;
 			MobB.MobSkillChance = "";
-			MobB.MobAtk = 120;
+			MobB.MobAtk = 180;
 			MobB.MobEvade = 20;
 			MobB.MobPosition = "left";
 			MobB.MobRandomSt = 1;
@@ -823,7 +823,7 @@ public class Monster {
 			MobB.MobFrameTime = 1;
 			MobB.MobAtkTimer = 500;
 			MobB.MobAtkTimerMax = 500;
-			MobB.MobLevel = 30;
+			MobB.MobLevel = 3;
 			MobB.MobMap = "Mines";
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
@@ -839,7 +839,7 @@ public class Monster {
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
-			MobC.MobExp = 12200;
+			MobC.MobExp = 880;
 			MobC.MobID = "TipperA";
 			MobC.MobMoney = 2;
 			MobC.MobSizeY = 22;
@@ -848,7 +848,7 @@ public class Monster {
 			MobC.MobDead = "no";
 			MobC.MobTimeDead = 500;
 			MobC.MobSkillChance = "";
-			MobC.MobAtk = 160;
+			MobC.MobAtk = 220;
 			MobC.MobEvade = 10;
 			MobC.MobPosition = "left";
 			MobC.MobRandomSt = 1;
@@ -856,7 +856,7 @@ public class Monster {
 			MobC.MobFrameTime = 1;
 			MobC.MobAtkTimer = 300;
 			MobC.MobAtkTimerMax = 300;
-			MobC.MobLevel = 30;
+			MobC.MobLevel = 3;
 			MobC.MobMap = "Mines";
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
@@ -872,7 +872,7 @@ public class Monster {
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
-			MobD.MobExp = 24000;
+			MobD.MobExp = 950;
 			MobD.MobID = "BearA";
 			MobD.MobMoney = 4;
 			MobD.MobSizeY = 40;
@@ -881,7 +881,7 @@ public class Monster {
 			MobD.MobDead = "no";
 			MobD.MobTimeDead = 500;
 			MobD.MobSkillChance = "";
-			MobD.MobAtk = 200;
+			MobD.MobAtk = 260;
 			MobD.MobEvade = 10;
 			MobD.MobPosition = "left";
 			MobD.MobRandomSt = 1;
@@ -889,7 +889,7 @@ public class Monster {
 			MobD.MobFrameTime = 1;
 			MobD.MobAtkTimer = 300;
 			MobD.MobAtkTimerMax = 300;
-			MobD.MobLevel = 30;
+			MobD.MobLevel = 3;
 			MobD.MobMap = "Mines";
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
@@ -905,7 +905,7 @@ public class Monster {
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
-			MobE.MobExp = 45000;
+			MobE.MobExp = 1200;
 			MobE.MobID = "DeathSkullA";
 			MobE.MobMoney = 5;
 			MobE.MobSizeY = 40;
@@ -914,7 +914,7 @@ public class Monster {
 			MobE.MobDead = "no";
 			MobE.MobTimeDead = 500;
 			MobE.MobSkillChance = "";
-			MobE.MobAtk = 250;
+			MobE.MobAtk = 300;
 			MobE.MobEvade = 10;
 			MobE.MobPosition = "left";
 			MobE.MobRandomSt = 1;
@@ -922,7 +922,7 @@ public class Monster {
 			MobE.MobFrameTime = 1;
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
-			MobE.MobLevel = 8;
+			MobE.MobLevel = 3;
 			MobE.MobMap = "Mines";
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
@@ -952,7 +952,7 @@ public class Monster {
 			MobA.MobFrame = 1;
 			MobA.MobPosX = 20;
 			MobA.MobPosY = 20;
-			MobA.MobExp = 8200;
+			MobA.MobExp = 650;
 			MobA.MobID = "FlareA";
 			MobA.MobMoney = 1;
 			MobA.MobSizeY = 20;
@@ -961,7 +961,7 @@ public class Monster {
 			MobA.MobDead = "no";
 			MobA.MobTimeDead = 500;
 			MobA.MobSkillChance = "";
-			MobA.MobAtk = 120;
+			MobA.MobAtk = 180;
 			MobA.MobEvade = 20;
 			MobA.MobPosition = "left";
 			MobA.MobRandomSt = 1;
@@ -969,7 +969,7 @@ public class Monster {
 			MobA.MobFrameTime = 1;
 			MobA.MobAtkTimer = 500;
 			MobA.MobAtkTimerMax = 500;
-			MobA.MobLevel = 30;
+			MobA.MobLevel = 3;
 			MobA.MobMap = "Vulcano";
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
@@ -986,7 +986,7 @@ public class Monster {
 			MobB.MobFrame = 1;
 			MobB.MobPosX = 20;
 			MobB.MobPosY = 20;
-			MobB.MobExp = 8200;
+			MobB.MobExp = 650;
 			MobB.MobID = "FlareB";
 			MobB.MobMoney = 1;
 			MobB.MobSizeY = 20;
@@ -995,7 +995,7 @@ public class Monster {
 			MobB.MobDead = "no";
 			MobB.MobTimeDead = 500;
 			MobB.MobSkillChance = "";
-			MobB.MobAtk = 120;
+			MobB.MobAtk = 180;
 			MobB.MobEvade = 20;
 			MobB.MobPosition = "left";
 			MobB.MobRandomSt = 1;
@@ -1003,7 +1003,7 @@ public class Monster {
 			MobB.MobFrameTime = 1;
 			MobB.MobAtkTimer = 500;
 			MobB.MobAtkTimerMax = 500;
-			MobB.MobLevel = 30;
+			MobB.MobLevel = 3;
 			MobB.MobMap = "Vulcano";
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
@@ -1019,7 +1019,7 @@ public class Monster {
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
-			MobC.MobExp = 12200;
+			MobC.MobExp = 880;
 			MobC.MobID = "SalamanderA";
 			MobC.MobMoney = 2;
 			MobC.MobSizeY = 22;
@@ -1028,7 +1028,7 @@ public class Monster {
 			MobC.MobDead = "no";
 			MobC.MobTimeDead = 500;
 			MobC.MobSkillChance = "";
-			MobC.MobAtk = 160;
+			MobC.MobAtk = 220;
 			MobC.MobEvade = 10;
 			MobC.MobPosition = "left";
 			MobC.MobRandomSt = 1;
@@ -1036,7 +1036,7 @@ public class Monster {
 			MobC.MobFrameTime = 1;
 			MobC.MobAtkTimer = 300;
 			MobC.MobAtkTimerMax = 300;
-			MobC.MobLevel = 30;
+			MobC.MobLevel = 3;
 			MobC.MobMap = "Vulcano";
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
@@ -1052,7 +1052,7 @@ public class Monster {
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
-			MobD.MobExp = 24000;
+			MobD.MobExp = 950;
 			MobD.MobID = "CerberusA";
 			MobD.MobMoney = 4;
 			MobD.MobSizeY = 40;
@@ -1061,7 +1061,7 @@ public class Monster {
 			MobD.MobDead = "no";
 			MobD.MobTimeDead = 500;
 			MobD.MobSkillChance = "";
-			MobD.MobAtk = 200;
+			MobD.MobAtk = 260;
 			MobD.MobEvade = 10;
 			MobD.MobPosition = "left";
 			MobD.MobRandomSt = 1;
@@ -1069,7 +1069,7 @@ public class Monster {
 			MobD.MobFrameTime = 1;
 			MobD.MobAtkTimer = 300;
 			MobD.MobAtkTimerMax = 300;
-			MobD.MobLevel = 30;
+			MobD.MobLevel = 3;
 			MobD.MobMap = "Vulcano";
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
@@ -1085,7 +1085,7 @@ public class Monster {
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
-			MobE.MobExp = 45000;
+			MobE.MobExp = 1200;
 			MobE.MobID = "HammertoothA";
 			MobE.MobMoney = 5;
 			MobE.MobSizeY = 50;
@@ -1094,7 +1094,7 @@ public class Monster {
 			MobE.MobDead = "no";
 			MobE.MobTimeDead = 500;
 			MobE.MobSkillChance = "";
-			MobE.MobAtk = 250;
+			MobE.MobAtk = 300;
 			MobE.MobEvade = 10;
 			MobE.MobPosition = "left";
 			MobE.MobRandomSt = 1;
@@ -1102,7 +1102,7 @@ public class Monster {
 			MobE.MobFrameTime = 1;
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
-			MobE.MobLevel = 8;
+			MobE.MobLevel = 3;
 			MobE.MobMap = "Vulcano";
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
@@ -1132,7 +1132,7 @@ public class Monster {
 			MobA.MobFrame = 1;
 			MobA.MobPosX = 20;
 			MobA.MobPosY = 20;
-			MobA.MobExp = 70000;
+			MobA.MobExp = 3500;
 			MobA.MobID = "GoblinA";
 			MobA.MobMoney = 1;
 			MobA.MobSizeY = 20;
@@ -1141,7 +1141,7 @@ public class Monster {
 			MobA.MobDead = "no";
 			MobA.MobTimeDead = 500;
 			MobA.MobSkillChance = "";
-			MobA.MobAtk = 350;
+			MobA.MobAtk = 430;
 			MobA.MobEvade = 20;
 			MobA.MobPosition = "left";
 			MobA.MobRandomSt = 1;
@@ -1149,7 +1149,7 @@ public class Monster {
 			MobA.MobFrameTime = 1;
 			MobA.MobAtkTimer = 500;
 			MobA.MobAtkTimerMax = 500;
-			MobA.MobLevel = 30;
+			MobA.MobLevel = 4;
 			MobA.MobMap = "Snowpalace";
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
@@ -1166,7 +1166,7 @@ public class Monster {
 			MobB.MobFrame = 1;
 			MobB.MobPosX = 20;
 			MobB.MobPosY = 20;
-			MobB.MobExp = 70000;
+			MobB.MobExp = 3500;
 			MobB.MobID = "GoblinB";
 			MobB.MobMoney = 1;
 			MobB.MobSizeY = 20;
@@ -1175,7 +1175,7 @@ public class Monster {
 			MobB.MobDead = "no";
 			MobB.MobTimeDead = 500;
 			MobB.MobSkillChance = "";
-			MobB.MobAtk = 350;
+			MobB.MobAtk = 430;
 			MobB.MobEvade = 20;
 			MobB.MobPosition = "left";
 			MobB.MobRandomSt = 1;
@@ -1183,7 +1183,7 @@ public class Monster {
 			MobB.MobFrameTime = 1;
 			MobB.MobAtkTimer = 500;
 			MobB.MobAtkTimerMax = 500;
-			MobB.MobLevel = 40;
+			MobB.MobLevel = 4;
 			MobB.MobMap = "Snowpalace";
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
@@ -1199,7 +1199,7 @@ public class Monster {
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
-			MobC.MobExp = 140000;
+			MobC.MobExp = 4300;
 			MobC.MobID = "PinguimA";
 			MobC.MobMoney = 2;
 			MobC.MobSizeY = 22;
@@ -1208,7 +1208,7 @@ public class Monster {
 			MobC.MobDead = "no";
 			MobC.MobTimeDead = 500;
 			MobC.MobSkillChance = "";
-			MobC.MobAtk = 400;
+			MobC.MobAtk = 560;
 			MobC.MobEvade = 10;
 			MobC.MobPosition = "left";
 			MobC.MobRandomSt = 1;
@@ -1216,7 +1216,7 @@ public class Monster {
 			MobC.MobFrameTime = 1;
 			MobC.MobAtkTimer = 300;
 			MobC.MobAtkTimerMax = 300;
-			MobC.MobLevel = 30;
+			MobC.MobLevel = 4;
 			MobC.MobMap = "Snowpalace";
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
@@ -1232,7 +1232,7 @@ public class Monster {
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
-			MobD.MobExp = 250000;
+			MobD.MobExp = 5600;
 			MobD.MobID = "SnowmanA";
 			MobD.MobMoney = 4;
 			MobD.MobSizeY = 40;
@@ -1241,7 +1241,7 @@ public class Monster {
 			MobD.MobDead = "no";
 			MobD.MobTimeDead = 500;
 			MobD.MobSkillChance = "";
-			MobD.MobAtk = 480;
+			MobD.MobAtk = 630;
 			MobD.MobEvade = 10;
 			MobD.MobPosition = "left";
 			MobD.MobRandomSt = 1;
@@ -1249,7 +1249,7 @@ public class Monster {
 			MobD.MobFrameTime = 1;
 			MobD.MobAtkTimer = 300;
 			MobD.MobAtkTimerMax = 300;
-			MobD.MobLevel = 30;
+			MobD.MobLevel = 4;
 			MobD.MobMap = "Snowpalace";
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
@@ -1265,7 +1265,7 @@ public class Monster {
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
-			MobE.MobExp = 450000;
+			MobE.MobExp = 7800;
 			MobE.MobID = "YetiA";
 			MobE.MobMoney = 5;
 			MobE.MobSizeY = 60;
@@ -1274,7 +1274,7 @@ public class Monster {
 			MobE.MobDead = "no";
 			MobE.MobTimeDead = 500;
 			MobE.MobSkillChance = "";
-			MobE.MobAtk = 640;
+			MobE.MobAtk = 750;
 			MobE.MobEvade = 10;
 			MobE.MobPosition = "left";
 			MobE.MobRandomSt = 1;
@@ -1282,7 +1282,7 @@ public class Monster {
 			MobE.MobFrameTime = 1;
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
-			MobE.MobLevel = 8;
+			MobE.MobLevel = 4;
 			MobE.MobMap = "Snowpalace";
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;
@@ -1312,7 +1312,7 @@ public class Monster {
 			MobA.MobFrame = 1;
 			MobA.MobPosX = 20;
 			MobA.MobPosY = 20;
-			MobA.MobExp = 70000;
+			MobA.MobExp = 3500;
 			MobA.MobID = "EyeballA";
 			MobA.MobMoney = 1;
 			MobA.MobSizeY = 23;
@@ -1321,7 +1321,7 @@ public class Monster {
 			MobA.MobDead = "no";
 			MobA.MobTimeDead = 500;
 			MobA.MobSkillChance = "";
-			MobA.MobAtk = 350;
+			MobA.MobAtk = 430;
 			MobA.MobEvade = 20;
 			MobA.MobPosition = "left";
 			MobA.MobRandomSt = 1;
@@ -1329,7 +1329,7 @@ public class Monster {
 			MobA.MobFrameTime = 1;
 			MobA.MobAtkTimer = 500;
 			MobA.MobAtkTimerMax = 500;
-			MobA.MobLevel = 30;
+			MobA.MobLevel = 4;
 			MobA.MobMap = "Swamp";
 			MobA.MobPosXFinal = 0;
 			MobA.MobPosYFinal = 0;
@@ -1346,7 +1346,7 @@ public class Monster {
 			MobB.MobFrame = 1;
 			MobB.MobPosX = 20;
 			MobB.MobPosY = 20;
-			MobB.MobExp = 70000;
+			MobB.MobExp = 3500;
 			MobB.MobID = "EyeballB";
 			MobB.MobMoney = 1;
 			MobB.MobSizeY = 20;
@@ -1355,7 +1355,7 @@ public class Monster {
 			MobB.MobDead = "no";
 			MobB.MobTimeDead = 500;
 			MobB.MobSkillChance = "";
-			MobB.MobAtk = 350;
+			MobB.MobAtk = 430;
 			MobB.MobEvade = 20;
 			MobB.MobPosition = "left";
 			MobB.MobRandomSt = 1;
@@ -1363,7 +1363,7 @@ public class Monster {
 			MobB.MobFrameTime = 1;
 			MobB.MobAtkTimer = 500;
 			MobB.MobAtkTimerMax = 500;
-			MobB.MobLevel = 40;
+			MobB.MobLevel = 4;
 			MobB.MobMap = "Swamp";
 			MobB.MobPosXFinal = 0;
 			MobB.MobPosYFinal = 0;
@@ -1379,7 +1379,7 @@ public class Monster {
 			MobC.MobFrame = 1;
 			MobC.MobPosX = 112.5f;
 			MobC.MobPosY = -13;
-			MobC.MobExp = 140000;
+			MobC.MobExp = 4300;
 			MobC.MobID = "OnuluA";
 			MobC.MobMoney = 2;
 			MobC.MobSizeY = 40;
@@ -1388,7 +1388,7 @@ public class Monster {
 			MobC.MobDead = "no";
 			MobC.MobTimeDead = 500;
 			MobC.MobSkillChance = "";
-			MobC.MobAtk = 400;
+			MobC.MobAtk = 560;
 			MobC.MobEvade = 10;
 			MobC.MobPosition = "left";
 			MobC.MobRandomSt = 1;
@@ -1396,7 +1396,7 @@ public class Monster {
 			MobC.MobFrameTime = 1;
 			MobC.MobAtkTimer = 300;
 			MobC.MobAtkTimerMax = 300;
-			MobC.MobLevel = 30;
+			MobC.MobLevel = 4;
 			MobC.MobMap = "Swamp";
 			MobC.MobPosXFinal = 0;
 			MobC.MobPosYFinal = 0;
@@ -1412,7 +1412,7 @@ public class Monster {
 			MobD.MobFrame = 1;
 			MobD.MobPosX = 9.0f;
 			MobD.MobPosY = -132;
-			MobD.MobExp = 250000;
+			MobD.MobExp = 5600;
 			MobD.MobID = "CockatrixA";
 			MobD.MobMoney = 4;
 			MobD.MobSizeY = 40;
@@ -1421,7 +1421,7 @@ public class Monster {
 			MobD.MobDead = "no";
 			MobD.MobTimeDead = 500;
 			MobD.MobSkillChance = "";
-			MobD.MobAtk = 480;
+			MobD.MobAtk = 630;
 			MobD.MobEvade = 10;
 			MobD.MobPosition = "left";
 			MobD.MobRandomSt = 1;
@@ -1429,7 +1429,7 @@ public class Monster {
 			MobD.MobFrameTime = 1;
 			MobD.MobAtkTimer = 300;
 			MobD.MobAtkTimerMax = 300;
-			MobD.MobLevel = 30;
+			MobD.MobLevel = 4;
 			MobD.MobMap = "Swamp";
 			MobD.MobPosXFinal = 0;
 			MobD.MobPosYFinal = 0;
@@ -1445,7 +1445,7 @@ public class Monster {
 			MobE.MobFrame = 1;
 			MobE.MobPosX = 84.5f;
 			MobE.MobPosY = -129.5f;
-			MobE.MobExp = 450000;
+			MobE.MobExp = 7800;
 			MobE.MobID = "MantisA";
 			MobE.MobMoney = 5;
 			MobE.MobSizeY = 50;
@@ -1454,7 +1454,7 @@ public class Monster {
 			MobE.MobDead = "no";
 			MobE.MobTimeDead = 500;
 			MobE.MobSkillChance = "";
-			MobE.MobAtk = 640;
+			MobE.MobAtk = 750;
 			MobE.MobEvade = 10;
 			MobE.MobPosition = "left";
 			MobE.MobRandomSt = 1;
@@ -1462,7 +1462,7 @@ public class Monster {
 			MobE.MobFrameTime = 1;
 			MobE.MobAtkTimer = 400;
 			MobE.MobAtkTimerMax = 400;
-			MobE.MobLevel = 8;
+			MobE.MobLevel = 4;
 			MobE.MobMap = "Swamp";
 			MobE.MobPosXFinal = 0;
 			MobE.MobPosYFinal = 0;

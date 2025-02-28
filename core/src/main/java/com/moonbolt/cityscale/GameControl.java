@@ -247,6 +247,10 @@ public class GameControl {
 	// [Online]//
 	// [Exp/Drop]//
 	
+		public void GiveItemTEMPORARIO() {
+			AddItemBag("hatbat");
+		}
+	
 	
 		public void LoadData(String data) {
 	    String[] playerDataArray = data.split("@");
@@ -685,6 +689,15 @@ public class GameControl {
 		String hat = player.Hat;
 		float posX = Float.parseFloat(player.PosX);
 		float posY = Float.parseFloat(player.PosY);
+		
+		if(player.playerInCast.equals("yes")) {
+			if(!player.Hat.equals("none")) { 
+				spr_master = atlas_hats.createSprite(hat + "_front");
+				spr_master.setPosition(posX - 19,posY + 17);
+				if(hat.equals("hatheadset")) { spr_master.setPosition(posX - 19,posY + 13); }
+				spr_master.setScale(0.23f,0.5f);
+			}	
+		}
 		
 		if(side.equals("front")) { 
 			if(!player.Hat.equals("none")) { 
@@ -1364,7 +1377,7 @@ public class GameControl {
 			
 			if(player.playerInCast.equals("yes")) {
 				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_cast");
-				spr_master.setPosition(posX -25,posY -5);
+				spr_master.setPosition(posX -29,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 			
@@ -1770,7 +1783,7 @@ public class GameControl {
 	
 	public Sprite SetWeapon(Player playerUse) {   
 		
-		//player.playerInBattle = "no";
+		//playerUse.playerInBattle = "yes";
 		//playerInAttack = true;
 		
 		float posX = Float.parseFloat(playerUse.PosX);
@@ -1789,38 +1802,38 @@ public class GameControl {
 				if(playerUse.Weapon.contains("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 13.5f, posY + 11f); }
 				if(playerUse.Weapon.contains("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
 			
-			if(playerUse.Job.equals("Espadachim") || playerUse.Job.equals("Cavaleiro") || playerUse.Job.equals("Paladino")) {
-				if(playerUse.Weapon.contains("woodsword")) { spr_master = atlas_swords.createSprite("wood_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("ragesword")) { spr_master = atlas_swords.createSprite("saber_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("serpentsword")) { spr_master = atlas_swords.createSprite("venom_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("flamesword")) { spr_master = atlas_swords.createSprite("edge_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("cristalsword")) { spr_master = atlas_swords.createSprite("knight_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }					
+			if(playerUse.Job.equals("Espadachim") || playerUse.Job.equals("Cavaleiro") || playerUse.Job.equals("Protetor")) {
+				if(playerUse.Weapon.contains("woodsword")) { spr_master = atlas_swords.createSprite("wood_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }
+				if(playerUse.Weapon.contains("ragesword")) { spr_master = atlas_swords.createSprite("rage_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }
+				if(playerUse.Weapon.contains("serpentsword")) { spr_master = atlas_swords.createSprite("venom_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }
+				if(playerUse.Weapon.contains("flamesword")) { spr_master = atlas_swords.createSprite("edge_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }
+				if(playerUse.Weapon.contains("cristalsword")) { spr_master = atlas_swords.createSprite("knight_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }					
 			}
 			
-			if(playerUse.Job.equals("Feiticeiro") || playerUse.Job.equals("Bruxo") || playerUse.Job.equals("Espiritualista")) {
-				if(playerUse.Weapon.contains("stickrod")) { spr_master = atlas_rods.createSprite("stick_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 13.5f, posY + 11f); }
-				if(playerUse.Weapon.contains("gloomrod")) { spr_master = atlas_rods.createSprite("gloom_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("starrod")) { spr_master = atlas_rods.createSprite("gem_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("deathrod")) { spr_master = atlas_rods.createSprite("lightwield_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("butterflyrod")) { spr_master = atlas_rods.createSprite("serpent_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }								
+			if(playerUse.Job.equals("Mago") || playerUse.Job.equals("Elementarista") || playerUse.Job.equals("Invocador") || playerUse.Job.equals("Curandeiro") || playerUse.Job.equals("Sacerdote") || playerUse.Job.equals("Lutador")) {
+				if(playerUse.Weapon.contains("stickrod")) { spr_master = atlas_rods.createSprite("stick_rod_left"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16.8f, posY + 8f); }
+				if(playerUse.Weapon.contains("gloomrod")) { spr_master = atlas_rods.createSprite("gloom_rod_left"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16.8f, posY + 8f); }
+				if(playerUse.Weapon.contains("starrod")) { spr_master = atlas_rods.createSprite("gem_rod_left"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16.8f, posY + 8f); }
+				if(playerUse.Weapon.contains("deathrod")) { spr_master = atlas_rods.createSprite("lightwield_rod_left"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16.8f, posY + 8f); }
+				if(playerUse.Weapon.contains("butterflyrod")) { spr_master = atlas_rods.createSprite("serpent_rod_left"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16.8f, posY + 8f); }								
 			}
 			
-			if(playerUse.Job.equals("Pistoleiro") || playerUse.Job.equals("Musico") || playerUse.Job.equals("Atirador")) {
-				if(playerUse.Weapon.contains("basicpistol")) { spr_master = atlas_pistols.createSprite("basic_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 13.5f, posY + 11f); }
-				if(playerUse.Weapon.contains("lightpistol")) { spr_master = atlas_pistols.createSprite("revolver_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("shooterpistol")) { spr_master = atlas_pistols.createSprite("light_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("sharkpistol")) { spr_master = atlas_pistols.createSprite("turret_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("cannonpistol")) { spr_master = atlas_pistols.createSprite("rifle_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }											
+			if(playerUse.Job.equals("Atirador") || playerUse.Job.equals("Especialista") || playerUse.Job.equals("Musico")) {
+				if(playerUse.Weapon.contains("basicpistol")) { spr_master = atlas_pistols.createSprite("basic_pistol_left"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16f, posY + 4f); }
+				if(playerUse.Weapon.contains("lightpistol")) { spr_master = atlas_pistols.createSprite("revolver_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16f, posY + 4f); }
+				if(playerUse.Weapon.contains("shooterpistol")) { spr_master = atlas_pistols.createSprite("light_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16f, posY + 4f); }
+				if(playerUse.Weapon.contains("sharkpistol")) { spr_master = atlas_pistols.createSprite("turret_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16f, posY + 4f); }
+				if(playerUse.Weapon.contains("cannonpistol")) { spr_master = atlas_pistols.createSprite("rifle_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 16f, posY + 4f); }											
 			}
 			
-			if(playerUse.Job.equals("Ladrao") || playerUse.Job.equals("Assasino") || playerUse.Job.equals("Falsificador")) {
-				if(playerUse.Weapon.contains("basicdagger")) { spr_master = atlas_daggers.createSprite("basic_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 13.5f, posY + 11f); }
-				if(playerUse.Weapon.contains("flamebergdagger")) { spr_master = atlas_daggers.createSprite("edge_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("marinedagger")) { spr_master = atlas_daggers.createSprite("poison_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("winddagger")) { spr_master = atlas_daggers.createSprite("marine_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
-				if(playerUse.Weapon.contains("thunderdagger")) { spr_master = atlas_daggers.createSprite("triplo_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }									
+			if(playerUse.Job.equals("Ladrao") || playerUse.Job.equals("Assassino") || playerUse.Job.equals("Vigarista")) {
+				if(playerUse.Weapon.contains("basicdagger")) { spr_master = atlas_daggers.createSprite("basicdagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }
+				if(playerUse.Weapon.contains("flamebergdagger")) { spr_master = atlas_daggers.createSprite("edgedagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }
+				if(playerUse.Weapon.contains("marinedagger")) { spr_master = atlas_daggers.createSprite("poisondagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }
+				if(playerUse.Weapon.contains("winddagger")) { spr_master = atlas_daggers.createSprite("marinedagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }
+				if(playerUse.Weapon.contains("thunderdagger")) { spr_master = atlas_daggers.createSprite("triploadagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 12.9f, posY + 11f); }									
 			}			
-			if(playerUse.Job.equals("Batedor") || playerUse.Job.equals("Mecanico") || playerUse.Job.equals("Alquimista")) {
+			if(playerUse.Job.equals("Batedor") || playerUse.Job.equals("Mecanico") || playerUse.Job.equals("Alquimista") || playerUse.Job.equals("Lutador")) {
 				if(playerUse.Weapon.contains("basicaxe")) { spr_master = atlas_axes.createSprite("basic_axe_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 13.5f, posY + 11f); }
 				if(playerUse.Weapon.contains("hammeraxe")) { spr_master = atlas_axes.createSprite("hammer_axe_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
 				if(playerUse.Weapon.contains("scytheaxe")) { spr_master = atlas_axes.createSprite("scythe_axe_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 2.9f, posY + 6f); }
@@ -1832,47 +1845,47 @@ public class GameControl {
 		if(playerUse.playerInAttack.equals("yes")) {
 			if(playerUse.Job.equals("Aprendiz")) {
 				if(playerUse.Weapon.contains("basicknife")) { spr_master = atlas_nknifes.createSprite("basic_knife_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("doubleedgeknife")) { spr_master = atlas_nknifes.createSprite("doubleedge_knife_attack_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
 			}
 			
-			if(playerUse.Job.equals("Espadachim") || playerUse.Job.equals("Cavaleiro") || playerUse.Job.equals("Paladino")) {
+			if(playerUse.Job.equals("Espadachim") || playerUse.Job.equals("Cavaleiro") || playerUse.Job.equals("Protetor")) {
 				if(playerUse.Weapon.contains("woodsword")) { spr_master = atlas_swords.createSprite("wood_sword_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("ragesword")) { spr_master = atlas_swords.createSprite("rage_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("ragesword")) { spr_master = atlas_swords.createSprite("rage_sword_attack_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
 				if(playerUse.Weapon.contains("serpentsword")) { spr_master = atlas_swords.createSprite("serpent_sword_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("flamesword")) { spr_master = atlas_swords.createSprite("flame_sword_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("flamesword")) { spr_master = atlas_swords.createSprite("flame_sword_attack_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
 				if(playerUse.Weapon.contains("cristalsword")) { spr_master = atlas_swords.createSprite("cristal_sword_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
 			}
 			
-			if(playerUse.Job.equals("Feiticeiro") || playerUse.Job.equals("Bruxo") || playerUse.Job.equals("Espiritualista")) {
-				if(playerUse.Weapon.contains("stickrod")) { spr_master = atlas_rods.createSprite("stick_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+			if(playerUse.Job.equals("Mago") || playerUse.Job.equals("Elementarista") || playerUse.Job.equals("Invocador") || playerUse.Job.equals("Curandeiro") || playerUse.Job.equals("Sacerdote") || playerUse.Job.equals("Lutador")) {
+				if(playerUse.Weapon.contains("stickrod")) { spr_master = atlas_rods.createSprite("stick_rod_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
 				if(playerUse.Weapon.contains("gloomrod")) { spr_master = atlas_rods.createSprite("gloom_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("starrod")) { spr_master = atlas_rods.createSprite("star_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("starrod")) { spr_master = atlas_rods.createSprite("star_rod_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
 				if(playerUse.Weapon.contains("deathrod")) { spr_master = atlas_rods.createSprite("death_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("butterflyrod")) { spr_master = atlas_rods.createSprite("butterfly_rod_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }			
+				if(playerUse.Weapon.contains("butterflyrod")) { spr_master = atlas_rods.createSprite("butterfly_rod_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }			
 			}
 			
-			if(playerUse.Job.equals("Pistoleiro") || playerUse.Job.equals("Musico") || playerUse.Job.equals("Atirador")) {
-				if(playerUse.Weapon.contains("basicpistol")) { spr_master = atlas_pistols.createSprite("basic_pistol_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("lightpistol")) { spr_master = atlas_pistols.createSprite("light_pistol_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("shooterpistol")) { spr_master = atlas_pistols.createSprite("shooter_pistol_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("sharkpistol")) { spr_master = atlas_pistols.createSprite("shark_pistol_rod_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("cannonpistol")) { spr_master = atlas_pistols.createSprite("cannon_pistol_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }			
+			if(playerUse.Job.equals("Atirador") || playerUse.Job.equals("Especialista") || playerUse.Job.equals("Musico")) {
+				if(playerUse.Weapon.contains("basicpistol")) { spr_master = atlas_pistols.createSprite("basic_pistol_attack_left"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("lightpistol")) { spr_master = atlas_pistols.createSprite("light_pistol_attack_left"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("shooterpistol")) { spr_master = atlas_pistols.createSprite("shooter_pistol_attack_left"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("sharkpistol")) { spr_master = atlas_pistols.createSprite("shark_pistol_attack_left"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("cannonpistol")) { spr_master = atlas_pistols.createSprite("cannon_pistol_attack_left"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }			
 			}
 			
-			if(playerUse.Job.equals("Ladrao") || playerUse.Job.equals("Assasino") || playerUse.Job.equals("Falsificador")) {
-				if(playerUse.Weapon.contains("basicdagger")) { spr_master = atlas_daggers.createSprite("basic_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("flamebergdagger")) { spr_master = atlas_daggers.createSprite("flameberg_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("marinedagger")) { spr_master = atlas_daggers.createSprite("marine_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("winddagger")) { spr_master = atlas_daggers.createSprite("wind_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("thunderdagger")) { spr_master = atlas_daggers.createSprite("thunder_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }			
+			if(playerUse.Job.equals("Ladrao") || playerUse.Job.equals("Assassino") || playerUse.Job.equals("Vigarista")) {
+				if(playerUse.Weapon.contains("basicdagger")) { spr_master = atlas_daggers.createSprite("basicdagger_attack_right"); spr_master.setSize(18, 26); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("flamebergdagger")) { spr_master = atlas_daggers.createSprite("flamebergdagger_attack_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("marinedagger")) { spr_master = atlas_daggers.createSprite("marinedagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("winddagger")) { spr_master = atlas_daggers.createSprite("winddagger_attack_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("thunderdagger")) { spr_master = atlas_daggers.createSprite("thunderdagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }			
 			}
 			
-			if(playerUse.Job.equals("Batedor") || playerUse.Job.equals("Mecanico") || playerUse.Job.equals("Alquimista")) {
-				if(playerUse.Weapon.contains("basicaxe")) { spr_master = atlas_axes.createSprite("basic_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("hammeraxe")) { spr_master = atlas_axes.createSprite("hammer_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("scytheaxe")) { spr_master = atlas_axes.createSprite("scythe_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("anchoraxe")) { spr_master = atlas_axes.createSprite("anchor_dagger_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
-				if(playerUse.Weapon.contains("guitaraxe")) { spr_master = atlas_axes.createSprite("guitar_dagger_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }			
+			if(playerUse.Job.equals("Batedor") || playerUse.Job.equals("Mecanico") || playerUse.Job.equals("Alquimista") || playerUse.Job.equals("Lutador")) {
+				if(playerUse.Weapon.contains("basicaxe")) { spr_master = atlas_axes.createSprite("basic_axe_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("hammeraxe")) { spr_master = atlas_axes.createSprite("hammer_axe_attack_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("scytheaxe")) { spr_master = atlas_axes.createSprite("scythe_axe_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("anchoraxe")) { spr_master = atlas_axes.createSprite("anchor_axe_attack_right"); spr_master.setSize(20, 28); spr_master.setPosition(posX - 4.8f, posY + 2f);  }
+				if(playerUse.Weapon.contains("guitaraxe")) { spr_master = atlas_axes.createSprite("guitar_axe_attack_right"); spr_master.setSize(20, 30); spr_master.setPosition(posX - 4.8f, posY + 2f);  }			
 			}
 			
 		}
@@ -2143,22 +2156,17 @@ public class GameControl {
 		if(nameItem.equals("mpbigcan")) { spr_master = atlas_foods.createSprite("mpbigcan"); return spr_master;  }
 		if(nameItem.equals("stbigcan")) { spr_master = atlas_foods.createSprite("stbigcan"); return spr_master;  }
 		
+		if(nameItem.equals("hatbat")) { spr_master = atlas_hatsitem.createSprite("hatbat"); return spr_master;  }
 		if(nameItem.equals("hatbear")) { spr_master = atlas_hatsitem.createSprite("hatbear"); return spr_master;  }
-		if(nameItem.equals("hatblackglass")) { spr_master = atlas_hatsitem.createSprite("hatblackglass"); return spr_master;  }
+		if(nameItem.equals("hatbunny")) { spr_master = atlas_hatsitem.createSprite("hatbunny"); return spr_master;  }
+		if(nameItem.equals("hatcapoult")) { spr_master = atlas_hatsitem.createSprite("hatcapoult"); return spr_master;  }
 		if(nameItem.equals("hatheadset")) { spr_master = atlas_hatsitem.createSprite("hatheadset"); return spr_master;  }
 		if(nameItem.equals("hatmagician")) { spr_master = atlas_hatsitem.createSprite("hatmagician"); return spr_master;  }
 		if(nameItem.equals("hatpirate")) { spr_master = atlas_hatsitem.createSprite("hatpirate"); return spr_master;  }
 		if(nameItem.equals("hatsanta")) { spr_master = atlas_hatsitem.createSprite("hatsanta"); return spr_master;  }
-		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); return spr_master;  }
 		if(nameItem.equals("hatsunglasses")) { spr_master = atlas_hatsitem.createSprite("hatsunglasses"); return spr_master;  }
 		if(nameItem.equals("hatslime")) { spr_master = atlas_hatsitem.createSprite("hatslime"); return spr_master;  }
-		if(nameItem.equals("hattimer")) { spr_master = atlas_hatsitem.createSprite("hattimer"); return spr_master;  }
-		if(nameItem.equals("hatbutterfly")) { spr_master = atlas_hatsitem.createSprite("hatbutterfly"); return spr_master;  }
-		if(nameItem.equals("hatcapoult")) { spr_master = atlas_hatsitem.createSprite("hatcapoult"); return spr_master;  }
-		if(nameItem.equals("hatcooker")) { spr_master = atlas_hatsitem.createSprite("hatcooker"); return spr_master;  }
-		if(nameItem.equals("hatfashionglasses")) { spr_master = atlas_hatsitem.createSprite("hatfashionglasses"); return spr_master;  }
-		if(nameItem.equals("hatbunny")) { spr_master = atlas_hatsitem.createSprite("hatbunny"); return spr_master;  }
-		
+		if(nameItem.equals("hattimerhattimer")) { spr_master = atlas_hatsitem.createSprite("hattimerhattimer"); return spr_master;  }
 		
 		if(nameItem.equals("lootfragmentoamarelo")) { spr_master = atlas_cristais.createSprite("lootfragmentoamarelo"); return spr_master;  }
 		if(nameItem.equals("lootfragmentoazul")) { spr_master = atlas_cristais.createSprite("lootfragmentoazul"); return spr_master;  }
@@ -2713,7 +2721,7 @@ public class GameControl {
 	
 
 	//Give EXP
-	public void GiveExp(float exp) {
+	public void GiveExp(float exp, int moblevel) {
 		boolean levelup = false;
 		int level = Integer.parseInt(playerUse.Level);
 		float expPlayer = Float.parseFloat(playerUse.Exp);
@@ -2733,6 +2741,56 @@ public class GameControl {
 		
 		if(level >= 30) {
 			return;
+		}
+		
+		//underlevel
+		if(level < 10 && (moblevel == 2 || moblevel == 3 || moblevel == 4 || moblevel == 5)) {
+			exp = 1;
+		}
+		if(level < 20 && (moblevel == 3 || moblevel == 4 || moblevel == 5)) {
+			exp = 1;
+		}
+		if(level < 30 && (moblevel == 4 || moblevel == 5)) {
+			exp = 1;
+		}
+		if(level < 40 && moblevel == 5) {
+			exp = 1;
+		}
+		
+		//upperlevel
+		if(level > 10 && moblevel == 1) {
+			exp = 1;
+		}
+		if(level > 20 && moblevel == 2) {
+			exp = 1;
+		}
+		if(level > 30 && moblevel == 3) {
+			exp = 1;
+		}
+		if(level > 40 && moblevel == 4) {
+			exp = 1;
+		}
+		
+		
+		if(moblevel == 99) {
+			if(level > 0 && level < 10 ) {
+				exp = 1;
+			}
+			if(level > 10 && level < 20 ) {
+				exp = 2;
+			}
+			if(level > 10 && level < 20 ) {
+				exp = 5;
+			}
+			if(level > 20 && level < 30 ) {
+				exp = 10;
+			}
+			if(level > 30 && level < 40 ) {
+				exp = 20;
+			}
+			if(level > 40 && level < 50 ) {
+				exp = 50;
+			}
 		}
 		
 		expPlayer = expPlayer + exp;
@@ -2841,7 +2899,7 @@ public class GameControl {
 			//Job 2.1
 			if(playerUse.Job.equals("Cavaleiro")) { 
 				HpMax = HpMax + 10; 
-				Atk = Atk + 4; 
+				Atk = Atk + 6; 
 				strExtra = strExtra + 10;
 				vitExtra = vitExtra + 5;
 				playerUse.Atk = String.valueOf(Atk);
@@ -2850,10 +2908,10 @@ public class GameControl {
 				
 			}
 			if(playerUse.Job.equals("Elementarista")) { 
-				HpMax = HpMax + 10; 
-				MpMax = MpMax + 20;
-				Atk = Atk + 2;
-				wisExtra = wisExtra + 10;
+				HpMax = HpMax + 5; 
+				MpMax = MpMax + 25;
+				Atk = Atk + 1;
+				wisExtra = wisExtra + 8;
 				
 				playerUse.HpMax = String.valueOf(HpMax); 
 				playerUse.Atk = String.valueOf(Atk); 
@@ -2870,9 +2928,9 @@ public class GameControl {
 				playerUse.VitExtra = String.valueOf(vitExtra);
 			}
 			if(playerUse.Job.equals("Sacerdote")) { 
-				HpMax = HpMax + 20; 
+				HpMax = HpMax + 10; 
 				MpMax = MpMax + 30;
-				Atk = Atk + 2;
+				Atk = Atk + 1;
 				wisExtra = wisExtra + 5;
 				
 				playerUse.HpMax = String.valueOf(HpMax); 
@@ -2882,14 +2940,16 @@ public class GameControl {
 			}
 			if(playerUse.Job.equals("Assassino")) { 
 				HpMax = HpMax + 10; 
-				Atk = Atk + 2; 
+				Atk = Atk + 4; 
 				strExtra = strExtra + 3;
 				vitExtra = vitExtra + 5;
 				lukExtra = lukExtra + 10;
+				AtkTimerMax = AtkTimerMax -4;
 				playerUse.Atk = String.valueOf(Atk);
 				playerUse.StrExtra = String.valueOf(strExtra);
 				playerUse.VitExtra = String.valueOf(vitExtra);
 				playerUse.LukExtra = String.valueOf(vitExtra);
+				playerUse.AtkTimerMax = String.valueOf(AtkTimerMax);
 			}
 			//Job 2.2
 			if(playerUse.Job.equals("Protetor")) { 
@@ -2973,120 +3033,118 @@ public class GameControl {
 		return spr_skill;
 	}
 	
-	public void GiveItemTEMPORARIO() {  //here
-		AddItemBag("red_crystal_strextra_3");
-	}
 	
 	
-	public String ItemDrop(String mob) {
+	
+	public String ItemDrop(String mob) {  //here
 		int chance = randnumber.nextInt(1000);
 		
 		//Sewers
 		if(mob.equals("poyo")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("lootnuts");  return "Adicionado Dente"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Fragmento Amarelo"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("hatbat"); return "Adicionado Chapeu de Morcego"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootnuts");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 950) { AddItemBag("hatbat");  return "Adicionado Chapeu de Morcego"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoamarelo"); return "Adicionado Fragmento Amarelo"; }
 		}
 		
 		if(mob.equals("aranarc")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Dente"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoazul");  return "Adicionado Fragmento Azul"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("mpcan");  return "Adicionado Refrigerante de MP (P)"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
 		}
 		if(mob.equals("rat")) {
-			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance <= 500) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Fragmento Roxo"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("hatbunny"); return "Adicionado Orelhas de Coelho"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("hatbunny");  return "Adicionado Orelhas de Coelho"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoroxo"); return "Adicionado Fragmento Roxo"; }
 		}
 		if(mob.equals("snake")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Dente"; }
 			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
 		}
 		
 		//Floresta
 		if(mob.equals("slime")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootnuts");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 950) { AddItemBag("hatbat");  return "Adicionado Chapeu de Morcego"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoamarelo"); return "Adicionado Fragmento Amarelo"; }
 		}
 		
 		if(mob.equals("bee")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Fragmento Verde"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("mpcan");  return "Adicionado Refrigerante de MP (P)"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
 		}
 		if(mob.equals("goblin")) {
-			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance <= 500) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Fragmento Roxo"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("hatheadset");  return "Adicionado headset"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoroxo"); return "Adicionado Fragmento Roxo"; }
 		}
 		if(mob.equals("enty")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
 			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoroxo"); return "Adicionado Fragmento Roxo"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentovermelho"); return "Adicionado Fragmento Vermelho"; }
 		}
 		
 		//Watercave
 		if(mob.equals("fisko")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootnuts");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 950) { AddItemBag("hatbat");  return "Adicionado Chapeu de Morcego"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoamarelo"); return "Adicionado Fragmento Amarelo"; }
 		}
 		
 		if(mob.equals("shelly")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Fragmento Verde"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("mpcan");  return "Adicionado Refrigerante de MP (P)"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
 		}
 		if(mob.equals("marit")) {
-			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance <= 500) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoroxo");  return "Adicionado Fragmento Roxo"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("hatsanta");  return "Adicionado Chapeu de papai noel"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
 		}
 		if(mob.equals("tencle")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootpaw");  return "Adicionado Patas"; }
 			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoroxo"); return "Adicionado Fragmento Roxo"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoroxo"); return "Adicionado Fragmento Roxo"; }
 		}
 		
 		//Desert
 		if(mob.equals("cactus")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("hatslime");  return "Adicionado Chapeu de slime"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentovermelho");  return "Adicionado Fragmento Vermelho"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("hatheadset"); return "Adicionado Fones"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootnuts");  return "Adicionado Noz"; }
+			if(chance >= 700 && chance <= 950) { AddItemBag("hatbat");  return "Adicionado Chapeu de Morcego"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoamarelo"); return "Adicionado Fragmento Amarelo"; }
 		}
 		
 		if(mob.equals("harpia")) {
 			if(chance <= 500) { AddItemBag("lootsilk"); return "Adicionado Seda"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoverde");  return "Adicionado Fragmento Verde"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootfang");  return "Adicionado Dente"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("mpcan");  return "Adicionado Refrigerante de MP (P)"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoazul"); return "Adicionado Fragmento Azul"; }
 		}
 		if(mob.equals("golem")) {
-			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
+			if(chance <= 500) { AddItemBag("mpcan"); return "Adicionado Refrigerante de MP (P)"; }
 			if(chance >= 500 && chance <= 700) { AddItemBag("lootmushroom");  return "Adicionado Cogumelo"; }
-			if(chance >= 700 && chance <= 980) { AddItemBag("lootfragmentoamarelo");  return "Adicionado Fragmento Amarelo"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("hatcapoult"); return "Adicionado capoult"; }
+			if(chance >= 700 && chance <= 980) { AddItemBag("hatsanta");  return "Adicionado Chapeu de papai noel"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
 		}
 		if(mob.equals("brimworn")) {
 			if(chance <= 500) { AddItemBag("hpcan"); return "Adicionado Refrigerante de HP (P)"; }
-			if(chance >= 500 && chance <= 700) { AddItemBag("galhos");  return "Adicionado Galho"; }
+			if(chance >= 500 && chance <= 700) { AddItemBag("lootpaw");  return "Adicionado Patas"; }
 			if(chance >= 700 && chance <= 980) { AddItemBag("lootmoney");  return "Adicionado Saco de dinheiro"; }
-			if(chance >= 980 && chance <= 1000) { AddItemBag("lootfragmentoverde"); return "Adicionado Fragmento Verde"; }
+			if(chance >= 950 && chance <= 1000) { AddItemBag("lootfragmentoroxo"); return "Adicionado Fragmento Roxo"; }
 		}
 		
 		//Mines
@@ -3574,7 +3632,7 @@ public class GameControl {
 	        }
 
 	        float ExpSended = Float.parseFloat(expDataFields[8]);
-	        GiveExp(ExpSended);
+	        GiveExp(ExpSended, 99);
 	    }
 	}
 	

@@ -172,18 +172,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
      
     //Sprites Background
     private Sprite spr_Background;
+    private Sprite spr_BackgroundOver;
     private Texture tex_Background;
     private Texture tex_Background2;
     private Texture tex_Background3;
+    private Texture tex_BackgroundOver;
     private Texture tex_rain1;
     private Texture tex_rain2;
     private Texture tex_rain3;
     private Texture tex_snow1;
     private Texture tex_snow2;
     private Texture tex_snow3;
+    private Texture tex_taxileft;
+    private Texture tex_taxiright;
     private Texture tex_afternoon;
     private Texture tex_night;
     private Texture tex_blackout;
+    private Sprite spr_rain;
+    private Sprite spr_taxi1;
+    private Sprite spr_taxi2;
+    private float taxpathleft = 185;
+    private float taxpathright = 0;
     
     //Metro
     private Sprite spr_metro;
@@ -253,15 +262,27 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    tex_snow3 = new Texture(Gdx.files.internal("data/assets/maps/snow3.png")); 
 		    tex_afternoon = new Texture(Gdx.files.internal("data/assets/maps/afternoon.png")); 
 		    tex_night = new Texture(Gdx.files.internal("data/assets/maps/night.png")); 
-		    tex_blackout = new Texture(Gdx.files.internal("data/assets/maps/blackout.png")); 
+		    tex_blackout = new Texture(Gdx.files.internal("data/assets/maps/blackout.png"));
+		    tex_taxileft = new Texture(Gdx.files.internal("data/assets/etc/taxileft.png"));
+		    tex_taxiright = new Texture(Gdx.files.internal("data/assets/etc/taxiright.png"));
+		    spr_rain = new Sprite(tex_rain1);
+		    spr_taxi1 = new Sprite(tex_taxileft);
+		    spr_taxi2 = new Sprite(tex_taxiright);
 			
 			if(player.Map.equals("StreetsA")) { 
 				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/streetsA.png"));  
 				tex_Background2 = new Texture(Gdx.files.internal("data/assets/maps/streetsB.png")); 
 				tex_Background3 = new Texture(Gdx.files.internal("data/assets/maps/streetsC.png")); 
-			}	
+				tex_BackgroundOver = new Texture(Gdx.files.internal("data/assets/maps/streetsAOver.png"));
+				spr_BackgroundOver = new Sprite(tex_BackgroundOver);
+			}
+			
 			if(player.Map.equals("Sewers")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/sewers.png"));  }
-			if(player.Map.equals("Forest")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/forest.png"));  }
+			if(player.Map.equals("Forest")) { 
+				tex_Background = new Texture(Gdx.files.internal("data/assets/maps/forest.png"));
+				tex_BackgroundOver = new Texture(Gdx.files.internal("data/assets/maps/forestOver.png"));
+				spr_BackgroundOver = new Sprite(tex_BackgroundOver);
+			}
 			if(player.Map.equals("Watercave")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/watercave.png"));  }
 			if(player.Map.equals("Desert")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/desert.png"));  }
 			if(player.Map.equals("Vulcano")) { tex_Background = new Texture(Gdx.files.internal("data/assets/maps/vulcano.png"));  }
@@ -321,23 +342,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public void render(float delta) {
 			
-			player.Money = "1000";
-			//player.Level = "10";
-			//player.Job = "Aprendiz";
-			//player.Hp = "10";
-			//player.Mp = "50";
-			//player.MpMax = "50";
-			//player.buffA = "none";
-			//player.BuffTimeA = "0";
-			
-			/*player.Str = "1";
-			player.Vit = "1";
-			player.Agi = "1";
-			player.Wis = "1";
-			player.Dex = "1";*/
-			
-			//player.playerSit = "none";
-			
 			//Just for coloring
 			Gdx.gl.glClearColor(1,1,1,1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -360,8 +364,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    game.batch.setProjectionMatrix(camera.combined);	    
 			game.batch.begin();
 			
-			
-			//player.PlayerExpGet = "2024-10-11 10:40:26";
 			
 			//Save
 			LoopTime--;
@@ -483,38 +485,51 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if (flipzone >= 40) { flipzone = 0; }
 			}
 			
-			ShowNPCs();
-			ShowOnlinePlayers();
+			//Enviroment
+			//OverBackground
+			if(player.Map.equals("StreetsA")) {
+				
+				ShowOnlinePlayers();
+				
+				playerPosX = Float.parseFloat(player.PosX);
+				playerPosY = Float.parseFloat(player.PosY);
+				
+				if(playerPosY >= -75) {
+					ShowPlayer();
+				}
+				
+				ShowCabs();
+				spr_BackgroundOver.setPosition(-81, -194);
+				spr_BackgroundOver.setSize(270, 270);
+				spr_BackgroundOver.draw(game.batch);
+				
+				ShowNPCs();
+				
+				
+				if(playerPosY < -75) {
+					ShowPlayer();
+				}		
+				CheckMapEffect();
+			}
+			
+			if(player.Map.equals("Forest")) {
+				ShowOnlinePlayers();
+				ShowPlayer();
+				spr_BackgroundOver.setPosition(-81, -194);
+				spr_BackgroundOver.setSize(270, 270);
+				spr_BackgroundOver.draw(game.batch);
+				
+				CheckMapEffect();
+			}
+			
+			if(!player.Map.equals("StreetsA") && !player.Map.equals("Forest"))
+			{
+				ShowOnlinePlayers();
+				ShowPlayer();
+			}
+			
 			ShowChats();
 			
-			//Char
-			player = gameControl.SetCharMov(player, player.breakwalk);
-			
-			CheckCasting();
-			
-			spr_playerbottom = gameControl.GetBottomChar(player, "no",0,0);
-			spr_playerbottom.draw(game.batch);
-							
-			spr_playertop = gameControl.GetTopChar(player, "no", 0,0);
-			spr_playertop.draw(game.batch);
-			
-			spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
-			spr_playerhair.draw(game.batch);
-			
-			spr_playerfooter = gameControl.GetFooterChar(player, "no",0,0);
-			spr_playerfooter.draw(game.batch);
-			
-			if(!player.Hat.equals("none")) {
-				spr_playerhat = gameControl.GetHatChar(player,"",0,0);
-				spr_playerhat.draw(game.batch);
-			}
-			
-			if(player.playerInBattle.equals("yes") || player.playerInCast.equals("yes") || player.playerInAttack.equals("yes")) {
-				if(!defTrigged) {
-					spr_playerweapon = gameControl.SetWeapon(player);
-					spr_playerweapon.draw(game.batch);
-				}
-			}
 
 			//Show Mobs
 			if(player.Map.equals("Sewers")){ ShowMobs(); }
@@ -760,14 +775,46 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);*/
 			
-			CheckMapEffect();
+			
 			
 			int money = Integer.parseInt(player.Money);
-			if(money > 5000) {
-				player.Money = "5000";
+			if(money > 3500) {
+				player.Money = "3500";
 			}
 			
 			game.batch.end();
+		}
+		
+		
+		public void ShowPlayer() {
+			//Char
+			player = gameControl.SetCharMov(player, player.breakwalk);
+			
+			CheckCasting();
+			
+			spr_playerbottom = gameControl.GetBottomChar(player, "no",0,0);
+			spr_playerbottom.draw(game.batch);
+							
+			spr_playertop = gameControl.GetTopChar(player, "no", 0,0);
+			spr_playertop.draw(game.batch);
+			
+			spr_playerhair = gameControl.GetHairChar(player, "no",0,0);
+			spr_playerhair.draw(game.batch);
+			
+			spr_playerfooter = gameControl.GetFooterChar(player, "no",0,0);
+			spr_playerfooter.draw(game.batch);
+			
+			if(!player.Hat.equals("none")) {
+				spr_playerhat = gameControl.GetHatChar(player,"",0,0);
+				spr_playerhat.draw(game.batch);
+			}
+			
+			if(player.playerInBattle.equals("yes") || player.playerInCast.equals("yes") || player.playerInAttack.equals("yes")) {
+				if(!defTrigged) {
+					spr_playerweapon = gameControl.SetWeapon(player);
+					spr_playerweapon.draw(game.batch);
+				}
+			}
 		}
 		
 		public void CheckEnergy() {
@@ -839,37 +886,78 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Climatic
 			climaticTimer--;
 			if(climaticTimer <= 0) {
-				climatic = randnumber.nextInt(2);
+				climatic = randnumber.nextInt(100);
 				climaticTimer = 10000;
 			}
 			
 			//Chuva
-			if(climatic == 1) {
+			if(climatic >= 0 && climatic <= 15) {
 				climaticEffectTimer++;
 				if(climaticEffectTimer >= 0 && climaticEffectTimer <= 10) {
-					spr_master.setTexture(tex_rain1);
-					spr_master.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
-					spr_master.setSize(200, 200);
-					spr_master.draw(game.batch);
+					spr_rain.setTexture(tex_rain1);
+					spr_rain.setPosition(cameraCoordsX - 100, cameraCoordsY - 100);
+					spr_rain.setSize(200, 200);
+					spr_rain.draw(game.batch);
 				}
 				if(climaticEffectTimer >= 10 && climaticEffectTimer <= 20) {
-					spr_master.setTexture(tex_rain2);
-					spr_master.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
-					spr_master.setSize(200, 200);
-					spr_master.draw(game.batch);				
+					spr_rain.setTexture(tex_rain2);
+					spr_rain.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+					spr_rain.setSize(200, 200);
+					spr_rain.draw(game.batch);				
 				}
 				if(climaticEffectTimer >= 20 && climaticEffectTimer <= 30) {
-					spr_master.setTexture(tex_rain3);
-					spr_master.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
-					spr_master.setSize(200, 200);
-					spr_master.draw(game.batch);
+					spr_rain.setTexture(tex_rain3);
+					spr_rain.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+					spr_rain.setSize(200, 200);
+					spr_rain.draw(game.batch);
 				}
 				if(climaticEffectTimer > 30) {
 					climaticEffectTimer = 1;
 				}			
 			}
 			
+			//Neve
+			if(climatic >= 15 && climatic <= 25) {
+				climaticEffectTimer++;
+				if(climaticEffectTimer >= 0 && climaticEffectTimer <= 25) {
+					spr_rain.setTexture(tex_snow1);
+					spr_rain.setPosition(cameraCoordsX - 100, cameraCoordsY - 100);
+					spr_rain.setSize(200, 200);
+					spr_rain.draw(game.batch);
+				}
+				if(climaticEffectTimer >= 25 && climaticEffectTimer <= 50) {
+					spr_rain.setTexture(tex_snow2);
+					spr_rain.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+					spr_rain.setSize(200, 200);
+					spr_rain.draw(game.batch);				
+				}
+				if(climaticEffectTimer >= 50 && climaticEffectTimer <= 75) {
+					spr_rain.setTexture(tex_snow3);
+					spr_rain.setPosition(cameraCoordsX- 100, cameraCoordsY - 100);
+					spr_rain.setSize(200, 200);
+					spr_rain.draw(game.batch);
+				}
+				if(climaticEffectTimer > 75) {
+					climaticEffectTimer = 1;
+				}			
 			}
+			
+			}	
+		}
+		
+		public void ShowCabs() {
+			//Taxi
+			taxpathleft--;
+			taxpathright++;
+			if(taxpathleft < -200) { taxpathleft = 185; }
+			if(taxpathright > 200) { taxpathright = -130; }
+			spr_taxi1.setPosition(taxpathleft, -70); 
+			spr_taxi1.setSize(50, 40);
+			spr_taxi1.draw(game.batch);
+			
+			spr_taxi2.setPosition(taxpathright, -102);
+			spr_taxi2.setSize(50, 40);
+			spr_taxi2.draw(game.batch);
 		}
 		
 		public void CheckCasting() {
@@ -938,16 +1026,16 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				    		lstOnlinePlayers = gameControl.RecoverOnlineList();
 				    	}
 				    	else {
-				    		avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-				    		aviso = true;
+				    		//avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+				    		//aviso = true;
 				    	}
 				    }
 
 				    @Override
 				    public void onFailure(Throwable t) {
 				       System.out.println("Error: " + t.getMessage());
-				       avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
-					   aviso = true;
+				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
+					   //aviso = true;
 				    }
 				});
 			} catch (UnsupportedEncodingException e) {
@@ -1055,6 +1143,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						
 						spr_playerHatOnline = gameControl.GetHatChar(lstOnlinePlayers.get(i), "no", 0,0);
 						spr_playerHatOnline.draw(game.batch);
+						
+						font_master.draw(game.batch, lstOnlinePlayers.get(i).Name, Float.parseFloat(lstOnlinePlayers.get(i).PosX), Float.parseFloat(lstOnlinePlayers.get(i).PosY) - 20);
 					}
 				}
 			}
@@ -1076,7 +1166,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(listDamage.get(i).DamageType.equals("player")) { font_master.setColor(Color.RED); }
 				if(listDamage.get(i).DamageType.equals("heal")) { font_master.setColor(Color.GREEN); }
 				
-				font_master.draw(game.batch, String.valueOf(listDamage.get(i).DamageValue), listDamage.get(i).DamagePosX, listDamage.get(i).DamagePosY);
+				int stamina = Integer.parseInt(player.Stamina);
+				if(stamina <= 0) { font_master.draw(game.batch, "10", listDamage.get(i).DamagePosX, listDamage.get(i).DamagePosY); }
+				if(stamina > 0) { font_master.draw(game.batch, String.valueOf(listDamage.get(i).DamageValue), listDamage.get(i).DamagePosX, listDamage.get(i).DamagePosY); }
+				
 				
 				if(listDamage.get(i).DamageTime < 0) {
 					listDamage.remove(listDamage.get(i));
@@ -1198,6 +1291,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int StrExtra = Integer.parseInt(player.StrExtra);
 			
 			int Stamina = Integer.parseInt(player.Stamina);
+			boolean checkRange = false;
 			
 			
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest") 
@@ -1211,8 +1305,20 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 					if(player.Target.equals(listMonsters.get(i).MobID)) {
 						
+						if((listMonsters.get(i).MobPosX + 5) > (playerposX - 80) && (listMonsters.get(i).MobPosX + 5) < (playerposX + 80)
+								   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 80) && (listMonsters.get(i).MobPosY + 7) < (playerposY + 80) && player.Job.equals("Atirador")) {
+							checkRange = true;
+						}
+						
+						
 						if((listMonsters.get(i).MobPosX + 5) > (playerposX - 15) && (listMonsters.get(i).MobPosX + 5) < (playerposX + 15)
-						   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 18) && (listMonsters.get(i).MobPosY + 7) < (playerposY + 40)) { 
+						   && (listMonsters.get(i).MobPosY + 7) > (playerposY - 18) && (listMonsters.get(i).MobPosY + 7) < (playerposY + 40) && !player.Job.equals("Atirador"))	
+							{ 
+							 checkRange = true;
+							}
+					
+							
+							if(checkRange) {		
 							player.playerInBattle = "yes";
 							if(!defTrigged) {
 							AtkTimer--;
@@ -1693,9 +1799,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY - 60);
 				spr_master.draw(game.batch);
 			}
-			
-			
-			
+				
 			spr_master = gameControl.GetCard("cardtarget");
 			spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 60);
 			spr_master.draw(game.batch);
@@ -1923,6 +2027,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int LukExtra = Integer.parseInt(player.LukExtra);
 			int WisExtra = Integer.parseInt(player.WisExtra);
 			
+			int stamina = Integer.parseInt(player.Stamina);
+			
 			int playerlevel = Integer.parseInt(player.Level);
 			
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest") || player.Map.equals("Watercave")  
@@ -1946,6 +2052,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("tripleattack")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = (Atk * 3) + ((Str * 2) + atkweapon) + (playerlevel * 10) + (StrExtra * 2);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -1969,6 +2076,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("flysword")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = Atk + ((Str * 3) + (Agi * 2) + atkweapon) + 50 + (playerlevel * 10) + (StrExtra * 2) + (AgiExtra * 2);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -1992,6 +2100,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("poisonhit")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = Atk + ((Luk * 2)+ (Str * 2) + atkweapon) + 30 + (playerlevel * 10) + (LukExtra * 2) + (StrExtra * 2);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								listMonsters.get(i).MobHp = mobHP;
@@ -2026,7 +2135,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							
 							if(skillname.equals("overpower")) {
 								int atkweapon = CheckWeapon();
-								int totaldmg = Atk + ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon) + (VitExtra * 3) + (StrExtra * 2) + (LukExtra * 3);	
+								int totaldmg = Atk + ((Vit * 3) + (Str * 5) + (Luk * 2) + atkweapon) + (VitExtra * 3) + (StrExtra * 2) + (LukExtra * 3);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2055,6 +2165,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 						if(skillname.equals("heal")) {
 							int healpoint = (Wis * 5) + (WisExtra * 3);
+							if(stamina <= 0) { healpoint = 10; }
 							Hp = Hp + healpoint;
 							if(Hp > HpMax) { Hp = HpMax; }
 							player.Hp = String.valueOf(Hp);
@@ -2185,6 +2296,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("rockbound")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = Atk + ((Wis * 2) + (Str * 2) + 25) + (WisExtra * 2);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2211,6 +2323,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("fireball")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = ((Wis * 2) + atkweapon) + 50 + (playerlevel * 10) + (WisExtra * 2);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								listMonsters.get(i).MobHp = mobHP;				
@@ -2238,6 +2351,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("icecrystal")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = ((Wis * 6) + (Dex * 2) + atkweapon) + 100 + (playerlevel * 14) + (WisExtra * 3) + (DexExtra * 2);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2263,6 +2377,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("thundercloud")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = Atk + ((Wis * 10) + (Agi * 2) + atkweapon) + (playerlevel * 10) + (WisExtra * 10);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2289,6 +2404,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("bulletrain")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = ((Dex * 2) + (Agi * 2) + 10) + 40 + (playerlevel * 10) + (DexExtra * 2) + (AgiExtra * 2);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2314,6 +2430,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("holyprism")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = ((Luk * 2) + atkweapon) + 20 + (playerlevel * 10) + (AgiExtra * 2) + (StrExtra * 2);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2339,6 +2456,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							if(skillname.equals("mine")) {
 								int atkweapon = CheckWeapon();
 								int totaldmg = ((Dex * 2) + 10);
+								if(stamina <= 0) { totaldmg = 10; }
 								int mobHP = listMonsters.get(i).MobHp;
 								mobHP = mobHP - totaldmg;
 								skillEffect = true;
@@ -2368,7 +2486,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void GiveBuff(String buffname) {
-			boolean setBuff = false;
+			boolean setBuff = false;  //here
 			String buff = "";
 			int Atk = Integer.parseInt(player.Atk);
 			int Def = Integer.parseInt(player.Def);
@@ -2398,15 +2516,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					
 			if(buffname.equals("defboost")) {
 				
-				Atk = Atk + Atk * 2;
-				Def = Def + Def * 2;
-				HpMax = HpMax + 30;
-				MpMax = MpMax + 30;
+				Atk = Atk * 2;
+				Def = Def * 2;
 				
 				player.Atk = String.valueOf(Atk);
 				player.Def = String.valueOf(Def);
-				player.HpMax = String.valueOf(HpMax);
-				player.MpMax = String.valueOf(MpMax);
 				
 				if(buff.equals("A")) { player.BuffTimeA = "5000"; }
 				if(buff.equals("B")) { player.BuffTimeB = "5000"; }
@@ -2425,7 +2539,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			if(buffname.equals("healthboost")) {
-				Str = Str * 3;
+				
+				HpMax = HpMax * 3;
 				
 				if(buff.equals("A")) { player.BuffTimeA = "3000"; }
 				if(buff.equals("B")) { player.BuffTimeB = "3000"; }
@@ -2435,6 +2550,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			if(buffname.equals("perfectshot")) {
+				Atk = Atk + 25;
 				Dex = Dex * 3;
 				Luk = Luk * 3;
 				
@@ -2442,6 +2558,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(buff.equals("B")) { player.BuffTimeB = "3000"; }
 				if(buff.equals("C")) { player.BuffTimeC = "3000"; }
 				
+				player.Atk = String.valueOf(Atk);
 				player.Dex = String.valueOf(Dex);
 				player.Luk = String.valueOf(Luk);
 			}
@@ -2504,15 +2621,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.buffC.equals(buffname)) { buff = "C"; }
 			
 			if(buffname.equals("boost")) {
-				Atk = Atk - Atk / 2;
-				Def = Def - Def / 2;
-				HpMax = HpMax - 30;
-				MpMax = MpMax - 30;
+				Atk = Atk / 2;
+				Def = Def / 2;
 				
 				player.Atk = String.valueOf(Atk);
 				player.Def = String.valueOf(Def);
-				player.HpMax = String.valueOf(HpMax);
-				player.MpMax = String.valueOf(MpMax);
 			}
 			
 			if(buffname.equals("ironshield")) {
@@ -2526,8 +2639,10 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			if(buffname.equals("perfectshot")) {
+				Atk = Atk - 25;
 				Dex = Dex / 3;
 				Luk = Luk / 3;
+				player.Atk = String.valueOf(Atk);
 				player.Dex = String.valueOf(Dex);
 				player.Luk = String.valueOf(Luk);
 			}
@@ -3083,7 +3198,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			showDropMsg = 100;
 		    itemdropname = gameControl.ItemDrop(listMonsters.get(mobindex).MobName);
 		    int expreceived = listMonsters.get(mobindex).MobExp;
-		    gameControl.GiveExp(expreceived);
+		    gameControl.GiveExp(expreceived, listMonsters.get(mobindex).MobLevel);
 
 		    expsended = 1;
 			
@@ -3341,7 +3456,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(skill.equals("heal") && Mp < 15) { notmp = true; return; }
 			if(skill.equals("holyprism") && Mp < 2) { notmp = true; return; }
 			
-			if(skill.equals("poisonhit") && Mp < 25) { notmp = true; return; }
+			if(skill.equals("poisonhit") && Mp < 20) { notmp = true; return; }
 			if(skill.equals("steal") && Mp < 10) { notmp = true; return; }
 			
 			if(skill.equals("bulletrain") && Mp < 15) { notmp = true; return; }
@@ -3359,7 +3474,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(skill.equals("heal")) { Mp = Mp - 15; if(Mp <= 0) { Mp = 0;} }
 			if(skill.equals("holyprism")) { Mp = Mp - 2; if(Mp <= 0) { Mp = 0;} }
 			
-			if(skill.equals("poisonhit")) { Mp = Mp - 10; if(Mp <= 0) { Mp = 0;} }
+			if(skill.equals("poisonhit")) { Mp = Mp - 20; if(Mp <= 0) { Mp = 0;} }
 			if(skill.equals("steal")) { Mp = Mp - 10; if(Mp <= 0) { Mp = 0;} }
 			
 			if(skill.equals("bulletrain")) { Mp = Mp - 15; if(Mp <= 0) { Mp = 0;} }
@@ -3508,19 +3623,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(hotkeynum == 1) {
 				if(item.equals("hpcan")) { player.hotkey1 = item; return; }
-				if(item.equals("garrafadrink")) { player.hotkey1 = item; return; }
 				if(item.equals("mpcan")) { player.hotkey1 = item; return; }
-				if(item.equals("garrafamagica")) { player.hotkey1 = item; return; }
 				if(item.equals("stcan")) { player.hotkey1 = item; return; }
-				if(item.equals("garrafasuco")) { player.hotkey1 = item; return; }
 			}
 			if(hotkeynum == 2) {
 				if(item.equals("hpcan")) { player.hotkey2 = item; return; }
-				if(item.equals("garrafadrink")) { player.hotkey2 = item; return; }
 				if(item.equals("mpcan")) { player.hotkey2 = item; return; }
-				if(item.equals("garrafamagica")) { player.hotkey2 = item; return; }
 				if(item.equals("stcan")) { player.hotkey2 = item; return; }
-				if(item.equals("garrafasuco")) { player.hotkey2 = item; return; }
 			}
 		}
 		
@@ -3531,6 +3640,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Wis = Integer.parseInt(player.Wis);
 			int Dex = Integer.parseInt(player.Dex);
 			int Luk = Integer.parseInt(player.Luk);
+			int Res = Integer.parseInt(player.Res);
 			int HPMax = Integer.parseInt(player.Hp);
 			int MpMax = Integer.parseInt(player.Mp);
 			int StatusPoint = Integer.parseInt(player.StatusPoint);
@@ -3544,34 +3654,35 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int staminaMax = Integer.parseInt(player.StaminaMax);
 			
 			if (StatusPoint >= 1) {
-				if (status.equals("Str")) {
+				if (status.equals("Str") && Str <= 99) {
 					StatusPoint = StatusPoint - 1;
 					Str = Str + 1;
 					Atk = Atk + 2;
-				} else if (status.equals("Vit")) {
+				} else if (status.equals("Vit") && Vit <= 99) {
 					Vit = Vit + 1;
 					StatusPoint = StatusPoint - 1;
 					player.Def = player.Def + 2;
 					HPMax = HPMax + 5;
-				} else if (status.equals("Agi")) {
+				} else if (status.equals("Agi") && Agi <= 99) {
 					Agi = Agi + 1;
 					player.Def = player.Def + 1;
 					StatusPoint = StatusPoint - 1;
 					AtkTimerMax = AtkTimerMax - 1;
-				} else if (status.equals("Wis")) {
+				} else if (status.equals("Wis") && Wis <= 99) {
 					Wis = Wis + 1;
 					StatusPoint = StatusPoint - 1;
 					player.Def = player.Def + 1;
 					MpMax = MpMax + 5;
-				} else if (status.equals("Dex")) {
+				} else if (status.equals("Dex") && Dex <= 99) {
 					Dex = Dex + 1;
 					Atk = Atk + 1;
 					StatusPoint = StatusPoint - 1;
-				} else if (status.equals("Luk")) {
+				} else if (status.equals("Luk") && Luk <= 99) {
 					Luk = Luk + 1;
 					Atk = Atk + 1;
 					StatusPoint = StatusPoint - 1;
-				} else if (status.equals("Res")) {
+				} else if (status.equals("Res") && Res <= 99) {
+					Res = Res + 1;
 					staminaMax = staminaMax + 100;
 					Def = Def + 1;
 					StatusPoint = StatusPoint - 1;
@@ -3584,6 +3695,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.Wis = String.valueOf(Wis);
 				player.Dex = String.valueOf(Dex);
 				player.Luk = String.valueOf(Luk);
+				player.Res = String.valueOf(Res);
 				player.Hp = String.valueOf(HPMax);
 				player.Mp = String.valueOf(MpMax);
 				player.StatusPoint = String.valueOf(StatusPoint);
@@ -4139,36 +4251,54 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//VIT
 				if(coordsTouch.x > cameraCoordsX - 67 && coordsTouch.x < cameraCoordsX - 55 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					CheckStatus("Vit");
 					return false;
 				}
 				//AGI
 				if(coordsTouch.x > cameraCoordsX - 54 && coordsTouch.x < cameraCoordsX - 41 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					CheckStatus("Agi");
 					return false;
 				}
 				//WIS
 				if(coordsTouch.x > cameraCoordsX - 40 && coordsTouch.x < cameraCoordsX - 27 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					CheckStatus("Wis");
 					return false;
 				}
 				//DES
 				if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 14 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					CheckStatus("Dex");
 					return false;
 				}
 				//LUK
 				if(coordsTouch.x > cameraCoordsX - 12 && coordsTouch.x < cameraCoordsX + 0 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					CheckStatus("Luk");
 					return false;
 				}
 				//RES
 				if(coordsTouch.x > cameraCoordsX + 1 && coordsTouch.x < cameraCoordsX + 14 && coordsTouch.y > cameraCoordsY - 64 && coordsTouch.y < cameraCoordsY - 42) {
-					if(!menuoption.equals("")) { return false; }
+					if(!menuoption.equals("")) { return false; } 
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					CheckStatus("Res");
 					return false;
 				}
@@ -4183,24 +4313,36 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				//Crystal 1
 				if(coordsTouch.x > cameraCoordsX + 13 && coordsTouch.x < cameraCoordsX + 26 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					gameControl.RemoveCrystals(1);
 					return false;
 				}
 				//Crystal 2
 				if(coordsTouch.x > cameraCoordsX + 27 && coordsTouch.x < cameraCoordsX + 39 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					gameControl.RemoveCrystals(2);
 					return false;
 				}
 				//Crystal 3
 				if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 53 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					gameControl.RemoveCrystals(3);
 					return false;
 				}
 				//Crystal 4
 				if(coordsTouch.x > cameraCoordsX + 55 && coordsTouch.x < cameraCoordsX + 67 && coordsTouch.y > cameraCoordsY + 1 && coordsTouch.y < cameraCoordsY + 25) {
 					if(!menuoption.equals("")) { return false; }
+					if(!player.buffA.equals("none")) { return false; }
+					if(!player.buffB.equals("none")) { return false; }
+					if(!player.buffC.equals("none")) { return false; }
 					gameControl.RemoveCrystals(4);
 					return false;
 				}
@@ -4290,8 +4432,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					}
 				}
 				if(shopname.equals("cristalized")) { 
-					//gameControl.GiveItemTEMPORARIO();
-					
 					//Sair
 					if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 60 && coordsTouch.y > cameraCoordsY - 76 && coordsTouch.y <  - 60) {
 						state = "Main";
@@ -4338,6 +4478,22 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int playerlevel = Integer.parseInt(player.Level);
 			if(player.Job.equals("Aprendiz") && playerlevel >= 10) {
 				player.Job = job;
+				
+				if(player.Job.equals("Espadachim")) {
+					player.Weapon = "woodsword_c";
+				}
+				if(player.Job.equals("Mago")) {
+					player.Weapon = "stickrod_c";
+				}
+				if(player.Job.equals("Atirador")) {
+					player.Weapon = "basicpistol_c";
+				}
+				if(player.Job.equals("Curandeiro")) {
+					player.Weapon = "";
+				}
+				if(player.Job.equals("Ladrao")) {
+					player.Weapon = "basicdagger_c";
+				}	
 			}
 		}
 		
