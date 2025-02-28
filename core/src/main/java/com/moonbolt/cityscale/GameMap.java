@@ -342,6 +342,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		@Override
 		public void render(float delta) {
 			
+			/* player.HpMax = "60";
+			player.MpMax = "50";
+			player.Vit = "1";
+			player.Wis = "1";
+			player.StatusPoint = "6"; */
+			
 			//Just for coloring
 			Gdx.gl.glClearColor(1,1,1,1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -409,37 +415,29 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			//Check Regen
 			regen = Integer.parseInt(player.regenTime);
-			regen--;
-			
+			regen = regen - 1;
 			player.regenTime = String.valueOf(regen);
-			if(regen < 0) {
-				
+			gameControl.UpdateControlPlayer(player);
+			
+			if(regen <= 0) {
+						
 				playerHP = Integer.parseInt(player.Hp);
 				playerHPMax = Integer.parseInt(player.HpMax);
 				
 				playerMP = Integer.parseInt(player.Mp);
 				playerMPMax = Integer.parseInt(player.MpMax);
 				
-				playerHP = playerHP + 10;
-				playerMP = playerMP + 10;
+				playerHP = playerHP + 25;
+				playerMP = playerMP + 25;
 				
-				if(playerHP >= playerHPMax) { player.Hp = player.HpMax; }
-				if(playerMP >= playerMPMax) { player.Mp = player.MpMax; }
+				if(playerHP >= playerHPMax) { playerHP = playerHPMax; }
+				if(playerMP >= playerMPMax) { playerMP = playerMPMax; }
 				
-				player.Hp = player.HpMax;
-				player.Mp = player.MpMax; 
+				player.Hp = String.valueOf(playerHP);
+				player.Mp = String.valueOf(playerMP);
+					
 				player.regenTime = player.regenTimeMax;
 			} 
-			
-			//check def
-			if(defManual > 0) {
-				defManual--;
-				if(defManual <= 0) { 
-					defManual = 0; 
-					defTrigged = false;
-					gameControl.SetCharacterDefense(defTrigged);
-				}
-			}
 			
 			//Map Render
 			if(player.Map.equals("StreetsA")) { 
@@ -529,7 +527,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			ShowChats();
-			
 
 			//Show Mobs
 			if(player.Map.equals("Sewers")){ ShowMobs(); }
@@ -592,6 +589,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			CheckBuffsToRemove();
 			ShowBuffs(cameraCoordsX, cameraCoordsY);
 			CheckEnergy();
+			
+			font_master.draw(game.batch, String.valueOf(defManual), cameraCoordsX + 67, cameraCoordsY - 30);
+			//check def
+			if(defManual > 0) {
+				
+				defManual--;
+				if(defManual <= 0) { 
+					defManual = 0; 
+					defTrigged = false;
+					gameControl.SetCharacterDefense(defTrigged);
+				}
+			}
 			
 			
 			if(playerDead) { ShowPlayerDead(); }
@@ -723,7 +732,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					spr_shop.draw(game.batch);								
 				}
 				
-				
+				if(shopname.equals("lojaroupas1")) {
+					spr_shop = gameControl.GetShops("lojaroupas1",cameraCoordsX, cameraCoordsY);
+					spr_shop.draw(game.batch);								
+				}
+					
 				if(!showbuymsg.equals("")) {
 					showbuymsgtime--;
 					font_master.draw(game.batch, showbuymsg, cameraCoordsX + 15, cameraCoordsY - 37);
@@ -767,15 +780,13 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			/*spr_testeDot.setPosition(cameraCoordsX - 61, cameraCoordsY + 10);
+			/*spr_testeDot.setPosition(cameraCoordsX - 61, cameraCoordsY - 13);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX - 47, cameraCoordsY - 9);  
+			spr_testeDot.setPosition(cameraCoordsX - 47, cameraCoordsY - 33);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);*/
-			
-			
 			
 			int money = Integer.parseInt(player.Money);
 			if(money > 3500) {
@@ -886,12 +897,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			//Climatic
 			climaticTimer--;
 			if(climaticTimer <= 0) {
-				climatic = randnumber.nextInt(100);
+				climatic = randnumber.nextInt(1000);
 				climaticTimer = 10000;
 			}
 			
 			//Chuva
-			if(climatic >= 0 && climatic <= 15) {
+			if(climatic >= 0 && climatic <= 100) {
 				climaticEffectTimer++;
 				if(climaticEffectTimer >= 0 && climaticEffectTimer <= 10) {
 					spr_rain.setTexture(tex_rain1);
@@ -917,7 +928,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			
 			//Neve
-			if(climatic >= 15 && climatic <= 25) {
+			if(climatic >= 100 && climatic <= 200) {
 				climaticEffectTimer++;
 				if(climaticEffectTimer >= 0 && climaticEffectTimer <= 25) {
 					spr_rain.setTexture(tex_snow1);
@@ -1391,9 +1402,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			int Def = Integer.parseInt(player.Def);
 			int Hp = Integer.parseInt(player.Hp);
-			
-			if(defTrigged) { Def = Def * 2; }
-			
+			int mobAtk = 0;
+				
 			if(player.Map.equals("Sewers") || player.Map.equals("Forest") 
 					|| player.Map.equals("Watercave") || player.Map.equals("Desert")
 					|| player.Map.equals("Vulcano") || player.Map.equals("Mines")
@@ -1408,28 +1418,40 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 								listMonsters.get(i).MobAtkTimer--;
 								if(listMonsters.get(i).MobAtkTimer <= 0) {
 									int mobluck = randnumber.nextInt(100);
-									if(mobluck > 5 && mobluck < 20) {
-										Hp = Hp - ((listMonsters.get(i).MobAtk * 2) - Def);
-										player.Hp = String.valueOf(Hp);
-									}
+									int checkDef = randnumber.nextInt(100);
 									if(mobluck >= 0 && mobluck < 5) {
-										Hp = Hp - ((listMonsters.get(i).MobAtk * 3) - Def);
+										mobAtk = listMonsters.get(i).MobAtk * 3;
+										if(checkDef > 50) { mobAtk = mobAtk - Def; }									
+										if(defTrigged) { mobAtk = mobAtk / 2; }
+										if(mobAtk <= 0) { mobAtk = 1; }
+										Hp = Hp - mobAtk;
 										player.Hp = String.valueOf(Hp);
 									}
-									if(mobluck > 10) {
+									if(mobluck > 5 && mobluck < 10) {
+										mobAtk = listMonsters.get(i).MobAtk * 2;
+										if(checkDef > 50) { mobAtk = mobAtk - Def; }
+										if(defTrigged) { mobAtk = mobAtk / 2; }
+										if(mobAtk <= 0) { mobAtk = 1; }
+										Hp = Hp - mobAtk;
+										player.Hp = String.valueOf(Hp);
+									}						
+									if(mobluck > 20) {
 									{
-										Hp = Hp - (listMonsters.get(i).MobAtk - Def);
+										mobAtk = listMonsters.get(i).MobAtk;
+										if(checkDef > 50) { mobAtk = mobAtk - Def; }
+										if(defTrigged) { mobAtk = mobAtk / 2; }
+										if(mobAtk <= 0) { mobAtk = 1; }
+										Hp = Hp - mobAtk;
 										player.Hp = String.valueOf(Hp);
 									}	
 									
-									if(defTrigged) { Def = Def / 2; }
 									listMonsters.get(i).MobAtkTimer = listMonsters.get(i).MobAtkTimerMax;
 									Damage damage = new Damage();
 									damage.DamagePosX = listMonsters.get(i).MobPosX;
 									damage.DamagePosY = listMonsters.get(i).MobPosY;
 									damage.DamageTime = 100;
 									damage.DamageType = "player";
-									damage.DamageValue = listMonsters.get(i).MobAtk;
+									damage.DamageValue = mobAtk;
 									listDamage.add(damage);
 								}	
 								if(Hp <= 0) {
@@ -2486,7 +2508,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void GiveBuff(String buffname) {
-			boolean setBuff = false;  //here
+			boolean setBuff = false;  
 			String buff = "";
 			int Atk = Integer.parseInt(player.Atk);
 			int Def = Integer.parseInt(player.Def);
@@ -3287,11 +3309,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		            shopname = "jobmaster";
 		        }
 		        
-		      //Cristalized
+		        //Cristalized
 		        if (posX >= 6.5f && posX <= 24 && posY >= -52 && posY <= -14.5f) {
 		            state = "Shop";
 		            shopname = "cristalized";
 		        }
+		        
+		        //Loja Roupas 1
+		        if (posX >= 116 && posX <= 137.5 && posY >= -19.5f && posY <= 4.5f) {
+		            state = "Shop";
+		            shopname = "lojaroupas1";
+		        }
+		        
 		    }
 		}
 		
@@ -3641,8 +3670,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int Dex = Integer.parseInt(player.Dex);
 			int Luk = Integer.parseInt(player.Luk);
 			int Res = Integer.parseInt(player.Res);
-			int HPMax = Integer.parseInt(player.Hp);
-			int MpMax = Integer.parseInt(player.Mp);
+			int HPMax = Integer.parseInt(player.HpMax);
+			int MpMax = Integer.parseInt(player.MpMax);
 			int StatusPoint = Integer.parseInt(player.StatusPoint);
 			
 			int Atk = Integer.parseInt(player.Atk);
@@ -3661,17 +3690,14 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				} else if (status.equals("Vit") && Vit <= 99) {
 					Vit = Vit + 1;
 					StatusPoint = StatusPoint - 1;
-					player.Def = player.Def + 2;
 					HPMax = HPMax + 5;
 				} else if (status.equals("Agi") && Agi <= 99) {
 					Agi = Agi + 1;
-					player.Def = player.Def + 1;
 					StatusPoint = StatusPoint - 1;
 					AtkTimerMax = AtkTimerMax - 1;
 				} else if (status.equals("Wis") && Wis <= 99) {
 					Wis = Wis + 1;
 					StatusPoint = StatusPoint - 1;
-					player.Def = player.Def + 1;
 					MpMax = MpMax + 5;
 				} else if (status.equals("Dex") && Dex <= 99) {
 					Dex = Dex + 1;
@@ -3696,12 +3722,12 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				player.Dex = String.valueOf(Dex);
 				player.Luk = String.valueOf(Luk);
 				player.Res = String.valueOf(Res);
-				player.Hp = String.valueOf(HPMax);
-				player.Mp = String.valueOf(MpMax);
+				player.HpMax = String.valueOf(HPMax);
+				player.MpMax = String.valueOf(MpMax);
 				player.StatusPoint = String.valueOf(StatusPoint);
 				player.Atk = String.valueOf(Atk);
 				player.AtkTimerMax = String.valueOf(AtkTimerMax);
-				
+				player.Def = String.valueOf(Def);
 				player.Stamina = String.valueOf(stamina);
 				player.StaminaMax = String.valueOf(staminaMax);
 			}
@@ -3935,7 +3961,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(coordsTouch.x > cameraCoordsX + 62 && coordsTouch.x < cameraCoordsX + 73 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35)  {
 					defTrigged = true;
 					gameControl.SetCharacterDefense(defTrigged);
-					defManual = 30;
+					defManual = 50;
 					return false;
 				}
 				
@@ -4463,6 +4489,140 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						gameControl.CrystalExchanged("red");
 						return false; 
 					}
+				}
+				if(shopname.equals("lojaroupas1")) { 
+					if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
+						state = "Main";
+						player.Money = "2000";
+						return false;    
+					}
+					///////fila 1
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 38 && coordsTouch.y < cameraCoordsY + 57) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 1); //hatbear
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY + 38 && coordsTouch.y < cameraCoordsY + 57) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 2); //bunnyhat
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 27 && coordsTouch.x < cameraCoordsX - 12 && coordsTouch.y > cameraCoordsY + 38 && coordsTouch.y < cameraCoordsY + 57) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 3); //headset
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 10 && coordsTouch.x < cameraCoordsX + 5 && coordsTouch.y > cameraCoordsY + 38 && coordsTouch.y < cameraCoordsY + 57) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 4); //basictopM
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX + 7 && coordsTouch.x < cameraCoordsX + 20 && coordsTouch.y > cameraCoordsY + 38 && coordsTouch.y < cameraCoordsY + 57) {
+						//showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 5); //vazio
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX + 24 && coordsTouch.x < cameraCoordsX + 38 && coordsTouch.y > cameraCoordsY + 38 && coordsTouch.y < cameraCoordsY + 57) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 6); //basictopF
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 55 && coordsTouch.y > cameraCoordsY + 38 && coordsTouch.y < cameraCoordsY + 57) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 7); //vazio
+						return false;
+					}
+					
+					
+					/////////fila 2
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 35) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 8); //hatmagician
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 35) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 9); //hatpirate
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 27 && coordsTouch.x < cameraCoordsX - 12 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 35) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 10); //hatsanta
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 10 && coordsTouch.x < cameraCoordsX + 5 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 35) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 11); //basicbottomM
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX + 7 && coordsTouch.x < cameraCoordsX + 20 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 35) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 12); //basicfooterM
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX + 24 && coordsTouch.x < cameraCoordsX + 38 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 35) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 13); //basicbottomF
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 55 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 35) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 14); //basicfooterF
+						return false;
+					}
+					
+					
+					
+					///////fila 3
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 11) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 15); //hatslime
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 11) {
+						//showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 16); //vazio
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 27 && coordsTouch.x < cameraCoordsX - 12 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 11) {
+						//showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 17); //vazio
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX - 10 && coordsTouch.x < cameraCoordsX + 5 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 11) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 18); //sporttopM
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX + 7 && coordsTouch.x < cameraCoordsX + 20 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 11) {
+						//showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 19); //vazio
+						return false; 
+					}
+					if(coordsTouch.x > cameraCoordsX + 24 && coordsTouch.x < cameraCoordsX + 38 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 11) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 20); //sporttopF
+						return false;
+					}
+					if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 55 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 11) {
+						//showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 21); //vazio
+						return false;
+					}
+					
+					
+					
+					
+				///////fila 4
+				if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY - 33 && coordsTouch.y < cameraCoordsY - 13) {
+					//showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 22); //vazio
+					return false;
+				}
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY - 33 && coordsTouch.y < cameraCoordsY - 13) {
+					//showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 23); //vazio
+					return false;
+				}
+				if(coordsTouch.x > cameraCoordsX - 27 && coordsTouch.x < cameraCoordsX - 12 && coordsTouch.y > cameraCoordsY - 33 && coordsTouch.y < cameraCoordsY - 13) {
+					//showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 24); //vazio
+					return false;
+				}
+				if(coordsTouch.x > cameraCoordsX - 10 && coordsTouch.x < cameraCoordsX + 5 && coordsTouch.y > cameraCoordsY - 33 && coordsTouch.y < cameraCoordsY - 13) {
+					showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 25); //sportbottomM
+					return false;
+				}
+				if(coordsTouch.x > cameraCoordsX + 7 && coordsTouch.x < cameraCoordsX + 20 && coordsTouch.y > cameraCoordsY - 33 && coordsTouch.y < cameraCoordsY - 13) {
+					showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 26); //sportfooterM
+					return false; 
+				}
+				if(coordsTouch.x > cameraCoordsX + 24 && coordsTouch.x < cameraCoordsX + 38 && coordsTouch.y > cameraCoordsY - 33 && coordsTouch.y < cameraCoordsY - 13) {
+					showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 27); //sportbottomF
+					return false;
+				}
+				if(coordsTouch.x > cameraCoordsX + 41 && coordsTouch.x < cameraCoordsX + 55 && coordsTouch.y > cameraCoordsY - 33 && coordsTouch.y < cameraCoordsY - 13) {
+					showbuymsg = gameControl.CheckBuyItemStreetsA("lojaroupas1", 28); //sportfooterF
+					return false;
+				}
+					
+					
 				}
 			}
 			

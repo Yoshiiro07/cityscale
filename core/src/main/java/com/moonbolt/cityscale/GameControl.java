@@ -74,10 +74,13 @@ public class GameControl {
 	private TextureAtlas atlas_hairs3;
 	private TextureAtlas atlas_hairs4;
 	private TextureAtlas atlas_basicset;
+	private TextureAtlas atlas_sportset;
 	private TextureAtlas atlas_hats;
 	private TextureAtlas atlas_ux;
 	private TextureAtlas atlas_shops;
-	private TextureAtlas atlas_genericset;
+	private TextureAtlas atlas_genericsetTOP;
+	private TextureAtlas atlas_genericsetBOTTOM;
+	private TextureAtlas atlas_genericsetFOOTER;
 	private TextureAtlas atlas_generichair;
 	private TextureAtlas atlas_npcs;
 	private TextureAtlas atlas_cards;
@@ -167,8 +170,11 @@ public class GameControl {
 		atlas_hairs4 = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/hairs/hair4.txt"));
 		atlas_hats = new TextureAtlas(Gdx.files.internal("data/assets/characters/hats/hats.txt"));
 
-		atlas_genericset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
+		atlas_genericsetTOP = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
+		atlas_genericsetBOTTOM = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
+		atlas_genericsetFOOTER = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
 		atlas_basicset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/basic/basicset.txt"));
+		atlas_sportset = new TextureAtlas(Gdx.files.internal("data/assets/characters/player/sport/sportset.txt"));
 		atlas_ux = new TextureAtlas(Gdx.files.internal("data/assets/ux/ux.txt"));
 
 		atlas_mobSewers = new TextureAtlas(Gdx.files.internal("data/assets/characters/monsters/mobsewers.txt"));
@@ -450,10 +456,13 @@ public class GameControl {
 		// basictopM_front1
 		if (type.equals("upper")) {
 			if (num == 1) {
-				if (lstPlayers.get(0).SetUpper.equals("basictop")) {
-					atlas_genericset = atlas_basicset;
+				if (lstPlayers.get(0).SetUpper.equals("basictop")) {   
+					atlas_genericsetTOP = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(0).SetUpper.equals("sporttop")) {   
+					atlas_genericsetTOP = atlas_sportset;
+				}
+				spr_master = atlas_genericsetTOP
 						.createSprite(lstPlayers.get(0).SetUpper + lstPlayers.get(0).Sex + "_front1");
 				if (lstPlayers.get(0).Sex.equals("M")) {
 					spr_master.setPosition(-64, -36);
@@ -467,9 +476,12 @@ public class GameControl {
 			}
 			if (num == 2) {
 				if (lstPlayers.get(1).SetUpper.equals("basictop")) {
-					atlas_genericset = atlas_basicset;
+					atlas_genericsetTOP = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(1).SetUpper.equals("sporttop")) {   
+					atlas_genericsetTOP = atlas_sportset;
+				}
+				spr_master = atlas_genericsetTOP
 						.createSprite(lstPlayers.get(1).SetUpper + lstPlayers.get(1).Sex + "_front1");
 				if (lstPlayers.get(1).Sex.equals("M")) {
 					spr_master.setPosition(-25, -36);
@@ -483,9 +495,12 @@ public class GameControl {
 			}
 			if (num == 3) {
 				if (lstPlayers.get(2).SetUpper.equals("basictop")) {
-					atlas_genericset = atlas_basicset;
+					atlas_genericsetTOP = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(2).SetUpper.equals("sporttop")) {   
+					atlas_genericsetTOP = atlas_sportset;
+				}
+				spr_master = atlas_genericsetTOP
 						.createSprite(lstPlayers.get(2).SetUpper + lstPlayers.get(2).Sex + "_front1");
 				if (lstPlayers.get(2).Sex.equals("M")) {
 					spr_master.setPosition(10, -36);
@@ -503,9 +518,12 @@ public class GameControl {
 		if (type.equals("bottom")) {
 			if (num == 1) {
 				if (lstPlayers.get(0).SetUpper.equals("basicbottom")) {
-					atlas_genericset = atlas_basicset;
+					atlas_genericsetBOTTOM = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(0).SetUpper.equals("sportbottom")) {
+					atlas_genericsetBOTTOM = atlas_sportset;
+				}
+				spr_master = atlas_genericsetBOTTOM
 						.createSprite(lstPlayers.get(0).SetBottom + lstPlayers.get(0).Sex + "_front1");
 				if (lstPlayers.get(0).Sex.equals("M")) {
 					spr_master.setPosition(-64, -48);
@@ -519,9 +537,12 @@ public class GameControl {
 			}
 			if (num == 2) {
 				if (lstPlayers.get(1).SetUpper.equals("basicbottom")) {
-					atlas_genericset = atlas_basicset;
+					atlas_genericsetBOTTOM = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(1).SetUpper.equals("sportbottom")) {
+					atlas_genericsetBOTTOM = atlas_sportset;
+				}
+				spr_master = atlas_genericsetBOTTOM
 						.createSprite(lstPlayers.get(1).SetBottom + lstPlayers.get(1).Sex + "_front1");
 				if (lstPlayers.get(1).Sex.equals("M")) {
 					spr_master.setPosition(-25f, -48);
@@ -535,9 +556,12 @@ public class GameControl {
 			}
 			if (num == 3) {
 				if (lstPlayers.get(2).SetUpper.equals("basicbottom")) {
-					atlas_genericset = atlas_basicset;
+					atlas_genericsetBOTTOM = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(2).SetUpper.equals("sportbottom")) {
+					atlas_genericsetBOTTOM = atlas_sportset;
+				}
+				spr_master = atlas_genericsetBOTTOM
 						.createSprite(lstPlayers.get(2).SetBottom + lstPlayers.get(2).Sex + "_front1");
 				if (lstPlayers.get(2).Sex.equals("M")) {
 					spr_master.setPosition(10, -48);
@@ -555,9 +579,12 @@ public class GameControl {
 		if (type.equals("footer")) {
 			if (num == 1) {
 				if (lstPlayers.get(0).SetUpper.equals("basicfooter")) {
-					atlas_genericset = atlas_basicset;
+					atlas_genericsetFOOTER = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(0).SetUpper.equals("sportfooter")) {
+					atlas_genericsetFOOTER = atlas_sportset;
+				}
+				spr_master = atlas_genericsetFOOTER
 						.createSprite(lstPlayers.get(0).SetFooter + lstPlayers.get(0).Sex + "_front1");
 				if (lstPlayers.get(0).Sex.equals("M")) {
 					spr_master.setPosition(-64, -55);
@@ -571,9 +598,12 @@ public class GameControl {
 			}
 			if (num == 2) {
 				if (lstPlayers.get(1).SetUpper.equals("basicfooter")) {
-					atlas_genericset = atlas_basicset;
+					atlas_genericsetFOOTER = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(1).SetUpper.equals("sportfooter")) {
+					atlas_genericsetFOOTER = atlas_sportset;
+				}
+				spr_master = atlas_genericsetFOOTER
 						.createSprite(lstPlayers.get(1).SetFooter + lstPlayers.get(1).Sex + "_front1");
 				if (lstPlayers.get(1).Sex.equals("M")) {
 					spr_master.setPosition(-25f, -55);
@@ -587,9 +617,12 @@ public class GameControl {
 			}
 			if (num == 3) {
 				if (lstPlayers.get(2).SetUpper.equals("basicfooter")) {
-					atlas_genericset = atlas_basicset;
+					atlas_genericsetFOOTER = atlas_basicset;
 				}
-				spr_master = atlas_genericset
+				if (lstPlayers.get(2).SetUpper.equals("sportfooter")) {
+					atlas_genericsetFOOTER = atlas_sportset;
+				}
+				spr_master = atlas_genericsetFOOTER
 						.createSprite(lstPlayers.get(2).SetFooter + lstPlayers.get(2).Sex + "_front1");
 				if (lstPlayers.get(2).Sex.equals("M")) {
 					spr_master.setPosition(10, -55);
@@ -1338,7 +1371,8 @@ public class GameControl {
 	
 	public Sprite GetTopChar(Player player , String menu, float cameraX, float cameraY) {
 		//Top 1
-		if(player.SetUpper.equals("basictop")) { atlas_genericset = atlas_basicset; }
+		if(player.SetUpper.equals("basictop")) { atlas_genericsetTOP = atlas_basicset; }
+		if(player.SetUpper.equals("sporttop")) { atlas_genericsetTOP = atlas_sportset; }
 		
 		float posX = Float.parseFloat(player.PosX);
 		float posY = Float.parseFloat(player.PosY);
@@ -1346,7 +1380,7 @@ public class GameControl {
 		
 		//[MALE]
 		if(player.Sex.equals("M")) {
-			spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_" + player.Side + player.Frame);
+			spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_" + player.Side + player.Frame);
 			if(player.Side.equals("front")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side.equals("left")) { spr_master.setPosition(posX -25,posY -5);  }
@@ -1355,7 +1389,7 @@ public class GameControl {
 			
 			if(player.playerInBattle.equals("yes")){
 				if(frame == 3) { player.Frame = "2"; }
-				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack" + player.Frame);
+				spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_attack" + player.Frame);
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);							
 			}
@@ -1363,7 +1397,7 @@ public class GameControl {
 			if(player.playerInAttack.equals("yes")){
 				if(FrameAtkPlayer > 0) {
 				if(frame == 3) { player.Frame = "1"; }
-					spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack4");
+					spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_attack4");
 					spr_master.setPosition(posX -25,posY -5);
 					spr_master.setScale(0.2f,0.4f);	
 					FrameAtkPlayer--;
@@ -1376,7 +1410,7 @@ public class GameControl {
 			}
 			
 			if(player.playerInCast.equals("yes")) {
-				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_cast");
+				spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_cast");
 				spr_master.setPosition(posX -29,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1384,7 +1418,7 @@ public class GameControl {
 			if(defTrigger) {
 				player.Frame = "1";
 				frame = 1;
-				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_defense1");
+				spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_defense1");
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1395,7 +1429,7 @@ public class GameControl {
 			if(player.playerSit.equals("yes")) {
 				player.Frame = "1";
 				player.Side = "front";
-				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_sit");
+				spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_sit");
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1403,7 +1437,7 @@ public class GameControl {
 
 		//[FEMALE]//
 		if(player.Sex.equals("F")) {
-			spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_" + player.Side + player.Frame);
+			spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_" + player.Side + player.Frame);
 			if(player.Side.equals("front")) { spr_master.setPosition(posX -25,posY -4.5f);  }
 			if(player.Side.equals("back")) { spr_master.setPosition(posX -25,posY -5);  }
 			if(player.Side.equals("left")) { 
@@ -1421,7 +1455,7 @@ public class GameControl {
 			
 			if(player.playerInBattle.equals("yes")){
 				if(frame == 3) { player.Frame = "2"; }
-				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack" + player.Frame);
+				spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_attack" + player.Frame);
 				if(frame == 1) { spr_master.setPosition(posX -25,posY -4);  }
 				if(frame == 2) { spr_master.setPosition(posX -25,posY -4.3f);  }
 				if(frame == 3) { spr_master.setPosition(posX -25,posY -3.7f);  }
@@ -1432,7 +1466,7 @@ public class GameControl {
 			if(player.playerInAttack.equals("yes")){
 				if(FrameAtkPlayer > 0) {
 				if(frame == 3) { player.Frame = "1"; }
-					spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_attack3");
+					spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_attack3");
 					spr_master.setPosition(posX -25,posY -5);
 					spr_master.setScale(0.2f,0.4f);	
 					FrameAtkPlayer--;
@@ -1445,7 +1479,7 @@ public class GameControl {
 			}
 			
 			if(player.playerInCast.equals("yes")) {
-				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_cast");
+				spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_cast");
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1453,7 +1487,7 @@ public class GameControl {
 			if(defTrigger) {
 				player.Frame = "1";
 				frame = 1;
-				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_defense1");
+				spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_defense1");
 				spr_master.setPosition(posX -25,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1462,7 +1496,7 @@ public class GameControl {
 			if(player.playerSit.equals("yes")) {
 				player.Frame = "1";
 				player.Side = "front";
-				spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_sit");
+				spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_sit");
 				spr_master.setPosition(posX -25.2f,posY -5);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1470,7 +1504,7 @@ public class GameControl {
 
 		if(menu.equals("yes")){
 			player.Side = "front";
-			spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_" + player.Side + 1);
+			spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_" + player.Side + 1);
 			if(player.Side.equals("front")) { 
 				spr_master.setPosition(cameraX + 8, cameraY + 27);
 				spr_master.setScale(0.2f,0.4f);
@@ -1478,7 +1512,7 @@ public class GameControl {
 		}
 		if(menu.equals("Show")){
 			player.Side = "front";
-			spr_master = atlas_genericset.createSprite(player.SetUpper + player.Sex + "_" + player.Side + 1);
+			spr_master = atlas_genericsetTOP.createSprite(player.SetUpper + player.Sex + "_" + player.Side + 1);
 			if(player.Side.equals("front")) { 
 				spr_master.setPosition(cameraX -89, cameraY + 11.5f);
 				spr_master.setScale(0.4f,0.7f);
@@ -1490,7 +1524,8 @@ public class GameControl {
 	/// [BOTTOM ] //////
 	public Sprite GetBottomChar(Player player , String menu, float cameraX, float cameraY) {
 		//Top 1
-		if(player.SetBottom.equals("basicbottom")) { atlas_genericset = atlas_basicset; }
+		if(player.SetBottom.equals("basicbottom")) { atlas_genericsetBOTTOM = atlas_basicset; }
+		if(player.SetBottom.equals("sportbottom")) { atlas_genericsetBOTTOM = atlas_sportset; }
 		
 		float posX = Float.parseFloat(player.PosX);
 		float posY = Float.parseFloat(player.PosY);
@@ -1498,7 +1533,7 @@ public class GameControl {
 		
 		/// [BOTTOM MALE] //////
 		if(player.Sex.equals("M")) {
-			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + player.Frame);
+			spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_" + player.Side + player.Frame);
 			if(player.Side.equals("front")) { 
 				if(frame == 1) {  spr_master.setPosition(posX -25,posY -15);    }
 				if(frame == 2) {  spr_master.setPosition(posX -25,posY -15);    }
@@ -1525,19 +1560,19 @@ public class GameControl {
 			spr_master.setScale(0.2f,0.4f);
 
 			if(player.playerInBattle.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
+				spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_attack1");
 				spr_master.setPosition(posX -24.5f,posY -15);
 				spr_master.setScale(0.2f,0.4f);					
 			}
 			
 			if(player.playerInCast.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
+				spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_attack1");
 				spr_master.setPosition(posX -24.5f,posY -15);
 				spr_master.setScale(0.2f,0.4f);					
 			}
 			
 			if(defTrigger) {
-				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
+				spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_attack1");
 				spr_master.setPosition(posX -24.5f,posY -15);
 				spr_master.setScale(0.2f,0.4f);			
 			}
@@ -1546,7 +1581,7 @@ public class GameControl {
 			if(player.playerSit.equals("yes")) {
 				player.Frame = "1";
 				player.Side = "front";
-				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_sit");
+				spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_sit");
 				spr_master.setPosition(posX -25,posY -15);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1554,7 +1589,7 @@ public class GameControl {
 		
 		/// [BOTTOM FEMALE] //////
 		if(player.Sex.equals("F")) {
-			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + player.Frame);
+			spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_" + player.Side + player.Frame);
 			if(player.Side.equals("front")) {
 				if(frame == 1) { spr_master.setPosition(posX -25.2f,posY -14f);   }
 				if(frame == 2) { spr_master.setPosition(posX -25.4f,posY -14f);   }
@@ -1579,7 +1614,7 @@ public class GameControl {
 			
 			
 			if(player.playerInBattle.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
+				spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_attack1");
 				if(frame == 1) { spr_master.setPosition(posX -24.7f,posY -14.6f); 	}				
 				if(frame == 2) { spr_master.setPosition(posX -24.7f,posY -14.8f);   }
 				if(frame == 3) { spr_master.setPosition(posX -24.7f,posY -14.4f);   }
@@ -1588,7 +1623,7 @@ public class GameControl {
 			}
 			
 			if(player.playerInCast.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
+				spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_attack1");
 				if(frame == 1) { spr_master.setPosition(posX -24.7f,posY -14.6f); 	}				
 				if(frame == 2) { spr_master.setPosition(posX -24.7f,posY -14.8f);   }
 				if(frame == 3) { spr_master.setPosition(posX -24.7f,posY -14.4f);   }
@@ -1597,7 +1632,7 @@ public class GameControl {
 			}
 			
 			if(defTrigger) {
-				spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_attack1");
+				spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_attack1");
 				if(frame == 1) { spr_master.setPosition(posX -24.7f,posY -14.6f); 	}				
 				if(frame == 2) { spr_master.setPosition(posX -24.7f,posY -14.8f);   }
 				if(frame == 3) { spr_master.setPosition(posX -24.7f,posY -14.4f);   }
@@ -1609,7 +1644,7 @@ public class GameControl {
 			if(player.playerSit.equals("yes")) {
 				player.Frame = "1";
 				player.Side = "front";
-				spr_master = atlas_genericset.createSprite(player.SetBottom + player.Sex + "_sit");
+				spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_sit");
 				spr_master.setPosition(posX -25.2f,posY -12);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1619,7 +1654,7 @@ public class GameControl {
 
 		if(menu.equals("yes")){
 			player.Side = "front";
-			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + 1);
+			spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_" + player.Side + 1);
 			if(player.Side.equals("front")) { 
 				spr_master.setPosition(cameraX - 5.5f, cameraY + 27);
 				spr_master.setScale(0.2f,0.4f);
@@ -1627,7 +1662,7 @@ public class GameControl {
 		}
 		if(menu.equals("Show")){
 			player.Side = "front";
-			spr_master = atlas_basicset.createSprite(player.SetBottom + player.Sex + "_" + player.Side + 1);
+			spr_master = atlas_genericsetBOTTOM.createSprite(player.SetBottom + player.Sex + "_" + player.Side + 1);
 			if(player.Sex.equals("M")) { 
 				spr_master.setPosition(cameraX -89, cameraY - 5);
 				spr_master.setScale(0.4f,0.7f);
@@ -1644,7 +1679,8 @@ public class GameControl {
 	/// [FOOTER ] //////
 	public Sprite GetFooterChar(Player player , String menu, float cameraX, float cameraY) {
 		//Top 1
-		if(player.SetFooter.equals("basicfooter")) { atlas_genericset = atlas_basicset; }
+		if(player.SetFooter.equals("basicfooter")) { atlas_genericsetFOOTER = atlas_basicset; }
+		if(player.SetFooter.equals("sportfooter")) { atlas_genericsetFOOTER = atlas_sportset; }
 		
 		float posX = Float.parseFloat(player.PosX);
 		float posY = Float.parseFloat(player.PosY);
@@ -1652,7 +1688,7 @@ public class GameControl {
 		
 		/// [FOOTER MALE ] //////
 		if(player.Sex.equals("M")) {
-			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + player.Frame);
+			spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_" + player.Side + player.Frame);
 			if(player.Side.equals("front")) { 
 				if(frame == 1) { spr_master.setPosition(posX -25,posY -21);  }
 				if(frame == 2) { spr_master.setPosition(posX -24.8f,posY -21); }
@@ -1676,19 +1712,19 @@ public class GameControl {
 			spr_master.setScale(0.2f,0.4f);	
 			
 			if(player.playerInBattle.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_front2");
+				spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_front2");
 				spr_master.setPosition(posX -25,posY -21);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 			
 			if(player.playerInCast.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_front2");
+				spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_front2");
 				spr_master.setPosition(posX -25,posY -21);
 				spr_master.setScale(0.2f,0.4f);	
 			}
 			
 			if(defTrigger) {
-				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_front2");
+				spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_front2");
 				spr_master.setPosition(posX -25,posY -21);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1697,7 +1733,7 @@ public class GameControl {
 			if(player.playerSit.equals("yes")) {
 				player.Frame = "1";
 				player.Side = "front";
-				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_sit");
+				spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_sit");
 				spr_master.setPosition(posX -25,posY -18);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1705,7 +1741,7 @@ public class GameControl {
 		
 		/// [FOOTER FEMALE ] //////
 		if(player.Sex.equals("F")) {
-			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + player.Frame);
+			spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_" + player.Side + player.Frame);
 			if(player.Side.equals("front")) { 
 				if(frame == 1) { spr_master.setPosition(posX -25f,posY -22.5f); }
 				if(frame == 2) { spr_master.setPosition(posX -25.2f,posY -21.5f);   }
@@ -1730,19 +1766,19 @@ public class GameControl {
 			spr_master.setScale(0.2f,0.4f);
 			
 			if(player.playerInBattle.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_attack1");
+				spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_attack1");
 				spr_master.setPosition(posX -24.7f,posY -22.5f);
 				spr_master.setScale(0.2f,0.4f);								
 			}
 			
 			if(player.playerInCast.equals("yes")){
-				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_attack1");
+				spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_attack1");
 				spr_master.setPosition(posX -24.7f,posY -22.5f);
 				spr_master.setScale(0.2f,0.4f);								
 			}
 			
 			if(defTrigger) {
-				spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_attack1");
+				spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_attack1");
 				spr_master.setPosition(posX -24.7f,posY -22.5f);
 				spr_master.setScale(0.2f,0.4f);		
 			}
@@ -1751,7 +1787,7 @@ public class GameControl {
 			if(player.playerSit.equals("yes")) {
 				player.Frame = "1";
 				player.Side = "front";
-				spr_master = atlas_genericset.createSprite(player.SetFooter + player.Sex + "_sit");
+				spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_sit");
 				spr_master.setPosition(posX -25.2f,posY -12);
 				spr_master.setScale(0.2f,0.4f);	
 			}
@@ -1759,7 +1795,7 @@ public class GameControl {
 
 		if(menu.equals("yes")){
 			player.Side = "front";
-			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + 1);
+			spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_" + player.Side + 1);
 			if(player.Side.equals("front")) { 
 				spr_master.setPosition(cameraX + 22, cameraY + 27);
 				spr_master.setScale(0.2f,0.4f);
@@ -1767,7 +1803,7 @@ public class GameControl {
 		}
 		if(menu.equals("Show")){
 			player.Side = "front";
-			spr_master = atlas_basicset.createSprite(player.SetFooter + player.Sex + "_" + player.Side + 1);
+			spr_master = atlas_genericsetFOOTER.createSprite(player.SetFooter + player.Sex + "_" + player.Side + 1);
 			if(player.Sex.equals("M")) { 
 				spr_master.setPosition(cameraX -89, cameraY - 15);
 				spr_master.setScale(0.4f,0.7f);
@@ -1985,24 +2021,24 @@ public class GameControl {
 	}
 	
 	
-	public Sprite GetItem(String nameItem, Player player) {
+	public Sprite GetItem(String nameItem, Player player) {  //here
 		
 		if(player.Sex.equals("M")) {
-			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopM"); return spr_master;}
-			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomM"); return spr_master; }
-			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterM"); return spr_master; }
-			if(nameItem.equals("sporttop")) { spr_master = atlas_cloth.createSprite("sporttopM"); return spr_master;}
-			if(nameItem.equals("sportbottom")) { spr_master = atlas_cloth.createSprite("sportbottomM"); return spr_master; }
-			if(nameItem.equals("sportfooter")) { spr_master = atlas_cloth.createSprite("sportfooterM"); return spr_master; }
+			if(nameItem.equals("basictop") || nameItem.equals("basictopM")) { spr_master = atlas_cloth.createSprite("basictopM"); return spr_master;}
+			if(nameItem.equals("basicbottom") || nameItem.equals("basicbottomM")) { spr_master = atlas_cloth.createSprite("basicbottomM"); return spr_master; }
+			if(nameItem.equals("basicfooter") || nameItem.equals("basicfooterM")) { spr_master = atlas_cloth.createSprite("basicfooterM"); return spr_master; }
+			if(nameItem.equals("sporttop") || nameItem.equals("sporttopM")) { spr_master = atlas_cloth.createSprite("sporttopM"); return spr_master;}
+			if(nameItem.equals("sportbottom") || nameItem.equals("sportbottomM")) { spr_master = atlas_cloth.createSprite("sportbottomM"); return spr_master; }
+			if(nameItem.equals("sportfooter") || nameItem.equals("sportfooterM")) { spr_master = atlas_cloth.createSprite("sportfooterM"); return spr_master; }
 		}
 		
 		if(player.Sex.equals("F")) {
-			if(nameItem.equals("basictop")) { spr_master = atlas_cloth.createSprite("basictopF"); return spr_master; }
-			if(nameItem.equals("basicbottom")) { spr_master = atlas_cloth.createSprite("basicbottomF"); return spr_master; }
-			if(nameItem.equals("basicfooter")) { spr_master = atlas_cloth.createSprite("basicfooterF"); return spr_master; }
-			if(nameItem.equals("sporttop")) { spr_master = atlas_cloth.createSprite("sporttopF"); return spr_master; }
-			if(nameItem.equals("sportbottom")) { spr_master = atlas_cloth.createSprite("sportbottomF"); return spr_master; }
-			if(nameItem.equals("sportfooter")) { spr_master = atlas_cloth.createSprite("sportfooterF"); return spr_master; }
+			if(nameItem.equals("basictop") || nameItem.equals("basictopF")) { spr_master = atlas_cloth.createSprite("basictopF"); return spr_master; }
+			if(nameItem.equals("basicbottom") || nameItem.equals("basicbottomF")) { spr_master = atlas_cloth.createSprite("basicbottomF"); return spr_master; }
+			if(nameItem.equals("basicfooter") || nameItem.equals("basicfooterF")) { spr_master = atlas_cloth.createSprite("basicfooterF"); return spr_master; }
+			if(nameItem.equals("sporttop") || nameItem.equals("sporttopF")) { spr_master = atlas_cloth.createSprite("sporttopF"); return spr_master; }
+			if(nameItem.equals("sportbottom") || nameItem.equals("sportbottomF")) { spr_master = atlas_cloth.createSprite("sportbottomF"); return spr_master; }
+			if(nameItem.equals("sportfooter") || nameItem.equals("sportfooterF")) { spr_master = atlas_cloth.createSprite("sportfooterF"); return spr_master; }
 		}
 		
 		//Facas Aprendiz
@@ -2232,6 +2268,12 @@ public class GameControl {
 		
 		if(shopname.equals("cristalized")){
 			spr_master = atlas_ux.createSprite("crystal");
+			spr_master.setPosition(cameraCoordsX -65,cameraCoordsY -80);
+			spr_master.setSize(130,160);
+		}
+		
+		if(shopname.equals("lojaroupas1")){
+			spr_master = atlas_shops.createSprite("lojaroupas1");
 			spr_master.setPosition(cameraCoordsX -65,cameraCoordsY -80);
 			spr_master.setSize(130,160);
 		}
@@ -2466,13 +2508,22 @@ public class GameControl {
 			return;
 		}
 		
+		if(itemName.equals("basictopM") || itemName.equals("basictopF")) { itemName = "basictop"; }
+		if(itemName.equals("basicbottomM") || itemName.equals("basicbottomF")) { itemName = "basicbottom"; }
+		if(itemName.equals("basicfooterM") || itemName.equals("basicfooterF")) { itemName = "basicfooter"; }
+		
+		if(itemName.equals("sporttopM") || itemName.equals("sporttopF")) { itemName = "sporttop"; }
+		if(itemName.equals("sportbottomM") || itemName.equals("sportbottomF")) { itemName = "sportbottom"; }
+		if(itemName.equals("sportfooterM") || itemName.equals("sportfooterF")) { itemName = "sportfooter"; }
+			
 		if(itemName.equals("basictop")) {  if(playerUse.SetUpper.equals(itemName)){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basictop"; CheckRequiredItem(itemName,true,1); return; }}
-		if(itemName.equals("basicbottom")) {  if(playerUse.SetBottom.equals(itemName)){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basicbottom"; CheckRequiredItem(itemName,true,1); return; }}
-		if(itemName.equals("basicfooter")) {  if(playerUse.SetFooter.equals(itemName)){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "basicfooter"; CheckRequiredItem(itemName,true,1); return; }}
+		if(itemName.equals("basicbottom")) {  if(playerUse.SetBottom.equals(itemName)){ return; } else { AddItemBag(playerUse.SetBottom); playerUse.SetBottom = "basicbottom"; CheckRequiredItem(itemName,true,1); return; }}
+		if(itemName.equals("basicfooter")) {  if(playerUse.SetFooter.equals(itemName)){ return; } else { AddItemBag(playerUse.SetFooter); playerUse.SetFooter = "basicfooter"; CheckRequiredItem(itemName,true,1); return; }}
 		
 		if(itemName.equals("sporttop")) {  if(playerUse.SetUpper.equals("sporttop")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sporttop"; CheckRequiredItem(itemName,true,1); return; }}
-		if(itemName.equals("sportbottom")) {  if(playerUse.SetUpper.equals("sportbottom")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sportbottom"; CheckRequiredItem(itemName,true,1); return; }}
-		if(itemName.equals("sportfooter")) {  if(playerUse.SetUpper.equals("sportfooter")){ return; } else { AddItemBag(playerUse.SetUpper); playerUse.SetUpper = "sportfooter"; CheckRequiredItem(itemName,true,1); return; }}
+		if(itemName.equals("sportbottom")) {  if(playerUse.SetBottom.equals("sportbottom")){ return; } else { AddItemBag(playerUse.SetBottom); playerUse.SetBottom = "sportbottom"; CheckRequiredItem(itemName,true,1); return; }}
+		if(itemName.equals("sportfooter")) {  if(playerUse.SetFooter.equals("sportfooter")){ return; } else { AddItemBag(playerUse.SetFooter); playerUse.SetFooter = "sportfooter"; CheckRequiredItem(itemName,true,1); return; }}
+		
 		
 		if(itemName.equals("anchoraxe_a") || itemName.equals("anchoraxe_b") || itemName.equals("anchoraxe_c") || itemName.equals("anchoraxe_s") || itemName.equals("basicaxe_a") ||
 		   itemName.equals("basicaxe_b")  || itemName.equals("basicaxe_c")  || itemName.equals("basicaxe_s") ||  itemName.equals("basicdagger_a") || itemName.equals("basicdagger_b") ||
@@ -3042,7 +3093,7 @@ public class GameControl {
 	
 	
 	
-	public String ItemDrop(String mob) {  //here
+	public String ItemDrop(String mob) {  
 		int chance = randnumber.nextInt(1000);
 		
 		//Sewers
@@ -3481,6 +3532,276 @@ public class GameControl {
 					SysMsg = "Dinheiro insuficiente"; 
 				}		
 			}
+		}
+		if(shop.equals("lojaroupas1")) {
+			
+			if(num == 1) {  
+				if(Money >= 25) {  
+					AddItemBag("hatbear"); 
+					Money = Money - 25; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 2) {  
+				if(Money >= 30) {  
+					AddItemBag("hatbunny"); 
+					Money = Money - 30; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 3) {  
+				if(Money >= 30) {  
+					AddItemBag("hatheadset"); 
+					Money = Money - 30; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 4) {  
+				if(Money >= 10 && playerUse.Sex.equals("M")) {  
+					AddItemBag("basictopM");
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 5) {  
+				//Vazio
+			}
+			if(num == 6) {  
+				if(Money >= 10 && playerUse.Sex.equals("F")) {  
+					AddItemBag("basictopF");
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 7) {  
+				//Vazio
+			}
+			
+			
+			
+			//FILA 2
+			if(num == 8) {  
+				if(Money >= 50) {  
+					AddItemBag("hatmagician"); 
+					Money = Money - 50; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 9) {  
+				if(Money >= 50) {  
+					AddItemBag("hatpirate"); 
+					Money = Money - 50; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 10) {  
+				if(Money >= 50) {  
+					AddItemBag("hatsanta"); 
+					Money = Money - 50; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 11) {  
+				if(Money >= 10 && playerUse.Sex.equals("M")) {  
+					AddItemBag("basicbottomM"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 12) {  
+				if(Money >= 10 && playerUse.Sex.equals("M")) {  
+					AddItemBag("basicfooterM"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 13) {  
+				if(Money >= 10 && playerUse.Sex.equals("F")) {  
+					AddItemBag("basicbottomM"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 14) {  
+				if(Money >= 10 && playerUse.Sex.equals("F")) {  
+					AddItemBag("basicfooterM"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			
+			
+			
+			
+			//FILA 2
+			if(num == 15) {  
+				if(Money >= 5) {  
+					AddItemBag("hatslime"); 
+					Money = Money - 5; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 16) {  
+				//vazio
+			}
+			if(num == 17) {  
+				//vazio	
+			}
+			if(num == 18) {  
+				if(Money >= 10 && playerUse.Sex.equals("M")) {  
+					AddItemBag("sporttopM"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 19) {  
+				//vazio	
+			}
+			if(num == 20) {  
+				if(Money >= 10 && playerUse.Sex.equals("F")) {  
+					AddItemBag("sporttopF"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 21) {  
+				//vazio	
+			}
+			
+			
+			//FILA 4
+			if(num == 22) {  
+				//vazio	
+			}
+			if(num == 23) {  
+				//vazio
+			}
+			if(num == 24) {  
+				//vazio	
+			}
+			if(num == 25) {  
+				if(Money >= 10 && playerUse.Sex.equals("M")) {  
+					AddItemBag("sportbottomM"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 26) {  
+				if(Money >= 10 && playerUse.Sex.equals("M")) {  
+					AddItemBag("sportfooterM"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}	
+			}
+			if(num == 27) {  
+				if(Money >= 10 && playerUse.Sex.equals("F")) {  
+					AddItemBag("sportbottomF"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}		
+			}
+			if(num == 28) {  
+				if(Money >= 10 && playerUse.Sex.equals("F")) {  
+					AddItemBag("sportfooterF"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+				}
+			}	
 		}
 		
 		
