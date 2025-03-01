@@ -4493,7 +4493,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				if(shopname.equals("lojaroupas1")) { 
 					if(coordsTouch.x > cameraCoordsX + 51 && coordsTouch.x < cameraCoordsX + 61 && coordsTouch.y > cameraCoordsY + 60 && coordsTouch.y < cameraCoordsY + 75) {
 						state = "Main";
-						player.Money = "2000";
 						return false;    
 					}
 					///////fila 1
