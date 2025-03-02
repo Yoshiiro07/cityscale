@@ -517,12 +517,13 @@ public class GameControl {
 		// basicbottomM_front1
 		if (type.equals("bottom")) {
 			if (num == 1) {
-				if (lstPlayers.get(0).SetUpper.equals("basicbottom")) {
+				if (lstPlayers.get(0).SetBottom.equals("basicbottom")) {
 					atlas_genericsetBOTTOM = atlas_basicset;
 				}
-				if (lstPlayers.get(0).SetUpper.equals("sportbottom")) {
+				if (lstPlayers.get(0).SetBottom.equals("sportbottom")) {
 					atlas_genericsetBOTTOM = atlas_sportset;
 				}
+				System.out.println(lstPlayers.get(0).SetBottom + lstPlayers.get(0).Sex + "_front1");
 				spr_master = atlas_genericsetBOTTOM
 						.createSprite(lstPlayers.get(0).SetBottom + lstPlayers.get(0).Sex + "_front1");
 				if (lstPlayers.get(0).Sex.equals("M")) {
@@ -536,10 +537,10 @@ public class GameControl {
 				return spr_master;
 			}
 			if (num == 2) {
-				if (lstPlayers.get(1).SetUpper.equals("basicbottom")) {
+				if (lstPlayers.get(1).SetBottom.equals("basicbottom")) {
 					atlas_genericsetBOTTOM = atlas_basicset;
 				}
-				if (lstPlayers.get(1).SetUpper.equals("sportbottom")) {
+				if (lstPlayers.get(1).SetBottom.equals("sportbottom")) {
 					atlas_genericsetBOTTOM = atlas_sportset;
 				}
 				spr_master = atlas_genericsetBOTTOM
@@ -555,10 +556,10 @@ public class GameControl {
 				return spr_master;
 			}
 			if (num == 3) {
-				if (lstPlayers.get(2).SetUpper.equals("basicbottom")) {
+				if (lstPlayers.get(2).SetBottom.equals("basicbottom")) {
 					atlas_genericsetBOTTOM = atlas_basicset;
 				}
-				if (lstPlayers.get(2).SetUpper.equals("sportbottom")) {
+				if (lstPlayers.get(2).SetBottom.equals("sportbottom")) {
 					atlas_genericsetBOTTOM = atlas_sportset;
 				}
 				spr_master = atlas_genericsetBOTTOM
@@ -578,10 +579,10 @@ public class GameControl {
 		// basicfooterM_front1
 		if (type.equals("footer")) {
 			if (num == 1) {
-				if (lstPlayers.get(0).SetUpper.equals("basicfooter")) {
+				if (lstPlayers.get(0).SetFooter.equals("basicfooter")) {
 					atlas_genericsetFOOTER = atlas_basicset;
 				}
-				if (lstPlayers.get(0).SetUpper.equals("sportfooter")) {
+				if (lstPlayers.get(0).SetFooter.equals("sportfooter")) {
 					atlas_genericsetFOOTER = atlas_sportset;
 				}
 				spr_master = atlas_genericsetFOOTER
@@ -597,10 +598,10 @@ public class GameControl {
 				return spr_master;
 			}
 			if (num == 2) {
-				if (lstPlayers.get(1).SetUpper.equals("basicfooter")) {
+				if (lstPlayers.get(1).SetFooter.equals("basicfooter")) {
 					atlas_genericsetFOOTER = atlas_basicset;
 				}
-				if (lstPlayers.get(1).SetUpper.equals("sportfooter")) {
+				if (lstPlayers.get(1).SetFooter.equals("sportfooter")) {
 					atlas_genericsetFOOTER = atlas_sportset;
 				}
 				spr_master = atlas_genericsetFOOTER
@@ -616,10 +617,10 @@ public class GameControl {
 				return spr_master;
 			}
 			if (num == 3) {
-				if (lstPlayers.get(2).SetUpper.equals("basicfooter")) {
+				if (lstPlayers.get(2).SetFooter.equals("basicfooter")) {
 					atlas_genericsetFOOTER = atlas_basicset;
 				}
-				if (lstPlayers.get(2).SetUpper.equals("sportfooter")) {
+				if (lstPlayers.get(2).SetFooter.equals("sportfooter")) {
 					atlas_genericsetFOOTER = atlas_sportset;
 				}
 				spr_master = atlas_genericsetFOOTER
@@ -2295,6 +2296,12 @@ public class GameControl {
 			return spr_master;	
 		}
 		
+		if(cardname.equals("cardmp")) {
+			spr_master = atlas_cards.createSprite("cardmp");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
 		if(cardname.equals("cardatk")) {
 			spr_master = atlas_cards.createSprite("cardatk");
 			spr_master.setSize(10,25);
@@ -2479,7 +2486,7 @@ public class GameControl {
 		if(itemName.equals("mpcan")) { 
 			mp = mp + 15;
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
-			playerUse.Hp = String.valueOf(hp);
+			playerUse.Mp = String.valueOf(mp);
 			CheckRequiredItem(itemName,true,1);
 			return;
 		}
@@ -2487,7 +2494,7 @@ public class GameControl {
 		if(itemName.equals("mpbigcan")) { 
 			mp = mp + 50;
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
-			playerUse.Hp = String.valueOf(hp);
+			playerUse.Mp = String.valueOf(mp);
 			CheckRequiredItem(itemName,true,1);
 			return;
 		}

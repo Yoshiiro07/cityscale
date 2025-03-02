@@ -390,7 +390,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 					    @Override
 					    public void onFailure(Throwable t) {
-					       System.out.println("Error: " + t.getMessage());
+					       //System.out.println("Error: " + t.getMessage());
 					       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 						   //aviso = true;
 					    }
@@ -1044,7 +1044,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				    @Override
 				    public void onFailure(Throwable t) {
-				       System.out.println("Error: " + t.getMessage());
+				       //System.out.println("Error: " + t.getMessage());
 				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 					   //aviso = true;
 				    }
@@ -1071,7 +1071,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				    @Override
 				    public void onFailure(Throwable t) {
-				       System.out.println("Error: " + t.getMessage());
+				       //System.out.println("Error: " + t.getMessage());
 				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 					   //aviso = true;
 				    }
@@ -1098,7 +1098,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				    @Override
 				    public void onFailure(Throwable t) {
-				       System.out.println("Error: " + t.getMessage());
+				       //System.out.println("Error: " + t.getMessage());
 				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 					   //aviso = true;
 				    }
@@ -1125,7 +1125,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				    @Override
 				    public void onFailure(Throwable t) {
-				       System.out.println("Error: " + t.getMessage());
+				       //System.out.println("Error: " + t.getMessage());
 				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 					   //aviso = true;
 				    }
@@ -1484,7 +1484,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				    @Override
 				    public void onFailure(Throwable t) {
-				       System.out.println("Error: " + t.getMessage());
+				       //System.out.println("Error: " + t.getMessage());
 				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 					   //aviso = true;
 				    }
@@ -1784,6 +1784,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(player.hotkey2.equals("hpcan")) {
 				spr_master = gameControl.GetCard("cardhp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+			
+			if(player.hotkey1.equals("mpcan")) {
+				spr_master = gameControl.GetCard("cardmp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+			
+			if(player.hotkey2.equals("mpcan")) {
+				spr_master = gameControl.GetCard("cardmp");
 				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
 				spr_master.draw(game.batch);
 			}
@@ -3237,7 +3249,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 				    @Override
 				    public void onFailure(Throwable t) {
-				       System.out.println("Error: " + t.getMessage());
+				       //System.out.println("Error: " + t.getMessage());
 				       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 					   //aviso = true;
 				    }
@@ -3282,7 +3294,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 
 		                    @Override
 		                    public void onFailure(Throwable t) {
-		                        System.out.println("Error: " + t.getMessage());
+		                        //System.out.println("Error: " + t.getMessage());
 		                        //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 		                        //aviso = true;
 		                    }
@@ -3885,7 +3897,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 							    @Override
 							    public void onFailure(Throwable t) {
-							       System.out.println("Error: " + t.getMessage());
+							       //System.out.println("Error: " + t.getMessage());
 							       //avisoMsg = "Nao foi possivel efetuar operacao, tente novamente";
 								   //aviso = true;
 							    }
@@ -3914,7 +3926,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(state.equals("Main")) {
 				//Sit 
 				if(coordsTouch.x > cameraCoordsX - 45 && coordsTouch.x < cameraCoordsX - 25 && coordsTouch.y > cameraCoordsY + 86 && coordsTouch.y < cameraCoordsY + 97) {
-					if(!player.playerInBattle.equals("yes")) {
+					if(!player.playerInCast.equals("none")) {
 						if(player.playerSit.equals("none")) {
 							player.playerSit = "yes";
 						}
@@ -3965,6 +3977,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					return false;
 				}
 				
+				//Target
 				if(coordsTouch.x > cameraCoordsX + 79 && coordsTouch.x < cameraCoordsX + 89 && coordsTouch.y > cameraCoordsY -60 && coordsTouch.y < cameraCoordsY -35) {
 					ChangeTarget();
 					return false;
@@ -4846,6 +4859,58 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    			player.playerInBattle = "no";
 		    			return false;
 		            } 
+		    		if (keycode == Input.Keys.SPACE) {
+		    			CheckAction();
+						if(autoattack){
+							autoattack = false;
+						}
+						else
+						{
+							autoattack = true;
+						}
+						return false;
+		            } 
+		    		if (keycode == Input.Keys.NUM_1) {
+		    			if(!player.hotkey1.equals("none")) {
+		    				gameControl.UseItem(hotketcountitem1);
+		    			}
+		    			return false;
+		            } 
+		    		if (keycode == Input.Keys.NUM_2) {
+		    			if(!player.hotkey2.equals("none")) {
+		    				gameControl.UseItem(hotketcountitem2);
+		    			}
+		    			return false;
+		            } 
+		    		if (keycode == Input.Keys.TAB) {
+		    			ChangeTarget();
+						return false;
+		            } 
+		    		if (keycode == Input.Keys.J) {
+		    			player.AtkTimer = "30";
+		    			return false;
+		            } 
+		    		if (keycode == Input.Keys.K) {
+		    			defTrigged = true;
+		    			gameControl.SetCharacterDefense(defTrigged);
+		    			defManual = 50;
+		    			return false;
+		            } 
+					if (keycode == Input.Keys.NUM_8) {
+							    			
+						if(skillUsed > 0) { return false; }
+						if(!autoattack) { return false; }
+						skillUsed = 200;
+						CheckSkill(1);
+						return false;
+					} 
+					if (keycode == Input.Keys.NUM_9) {
+						if(skillUsed > 0) { return false; }
+						if(!autoattack) { return false; }
+						skillUsed = 200;
+						CheckSkill(2);
+						return false;
+					} 
 		        }
 			}
 			
