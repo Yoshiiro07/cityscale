@@ -116,6 +116,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int castFrame = 30;
     private int grabTime = 30;
     private int grabStop = 0;
+    private int backEnergy = 2;
     
 	//Monster
 	private ArrayList<Monster> listMonsters;
@@ -829,13 +830,18 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		}
 		
 		public void CheckEnergy() {
-			
 			int stamina = Integer.parseInt(player.Stamina);
 			int staminaMax = Integer.parseInt(player.StaminaMax);
-			stamina = stamina - 1;
-			if(stamina < 0) { stamina = 0; }
-			player.Stamina = String.valueOf(stamina);
-		
+			
+			backEnergy--;
+			if(backEnergy < 0) { backEnergy = 3;  }
+			
+			if(backEnergy > 1) {		
+				stamina = stamina - 1;
+				if(stamina < 0) { stamina = 0; }
+				player.Stamina = String.valueOf(stamina);
+			}
+			
 			if (stamina > 0.8 * staminaMax) {
 				spr_master = gameControl.GetUX("energia3", cameraCoordsX, cameraCoordsY);
 				spr_master.setSize(10, 22);
@@ -863,8 +869,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.setPosition(cameraCoordsX + 82, cameraCoordsY + 30);
 				spr_master.draw(game.batch);
 			}
-		
-			
 		}
 		
 		public void CheckMapEffect() {
@@ -1138,6 +1142,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void ShowOnlinePlayers() {
 			if(lstOnlinePlayers.size() > 0) {
+				font_master.draw(game.batch, "Online:" + lstOnlinePlayers.size(), cameraCoordsX, cameraCoordsY);
 				for(int i = 0; i < lstOnlinePlayers.size(); i++) {
 					if(player.Map.equals(lstOnlinePlayers.get(i).Map)) {
 						spr_playerHairOnline = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
@@ -4661,7 +4666,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 					player.Weapon = "basicpistol_c";
 				}
 				if(player.Job.equals("Curandeiro")) {
-					player.Weapon = "";
+					player.Weapon = "stickrod_c";
 				}
 				if(player.Job.equals("Ladrao")) {
 					player.Weapon = "basicdagger_c";
@@ -4882,7 +4887,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		    			}
 		    			return false;
 		            } 
-		    		if (keycode == Input.Keys.TAB) {
+		    		if (keycode == Input.Keys.Q) {
 		    			ChangeTarget();
 						return false;
 		            } 

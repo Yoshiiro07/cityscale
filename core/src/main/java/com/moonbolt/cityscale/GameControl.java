@@ -2555,8 +2555,34 @@ public class GameControl {
            itemName.equals("winddagger_b") || itemName.equals("winddagger_c") || itemName.equals("winddagger_s") || itemName.equals("woodsword_a") || itemName.equals("woodsword_b") || itemName.equals("woodsword_c") ||
 		   itemName.equals("woodsword_s")) 
 		{
-			if(playerUse.Weapon.equals(itemName)){ return; } 
-			if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
+			if(itemName.contains("knife") && playerUse.Job.equals("Aprendiz")) { 
+				if(playerUse.Weapon.equals(itemName)){ return; } 
+				if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
+			}
+			if(itemName.contains("sword") && playerUse.Job.equals("Espadachim")) { 
+				if(playerUse.Weapon.equals(itemName)){ return; } 
+				if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
+			}
+			if(itemName.contains("rod") && playerUse.Job.equals("Mago")) { 
+				if(playerUse.Weapon.equals(itemName)){ return; } 
+				if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
+			}
+			if(itemName.contains("rod") && playerUse.Job.equals("Curandeiro")) { 
+				if(playerUse.Weapon.equals(itemName)){ return; } 
+				if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
+			}
+			if(itemName.contains("dagger") && playerUse.Job.equals("Ladrao")) { 
+				if(playerUse.Weapon.equals(itemName)){ return; } 
+				if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
+			}
+			if(itemName.contains("pistol") && playerUse.Job.equals("Atirador")) { 
+				if(playerUse.Weapon.equals(itemName)){ return; } 
+				if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
+			}
+			if(itemName.contains("axe") && playerUse.Job.equals("Batedor")) { 
+				if(playerUse.Weapon.equals(itemName)){ return; } 
+				if(!playerUse.Weapon.equals(itemName)) { AddItemBag(playerUse.Weapon); playerUse.Weapon = itemName; CheckRequiredItem(itemName,true,1); return; }
+			}		
 		}
 				
 		//Hats
