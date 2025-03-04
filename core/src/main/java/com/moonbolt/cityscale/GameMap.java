@@ -781,11 +781,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			/*spr_testeDot.setPosition(cameraCoordsX - 61, cameraCoordsY - 13);
+			/*spr_testeDot.setPosition(cameraCoordsX - 44, cameraCoordsY - 8);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX - 47, cameraCoordsY - 33);  
+			spr_testeDot.setPosition(cameraCoordsX - 32, cameraCoordsY - 30);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);*/
 			
@@ -1142,7 +1142,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void ShowOnlinePlayers() {
 			if(lstOnlinePlayers.size() > 0) {
-				font_master.draw(game.batch, "Online:" + lstOnlinePlayers.size(), cameraCoordsX, cameraCoordsY);
+				font_master.draw(game.batch, "Online:" + lstOnlinePlayers.size(), cameraCoordsX + 75, cameraCoordsY + 82);
 				for(int i = 0; i < lstOnlinePlayers.size(); i++) {
 					if(player.Map.equals(lstOnlinePlayers.get(i).Map)) {
 						spr_playerHairOnline = gameControl.GetHairChar(lstOnlinePlayers.get(i), "no",0,0);
@@ -4064,23 +4064,23 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				
 				//Dungeon 3 - Vulcano
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY + 3 && coordsTouch.y < cameraCoordsY + 16) {
-					//MapChange("Vulcano");
+					MapChange("Vulcano");
 					return false;
 				}
 				//Dungeon 3 - Mines
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 12 && coordsTouch.y < cameraCoordsY + 1) {
-					//MapChange("Mines");
+					MapChange("Mines");
 					return false;
 				}
 				
 				//Dungeon 4 - Snowpalace
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 29 && coordsTouch.y < cameraCoordsY - 17) {
-					//MapChange("Snowpalace");
+					MapChange("Snowpalace");
 					return false;
 				}
 				//Dungeon 4 - Swap
 				if(coordsTouch.x > cameraCoordsX - 46 && coordsTouch.x < cameraCoordsX + 32 && coordsTouch.y > cameraCoordsY - 43 && coordsTouch.y < cameraCoordsY - 31) {
-					//MapChange("Swamp");
+					MapChange("Swamp");
 					return false;
 				}
 				
@@ -4249,7 +4249,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Item 13
-				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+				if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 32 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 8) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(12,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(12,2); menuoption = ""; return false;  }
 					if(menuoption.equals("descartar")) { gameControl.DiscartItem(12); menuoption = ""; return false; }
@@ -4258,7 +4258,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Item 14
-				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+				if(coordsTouch.x > cameraCoordsX - 30 && coordsTouch.x < cameraCoordsX - 18 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 8) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(13,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(13,2); menuoption = ""; return false;  }
 					if(menuoption.equals("descartar")) { gameControl.DiscartItem(13); menuoption = ""; return false; }
@@ -4267,7 +4267,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Item 15
-				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+				if(coordsTouch.x > cameraCoordsX - 16 && coordsTouch.x < cameraCoordsX - 4 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 8) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(14,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(14,2); menuoption = ""; return false;  }
 					if(menuoption.equals("descartar")) { gameControl.DiscartItem(14); menuoption = ""; return false; }
@@ -4276,7 +4276,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				
 				//Item 16
-				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 8 && coordsTouch.y < cameraCoordsY - 30) {
+				if(coordsTouch.x > cameraCoordsX - 3 && coordsTouch.x < cameraCoordsX + 10 && coordsTouch.y > cameraCoordsY - 30 && coordsTouch.y < cameraCoordsY - 8) {
 					if(menuoption.equals("hotkey1")) { HotKeyItem(15,1); menuoption = ""; return false;  }
 					if(menuoption.equals("hotkey2")) { HotKeyItem(15,2); menuoption = ""; return false;  }
 					if(menuoption.equals("descartar")) { gameControl.DiscartItem(15); menuoption = ""; return false; }
