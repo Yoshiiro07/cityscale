@@ -523,7 +523,6 @@ public class GameControl {
 				if (lstPlayers.get(0).SetBottom.equals("sportbottom")) {
 					atlas_genericsetBOTTOM = atlas_sportset;
 				}
-				System.out.println(lstPlayers.get(0).SetBottom + lstPlayers.get(0).Sex + "_front1");
 				spr_master = atlas_genericsetBOTTOM
 						.createSprite(lstPlayers.get(0).SetBottom + lstPlayers.get(0).Sex + "_front1");
 				if (lstPlayers.get(0).Sex.equals("M")) {
@@ -2187,11 +2186,16 @@ public class GameControl {
 		
 		//Consumiveis
 		if(nameItem.equals("hpcan")) { spr_master = atlas_foods.createSprite("hpcan"); return spr_master;  }
+		if(nameItem.equals("hpbigcan")) { spr_master = atlas_foods.createSprite("hpbigcan"); return spr_master;  } //hpultracan
+		if(nameItem.equals("hpultracan")) { spr_master = atlas_foods.createSprite("hpultracan"); return spr_master;  }
 		if(nameItem.equals("mpcan")) { spr_master = atlas_foods.createSprite("mpcan"); return spr_master;  }
-		if(nameItem.equals("stcan")) { spr_master = atlas_foods.createSprite("stcan"); return spr_master;  }
-		if(nameItem.equals("hpbigcan")) { spr_master = atlas_foods.createSprite("hpbigcan"); return spr_master;  }
 		if(nameItem.equals("mpbigcan")) { spr_master = atlas_foods.createSprite("mpbigcan"); return spr_master;  }
-		if(nameItem.equals("stbigcan")) { spr_master = atlas_foods.createSprite("stbigcan"); return spr_master;  }
+		if(nameItem.equals("mpultracan")) { spr_master = atlas_foods.createSprite("mpultracan"); return spr_master;  }
+		if(nameItem.equals("stcan")) { spr_master = atlas_foods.createSprite("stcan"); return spr_master;  }
+		if(nameItem.equals("stbigcan")) { spr_master = atlas_foods.createSprite("stbigcan"); return spr_master;  }	
+		if(nameItem.equals("chipz")) { spr_master = atlas_foods.createSprite("chipz"); return spr_master;  }
+		if(nameItem.equals("turkey")) { spr_master = atlas_foods.createSprite("turkey"); return spr_master;  }
+		if(nameItem.equals("egg")) { spr_master = atlas_foods.createSprite("egg"); return spr_master;  }
 		
 		if(nameItem.equals("hatbat")) { spr_master = atlas_hatsitem.createSprite("hatbat"); return spr_master;  }
 		if(nameItem.equals("hatbear")) { spr_master = atlas_hatsitem.createSprite("hatbear"); return spr_master;  }
@@ -2295,12 +2299,53 @@ public class GameControl {
 			spr_master.setSize(10,25);
 			return spr_master;	
 		}
+		if(cardname.equals("cardhpplus")) {
+			spr_master = atlas_cards.createSprite("cardhpplus");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		if(cardname.equals("cardhpultra")) {
+			spr_master = atlas_cards.createSprite("cardhpultra");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
 		
 		if(cardname.equals("cardmp")) {
 			spr_master = atlas_cards.createSprite("cardmp");
 			spr_master.setSize(10,25);
 			return spr_master;	
 		}
+		if(cardname.equals("cardmpplus")) {
+			spr_master = atlas_cards.createSprite("cardmpplus");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		if(cardname.equals("cardmpultra")) {
+			spr_master = atlas_cards.createSprite("cardmpultra");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		
+		if(cardname.equals("cardchipz")) {
+			spr_master = atlas_cards.createSprite("cardchipz");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardegg")) {
+			spr_master = atlas_cards.createSprite("cardegg");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
+		if(cardname.equals("cardturkey")) {
+			spr_master = atlas_cards.createSprite("cardturkey");
+			spr_master.setSize(10,25);
+			return spr_master;	
+		}
+		
 		
 		if(cardname.equals("cardatk")) {
 			spr_master = atlas_cards.createSprite("cardatk");
@@ -2423,6 +2468,221 @@ public class GameControl {
 	}
 	
 	
+	public void GiveBuff(String buffname) {
+		boolean setBuff = false;  
+		String buff = "";
+		int Atk = Integer.parseInt(playerUse.Atk);
+		int Def = Integer.parseInt(playerUse.Def);
+		
+		int Str = Integer.parseInt(playerUse.Str);
+		int Vit = Integer.parseInt(playerUse.Vit);
+		int Agi = Integer.parseInt(playerUse.Agi);
+		int Dex = Integer.parseInt(playerUse.Dex);
+		int Luk = Integer.parseInt(playerUse.Luk);
+		int Wis = Integer.parseInt(playerUse.Wis);
+		
+		int Hp = Integer.parseInt(playerUse.Hp);
+		int HpMax = Integer.parseInt(playerUse.HpMax);
+		
+		int Mp = Integer.parseInt(playerUse.Mp);
+		int MpMax = Integer.parseInt(playerUse.MpMax);
+		
+		int regenTimeMax = Integer.parseInt(playerUse.regenTimeMax);
+		
+		if(playerUse.buffA.equals(buffname)) { return; }
+		if(playerUse.buffB.equals(buffname)) { return; }
+		if(playerUse.buffC.equals(buffname)) { return; }
+		
+		if(playerUse.buffA.equals("none") && !setBuff) { playerUse.buffA = buffname; setBuff  = true; buff = "A"; }
+		if(playerUse.buffB.equals("none") && !setBuff) { playerUse.buffB = buffname; setBuff  = true; buff = "B"; }
+		if(playerUse.buffC.equals("none") && !setBuff) { playerUse.buffC = buffname; setBuff  = true; buff = "C"; }
+		
+
+		if(buffname.equals("turkey")) {
+			if(buff.equals("A")) { playerUse.BuffTimeA = "20000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "20000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "20000"; }
+		}
+		
+		if(buffname.equals("chipz")) {
+			Atk = Atk + 15;
+			playerUse.Atk = String.valueOf(Atk);
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "15000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "15000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "15000"; }
+		}
+		
+		if(buffname.equals("egg")) {
+			Def = Def + 50;
+			playerUse.Def = String.valueOf(Def);
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "15000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "15000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "15000"; }
+		}
+				
+		if(buffname.equals("defboost")) {
+			
+			Atk = Atk * 2;
+			Def = Def * 2;
+			
+			playerUse.Atk = String.valueOf(Atk);
+			playerUse.Def = String.valueOf(Def);
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "5000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "5000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "5000"; }
+		}
+		
+		if(buffname.equals("ironshield")) {
+			
+			Def = Def * 4;
+			
+			playerUse.Def = String.valueOf(Def);
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "1000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "1000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "1000"; }
+		}
+		
+		if(buffname.equals("healthboost")) {
+			
+			HpMax = HpMax * 3;
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "3000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "3000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "3000"; }
+			
+			playerUse.HpMax = String.valueOf(HpMax);
+		}
+		
+		if(buffname.equals("perfectshot")) {
+			Atk = Atk + 25;
+			Dex = Dex * 3;
+			Luk = Luk * 3;
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "3000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "3000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "3000"; }
+			
+			playerUse.Atk = String.valueOf(Atk);
+			playerUse.Dex = String.valueOf(Dex);
+			playerUse.Luk = String.valueOf(Luk);
+		}
+		
+		if(buffname.equals("berserk")) {
+			Str = Str * 3;
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "1000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "1000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "1000"; }
+		}
+		
+		if(buffname.equals("regen")) {
+			regenTimeMax = regenTimeMax - 3000;
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "2000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "2000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "2000"; }
+		}
+		
+		if(buffname.equals("invisibility")) {
+			if(buff.equals("A")) { playerUse.BuffTimeA = "1000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "1000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "1000"; }
+		}
+		
+		if(buffname.equals("lockshot")) {
+			Dex = Dex * 2;
+			Luk = Luk * 2;
+			
+			if(buff.equals("A")) { playerUse.BuffTimeA = "1000"; }
+			if(buff.equals("B")) { playerUse.BuffTimeB = "1000"; }
+			if(buff.equals("C")) { playerUse.BuffTimeC = "1000"; }
+		}		
+	}
+	
+	public void RemoveBuffs(String buffname) {
+		String buff = "";
+		
+		int Atk = Integer.parseInt(playerUse.Atk);
+		int Def = Integer.parseInt(playerUse.Def);
+		
+		int Str = Integer.parseInt(playerUse.Str);
+		int Vit = Integer.parseInt(playerUse.Vit);
+		int Agi = Integer.parseInt(playerUse.Agi);
+		int Dex = Integer.parseInt(playerUse.Dex);
+		int Luk = Integer.parseInt(playerUse.Luk);
+		int Wis = Integer.parseInt(playerUse.Wis);
+		
+		int Hp = Integer.parseInt(playerUse.Hp);
+		int HpMax = Integer.parseInt(playerUse.HpMax);
+		
+		int Mp = Integer.parseInt(playerUse.Mp);
+		int MpMax = Integer.parseInt(playerUse.MpMax);
+		
+		int regenTimeMax = Integer.parseInt(playerUse.regenTimeMax);
+		
+		if(playerUse.buffA.equals(buffname)) { buff = "A"; }
+		if(playerUse.buffB.equals(buffname)) { buff = "B"; }
+		if(playerUse.buffC.equals(buffname)) { buff = "C"; }
+		
+		if(buffname.equals("chipz")) {
+			Atk = Atk - 15;
+			if(Atk <= 0) { Atk = 2; } 
+			playerUse.Atk = String.valueOf(Atk);
+		}
+		
+		if(buffname.equals("egg")) {
+			Def = Def - 50;
+			if(Def <= 0) { Def = 1; } 
+			playerUse.Def = String.valueOf(Def);
+		}
+		
+		if(buffname.equals("boost")) {
+			Atk = Atk / 2;
+			Def = Def / 2;
+			
+			playerUse.Atk = String.valueOf(Atk);
+			playerUse.Def = String.valueOf(Def);
+		}
+		
+		if(buffname.equals("ironshield")) {
+			Def = Def / 4;
+			playerUse.Def = String.valueOf(Def);
+		}
+		
+		if(buffname.equals("healthboost")) {
+			HpMax = HpMax / 3;
+			playerUse.HpMax = String.valueOf(HpMax);
+		}
+		
+		if(buffname.equals("perfectshot")) {
+			Atk = Atk - 25;
+			Dex = Dex / 3;
+			Luk = Luk / 3;
+			playerUse.Atk = String.valueOf(Atk);
+			playerUse.Dex = String.valueOf(Dex);
+			playerUse.Luk = String.valueOf(Luk);
+		}
+		
+		if(buffname.equals("berserk")) {
+			Str = Str / 3;
+			playerUse.Str = String.valueOf(Str);
+		}
+		
+		if(buffname.equals("regen")) {
+			regenTimeMax = regenTimeMax + 3000;			
+			playerUse.regenTimeMax = String.valueOf(regenTimeMax);
+		}
+		
+		if(buff.equals("A")) { playerUse.buffA = "none"; playerUse.BuffTimeA = "0"; }
+		if(buff.equals("B")) { playerUse.buffB = "none"; playerUse.BuffTimeB = "0"; }
+		if(buff.equals("C")) { playerUse.buffC = "none"; playerUse.BuffTimeC = "0"; }		
+	}
+	
+	
 	//[BAG]
 	public void UseItem(int numItem) {
 	String[] lstItem = playerUse.Itens.split("-");
@@ -2468,26 +2728,42 @@ public class GameControl {
 		
 		//Consumable
 		if(itemName.equals("hpcan")) { 
-			hp = hp + 25;
+			hp = hp + 15;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
 			playerUse.Hp = String.valueOf(hp);
 			CheckRequiredItem(itemName,true,1);
+			if(playerUse.hotkey1.equals(itemName) && qtd == 1) { playerUse.hotkey1 = "none"; }
+			if(playerUse.hotkey2.equals(itemName) && qtd == 1) { playerUse.hotkey2 = "none"; }
 			return;
 		}	
 		
 		if(itemName.equals("hpbigcan")) {
-			hp = hp + 100;
+			hp = hp + 50;
 			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
 			playerUse.Hp = String.valueOf(hp);
 			CheckRequiredItem(itemName,true,1);
+			if(playerUse.hotkey1.equals(itemName) && qtd == 1) { playerUse.hotkey1 = "none"; }
+			if(playerUse.hotkey2.equals(itemName) && qtd == 1) { playerUse.hotkey2 = "none"; }
+			return;
+		}
+		
+		if(itemName.equals("hpultracan")) {
+			hp = hp + 200;
+			if(hp > hpMax) { hp = hpMax; playerUse.Hp = String.valueOf(hp); } 
+			playerUse.Hp = String.valueOf(hp);
+			CheckRequiredItem(itemName,true,1);
+			if(playerUse.hotkey1.equals(itemName) && qtd == 1) { playerUse.hotkey1 = "none"; }
+			if(playerUse.hotkey2.equals(itemName) && qtd == 1) { playerUse.hotkey2 = "none"; }
 			return;
 		}
 		
 		if(itemName.equals("mpcan")) { 
-			mp = mp + 15;
+			mp = mp + 25;
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
 			playerUse.Mp = String.valueOf(mp);
 			CheckRequiredItem(itemName,true,1);
+			if(playerUse.hotkey1.equals(itemName) && qtd == 1) { playerUse.hotkey1 = "none"; }
+			if(playerUse.hotkey2.equals(itemName) && qtd == 1) { playerUse.hotkey2 = "none"; }
 			return;
 		}
 		
@@ -2496,6 +2772,18 @@ public class GameControl {
 			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
 			playerUse.Mp = String.valueOf(mp);
 			CheckRequiredItem(itemName,true,1);
+			if(playerUse.hotkey1.equals(itemName) && qtd == 1) { playerUse.hotkey1 = "none"; }
+			if(playerUse.hotkey2.equals(itemName) && qtd == 1) { playerUse.hotkey2 = "none"; }
+			return;
+		}
+		
+		if(itemName.equals("mpultracan")) {
+			mp = mp + 120;
+			if(mp > mpMax) { mp = mpMax; playerUse.Mp = String.valueOf(mp); } 
+			playerUse.Mp = String.valueOf(mp);
+			CheckRequiredItem(itemName,true,1);
+			if(playerUse.hotkey1.equals(itemName) && qtd == 1) { playerUse.hotkey1 = "none"; }
+			if(playerUse.hotkey2.equals(itemName) && qtd == 1) { playerUse.hotkey2 = "none"; }
 			return;
 		}
 		
@@ -2511,6 +2799,24 @@ public class GameControl {
 			stamina = stamina + 15000;
 			if(stamina > staminaMax) { stamina = staminaMax; playerUse.Stamina = String.valueOf(stamina); } 
 			playerUse.Stamina = String.valueOf(stamina);
+			CheckRequiredItem(itemName,true,1);
+			return;
+		}
+		
+		if(itemName.equals("chipz")) {
+			GiveBuff("chipz"); 
+			CheckRequiredItem(itemName,true,1);
+			return;
+		}
+		
+		if(itemName.equals("turkey")) {
+			GiveBuff("turkey"); 
+			CheckRequiredItem(itemName,true,1);
+			return;
+		}
+		
+		if(itemName.equals("egg")) {
+			GiveBuff("egg"); 
 			CheckRequiredItem(itemName,true,1);
 			return;
 		}
@@ -2883,6 +3189,9 @@ public class GameControl {
 			}
 		}
 		
+		if(playerUse.buffA.equals("turkey")) { exp = exp * 2; }
+		if(playerUse.buffB.equals("turkey")) { exp = exp * 2; }
+		if(playerUse.buffC.equals("turkey")) { exp = exp * 2; }
 		expPlayer = expPlayer + exp;
 		
 		//Sewers   / Forest
@@ -3500,69 +3809,152 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 2) {  
-				if(Money >= 30) {  
+				if(Money >= 10) {  
 					AddItemBag("hpbigcan"); 
+					Money = Money - 10; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+					SysMsg = "Dinheiro insuficiente";
+					return SysMsg;
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
+				}		
+			}
+			if(num == 3) {  
+				if(Money >= 30) {  
+					AddItemBag("hpultracan");
 					Money = Money - 30; 
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
-				}		
-			}
-			if(num == 3) {  
-				if(Money >= 15) {  
-					AddItemBag("mpcan"); 
-					Money = Money - 15; 
-					if(Money < 0) { Money = 0; } 	
-					SysMsg = "Comprado!";
-					playerUse.Money = String.valueOf(Money);
-				}
-				else {
-					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 4) {  
-				if(Money >= 50) {  
-					AddItemBag("mpbigcan"); 
-					Money = Money - 50; 
+				if(Money >= 10) {  
+					AddItemBag("mpcan"); 
+					Money = Money - 10; 
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 5) {  
+				if(Money >= 20) {  
+					AddItemBag("mpbigcan"); 
+					Money = Money - 20; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
+				}		
+			}
+			if(num == 6) {  
+				if(Money >= 40) {  
+					AddItemBag("mpultracan"); 
+					Money = Money - 40; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
+				}		
+			}
+			if(num == 7) {  
 				if(Money >= 2) {  
 					AddItemBag("stcan"); 
 					Money = Money - 2; 
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
-			if(num == 6) {  
+			if(num == 8) {  
 				if(Money >= 20) {  
 					AddItemBag("stbigcan"); 
 					Money = Money - 20; 
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
+				}		
+			}
+			if(num == 9) {  
+				if(Money >= 20) {  
+					AddItemBag("chipz"); 
+					Money = Money - 20; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
+				}		
+			}
+			if(num == 10) {  
+				if(Money >= 20) {  
+					AddItemBag("turkey"); 
+					Money = Money - 20; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
+				}		
+			}
+			if(num == 11) {  
+				if(Money >= 20) {  
+					AddItemBag("egg"); 
+					Money = Money - 20; 
+					if(Money < 0) { Money = 0; } 	
+					SysMsg = "Comprado!";
+					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
+				}
+				else {
+					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 		}
@@ -3575,9 +3967,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 2) {  
@@ -3587,9 +3981,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 3) {  
@@ -3599,9 +3995,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 4) {  
@@ -3611,9 +4009,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 5) {  
@@ -3626,9 +4026,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 7) {  
@@ -3645,9 +4047,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 9) {  
@@ -3657,9 +4061,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 10) {  
@@ -3669,9 +4075,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 11) {  
@@ -3681,9 +4089,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 12) {  
@@ -3693,9 +4103,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 13) {  
@@ -3705,9 +4117,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 14) {  
@@ -3717,9 +4131,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			
@@ -3734,9 +4150,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 16) {  
@@ -3752,9 +4170,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 19) {  
@@ -3767,9 +4187,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 21) {  
@@ -3794,9 +4216,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 26) {  
@@ -3806,9 +4230,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}	
 			}
 			if(num == 27) {  
@@ -3818,9 +4244,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}		
 			}
 			if(num == 28) {  
@@ -3830,9 +4258,11 @@ public class GameControl {
 					if(Money < 0) { Money = 0; } 	
 					SysMsg = "Comprado!";
 					playerUse.Money = String.valueOf(Money);
+					return SysMsg;
 				}
 				else {
 					SysMsg = "Dinheiro insuficiente"; 
+					return SysMsg;
 				}
 			}	
 		}

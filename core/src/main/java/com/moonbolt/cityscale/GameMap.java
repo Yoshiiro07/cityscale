@@ -117,6 +117,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
     private int grabTime = 30;
     private int grabStop = 0;
     private int backEnergy = 2;
+    private Sprite spr_buffA;
+    private Sprite spr_buffB;
+    private Sprite spr_buffC;
     
 	//Monster
 	private ArrayList<Monster> listMonsters;
@@ -348,6 +351,9 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			player.Vit = "1";
 			player.Wis = "1";
 			player.StatusPoint = "6"; */
+			player.Money = "2000";
+			player.Atk = "0";
+			player.Def = "0";
 			
 			//Just for coloring
 			Gdx.gl.glClearColor(1,1,1,1);
@@ -581,6 +587,8 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			if(player.Map.contains("Swamp")) { CheckColisionSwamp(); }
 			
 			ShowCards();
+			ShowCardHotkeyA();
+			ShowCardHotkeyB();
 			CheckPlayerParty();
 			CheckAutoAttack();
 			CheckMobAutoAttack();
@@ -781,11 +789,11 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			gameControl.UpdateControlPlayer(player);
 				
-			/*spr_testeDot.setPosition(cameraCoordsX - 44, cameraCoordsY - 8);
+			/*spr_testeDot.setPosition(cameraCoordsX - 61, cameraCoordsY - 12);
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);
 		
-			spr_testeDot.setPosition(cameraCoordsX - 32, cameraCoordsY - 30);  
+			spr_testeDot.setPosition(cameraCoordsX - 47, cameraCoordsY - 32);  
 			spr_testeDot.setSize(1, 1);
 			spr_testeDot.draw(game.batch);*/
 			
@@ -1768,44 +1776,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 		
 		public void ShowCards() {
 			//Basic Cards
-			//Hotkey 1 / 2
-			if(player.hotkey1.equals("none")) {
-				spr_master = gameControl.GetCard("cardempty");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
-				spr_master.draw(game.batch);
-			}
-			
-			if(player.hotkey2.equals("none")) {
-				spr_master = gameControl.GetCard("cardempty");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
-				spr_master.draw(game.batch);
-			}
-			
-			if(player.hotkey1.equals("hpcan")) {
-				spr_master = gameControl.GetCard("cardhp");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
-				spr_master.draw(game.batch);
-			}
-			
-			if(player.hotkey2.equals("hpcan")) {
-				spr_master = gameControl.GetCard("cardhp");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
-				spr_master.draw(game.batch);
-			}
-			
-			if(player.hotkey1.equals("mpcan")) {
-				spr_master = gameControl.GetCard("cardmp");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
-				spr_master.draw(game.batch);
-			}
-			
-			if(player.hotkey2.equals("mpcan")) {
-				spr_master = gameControl.GetCard("cardmp");
-				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
-				spr_master.draw(game.batch);
-			}
-			
-			
 			if(!player.Map.equals("Sewers") && !player.Map.equals("Forest")){
 				spr_master = gameControl.GetCard("cardaction");
 				spr_master.setPosition(cameraCoordsX + 63, cameraCoordsY  - 30);
@@ -1932,6 +1902,98 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 90);
 				spr_master.draw(game.batch);
 			}
+		}
+		
+		public void ShowCardHotkeyA() {
+			//Hotkey 1 / 2
+			if(player.hotkey1.equals("none")) {
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+			
+			// Hotkey 1
+			if(player.hotkey1.equals("hpcan")) {
+				spr_master = gameControl.GetCard("cardhp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey1.equals("hpbigcan")) {
+				spr_master = gameControl.GetCard("cardhpplus");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey1.equals("hpultracan")) {
+				spr_master = gameControl.GetCard("cardhpultra");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey1.equals("mpcan")) {
+				spr_master = gameControl.GetCard("cardmp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey1.equals("mpbigcan")) {
+				spr_master = gameControl.GetCard("cardmpplus");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey1.equals("mpultracan")) {
+				spr_master = gameControl.GetCard("cardmpultra");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY - 30);
+				spr_master.draw(game.batch);
+			}
+		}
+		
+		public void ShowCardHotkeyB() {
+			// Hotkey 2
+			if(player.hotkey2.equals("none")) {
+				spr_master = gameControl.GetCard("cardempty");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+			
+			if(player.hotkey2.equals("hpcan")) {
+				spr_master = gameControl.GetCard("cardhp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey2.equals("hpbigcan")) {
+				spr_master = gameControl.GetCard("cardhpplus");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey2.equals("hpultracan")) {
+				spr_master = gameControl.GetCard("cardhpultra");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey2.equals("mpcan")) {
+				spr_master = gameControl.GetCard("cardmp");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey2.equals("mpbigcan")) {
+				spr_master = gameControl.GetCard("cardmpplus");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+
+			if(player.hotkey2.equals("mpultracan")) {
+				spr_master = gameControl.GetCard("cardmpultra");
+				spr_master.setPosition(cameraCoordsX + 79, cameraCoordsY + 0);
+				spr_master.draw(game.batch);
+			}
+				
 		}
 		
 		public void ShowBag() {
@@ -2229,7 +2291,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						}
 						
 						if(skillname.equals("defboost")) { 
-							GiveBuff("defboost");
+							gameControl.GiveBuff("defboost");
 							player.MagicSync = "defboost %"+ 0;
 							rangedAttack = false; 
 							skillEffect = true;
@@ -2248,7 +2310,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							return; 	
 						}						
 						if(skillname.equals("healthboost")) {
-							GiveBuff("healthboost");
+							gameControl.GiveBuff("healthboost");
 							Skill skillInUse = new Skill();
 							skillInUse.SkillName = "healthboost";
 							skillInUse.SkillPosX = Float.parseFloat(player.PosX) - 18;
@@ -2260,7 +2322,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							return; 
 						}	
 						if(skillname.equals("perfectshot")) { 
-							GiveBuff("perfectshot");
+							gameControl.GiveBuff("perfectshot");
 							Skill skillInUse = new Skill();
 							skillInUse.SkillName = "perfectshot";
 							skillInUse.SkillPosX = Float.parseFloat(player.PosX) - 45;
@@ -2273,7 +2335,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							return; 
 						}
 						if(skillname.equals("regen")) { 
-							GiveBuff("regen"); 
+							gameControl.GiveBuff("regen"); 
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
@@ -2291,7 +2353,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							return; 	
 						}		
 						if(skillname.equals("ironshield")) { 
-							GiveBuff("ironshield"); 
+							gameControl.GiveBuff("ironshield"); 
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
@@ -2309,7 +2371,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 							return; 	
 						}				
 						if(skillname.equals("invisibility")) { 
-							GiveBuff("invisibility");
+							gameControl.GiveBuff("invisibility");
 							rangedAttack = false; 
 							skillEffect = true;
 							Skill skillInUse = new Skill();
@@ -2524,184 +2586,6 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 		}
 		
-		public void GiveBuff(String buffname) {
-			boolean setBuff = false;  
-			String buff = "";
-			int Atk = Integer.parseInt(player.Atk);
-			int Def = Integer.parseInt(player.Def);
-			
-			int Str = Integer.parseInt(player.Str);
-			int Vit = Integer.parseInt(player.Vit);
-			int Agi = Integer.parseInt(player.Agi);
-			int Dex = Integer.parseInt(player.Dex);
-			int Luk = Integer.parseInt(player.Luk);
-			int Wis = Integer.parseInt(player.Wis);
-			
-			int Hp = Integer.parseInt(player.Hp);
-			int HpMax = Integer.parseInt(player.HpMax);
-			
-			int Mp = Integer.parseInt(player.Mp);
-			int MpMax = Integer.parseInt(player.MpMax);
-			
-			int regenTimeMax = Integer.parseInt(player.regenTimeMax);
-			
-			if(player.buffA.equals(buffname)) { return; }
-			if(player.buffB.equals(buffname)) { return; }
-			if(player.buffC.equals(buffname)) { return; }
-			
-			if(player.buffA.equals("none") && !setBuff) { player.buffA = buffname; setBuff  = true; buff = "A"; }
-			if(player.buffB.equals("none") && !setBuff) { player.buffB = buffname; setBuff  = true; buff = "B"; }
-			if(player.buffC.equals("none") && !setBuff) { player.buffC = buffname; setBuff  = true; buff = "C"; }
-					
-			if(buffname.equals("defboost")) {
-				
-				Atk = Atk * 2;
-				Def = Def * 2;
-				
-				player.Atk = String.valueOf(Atk);
-				player.Def = String.valueOf(Def);
-				
-				if(buff.equals("A")) { player.BuffTimeA = "5000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "5000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "5000"; }
-			}
-			
-			if(buffname.equals("ironshield")) {
-				
-				Def = Def * 4;
-				
-				player.Def = String.valueOf(Def);
-				
-				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
-			}
-			
-			if(buffname.equals("healthboost")) {
-				
-				HpMax = HpMax * 3;
-				
-				if(buff.equals("A")) { player.BuffTimeA = "3000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "3000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "3000"; }
-				
-				player.HpMax = String.valueOf(HpMax);
-			}
-			
-			if(buffname.equals("perfectshot")) {
-				Atk = Atk + 25;
-				Dex = Dex * 3;
-				Luk = Luk * 3;
-				
-				if(buff.equals("A")) { player.BuffTimeA = "3000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "3000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "3000"; }
-				
-				player.Atk = String.valueOf(Atk);
-				player.Dex = String.valueOf(Dex);
-				player.Luk = String.valueOf(Luk);
-			}
-			
-			if(buffname.equals("berserk")) {
-				Str = Str * 3;
-				
-				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
-			}
-			
-			if(buffname.equals("regen")) {
-				regenTimeMax = regenTimeMax - 3000;
-				
-				if(buff.equals("A")) { player.BuffTimeA = "2000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "2000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "2000"; }
-			}
-			
-			if(buffname.equals("invisibility")) {
-				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
-			}
-			
-			if(buffname.equals("lockshot")) {
-				Dex = Dex * 2;
-				Luk = Luk * 2;
-				
-				if(buff.equals("A")) { player.BuffTimeA = "1000"; }
-				if(buff.equals("B")) { player.BuffTimeB = "1000"; }
-				if(buff.equals("C")) { player.BuffTimeC = "1000"; }
-			}		
-		}
-		
-		public void RemoveBuffs(String buffname) {
-			String buff = "";
-			
-			int Atk = Integer.parseInt(player.Atk);
-			int Def = Integer.parseInt(player.Def);
-			
-			int Str = Integer.parseInt(player.Str);
-			int Vit = Integer.parseInt(player.Vit);
-			int Agi = Integer.parseInt(player.Agi);
-			int Dex = Integer.parseInt(player.Dex);
-			int Luk = Integer.parseInt(player.Luk);
-			int Wis = Integer.parseInt(player.Wis);
-			
-			int Hp = Integer.parseInt(player.Hp);
-			int HpMax = Integer.parseInt(player.HpMax);
-			
-			int Mp = Integer.parseInt(player.Mp);
-			int MpMax = Integer.parseInt(player.MpMax);
-			
-			int regenTimeMax = Integer.parseInt(player.regenTimeMax);
-			
-			if(player.buffA.equals(buffname)) { buff = "A"; }
-			if(player.buffB.equals(buffname)) { buff = "B"; }
-			if(player.buffC.equals(buffname)) { buff = "C"; }
-			
-			if(buffname.equals("boost")) {
-				Atk = Atk / 2;
-				Def = Def / 2;
-				
-				player.Atk = String.valueOf(Atk);
-				player.Def = String.valueOf(Def);
-			}
-			
-			if(buffname.equals("ironshield")) {
-				Def = Def / 4;
-				player.Def = String.valueOf(Def);
-			}
-			
-			if(buffname.equals("healthboost")) {
-				HpMax = HpMax / 3;
-				player.HpMax = String.valueOf(HpMax);
-			}
-			
-			if(buffname.equals("perfectshot")) {
-				Atk = Atk - 25;
-				Dex = Dex / 3;
-				Luk = Luk / 3;
-				player.Atk = String.valueOf(Atk);
-				player.Dex = String.valueOf(Dex);
-				player.Luk = String.valueOf(Luk);
-			}
-			
-			if(buffname.equals("berserk")) {
-				Str = Str / 3;
-				player.Str = String.valueOf(Str);
-			}
-			
-			if(buffname.equals("regen")) {
-				regenTimeMax = regenTimeMax + 3000;			
-				player.regenTimeMax = String.valueOf(regenTimeMax);
-			}
-			
-			if(buff.equals("A")) { player.buffA = "none"; player.BuffTimeA = "0"; }
-			if(buff.equals("B")) { player.buffB = "none"; player.BuffTimeB = "0"; }
-			if(buff.equals("C")) { player.buffC = "none"; player.BuffTimeC = "0"; }
-			
-		}
-		
 		public void CheckOnlineGrab() {
 			String onlineGrab = gameControl.GetOnlineGrab();
 			if(!onlineGrab.equals("none") && grabStop == 0) {
@@ -2718,7 +2602,7 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 				}
 				else {
 					//Case Buffs
-					GiveBuff(lstGrab[0]);
+					gameControl.GiveBuff(lstGrab[0]);
 				}	
 			}
 			
@@ -2742,55 +2626,64 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			int buffTimeC = Integer.parseInt(player.BuffTimeC);
 			
 			if(!player.buffA.equals("none")) {
-				if(player.buffA.equals("defboost")) { spr_master = gameControl.GetCard("cardboost"); }
-				if(player.buffA.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
-				if(player.buffA.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
-				if(player.buffA.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
-				if(player.buffA.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
-				if(player.buffA.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
-				if(player.buffA.equals("perfectshot")) { spr_master = gameControl.GetCard("cardperfectshot"); }
-				spr_master.setSize(10, 20);
-				spr_master.setPosition(cameraCoordsX - 45, cameraCoordsY + 60);
-				spr_master.draw(game.batch);
+				if(player.buffA.equals("defboost")) { spr_buffA = gameControl.GetCard("cardboost"); }
+				if(player.buffA.equals("ironshield")) { spr_buffA = gameControl.GetCard("cardironshield"); }
+				if(player.buffA.equals("healthboost")) { spr_buffA = gameControl.GetCard("cardhealthboost"); }
+				if(player.buffA.equals("berserk")) {  spr_buffA = gameControl.GetCard("cardberserk");}
+				if(player.buffA.equals("regen")) { spr_buffA = gameControl.GetCard("cardregen"); }
+				if(player.buffA.equals("invisibility")) { spr_buffA = gameControl.GetCard("cardinvisibility"); }
+				if(player.buffA.equals("perfectshot")) { spr_buffA = gameControl.GetCard("cardperfectshot"); }
+				if(player.buffA.equals("chipz")) { spr_buffA = gameControl.GetCard("cardchipz"); }
+				if(player.buffA.equals("turkey")) { spr_buffA = gameControl.GetCard("cardturkey"); }
+				if(player.buffA.equals("egg")) { spr_buffA = gameControl.GetCard("cardegg"); }
+				spr_buffA.setSize(10, 20);
+				spr_buffA.setPosition(cameraCoordsX - 45, cameraCoordsY + 60);
+				spr_buffA.draw(game.batch);
 				
 				buffTimeA = buffTimeA - 1;
 				if(buffTimeA <= 0) {
-					RemoveBuffs(player.buffA);
+					gameControl.RemoveBuffs(player.buffA);
 				}		
 			}
 			if(!player.buffB.equals("none")) {
-				if(player.buffB.equals("defboost")) { spr_master = gameControl.GetCard("cardboost"); }
-				if(player.buffB.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
-				if(player.buffB.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
-				if(player.buffB.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
-				if(player.buffB.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
-				if(player.buffB.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
-				if(player.buffB.equals("perfectshot")) { spr_master = gameControl.GetCard("cardperfectshot"); }
-				spr_master.setSize(3, 8);
-				spr_master.setPosition(cameraCoordsX - 35, cameraCoordsY + 60);
-				spr_master.draw(game.batch);
+				if(player.buffB.equals("defboost")) { spr_buffB = gameControl.GetCard("cardboost"); }
+				if(player.buffB.equals("ironshield")) { spr_buffB = gameControl.GetCard("cardironshield"); }
+				if(player.buffB.equals("healthboost")) { spr_buffB = gameControl.GetCard("cardhealthboost"); }
+				if(player.buffB.equals("berserk")) {  spr_buffB = gameControl.GetCard("cardberserk");}
+				if(player.buffB.equals("regen")) { spr_buffB = gameControl.GetCard("cardregen"); }
+				if(player.buffB.equals("invisibility")) { spr_buffB = gameControl.GetCard("cardinvisibility"); }
+				if(player.buffB.equals("perfectshot")) { spr_buffB = gameControl.GetCard("cardperfectshot"); }
+				if(player.buffB.equals("chipz")) { spr_buffB = gameControl.GetCard("cardchipz"); }
+				if(player.buffB.equals("turkey")) { spr_buffB = gameControl.GetCard("cardturkey"); }
+				if(player.buffB.equals("egg")) { spr_buffB = gameControl.GetCard("cardegg"); }
+				spr_buffB.setSize(10, 20);
+				spr_buffB.setPosition(cameraCoordsX - 34, cameraCoordsY + 60);
+				spr_buffB.draw(game.batch);
 				
 				buffTimeB = buffTimeB - 1;
 				if(buffTimeB <= 0) {
-					RemoveBuffs(player.buffB);
+					gameControl.RemoveBuffs(player.buffB);
 				}
 			}
 			if(!player.buffC.equals("none")) {
-				if(player.buffC.equals("defboost")) { spr_master = gameControl.GetCard("cardboost"); }
-				if(player.buffC.equals("ironshield")) { spr_master = gameControl.GetCard("cardironshield"); }
-				if(player.buffC.equals("healthboost")) { spr_master = gameControl.GetCard("cardhealthboost"); }
-				if(player.buffC.equals("berserk")) {  spr_master = gameControl.GetCard("cardberserk");}
-				if(player.buffC.equals("regen")) { spr_master = gameControl.GetCard("cardregen"); }
-				if(player.buffC.equals("invisibility")) { spr_master = gameControl.GetCard("cardinvisibility"); }
-				if(player.buffC.equals("lockshot")) { spr_master = gameControl.GetCard("cardlockshot"); }
-				if(player.buffC.equals("perfectshot")) { spr_master = gameControl.GetCard("cardperfectshot"); }
-				spr_master.setSize(3, 8);
-				spr_master.setPosition(cameraCoordsX - 25, cameraCoordsY + 60);
-				spr_master.draw(game.batch);
+				if(player.buffC.equals("defboost")) { spr_buffC = gameControl.GetCard("cardboost"); }
+				if(player.buffC.equals("ironshield")) { spr_buffC = gameControl.GetCard("cardironshield"); }
+				if(player.buffC.equals("healthboost")) { spr_buffC = gameControl.GetCard("cardhealthboost"); }
+				if(player.buffC.equals("berserk")) {  spr_buffC = gameControl.GetCard("cardberserk");}
+				if(player.buffC.equals("regen")) { spr_buffC = gameControl.GetCard("cardregen"); }
+				if(player.buffC.equals("invisibility")) { spr_buffC = gameControl.GetCard("cardinvisibility"); }
+				if(player.buffC.equals("lockshot")) { spr_buffC = gameControl.GetCard("cardlockshot"); }
+				if(player.buffC.equals("perfectshot")) { spr_buffC = gameControl.GetCard("cardperfectshot"); }
+				if(player.buffC.equals("chipz")) { spr_buffC = gameControl.GetCard("cardchipz"); }
+				if(player.buffC.equals("turkey")) { spr_buffC = gameControl.GetCard("cardturkey"); }
+				if(player.buffC.equals("egg")) { spr_buffC = gameControl.GetCard("cardegg"); }
+				spr_buffC.setSize(10, 20);
+				spr_buffC.setPosition(cameraCoordsX - 23, cameraCoordsY + 60);
+				spr_buffC.draw(game.batch);
 				
 				buffTimeC = buffTimeC - 1;
 				if(buffTimeC <= 0) {
-					RemoveBuffs(player.buffC);
+					gameControl.RemoveBuffs(player.buffC);
 				}
 			}		
 		}
@@ -3476,13 +3369,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			}
 			if(!player.buffB.equals("none")) {
 				int buffBTime = Integer.parseInt(player.BuffTimeB);
-				if(buffBTime > 0) { buffBTime = buffBTime--; player.BuffTimeB = String.valueOf(buffBTime); }
-				if(buffBTime <= 0) { player.BuffTimeB = "none"; }
+				if(buffBTime > 0) { 
+					buffBTime = buffBTime - 1; 
+					player.BuffTimeB = String.valueOf(buffBTime); 
+				}
+				if(buffBTime <= 0) { player.buffB = "none";}
 			}
 			if(!player.buffC.equals("none")) {
 				int buffCTime = Integer.parseInt(player.BuffTimeC);
-				if(buffCTime > 0) { buffCTime = buffCTime--; player.BuffTimeC = String.valueOf(buffCTime); }
-				if(buffCTime <= 0) { player.BuffTimeC = "none"; }
+				if(buffCTime > 0) { 
+					buffCTime = buffCTime - 1; 
+					player.BuffTimeC = String.valueOf(buffCTime); 
+				}
+				if(buffCTime <= 0) { player.buffC = "none";}
 			}
 		}
 		
@@ -3669,13 +3568,19 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 			
 			if(hotkeynum == 1) {
 				if(item.equals("hpcan")) { player.hotkey1 = item; return; }
+				if(item.equals("hpbigcan")) { player.hotkey1 = item; return; }
+				if(item.equals("hpultracan")) { player.hotkey1 = item; return; }
 				if(item.equals("mpcan")) { player.hotkey1 = item; return; }
-				if(item.equals("stcan")) { player.hotkey1 = item; return; }
+				if(item.equals("mpbigcan")) { player.hotkey1 = item; return; }
+				if(item.equals("mpultracan")) { player.hotkey1 = item; return; }
 			}
 			if(hotkeynum == 2) {
 				if(item.equals("hpcan")) { player.hotkey2 = item; return; }
+				if(item.equals("hpbigcan")) { player.hotkey2 = item; return; }
+				if(item.equals("hpultracan")) { player.hotkey2 = item; return; }
 				if(item.equals("mpcan")) { player.hotkey2 = item; return; }
-				if(item.equals("stcan")) { player.hotkey2 = item; return; }
+				if(item.equals("mpbigcan")) { player.hotkey2 = item; return; }
+				if(item.equals("mpultracan")) { player.hotkey2 = item; return; }
 			}
 		}
 		
@@ -4418,24 +4323,49 @@ public class GameMap implements Screen, ApplicationListener, InputProcessor, Tex
 						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 2);
 						return false; 
 					}
+					//pote ultra HP
+					if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 13 && coordsTouch.y > cameraCoordsY + 37 && coordsTouch.y < cameraCoordsY + 59) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 3);
+						return false; 
+					}
 					//pote pequena MP
 					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 33) {
-						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 3);
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 4);
 						return false; 
 					}
 					//pote grande MP
 					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 33) {
-						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 4);
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 5);
+						return false; 
+					}
+					//pote ultra MP
+					if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 13 && coordsTouch.y > cameraCoordsY + 15 && coordsTouch.y < cameraCoordsY + 33) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 6);
 						return false; 
 					}
 					//pote pequena st
 					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 10) {
-						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 5);
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 7);
 						return false; 
 					}
 					//pote grande st
 					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY - 9 && coordsTouch.y < cameraCoordsY + 10) {
-						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 6);
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 8);
+						return false; 
+					}
+					//Chipz
+					if(coordsTouch.x > cameraCoordsX - 61 && coordsTouch.x < cameraCoordsX - 47 && coordsTouch.y > cameraCoordsY - 32 && coordsTouch.y < cameraCoordsY - 12) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 9);
+						return false; 
+					}
+					//Turkey
+					if(coordsTouch.x > cameraCoordsX - 44 && coordsTouch.x < cameraCoordsX - 30 && coordsTouch.y > cameraCoordsY - 32 && coordsTouch.y < cameraCoordsY - 12) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 10);
+						return false; 
+					}
+					//Egg
+					if(coordsTouch.x > cameraCoordsX - 26 && coordsTouch.x < cameraCoordsX - 13 && coordsTouch.y > cameraCoordsY - 32 && coordsTouch.y < cameraCoordsY - 12) {
+						showbuymsg = gameControl.CheckBuyItemStreetsA("refrishop", 11);
 						return false; 
 					}
 				}
