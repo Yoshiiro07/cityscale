@@ -1,0 +1,117 @@
+mobvulcano.png
+size: 1585, 83
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cerberus1
+  rotate: false
+  xy: 0, 0
+  size: 115, 57
+  orig: 115, 57
+  offset: 0, 0
+  index: -1
+cerberus2
+  rotate: false
+  xy: 115, 0
+  size: 115, 57
+  orig: 115, 57
+  offset: 0, 0
+  index: -1
+cerberus3
+  rotate: false
+  xy: 230, 0
+  size: 115, 57
+  orig: 115, 57
+  offset: 0, 0
+  index: -1
+cerberus4
+  rotate: false
+  xy: 345, 0
+  size: 143, 59
+  orig: 143, 59
+  offset: 0, 0
+  index: -1
+flare1
+  rotate: false
+  xy: 488, 0
+  size: 93, 71
+  orig: 93, 71
+  offset: 0, 0
+  index: -1
+flare2
+  rotate: false
+  xy: 581, 0
+  size: 93, 71
+  orig: 93, 71
+  offset: 0, 0
+  index: -1
+flare3
+  rotate: false
+  xy: 674, 0
+  size: 93, 71
+  orig: 93, 71
+  offset: 0, 0
+  index: -1
+flare4
+  rotate: false
+  xy: 767, 0
+  size: 93, 71
+  orig: 93, 71
+  offset: 0, 0
+  index: -1
+hammertooth1
+  rotate: false
+  xy: 860, 0
+  size: 91, 83
+  orig: 91, 83
+  offset: 0, 0
+  index: -1
+hammertooth2
+  rotate: false
+  xy: 951, 0
+  size: 91, 83
+  orig: 91, 83
+  offset: 0, 0
+  index: -1
+hammertooth3
+  rotate: false
+  xy: 1042, 0
+  size: 91, 83
+  orig: 91, 83
+  offset: 0, 0
+  index: -1
+hammertooth4
+  rotate: false
+  xy: 1133, 0
+  size: 91, 83
+  orig: 91, 83
+  offset: 0, 0
+  index: -1
+salamander1
+  rotate: false
+  xy: 1224, 0
+  size: 92, 53
+  orig: 92, 53
+  offset: 0, 0
+  index: -1
+salamander2
+  rotate: false
+  xy: 1316, 0
+  size: 92, 53
+  orig: 92, 53
+  offset: 0, 0
+  index: -1
+salamander3
+  rotate: false
+  xy: 1408, 0
+  size: 62, 60
+  orig: 62, 60
+  offset: 0, 0
+  index: -1
+salamander4
+  rotate: false
+  xy: 1470, 0
+  size: 115, 63
+  orig: 115, 63
+  offset: 0, 0
+  index: -1

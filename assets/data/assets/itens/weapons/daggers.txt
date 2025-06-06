@@ -1,0 +1,418 @@
+daggers.png
+size: 96, 1560
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+basicdagger_attack_left
+  rotate: false
+  xy: 0, 0
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicdagger_attack_right
+  rotate: false
+  xy: 48, 0
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicdagger_left
+  rotate: false
+  xy: 0, 52
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicdagger_right
+  rotate: false
+  xy: 48, 52
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicdagger_side_left
+  rotate: false
+  xy: 0, 104
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+basicdagger_side_right
+  rotate: false
+  xy: 48, 104
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+blackdagger_attack_left
+  rotate: false
+  xy: 0, 156
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+blackdagger_attack_right
+  rotate: false
+  xy: 48, 156
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+blackdagger_left
+  rotate: false
+  xy: 0, 208
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+blackdagger_right
+  rotate: false
+  xy: 48, 208
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+blackdagger_side_left
+  rotate: false
+  xy: 0, 260
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+blackdagger_side_right
+  rotate: false
+  xy: 48, 260
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+colisseumdagger_attack_left
+  rotate: false
+  xy: 0, 312
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+colisseumdagger_attack_right
+  rotate: false
+  xy: 48, 312
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+colisseumdagger_left
+  rotate: false
+  xy: 0, 364
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+colisseumdagger_right
+  rotate: false
+  xy: 48, 364
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+colisseumdagger_side_left
+  rotate: false
+  xy: 0, 416
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+colisseumdagger_side_right
+  rotate: false
+  xy: 48, 416
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+edgedagger_attack_right
+  rotate: false
+  xy: 0, 468
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+edgedagger_left
+  rotate: false
+  xy: 48, 468
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+edgedagger_right
+  rotate: false
+  xy: 0, 520
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+edgedagger_side_left
+  rotate: false
+  xy: 48, 520
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+edgedagger_side_right
+  rotate: false
+  xy: 0, 572
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flamebergdagger_attack_left
+  rotate: false
+  xy: 48, 572
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flamebergdagger_attack_right
+  rotate: false
+  xy: 0, 624
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flamebergdagger_left
+  rotate: false
+  xy: 48, 624
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flamebergdagger_right
+  rotate: false
+  xy: 0, 676
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flamebergdagger_side_left
+  rotate: false
+  xy: 48, 676
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+flamebergdagger_side_right
+  rotate: false
+  xy: 0, 728
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+marinedagger_attack_left
+  rotate: false
+  xy: 48, 728
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+marinedagger_attack_right
+  rotate: false
+  xy: 0, 780
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+marinedagger_left
+  rotate: false
+  xy: 48, 780
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+marinedagger_right
+  rotate: false
+  xy: 0, 832
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+marinedagger_side_left
+  rotate: false
+  xy: 48, 832
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+marinedagger_side_right
+  rotate: false
+  xy: 0, 884
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+poisondagger_attack_left
+  rotate: false
+  xy: 48, 884
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+poisondagger_attack_right
+  rotate: false
+  xy: 0, 936
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+poisondagger_left
+  rotate: false
+  xy: 48, 936
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+poisondagger_right
+  rotate: false
+  xy: 0, 988
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+poisondagger_side_left
+  rotate: false
+  xy: 48, 988
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+poisondagger_side_right
+  rotate: false
+  xy: 0, 1040
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+thunderdagger_attack_left
+  rotate: false
+  xy: 48, 1040
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+thunderdagger_attack_right
+  rotate: false
+  xy: 0, 1092
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+thunderdagger_left
+  rotate: false
+  xy: 48, 1092
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+thunderdagger_right
+  rotate: false
+  xy: 0, 1144
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+thunderdagger_side_left
+  rotate: false
+  xy: 48, 1144
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+thunderdagger_side_right
+  rotate: false
+  xy: 0, 1196
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+triplodagger_attack_left
+  rotate: false
+  xy: 48, 1196
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+triplodagger_attack_right
+  rotate: false
+  xy: 0, 1248
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+triplodagger_left
+  rotate: false
+  xy: 48, 1248
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+triplodagger_right
+  rotate: false
+  xy: 0, 1300
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+triplodagger_side_left
+  rotate: false
+  xy: 48, 1300
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+triplodagger_side_right
+  rotate: false
+  xy: 0, 1352
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+winddagger_attack_left
+  rotate: false
+  xy: 48, 1352
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+winddagger_attack_right
+  rotate: false
+  xy: 0, 1404
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+winddagger_left
+  rotate: false
+  xy: 48, 1404
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+winddagger_right
+  rotate: false
+  xy: 0, 1456
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+winddagger_side_left
+  rotate: false
+  xy: 48, 1456
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+winddagger_side_right
+  rotate: false
+  xy: 0, 1508
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1

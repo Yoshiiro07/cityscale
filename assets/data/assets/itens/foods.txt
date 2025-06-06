@@ -1,0 +1,82 @@
+foods.png
+size: 473, 43
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chipz
+  rotate: false
+  xy: 0, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+egg
+  rotate: false
+  xy: 43, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hpbigcan
+  rotate: false
+  xy: 86, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hpcan
+  rotate: false
+  xy: 129, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hpultracan
+  rotate: false
+  xy: 172, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+mpbigcan
+  rotate: false
+  xy: 215, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+mpcan
+  rotate: false
+  xy: 258, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+mpultracan
+  rotate: false
+  xy: 301, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+stbigcan
+  rotate: false
+  xy: 344, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+stcan
+  rotate: false
+  xy: 387, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+turkey
+  rotate: false
+  xy: 430, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1

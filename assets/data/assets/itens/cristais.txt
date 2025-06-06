@@ -1,0 +1,215 @@
+cristais.png
+size: 1290, 43
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lootcristalamarelo
+  rotate: false
+  xy: 0, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalamarelo_A
+  rotate: false
+  xy: 43, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalamarelo_B
+  rotate: false
+  xy: 86, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalamarelo_C
+  rotate: false
+  xy: 129, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalamarelo_S
+  rotate: false
+  xy: 172, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalazul
+  rotate: false
+  xy: 215, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalazul_A
+  rotate: false
+  xy: 258, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalazul_B
+  rotate: false
+  xy: 301, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalazul_C
+  rotate: false
+  xy: 344, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalazul_S
+  rotate: false
+  xy: 387, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalroxo
+  rotate: false
+  xy: 430, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalroxo_A
+  rotate: false
+  xy: 473, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalroxo_B
+  rotate: false
+  xy: 516, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalroxo_C
+  rotate: false
+  xy: 559, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalroxo_S
+  rotate: false
+  xy: 602, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalverde
+  rotate: false
+  xy: 645, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalverde_A
+  rotate: false
+  xy: 688, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalverde_B
+  rotate: false
+  xy: 731, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalverde_C
+  rotate: false
+  xy: 774, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalverde_S
+  rotate: false
+  xy: 817, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalvermelho
+  rotate: false
+  xy: 860, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalvermelho_A
+  rotate: false
+  xy: 903, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalvermelho_B
+  rotate: false
+  xy: 946, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalvermelho_C
+  rotate: false
+  xy: 989, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootcristalvermelho_S
+  rotate: false
+  xy: 1032, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentoamarelo
+  rotate: false
+  xy: 1075, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentoazul
+  rotate: false
+  xy: 1118, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentoroxo
+  rotate: false
+  xy: 1161, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentoverde
+  rotate: false
+  xy: 1204, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lootfragmentovermelho
+  rotate: false
+  xy: 1247, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1

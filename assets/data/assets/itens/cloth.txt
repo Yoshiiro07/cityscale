@@ -1,0 +1,89 @@
+cloth.png
+size: 516, 43
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+basicbottomF
+  rotate: false
+  xy: 0, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicbottomM
+  rotate: false
+  xy: 43, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicfooterF
+  rotate: false
+  xy: 86, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicfooterM
+  rotate: false
+  xy: 129, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basictopF
+  rotate: false
+  xy: 172, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basictopM
+  rotate: false
+  xy: 215, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sportbottomF
+  rotate: false
+  xy: 258, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sportbottomM
+  rotate: false
+  xy: 301, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sportfooterF
+  rotate: false
+  xy: 344, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sportfooterM
+  rotate: false
+  xy: 387, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sporttopF
+  rotate: false
+  xy: 430, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sporttopM
+  rotate: false
+  xy: 473, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1

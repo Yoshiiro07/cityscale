@@ -1,0 +1,761 @@
+weapon.png
+size: 215, 946
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+anchoraxe_a
+  rotate: false
+  xy: 0, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+anchoraxe_b
+  rotate: false
+  xy: 43, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+anchoraxe_c
+  rotate: false
+  xy: 86, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+anchoraxe_s
+  rotate: false
+  xy: 129, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicaxe_a
+  rotate: false
+  xy: 172, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicaxe_b
+  rotate: false
+  xy: 0, 43
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicaxe_c
+  rotate: false
+  xy: 43, 43
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicaxe_s
+  rotate: false
+  xy: 86, 43
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicdagger_a
+  rotate: false
+  xy: 129, 43
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicdagger_b
+  rotate: false
+  xy: 172, 43
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicdagger_c
+  rotate: false
+  xy: 0, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicdagger_s
+  rotate: false
+  xy: 43, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicknife_a
+  rotate: false
+  xy: 86, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicknife_b
+  rotate: false
+  xy: 129, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicknife_c
+  rotate: false
+  xy: 172, 86
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicknife_s
+  rotate: false
+  xy: 0, 129
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicpistol_a
+  rotate: false
+  xy: 43, 129
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicpistol_b
+  rotate: false
+  xy: 86, 129
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicpistol_c
+  rotate: false
+  xy: 129, 129
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+basicpistol_s
+  rotate: false
+  xy: 172, 129
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+butterflyrod_a
+  rotate: false
+  xy: 0, 172
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+butterflyrod_b
+  rotate: false
+  xy: 43, 172
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+butterflyrod_c
+  rotate: false
+  xy: 86, 172
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+butterflyrod_s
+  rotate: false
+  xy: 129, 172
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cannonpistol_a
+  rotate: false
+  xy: 172, 172
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cannonpistol_b
+  rotate: false
+  xy: 0, 215
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cannonpistol_c
+  rotate: false
+  xy: 43, 215
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cannonpistol_s
+  rotate: false
+  xy: 86, 215
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cristalsword_a
+  rotate: false
+  xy: 129, 215
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cristalsword_b
+  rotate: false
+  xy: 172, 215
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cristalsword_c
+  rotate: false
+  xy: 0, 258
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+cristalsword_s
+  rotate: false
+  xy: 43, 258
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+deathrod_a
+  rotate: false
+  xy: 86, 258
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+deathrod_b
+  rotate: false
+  xy: 129, 258
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+deathrod_c
+  rotate: false
+  xy: 172, 258
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+deathrod_s
+  rotate: false
+  xy: 0, 301
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+doubleedgeknife_a
+  rotate: false
+  xy: 43, 301
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+doubleedgeknife_b
+  rotate: false
+  xy: 86, 301
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+doubleedgeknife_c
+  rotate: false
+  xy: 129, 301
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+doubleedgeknife_s
+  rotate: false
+  xy: 172, 301
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+flamebergdagger_a
+  rotate: false
+  xy: 0, 344
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+flamebergdagger_b
+  rotate: false
+  xy: 43, 344
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+flamebergdagger_c
+  rotate: false
+  xy: 86, 344
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+flamebergdagger_s
+  rotate: false
+  xy: 129, 344
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+flamesword_a
+  rotate: false
+  xy: 172, 344
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+flamesword_b
+  rotate: false
+  xy: 0, 387
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+flamesword_c
+  rotate: false
+  xy: 43, 387
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+flamesword_s
+  rotate: false
+  xy: 86, 387
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+gloomrod_a
+  rotate: false
+  xy: 129, 387
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+gloomrod_b
+  rotate: false
+  xy: 172, 387
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+gloomrod_c
+  rotate: false
+  xy: 0, 430
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+gloomrod_s
+  rotate: false
+  xy: 43, 430
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+guitaraxe_a
+  rotate: false
+  xy: 86, 430
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+guitaraxe_b
+  rotate: false
+  xy: 129, 430
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+guitaraxe_c
+  rotate: false
+  xy: 172, 430
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+guitaraxe_s
+  rotate: false
+  xy: 0, 473
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hammeraxe_a
+  rotate: false
+  xy: 43, 473
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hammeraxe_b
+  rotate: false
+  xy: 86, 473
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hammeraxe_c
+  rotate: false
+  xy: 129, 473
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+hammeraxe_s
+  rotate: false
+  xy: 172, 473
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lightpistol_a
+  rotate: false
+  xy: 0, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lightpistol_b
+  rotate: false
+  xy: 43, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lightpistol_c
+  rotate: false
+  xy: 86, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+lightpistol_s
+  rotate: false
+  xy: 129, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+marinedagger_a
+  rotate: false
+  xy: 172, 516
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+marinedagger_b
+  rotate: false
+  xy: 0, 559
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+marinedagger_c
+  rotate: false
+  xy: 43, 559
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+marinedagger_s
+  rotate: false
+  xy: 86, 559
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+ragesword_a
+  rotate: false
+  xy: 129, 559
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+ragesword_b
+  rotate: false
+  xy: 172, 559
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+ragesword_c
+  rotate: false
+  xy: 0, 602
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+ragesword_s
+  rotate: false
+  xy: 43, 602
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+scytheaxe_a
+  rotate: false
+  xy: 86, 602
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+scytheaxe_b
+  rotate: false
+  xy: 129, 602
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+scytheaxe_c
+  rotate: false
+  xy: 172, 602
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+scytheaxe_s
+  rotate: false
+  xy: 0, 645
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+serpentsword_a
+  rotate: false
+  xy: 43, 645
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+serpentsword_b
+  rotate: false
+  xy: 86, 645
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+serpentsword_c
+  rotate: false
+  xy: 129, 645
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+serpentsword_s
+  rotate: false
+  xy: 172, 645
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sharkpistol_a
+  rotate: false
+  xy: 0, 688
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sharkpistol_b
+  rotate: false
+  xy: 43, 688
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sharkpistol_c
+  rotate: false
+  xy: 86, 688
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+sharkpistol_s
+  rotate: false
+  xy: 129, 688
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+shooterpistol_a
+  rotate: false
+  xy: 172, 688
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+shooterpistol_b
+  rotate: false
+  xy: 0, 731
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+shooterpistol_c
+  rotate: false
+  xy: 43, 731
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+shooterpistol_s
+  rotate: false
+  xy: 86, 731
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+starrod_a
+  rotate: false
+  xy: 129, 731
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+starrod_b
+  rotate: false
+  xy: 172, 731
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+starrod_c
+  rotate: false
+  xy: 0, 774
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+starrod_s
+  rotate: false
+  xy: 43, 774
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+stickrod_a
+  rotate: false
+  xy: 86, 774
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+stickrod_b
+  rotate: false
+  xy: 129, 774
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+stickrod_c
+  rotate: false
+  xy: 172, 774
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+stickrod_s
+  rotate: false
+  xy: 0, 817
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+thunderdagger_a
+  rotate: false
+  xy: 43, 817
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+thunderdagger_b
+  rotate: false
+  xy: 86, 817
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+thunderdagger_c
+  rotate: false
+  xy: 129, 817
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+thunderdagger_s
+  rotate: false
+  xy: 172, 817
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+winddagger_a
+  rotate: false
+  xy: 0, 860
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+winddagger_b
+  rotate: false
+  xy: 43, 860
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+winddagger_c
+  rotate: false
+  xy: 86, 860
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+winddagger_s
+  rotate: false
+  xy: 129, 860
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+woodsword_a
+  rotate: false
+  xy: 172, 860
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+woodsword_b
+  rotate: false
+  xy: 0, 903
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+woodsword_c
+  rotate: false
+  xy: 43, 903
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+woodsword_s
+  rotate: false
+  xy: 86, 903
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1

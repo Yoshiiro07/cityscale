@@ -1,0 +1,145 @@
+rods.png
+size: 1040, 60
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+butterfly_rod_left
+  rotate: false
+  xy: 0, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+butterfly_rod_right
+  rotate: false
+  xy: 52, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+clerig_rod_left
+  rotate: false
+  xy: 104, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+clerig_rod_right
+  rotate: false
+  xy: 156, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+death_rod_left
+  rotate: false
+  xy: 208, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+death_rod_right
+  rotate: false
+  xy: 260, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+gem_rod_left
+  rotate: false
+  xy: 312, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+gem_rod_right
+  rotate: false
+  xy: 364, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+gloom_rod_left
+  rotate: false
+  xy: 416, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+gloom_rod_right
+  rotate: false
+  xy: 468, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+lightwield_rod_left
+  rotate: false
+  xy: 520, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+lightwield_rod_right
+  rotate: false
+  xy: 572, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+sacred_rod_left
+  rotate: false
+  xy: 624, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+sacred_rod_right
+  rotate: false
+  xy: 676, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+serpent_rod_left
+  rotate: false
+  xy: 728, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+serpent_rod_right
+  rotate: false
+  xy: 780, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+star_rod_left
+  rotate: false
+  xy: 832, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+star_rod_right
+  rotate: false
+  xy: 884, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+stick_rod_left
+  rotate: false
+  xy: 936, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+stick_rod_right
+  rotate: false
+  xy: 988, 0
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1

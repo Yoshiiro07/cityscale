@@ -1,0 +1,7 @@
+/* CSS Document */
+
+.background {
+ 	background-image:url(imagens/backgroundtop.png);
+	height:95px;
+	background-repeat:repeat-x;
+}

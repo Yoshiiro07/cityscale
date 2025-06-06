@@ -1,0 +1,26 @@
+shops.png
+size: 1600, 339
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lojadefault
+  rotate: false
+  xy: 0, 0
+  size: 400, 339
+  orig: 400, 339
+  offset: 0, 0
+  index: -1
+lojamaquina
+  rotate: false
+  xy: 400, 0
+  size: 400, 339
+  orig: 400, 339
+  offset: 0, 0
+  index: -1
+shops
+  rotate: false
+  xy: 800, 0
+  size: 800, 339
+  orig: 800, 339
+  offset: 0, 0
+  index: -1

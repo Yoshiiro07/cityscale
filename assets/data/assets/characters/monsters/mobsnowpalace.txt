@@ -1,0 +1,117 @@
+mobsnowpalace.png
+size: 94, 1464
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+goblin1
+  rotate: false
+  xy: 0, 0
+  size: 80, 90
+  orig: 80, 90
+  offset: 0, 0
+  index: -1
+goblin2
+  rotate: false
+  xy: 0, 90
+  size: 80, 90
+  orig: 80, 90
+  offset: 0, 0
+  index: -1
+goblin3
+  rotate: false
+  xy: 0, 180
+  size: 80, 90
+  orig: 80, 90
+  offset: 0, 0
+  index: -1
+goblin4
+  rotate: false
+  xy: 0, 270
+  size: 80, 90
+  orig: 80, 90
+  offset: 0, 0
+  index: -1
+pinguim1
+  rotate: false
+  xy: 0, 360
+  size: 84, 97
+  orig: 84, 97
+  offset: 0, 0
+  index: -1
+pinguim2
+  rotate: false
+  xy: 0, 457
+  size: 84, 97
+  orig: 84, 97
+  offset: 0, 0
+  index: -1
+pinguim3
+  rotate: false
+  xy: 0, 554
+  size: 84, 97
+  orig: 84, 97
+  offset: 0, 0
+  index: -1
+pinguimatk
+  rotate: false
+  xy: 0, 651
+  size: 84, 97
+  orig: 84, 97
+  offset: 0, 0
+  index: -1
+snowman1
+  rotate: false
+  xy: 0, 748
+  size: 94, 114
+  orig: 94, 114
+  offset: 0, 0
+  index: -1
+snowman2
+  rotate: false
+  xy: 0, 862
+  size: 94, 114
+  orig: 94, 114
+  offset: 0, 0
+  index: -1
+snowman3
+  rotate: false
+  xy: 0, 976
+  size: 94, 114
+  orig: 94, 114
+  offset: 0, 0
+  index: -1
+snowman4
+  rotate: false
+  xy: 0, 1090
+  size: 94, 114
+  orig: 94, 114
+  offset: 0, 0
+  index: -1
+yeti1
+  rotate: false
+  xy: 0, 1204
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+yeti2
+  rotate: false
+  xy: 0, 1269
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+yeti3
+  rotate: false
+  xy: 0, 1334
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+yeti4
+  rotate: false
+  xy: 0, 1399
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1

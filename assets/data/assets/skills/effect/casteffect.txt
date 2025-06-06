@@ -1,0 +1,26 @@
+casteffect.png
+size: 86, 105
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+casteffect1
+  rotate: false
+  xy: 0, 0
+  size: 86, 35
+  orig: 86, 35
+  offset: 0, 0
+  index: -1
+casteffect2
+  rotate: false
+  xy: 0, 35
+  size: 86, 35
+  orig: 86, 35
+  offset: 0, 0
+  index: -1
+casteffect3
+  rotate: false
+  xy: 0, 70
+  size: 86, 35
+  orig: 86, 35
+  offset: 0, 0
+  index: -1
