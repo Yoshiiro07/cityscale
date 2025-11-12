@@ -1,0 +1,271 @@
+ux.png
+size: 1504, 1591
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+area
+  rotate: false
+  xy: 217, 124
+  size: 94, 90
+  orig: 94, 90
+  offset: 0, 0
+  index: -1
+bannercreate
+  rotate: false
+  xy: 50, 0
+  size: 194, 23
+  orig: 194, 23
+  offset: 0, 0
+  index: -1
+bannerdelete
+  rotate: false
+  xy: 244, 0
+  size: 194, 23
+  orig: 194, 23
+  offset: 0, 0
+  index: -1
+bannerselect
+  rotate: false
+  xy: 438, 0
+  size: 194, 23
+  orig: 194, 23
+  offset: 0, 0
+  index: -1
+battlezoneC
+  rotate: false
+  xy: 0, 991
+  size: 334, 500
+  orig: 334, 500
+  offset: 0, 0
+  index: -1
+btnback
+  rotate: false
+  xy: 148, 45
+  size: 193, 52
+  orig: 193, 52
+  offset: 0, 0
+  index: -1
+btnconfirm
+  rotate: false
+  xy: 341, 45
+  size: 193, 52
+  orig: 193, 52
+  offset: 0, 0
+  index: -1
+btncreatenew
+  rotate: false
+  xy: 534, 45
+  size: 193, 52
+  orig: 193, 52
+  offset: 0, 0
+  index: -1
+btnexclude
+  rotate: false
+  xy: 727, 45
+  size: 193, 52
+  orig: 193, 52
+  offset: 0, 0
+  index: -1
+confirmtab
+  rotate: false
+  xy: 411, 124
+  size: 325, 161
+  orig: 325, 161
+  offset: 0, 0
+  index: -1
+create
+  rotate: false
+  xy: 0, 624
+  size: 588, 343
+  orig: 588, 343
+  offset: 0, 0
+  index: -1
+crystal
+  rotate: false
+  xy: 588, 285
+  size: 600, 339
+  orig: 600, 339
+  offset: 0, 0
+  index: -1
+endline
+  rotate: false
+  xy: 700, 0
+  size: 200, 35
+  orig: 200, 35
+  offset: 0, 0
+  index: -1
+energia1
+  rotate: false
+  xy: 0, 45
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+energia2
+  rotate: false
+  xy: 37, 45
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+energia3
+  rotate: false
+  xy: 74, 45
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+energia4
+  rotate: false
+  xy: 111, 45
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+hand
+  rotate: false
+  xy: 1440, 0
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+innerpad
+  rotate: false
+  xy: 311, 124
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+inventory
+  rotate: false
+  xy: 0, 285
+  size: 588, 331
+  orig: 588, 331
+  offset: 0, 0
+  index: -1
+jobmaster
+  rotate: false
+  xy: 334, 991
+  size: 900, 600
+  orig: 900, 600
+  offset: 0, 0
+  index: -1
+login
+  rotate: false
+  xy: 736, 124
+  size: 325, 161
+  orig: 325, 161
+  offset: 0, 0
+  index: -1
+main
+  rotate: false
+  xy: 588, 624
+  size: 705, 367
+  orig: 705, 367
+  offset: 0, 0
+  index: -1
+moon
+  rotate: false
+  xy: 1088, 0
+  size: 46, 40
+  orig: 46, 40
+  offset: 0, 0
+  index: -1
+notouch
+  rotate: false
+  xy: 1311, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+off
+  rotate: false
+  xy: 1354, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+partytag
+  rotate: false
+  xy: 1134, 0
+  size: 94, 40
+  orig: 94, 40
+  offset: 0, 0
+  index: -1
+placebox1
+  rotate: false
+  xy: 632, 0
+  size: 68, 26
+  orig: 68, 26
+  offset: 0, 0
+  index: -1
+placebox2
+  rotate: false
+  xy: 976, 0
+  size: 112, 36
+  orig: 112, 36
+  offset: 0, 0
+  index: -1
+playertag
+  rotate: false
+  xy: 0, 124
+  size: 217, 80
+  orig: 217, 80
+  offset: 0, 0
+  index: -1
+recover
+  rotate: false
+  xy: 1061, 124
+  size: 325, 161
+  orig: 325, 161
+  offset: 0, 0
+  index: -1
+selected
+  rotate: false
+  xy: 900, 0
+  size: 76, 35
+  orig: 76, 35
+  offset: 0, 0
+  index: -1
+sentar
+  rotate: false
+  xy: 0, 0
+  size: 50, 15
+  orig: 50, 15
+  offset: 0, 0
+  index: -1
+shop
+  rotate: false
+  xy: 1188, 285
+  size: 266, 339
+  orig: 266, 339
+  offset: 0, 0
+  index: -1
+sun
+  rotate: false
+  xy: 1228, 0
+  size: 46, 40
+  orig: 46, 40
+  offset: 0, 0
+  index: -1
+target
+  rotate: false
+  xy: 1274, 0
+  size: 37, 42
+  orig: 37, 42
+  offset: 0, 0
+  index: -1
+textbar
+  rotate: false
+  xy: 920, 45
+  size: 584, 79
+  orig: 584, 79
+  offset: 0, 0
+  index: -1
+touch
+  rotate: false
+  xy: 1397, 0
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1

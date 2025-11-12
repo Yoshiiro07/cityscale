@@ -1,0 +1,89 @@
+mobtower.png
+size: 239, 341
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+darkprince1
+  rotate: false
+  xy: 0, 227
+  size: 105, 57
+  orig: 105, 57
+  offset: 0, 0
+  index: -1
+darkprince2
+  rotate: false
+  xy: 105, 227
+  size: 105, 57
+  orig: 105, 57
+  offset: 0, 0
+  index: -1
+darkprince3
+  rotate: false
+  xy: 0, 284
+  size: 105, 57
+  orig: 105, 57
+  offset: 0, 0
+  index: -1
+darkprince4
+  rotate: false
+  xy: 105, 284
+  size: 105, 57
+  orig: 105, 57
+  offset: 0, 0
+  index: -1
+seraphi1
+  rotate: false
+  xy: 79, 67
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+seraphi2
+  rotate: false
+  xy: 159, 67
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+seraphi3
+  rotate: false
+  xy: 0, 147
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+seraphi4
+  rotate: false
+  xy: 80, 147
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+skelleton1
+  rotate: false
+  xy: 0, 0
+  size: 79, 67
+  orig: 79, 67
+  offset: 0, 0
+  index: -1
+skelleton2
+  rotate: false
+  xy: 79, 0
+  size: 79, 67
+  orig: 79, 67
+  offset: 0, 0
+  index: -1
+skelleton3
+  rotate: false
+  xy: 158, 0
+  size: 79, 67
+  orig: 79, 67
+  offset: 0, 0
+  index: -1
+skelleton4
+  rotate: false
+  xy: 0, 67
+  size: 79, 67
+  orig: 79, 67
+  offset: 0, 0
+  index: -1

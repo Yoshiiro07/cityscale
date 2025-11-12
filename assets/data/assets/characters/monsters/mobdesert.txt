@@ -1,0 +1,117 @@
+mobdesert.png
+size: 201, 1012
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+brimworn1
+  rotate: false
+  xy: 0, 0
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+brimworn2
+  rotate: false
+  xy: 0, 150
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+brimworn3
+  rotate: false
+  xy: 0, 300
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+brimworn4
+  rotate: false
+  xy: 0, 450
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+cactus1
+  rotate: false
+  xy: 150, 450
+  size: 51, 60
+  orig: 51, 60
+  offset: 0, 0
+  index: -1
+cactus2
+  rotate: false
+  xy: 0, 600
+  size: 51, 60
+  orig: 51, 60
+  offset: 0, 0
+  index: -1
+cactus3
+  rotate: false
+  xy: 51, 600
+  size: 51, 60
+  orig: 51, 60
+  offset: 0, 0
+  index: -1
+cactus4
+  rotate: false
+  xy: 102, 600
+  size: 51, 60
+  orig: 51, 60
+  offset: 0, 0
+  index: -1
+golem1
+  rotate: false
+  xy: 0, 660
+  size: 87, 92
+  orig: 87, 92
+  offset: 0, 0
+  index: -1
+golem2
+  rotate: false
+  xy: 87, 660
+  size: 87, 92
+  orig: 87, 92
+  offset: 0, 0
+  index: -1
+golem3
+  rotate: false
+  xy: 0, 752
+  size: 87, 92
+  orig: 87, 92
+  offset: 0, 0
+  index: -1
+golem4
+  rotate: false
+  xy: 87, 752
+  size: 87, 92
+  orig: 87, 92
+  offset: 0, 0
+  index: -1
+harpia1
+  rotate: false
+  xy: 0, 844
+  size: 92, 84
+  orig: 92, 84
+  offset: 0, 0
+  index: -1
+harpia2
+  rotate: false
+  xy: 92, 844
+  size: 92, 84
+  orig: 92, 84
+  offset: 0, 0
+  index: -1
+harpia3
+  rotate: false
+  xy: 0, 928
+  size: 92, 84
+  orig: 92, 84
+  offset: 0, 0
+  index: -1
+harpia4
+  rotate: false
+  xy: 92, 928
+  size: 92, 84
+  orig: 92, 84
+  offset: 0, 0
+  index: -1

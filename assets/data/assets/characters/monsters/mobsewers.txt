@@ -1,0 +1,117 @@
+mobsewers.png
+size: 240, 812
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aranarc1
+  rotate: false
+  xy: 0, 124
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+aranarc2
+  rotate: false
+  xy: 70, 124
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+aranarc3
+  rotate: false
+  xy: 140, 124
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+aranarc4
+  rotate: false
+  xy: 0, 188
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+poyo1
+  rotate: false
+  xy: 0, 572
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+poyo2
+  rotate: false
+  xy: 120, 572
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+poyo3
+  rotate: false
+  xy: 0, 692
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+poyo4
+  rotate: false
+  xy: 120, 692
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+rat1
+  rotate: false
+  xy: 70, 188
+  size: 147, 96
+  orig: 147, 96
+  offset: 0, 0
+  index: -1
+rat2
+  rotate: false
+  xy: 0, 284
+  size: 147, 96
+  orig: 147, 96
+  offset: 0, 0
+  index: -1
+rat3
+  rotate: false
+  xy: 0, 380
+  size: 150, 96
+  orig: 150, 96
+  offset: 0, 0
+  index: -1
+rat4
+  rotate: false
+  xy: 0, 476
+  size: 152, 96
+  orig: 152, 96
+  offset: 0, 0
+  index: -1
+snake1
+  rotate: false
+  xy: 0, 0
+  size: 104, 62
+  orig: 104, 62
+  offset: 0, 0
+  index: -1
+snake2
+  rotate: false
+  xy: 104, 0
+  size: 104, 62
+  orig: 104, 62
+  offset: 0, 0
+  index: -1
+snake3
+  rotate: false
+  xy: 0, 62
+  size: 130, 62
+  orig: 130, 62
+  offset: 0, 0
+  index: -1
+snake4
+  rotate: false
+  xy: 130, 62
+  size: 104, 62
+  orig: 104, 62
+  offset: 0, 0
+  index: -1

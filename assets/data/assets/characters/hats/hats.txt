@@ -1,0 +1,285 @@
+hats.png
+size: 1520, 38
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hatbat_front
+  rotate: false
+  xy: 0, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbat_left
+  rotate: false
+  xy: 38, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbat_right
+  rotate: false
+  xy: 76, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbat_up
+  rotate: false
+  xy: 114, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbear_front
+  rotate: false
+  xy: 152, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbear_left
+  rotate: false
+  xy: 190, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbear_right
+  rotate: false
+  xy: 228, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbear_up
+  rotate: false
+  xy: 266, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbunny_front
+  rotate: false
+  xy: 304, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbunny_left
+  rotate: false
+  xy: 342, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbunny_right
+  rotate: false
+  xy: 380, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatbunny_up
+  rotate: false
+  xy: 418, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatcapoult_front
+  rotate: false
+  xy: 456, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatcapoult_left
+  rotate: false
+  xy: 494, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatcapoult_right
+  rotate: false
+  xy: 532, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatcapoult_up
+  rotate: false
+  xy: 570, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatheadset_front
+  rotate: false
+  xy: 608, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatheadset_left
+  rotate: false
+  xy: 646, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatheadset_right
+  rotate: false
+  xy: 684, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatheadset_up
+  rotate: false
+  xy: 722, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatmagician_front
+  rotate: false
+  xy: 760, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatmagician_left
+  rotate: false
+  xy: 798, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatmagician_right
+  rotate: false
+  xy: 836, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatmagician_up
+  rotate: false
+  xy: 874, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatpirate_front
+  rotate: false
+  xy: 912, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatpirate_left
+  rotate: false
+  xy: 950, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatpirate_right
+  rotate: false
+  xy: 988, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatpirate_up
+  rotate: false
+  xy: 1026, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatsanta_front
+  rotate: false
+  xy: 1064, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatsanta_left
+  rotate: false
+  xy: 1102, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatsanta_right
+  rotate: false
+  xy: 1140, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatsanta_up
+  rotate: false
+  xy: 1178, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatslime_front
+  rotate: false
+  xy: 1216, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatslime_left
+  rotate: false
+  xy: 1254, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatslime_right
+  rotate: false
+  xy: 1292, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hatslime_up
+  rotate: false
+  xy: 1330, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hattimerhattimer_front
+  rotate: false
+  xy: 1368, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hattimerhattimer_left
+  rotate: false
+  xy: 1406, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hattimerhattimer_right
+  rotate: false
+  xy: 1444, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+hattimerhattimer_up
+  rotate: false
+  xy: 1482, 0
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
