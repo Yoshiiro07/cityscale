@@ -2,9 +2,7 @@ package com.moonbolt.cityscale.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.moonbolt.cityscale.MainGame;
-import com.moonbolt.cityscale.interfaces.DateTimeProvider;
-import com.moonbolt.cityscale.services.DesktopDateTimeProvider;
+import com.moonbolt.cityscale.Main;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -14,8 +12,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        DateTimeProvider dateTimeProvider = new DesktopDateTimeProvider();
-        return new Lwjgl3Application(new MainGame(dateTimeProvider), getDefaultConfiguration());
+        return new Lwjgl3Application(new Main(), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
