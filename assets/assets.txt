@@ -1,1 +1,7 @@
+data/etc/mainlogo.png
+data/etc/winicon.png
+data/fonts/dimitri/DIMIS___.TTF
+data/fonts/dimitri/DIMITRI_.TTF
+data/fonts/dimitri/read_me.pdf
+data/fonts/dimitri.zip
 libgdx.png
